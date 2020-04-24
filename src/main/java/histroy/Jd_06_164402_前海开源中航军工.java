@@ -1,16 +1,16 @@
-package jd;
+package histroy;
 
 import utils.TtjjFoundRs;
 
-public class Jd_003383_民生加银鑫享债券C {
+public class Jd_06_164402_前海开源中航军工 {
 
     public static void main(String[] args) {
-        String name = "民生加银鑫享债券C(003383)";
-        String canShare = "857.41";
-        String BUY_COST = "2000";
-        String FIRST_NET_DATA = "2019-07-23";
-        String TRADE_ID = "11";
-        String FD_ID = "12";
+        String name = "前海开源中航军工(164402)";//http://fundf10.eastmoney.com/jjjz_164402.html
+        String canShare = "408.76";
+        String BUY_COST = "444.79";
+        String FIRST_NET_DATA = "2019-09-09";
+        String TRADE_ID = "12";
+        String FD_ID = "13";
         String SOURCE = "1";
 
         String backString = "";

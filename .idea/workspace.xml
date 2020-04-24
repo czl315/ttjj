@@ -3,79 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="5c9e79f3-4a27-4eb2-acab-dcfcd3905bf4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_00_gnjj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jd/Jd_00_gnjj.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_000656_前海开源沪深300指数.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_000656_前海开源沪深300指数.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_001027_前海开源中证大农业指数增强.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_001027_前海开源中证大农业指数增强.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_001279_中海积极增利混合.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_001279_中海积极增利混合.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_001579_国泰大农业股票.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_001579_国泰大农业股票.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_001986_前海开源人工智能主题混合.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_001986_前海开源人工智能主题混合.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_002560_诺安和鑫灵活配置混合.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_002560_诺安和鑫灵活配置混合.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_003095_中欧医疗健康混合A.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_003095_中欧医疗健康混合A.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_003547_鹏华丰禄债券.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_003547_鹏华丰禄债券.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_003986_申万菱信中证500指数优选增强A.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_003986_申万菱信中证500指数优选增强A.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_005224_广发中证基建工程指数C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_005224_广发中证基建工程指数C.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_005620_中欧品质消费股票A.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_005620_中欧品质消费股票A.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_005911_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_005911_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_005967_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_005967_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_006021_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_006021_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_007136_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_007136_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_007380.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_007380.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_007405_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_007405_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_008086.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_008086.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_008086_华夏中证5G通信主题ETF联接A.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_008086_华夏中证5G通信主题ETF联接A.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_110022_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_110022_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_160225_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_160225_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_160416_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_160416_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_160633_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_160633_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_160637_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_160637_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_161028_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_161028_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_161121_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_161121_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_161725_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_161725_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_162201_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_162201_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_163208_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_163208_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_165525_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_165525_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_257020_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_257020_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_320007_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_320007_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_502010_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_502010_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_519674_.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Ttjj_519674_.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Content.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Content.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_00_gnjj.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jd/Jd_00_gnjj.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_000656_前海开源沪深300指数.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_001027_前海开源中证大农业指数增强.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_001279_中海积极增利混合.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_001579_国泰大农业股票.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_001986_前海开源人工智能主题混合.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_002560_诺安和鑫灵活配置混合.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_003095_中欧医疗健康混合A.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_003547_鹏华丰禄债券.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_003986_申万菱信中证500指数优选增强A.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_005224_广发中证基建工程指数C.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_005620_中欧品质消费股票A.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_005911_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_005967_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_006021_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_007136_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_007380.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_007405_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_008086.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_008086_华夏中证5G通信主题ETF联接A.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_00_gnjj.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_00_gnjj.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_110022_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_160225_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_160416_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_160633_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_160637_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_161028_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_161121_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_161725_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_162201_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_163208_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_165525_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_257020_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_320007_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_502010_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ttjj/Ttjj_519674_.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/utils/Content.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/Content.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_003383_民生加银鑫享债券C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_003383_民生加银鑫享债券C.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_01_164906_交银中证海外中国互联网指数.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_01_164906_交银中证海外中国互联网指数.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_02_003860_招商招旭纯债C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_02_003860_招商招旭纯债C.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_03_160644_鹏华港美互联股票人民币.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_03_160644_鹏华港美互联股票人民币.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_04_005809_前海开源裕源.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_04_005809_前海开源裕源.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_05_006327_易方达中证海外联接人民币A.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_05_006327_易方达中证海外联接人民币A.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_06_164402_前海开源中航军工.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_06_164402_前海开源中航军工.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_07_004593_广发全指工业ETF联接A.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_07_004593_广发全指工业ETF联接A.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_清仓_000242_景顺长城策略精选灵活配置混合.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_清仓_000242_景顺长城策略精选灵活配置混合.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/zfb/Zfb_00_gnjj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/zfb/Zfb_00_gnjj.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -91,99 +28,89 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_gnjj.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_04_005809_前海开源裕源.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="18" column="76" selection-start-line="18" selection-start-column="76" selection-end-line="18" selection-end-column="94" />
-              <folding>
-                <element signature="method#his200419#0;class#Ttjj_00_gnjj#0" />
-              </folding>
+            <state relative-caret-position="-10">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_05_006327_易方达中证海外联接人民币A.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-10">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_06_164402_前海开源中航军工.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-10">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_07_004593_广发全指工业ETF联接A.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-10">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_003383_民生加银鑫享债券C.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-10">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_清仓_000242_景顺长城策略精选灵活配置混合.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-10">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_gnjj.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_gnjj.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="437">
+              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
               <folding>
-                <element signature="docComment;method#handler164906#0;class#Jd_00_gnjj#0" />
-                <element signature="e#1971#1987#0" expanded="true" />
-                <marker date="1587738519130" expanded="true" signature="1535:1655" ph="..." />
+                <element signature="docComment;method#handlertTtjj#0;class#Zfb_00_gnjj#0" />
+                <element signature="method#handlertTtjj#0;class#Zfb_00_gnjj#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_001279_中海积极增利混合.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/utils/Content.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            <state relative-caret-position="594">
+              <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_000656_前海开源沪深300指数.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_gnjj.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_001986_前海开源人工智能主题混合.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_002560_诺安和鑫灵活配置混合.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_003095_中欧医疗健康混合A.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_003547_鹏华丰禄债券.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_003986_申万菱信中证500指数优选增强A.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_005224_广发中证基建工程指数C.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            <state relative-caret-position="513">
+              <caret line="23" selection-start-line="23" selection-end-line="23" selection-end-column="46" />
+              <folding>
+                <marker date="1587739618486" expanded="true" signature="1524:1644" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -248,7 +175,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_002560_诺安和鑫灵活配置混合.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_003095_.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_003095_中欧医疗健康混合A.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/StringUtil_003547.java" />
@@ -292,13 +218,14 @@
         <option value="$PROJECT_DIR$/src/main/java/histroy/StringUtil_003986.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_000656_前海开源沪深300指数.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_008086_华夏中证5G通信主题ETF联接A.java" />
-        <option value="$PROJECT_DIR$/src/main/java/zfb/Zfb_00_gnjj.java" />
         <option value="$PROJECT_DIR$/src/main/java/utils/HttpUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_gnjj.java" />
         <option value="$PROJECT_DIR$/src/main/java/utils/IqiyiMd5Util.java" />
         <option value="$PROJECT_DIR$/src/main/java/utils/Content.java" />
         <option value="$PROJECT_DIR$/src/main/java/histroy/Ttjj_000656_前海开源沪深300指数.java" />
         <option value="$PROJECT_DIR$/src/main/java/jd/Jd_00_gnjj.java" />
+        <option value="$PROJECT_DIR$/src/main/java/histroy/Jd_01_164906_交银中证海外中国互联网指数.java" />
+        <option value="$PROJECT_DIR$/src/main/java/zfb/Zfb_00_gnjj.java" />
       </list>
     </option>
   </component>
@@ -371,6 +298,23 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="ttjj" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="Content" type="1a9f42e2:ClassTreeNode" />
             </path>
             <path>
               <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
@@ -448,7 +392,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Jd_00_gnjj">
+  <component name="RunManager" selected="Application.Zfb_00_gnjj">
     <configuration name="IqiyiMd5Util" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="utils.IqiyiMd5Util" />
       <module name="ttjj202004" />
@@ -467,7 +411,7 @@
       <module name="ttjj202004" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="jd.*" />
+          <option name="PATTERN" value="histroy.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -480,7 +424,7 @@
       <module name="ttjj202004" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="jd.*" />
+          <option name="PATTERN" value="histroy.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -516,10 +460,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Zfb_00_gnjj" />
         <item itemvalue="Application.Jd_00_gnjj" />
         <item itemvalue="Application.IqiyiMd5Util" />
         <item itemvalue="Application.Ttjj_00_gnjj" />
-        <item itemvalue="Application.Zfb_00_gnjj" />
         <item itemvalue="Application.Jd_00_qdii" />
       </list>
     </recent_temporary>
@@ -556,7 +500,21 @@
       <option name="project" value="LOCAL" />
       <updated>1587309671135</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="历史算法">
+      <created>1587738553759</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1587738553759</updated>
+    </task>
+    <task id="LOCAL-00005" summary="京东">
+      <created>1587739738664</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1587739738664</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -604,95 +562,18 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="ttjj" />
-    <option name="LAST_COMMIT_MESSAGE" value="ttjj" />
+    <MESSAGE value="历史算法" />
+    <MESSAGE value="京东" />
+    <option name="LAST_COMMIT_MESSAGE" value="京东" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_01_鹏华丰禄债券_003547.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" selection-start-line="7" selection-end-line="13" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_qdii.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="47" selection-start-line="47" selection-end-line="53" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/StringUtil_003986.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/StringUtil_005967.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/StringUtil_007136.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/StringUtil_007380.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/StringUtil_007405.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/StringUtil_160633.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/StringUtil_161121.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/StringUtil_320007.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/histroy/StringUtil_502010.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_gnjj.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="18" column="51" lean-forward="true" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
-          <folding>
-            <element signature="method#handler003547#0;class#Zfb_00_gnjj#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -878,13 +759,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/utils/Content.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_001027_前海开源中证大农业指数增强.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -965,14 +839,100 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_01_164906_交银中证海外中国互联网指数.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_02_003860_招商招旭纯债C.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_03_160644_鹏华港美互联股票人民币.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_04_005809_前海开源裕源.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-10">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_05_006327_易方达中证海外联接人民币A.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-10">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_06_164402_前海开源中航军工.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-10">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_07_004593_广发全指工业ETF联接A.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-10">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_003383_民生加银鑫享债券C.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-10">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_清仓_000242_景顺长城策略精选灵活配置混合.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-10">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_已清仓_国富全球科技互联混合人民币_006373.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/Content.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_gnjj.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="513">
+          <caret line="23" selection-start-line="23" selection-end-line="23" selection-end-column="46" />
           <folding>
-            <element signature="docComment;method#handler164906#0;class#Jd_00_gnjj#0" />
-            <element signature="e#1971#1987#0" expanded="true" />
-            <marker date="1587738519130" expanded="true" signature="1535:1655" ph="..." />
+            <marker date="1587739618486" expanded="true" signature="1524:1644" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_gnjj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="docComment;method#handlertTtjj#0;class#Zfb_00_gnjj#0" />
+            <element signature="method#handlertTtjj#0;class#Zfb_00_gnjj#0" />
           </folding>
         </state>
       </provider>
