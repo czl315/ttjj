@@ -1,6 +1,7 @@
 package utils;
 
 import com.alibaba.fastjson.JSON;
+import com.sun.deploy.util.StringUtils;
 import dto.LsjzDataLsjz;
 import dto.LsjzPt;
 
@@ -261,6 +262,11 @@ public class HttpUtil {
 //                            .divide(new BigDecimal(100));
                     BigDecimal todayEarnAmt = new BigDecimal(lsjzDataLsjz.getDWJZ()).subtract(new BigDecimal(lastDayNet)).multiply(new BigDecimal(paramMap.get(Content.canShare)));
 //                    System.out.println(todayEarnAmt.setScale(4, BigDecimal.ROUND_HALF_DOWN));//每日收益金额
+                    //手续费
+                    String sxf = paramMap.get(Content.SXF);
+                    if (sxf != null && !"".equals(sxf)) {
+                        todayEarnAmt = todayEarnAmt.subtract(new BigDecimal(sxf));
+                    }
                     System.out.print(",'" + todayEarnAmt.setScale(4, BigDecimal.ROUND_HALF_DOWN) + "',");//每日收益金额
                     System.out.println(" '0', '0', '0', '0', '0', '0', '', '', '', '" + paramMap.get(Content.canShare) + "', '" + paramMap.get(Content.BUY_COST) + "', '', '', '', '0', '" + paramMap.get(Content.FIRST_NET_DATA) + "', '" + paramMap.get(Content.TRADE_ID) + "', '" + paramMap.get(Content.FD_ID) + "', '', '" + paramMap.get(Content.SOURCE) + "', NOW(), NOW());");
                     lastDayNet = lsjzDataLsjz.getDWJZ();//记录上一日净值
