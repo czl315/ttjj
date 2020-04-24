@@ -16,4 +16,17 @@ public class Content {
     public static String startDate = "startDate";
     public static String endDate = "endDate";
     public static String lsjzUrl = "lsjzUrl";
+
+    /**
+     * 渠道：京东
+     */
+    public static String SOURCE_JD = "1";
+    /**
+     * 渠道：zfb
+     */
+    public static String SOURCE_ZFB = "2";
+    /**
+     * 渠道：TTJJ
+     */
+    public static String SOURCE_TTJJ = "3";
 }
