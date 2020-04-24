@@ -12,16 +12,16 @@ public class Jd_00_gnjj {
         List<Map<String, String>> paramList = new ArrayList<Map<String, String>>();
         String endDateToday = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-//        String startDate = "2020-04-17";
-//        paramList.add(handlertTtjj(startDate, endDateToday, "003860", "招商招旭纯债C(003860)",
-//                "872.29", "1000", "2020-02-21", "25", "16"));
-//        paramList.add(handlertTtjj(startDate, endDateToday, "164402", "前海开源中航军工(164402)",
-//                "408.76, "1000", "2019-09-09", "12", "13"));
-//        paramList.add(handlertTtjj(startDate, endDateToday, "004593", "广发全指工业ETF联接A(004593)",
-//                "99.93", "100", "2017-05-21", "4", "5"));
+        String startDate = "2020-04-17";
+        paramList.add(handlertTtjj(startDate, endDateToday, "003860", "招商招旭纯债C(003860)",
+                "872.29", "1000", "2020-02-21", "25", "16"));
+        paramList.add(handlertTtjj(startDate, endDateToday, "164402", "前海开源中航军工(164402)",
+                "408.76", "1000", "2019-09-09", "12", "13"));
+        paramList.add(handlertTtjj(startDate, endDateToday, "004593", "广发全指工业ETF联接A(004593)",
+                "99.93", "100", "2017-05-21", "4", "5"));
 
 
-        String qdiiStartDate = "2020-04-16";
+//        String qdiiStartDate = "2020-04-16";
 //        //        //2020-04-21 全部赎回
 //        paramList.add(handlertTtjj(qdiiStartDate, "2020-04-21", "164906", "交银中证海外中国互联网指数(164906)",
 //                "1430.53", "1750.253455", "2019-09-10", "13", "1"));
