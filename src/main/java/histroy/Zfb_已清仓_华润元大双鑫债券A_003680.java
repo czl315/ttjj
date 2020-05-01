@@ -1,16 +1,16 @@
-package zfb;
+package histroy;
 
 import utils.TtjjFoundRs;
 
-public class Zfb_04_交银中证海外中国互联网指数_164906 {
+public class Zfb_已清仓_华润元大双鑫债券A_003680 {
 
     public static void main(String[] args) {
-        String name = "交银中证海外中国互联网指数(164906)";
-        String canShare = "72.59";
-        String BUY_COST = "100";
-        String FIRST_NET_DATA = "2020-03-03";
-        String TRADE_ID = "40";
-        String FD_ID = "1";
+        String name = "华润元大双鑫债券A(003680)";
+        String canShare = "909.94";
+        String BUY_COST = "1000";
+        String FIRST_NET_DATA = "2020-03-02";
+        String TRADE_ID = "37";
+        String FD_ID = "24";
         String SOURCE = "2";
 
         String backString = "";

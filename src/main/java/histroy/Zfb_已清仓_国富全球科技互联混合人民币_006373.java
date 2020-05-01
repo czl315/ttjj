@@ -1,16 +1,16 @@
-package zfb;
+package histroy;
 
 import utils.TtjjFoundRs;
 
-public class Zfb_已清仓_博时转债增强债券A_050019 {
+public class Zfb_已清仓_国富全球科技互联混合人民币_006373 {
 
     public static void main(String[] args) {
-        String name = "博时转债增强债券A(050019)";
-        String canShare = "601.2";
+        String name = "国富全球科技互联混合人民币(006373)";
+        String canShare = "651.55";
         String BUY_COST = "1000";
         String FIRST_NET_DATA = "2020-02-18";
-        String TRADE_ID = "33";
-        String FD_ID = "17";
+        String TRADE_ID = "35";
+        String FD_ID = "19";
         String SOURCE = "2";
 
         String backString = "";
