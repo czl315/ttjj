@@ -243,7 +243,7 @@ public class HttpUtil {
                         continue;
                     }
 //                    System.out.println(JSON.toJSONString(lsjzDataLsjz));
-                    System.out.print("INSERT INTO `bank19`.`ol_fund_earn` ( `FD_NAME`, `LASTEST_NET_DATA`, `LASTEST_NET`, `LASTEST_ADD_NET`, `DAY_ADD_RATE`, `TODAY_EARN_AMT`, `HOLD_AMT`, `HOLD_EARN_AMT`, `HOLD_EARN_RATE`, `HOLD_EARN_RATE_DAY`, `HOLD_EARN_RATE_MONTH`, `HOLD_EARN_RATE_YEAR`, `remark`, `remark_in`, `remark_out`, `CAN_SHARE`, `BUY_COST`, `UP_MSG`, `DOWN_MSG`, `UP_DOWN_DAYS`, `HOLD_DAYS`, `FIRST_NET_DATA`, `TRADE_ID`, `FD_ID`, `DATE_FLAG`, `SOURCE`, `CREATE_TIME`, `UPDATE_TIME`) ");
+                    System.out.print("INSERT INTO `bank19`.`ol_fund_earn` ( `FD_NAME`, `LASTEST_NET_DATA`, `LASTEST_NET`, `LASTEST_ADD_NET`, `DAY_ADD_RATE`, `TODAY_EARN_AMT`, `HOLD_AMT`, `HOLD_EARN_AMT`, `HOLD_EARN_RATE`, `HOLD_EARN_RATE_DAY`, `HOLD_EARN_RATE_MONTH`, `HOLD_EARN_RATE_YEAR`, `remark`, `remark_in`, `remark_out`, `CAN_SHARE`, `BUY_COST`, `UP_MSG`, `DOWN_MSG`, `UP_DOWN_DAYS`, `HOLD_DAYS`, `FIRST_NET_DATA`, `TRADE_ID`, `FD_ID`,`FD_TYPE`, `DATE_FLAG`, `SOURCE`, `CREATE_TIME`, `UPDATE_TIME`) ");
                     System.out.print("VALUES ('" + paramMap.get(Content.jjName));
                     System.out.print("','" + lsjzDataLsjz.getFSRQ() + "',");
                     System.out.print("'" + lsjzDataLsjz.getDWJZ() + "',");
@@ -268,7 +268,12 @@ public class HttpUtil {
                         todayEarnAmt = todayEarnAmt.subtract(new BigDecimal(sxf));
                     }
                     System.out.print(",'" + todayEarnAmt.setScale(4, BigDecimal.ROUND_HALF_DOWN) + "',");//每日收益金额
-                    System.out.println(" '0', '0', '0', '0', '0', '0', '', '', '', '" + paramMap.get(Content.canShare) + "', '" + paramMap.get(Content.BUY_COST) + "', '', '', '', '0', '" + paramMap.get(Content.FIRST_NET_DATA) + "', '" + paramMap.get(Content.TRADE_ID) + "', '" + paramMap.get(Content.FD_ID) + "', '', '" + paramMap.get(Content.SOURCE) + "', NOW(), NOW());");
+                    System.out.print(" '0', '0', '0', '0', '0', '0', '', '', '', '" + paramMap.get(Content.canShare) + "', '" + paramMap.get(Content.BUY_COST) + "', '', '', '', '0', '" + paramMap.get(Content.FIRST_NET_DATA) + "', '" + paramMap.get(Content.TRADE_ID) +
+                            "', '" + paramMap.get(Content.FD_ID));
+                    System.out.print("', '" + (paramMap.containsKey(Content.FD_TYPE) ? paramMap.get(Content.FD_TYPE) : "") + "', ");
+                    System.out.print("'', '"
+                            + paramMap.get(Content.SOURCE) + "', NOW(), NOW());");
+                    System.out.println();
                     lastDayNet = lsjzDataLsjz.getDWJZ();//记录上一日净值
                 }
             }

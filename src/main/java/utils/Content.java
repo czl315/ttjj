@@ -17,6 +17,11 @@ public class Content {
     public static String endDate = "endDate";
     public static String lsjzUrl = "lsjzUrl";
     public static String SXF = "sxf";
+    /**
+     * 基金类型
+     */
+    public static String FD_TYPE = "FD_TYPE";
+
 
     /**
      * 渠道：京东

@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5c9e79f3-4a27-4eb2-acab-dcfcd3905bf4" name="Default Changelist" comment="">
+    <list default="true" id="8ca85812-23e8-4912-aa72-996e5b64ab48" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/jd/Jd_00_0517_0524.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_0517_0524.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/zfb/Zfb_00_0517_0524.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_003383_民生加银鑫享债券C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_003383_民生加银鑫享债券C.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_01_164906_交银中证海外中国互联网指数.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_01_164906_交银中证海外中国互联网指数.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_02_003860_招商招旭纯债C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_02_003860_招商招旭纯债C.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_03_160644_鹏华港美互联股票人民币.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_03_160644_鹏华港美互联股票人民币.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_04_005809_前海开源裕源.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_04_005809_前海开源裕源.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_05_006327_易方达中证海外联接人民币A.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_05_006327_易方达中证海外联接人民币A.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_06_164402_前海开源中航军工.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_06_164402_前海开源中航军工.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_07_004593_广发全指工业ETF联接A.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_07_004593_广发全指工业ETF联接A.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jd/Jd_清仓_000242_景顺长城策略精选灵活配置混合.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/histroy/Jd_清仓_000242_景顺长城策略精选灵活配置混合.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/zfb/Zfb_00_gnjj.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/zfb/Zfb_00_gnjj.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Content.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Content.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/HttpUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/HttpUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_003383_民生加银鑫享债券C.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_00_gnjj.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_01_164906_交银中证海外中国互联网指数.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_02_003860_招商招旭纯债C.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_03_160644_鹏华港美互联股票人民币.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_04_005809_前海开源裕源.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_05_006327_易方达中证海外联接人民币A.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_06_164402_前海开源中航军工.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_07_004593_广发全指工业ETF联接A.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_清仓_000242_景顺长城策略精选灵活配置混合.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/utils/Content.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/Content.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/utils/HttpUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/HttpUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/zfb/Zfb_00_gnjj.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -28,67 +37,12 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_04_005809_前海开源裕源.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_0517_0524.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_05_006327_易方达中证海外联接人民币A.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_06_164402_前海开源中航军工.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_07_004593_广发全指工业ETF联接A.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_003383_民生加银鑫享债券C.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_清仓_000242_景顺长城策略精选灵活配置混合.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-10">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_gnjj.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+            <state relative-caret-position="390">
+              <caret line="19" selection-start-line="19" selection-end-line="20" selection-end-column="38" />
               <folding>
-                <element signature="docComment;method#handlertTtjj#0;class#Zfb_00_gnjj#0" />
-                <element signature="method#handlertTtjj#0;class#Zfb_00_gnjj#0" />
+                <element signature="method#handlertTtjjHasSxf#0;class#Ttjj_00_0517_0524#0" />
               </folding>
             </state>
           </provider>
@@ -97,77 +51,97 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/utils/Content.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="594">
-              <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
+            <state relative-caret-position="660">
+              <caret line="22" column="43" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_gnjj.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_0508_0517.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="23" selection-start-line="23" selection-end-line="23" selection-end-column="46" />
+            <state relative-caret-position="810">
+              <caret line="33" selection-start-line="33" selection-end-line="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_0517_0524.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="55" column="48" selection-start-line="55" selection-start-column="48" selection-end-line="55" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_00_0424_0430.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_0430_0510.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="840">
+              <caret line="34" selection-start-line="34" selection-end-line="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_0508_0517.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_0517_0524.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_00_gnjj.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
               <folding>
-                <marker date="1587739618486" expanded="true" signature="1524:1644" ph="..." />
+                <marker date="1589685103380" expanded="true" signature="1529:1649" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_00_qdii.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>162201</find>
-      <find>320007</find>
-      <find>160637</find>
-      <find>160633</find>
-      <find>163208</find>
-      <find>160416</find>
-      <find>&quot;));</find>
-      <find>new SimpleDateFormat(&quot;yyyy-MM-dd&quot;).format(new Date())</find>
-      <find>&quot;&amp;_=1558194929451&quot;;</find>
-      <find>handler005620</find>
-      <find>handler005967</find>
-      <find>handler006021</find>
-      <find>handler007136</find>
-      <find>handler007380</find>
-      <find>handler007405</find>
-      <find>handler008086</find>
-      <find>handler110022</find>
-      <find>handler160225</find>
-      <find>handler160416</find>
-      <find>handler160633</find>
-      <find>handler160637</find>
-      <find>handler161028</find>
-      <find>handler161121</find>
-      <find>handler161725</find>
-      <find>handler162201</find>
-      <find>handler163208</find>
-      <find>handler165525</find>
-      <find>handler257020</find>
-      <find>endDateToday));</find>
-      <find>(String startDate, String endDate) {</find>
+      <find>FD_TYPE</find>
+      <find>海富通</find>
+      <find>全指</find>
+      <find>国泰</find>
+      <find>中证500</find>
     </findStrings>
-    <replaceStrings>
-      <replace>pramaMap003860</replace>
-      <replace>pramaMap</replace>
-      <replace>2020-04-15</replace>
-      <replace>(String startDate, String endDate) {</replace>
-      <replace>&quot;, new SimpleDateFormat(&quot;yyyy-MM-dd&quot;).format(new Date())));</replace>
-      <replace>endDateToday</replace>
-      <replace>&quot;&amp;_=&quot; + System.currentTimeMillis();</replace>
-      <replace>rs.put(Content.SOURCE, SOURCE_TTJJ);</replace>
-      <replace>(String startDate, String endDate, String jjCode, String name, String canShare, String BUY_COST, String FIRST_NET_DATA, String TRADE_ID, String FD_ID) {</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -175,69 +149,17 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_003095_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_003095_中欧医疗健康混合A.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/StringUtil_003547.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_003547_鹏华丰禄债券.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_003986_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_003986_申万菱信中证500指数优选增强A.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_005224_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_005224_广发中证基建工程指数C.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_005620_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_005620_中欧品质消费股票A.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_005967_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_005911_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_006021_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_007136_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_007380.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_007405_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_008086.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_110022_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_160225_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_160416_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_160633_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_160637_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_161028_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_161121_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_161725_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_162201_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_163208_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_165525_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_257020_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_320007_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_502010_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_519674_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/jd/Ttjj_519674_.java" />
-        <option value="$PROJECT_DIR$/src/main/java/jd/Ttjj_jd_all.java" />
-        <option value="$PROJECT_DIR$/src/main/java/jd/jd_00_all.java" />
-        <option value="$PROJECT_DIR$/src/main/java/jd/jd_00_gnjj.java" />
-        <option value="$PROJECT_DIR$/src/main/java/jd/jd_00_qdii.java" />
-        <option value="$PROJECT_DIR$/src/main/java/zfb/jd_00_gnjj.java" />
-        <option value="$PROJECT_DIR$/src/main/java/jd/Jd_00_qdii.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Zfb_00_gnjj.java" />
-        <option value="$PROJECT_DIR$/src/main/java/histroy/StringUtil_003986.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_000656_前海开源沪深300指数.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_008086_华夏中证5G通信主题ETF联接A.java" />
-        <option value="$PROJECT_DIR$/src/main/java/utils/HttpUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_gnjj.java" />
-        <option value="$PROJECT_DIR$/src/main/java/utils/IqiyiMd5Util.java" />
         <option value="$PROJECT_DIR$/src/main/java/utils/Content.java" />
-        <option value="$PROJECT_DIR$/src/main/java/histroy/Ttjj_000656_前海开源沪深300指数.java" />
-        <option value="$PROJECT_DIR$/src/main/java/jd/Jd_00_gnjj.java" />
-        <option value="$PROJECT_DIR$/src/main/java/histroy/Jd_01_164906_交银中证海外中国互联网指数.java" />
-        <option value="$PROJECT_DIR$/src/main/java/zfb/Zfb_00_gnjj.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/HttpUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_0517_0524.java" />
+        <option value="$PROJECT_DIR$/src/main/java/jd/Jd_00_0517_0524.java" />
+        <option value="$PROJECT_DIR$/src/main/java/zfb/Zfb_00_0517_0524.java" />
       </list>
     </option>
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="userSettingsFile" value="L:\work\Java\repository\settings.xml" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-2" />
+    <option name="x" value="712" />
+    <option name="y" value="39" />
     <option name="width" value="1680" />
     <option name="height" value="1010" />
   </component>
@@ -247,8 +169,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -280,23 +202,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="jd" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="jd" type="462c0819:PsiDirectoryNode" />
-              <item name="Jd_00_gnjj" type="1a9f42e2:ClassTreeNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="ttjj" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -305,7 +210,7 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="zfb" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
@@ -313,8 +218,8 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-              <item name="Content" type="1a9f42e2:ClassTreeNode" />
+              <item name="zfb" type="462c0819:PsiDirectoryNode" />
+              <item name="Zfb_00_0517_0524" type="1a9f42e2:ClassTreeNode" />
             </path>
             <path>
               <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
@@ -344,7 +249,7 @@
               <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="math" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
@@ -352,8 +257,8 @@
               <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="math" type="462c0819:PsiDirectoryNode" />
-              <item name="BigDecimal" type="1a9f42e2:ClassTreeNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="Map" type="1a9f42e2:ClassTreeNode" />
             </path>
           </expand>
           <select />
@@ -362,22 +267,12 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="MANAGE_IGNORE_FILES_PROPERTY" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/utils" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="ttjj" />
       <recent name="zfb" />
       <recent name="jd" />
-      <recent name="dto" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\utils" />
-      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -392,13 +287,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Zfb_00_gnjj">
-    <configuration name="IqiyiMd5Util" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="utils.IqiyiMd5Util" />
+  <component name="RunManager" selected="Application.Zfb_00_0517_0524">
+    <configuration name="Jd_00_0517_0524" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="jd.Jd_00_0517_0524" />
       <module name="ttjj202004" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="utils.*" />
+          <option name="PATTERN" value="jd.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -406,12 +301,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Jd_00_gnjj" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="jd.Jd_00_gnjj" />
+    <configuration name="Ttjj_00_0517_0524" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ttjj.Ttjj_00_0517_0524" />
       <module name="ttjj202004" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="histroy.*" />
+          <option name="PATTERN" value="ttjj.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -419,34 +314,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Jd_00_qdii" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="jd.Jd_00_qdii" />
-      <module name="ttjj202004" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="histroy.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Ttjj_00_gnjj" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ttjj.Ttjj_00_gnjj" />
-      <module name="ttjj202004" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="histroy.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Zfb_00_gnjj" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="zfb.Zfb_00_gnjj" />
+    <configuration name="Zfb_00_0517_0524" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="zfb.Zfb_00_0517_0524" />
       <module name="ttjj202004" />
       <extension name="coverage">
         <pattern>
@@ -460,11 +329,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Zfb_00_gnjj" />
-        <item itemvalue="Application.Jd_00_gnjj" />
-        <item itemvalue="Application.IqiyiMd5Util" />
-        <item itemvalue="Application.Ttjj_00_gnjj" />
-        <item itemvalue="Application.Jd_00_qdii" />
+        <item itemvalue="Application.Zfb_00_0517_0524" />
+        <item itemvalue="Application.Jd_00_0517_0524" />
+        <item itemvalue="Application.Ttjj_00_0517_0524" />
       </list>
     </recent_temporary>
   </component>
@@ -473,64 +340,18 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5c9e79f3-4a27-4eb2-acab-dcfcd3905bf4" name="Default Changelist" comment="" />
-      <created>1586831353567</created>
+      <changelist id="8ca85812-23e8-4912-aa72-996e5b64ab48" name="Default Changelist" comment="" />
+      <created>1590287300739</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1586831353567</updated>
+      <updated>1590287300739</updated>
     </task>
-    <task id="LOCAL-00001" summary="ttjj">
-      <created>1587309163812</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1587309163812</updated>
-    </task>
-    <task id="LOCAL-00002" summary="ttjj">
-      <created>1587309499749</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1587309499749</updated>
-    </task>
-    <task id="LOCAL-00003" summary="ttjj">
-      <created>1587309671135</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1587309671135</updated>
-    </task>
-    <task id="LOCAL-00004" summary="历史算法">
-      <created>1587738553759</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1587738553759</updated>
-    </task>
-    <task id="LOCAL-00005" summary="京东">
-      <created>1587739738664</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1587739738664</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
     <servers />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="2582" height="1406" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26966292" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.32704654" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -539,7 +360,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.65588725" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.52321726" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -560,380 +381,111 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout>
   </component>
-  <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="ttjj" />
-    <MESSAGE value="历史算法" />
-    <MESSAGE value="京东" />
-    <option name="LAST_COMMIT_MESSAGE" value="京东" />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/StringUtil_502010.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Zfb_00_0424_0430.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_005620_中欧品质消费股票A.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
+        <state relative-caret-position="120">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="method#handlertTtjjHasSxf#0;class#Zfb_00_0424_0430#0" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_005911_.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_0430_0510.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_005967_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_006021_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_007136_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_007380.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_007405_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_008086.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_008086_华夏中证5G通信主题ETF联接A.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_110022_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_160225_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_160416_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_160633_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_160637_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_161028_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_161725_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_519674_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        <state relative-caret-position="1080">
+          <caret line="42" column="91" selection-start-line="42" selection-start-column="76" selection-end-line="42" selection-end-column="91" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/utils/HttpUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6507">
-          <caret line="254" column="91" selection-start-line="254" selection-start-column="91" selection-end-line="254" selection-end-column="91" />
+        <state relative-caret-position="7830">
+          <caret line="273" column="44" selection-start-line="273" selection-start-column="44" selection-end-line="273" selection-end-column="44" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_502010_.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_211/src.zip!/java/util/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_320007_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_257020_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_165525_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_163208_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_162201_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_161121_.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/utils/IqiyiMd5Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="144" lean-forward="true" selection-start-line="144" selection-end-line="144" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_001027_前海开源中证大农业指数增强.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_001579_国泰大农业股票.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_001986_前海开源人工智能主题混合.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_002560_诺安和鑫灵活配置混合.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_003095_中欧医疗健康混合A.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_003547_鹏华丰禄债券.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_003986_申万菱信中证500指数优选增强A.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_005224_广发中证基建工程指数C.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_gnjj.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="18" column="76" selection-start-line="18" selection-start-column="76" selection-end-line="18" selection-end-column="94" />
-          <folding>
-            <element signature="method#his200419#0;class#Ttjj_00_gnjj#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_001279_中海积极增利混合.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Ttjj_000656_前海开源沪深300指数.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_01_164906_交银中证海外中国互联网指数.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_02_003860_招商招旭纯债C.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_03_160644_鹏华港美互联股票人民币.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_04_005809_前海开源裕源.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_05_006327_易方达中证海外联接人民币A.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_06_164402_前海开源中航军工.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_07_004593_广发全指工业ETF联接A.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_003383_民生加银鑫享债券C.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_清仓_000242_景顺长城策略精选灵活配置混合.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_已清仓_国富全球科技互联混合人民币_006373.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        <state relative-caret-position="4140">
+          <caret line="164" column="12" selection-start-line="164" selection-start-column="12" selection-end-line="164" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/utils/Content.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
+        <state relative-caret-position="660">
+          <caret line="22" column="43" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="43" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_gnjj.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_00_0424_0430.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="23" selection-start-line="23" selection-end-line="23" selection-end-column="46" />
+        <state relative-caret-position="120">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_0430_0510.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_00_gnjj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
           <folding>
-            <marker date="1587739618486" expanded="true" signature="1524:1644" ph="..." />
+            <marker date="1589685103380" expanded="true" signature="1529:1649" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_gnjj.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_00_qdii.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+        <state relative-caret-position="120">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_0508_0517.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_0517_0524.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_0508_0517.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_0517_0524.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="19" selection-start-line="19" selection-end-line="20" selection-end-column="38" />
           <folding>
-            <element signature="docComment;method#handlertTtjj#0;class#Zfb_00_gnjj#0" />
-            <element signature="method#handlertTtjj#0;class#Zfb_00_gnjj#0" />
+            <element signature="method#handlertTtjjHasSxf#0;class#Ttjj_00_0517_0524#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_0517_0524.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="55" column="48" selection-start-line="55" selection-start-column="48" selection-end-line="55" selection-end-column="48" />
         </state>
       </provider>
     </entry>
