@@ -2,26 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ca85812-23e8-4912-aa72-996e5b64ab48" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/jd/Jd_00_0517_0524.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_0517_0524.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/zfb/Zfb_00_0517_0524.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_0524_0531.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Content.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Content.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/HttpUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/HttpUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_003383_民生加银鑫享债券C.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_00_gnjj.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_01_164906_交银中证海外中国互联网指数.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_02_003860_招商招旭纯债C.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_03_160644_鹏华港美互联股票人民币.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_04_005809_前海开源裕源.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_05_006327_易方达中证海外联接人民币A.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_06_164402_前海开源中航军工.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_07_004593_广发全指工业ETF联接A.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/jd/Jd_清仓_000242_景顺长城策略精选灵活配置混合.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/utils/Content.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/Content.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/utils/HttpUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/HttpUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/zfb/Zfb_00_gnjj.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -36,98 +18,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_0517_0524.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="19" selection-start-line="19" selection-end-line="20" selection-end-column="38" />
-              <folding>
-                <element signature="method#handlertTtjjHasSxf#0;class#Ttjj_00_0517_0524#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/utils/Content.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="22" column="43" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_0508_0517.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
-              <caret line="33" selection-start-line="33" selection-end-line="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_0517_0524.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_0524_0531.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="55" column="48" selection-start-line="55" selection-start-column="48" selection-end-line="55" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_00_0424_0430.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_0430_0510.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="34" selection-start-line="34" selection-end-line="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_0508_0517.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_0517_0524.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_00_gnjj.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+            <state relative-caret-position="269">
+              <caret line="42" column="73" selection-start-line="42" selection-start-column="73" selection-end-line="42" selection-end-column="73" />
               <folding>
-                <marker date="1589685103380" expanded="true" signature="1529:1649" ph="..." />
+                <element signature="e#8363#9032#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_00_qdii.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -141,6 +39,8 @@
       <find>全指</find>
       <find>国泰</find>
       <find>中证500</find>
+      <find>创业板</find>
+      <find>银行</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -154,6 +54,7 @@
         <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_0517_0524.java" />
         <option value="$PROJECT_DIR$/src/main/java/jd/Jd_00_0517_0524.java" />
         <option value="$PROJECT_DIR$/src/main/java/zfb/Zfb_00_0517_0524.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_0524_0531.java" />
       </list>
     </option>
   </component>
@@ -169,8 +70,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -210,16 +109,8 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zfb" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="zfb" type="462c0819:PsiDirectoryNode" />
-              <item name="Zfb_00_0517_0524" type="1a9f42e2:ClassTreeNode" />
+              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
+              <item name="Ttjj_00_0524_0531" type="1a9f42e2:ClassTreeNode" />
             </path>
             <path>
               <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
@@ -264,6 +155,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -271,6 +164,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ttjj" />
       <recent name="zfb" />
       <recent name="jd" />
     </key>
@@ -287,7 +181,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Zfb_00_0517_0524">
+  <component name="RunManager" selected="Application.Ttjj_00_0524_0531">
     <configuration name="Jd_00_0517_0524" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="jd.Jd_00_0517_0524" />
       <module name="ttjj202004" />
@@ -314,6 +208,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Ttjj_00_0524_0531" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ttjj.Ttjj_00_0524_0531" />
+      <module name="ttjj202004" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ttjj.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Zfb_00_0517_0524" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="zfb.Zfb_00_0517_0524" />
       <module name="ttjj202004" />
@@ -329,6 +236,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Ttjj_00_0524_0531" />
         <item itemvalue="Application.Zfb_00_0517_0524" />
         <item itemvalue="Application.Jd_00_0517_0524" />
         <item itemvalue="Application.Ttjj_00_0517_0524" />
@@ -346,12 +254,21 @@
       <option name="presentableId" value="Default" />
       <updated>1590287300739</updated>
     </task>
+    <task id="LOCAL-00001" summary="11">
+      <created>1590365293568</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1590365293568</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="2582" height="1406" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.32704654" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.34028894" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -360,7 +277,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.52321726" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.52321726" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -380,6 +297,10 @@
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="11" />
+    <option name="LAST_COMMIT_MESSAGE" value="11" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Zfb_00_0424_0430.java">
@@ -420,6 +341,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_0508_0517.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/histroy/Jd_00_0424_0430.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -431,6 +359,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="840">
           <caret line="34" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_0508_0517.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_0517_0524.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
         </state>
       </provider>
     </entry>
@@ -451,24 +393,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_0508_0517.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_0517_0524.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jd/Jd_00_0517_0524.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_0508_0517.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        <state relative-caret-position="555">
+          <caret line="70" column="7" selection-start-line="70" selection-start-column="7" selection-end-line="70" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -482,10 +410,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/zfb/Zfb_00_0517_0524.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_0524_0531.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="55" column="48" selection-start-line="55" selection-start-column="48" selection-end-line="55" selection-end-column="48" />
+        <state relative-caret-position="269">
+          <caret line="42" column="73" selection-start-line="42" selection-start-column="73" selection-end-line="42" selection-end-column="73" />
+          <folding>
+            <element signature="e#8363#9032#0" />
+          </folding>
         </state>
       </provider>
     </entry>
