@@ -12,7 +12,7 @@ public class Zfb_00_0524_0531 {
     /**
      *
      */
-    static String SOURCE_ZFB = "2";
+    public static String SOURCE_ZFB = "2";
 
     public static void main(String[] args) {
         List<Map<String, String>> paramList = new ArrayList<Map<String, String>>();
