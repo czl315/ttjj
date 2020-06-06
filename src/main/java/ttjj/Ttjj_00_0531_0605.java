@@ -9,16 +9,13 @@ import java.util.List;
 import java.util.Map;
 
 public class Ttjj_00_0531_0605 {
-    /**
-     * TTJJ
-     */
-    static String SOURCE_TTJJ = "3";
+
 
     public static void main(String[] args) {
         List<Map<String, String>> paramList = new ArrayList<Map<String, String>>();
 //        String endDateToday = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String startDate = "2020-05-22";
-        String endDate = "2020-05-31";
+        String startDate = "2020-05-29";
+        String endDate = "2020-06-05";
 
 
         {
@@ -31,28 +28,19 @@ public class Ttjj_00_0531_0605 {
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "001279", "001279|中海积极增利混合",
                     "794.35", "1000", "2020-03-23", "00", "00", "0"));
 
-            paramList.add(handlertTtjjHasSxf(startDate, endDate, "001579", "001579|国泰大农业股票",
-                    "55.44", "100", "2020-03-31", "00", "00", "0"));
-
-        paramList.add(handlertTtjjHasSxf("2020-05-22", "2020-05-25", "001875", "001875|前海开源沪港深优势精选混合",
-                "548.92", "1000", "2020-04-22", "00", "00", "0.45"));
-            paramList.add(handlertTtjjHasSxf("2020-05-25", endDate, "001875", "001875|前海开源沪港深优势精选混合",
+            paramList.add(handlertTtjjHasSxf(startDate, endDate, "001875", "001875|前海开源沪港深优势精选混合",
                     "548.92", "1000", "2020-04-22", "00", "00", "0"));
 
-            paramList.add(handlertTtjjHasSxf("2020-05-21", endDate, "001986", "001986|前海开源人工智能主题混合",
+            paramList.add(handlertTtjjHasSxf(startDate, endDate, "001986", "001986|前海开源人工智能主题混合",
                     "1969.96", "2600", "2020-03-26", "00", "00", "0"));
 
-        paramList.add(handlertTtjjHasSxf("2020-05-22", "2020-05-25","002207", "002207|前海开源金银珠宝混合C",
-                "1876.09", "1900", "2020-04-20", "00", "00", "0.45"));
-            paramList.add(handlertTtjjHasSxf("2020-05-25", "2020-05-26", "002207", "002207|前海开源金银珠宝混合C",
-                    "2076.19", "2100", "2020-04-20", "00", "00", "0.3"));
-        paramList.add(handlertTtjjHasSxf("2020-05-26", endDate, "002207", "002207|前海开源金银珠宝混合C",
-                "2076.19", "2100", "2020-04-20", "00", "00", "0"));
+            paramList.add(handlertTtjjHasSxf(startDate, endDate, "002207", "002207|前海开源金银珠宝混合C",
+                    "2076.19", "2100", "2020-04-20", "00", "00", "0"));
 
-            paramList.add(handlertTtjjHasSxf("2020-05-22", "2020-05-25", "002560", "002560|诺安和鑫灵活配置混合",
-                    "150.11", "200", "2020-05-25", "00", "00", "0.3"));
-            paramList.add(handlertTtjjHasSxf("2020-05-25", endDate, "002560", "002560|诺安和鑫灵活配置混合",
-                    "150.11", "200", "2020-05-25", "00", "00", "0"));
+            paramList.add(handlertTtjjHasSxf("2020-05-29", "2020-06-01", "002560", "002560|诺安和鑫灵活配置混合",
+                    "303.32", "400", "2020-05-25", "00", "00", "0.3"));
+            paramList.add(handlertTtjjHasSxf("2020-06-01", endDate, "002560", "002560|诺安和鑫灵活配置混合",
+                    "303.32", "400", "2020-05-25", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "003095", "003095|中欧医疗健康混合A",
                     "235.38", "500", "2020-04-14", "00", "00", "0"));
@@ -93,16 +81,10 @@ public class Ttjj_00_0531_0605 {
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "007380", "007380|易方达上证50ETF联接基金C",
                     "96.09", "100", "2020-03-11", "00", "00", "0"));
 
-            //卖出，清仓
-            paramList.add(handlertTtjjHasSxf(startDate, "2020-05-28", "007405", "007405|华宝中证100指数C",
-                    "67.29", "100", "2020-03-13", "00", "00", "0"));
-
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "007795", "007795|申万菱信中证500指数增强C",
                     "229.45", "300", "2020-05-21", "00", "00", "0"));
 
-                    paramList.add(handlertTtjjHasSxf("2020-05-22", "2020-05-25", "008086", "008086|华夏中证5G通信主题ETF联接A",
-                    "9649.59", "10200", "2020-03-24", "00", "00", "0.48"));
-            paramList.add(handlertTtjjHasSxf("2020-05-25", endDate, "008086", "008086|华夏中证5G通信主题ETF联接A",
+            paramList.add(handlertTtjjHasSxf(startDate, endDate, "008086", "008086|华夏中证5G通信主题ETF联接A",
                     "9649.59", "10200", "2020-03-24", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "110003", "110003|易方达上证50指数A",
@@ -117,23 +99,14 @@ public class Ttjj_00_0531_0605 {
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "160225", "160225|国泰国证新能源汽车指数",
                     "1355.75", "1200", "2020-03-30", "00", "00", "0"));
 
-
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "160633", "160633|鹏华证券分级",
                     "2419.58", "2300", "2020-03-10", "00", "00", ""));
 
-        paramList.add(handlertTtjjHasSxf("2020-05-22", "2020-05-25", "160637", "160637|鹏华创业板分级",
-                "1323.61", "1700", "2020-03-30", "00", "00", "0.36"));
-            paramList.add(handlertTtjjHasSxf("2020-05-25", endDate, "160637", "160637|鹏华创业板分级",
+            paramList.add(handlertTtjjHasSxf(startDate, endDate, "160637", "160637|鹏华创业板分级",
                     "1323.61", "1700", "2020-03-30", "00", "00", "0"));
 
-        paramList.add(handlertTtjjHasSxf("2020-05-22", "2020-05-25", "161028", "161028|富国中证新能源汽车指数分级",
-                "3750.76", "3000", "2020-03-24", "00", "00", "0.24"));
-        paramList.add(handlertTtjjHasSxf("2020-05-25", endDate, "161028", "161028|富国中证新能源汽车指数分级",
-                "3750.76", "3000", "2020-03-24", "00", "00", "0"));
-
-        //卖出，清仓
-            paramList.add(handlertTtjjHasSxf(startDate, "2020-05-28", "161121", "161121|易方达银行分级",
-                    "100.71", "100", "2020-02-28", "00", "00", "0"));
+            paramList.add(handlertTtjjHasSxf(startDate, endDate, "161028", "161028|富国中证新能源汽车指数分级",
+                    "3750.76", "3000", "2020-03-24", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "161725", "161725|招商中证白酒指数分级",
                     "1744.71", "1600", "2020-04-07", "00", "00", "0"));
@@ -141,38 +114,43 @@ public class Ttjj_00_0531_0605 {
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "162201", "162201|泰达宏利成长混合",
                     "367.56", "600", "2020-03-30", "00", "00", "0"));
 
-
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "165525", "165525|信诚中证基建工程指数LOF",
                     "294.26", "200", "2020-04-07", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "257020", "257020|国联安精选混合",
                     "864.08", "800", "2020-03-30", "00", "00", "0"));
 
-            paramList.add(handlertTtjjHasSxf(startDate, endDate, "320007", "320007|诺安成长混合",
+            paramList.add(handlertTtjjHasSxf(startDate, "2020-06-03", "320007", "320007|诺安成长混合",
                     "2182.99", "2900", "2020-03-09", "00", "00", "0"));
+            paramList.add(handlertTtjjHasSxf("2020-06-03", "2020-06-04", "320007", "320007|诺安成长混合",
+                    "2117.17", "2800", "2020-03-09", "00", "00", "0.52"));
+            paramList.add(handlertTtjjHasSxf("2020-06-04", endDate, "320007", "320007|诺安成长混合",
+                    "2117.17", "2800", "2020-03-09", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "502010", "502010|易方达证券公司分级",
                     "89.39", "100", "2020-03-10", "00", "00", "0"));
 
-            paramList.add(handlertTtjjHasSxf("2020-05-22", "2020-05-25", "519005", "519005|海富通股票混合",
-                    "950.34", "1000", "2020-03-10", "00", "00", "0.45"));
-        paramList.add(handlertTtjjHasSxf("2020-05-25", endDate, "519005", "519005|海富通股票混合",
-                "950.34", "1000", "2020-03-10", "00", "00", "0"));
+            paramList.add(handlertTtjjHasSxf(startDate, endDate, "519005", "519005|海富通股票混合",
+                    "950.34", "1000", "2020-03-10", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "519674", "519674|银河创新成长混合",
                     "20.01", "100", "2020-03-23", "00", "00", "0"));
         }
 
-        {
+        /*{
             String startDateQdii = "2020-05-28";//qdii晚一天出
             String endDateQdii = "2020-06-05";
 
-            paramList.add(handlertTtjjHasSxfType(startDateQdii, endDateQdii, "163208", "163208|诺安油气能源",
-                    "708.35", "300", "2020-03-16", "00", "00", "0", "QDII"));
+//            paramList.add(handlertTtjjHasSxfType(startDateQdii, endDateQdii, "163208", "163208|诺安油气能源",
+//                    "708.35", "300", "2020-03-16", "00", "00", "0", "QDII"));
 
-            paramList.add(handlertTtjjHasSxfType(startDateQdii, endDateQdii, "378546", "378546|上投摩根全球天然资源混合",
-                    "846.1", "500", "2020-05-12", "00", "00", "0", "QDII"));
-        }
+//            paramList.add(handlertTtjjHasSxfType(startDateQdii, "2020-06-02", "378546", "378546|上投摩根全球天然资源混合",
+//                    "846.1", "500", "2020-05-12", "00", "00", "0", "QDII"));
+//            paramList.add(handlertTtjjHasSxfType("2020-06-02", "2020-06-03", "378546", "378546|上投摩根全球天然资源混合",
+//                    "1168.16", "700", "2020-05-12", "00", "00", "0.32", "QDII"));
+//            paramList.add(handlertTtjjHasSxfType("2020-06-03", endDateQdii, "378546", "378546|上投摩根全球天然资源混合",
+//                    "1168.16", "700", "2020-05-12", "00", "00", "0", "QDII"));
+        }*/
 
         {
             //已清仓
@@ -183,6 +161,16 @@ public class Ttjj_00_0531_0605 {
 //            paramList.add(handlertTtjjHasSxfType(startDateQdii, "2020-05-28", "160416", "160416|华安标普全球石油指数",
 //                    "166.19", "100", "2020-03-19", "00", "00", "0", "QDII"));
 
+            //卖出，清仓
+//            paramList.add(handlertTtjjHasSxf(startDate,endDate, "161121", "161121|易方达银行分级",
+//                    "100.71", "100", "2020-02-28", "00", "00", "0"));
+
+            //卖出，清仓
+//            paramList.add(handlertTtjjHasSxf(startDate,endDate, "007405", "007405|华宝中证100指数C",
+//                    "67.29", "100", "2020-03-13", "00", "00", "0"));
+
+//            paramList.add(handlertTtjjHasSxf(startDate, "2020-05-20", "001579", "001579|国泰大农业股票",
+//                    "55.44", "100", "2020-03-31", "00", "00", "0"));
         }
 
 
@@ -223,7 +211,7 @@ public class Ttjj_00_0531_0605 {
         rs.put(Content.BUY_COST, BUY_COST);
         rs.put(Content.TRADE_ID, TRADE_ID);
         rs.put(Content.FD_ID, FD_ID);
-        rs.put(Content.SOURCE, SOURCE_TTJJ);
+        rs.put(Content.SOURCE, Content.SOURCE_TTJJ);
         rs.put(Content.SXF, sxf);
         return rs;
     }
@@ -258,7 +246,7 @@ public class Ttjj_00_0531_0605 {
         rs.put(Content.BUY_COST, BUY_COST);
         rs.put(Content.TRADE_ID, TRADE_ID);
         rs.put(Content.FD_ID, FD_ID);
-        rs.put(Content.SOURCE, SOURCE_TTJJ);
+        rs.put(Content.SOURCE, Content.SOURCE_TTJJ);
         rs.put(Content.SXF, sxf);
         rs.put(Content.FD_TYPE, fdType);
         return rs;
