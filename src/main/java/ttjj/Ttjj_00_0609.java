@@ -72,14 +72,10 @@ public class Ttjj_00_0609 {
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "006021", "006021|广发沪深300指数增强C",
                     "168.52", "200", "2020-03-17", "00", "00", "0"));
 
-            paramList.add(handlertTtjjHasSxf(startDate, endDate, "007136", "007136|广发中证100ETF联接C",
-                    "95.38", "100", "2020-03-11", "00", "00", "0"));
+
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "007300", "007300|国联安中证半导体ETF联接A",
                     "122.22", "200", "2020-04-28", "00", "00", "0"));
-
-            paramList.add(handlertTtjjHasSxf(startDate, endDate, "007380", "007380|易方达上证50ETF联接基金C",
-                    "96.09", "100", "2020-03-11", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "007795", "007795|申万菱信中证500指数增强C",
                     "229.45", "300", "2020-05-21", "00", "00", "0"));
@@ -144,26 +140,31 @@ public class Ttjj_00_0609 {
 //                    "1168.16", "700", "2020-05-12", "00", "00", "0", "QDII"));
 //        }
 
-        {
-            //已清仓
+        //已清仓
+//        {
+//            paramList.add(handlertTtjjHasSxf(startDate, "2020-06-09", "007380", "007380|易方达上证50ETF联接基金C",
+//                    "96.09", "100", "2020-03-11", "00", "00", "0"));
+//            paramList.add(handlertTtjjHasSxf(startDate, "2020-06-09", "007136", "007136|广发中证100ETF联接C",
+//                    "95.38", "100", "2020-03-11", "00", "00", "0"));
+
 //            paramList.add(handlertTtjjHasSxf(startDate, "2020-05-14", "002560", "002560|诺安和鑫灵活配置混合",
 //                    "89.62", "100", "2020-03-30", "00", "00", "0"));
-
+//
             //已清仓
 //            paramList.add(handlertTtjjHasSxfType(startDateQdii, "2020-05-28", "160416", "160416|华安标普全球石油指数",
 //                    "166.19", "100", "2020-03-19", "00", "00", "0", "QDII"));
-
+//
             //卖出，清仓
 //            paramList.add(handlertTtjjHasSxf(startDate,endDate, "161121", "161121|易方达银行分级",
 //                    "100.71", "100", "2020-02-28", "00", "00", "0"));
-
-            //卖出，清仓
+//
+//            卖出，清仓
 //            paramList.add(handlertTtjjHasSxf(startDate,endDate, "007405", "007405|华宝中证100指数C",
 //                    "67.29", "100", "2020-03-13", "00", "00", "0"));
-
+//
 //            paramList.add(handlertTtjjHasSxf(startDate, "2020-05-20", "001579", "001579|国泰大农业股票",
 //                    "55.44", "100", "2020-03-31", "00", "00", "0"));
-        }
+//        }
 
 
         //ttjj-insert
