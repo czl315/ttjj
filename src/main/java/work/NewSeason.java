@@ -23,8 +23,8 @@ public class NewSeason {
 
 
 //        String browseType = "listGoods";
-//        String browseType = "listMeeting";
-        String browseType = "shopInfo";
+        String browseType = "listMeeting";
+//        String browseType = "shopInfo";
         String listJsonObj = listGoods(cookie, browseType);//查询商品列表
         browseGoods(listJsonObj, cookie,browseType);//浏览商品
 //        browseMeeting(listJsonObj, cookie);//浏览商品
@@ -50,17 +50,21 @@ public class NewSeason {
      */
     private static void browseGoods(String goodsListJsonObj, String cookie, String browseType) {
         String listType="";
+        String skuId="";
         if("shopInfo".equals(browseType)){
             browseType = "browseShop";
             listType = "goodsList";
+            skuId = "id";
         }
         if("listGoods".equals(browseType)){
             browseType = "browseGoods";
             listType = "goodsList";
+            skuId = "id";
         }
         if("listMeeting".equals(browseType)){
             browseType = "browseMeeting";
             listType = "meetingList";
+            skuId = "meetingId";
         }
         String url = "https://rdcseason.m.jd.com/api/task/"+browseType;
         //解析商品列表
@@ -71,31 +75,8 @@ public class NewSeason {
         for (Object object : jsonArrayGoodsList) {
             StringBuffer urlParam = new StringBuffer();
             JSONObject goods = (JSONObject)object;
-            String skuId = goods.getString("id");
-            urlParam.append("skuId=" + skuId);
-            System.out.println(("浏览商品,skuId="+skuId));
-            String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
-            System.out.println(rs);
-        }
-    }
-
-    /**
-     * 浏览
-     *
-     * @param goodsListJsonObj
-     * @param cookie
-     */
-    private static void browseMeeting(String goodsListJsonObj, String cookie) {
-        String url = "https://rdcseason.m.jd.com/api/task/browseMeeting";
-        //解析商品列表
-        JSONObject jsonObject = JSONObject.parseObject(goodsListJsonObj);
-        JSONObject jsonObjectData = JSONObject.parseObject(jsonObject.getString("data"));
-        JSONArray jsonArrayGoodsList = JSONArray.parseArray(jsonObjectData.getString("meetingList"));
-        for (Object object : jsonArrayGoodsList) {
-            StringBuffer urlParam = new StringBuffer();
-            JSONObject goods = (JSONObject)object;
-            String skuId = goods.getString("id");
-            urlParam.append("meetingId=" + skuId);
+            String entityId = goods.getString("id");
+            urlParam.append(skuId+"=" + entityId);
             System.out.println(("浏览商品,skuId="+skuId));
             String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
             System.out.println(rs);
