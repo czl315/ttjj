@@ -23,8 +23,8 @@ public class NewSeason {
 
 
 //        String browseType = "listGoods";
-        String browseType = "listMeeting";
-//        String browseType = "shopInfo";
+//        String browseType = "listMeeting";
+        String browseType = "shopInfo";
         String listJsonObj = listGoods(cookie, browseType);//查询商品列表
         browseGoods(listJsonObj, cookie,browseType);//浏览商品
 //        browseMeeting(listJsonObj, cookie);//浏览商品
@@ -51,11 +51,7 @@ public class NewSeason {
     private static void browseGoods(String goodsListJsonObj, String cookie, String browseType) {
         String listType="";
         String skuId="";
-        if("shopInfo".equals(browseType)){
-            browseType = "browseShop";
-            listType = "goodsList";
-            skuId = "id";
-        }
+
         if("listGoods".equals(browseType)){
             browseType = "browseGoods";
             listType = "goodsList";
@@ -66,20 +62,40 @@ public class NewSeason {
             listType = "meetingList";
             skuId = "meetingId";
         }
+        if("shopInfo".equals(browseType)){
+            browseType = "browseShop";
+            listType = "goodsList";
+            skuId = "shopId";
+        }
         String url = "https://rdcseason.m.jd.com/api/task/"+browseType;
         //解析商品列表
         JSONObject jsonObject = JSONObject.parseObject(goodsListJsonObj);
-        JSONObject jsonObjectData = JSONObject.parseObject(jsonObject.getString("data"));
-
-        JSONArray jsonArrayGoodsList = JSONArray.parseArray(jsonObjectData.getString(listType));
-        for (Object object : jsonArrayGoodsList) {
-            StringBuffer urlParam = new StringBuffer();
-            JSONObject goods = (JSONObject)object;
-            String entityId = goods.getString("id");
-            urlParam.append(skuId+"=" + entityId);
-            System.out.println(("浏览商品,skuId="+skuId));
-            String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
-            System.out.println(rs);
+        if("listGoods".equals(browseType) || "listMeeting".equals(browseType)){
+            JSONObject jsonObjectData = JSONObject.parseObject(jsonObject.getString("data"));
+            JSONArray jsonArrayGoodsList = JSONArray.parseArray(jsonObjectData.getString(listType));
+            for (Object object : jsonArrayGoodsList) {
+                StringBuffer urlParam = new StringBuffer();
+                JSONObject goods = (JSONObject)object;
+                String entityId = goods.getString("id");
+                urlParam.append(skuId+"=" + entityId);
+                System.out.println(("浏览商品,skuId="+skuId));
+                String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
+                System.out.println(rs);
+            }
         }
+
+        if("browseShop".equals(browseType)){
+            JSONArray jsonArrayGoodsList = JSONArray.parseArray(jsonObject.getString("data"));
+            for (Object object : jsonArrayGoodsList) {
+                StringBuffer urlParam = new StringBuffer();
+                JSONObject goods = (JSONObject)object;
+                String entityId = goods.getString("shopId");
+                urlParam.append(skuId+"=" + entityId);
+                System.out.println(("浏览店铺,Id="+skuId));
+                String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
+                System.out.println(rs);
+            }
+        }
+
     }
 }
