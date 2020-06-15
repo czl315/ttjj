@@ -89,7 +89,6 @@ public class NewSeason {
                 JSONObject goods = (JSONObject)object;
                 String entityId = goods.getString("id");
                 urlParam.append(skuId+"=" + entityId);
-                System.out.println(("浏览商品,skuId="+skuId));
                 String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
                 System.out.println(rs);
             }
@@ -102,7 +101,6 @@ public class NewSeason {
                 JSONObject goods = (JSONObject)object;
                 String entityId = goods.getString("shopId");
                 urlParam.append(skuId+"=" + entityId);
-                System.out.println(("浏览店铺,Id="+skuId));
                 String rs = HttpUtil.sendPost(url, urlParam.toString(), cookie);
                 System.out.println(rs);
             }
@@ -118,6 +116,11 @@ public class NewSeason {
      * @return
      */
     private static String getGoodsPrize(String cookie, String browseType,String goodsListJsonObj) {
+        try {
+            Thread.sleep(10001);//间隔10秒
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         String url = "https://rdcseason.m.jd.com/api/task/";
         String urlGetPrizeType = "";
         String listType="";
