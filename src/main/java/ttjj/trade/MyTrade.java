@@ -30,15 +30,16 @@ public class MyTrade {
      * @param cookie
      */
     private static void formatTradeShow(String rs, String cookie) {
-        String date = "";
+        String dateTime = "";
         String time = "";
         String fundName = "";
         String fundCode = "";
         String amt = "";
         String shareCount = "";
         String detailUrl = "";
+        String confirmDate = "";
         String[] rsTrs = rs.split("<tr class=\"\" data-count=\"94\">");
-        System.out.println("每行：");
+//        System.out.println("每行：");
 //            System.out.println("每行：<tr "+rsTr);
         String[] rsTds = rs.split("<td ");
         for (String rsTd : rsTds) {
@@ -46,9 +47,10 @@ public class MyTrade {
             // 日期
             if (rsTd.contains("<span>20")) {
 //                    System.out.println("每列：<td "+rsTd);
-                date = rsTd.substring(rsTd.indexOf("<span>2020") + 6, rsTd.indexOf("<span>2020") + 16);
+                dateTime = rsTd.substring(rsTd.indexOf("<span>2020") + 6, rsTd.indexOf("<span>2020") + 16);
                 time = rsTd.substring(rsTd.indexOf("<span style=\"color:#939290\">") + 28, rsTd.indexOf("<span style=\"color:#939290\">") + 36);
-                System.out.println("日期:" + date + " " + time);
+                dateTime = dateTime + " " + time;
+//                System.out.println("日期:" + dateTime);
             }
             //名称  编码
             if (rsTd.contains("target=\"_blank\">")) {
@@ -61,7 +63,7 @@ public class MyTrade {
 //                    System.out.print("fundCode:" + fundCode + "|");
 //                        System.out.println("array[1]:"+array[1]);
                     fundName = fundCode + "|" + array[1].substring(array[1].indexOf(">") + 1, array[1].indexOf("</a>"));
-                    System.out.println(fundName);
+//                    System.out.println(fundName);
                 }
             }
 
@@ -75,7 +77,7 @@ public class MyTrade {
                     for (String str : array) {
                         if (str.contains("元")) {
                             amt = str.substring(str.indexOf("<span class='red fw-bold mr5'>") + 30, str.indexOf("</span>元</td>"));
-                            System.out.println("amt:" + amt);
+//                            System.out.println("amt:" + amt);
                         }
                     }
                 }
@@ -84,7 +86,7 @@ public class MyTrade {
             if (rsTd.contains("份")) {
 //                System.out.println("确认数:"+rsTd);
                 shareCount = rsTd.substring(rsTd.indexOf("<span class='red fw-bold mr5'>") + 30, rsTd.indexOf("</span>份</td> "));
-                System.out.println("shareCount:" + shareCount);
+//                System.out.println("shareCount:" + shareCount);
             }
             //href="/Query/Detail?id=dc84aad8f91c434496a9da31269e2849&businType=22&traceNo=dc84aad8f91c434496a9da31269e2849" class="lk">详情</a></td>
             if (rsTd.contains("详情")) {
@@ -92,23 +94,23 @@ public class MyTrade {
                 detailUrl = rsTd.substring(rsTd.indexOf("href=\"") + 6, rsTd.indexOf("\" class=\"lk\">详情</a></td>"));
                 //detailUrl:/Query/Detail?id=dc84aad8f91c434496a9da31269e2849&businType=22&traceNo=dc84aad8f91c434496a9da31269e2849
                 detailUrl = "https://query.1234567.com.cn/"+detailUrl;
-                System.out.println("detailUrl:" + detailUrl);
+//                System.out.println("detailUrl:" + detailUrl);
                 if(!detailUrl.endsWith("=")){//=结尾代表货币基金不查询
                     String rsDetail = HttpUtil.sendGet(detailUrl, "".toString(), cookie);
 //                    System.out.println("rsDetail:" + rsDetail);
                     if(rsDetail.contains("<h3>确认信息</h3>")){
                         String tradeConfirmInfo = rsDetail.substring(rsDetail.indexOf("<h3>确认信息</h3>"),rsDetail.indexOf("交易说明"));
-                        System.out.println("tradeConfirmInfo:" + tradeConfirmInfo);
+//                        System.out.println("tradeConfirmInfo:" + tradeConfirmInfo);
                         String tradeConfirmInfoTbody = tradeConfirmInfo.substring(tradeConfirmInfo.indexOf("<tbody><tr>"),tradeConfirmInfo.indexOf("</tbody>"));
-                        System.out.println("tradeConfirmInfoTbody:" + tradeConfirmInfoTbody);
+//                        System.out.println("tradeConfirmInfoTbody:" + tradeConfirmInfoTbody);
                         String[] array = tradeConfirmInfoTbody.split("<td");
                         for (String confirmField : array) {
 //                            System.out.println("confirmField:"+confirmField);
                             // 日期
                             if (confirmField.contains("2020")) {
-                                String confirmDate = confirmField.substring(1);
+                                confirmDate = confirmField.substring(1);
                                 confirmDate = confirmDate.replace("</td>","" );
-                                System.out.println("confirmDate:"+confirmDate);
+//                                System.out.println("confirmDate:"+confirmDate);
                             }
 //                            //
 //                            if (confirmField.contains("http://fund.eastmoney.com/")) {
@@ -129,20 +131,28 @@ public class MyTrade {
 //                        }
                         tradeConfirmInfoTbody = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td class=\"success\">成功</td>")+27);
                         String confirmNet = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td>")+4,tradeConfirmInfoTbody.indexOf("</td>"));
-                        System.out.println("confirmNet："+confirmNet);
+//                        System.out.println("confirmNet："+confirmNet);
 
                         tradeConfirmInfoTbody = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("</td>")+5);
 //                        System.out.println("tradeConfirmInfoTbodyTemp:"+tradeConfirmInfoTbody);
                         String confirmAmt = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td>")+4,tradeConfirmInfoTbody.indexOf("</td>",2));
-                        System.out.println("confirmAmt："+confirmAmt);
+//                        System.out.println("confirmAmt："+confirmAmt);
                         tradeConfirmInfoTbody = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("</td>")+5);
                         String confirmShare = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td>")+4,tradeConfirmInfoTbody.indexOf("</td>",2));
-                        System.out.println("confirmShare："+confirmShare);
+//                        System.out.println("confirmShare："+confirmShare);
                         tradeConfirmInfoTbody = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("</td>")+5);
                         String confirmSxf = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td>")+4,tradeConfirmInfoTbody.indexOf("</td>",2));
-                        System.out.println("confirmSxf："+confirmSxf);
+//                        System.out.println("confirmSxf："+confirmSxf);
+
+                        //INSERT INTO `bank19`.`ol_fund_trade`(`ID`, `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `TRADE_CODE`, `TRADE_CODE_BUY`, `TRADE_CODE_REDEM`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `PROCESS_TIME`, `EARN_TIME`, `TRADE_ACCT`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`, `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`) VALUES (105, '32', '鹏华证券分级(160633)', '申购', '2020-05-13 12:43:30', '支付成功', 209.61, 0.953, 200, '确认成功', '', '', '0', '', 100, 0, 0, '2020-03-11 13:29:18', 0.24, '2020-03-11 13:29:18', '2020-03-11 13:29:18', '天天基金', '0', 0, '3000-01-01 00:00:00', '3000-01-01 00:00:00', '天天基金', '', '2020-03-14 17:40:26', '2020-06-02 15:45:27');
+                        System.out.println("INSERT INTO `bank19`.`ol_fund_trade`(" +
+                                " `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `TRADE_CODE`, `TRADE_CODE_BUY`, `TRADE_CODE_REDEM`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `PROCESS_TIME`, `EARN_TIME`, `TRADE_ACCT`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`, `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`" +
+                                ") VALUES (" +
+                                " '', '"+fundName+"', '申购', '"+dateTime+"', '买入成功', "+confirmShare+", "+confirmNet+", "+confirmAmt+", " +
+                                "'确认成功', '', '', '0', '', "+confirmAmt+", 0, 0, '"+confirmDate+"', "+confirmSxf+", '3000-01-01 00:00:00', '3000-01-01 00:00:00', '天天基金', '0', 0, '3000-01-01 00:00:00', '3000-01-01 00:00:00', '3', '', now(), now()" +
+                                ");");
                     }
-                    System.out.println();
+//                    System.out.println();
                 }
 
             }
@@ -158,7 +168,15 @@ public class MyTrade {
     private static String findMyTrade(String cookie) {
         String url = "https://query.1234567.com.cn/Query/DelegateList";
         StringBuffer urlParam = new StringBuffer();
-        urlParam.append("DataType=1&StartDate=2020-05-15&EndDate=2020-06-15&BusType=0&Statu=0&Account=&FundType=0&PageSize=20&PageIndex=1&Container=tb_delegate&FundCode=&IsHistory=false&callback=undefined");
+        urlParam.append("DataType=1&StartDate=2020-06-01&EndDate=2020-06-10");
+//        urlParam.append("DataType=1&StartDate=2020-05-01&EndDate=2020-05-31");
+//        urlParam.append("DataType=1&StartDate=2020-04-01&EndDate=2020-04-30");
+//        urlParam.append("DataType=1&StartDate=2020-03-01&EndDate=2020-03-31");
+//        urlParam.append("DataType=1&StartDate=2020-02-01&EndDate=2020-02-29");
+//        urlParam.append("DataType=1&StartDate=2020-01-01&EndDate=2020-01-31");
+        urlParam.append("&BusType=0&Statu=0&Account=&FundType=0");
+        urlParam.append("&PageSize=10000");
+        urlParam.append("&PageIndex=1&Container=tb_delegate&FundCode=&IsHistory=false&callback=undefined");
 
         String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
 //        System.out.println(rs);
