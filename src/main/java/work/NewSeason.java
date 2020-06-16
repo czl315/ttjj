@@ -36,84 +36,88 @@ public class NewSeason extends TimerTask {
 
 
         String browseType = "";
-        String listJsonObj ="";
+        String listJsonObj = "";
 
         browseType = "listGoods";//商品
         listJsonObj = listGoods(cookie, browseType);//查询商
-        browseGoods(listJsonObj, cookie,browseType);//浏览
-        getGoodsPrize(cookie,browseType,listJsonObj);//领奖
+        browseGoods(listJsonObj, cookie, browseType);//浏览
+        getGoodsPrize(cookie, browseType, listJsonObj);//领奖
 
         browseType = "listMeeting";//会场
         listJsonObj = listGoods(cookie, browseType);//查询
-        browseGoods(listJsonObj, cookie,browseType);//浏览
-        getGoodsPrize(cookie,browseType,listJsonObj);//领奖
+        browseGoods(listJsonObj, cookie, browseType);//浏览
+        getGoodsPrize(cookie, browseType, listJsonObj);//领奖
 
         browseType = "shopInfo";//店铺
         listJsonObj = listGoods(cookie, browseType);//查询
-        browseGoods(listJsonObj, cookie,browseType);//浏览
-        getGoodsPrize(cookie,browseType,listJsonObj);//领奖
+        browseGoods(listJsonObj, cookie, browseType);//浏览
+        getGoodsPrize(cookie, browseType, listJsonObj);//领奖
     }
 
     /**
      * 查询商品列表
+     *
      * @param cookie
      * @param browseType
      */
     private static String listGoods(String cookie, String browseType) {
-        String url = "https://rdcseason.m.jd.com/api/task/"+browseType;
+        String url = "https://rdcseason.m.jd.com/api/task/" + browseType;
+        System.out.println("查询列表-browseType" + browseType + ",-url:" + url);
         StringBuffer urlParam = new StringBuffer();
         String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
-//        System.out.println(rs);
+        System.out.println("查询列表-browseType" + browseType + ",-rs:" + rs);
         return rs;
     }
+
     /**
      * 浏览商品
-     *  @param goodsListJsonObj
+     *
+     * @param goodsListJsonObj
      * @param cookie
      * @param browseType
      */
     private static void browseGoods(String goodsListJsonObj, String cookie, String browseType) {
-        String listType="";
-        String skuId="";
+        String listType = "";
+        String skuId = "";
 
-        if("listGoods".equals(browseType)){
+        if ("listGoods".equals(browseType)) {
             browseType = "browseGoods";
             listType = "goodsList";
             skuId = "skuId";
         }
-        if("listMeeting".equals(browseType)){
+        if ("listMeeting".equals(browseType)) {
             browseType = "browseMeeting";
             listType = "meetingList";
             skuId = "meetingId";
         }
-        if("shopInfo".equals(browseType)){
+        if ("shopInfo".equals(browseType)) {
             browseType = "browseShop";
             listType = "goodsList";
             skuId = "shopId";
         }
-        String url = "https://rdcseason.m.jd.com/api/task/"+browseType;
+        String url = "https://rdcseason.m.jd.com/api/task/" + browseType;
         //解析商品列表
         JSONObject jsonObject = JSONObject.parseObject(goodsListJsonObj);
-        if("browseGoods".equals(browseType) || "browseMeeting".equals(browseType)){
+        if ("browseGoods".equals(browseType) || "browseMeeting".equals(browseType)) {
             JSONObject jsonObjectData = JSONObject.parseObject(jsonObject.getString("data"));
             JSONArray jsonArrayGoodsList = JSONArray.parseArray(jsonObjectData.getString(listType));
             for (Object object : jsonArrayGoodsList) {
                 StringBuffer urlParam = new StringBuffer();
-                JSONObject goods = (JSONObject)object;
+                JSONObject goods = (JSONObject) object;
                 String entityId = goods.getString("id");
-                urlParam.append(skuId+"=" + entityId);
+                urlParam.append(skuId + "=" + entityId);
                 String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
                 System.out.println(rs);
             }
         }
 
-        if("browseShop".equals(browseType)){
+        if ("browseShop".equals(browseType)) {
             JSONArray jsonArrayGoodsList = JSONArray.parseArray(jsonObject.getString("data"));
             for (Object object : jsonArrayGoodsList) {
                 StringBuffer urlParam = new StringBuffer();
-                JSONObject goods = (JSONObject)object;
+                JSONObject goods = (JSONObject) object;
                 String entityId = goods.getString("shopId");
-                urlParam.append(skuId+"=" + entityId);
+                urlParam.append(skuId + "=" + entityId);
                 String rs = HttpUtil.sendPost(url, urlParam.toString(), cookie);
                 System.out.println(rs);
             }
@@ -123,12 +127,13 @@ public class NewSeason extends TimerTask {
 
     /**
      * 获取奖励
+     *
      * @param cookie
      * @param browseType
      * @param goodsListJsonObj
      * @return
      */
-    private static String getGoodsPrize(String cookie, String browseType,String goodsListJsonObj) {
+    private static String getGoodsPrize(String cookie, String browseType, String goodsListJsonObj) {
         try {
             Thread.sleep(10001);//间隔10秒
         } catch (InterruptedException e) {
@@ -136,19 +141,19 @@ public class NewSeason extends TimerTask {
         }
         String url = "https://rdcseason.m.jd.com/api/task/";
         String urlGetPrizeType = "";
-        String listType="";
-        String skuId="";
-        if("listGoods".equals(browseType)){
+        String listType = "";
+        String skuId = "";
+        if ("listGoods".equals(browseType)) {
             url = url + "getGoodsPrize";
             listType = "goodsList";
             skuId = "skuId";
         }
-        if("listMeeting".equals(browseType)){
+        if ("listMeeting".equals(browseType)) {
             url = url + "getMeetingPrize";
             listType = "meetingList";
             skuId = "meetingId";
         }
-        if("shopInfo".equals(browseType)){
+        if ("shopInfo".equals(browseType)) {
             url = url + "getShopPrize";
 //            listType = "goodsList";
             skuId = "shopId";
@@ -156,14 +161,14 @@ public class NewSeason extends TimerTask {
 
         //解析商品列表
         JSONObject jsonObject = JSONObject.parseObject(goodsListJsonObj);
-        if("listGoods".equals(browseType) || "listMeeting".equals(browseType)){
+        if ("listGoods".equals(browseType) || "listMeeting".equals(browseType)) {
             JSONObject jsonObjectData = JSONObject.parseObject(jsonObject.getString("data"));
             JSONArray jsonArrayGoodsList = JSONArray.parseArray(jsonObjectData.getString(listType));
             for (Object object : jsonArrayGoodsList) {
                 StringBuffer urlParam = new StringBuffer();
-                JSONObject goods = (JSONObject)object;
+                JSONObject goods = (JSONObject) object;
                 String entityId = goods.getString("id");
-                urlParam.append(skuId+"=" + entityId);
+                urlParam.append(skuId + "=" + entityId);
                 StringBuffer urlRequest = new StringBuffer().append(url);
 //                System.out.println(("获取奖励,url="+urlRequest));
                 try {
@@ -176,14 +181,14 @@ public class NewSeason extends TimerTask {
             }
         }
 
-        if("shopInfo".equals(browseType)){
+        if ("shopInfo".equals(browseType)) {
             JSONArray jsonArrayGoodsList = JSONArray.parseArray(jsonObject.getString("data"));
             for (Object object : jsonArrayGoodsList) {
                 StringBuffer urlParam = new StringBuffer();
-                JSONObject goods = (JSONObject)object;
+                JSONObject goods = (JSONObject) object;
                 String entityId = goods.getString("shopId");
-                urlParam.append(skuId+"=" + entityId);
-                System.out.println(("浏览店铺,Id="+skuId));
+                urlParam.append(skuId + "=" + entityId);
+//                System.out.println(("浏览店铺,Id=" + skuId));
                 try {
                     Thread.sleep(1001);//间隔1秒
                 } catch (InterruptedException e) {
@@ -204,6 +209,7 @@ public class NewSeason extends TimerTask {
 
     /**
      * 京贴兑换优惠券
+     *
      * @param cookie
      */
     private static String jingTieExchange(String cookie) {
