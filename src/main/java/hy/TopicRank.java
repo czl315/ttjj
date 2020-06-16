@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * 主题排行
  */
-public class BizRank {
+public class TopicRank {
 
 
     /**
