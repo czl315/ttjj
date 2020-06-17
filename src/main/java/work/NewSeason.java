@@ -5,7 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.Logger;
 import utils.HttpUtil;
 
-import java.util.Timer;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -15,8 +18,15 @@ import java.util.concurrent.TimeUnit;
  * 新品季
  */
 public class NewSeason extends TimerTask {
-    private final static Logger logger = Logger.getLogger(NewSeason.class);
+//    /**
+//     * logger
+//     */
+//    private final static Logger logger = Logger.getLogger(NewSeason.class);
 
+    /**
+     * cookie
+     */
+    private final static String cookie = "__jdv=76161171|direct|-|none|-|1592364021218; __jdu=15923640212171166984653; areaId=1; ipLoc-djd=1-2809-0-0; shshshfp=4154bf8474fadcecaae419f9c9058aff; shshshfpa=c97ba6cc-ca4c-052f-ee72-bf92c7a407d7-1592364023; shshshfpb=pcNKJG7S9vaRkJeviwtPP8Q%3D%3D; TrackID=1Hvul25h4HToCh_itDPhnNiRDVC_yMn9ZUWNfLmXw4eoZH_vTA7gyo8vUoIt5xrGhd9pYEVDk0T_GSsRhzzjtchlLlTyfyydCWnBBsSmSbHY; thor=A718E266D9B2378CAFBC9387160E875114AACF1033A6E1CB7B23FF94E300D5A9CA77E38CE1F7C1BEE2CF18315D17F96127F01CCA1EA6A0A73701D61E64231E7A42DA80B90F8C1EFF609EFB8BA04BDC456E33AF4A1E1A38353C6F74DD06B0E8FAF319DA6DAAA1ED6D560DCC6115029E1AC4CE37C87D04DCE4BC36A963C644E98B; pinId=xcWTturruQA; pin=czl315; unick=czl315; ceshi3.com=201; _tp=EOpsxLedIh%2Bha%2FKPkDpqCg%3D%3D; _pst=czl315; shshshsID=52ea5deabb64e3b97c13ef87a36a3764_2_1592364041646; __jda=122270672.15923640212171166984653.1592364021.1592364021.1592364021.1; __jdc=122270672; 3AB9D23F7A4B3C9B=PMRCFLCUO2QEAKTO3OLBOKLRFTIBQFWR423GYIVNGBMDU3YZKT53RRFSK4TL72V5IF5FRF24EEQKY5ANIUW7RDPGPU; __jdb=122270672.6.15923640212171166984653|1.1592364021";
 
     /**
      * 新品季
@@ -24,15 +34,44 @@ public class NewSeason extends TimerTask {
      * @param args args
      */
     public static void main(String[] args) {
-        doBizTask();
+//        doBizTask();
+        long initDelay = getTimeMillis("18:00:00") - System.currentTimeMillis();
+        ScheduledExecutorService pool = new ScheduledThreadPoolExecutor(1);
+        pool.scheduleAtFixedRate(new Runnable() {
+            public void run() {
+                // task to run goes here
+                System.out.println("新品季-定时做任务");
+                doBizTask();
+            }
+        }, initDelay, 60 * 60 * 4, TimeUnit.SECONDS);
     }
+
+
+    /**
+     * 获取指定时间对应的毫秒数
+     *
+     * @param time "HH:mm:ss"
+     * @return
+     */
+
+    private static long getTimeMillis(String time) {
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+            DateFormat dayFormat = new SimpleDateFormat("yy-MM-dd");
+            Date curDate = dateFormat.parse(dayFormat.format(new Date()) + " " + time);
+            return curDate.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 
     /**
      * 做任务
      */
     private static void doBizTask() {
 //        System.out.println("查询开始：");
-        String cookie = "shshshfpa=7d458cc5-ef69-8cca-04f9-04e8eefb8031-1577076121; __jdu=15770761202431945958964; pinId=xcWTturruQA; shshshfpb=yjlcj3AiuwWhpqP6phZkXFA%3D%3D; __jdv=76161171|direct|-|none|-|1591945299888; areaId=1; ipLoc-djd=1-2809-0-0; shshshfp=4154bf8474fadcecaae419f9c9058aff; pin=czl315; unick=czl315; _tp=EOpsxLedIh%2Bha%2FKPkDpqCg%3D%3D; _pst=czl315; user-key=b33f3bbe-c314-4321-9cca-3b828ff5dc79; cn=49; TrackID=1j5aNi9FXnnxPIiOVZWH-bHo1BeIWq5lqynywK5V7NnJfmlwsJY8Pm81L6Twh3TFljY2Fp7XvNp3mo1ny1IWq2m1uef0T3v41awFzSZ6DSxI; thor=A718E266D9B2378CAFBC9387160E875157AD0BD2DA2709ED12F0EA893CAC173D030518677D0EA2D1EFAB1C09433182E8071B2C1D79C1BB91DE2FCBE525CB00B029DBE6D418524C1D79292E177E7E0C8D2B0C2F9F8B788D107F8725CAE6298E33672B188DD9E944ED04D9EFDCD127D6F0B99BB8732058D903843742F8A4E4E139; ceshi3.com=201; shshshsID=1f45537b4b610af7acabedf7cdc3435c_2_1592271504058; __jda=122270672.15770761202431945958964.1577076120.1592187280.1592271468.8; __jdc=122270672; 3AB9D23F7A4B3C9B=PMRCFLCUO2QEAKTO3OLBOKLRFTIBQFWR42";
 
 
         String browseType = "";
