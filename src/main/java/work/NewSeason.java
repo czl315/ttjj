@@ -43,7 +43,7 @@ public class NewSeason extends TimerTask {
                 System.out.println("新品季-定时做任务");
                 doBizTask();
             }
-        }, initDelay, 60 * 60 * 4, TimeUnit.SECONDS);
+        }, 0, 60 * 60 * 4, TimeUnit.SECONDS);
     }
 
 

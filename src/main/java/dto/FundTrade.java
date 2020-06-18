@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 /**
  * 交易
  */
-@Slf4j
 public class FundTrade {
     private int id;
     private String fundInfo;//基金信息
