@@ -1,12 +1,8 @@
-package hy;
+package topic;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import utils.Content;
 import utils.HttpUtil;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 主题排行
@@ -88,11 +84,11 @@ public class TopicRank {
         }
 
         System.out.println(jsonArrayBiz);//行业排行数组
-//        rsTop.put("Topic10",jsonArrayBiz);
-//        System.out.println(rsTop);
-//        for (Object obj : jsonArrayBiz) {
-//            JSONObject jsonObjectBiz =(JSONObject)obj;
-//            System.out.println(jsonObjectBiz);
-//        }
+        rsTop.put("Topic10",jsonArrayBiz);
+        System.out.println(rsTop);
+        for (Object obj : jsonArrayBiz) {
+            JSONObject jsonObjectBiz =(JSONObject)obj;
+            System.out.println(jsonObjectBiz);
+        }
     }
 }
