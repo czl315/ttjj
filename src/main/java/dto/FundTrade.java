@@ -17,9 +17,11 @@ public class FundTrade {
     private BigDecimal serverCharge;//手续费
     private String orderStatus;//订单状态
 
+    public FundTrade() {
+    }
 
     public FundTrade(int id, String fundInfo, String confirmNetData, String confirmShare, String confirmNet, String orderAmt,
-                     String serverCharge,String orderStatus) {
+                     String serverCharge, String orderStatus) {
         this.id = id;
         this.fundInfo = fundInfo;
         this.confirmNetData = confirmNetData;

@@ -35,4 +35,25 @@ public class Content {
      * 渠道：TTJJ
      */
     public static String SOURCE_TTJJ = "3";
+
+    /**
+     * 份额合计
+     */
+    public static String SHARE_SUM = "shareSum";
+    /**
+     * 成本金额合计
+     */
+    public static String AMT_SUM = "amtSum";
+    /**
+     * 服务费
+     */
+    public static String SERVER_CHARGE = "serverCharge";
+    /**
+     * 名称
+     */
+    public static String FUND_NAME = "fundName";
+    /**
+     * 编码
+     */
+    public static String FUND_CODE = "fundCode";
 }
