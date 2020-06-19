@@ -16,6 +16,7 @@ public class FundTrade {
     private BigDecimal orderAmt;//订单金额
     private BigDecimal serverCharge;//手续费
     private String orderStatus;//订单状态
+    private String tradeTime;//交易发起时间
 
     public FundTrade() {
     }
@@ -122,5 +123,13 @@ public class FundTrade {
 
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public String getTradeTime() {
+        return tradeTime;
+    }
+
+    public void setTradeTime(String tradeTime) {
+        this.tradeTime = tradeTime;
     }
 }
