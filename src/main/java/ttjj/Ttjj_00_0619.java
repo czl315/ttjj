@@ -105,8 +105,8 @@ public class Ttjj_00_0619 {
 //            paramList.add(handlertTtjjHasSxf(startDate, endDate, "160637", "160637|鹏华创业板分级",
 //                    "1323.61", "1700", "2020-03-30", "00", "00", "0"));
 //
-            paramList.add(handlertTtjjHasSxf(startDate, endDate, "161028", "161028|富国中证新能源汽车指数分级",
-                    "4074.00", "3300.00", "2020-03-24", "00", "00", "0"));
+//            paramList.add(handlertTtjjHasSxf(startDate, endDate, "161028", "161028|富国中证新能源汽车指数分级",
+//                    "4074.00", "3300.00", "2020-03-24", "00", "00", "0"));
 //
 //            paramList.add(handlertTtjjHasSxf(startDate, endDate, "161725", "161725|招商中证白酒指数分级",
 //                    "1922.66", "1800", "2020-04-07", "00", "00", "0"));
