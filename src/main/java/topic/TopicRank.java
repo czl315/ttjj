@@ -15,25 +15,25 @@ public class TopicRank {
      * @param args args
      */
     public static void main(String[] args) {
-        int endCount = 1000;//显示数量
+        int endCount = 10;//显示数量
 
 //        String findDateType ="SYL_D";//查询类型 SYL_D:日；SYL_Z：周；SYL_Y：月；SYL_3Y：季；SYL_6Y：半年；SYL_1N：1年；SYL_JN：今年；
 //        String findDateType ="SYL_Z";//查询类型 SYL_D:日；SYL_Z：周；SYL_Y：月；SYL_3Y：季；SYL_6Y：半年；SYL_1N：1年；SYL_JN：今年；
         String findDateType ="SYL_D";//查询类型 SYL_D:日；SYL_Z：周；SYL_Y：月；SYL_3Y：季；SYL_6Y：半年；SYL_1N：1年；SYL_JN：今年；
         System.out.println("查询主题排名-日:");
         findTtjjTopicByYesterday(findDateType,endCount);//查询主题排名by时间类型、显示个数
-//        System.out.println("查询主题排名-周:");
-//        findTtjjTopicByYesterday("SYL_Z",endCount);//查询主题排名by时间类型、显示个数
-//        System.out.println("查询主题排名-月:");
-//        findTtjjTopicByYesterday("SYL_Y",endCount);//查询主题排名by时间类型、显示个数
-//        System.out.println("查询主题排名-季:");
-//        findTtjjTopicByYesterday("SYL_3Y",endCount);//查询主题排名by时间类型、显示个数
-//        System.out.println("查询主题排名-半年:");
-//        findTtjjTopicByYesterday("SYL_6Y",endCount);//查询主题排名by时间类型、显示个数
-//        System.out.println("查询主题排名-1年:");
-//        findTtjjTopicByYesterday("SYL_1N",endCount);//查询主题排名by时间类型、显示个数
-//        System.out.println("查询主题排名-今年:");
-//        findTtjjTopicByYesterday("SYL_JN",endCount);//查询主题排名by时间类型、显示个数
+        System.out.println("查询主题排名-周:");
+        findTtjjTopicByYesterday("SYL_Z",endCount);//查询主题排名by时间类型、显示个数
+        System.out.println("查询主题排名-月:");
+        findTtjjTopicByYesterday("SYL_Y",endCount);//查询主题排名by时间类型、显示个数
+        System.out.println("查询主题排名-季:");
+        findTtjjTopicByYesterday("SYL_3Y",endCount);//查询主题排名by时间类型、显示个数
+        System.out.println("查询主题排名-半年:");
+        findTtjjTopicByYesterday("SYL_6Y",endCount);//查询主题排名by时间类型、显示个数
+        System.out.println("查询主题排名-1年:");
+        findTtjjTopicByYesterday("SYL_1N",endCount);//查询主题排名by时间类型、显示个数
+        System.out.println("查询主题排名-今年:");
+        findTtjjTopicByYesterday("SYL_JN",endCount);//查询主题排名by时间类型、显示个数
 
     }
 
