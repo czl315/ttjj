@@ -1,6 +1,6 @@
 package ttjj.Dao;
 
-import dto.FundTrade;
+import ttjj.dto.FundTrade;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package ttjj.trade.impl;
 
 import com.alibaba.fastjson.JSON;
-import dto.FundTrade;
+import ttjj.dto.FundTrade;
 import ttjj.Dao.impl.TradeDaoImpl;
 import ttjj.trade.TradeService;
 import utils.HttpUtil;
@@ -94,7 +94,7 @@ public class TradeServiceImpl implements TradeService {
         String confirmDate = "";
         String[] rsTrs = rs.split("<tr");
         for (String rsTr : rsTrs) {
-//            System.out.println("每行：<tr "+rsTr);
+            System.out.println("每行：<tr "+rsTr);
             String[] rsTds = rsTr.split("<td");
             for (String rsTd : rsTds) {
 //            System.out.println("每列：<td " + rsTd);
@@ -141,7 +141,7 @@ public class TradeServiceImpl implements TradeService {
                 }
                 //<td class="text-right"><span class='red fw-bold mr5'>213.42</span>份</td>
                 if (rsTd.contains("份")) {
-//                System.out.println("确认数:"+rsTd);
+                    System.out.println("份数:"+rsTd);
                     shareCount = rsTd.substring(rsTd.indexOf("<span class='red fw-bold mr5'>") + 30, rsTd.indexOf("</span>份</td> "));
 //                System.out.println("shareCount:" + shareCount);
                     fundTrade.setConfirmShare(new BigDecimal(shareCount));

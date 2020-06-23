@@ -1,12 +1,8 @@
 package ttjj.trade.impl;
 
 import com.alibaba.fastjson.JSON;
-import dto.FundTrade;
 
-import java.util.List;
 import java.util.Map;
-
-import static utils.Content.*;
 
 public class TradeTest {
     public static void main(String[] args) {

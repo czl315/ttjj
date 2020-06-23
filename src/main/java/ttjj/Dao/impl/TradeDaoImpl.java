@@ -1,8 +1,7 @@
 package ttjj.Dao.impl;
 
-import dto.FundTrade;
+import ttjj.dto.FundTrade;
 import ttjj.Dao.TradeDao;
-import ttjj.trade.TradeService;
 
 import java.util.ArrayList;
 import java.util.List;
