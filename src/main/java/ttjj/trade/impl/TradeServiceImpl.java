@@ -23,13 +23,13 @@ public class TradeServiceImpl implements TradeService {
      * @param fundCode
      * @return
      */
-    public Map<String, String> findFundTrade(String fundCode) {
+    public Map<String, String> findFundTrade(String fundCode,String cookie ) {
         Map<String, String> rs = new HashMap<String, String>();
         BigDecimal shareSum = new BigDecimal(0);
         BigDecimal amtSum = new BigDecimal(0);
         BigDecimal serverCharge = new BigDecimal(0);
         String fundName = "";
-        List<FundTrade> fundTradeList = new TradeDaoImpl().findFundTrade(fundCode);
+        List<FundTrade> fundTradeList = new TradeDaoImpl().findFundTrade(fundCode,cookie);
         for (FundTrade fundTrade : fundTradeList) {
             if ("买入成功".equals(fundTrade.getOrderStatus())) {
                 shareSum = shareSum.add(fundTrade.getConfirmShare());

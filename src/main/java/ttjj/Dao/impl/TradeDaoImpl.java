@@ -1,9 +1,11 @@
 package ttjj.Dao.impl;
 
 import com.alibaba.fastjson.JSON;
+import org.apache.log4j.Logger;
 import ttjj.dto.FundTrade;
 import ttjj.Dao.TradeDao;
 import utils.HttpUtil;
+import work.NewSeasonJingTie;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -13,9 +15,9 @@ import java.util.List;
  * 交易服务
  */
 public class TradeDaoImpl implements TradeDao {
-    static String cookie = "cp_token=817ebcada6714fc1a2666e094afd00d0; st_si=36333761260301; st_pvi=97169704610474; st_sp=2020-06-02%2010%3A08%3A40; st_inirUrl=https%3A%2F%2Ffund.eastmoney.com%2F; st_sn=1; st_psi=20200615135130273-119085303933-1761304033; st_asi=delete; fund_login_qrid=c50a4350bfb0417d93e0196e9b04f319; fund_trade_cn=CTNXleP1p+Q+TZtLKzQQeSwLJnJoPaugZlG/AvFFhrScozGr5n3nUoHrixmkwMDFZVHN5EfxN+CyzCu4RLorfJ6NgiX/TPyNbLSkXJnOX0xwxErGeCI=; fund_trade_name=CnaUdX+nrtfd+OqEjXP1wWoHYSvSAiCAkFesilDwNJXa9f4sDcRCt5fOln9L14KSNFFDNnsd; fund_trade_visitor=CW+appJCOt6J8t7cKrPCEAzVHm7SKBjPW+ZFi/Sh02EfMfD1WTFHy/f92+TslpISuC8+t7C2; fund_trade_risk=CiFuiI+aet35QenP8lPnTMqYVH5S96rBt/9MiXfaccMDgfarrAQ5bNfiCKGTvZASfuJdNvnW; fund_trade_gps=2; VipLevel=0; TradeLoginToken=45c76a5b56db4611b11826eac4765857; UTOKEN=CTNXleP1p+Q+TZtLKzQQeSwLJnJoPaugZlG/AvFFhrScozGr5n3nUoHrixmkwMDFZVHN51f17mSgBMLFHHxWfCoZBNSp/yZi6LSxGGjf025whKrNUrg=; LToken=69b58efd90e849dbb9d95d4957a6a04d; fund_trade_trackid=gArU8ysfxMIAcnD/1Qt5v7AtPmssbUpWWsZPLqqjcoEBCHTn9CV6nR6HhoGT0Cmf5qRN4FeCVqz6xVgXTtcxnw==";
+    //    private final static Logger logger = Logger.getLogger(TradeDaoImpl.class);
 
-    public List<FundTrade> findFundTrade(String fundCode) {
+    public List<FundTrade> findFundTrade(String fundCode,String cookie) {
         List<FundTrade> fundTradeList = new ArrayList<FundTrade>();
 
         //硬编码方式
@@ -27,7 +29,7 @@ public class TradeDaoImpl implements TradeDao {
 //        }
 
         //ttjj接口查询方式
-        fundTradeList = findMyTrade(cookie,fundCode);
+        fundTradeList = findMyTrade(cookie, fundCode);
 
         return fundTradeList;
     }
@@ -36,16 +38,17 @@ public class TradeDaoImpl implements TradeDao {
         List<FundTrade> fundTradeList = new ArrayList<FundTrade>();
         FundTrade fundTrade = new FundTrade();
         fundTrade = new FundTrade(1, "000656|前海开源沪深300指数", "2020-03-12 13:47:28",
-                "388.34","1.286","500","0.6","买入成功");
+                "388.34", "1.286", "500", "0.6", "买入成功");
         fundTradeList.add(fundTrade);
         fundTrade = new FundTrade(2, "000656|前海开源沪深300指数", "2020-03-12 13:47:28",
-                "160.06","1.2480","200.00","0.24","买入成功");
+                "160.06", "1.2480", "200.00", "0.24", "买入成功");
         fundTradeList.add(fundTrade);
         return fundTradeList;
     }
 
     /**
      * 从ttjj查询我的交易
+     *
      * @param fundCode
      * @return
      */
@@ -53,10 +56,10 @@ public class TradeDaoImpl implements TradeDao {
         List<FundTrade> fundTradeList = new ArrayList<FundTrade>();
         FundTrade fundTrade = new FundTrade();
         fundTrade = new FundTrade(1, "000656|前海开源沪深300指数", "2020-03-12 13:47:28",
-                "388.34","1.286","500","0.6","买入成功");
+                "388.34", "1.286", "500", "0.6", "买入成功");
         fundTradeList.add(fundTrade);
         fundTrade = new FundTrade(2, "000656|前海开源沪深300指数", "2020-03-12 13:47:28",
-                "160.06","1.2480","200.00","0.24","买入成功");
+                "160.06", "1.2480", "200.00", "0.24", "买入成功");
         fundTradeList.add(fundTrade);
         return fundTradeList;
     }
@@ -70,21 +73,24 @@ public class TradeDaoImpl implements TradeDao {
         String url = "https://query.1234567.com.cn/Query/DelegateList";
         StringBuffer urlParam = new StringBuffer();
         urlParam.append("DataType=1&StartDate=2020-01-01&EndDate=2020-12-31");
-//        urlParam.append("DataType=1&StartDate=2020-06-01&EndDate=2020-06-10");
+//        urlParam.append("DataType=1&StartDate=2020-06-01&EndDate=2020-06-20");
 //        urlParam.append("DataType=1&StartDate=2020-05-01&EndDate=2020-05-31");
 //        urlParam.append("DataType=1&StartDate=2020-04-01&EndDate=2020-04-30");
 //        urlParam.append("DataType=1&StartDate=2020-03-01&EndDate=2020-03-31");
 //        urlParam.append("DataType=1&StartDate=2020-02-01&EndDate=2020-02-29");
 //        urlParam.append("DataType=1&StartDate=2020-01-01&EndDate=2020-01-31");
         urlParam.append("&BusType=0&Statu=0&Account=&FundType=0");
-        urlParam.append("&PageSize=1000");
+        urlParam.append("&PageSize=100");
         urlParam.append("&PageIndex=1&Container=tb_delegate");
         urlParam.append("&FundCode=" + fundCode);
         urlParam.append("&IsHistory=false&callback=undefined");
 
+        //        System.out.println(rs);
+//        System.out.println("请求url:"+url+JSON.toJSONString(urlParam));
         String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
-        List<FundTrade>  fundTradeList=formatTradeShow(rs, cookie);
-//        System.out.println(rs);
+//        System.out.println("myTradeRs:"+rs);
+        List<FundTrade> fundTradeList = formatTradeShow(rs, cookie);
+//        System.out.println("fundTradeList:" + JSON.toJSONString(fundTradeList));
         return fundTradeList;
     }
 
@@ -96,7 +102,6 @@ public class TradeDaoImpl implements TradeDao {
      */
     private static List<FundTrade> formatTradeShow(String rs, String cookie) {
         List<FundTrade> fundTradeList = new ArrayList<FundTrade>();
-        FundTrade fundTrade = new FundTrade();
         String dateTime = "";
         String time = "";
         String fundName = "";
@@ -107,7 +112,8 @@ public class TradeDaoImpl implements TradeDao {
         String confirmDate = "";
         String[] rsTrs = rs.split("<tr");
         for (String rsTr : rsTrs) {
-//            System.out.println("每行：<tr "+rsTr);
+            FundTrade fundTrade = new FundTrade();
+//            System.out.println("每行：<tr " + rsTr);
             String[] rsTds = rsTr.split("<td");
             for (String rsTd : rsTds) {
 //            System.out.println("每列：<td " + rsTd);
@@ -153,15 +159,15 @@ public class TradeDaoImpl implements TradeDao {
                     }
                 }
                 //<td class="text-right"><span class='red fw-bold mr5'>213.42</span>份</td>
-                if (rsTd.contains("份")) {
-//                    System.out.println("份数:"+rsTd);
+                if (rsTd.contains("</span>份</td>")) {
+                    System.out.println("份数:" + rsTd);
                     shareCount = rsTd.substring(rsTd.indexOf("<span class='red fw-bold mr5'>") + 30, rsTd.indexOf("</span>份</td> "));
 //                System.out.println("shareCount:" + shareCount);
                     fundTrade.setConfirmShare(new BigDecimal(shareCount));
                 }
                 //href="/Query/Detail?id=dc84aad8f91c434496a9da31269e2849&businType=22&traceNo=dc84aad8f91c434496a9da31269e2849" class="lk">详情</a></td>
-                if (rsTd.contains("详情")) {
-//                System.out.println("确认数:"+rsTd);
+                if (rsTd.contains("详情</a></td>")) {
+                    System.out.println("详情:" + rsTd);
                     detailUrl = rsTd.substring(rsTd.indexOf("href=\"") + 6, rsTd.indexOf("\" class=\"lk\">详情</a></td>"));
                     //detailUrl:/Query/Detail?id=dc84aad8f91c434496a9da31269e2849&businType=22&traceNo=dc84aad8f91c434496a9da31269e2849
                     detailUrl = "https://query.1234567.com.cn/" + detailUrl;
@@ -175,6 +181,7 @@ public class TradeDaoImpl implements TradeDao {
                             String tradeConfirmInfoTbody = tradeConfirmInfo.substring(tradeConfirmInfo.indexOf("<tbody><tr>"), tradeConfirmInfo.indexOf("</tbody>"));
 //                        System.out.println("tradeConfirmInfoTbody:" + tradeConfirmInfoTbody);
                             String[] array = tradeConfirmInfoTbody.split("<td");
+                            //确认信息
                             for (String confirmField : array) {
 //                            System.out.println("confirmField:"+confirmField);
                                 // 日期
@@ -183,6 +190,10 @@ public class TradeDaoImpl implements TradeDao {
                                     confirmDate = confirmDate.replace("</td>", "");
 //                                System.out.println("confirmDate:"+confirmDate);
                                     fundTrade.setConfirmNetData(confirmDate);
+                                }
+                                // 状态
+                                if (confirmField.contains("申购确认")) {
+                                    fundTrade.setOrderStatus("买入成功");
                                 }
 //                            //
 //                            if (confirmField.contains("http://fund.eastmoney.com/")) {
@@ -230,11 +241,10 @@ public class TradeDaoImpl implements TradeDao {
                         }
 //                    System.out.println();
                     }
-
+                    fundTradeList.add(fundTrade);
                 }
 //            System.out.println();
-            System.out.println("fundTrade:" + JSON.toJSONString(fundTrade));
-                fundTradeList.add(fundTrade);
+//            System.out.println("fundTrade:" + JSON.toJSONString(fundTrade));
             }
         }
         return fundTradeList;
@@ -244,8 +254,9 @@ public class TradeDaoImpl implements TradeDao {
      * @param args args
      */
     public static void main(String[] args) {
-        System.out.println("查询开始：");
-        List<FundTrade> rs= findMyTrade(cookie, "000656");
+        String cookie = "cp_token=7f8f0f3224b24194a70d453b65f6338f; st_si=21393218770879; st_pvi=97169704610474; st_sp=2020-06-02%2010%3A08%3A40; st_inirUrl=https%3A%2F%2Ffund.eastmoney.com%2F; st_sn=1; st_psi=20200624102608139-119085303933-2162940118; st_asi=delete; fund_trade_cn=Yc77PDg/+Wj5iTXCqVAA6bxp4OMd9jjngcRyW/+F8i0zV9OOuhjeqbjRblMfwOtJqTWURKkvVfQwtZQrAcFblP0Pn2jNxqPztf1WgiztdNFUZXlCcfg=; fund_trade_name=YgcrYk+jAXjrUklMAm9Ff+xrg6o0g72mSG2Dbf5VfgPFykcfzedN8rlb/M0IYR518y54T2vu; fund_trade_visitor=YFcgjlp0dXH+3UcNZq9Pg39qEuI0Mw/G0/76bNepPfBLykIDDfITzgl7fx90upJ1kXFLlrSp; fund_trade_risk=YoM9MwKvdXlp7EYt7e91M9qcfW60tYQw+FHxbltK8hCCUkRgD1R2p5l6mLEYSuJ1LTTd1wMx; fund_trade_gps=2; VipLevel=0; TradeLoginToken=00f403747d9847ef9017e344a947d6ec; UTOKEN=Yc77PDg/+Wj5iTXCqVAA6bxp4OMd9jjngcRyW/+F8i0zV9OOuhjeqbjRblMfwOtJqTWURUkRGp2JtiCSwQlllLA5W2+ROreNxb1XjvLpcHc2z4/eBGg=; LToken=d7f8eb0ea7864795879a3d666fec23ab; fund_trade_trackid=gXoYRgS4Y2W/A9QxqdSXCXc6ZguMOE0x0pGC2ZrZhW6NDXcn18gz+y0p+QpC6G9BZ1MHZAVwRAPu+khVKNw+eg==";
+//        System.out.println("查询开始：");
+        List<FundTrade> rs = findMyTrade(cookie, "000656");
 //        String rs = findMyTrade(cookie, "");
         System.out.println("rs:" + JSON.toJSONString(rs));
 
