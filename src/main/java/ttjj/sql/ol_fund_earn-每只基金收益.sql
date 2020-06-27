@@ -14,9 +14,9 @@ WHERE 1=1
 	AND t1.SOURCE=3 /**ttjj	**/
 GROUP BY t1.FD_NAME
 -- ORDER BY t1.FD_NAME
-ORDER BY maxDate desc ,t1.FD_NAME
+-- ORDER BY maxDate desc ,t1.FD_NAME
 -- ORDER BY 每只基金收益累计 DESC
--- ORDER BY maxDate desc ,持有收益率 DESC
+ORDER BY maxDate desc ,持有收益率 DESC
 -- ORDER BY 持有收益率 DESC
 ;
 

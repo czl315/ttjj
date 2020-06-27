@@ -54,13 +54,19 @@ SELECT
 		) * ol_fund_trade.CONFIRM_SHARE / ol_fund_trade.ORDER_AMT * 100,
 		4
 	) AS 最新日期收益率
-,DATEDIFF(now(),ol_fund_trade.TRADE_TIME) AS 天数
+-- ,DATEDIFF(NOW() ,ol_fund_trade.TRADE_TIME) AS 天数
+,DATEDIFF(ol_fund_trade.REDEM_TIME ,ol_fund_trade.TRADE_TIME) AS 天数
+,ol_fund_trade.CONFIRM_AMT
+,ol_fund_trade.REDEM_AMT
+,ol_fund_trade.TYPE
 FROM
 	`ol_fund_trade` ol_fund_trade
 LEFT JOIN `ol_fund_earn` ON ol_fund_trade.FD_ID = ol_fund_earn.FD_ID
 WHERE
 	1 = 1
-AND ol_fund_trade.ORDER_STATUS = '买入成功'
+	AND ol_fund_trade.TYPE = '申购'
+-- 	AND ol_fund_trade.TYPE = '申购(赎回)'
+-- 	AND ol_fund_trade.TYPE = '赎回'
 -- AND ol_fund_trade.FD_INFO LIKE '%160416|华安标普全球石油指数%'
 -- ORDER BY lastDate DESC
 -- ORDER BY 最大收益率 DESC
