@@ -1,6 +1,7 @@
 package ttjj.Dao.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.sun.deploy.util.StringUtils;
 import org.apache.log4j.Logger;
 import ttjj.dto.FundTrade;
 import ttjj.Dao.TradeDao;
@@ -17,7 +18,7 @@ import java.util.List;
 public class TradeDaoImpl implements TradeDao {
     //    private final static Logger logger = Logger.getLogger(TradeDaoImpl.class);
 
-    public List<FundTrade> findFundTrade(String fundCode,String cookie) {
+    public List<FundTrade> findFundTrade(String fundCode, String cookie) {
         List<FundTrade> fundTradeList = new ArrayList<FundTrade>();
 
         //硬编码方式
@@ -29,7 +30,10 @@ public class TradeDaoImpl implements TradeDao {
 //        }
 
         //ttjj接口查询方式
-        fundTradeList = findMyTrade(cookie, fundCode);
+        String startDate = "2020-01-01";
+        String endDate = "2020-12-31";
+        String busType = "";
+        fundTradeList = findMyTrade(cookie, fundCode, startDate, endDate, busType);
 
         return fundTradeList;
     }
@@ -69,7 +73,39 @@ public class TradeDaoImpl implements TradeDao {
      *
      * @param cookie
      */
-    private static List<FundTrade> findMyTrade(String cookie, String fundCode) {
+//    private List<FundTrade> findMyTrade(String cookie, String fundCode) {
+    private static List<FundTrade> findMyTrade(String cookie, String fundCode, String startDate, String endDate, String busType) {
+        String url = "https://query.1234567.com.cn/Query/DelegateList";
+        StringBuffer urlParam = new StringBuffer();
+        urlParam.append("DataType=1");
+        urlParam.append("&StartDate=").append(startDate);
+        urlParam.append("&EndDate=").append(endDate);
+        urlParam.append("&BusType=").append(busType);
+        urlParam.append("&Statu=0&Account=&FundType=0");
+        urlParam.append("&PageSize=1000");
+        urlParam.append("&PageIndex=1");
+        urlParam.append("&Container=tb_delegate");
+        urlParam.append("&FundCode=" + fundCode);
+//        urlParam.append("&IsHistory=true");
+        urlParam.append("&IsHistory=false");
+        urlParam.append("&callback=undefined");
+
+        //        System.out.println(rs);
+//        System.out.println("请求url:"+url+JSON.toJSONString(urlParam));
+        String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
+//        System.out.println("myTradeRs:"+rs);
+        List<FundTrade> fundTradeList = formatTradeShow(rs, cookie);
+//        System.out.println("fundTradeList:" + JSON.toJSONString(fundTradeList));
+        return fundTradeList;
+    }
+
+    /**
+     * 查询 all
+     *
+     * @param cookie
+     * @param fundCode
+     */
+    private static List<FundTrade> findMyTradeAll(String cookie, String fundCode) {
         String url = "https://query.1234567.com.cn/Query/DelegateList";
         StringBuffer urlParam = new StringBuffer();
         urlParam.append("DataType=1&StartDate=2020-01-01&EndDate=2020-12-31");
@@ -79,9 +115,11 @@ public class TradeDaoImpl implements TradeDao {
 //        urlParam.append("DataType=1&StartDate=2020-03-01&EndDate=2020-03-31");
 //        urlParam.append("DataType=1&StartDate=2020-02-01&EndDate=2020-02-29");
 //        urlParam.append("DataType=1&StartDate=2020-01-01&EndDate=2020-01-31");
-        urlParam.append("&BusType=0&Statu=0&Account=&FundType=0");
-        urlParam.append("&PageSize=100");
-        urlParam.append("&PageIndex=1&Container=tb_delegate");
+        urlParam.append("&BusType=0");
+        urlParam.append("&Statu=0&Account=&FundType=0");
+        urlParam.append("&PageSize=1000");
+        urlParam.append("&PageIndex=1");
+        urlParam.append("&Container=tb_delegate");
         urlParam.append("&FundCode=" + fundCode);
         urlParam.append("&IsHistory=false&callback=undefined");
 
@@ -124,7 +162,9 @@ public class TradeDaoImpl implements TradeDao {
                     time = rsTd.substring(rsTd.indexOf("<span style=\"color:#939290\">") + 28, rsTd.indexOf("<span style=\"color:#939290\">") + 36);
                     dateTime = dateTime + " " + time;
 //                    System.out.println("交易发起时间:" + dateTime);
-                    fundTrade.setTradeTime(dateTime);
+                    if (fundTrade.getTradeTime() == null) {
+                        fundTrade.setTradeTime(dateTime);
+                    }
                 }
                 //名称  编码
                 if (rsTd.contains("target=\"_blank\">")) {
@@ -144,8 +184,9 @@ public class TradeDaoImpl implements TradeDao {
 
                 //金额
                 // <td class="text-right"><span class='red fw-bold mr5'>200.00</span>元</td>                            <!--确认数-->
+                //<td class="text-right"><span class='red fw-bold mr5'>121.67</span>元</td>
                 // class="text-right">--</td>                            <!--确认数-->
-                if (rsTd.contains("确认数")) {
+                if (rsTd.contains("元")) {
 //                System.out.println("确认数:"+rsTd);
                     String[] array = rsTd.split("class=\"text-right\">");
                     if (array.length > 0) {
@@ -160,41 +201,54 @@ public class TradeDaoImpl implements TradeDao {
                 }
                 //<td class="text-right"><span class='red fw-bold mr5'>213.42</span>份</td>
                 if (rsTd.contains("</span>份</td>")) {
-                    System.out.println("份数:" + rsTd);
+//                    System.out.println("份数:" + rsTd);
                     shareCount = rsTd.substring(rsTd.indexOf("<span class='red fw-bold mr5'>") + 30, rsTd.indexOf("</span>份</td> "));
 //                System.out.println("shareCount:" + shareCount);
                     fundTrade.setConfirmShare(new BigDecimal(shareCount));
                 }
                 //href="/Query/Detail?id=dc84aad8f91c434496a9da31269e2849&businType=22&traceNo=dc84aad8f91c434496a9da31269e2849" class="lk">详情</a></td>
                 if (rsTd.contains("详情</a></td>")) {
-                    System.out.println("详情:" + rsTd);
+//                    System.out.println("详情:" + rsTd);
                     detailUrl = rsTd.substring(rsTd.indexOf("href=\"") + 6, rsTd.indexOf("\" class=\"lk\">详情</a></td>"));
                     //detailUrl:/Query/Detail?id=dc84aad8f91c434496a9da31269e2849&businType=22&traceNo=dc84aad8f91c434496a9da31269e2849
                     detailUrl = "https://query.1234567.com.cn/" + detailUrl;
 //                    System.out.println("detailUrl:" + detailUrl);
                     if (!detailUrl.endsWith("=")) {//=结尾代表货币基金不查询
-                        String rsDetail = HttpUtil.sendGet(detailUrl, "".toString(), cookie);
+                    }
+                    String rsDetail = HttpUtil.sendGet(detailUrl, "".toString(), cookie);
 //                    System.out.println("rsDetail:" + rsDetail);
-                        if (rsDetail.contains("<h3>确认信息</h3>")) {
-                            String tradeConfirmInfo = rsDetail.substring(rsDetail.indexOf("<h3>确认信息</h3>"), rsDetail.indexOf("交易说明"));
+                    if (rsDetail.contains("<h3>确认信息</h3>")) {
+                        String tradeConfirmInfo = rsDetail.substring(rsDetail.indexOf("<h3>确认信息</h3>"), rsDetail.indexOf("交易说明"));
 //                        System.out.println("tradeConfirmInfo:" + tradeConfirmInfo);
-                            String tradeConfirmInfoTbody = tradeConfirmInfo.substring(tradeConfirmInfo.indexOf("<tbody><tr>"), tradeConfirmInfo.indexOf("</tbody>"));
+                        String tradeConfirmInfoTbody = tradeConfirmInfo.substring(tradeConfirmInfo.indexOf("<tbody><tr>"), tradeConfirmInfo.indexOf("</tbody>"));
 //                        System.out.println("tradeConfirmInfoTbody:" + tradeConfirmInfoTbody);
-                            String[] array = tradeConfirmInfoTbody.split("<td");
-                            //确认信息
-                            for (String confirmField : array) {
+                        String[] array = tradeConfirmInfoTbody.split("<td");
+                        //确认信息
+                        for (String confirmField : array) {
 //                            System.out.println("confirmField:"+confirmField);
-                                // 日期
-                                if (confirmField.contains("2020")) {
-                                    confirmDate = confirmField.substring(1);
-                                    confirmDate = confirmDate.replace("</td>", "");
+                            // 日期
+                            if (confirmField.contains("2020")) {
+                                confirmDate = confirmField.substring(1);
+                                confirmDate = confirmDate.replace("</td>", "");
 //                                System.out.println("confirmDate:"+confirmDate);
-                                    fundTrade.setConfirmNetData(confirmDate);
+                                fundTrade.setConfirmNetData(confirmDate);
+                            }
+                            // 状态
+                            if (confirmField.contains("申购确认")) {
+                                //如果已经被设置为赎回，不再更新。（次情况是卖出回活期宝）
+                                if (fundTrade.getOrderStatus() == null) {
+                                    fundTrade.setOrderStatus("申购");
                                 }
-                                // 状态
-                                if (confirmField.contains("申购确认")) {
-                                    fundTrade.setOrderStatus("买入成功");
-                                }
+                            }
+                            if (confirmField.contains("赎回确认")) {
+                                fundTrade.setOrderStatus("赎回");
+                            }
+                            if (confirmField.contains("强行调增")) {
+                                fundTrade.setOrderStatus("强行调增");
+                            }
+                            if (confirmField.contains("红利发放<br>(现金分红)")) {
+                                fundTrade.setOrderStatus("现金分红");
+                            }
 //                            //
 //                            if (confirmField.contains("http://fund.eastmoney.com/")) {
 //                                String confirmDate = confirmField.substring(confirmField.indexOf("target=\"_blank\">")+16);
@@ -207,40 +261,57 @@ public class TradeDaoImpl implements TradeDao {
 //                                confirmNet = confirmNet.replace("</td>","");
 //                                System.out.println("confirmNet:"+confirmNet);
 //                            }
-                            }
+                        }
 //                        String[] arrayConfirm = tradeConfirmInfoTbody.split("<td>");
 //                        for (String str : arrayConfirm) {
 //                            System.out.println();
 //                        }
-                            tradeConfirmInfoTbody = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td class=\"success\">成功</td>") + 27);
-                            String confirmNet = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td>") + 4, tradeConfirmInfoTbody.indexOf("</td>"));
+                        tradeConfirmInfoTbody = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td class=\"success\">成功</td>") + 27);
+                        String confirmNet = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td>") + 4, tradeConfirmInfoTbody.indexOf("</td>"));
 //                        System.out.println("confirmNet："+confirmNet);
-                            fundTrade.setConfirmNet(new BigDecimal(confirmNet));
+                        fundTrade.setConfirmNet(new BigDecimal(confirmNet));
 
-                            tradeConfirmInfoTbody = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("</td>") + 5);
+                        tradeConfirmInfoTbody = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("</td>") + 5);
 //                        System.out.println("tradeConfirmInfoTbodyTemp:"+tradeConfirmInfoTbody);
-                            String confirmAmt = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td>") + 4, tradeConfirmInfoTbody.indexOf("</td>", 2));
+                        String confirmAmt = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td>") + 4, tradeConfirmInfoTbody.indexOf("</td>", 2));
 //                        System.out.println("confirmAmt："+confirmAmt);
 //                            fundTrade.setC
-                            tradeConfirmInfoTbody = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("</td>") + 5);
-                            String confirmShare = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td>") + 4, tradeConfirmInfoTbody.indexOf("</td>", 2));
+                        tradeConfirmInfoTbody = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("</td>") + 5);
+                        String confirmShare = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td>") + 4, tradeConfirmInfoTbody.indexOf("</td>", 2));
 //                        System.out.println("confirmShare："+confirmShare);
-                            fundTrade.setConfirmShare(new BigDecimal(confirmShare));
-                            tradeConfirmInfoTbody = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("</td>") + 5);
-                            String confirmSxf = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td>") + 4, tradeConfirmInfoTbody.indexOf("</td>", 2));
+                        fundTrade.setConfirmShare(new BigDecimal(confirmShare));
+                        tradeConfirmInfoTbody = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("</td>") + 5);
+                        String confirmSxf = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td>") + 4, tradeConfirmInfoTbody.indexOf("</td>", 2));
 //                        System.out.println("confirmSxf："+confirmSxf);
-                            fundTrade.setServerCharge(new BigDecimal(confirmSxf));
+                        fundTrade.setServerCharge(new BigDecimal(confirmSxf));
 
-                            //INSERT INTO `bank19`.`ol_fund_trade`(`ID`, `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `TRADE_CODE`, `TRADE_CODE_BUY`, `TRADE_CODE_REDEM`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `PROCESS_TIME`, `EARN_TIME`, `TRADE_ACCT`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`, `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`) VALUES (105, '32', '鹏华证券分级(160633)', '申购', '2020-05-13 12:43:30', '支付成功', 209.61, 0.953, 200, '确认成功', '', '', '0', '', 100, 0, 0, '2020-03-11 13:29:18', 0.24, '2020-03-11 13:29:18', '2020-03-11 13:29:18', '天天基金', '0', 0, '3000-01-01 00:00:00', '3000-01-01 00:00:00', '天天基金', '', '2020-03-14 17:40:26', '2020-06-02 15:45:27');
-                            System.out.println("INSERT INTO `bank19`.`ol_fund_trade`(" +
-                                    " `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `TRADE_CODE`, `TRADE_CODE_BUY`, `TRADE_CODE_REDEM`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `PROCESS_TIME`, `EARN_TIME`, `TRADE_ACCT`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`, `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`" +
-                                    ") VALUES (" +
-                                    " '', '" + fundName + "', '申购', '" + dateTime + "', '买入成功', " + confirmShare + ", " + confirmNet + ", " + confirmAmt + ", " +
-                                    "'确认成功', '', '', '0', '', " + confirmAmt + ", 0, 0, '" + confirmDate + "', " + confirmSxf + ", '3000-01-01 00:00:00', '3000-01-01 00:00:00', '天天基金', '0', 0, '3000-01-01 00:00:00', '3000-01-01 00:00:00', '3', '', now(), now()" +
-                                    ");");
+                        //INSERT INTO `bank19`.`ol_fund_trade`(`ID`, `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `TRADE_CODE`, `TRADE_CODE_BUY`, `TRADE_CODE_REDEM`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `PROCESS_TIME`, `EARN_TIME`, `TRADE_ACCT`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`, `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`) VALUES (105, '32', '鹏华证券分级(160633)', '申购', '2020-05-13 12:43:30', '支付成功', 209.61, 0.953, 200, '确认成功', '', '', '0', '', 100, 0, 0, '2020-03-11 13:29:18', 0.24, '2020-03-11 13:29:18', '2020-03-11 13:29:18', '天天基金', '0', 0, '3000-01-01 00:00:00', '3000-01-01 00:00:00', '天天基金', '', '2020-03-14 17:40:26', '2020-06-02 15:45:27');
+                        if (fundTrade.getFundInfo() != null && fundTrade.getFundInfo().contains("货币")) {
+                            //货币基金不打印
+                            continue;
                         }
-//                    System.out.println();
+                        if (fundTrade.getOrderStatus() != null && fundTrade.getOrderStatus().contains("强行调增")) {
+                            //不打印-强行调增
+                            continue;
+                        }
+                        if (fundTrade.getOrderStatus() != null && fundTrade.getOrderStatus().contains("现金分红")) {
+                            //不打印-现金分红
+                            continue;
+                        }
+                        if (fundTrade.getOrderStatus() != null && (fundTrade.getOrderStatus().contains("申购") || fundTrade.getOrderStatus().contains("赎回"))) {
+//                                //打印-申购、赎回
+//                                System.out.println("INSERT INTO `bank19`.`ol_fund_trade`(" +
+//                                        " `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `TRADE_CODE`, `TRADE_CODE_BUY`, `TRADE_CODE_REDEM`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `PROCESS_TIME`, `EARN_TIME`, `TRADE_ACCT`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`, `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`" +
+//                                        ") VALUES (" +
+//                                        " '', '" + fundTrade.getFundInfo() + "', '"+fundTrade.getOrderStatus()+"', '" + dateTime + "', '"+fundTrade.getOrderStatus()+"', " + confirmShare + ", " + confirmNet + ", " + confirmAmt + ", " +
+//                                        "'确认成功', '', '', '0', '', " + confirmAmt + ", 0, 0, '" + confirmDate + "', " + confirmSxf + ", '3000-01-01 00:00:00', '3000-01-01 00:00:00', '天天基金', '0', 0, '3000-01-01 00:00:00', '3000-01-01 00:00:00', '3', '', now(), now()" +
+//                                        ");");
+                        }
+
+
                     }
+//                    System.out.println();
+
                     fundTradeList.add(fundTrade);
                 }
 //            System.out.println();
@@ -254,11 +325,45 @@ public class TradeDaoImpl implements TradeDao {
      * @param args args
      */
     public static void main(String[] args) {
-        String cookie = "cp_token=7f8f0f3224b24194a70d453b65f6338f; st_si=21393218770879; st_pvi=97169704610474; st_sp=2020-06-02%2010%3A08%3A40; st_inirUrl=https%3A%2F%2Ffund.eastmoney.com%2F; st_sn=1; st_psi=20200624102608139-119085303933-2162940118; st_asi=delete; fund_trade_cn=Yc77PDg/+Wj5iTXCqVAA6bxp4OMd9jjngcRyW/+F8i0zV9OOuhjeqbjRblMfwOtJqTWURKkvVfQwtZQrAcFblP0Pn2jNxqPztf1WgiztdNFUZXlCcfg=; fund_trade_name=YgcrYk+jAXjrUklMAm9Ff+xrg6o0g72mSG2Dbf5VfgPFykcfzedN8rlb/M0IYR518y54T2vu; fund_trade_visitor=YFcgjlp0dXH+3UcNZq9Pg39qEuI0Mw/G0/76bNepPfBLykIDDfITzgl7fx90upJ1kXFLlrSp; fund_trade_risk=YoM9MwKvdXlp7EYt7e91M9qcfW60tYQw+FHxbltK8hCCUkRgD1R2p5l6mLEYSuJ1LTTd1wMx; fund_trade_gps=2; VipLevel=0; TradeLoginToken=00f403747d9847ef9017e344a947d6ec; UTOKEN=Yc77PDg/+Wj5iTXCqVAA6bxp4OMd9jjngcRyW/+F8i0zV9OOuhjeqbjRblMfwOtJqTWURUkRGp2JtiCSwQlllLA5W2+ROreNxb1XjvLpcHc2z4/eBGg=; LToken=d7f8eb0ea7864795879a3d666fec23ab; fund_trade_trackid=gXoYRgS4Y2W/A9QxqdSXCXc6ZguMOE0x0pGC2ZrZhW6NDXcn18gz+y0p+QpC6G9BZ1MHZAVwRAPu+khVKNw+eg==";
-//        System.out.println("查询开始：");
-        List<FundTrade> rs = findMyTrade(cookie, "000656");
+//        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=168568481.3275105768631237000.1587299075419.1528; st_si=16529934604496; st_asi=delete; b_p_log_key=YqYlmCtMJVbt2nCdsyCq6TbxbtD+GRXUJrxBZEDZITxHIfCgUw8tCrxUk731QiB0nvUsM8TkmchTyB/oeM7g5nSq+YBBzSV3o1LtTI5IkSzzNbvkXT0=; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=2; st_psi=20200626125212882-119085303933-7379745562; cp_token=2ca40dd1c09e4f6c99ad548acef6e639; FundTradeLoginUser=WryU2RGKLMQddvOrt9ie5DH681dVJ7Rs98U+3fkkCPoMMYm+TogQg18eMgwrDAYRCBbS6blW; fund_trade_cn=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tnYaLdfbHWm6cxq48Uvcrj2Xgx//HDR5H1pWcbYwG3sOur8=; fund_trade_name=WQ+qNJQRkM2gf0ve7giilJV4jbTVicEdkpYh3wCIEEQaZYpiX5NWK08mI5edsToRSpyAZ+3a; fund_trade_visitor=WZGFRsGAsMwx6GI0b4iGrpXig4GVnUDJkDgn3Wcq5hDS7YYCBDJ7f88D0Q7jDR0Rmf6wuKvi; fund_trade_risk=WGB21Yg1xMyCP00D20iUUjQveZdV0FAjhnlZ38Sw4BK48YjyjP+Qq98bpqDDQTeRLcjQLeub; fund_trade_gps=2; VipLevel=0; TradeLoginToken=0cdd00b4660749efbbb2b1ad5a00a1a2; UTOKEN=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tuY+U8CMvNFZKtf18kYRYJD80Zr4yERG9mq9X6yRf4eEJPk=; LToken=919b1cc8f4244369b65efa898ff7ae58; fund_trade_trackid=gSRgeG/HOvMXtvvf2k5YRsWme3vrnWmciDUr/Y5kDpfBbZD9+RhA8YnjkfRSoYT1EaJ8OL/0ktaZzbgM46qQ3g==; monitor_count=14";
+        String cookie = "FundTradeLoginTab=0; FundTradeLoginCard=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=87564551196563; st_asi=delete; ASP.NET_SessionId=x5wiptq3eokxdhuuz1ab35wq; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=3; st_psi=20200627205253260-119085303933-9155703879; cp_token=9b1ae1c59852401b977aa89966f46af1; FundTradeLoginUser=A5EMUyf26yGXjaNAr5NFBViafXXhSBH3YnI45NTnqTqWYqI9zHbIaWBfg33kRTu6EqdyM8WC; fund_trade_cn=AbtTBY/EB/kdFmyHhL6Y8q7ihqBKNyUo9PAANjXZAAhwr0ROYUMRsOEo5D7q5CKWBYjkaTqVwg2tKMXzjkGDBIqg0rLzqJnC6m60pvGzldQRkURi1N0=; fund_trade_name=AhPtXWvVvy0VvDgvTeN+Iaf6W69h858rE0vN5WO4ukG3kquEfWfA09BnswSRg5R6ysEhQ3oL; fund_trade_visitor=Ag8Z1swvRy9GiuijlmNVq4noyX9hGIXzeft25syOfJAUYqxXQY/PyxBkLoGa6xy6vwd9SFnB; fund_trade_risk=AVNubcJt8yMBdGmcQWN4mxokHcAhHY1fF4N/5fvP9oybEqjvXC3UXRB6qmrn0qB6oW4TniRv; fund_trade_gps=2; VipLevel=0; TradeLoginToken=b5b904f2b70149048be2340a7b68bc71; UTOKEN=AbtTBY/EB/kdFmyHhL6Y8q7ihqBKNyUo9PAANjXZAAhwr0ROYUMRsOEo5D7q5CKWBYjkadqtMaL256ObzwyyBwQmybF4AJ8JGH6iznTcJnq0lpyAZNo=; LToken=798f2c40bd9f4427ac97d1086d309f2a; fund_trade_trackid=JbsmxqA3+pXk2umBpotK1moSQ2GhOubidkhMqFrxqqBQ6sUicTe95vApjjNh9MmJPafY5mr4KNpQPhwkI2wN+Q==; monitor_count=53";
+
+//        System.out.println("查询开始：");=
+        String fundCode = "";
+//        String fundCode = "002207";
+        String startDate = "2020-01-01";
+        String endDate = "2020-12-31";
+        String busType = "2";//0-全部;2-卖出;
+        List<FundTrade> rs = findMyTrade(cookie, fundCode, startDate, endDate, busType);
+        for (FundTrade fundTrade : rs) {
+//            if (fundTrade.getOrderStatus() != null && (fundTrade.getOrderStatus().contains("赎回"))) {
+//                //打印-赎回
+//                System.out.println("INSERT INTO `bank19`.`ol_fund_trade`(" +
+//                        " `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `TRADE_CODE`, `TRADE_CODE_BUY`, `TRADE_CODE_REDEM`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `PROCESS_TIME`, `EARN_TIME`, `TRADE_ACCT`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`, `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`" +
+//                        ") VALUES (" +
+//                        " '', '" + fundTrade.getFundInfo() + "', '" + fundTrade.getOrderStatus() + "', '" + fundTrade.getTradeTime() + "', '" + fundTrade.getOrderStatus() + "'" +
+//                        ", " + fundTrade.getConfirmShare() + ", " + fundTrade.getConfirmNet() + ", " + fundTrade.getOrderAmt() + ", " +
+//                        "'确认成功', '', '', '0', '', " + fundTrade.getOrderAmt() + ", 0, 0, '" + fundTrade.getConfirmNetData() + "', " + fundTrade.getServerCharge() + ", '3000-01-01 00:00:00', '3000-01-01 00:00:00', '天天基金', '0', 0, '3000-01-01 00:00:00', '3000-01-01 00:00:00', '3', '', now(), now()" +
+//                        ");");
+//            }
+            if (fundTrade.getOrderStatus() != null && (fundTrade.getOrderStatus().contains("赎回"))) {
+                //打印-赎回-update
+                BigDecimal enrnAmtSubServerCharge = fundTrade.getOrderAmt().subtract(fundTrade.getServerCharge());
+                System.out.println("UPDATE `ol_fund_trade` " +
+                        "SET `TYPE`='申购(赎回)'" +
+                        ",`ORDER_AMT`=" + fundTrade.getOrderAmt() + " " +
+                        ",`REDEM_TIME`='" + fundTrade.getConfirmNetData() + "' " +
+                        ",`REDEM_AMT`=" + fundTrade.getOrderAmt() + " " +
+                        ",`SERVER_CHARGE`=" + fundTrade.getServerCharge() + " " +
+                        ",`EARN_AMT`=ROUND((" + enrnAmtSubServerCharge + "-`CONFIRM_AMT`) ,2)" +
+                        "WHERE  `FD_INFO` = '" + fundTrade.getFundInfo() + "' "
+                        + "AND `TYPE` = '申购' "
+                        + "AND `CONFIRM_SHARE` = '" + fundTrade.getConfirmShare() + "' " +
+                        " LIMIT 1; ");
+            }
+        }
 //        String rs = findMyTrade(cookie, "");
-        System.out.println("rs:" + JSON.toJSONString(rs));
+//        System.out.println("rs:" + JSON.toJSONString(rs));
 
 //        formatTradeShow(rs, cookie);
     }
