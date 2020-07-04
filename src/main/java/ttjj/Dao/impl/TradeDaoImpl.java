@@ -326,26 +326,28 @@ public class TradeDaoImpl implements TradeDao {
      */
     public static void main(String[] args) {
 //        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=168568481.3275105768631237000.1587299075419.1528; st_si=16529934604496; st_asi=delete; b_p_log_key=YqYlmCtMJVbt2nCdsyCq6TbxbtD+GRXUJrxBZEDZITxHIfCgUw8tCrxUk731QiB0nvUsM8TkmchTyB/oeM7g5nSq+YBBzSV3o1LtTI5IkSzzNbvkXT0=; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=2; st_psi=20200626125212882-119085303933-7379745562; cp_token=2ca40dd1c09e4f6c99ad548acef6e639; FundTradeLoginUser=WryU2RGKLMQddvOrt9ie5DH681dVJ7Rs98U+3fkkCPoMMYm+TogQg18eMgwrDAYRCBbS6blW; fund_trade_cn=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tnYaLdfbHWm6cxq48Uvcrj2Xgx//HDR5H1pWcbYwG3sOur8=; fund_trade_name=WQ+qNJQRkM2gf0ve7giilJV4jbTVicEdkpYh3wCIEEQaZYpiX5NWK08mI5edsToRSpyAZ+3a; fund_trade_visitor=WZGFRsGAsMwx6GI0b4iGrpXig4GVnUDJkDgn3Wcq5hDS7YYCBDJ7f88D0Q7jDR0Rmf6wuKvi; fund_trade_risk=WGB21Yg1xMyCP00D20iUUjQveZdV0FAjhnlZ38Sw4BK48YjyjP+Qq98bpqDDQTeRLcjQLeub; fund_trade_gps=2; VipLevel=0; TradeLoginToken=0cdd00b4660749efbbb2b1ad5a00a1a2; UTOKEN=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tuY+U8CMvNFZKtf18kYRYJD80Zr4yERG9mq9X6yRf4eEJPk=; LToken=919b1cc8f4244369b65efa898ff7ae58; fund_trade_trackid=gSRgeG/HOvMXtvvf2k5YRsWme3vrnWmciDUr/Y5kDpfBbZD9+RhA8YnjkfRSoYT1EaJ8OL/0ktaZzbgM46qQ3g==; monitor_count=14";
-        String cookie = "FundTradeLoginTab=0; FundTradeLoginCard=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=87564551196563; st_asi=delete; ASP.NET_SessionId=x5wiptq3eokxdhuuz1ab35wq; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=3; st_psi=20200627205253260-119085303933-9155703879; cp_token=9b1ae1c59852401b977aa89966f46af1; FundTradeLoginUser=A5EMUyf26yGXjaNAr5NFBViafXXhSBH3YnI45NTnqTqWYqI9zHbIaWBfg33kRTu6EqdyM8WC; fund_trade_cn=AbtTBY/EB/kdFmyHhL6Y8q7ihqBKNyUo9PAANjXZAAhwr0ROYUMRsOEo5D7q5CKWBYjkaTqVwg2tKMXzjkGDBIqg0rLzqJnC6m60pvGzldQRkURi1N0=; fund_trade_name=AhPtXWvVvy0VvDgvTeN+Iaf6W69h858rE0vN5WO4ukG3kquEfWfA09BnswSRg5R6ysEhQ3oL; fund_trade_visitor=Ag8Z1swvRy9GiuijlmNVq4noyX9hGIXzeft25syOfJAUYqxXQY/PyxBkLoGa6xy6vwd9SFnB; fund_trade_risk=AVNubcJt8yMBdGmcQWN4mxokHcAhHY1fF4N/5fvP9oybEqjvXC3UXRB6qmrn0qB6oW4TniRv; fund_trade_gps=2; VipLevel=0; TradeLoginToken=b5b904f2b70149048be2340a7b68bc71; UTOKEN=AbtTBY/EB/kdFmyHhL6Y8q7ihqBKNyUo9PAANjXZAAhwr0ROYUMRsOEo5D7q5CKWBYjkadqtMaL256ObzwyyBwQmybF4AJ8JGH6iznTcJnq0lpyAZNo=; LToken=798f2c40bd9f4427ac97d1086d309f2a; fund_trade_trackid=JbsmxqA3+pXk2umBpotK1moSQ2GhOubidkhMqFrxqqBQ6sUicTe95vApjjNh9MmJPafY5mr4KNpQPhwkI2wN+Q==; monitor_count=53";
+        String cookie = "FundTradeLoginTab=0; FundTradeLoginCard=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=55259190822953; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=1; st_psi=20200704182935226-119085303933-4146762812; st_asi=delete; cp_token=626663b0bf3d402393f49ab9caaeacf6; FundTradeLoginUser=LcHTK8vfIhzrBVIXsUz6ClnNT1+Ey2r50AYr48nwbx4s0YLuAhKanAJn1AY4rKiq/mFfgrYl; fund_trade_cn=LKt5lgDKSZrB0chIgcUw3u/+C116zD7o9ccAxA2u8BEsNNrQqxeO8HVN4lWLBbWVrjVJIdYGGhNMROLjL+8cJbfvgwUX5oK88aqVtaZTyxJS+udP+J0=; fund_trade_name=LSIg9I+9ihuHYmFpsyzKNruDBf8EQ952C3yU4TZCyl10fYnATGXWGNJ78WNftXtqe3yRjUBV; fund_trade_visitor=LhOnP2c3Rhgvu7MwbJzrQ7yGmrjEyTioLd7J4AjPSOh9kYlaQV6l+4JKwQ3T99MqISnBNGTw; fund_trade_risk=L86T0xokGhcbVmMHGwzJahbJKxPE3drJpwp74LUbVugE2YV0dNzxjkJ6OOwBTkEqD3/In1Sh; fund_trade_gps=2; VipLevel=0; TradeLoginToken=2c36629c190546e299c5d8f4163da23d; UTOKEN=LKt5lgDKSZrB0chIgcUw3u/+C116zD7o9ccAxA2u8BEsNNrQqxeO8HVN4lWLBbWVrjVJImYBmQYPO5B/VliwJUhzclfyXZ7lcAq3Np3JGjoYbLdo9Qs=; LToken=a0bb9f61c8c6400583bb67614f880ea0; fund_trade_trackid=hc9uPQuNjf6aL/nzjZWenSyhxZIIErj95lkSgLmL2JJ23XPvhe+S9NhM9YfVmrR5/r7GomTvi+p6RHdkUiFkZA==; ASP.NET_SessionId=ztsopb0xrrizgv0px4brr2sc; monitor_count=2";
 
 //        System.out.println("查询开始：");=
         String fundCode = "";
 //        String fundCode = "002207";
-        String startDate = "2020-01-01";
+        String startDate = "2020-06-23";
         String endDate = "2020-12-31";
-        String busType = "2";//0-全部;2-卖出;
+        String busType = "2";//0-全部;1-申购;2-卖出;
         List<FundTrade> rs = findMyTrade(cookie, fundCode, startDate, endDate, busType);
+//        System.out.println("findMyTrade:"+JSON.toJSON(rs));
         for (FundTrade fundTrade : rs) {
-//            if (fundTrade.getOrderStatus() != null && (fundTrade.getOrderStatus().contains("赎回"))) {
-//                //打印-赎回
-//                System.out.println("INSERT INTO `bank19`.`ol_fund_trade`(" +
-//                        " `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `TRADE_CODE`, `TRADE_CODE_BUY`, `TRADE_CODE_REDEM`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `PROCESS_TIME`, `EARN_TIME`, `TRADE_ACCT`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`, `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`" +
-//                        ") VALUES (" +
-//                        " '', '" + fundTrade.getFundInfo() + "', '" + fundTrade.getOrderStatus() + "', '" + fundTrade.getTradeTime() + "', '" + fundTrade.getOrderStatus() + "'" +
-//                        ", " + fundTrade.getConfirmShare() + ", " + fundTrade.getConfirmNet() + ", " + fundTrade.getOrderAmt() + ", " +
-//                        "'确认成功', '', '', '0', '', " + fundTrade.getOrderAmt() + ", 0, 0, '" + fundTrade.getConfirmNetData() + "', " + fundTrade.getServerCharge() + ", '3000-01-01 00:00:00', '3000-01-01 00:00:00', '天天基金', '0', 0, '3000-01-01 00:00:00', '3000-01-01 00:00:00', '3', '', now(), now()" +
-//                        ");");
-//            }
+            if (fundTrade.getOrderStatus() != null && (fundTrade.getOrderStatus().contains("申购"))) {
+                //打印-
+                System.out.println("INSERT INTO `bank19`.`ol_fund_trade`(" +
+                        " `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `TRADE_CODE`, `TRADE_CODE_BUY`, `TRADE_CODE_REDEM`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `PROCESS_TIME`, `EARN_TIME`, `TRADE_ACCT`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`, `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`" +
+                        ") VALUES (" +
+                        " '', '" + fundTrade.getFundInfo() + "', '" + fundTrade.getOrderStatus() + "', '" + fundTrade.getTradeTime() + "', '" + fundTrade.getOrderStatus() + "'" +
+                        ", " + fundTrade.getConfirmShare() + ", " + fundTrade.getConfirmNet() + ", " + fundTrade.getOrderAmt() + ", " +
+                        "'确认成功', '', '', '0', '', " + fundTrade.getOrderAmt() + ", 0, 0, '" + fundTrade.getConfirmNetData() + "', " + fundTrade.getServerCharge() + ", '3000-01-01 00:00:00', '3000-01-01 00:00:00', '天天基金', '0', 0, '3000-01-01 00:00:00', '3000-01-01 00:00:00', '3', '', now(), now()" +
+                        ");");
+            }
+            //赎回
             if (fundTrade.getOrderStatus() != null && (fundTrade.getOrderStatus().contains("赎回"))) {
                 //打印-赎回-update
                 BigDecimal enrnAmtSubServerCharge = fundTrade.getOrderAmt().subtract(fundTrade.getServerCharge());
