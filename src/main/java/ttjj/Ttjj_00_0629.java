@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Ttjj_00_0624 {
+public class Ttjj_00_0629 {
 
 
     /**
@@ -19,8 +19,8 @@ public class Ttjj_00_0624 {
     public static void main(String[] args) {
         List<Map<String, String>> paramList = new ArrayList<Map<String, String>>();
 //        String endDateToday = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String startDate = "2020-06-23";
-        String endDate = "2020-06-24";
+        String startDate = "2020-06-24";
+        String endDate = "2020-06-29";
         {
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "000656", "000656|前海开源沪深300指数",
                     "548.4", "700", "2020-03-13", "50", "30", "0"));
@@ -35,7 +35,7 @@ public class Ttjj_00_0624 {
                     "648.42", "1200.00", "2020-04-22", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "001915", "001915|宝盈医疗健康沪港深股票",
-                    "104.45", "200.00", "2020-06-19", "00", "00", "0"));
+                    "356.72", "700.00", "2020-06-19", "00", "00", "0.75"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "001986", "001986|前海开源人工智能主题混合",
                     "1969.96", "2600", "2020-03-26", "00", "00", "0"));
@@ -50,10 +50,10 @@ public class Ttjj_00_0624 {
                     "77.43", "200.00", "2020-06-12", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "003095", "003095|中欧医疗健康混合A",
-                    "235.38", "500", "2020-04-14", "00", "00", "0"));
+                    "0", "0", "2020-04-14", "00", "00", "3.32"));//清仓
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "003096", "003096|中欧医疗健康混合C",
-                    "796.10", "2000.00", "2020-04-14", "00", "00", "0"));
+                    "974.10", "2500.00", "2020-04-14", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "003547", "003547|鹏华丰禄债券",
                     "925.79", "1000", "2020-03-10", "51", "27", "0"));
@@ -98,13 +98,13 @@ public class Ttjj_00_0624 {
                     "1355.75", "1200", "2020-03-30", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "160420", "160420|华安创业板50指数分级",
-                    "892.74", "1000.00", "2020-03-30", "00", "00", "0"));
+                    "1333.05", "1500.00", "2020-03-30", "00", "00", "0.60"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "160633", "160633|鹏华证券分级",
-                    "3875.42", "3700.00", "2020-03-10", "00", "00", "0"));
+                    "4368.41", "4200.00", "2020-03-10", "00", "00", "0.6"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "160637", "160637|鹏华创业板分级",
-                    "2008.35", "1700", "2020-03-30", "00", "00", "0"));
+                    "3468.28", "3200.00", "2020-03-30", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "161028", "161028|富国中证新能源汽车指数分级",
                     "4074.00", "3300.00", "2020-03-24", "00", "00", "0"));
@@ -116,7 +116,7 @@ public class Ttjj_00_0624 {
                     "489.13", "500.00", "2020-06-23", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "257020", "257020|国联安精选混合",
-                    "864.08", "800", "2020-03-30", "00", "00", "0"));
+                    "751.26", "682.69", "2020-03-30", "00", "00", "0.59"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "320007", "320007|诺安成长混合",
                     "1344.93", "1578.14", "2020-03-09", "00", "00", "0"));
@@ -131,22 +131,22 @@ public class Ttjj_00_0624 {
                     "20.01", "100", "2020-03-23", "00", "00", "0"));
         }
 
-        {
-            String startDateQdii = "2020-06-18";//qdii晚一天出
-            String endDateQdii = "2020-06-24";
-
-//            paramList.add(handlertTtjjHasSxfType(startDateQdii, endDateQdii, "006308", "006308|汇添富全球消费混合人民币A",
-//                    "246.93", "500.00", "2020-03-16", "00", "00", "0.80", "QDII"));
-
-            paramList.add(handlertTtjjHasSxfType(startDateQdii, endDateQdii, "163208", "163208|诺安油气能源",
-                    "708.35", "300", "2020-03-16", "00", "00", "0", "QDII"));
-
-            paramList.add(handlertTtjjHasSxfType(startDateQdii, endDateQdii, "378546", "378546|上投摩根全球天然资源混合",
-                    "1492.32", "900", "2020-05-12", "00", "00", "0", "QDII"));
-
-            paramList.add(handlertTtjjHasSxfType(startDateQdii, endDateQdii, "160416", "160416|华安标普全球石油指数",
-                    "911.33", "800", "2020-06-16", "00", "00", "0", "QDII"));
-        }
+//        {
+//            String startDateQdii = "2020-06-18";//qdii晚一天出
+//            String endDateQdii = "2020-06-24";
+//
+////            paramList.add(handlertTtjjHasSxfType(startDateQdii, endDateQdii, "006308", "006308|汇添富全球消费混合人民币A",
+////                    "246.93", "500.00", "2020-03-16", "00", "00", "0.80", "QDII"));
+//
+//            paramList.add(handlertTtjjHasSxfType(startDateQdii, endDateQdii, "163208", "163208|诺安油气能源",
+//                    "708.35", "300", "2020-03-16", "00", "00", "0", "QDII"));
+//
+//            paramList.add(handlertTtjjHasSxfType(startDateQdii, endDateQdii, "378546", "378546|上投摩根全球天然资源混合",
+//                    "1492.32", "900", "2020-05-12", "00", "00", "0", "QDII"));
+//
+//            paramList.add(handlertTtjjHasSxfType(startDateQdii, endDateQdii, "160416", "160416|华安标普全球石油指数",
+//                    "911.33", "800", "2020-06-16", "00", "00", "0", "QDII"));
+//        }
 
         //已清仓
 //        {
