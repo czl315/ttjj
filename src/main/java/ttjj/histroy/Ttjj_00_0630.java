@@ -1,4 +1,4 @@
-package ttjj;
+package ttjj.histroy;
 
 import utils.Content;
 import utils.HttpUtil;
@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Ttjj_00_0629 {
+public class Ttjj_00_0630 {
 
 
     /**
@@ -19,14 +19,14 @@ public class Ttjj_00_0629 {
     public static void main(String[] args) {
         List<Map<String, String>> paramList = new ArrayList<Map<String, String>>();
 //        String endDateToday = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String startDate = "2020-06-24";
-        String endDate = "2020-06-29";
+        String startDate = "2020-06-29";
+        String endDate = "2020-06-30";
         {
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "000656", "000656|前海开源沪深300指数",
                     "548.4", "700", "2020-03-13", "50", "30", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "001027", "001027|前海开源中证大农业指数增强",
-                    "96.88", "500", "2020-03-31", "00", "00", "0"));
+                    "0", "0", "2020-03-31", "00", "00", "0.57"));//清仓
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "001279", "001279|中海积极增利混合",
                     "794.35", "1000", "2020-03-23", "00", "00", "0"));
@@ -35,10 +35,10 @@ public class Ttjj_00_0629 {
                     "648.42", "1200.00", "2020-04-22", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "001915", "001915|宝盈医疗健康沪港深股票",
-                    "356.72", "700.00", "2020-06-19", "00", "00", "0.75"));
+                    "356.72", "700.00", "2020-06-19", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "001986", "001986|前海开源人工智能主题混合",
-                    "1969.96", "2600", "2020-03-26", "00", "00", "0"));
+                    "2269.27", "3100", "2020-03-26", "00", "00", "0.75"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "002207", "002207|前海开源金银珠宝混合C",
                     "2574.05", "2600.00", "2020-04-20", "00", "00", "0"));
@@ -48,9 +48,6 @@ public class Ttjj_00_0629 {
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "002621", "002621|中欧消费主题股票A",
                     "77.43", "200.00", "2020-06-12", "00", "00", "0"));
-
-            paramList.add(handlertTtjjHasSxf(startDate, endDate, "003095", "003095|中欧医疗健康混合A",
-                    "0", "0", "2020-04-14", "00", "00", "3.32"));//清仓
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "003096", "003096|中欧医疗健康混合C",
                     "974.10", "2500.00", "2020-04-14", "00", "00", "0"));
@@ -83,7 +80,7 @@ public class Ttjj_00_0629 {
                     "229.45", "300", "2020-05-21", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "008086", "008086|华夏中证5G通信主题ETF联接A",
-                    "9823.87", "10400.00", "2020-03-24", "00", "00", "0"));
+                    "10234.26", "10900.00", "2020-03-24", "00", "00", "0.6"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "110003", "110003|易方达上证50指数A",
                     "280.49", "500", "2020-05-07", "00", "00", "0"));
@@ -98,16 +95,16 @@ public class Ttjj_00_0629 {
                     "1355.75", "1200", "2020-03-30", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "160420", "160420|华安创业板50指数分级",
-                    "1333.05", "1500.00", "2020-03-30", "00", "00", "0.60"));
+                    "1333.05", "1500.00", "2020-03-30", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "160633", "160633|鹏华证券分级",
-                    "4368.41", "4200.00", "2020-03-10", "00", "00", "0.6"));
+                    "4368.41", "4200.00", "2020-03-10", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "160637", "160637|鹏华创业板分级",
-                    "3468.28", "3200.00", "2020-03-30", "00", "00", "0"));
+                    "2502.32", "2200.00", "2020-03-30", "00", "00", "0.6"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "161028", "161028|富国中证新能源汽车指数分级",
-                    "4074.00", "3300.00", "2020-03-24", "00", "00", "0"));
+                    "4583.07", "3800.00", "2020-03-24", "00", "00", "0.60"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "161725", "161725|招商中证白酒指数分级",
                     "2366.74", "2300.00", "2020-04-07", "00", "00", "0"));
@@ -116,10 +113,10 @@ public class Ttjj_00_0629 {
                     "489.13", "500.00", "2020-06-23", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "257020", "257020|国联安精选混合",
-                    "751.26", "682.69", "2020-03-30", "00", "00", "0.59"));
+                    "751.26", "682.69", "2020-03-30", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "320007", "320007|诺安成长混合",
-                    "1344.93", "1578.14", "2020-03-09", "00", "00", "0"));
+                    "1936.46", "2578.14", "2020-03-09", "00", "00", "1.50"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "502010", "502010|易方达证券公司分级",
                     "89.39", "100", "2020-03-10", "00", "00", "0"));
@@ -150,6 +147,8 @@ public class Ttjj_00_0629 {
 
         //已清仓
 //        {
+//        paramList.add(handlertTtjjHasSxf(startDate, endDate, "003095", "003095|中欧医疗健康混合A",
+//                "0", "0", "2020-04-14", "00", "00", "3.32"));//清仓
 //        paramList.add(handlertTtjjHasSxf(startDate, endDate, "162201", "162201|泰达宏利成长混合",
 //                "0", "0", "2020-03-30", "00", "00", "2.66"));//qc
 //        paramList.add(handlertTtjjHasSxf(startDate, endDate, "005620", "005620|中欧品质消费股票A",

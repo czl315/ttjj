@@ -1,4 +1,4 @@
-package ttjj;
+package ttjj.histroy;
 
 import utils.Content;
 import utils.HttpUtil;
@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Ttjj_00_0617 {
+public class Ttjj_00_0616 {
 
 
     /**
@@ -18,8 +18,8 @@ public class Ttjj_00_0617 {
     public static void main(String[] args) {
         List<Map<String, String>> paramList = new ArrayList<Map<String, String>>();
 //        String endDateToday = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String startDate = "2020-06-16";
-        String endDate = "2020-06-17";
+        String startDate = "2020-06-15";
+        String endDate = "2020-06-16";
         {
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "000656", "000656|前海开源沪深300指数",
                     "548.4", "700", "2020-03-13", "50", "30", "0"));
@@ -48,8 +48,8 @@ public class Ttjj_00_0617 {
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "003095", "003095|中欧医疗健康混合A",
                     "235.38", "500", "2020-04-14", "00", "00", "0"));
 
-            paramList.add(handlertTtjjHasSxf("2020-06-16", "2020-06-17", "003096", "003096|中欧医疗健康混合C",
-                    "796.10", "2000.00", "2020-04-14", "00", "00", "0"));
+            paramList.add(handlertTtjjHasSxf(startDate, endDate, "003096", "003096|中欧医疗健康混合C",
+                    "425.73", "1000.00", "2020-04-14", "00", "00", "0"));
 
             paramList.add(handlertTtjjHasSxf(startDate, endDate, "003547", "003547|鹏华丰禄债券",
                     "925.79", "1000", "2020-03-10", "51", "27", "0"));
