@@ -15,6 +15,10 @@ public class FundTrade {
     private BigDecimal serverCharge;//手续费
     private String orderStatus;//订单状态
     private String tradeTime;//交易发起时间
+    /**
+     * 基金编码
+     */
+    private String fundCode;
 
     public FundTrade() {
     }
@@ -129,5 +133,13 @@ public class FundTrade {
 
     public void setTradeTime(String tradeTime) {
         this.tradeTime = tradeTime;
+    }
+
+    public String getFundCode() {
+        return fundCode;
+    }
+
+    public void setFundCode(String fundCode) {
+        this.fundCode = fundCode;
     }
 }

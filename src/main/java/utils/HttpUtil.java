@@ -196,7 +196,7 @@ public class HttpUtil {
         BufferedReader in = null;
         String result = "";
         try {
-            String lsjzUrl = "http://api.fund.eastmoney.com/f10/lsjz?callback=jQuery183018519977574130597_1558194911277&";
+            String lsjzUrl = "http://api.fund.eastmoney.com/f10/lsjz?callback=jQuery18301820868923083503_1594476154019&";
             URL realUrl = new URL(lsjzUrl + url);
             // 打开和URL之间的连接
             URLConnection conn = realUrl.openConnection();
@@ -225,9 +225,9 @@ public class HttpUtil {
                 result += line;
             }
 
-            result = result.replace("jQuery183018519977574130597_1558194911277(", "");
+            result = result.replace("jQuery18301820868923083503_1594476154019(", "");
             result = result.replace(")", "");
-//        System.out.println(rs);
+            System.out.println(result);
             LsjzPt lsjzPt = JSON.parseObject(result, LsjzPt.class);
             List<LsjzDataLsjz> lsjzDataLsjzs = lsjzPt.getData().getLSJZList();
             if (lsjzDataLsjzs != null && lsjzDataLsjzs.size() > 0) {
@@ -262,7 +262,7 @@ public class HttpUtil {
                     }
 //                    BigDecimal todayEarnAmt = new BigDecimal(lsjzDataLsjz.getDWJZ()).multiply(new BigDecimal(paramMap.get("canShare"))).multiply(new BigDecimal(lsjzDataLsjz.getJZZZL()))
 //                            .divide(new BigDecimal(100));
-                    BigDecimal todayEarnAmt = new BigDecimal(lsjzDataLsjz.getDWJZ()).subtract(new BigDecimal(lastDayNet)).multiply(new BigDecimal(paramMap.get(Content.canShare)));
+                    BigDecimal todayEarnAmt = new BigDecimal(lsjzDataLsjz.getDWJZ()).subtract(new BigDecimal(lastDayNet)).multiply(new BigDecimal(paramMap.get(Content.canShare) != null ? paramMap.get(Content.canShare) : "0"));
 //                    System.out.println(todayEarnAmt.setScale(4, BigDecimal.ROUND_HALF_DOWN));//每日收益金额
                     //手续费
                     String sxf = paramMap.get(Content.SXF);
@@ -298,6 +298,81 @@ public class HttpUtil {
             }
         }
         return result;
+    }
+
+    /**
+     * 查询-ttjj-历史净值-最新一条
+     * @param url
+     * @param param
+     * @return
+     */
+    public static LsjzDataLsjz sendPostTtjjLsjzLastOne(String url, byte[] param, Map<String, String> paramMap) {
+        LsjzDataLsjz rs = null;
+        String headerReferer = "referer";
+        String headerRefererValue = "http://fundf10.eastmoney.com/";
+        OutputStream out = null;
+        BufferedReader in = null;
+        String result = "";
+        try {
+            String lsjzUrl = "http://api.fund.eastmoney.com/f10/lsjz?callback=jQuery18301820868923083503_1594476154019&";
+            URL realUrl = new URL(lsjzUrl + url);
+            // 打开和URL之间的连接
+            URLConnection conn = realUrl.openConnection();
+            // 设置通用的请求属性
+            conn.setRequestProperty(headerReferer, headerRefererValue);
+            conn.setRequestProperty("accept", "*/*");
+            conn.setRequestProperty("connection", "Keep-Alive");
+            conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            // 建立实际的连接
+            // 发送POST请求必须设置如下两行
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            // 获取URLConnection对象对应的输出流
+            out = conn.getOutputStream();
+            //out = new PrintWriter(outputStream);
+            // 发送请求参数
+            out.write(param);
+//            System.out.println(out.toString());
+//            System.out.println(conn.getURL());
+            // flush输出流的缓冲
+            out.flush();
+            // 定义BufferedReader输入流来读取URL的响应
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result += line;
+            }
+
+            result = result.replace("jQuery18301820868923083503_1594476154019(", "");
+            result = result.replace(")", "");
+//            System.out.println(result);
+            LsjzPt lsjzPt = JSON.parseObject(result, LsjzPt.class);
+            if(lsjzPt.getData()==null){
+                return rs;
+            }
+            List<LsjzDataLsjz> lsjzDataLsjzs = lsjzPt.getData().getLSJZList();
+            if (lsjzDataLsjzs != null && lsjzDataLsjzs.size() > 0) {
+                rs = lsjzDataLsjzs.get(0);
+            }
+
+        } catch (Exception e) {
+            System.out.println("发送 POST 请求出现异常！" + e);
+            e.printStackTrace();
+        }
+        // 使用finally块来关闭输出流、输入流
+        finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return rs;
     }
 
     /**

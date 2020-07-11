@@ -1,15 +1,13 @@
 package ttjj.Dao.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.sun.deploy.util.StringUtils;
-import org.apache.log4j.Logger;
-import ttjj.dto.FundTrade;
 import ttjj.Dao.TradeDao;
+import ttjj.dto.FundTrade;
+import ttjj.dto.LsjzDataLsjz;
 import utils.HttpUtil;
-import work.NewSeasonJingTie;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -19,9 +17,7 @@ public class TradeDaoImpl implements TradeDao {
     //    private final static Logger logger = Logger.getLogger(TradeDaoImpl.class);
 
     public List<FundTrade> findFundTrade(String fundCode, String cookie) {
-        List<FundTrade> fundTradeList = new ArrayList<FundTrade>();
-
-        //硬编码方式
+        List<FundTrade> fundTradeList = new ArrayList<FundTrade>();//硬编码方式
 //        int fundCodeInt = Integer.valueOf("1" + fundCode);
 //        switch (fundCodeInt) {
 //            case 1000656:
@@ -174,6 +170,7 @@ public class TradeDaoImpl implements TradeDao {
                     if (array.length > 2) {
                         //                        System.out.println("array[2]:"+array[2]);
                         fundCode = array[2].substring(0, 6);
+                        fundTrade.setFundCode(fundCode);
 //                    System.out.print("fundCode:" + fundCode + "|");
 //                        System.out.println("array[1]:"+array[1]);
                         fundName = fundCode + "|" + array[1].substring(array[1].indexOf(">") + 1, array[1].indexOf("</a>"));
@@ -326,26 +323,25 @@ public class TradeDaoImpl implements TradeDao {
      */
     public static void main(String[] args) {
 //        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=168568481.3275105768631237000.1587299075419.1528; st_si=16529934604496; st_asi=delete; b_p_log_key=YqYlmCtMJVbt2nCdsyCq6TbxbtD+GRXUJrxBZEDZITxHIfCgUw8tCrxUk731QiB0nvUsM8TkmchTyB/oeM7g5nSq+YBBzSV3o1LtTI5IkSzzNbvkXT0=; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=2; st_psi=20200626125212882-119085303933-7379745562; cp_token=2ca40dd1c09e4f6c99ad548acef6e639; FundTradeLoginUser=WryU2RGKLMQddvOrt9ie5DH681dVJ7Rs98U+3fkkCPoMMYm+TogQg18eMgwrDAYRCBbS6blW; fund_trade_cn=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tnYaLdfbHWm6cxq48Uvcrj2Xgx//HDR5H1pWcbYwG3sOur8=; fund_trade_name=WQ+qNJQRkM2gf0ve7giilJV4jbTVicEdkpYh3wCIEEQaZYpiX5NWK08mI5edsToRSpyAZ+3a; fund_trade_visitor=WZGFRsGAsMwx6GI0b4iGrpXig4GVnUDJkDgn3Wcq5hDS7YYCBDJ7f88D0Q7jDR0Rmf6wuKvi; fund_trade_risk=WGB21Yg1xMyCP00D20iUUjQveZdV0FAjhnlZ38Sw4BK48YjyjP+Qq98bpqDDQTeRLcjQLeub; fund_trade_gps=2; VipLevel=0; TradeLoginToken=0cdd00b4660749efbbb2b1ad5a00a1a2; UTOKEN=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tuY+U8CMvNFZKtf18kYRYJD80Zr4yERG9mq9X6yRf4eEJPk=; LToken=919b1cc8f4244369b65efa898ff7ae58; fund_trade_trackid=gSRgeG/HOvMXtvvf2k5YRsWme3vrnWmciDUr/Y5kDpfBbZD9+RhA8YnjkfRSoYT1EaJ8OL/0ktaZzbgM46qQ3g==; monitor_count=14";
-        String cookie = "FundTradeLoginTab=0; FundTradeLoginCard=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=55259190822953; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=1; st_psi=20200704182935226-119085303933-4146762812; st_asi=delete; cp_token=626663b0bf3d402393f49ab9caaeacf6; FundTradeLoginUser=LcHTK8vfIhzrBVIXsUz6ClnNT1+Ey2r50AYr48nwbx4s0YLuAhKanAJn1AY4rKiq/mFfgrYl; fund_trade_cn=LKt5lgDKSZrB0chIgcUw3u/+C116zD7o9ccAxA2u8BEsNNrQqxeO8HVN4lWLBbWVrjVJIdYGGhNMROLjL+8cJbfvgwUX5oK88aqVtaZTyxJS+udP+J0=; fund_trade_name=LSIg9I+9ihuHYmFpsyzKNruDBf8EQ952C3yU4TZCyl10fYnATGXWGNJ78WNftXtqe3yRjUBV; fund_trade_visitor=LhOnP2c3Rhgvu7MwbJzrQ7yGmrjEyTioLd7J4AjPSOh9kYlaQV6l+4JKwQ3T99MqISnBNGTw; fund_trade_risk=L86T0xokGhcbVmMHGwzJahbJKxPE3drJpwp74LUbVugE2YV0dNzxjkJ6OOwBTkEqD3/In1Sh; fund_trade_gps=2; VipLevel=0; TradeLoginToken=2c36629c190546e299c5d8f4163da23d; UTOKEN=LKt5lgDKSZrB0chIgcUw3u/+C116zD7o9ccAxA2u8BEsNNrQqxeO8HVN4lWLBbWVrjVJImYBmQYPO5B/VliwJUhzclfyXZ7lcAq3Np3JGjoYbLdo9Qs=; LToken=a0bb9f61c8c6400583bb67614f880ea0; fund_trade_trackid=hc9uPQuNjf6aL/nzjZWenSyhxZIIErj95lkSgLmL2JJ23XPvhe+S9NhM9YfVmrR5/r7GomTvi+p6RHdkUiFkZA==; ASP.NET_SessionId=ztsopb0xrrizgv0px4brr2sc; monitor_count=2";
+        String cookie = "FundTradeLoginTab=0; FundTradeLoginCard=0; __guid=168568481.3275105768631237000.1587299075419.1528; st_si=67001414424228; st_asi=delete; monitor_count=2; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=4; st_psi=20200711222330911-119085303933-5670252535; cp_token=8879e6770a114c5db921eaad5efa19a5; FundTradeLoginUser=hsuoymuFHS/7HZxO1cYqoPDB8HB0JUQrFlgjOA1B8mlIS8aeG1HA3eWWJGd8x2JohpFc4BbJ; fund_trade_cn=h+8qVj51at24JfSzlMrVG5n+UtzlY57xHSZNg6otgN0ILAchGdj5HMYVO/Z5RaWKIqWXok8a15OPKNo2oLHFWAG6g1XAwOTTIQoX1qg8CLfEM1ymaHU=; fund_trade_name=hHdFFjzvMSz1biWKvjYzWLsPRlN0MM8bxSPMODdevYUFr8JbyW6gQCW11641crvoB+MyUjYZ; fund_trade_visitor=hiAEKEzU2SmNAX9TJGY5E8Zlgyg0xVNE3gu7O1xv21BZs869xwuHDTW12w+tRRYo/dwUqybB; fund_trade_risk=hgjZI3kjbSGGHi+3onYMy4k2xa80/7HrFUnlOCL10T30582+uIF7ZqWD2Qm8wmXo4kXkVXUM; fund_trade_gps=2; VipLevel=0; TradeLoginToken=ad151b1be7404ea18adcbce5f52cfcaa; UTOKEN=h+8qVj51at24JfSzlMrVG5n+UtzlY57xHSZNg6otgN0ILAchGdj5HMYVO/Z5RaWKIqWXoK8AiZNAurh+0rH5WDl7Fz1m7vtk/yox7Lsr5fZ9tvLoOFc=; LToken=bb9593cfe33d4cc8ba978c41723bc8a3; fund_trade_trackid=ZMv/sat+H2nlHyt+JNy8I10k8TyYNBme9f2WbZ93WCMbOZl8yoD8wb66XAmZAXWdye+ZcFkXIj4AWMEbmevfHA==";
 
 //        System.out.println("查询开始：");=
         String fundCode = "";
 //        String fundCode = "002207";
-        String startDate = "2020-06-23";
+        String startDate = "2020-01-01";
         String endDate = "2020-12-31";
-        String busType = "2";//0-全部;1-申购;2-卖出;
+//        String busType = "0";//0-全部;1-申购;2-卖出;
+        String busType = "1";//0-全部;1-申购;2-卖出;
+//        String busType = "2";//0-全部;1-申购;2-卖出;
         List<FundTrade> rs = findMyTrade(cookie, fundCode, startDate, endDate, busType);
 //        System.out.println("findMyTrade:"+JSON.toJSON(rs));
         for (FundTrade fundTrade : rs) {
             if (fundTrade.getOrderStatus() != null && (fundTrade.getOrderStatus().contains("申购"))) {
-                //打印-
-                System.out.println("INSERT INTO `bank19`.`ol_fund_trade`(" +
-                        " `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `TRADE_CODE`, `TRADE_CODE_BUY`, `TRADE_CODE_REDEM`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `PROCESS_TIME`, `EARN_TIME`, `TRADE_ACCT`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`, `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`" +
-                        ") VALUES (" +
-                        " '', '" + fundTrade.getFundInfo() + "', '" + fundTrade.getOrderStatus() + "', '" + fundTrade.getTradeTime() + "', '" + fundTrade.getOrderStatus() + "'" +
-                        ", " + fundTrade.getConfirmShare() + ", " + fundTrade.getConfirmNet() + ", " + fundTrade.getOrderAmt() + ", " +
-                        "'确认成功', '', '', '0', '', " + fundTrade.getOrderAmt() + ", 0, 0, '" + fundTrade.getConfirmNetData() + "', " + fundTrade.getServerCharge() + ", '3000-01-01 00:00:00', '3000-01-01 00:00:00', '天天基金', '0', 0, '3000-01-01 00:00:00', '3000-01-01 00:00:00', '3', '', now(), now()" +
-                        ");");
+                //显示插入数据库语句
+//                showInsertDb(fundTrade);
+                //显示-更新数据库语句
+                showUpdateDb(fundTrade);
+
             }
             //赎回
             if (fundTrade.getOrderStatus() != null && (fundTrade.getOrderStatus().contains("赎回"))) {
@@ -368,5 +364,50 @@ public class TradeDaoImpl implements TradeDao {
 //        System.out.println("rs:" + JSON.toJSONString(rs));
 
 //        formatTradeShow(rs, cookie);
+    }
+
+    /**
+     * 显示-更新数据库语句-更新-我的交易-最新净值和日期
+     * @param fundTrade
+     */
+    private static void showUpdateDb(FundTrade fundTrade) {
+        String lsjzUrl = "fundCode=" + fundTrade.getFundCode() + "&pageIndex=1&pageSize=100&startDate=" + "" + "&endDate=" + "" + "&_=1558194929451";
+        byte[] bytes ="".getBytes();
+        LsjzDataLsjz lsjzDataLsjz = HttpUtil.sendPostTtjjLsjzLastOne(lsjzUrl, bytes, new HashMap<String, String>());
+//        System.out.println("lsjzDataLsjz:"+JSON.toJSON(lsjzDataLsjz));
+        //打印-
+        if(lsjzDataLsjz==null){
+            return;
+        }
+        System.out.println("UPDATE `ol_fund_trade` " +
+                "SET " +
+                " `LAST_NET`=" + lsjzDataLsjz.getDWJZ() + " " +
+                ",`LAST_DATE`='" + lsjzDataLsjz.getFSRQ() + "' " +
+                "WHERE  `FD_INFO` = '" + fundTrade.getFundInfo() + "' "+
+                "AND `TYPE` = '申购' "+
+                " ;");
+    }
+
+    /**
+     * 显示插入数据库语句
+     * @param fundTrade
+     */
+    private static void showInsertDb(FundTrade fundTrade) {
+        //打印-
+        System.out.println("INSERT INTO `bank19`.`ol_fund_trade`(" +
+                " `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, " +
+                " `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `TRADE_CODE`," +
+                " `TRADE_CODE_BUY`, `TRADE_CODE_REDEM`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`," +
+                " `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `PROCESS_TIME`, `EARN_TIME`," +
+                " `TRADE_ACCT`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`," +
+                " `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`" +
+                ") VALUES (" +
+                " '', '" + fundTrade.getFundInfo() + "', '" + fundTrade.getOrderStatus() + "', '" + fundTrade.getTradeTime() + "', '" + fundTrade.getOrderStatus() + "'" +
+                ", " + fundTrade.getConfirmShare() + ", " + fundTrade.getConfirmNet() + ", " + fundTrade.getOrderAmt() + ", " + "'确认成功', '', " +
+                " '', '0', '', " + fundTrade.getOrderAmt() + ", 0, " +
+                " 0, '" + fundTrade.getConfirmNetData() + "', " + fundTrade.getServerCharge() + ", '3000-01-01 00:00:00', '3000-01-01 00:00:00'," +
+                " '天天基金', '0', 0, '3000-01-01 00:00:00', '3000-01-01 00:00:00'," +
+                " '3', '', now(), now()" +
+                ");");
     }
 }
