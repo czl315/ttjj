@@ -282,7 +282,7 @@ public class TradeDaoImpl implements TradeDao {
 //                        System.out.println("confirmSxf："+confirmSxf);
                         fundTrade.setServerCharge(new BigDecimal(confirmSxf));
 
-                        //INSERT INTO `bank19`.`ol_fund_trade`(`ID`, `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `TRADE_CODE`, `TRADE_CODE_BUY`, `TRADE_CODE_REDEM`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `PROCESS_TIME`, `EARN_TIME`, `TRADE_ACCT`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`, `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`) VALUES (105, '32', '鹏华证券分级(160633)', '申购', '2020-05-13 12:43:30', '支付成功', 209.61, 0.953, 200, '确认成功', '', '', '0', '', 100, 0, 0, '2020-03-11 13:29:18', 0.24, '2020-03-11 13:29:18', '2020-03-11 13:29:18', '天天基金', '0', 0, '3000-01-01 00:00:00', '3000-01-01 00:00:00', '天天基金', '', '2020-03-14 17:40:26', '2020-06-02 15:45:27');
+                        //INSERT INTO `bank19`.`ol_fund_trade`(`ID`, `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `TRADE_CODE`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`, `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`) VALUES (105, '32', '鹏华证券分级(160633)', '申购', '2020-05-13 12:43:30', '支付成功', 209.61, 0.953, 200, '确认成功', '', '', '0', '', 100, 0, 0, '2020-03-11 13:29:18', 0.24, '2020-03-11 13:29:18', '2020-03-11 13:29:18', '天天基金', '0', 0, '3000-01-01 00:00:00', '3000-01-01 00:00:00', '天天基金', '', '2020-03-14 17:40:26', '2020-06-02 15:45:27');
                         if (fundTrade.getFundInfo() != null && fundTrade.getFundInfo().contains("货币")) {
                             //货币基金不打印
                             continue;
@@ -298,7 +298,7 @@ public class TradeDaoImpl implements TradeDao {
                         if (fundTrade.getOrderStatus() != null && (fundTrade.getOrderStatus().contains("申购") || fundTrade.getOrderStatus().contains("赎回"))) {
 //                                //打印-申购、赎回
 //                                System.out.println("INSERT INTO `bank19`.`ol_fund_trade`(" +
-//                                        " `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `TRADE_CODE`, `TRADE_CODE_BUY`, `TRADE_CODE_REDEM`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `PROCESS_TIME`, `EARN_TIME`, `TRADE_ACCT`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`, `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`" +
+//                                        " `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`, `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`" +
 //                                        ") VALUES (" +
 //                                        " '', '" + fundTrade.getFundInfo() + "', '"+fundTrade.getOrderStatus()+"', '" + dateTime + "', '"+fundTrade.getOrderStatus()+"', " + confirmShare + ", " + confirmNet + ", " + confirmAmt + ", " +
 //                                        "'确认成功', '', '', '0', '', " + confirmAmt + ", 0, 0, '" + confirmDate + "', " + confirmSxf + ", '3000-01-01 00:00:00', '3000-01-01 00:00:00', '天天基金', '0', 0, '3000-01-01 00:00:00', '3000-01-01 00:00:00', '3', '', now(), now()" +
@@ -396,17 +396,17 @@ public class TradeDaoImpl implements TradeDao {
         //打印-
         System.out.println("INSERT INTO `bank19`.`ol_fund_trade`(" +
                 " `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, " +
-                " `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `TRADE_CODE`," +
-                " `TRADE_CODE_BUY`, `TRADE_CODE_REDEM`, `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`," +
-                " `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, `PROCESS_TIME`, `EARN_TIME`," +
-                " `TRADE_ACCT`, `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`," +
+                " `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, " +
+                " `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`," +
+                " `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, " +
+                " `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`," +
                 " `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`" +
                 ") VALUES (" +
                 " '', '" + fundTrade.getFundInfo() + "', '" + fundTrade.getOrderStatus() + "', '" + fundTrade.getTradeTime() + "', '" + fundTrade.getOrderStatus() + "'" +
-                ", " + fundTrade.getConfirmShare() + ", " + fundTrade.getConfirmNet() + ", " + fundTrade.getOrderAmt() + ", " + "'确认成功', '', " +
-                " '', '0', '', " + fundTrade.getOrderAmt() + ", 0, " +
-                " 0, '" + fundTrade.getConfirmNetData() + "', " + fundTrade.getServerCharge() + ", '3000-01-01 00:00:00', '3000-01-01 00:00:00'," +
-                " '天天基金', '0', 0, '3000-01-01 00:00:00', '3000-01-01 00:00:00'," +
+                ", " + fundTrade.getConfirmShare() + ", " + fundTrade.getConfirmNet() + ", " + fundTrade.getOrderAmt() + ", " + "'确认成功', " +
+                " '0', '', " + fundTrade.getOrderAmt() + ", 0, " +
+                " 0, '" + fundTrade.getConfirmNetData() + "', " + fundTrade.getServerCharge() + ", " +
+                " '0', 0,  '3000-01-01 00:00:00', '3000-01-01 00:00:00', " +
                 " '3', '', now(), now()" +
                 ");");
     }
