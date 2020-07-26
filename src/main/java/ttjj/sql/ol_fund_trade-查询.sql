@@ -2,21 +2,19 @@
 SELECT
 	ol_fund_trade.FD_INFO,
 	ol_fund_trade.TRADE_TIME
+	,ol_fund_trade.CONFIRM_SHARE
 	,ol_fund_trade.CONFIRM_AMT
+	,ROUND(ol_fund_trade.LAST_NET * ol_fund_trade.CONFIRM_SHARE ,2)
 	,ol_fund_trade.CONFIRM_NET AS confirmNet
 	,ol_fund_trade.LAST_NET lastNet,
 	-- 	(SELECT t1.LASTEST_NET FROM `ol_fund_earn` t1 WHERE t1.`FD_NAME` = ol_fund_trade.FD_INFO ORDER BY t1.`LASTEST_NET_DATA` DESC LIMIT 1) - ol_fund_trade.CONFIRM_NET AS syAmt,
 	ROUND(
-		(
-			ol_fund_trade.LAST_NET - ol_fund_trade.CONFIRM_NET
-		) * ol_fund_trade.CONFIRM_SHARE / ol_fund_trade.ORDER_AMT * 100,
+		(ol_fund_trade.LAST_NET - ol_fund_trade.CONFIRM_NET) * ol_fund_trade.CONFIRM_SHARE / ol_fund_trade.ORDER_AMT * 100,
 		4
 	) AS 最新日期收益率
-,ol_fund_trade.LAST_DATE
+,ROUND((ol_fund_trade.LAST_NET - ol_fund_trade.CONFIRM_NET) * ol_fund_trade.CONFIRM_SHARE / ol_fund_trade.ORDER_AMT * 100/DATEDIFF(NOW() ,ol_fund_trade.TRADE_TIME) ,4)
+		AS 每日收益率
 ,DATEDIFF(NOW() ,ol_fund_trade.TRADE_TIME) AS 现今持有天数
-,DATEDIFF(ol_fund_trade.REDEM_TIME ,ol_fund_trade.TRADE_TIME) AS 赎回天数
-
-,ol_fund_trade.REDEM_AMT
 ,ol_fund_trade.TYPE
 FROM
 	`ol_fund_trade` ol_fund_trade
@@ -31,7 +29,8 @@ WHERE
 -- ORDER BY lastDate DESC
 -- ORDER BY 最大收益率 DESC
 ORDER BY
-	最新日期收益率 DESC;
+-- 	最新日期收益率 DESC;
+每日收益率 DESC;
 
 /**赎回**/
 SELECT
@@ -64,6 +63,8 @@ WHERE
 -- ORDER BY lastDate DESC
 -- ORDER BY 最大收益率 DESC
 ORDER BY
-	每日收益率 DESC;
+-- 	每日收益率 DESC
+ol_fund_trade.REDEM_TIME  DESC
+;
 
 
