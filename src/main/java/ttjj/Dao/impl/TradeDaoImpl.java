@@ -328,11 +328,11 @@ public class TradeDaoImpl implements TradeDao {
 //        System.out.println("查询开始：");=
         String fundCode = "";
 //        String fundCode = "002207";
-        String startDate = "2020-01-21";
+        String startDate = "2020-01-23";
         String endDate = "2020-12-31";
 //        String busType = "0";//0-全部;1-申购;2-卖出;
-        String busType = "1";//0-全部;1-申购;2-卖出;
-//        String busType = "2";//0-全部;1-申购;2-赎回;
+//        String busType = "1";//0-全部;1-申购;2-卖出;
+        String busType = "2";//0-全部;1-申购;2-赎回;
         List<FundTrade> rs = findMyTrade(cookie, fundCode, startDate, endDate, busType);
 //        System.out.println("findMyTrade:"+JSON.toJSON(rs));
         for (FundTrade fundTrade : rs) {
@@ -340,7 +340,7 @@ public class TradeDaoImpl implements TradeDao {
                 //显示插入数据库语句
 //                showInsertDb(fundTrade);
                 //显示-更新数据库语句
-                showUpdateDb(fundTrade);
+//                showUpdateDb(fundTrade);
 
             }
             //赎回
