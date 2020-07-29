@@ -23,14 +23,15 @@ WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
 	AND ol_fund_trade.TYPE = '申购'
+	AND ol_fund_trade.CONFIRM_AMT <1000
 -- 	AND ol_fund_trade.TYPE in( '申购(赎回)' )
 -- 	AND ol_fund_trade.TYPE = '赎回'
 -- AND ol_fund_trade.FD_INFO LIKE '%160633|鹏华证券分级%'
 -- ORDER BY lastDate DESC
 -- ORDER BY 最大收益率 DESC
 ORDER BY
--- 	最新日期收益率 DESC;
-每日收益率 DESC;
+	最新日期收益率 DESC;
+-- 每日收益率 DESC;
 
 /**赎回**/
 SELECT
@@ -63,8 +64,8 @@ WHERE
 -- ORDER BY lastDate DESC
 -- ORDER BY 最大收益率 DESC
 ORDER BY
--- 	每日收益率 DESC
-ol_fund_trade.REDEM_TIME  DESC
+	每日收益率 DESC
+-- ol_fund_trade.REDEM_TIME  DESC
 ;
 
 
