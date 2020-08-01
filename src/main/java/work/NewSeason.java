@@ -26,7 +26,7 @@ public class NewSeason extends TimerTask {
     /**
      * cookie
      */
-    private final static String cookie = "__jdv=76161171|direct|-|none|-|1592364021218; __jdu=15923640212171166984653; areaId=1; ipLoc-djd=1-2809-0-0; shshshfp=4154bf8474fadcecaae419f9c9058aff; shshshfpa=c97ba6cc-ca4c-052f-ee72-bf92c7a407d7-1592364023; shshshfpb=pcNKJG7S9vaRkJeviwtPP8Q%3D%3D; TrackID=1Hvul25h4HToCh_itDPhnNiRDVC_yMn9ZUWNfLmXw4eoZH_vTA7gyo8vUoIt5xrGhd9pYEVDk0T_GSsRhzzjtchlLlTyfyydCWnBBsSmSbHY; thor=A718E266D9B2378CAFBC9387160E875114AACF1033A6E1CB7B23FF94E300D5A9CA77E38CE1F7C1BEE2CF18315D17F96127F01CCA1EA6A0A73701D61E64231E7A42DA80B90F8C1EFF609EFB8BA04BDC456E33AF4A1E1A38353C6F74DD06B0E8FAF319DA6DAAA1ED6D560DCC6115029E1AC4CE37C87D04DCE4BC36A963C644E98B; pinId=xcWTturruQA; pin=czl315; unick=czl315; ceshi3.com=201; _tp=EOpsxLedIh%2Bha%2FKPkDpqCg%3D%3D; _pst=czl315; shshshsID=52ea5deabb64e3b97c13ef87a36a3764_2_1592364041646; __jda=122270672.15923640212171166984653.1592364021.1592364021.1592364021.1; __jdc=122270672; 3AB9D23F7A4B3C9B=PMRCFLCUO2QEAKTO3OLBOKLRFTIBQFWR423GYIVNGBMDU3YZKT53RRFSK4TL72V5IF5FRF24EEQKY5ANIUW7RDPGPU; __jdb=122270672.6.15923640212171166984653|1.1592364021";
+    private final static String cookie = "shshshfpa=00c2369e-1ebc-a87a-c0d6-f23f02eb461f-1525437685; shshshfpb=268190f132b494db48c188c56f94acb765aec54f6338d03f664da35f97; pinId=xcWTturruQA; __jdu=15143778252431524477047; unpl=V2_ZzNtbRBVEUB2C0dcK0xUAGJUR1tKVxYTfQhEU3IQDwFgBkENclRCFnQUR1JnG1wUZAAZXUZcQRRFCEdkeBBVAWMDE1VGZxpFK0oYEDpBA04%2bR0ICLFYTHHMME1N7S1hSMwYUCEsEERB8D0BcextfDWUAR15AZ3MWdThGVUsZWAViARRbS1RHFnAKRlB4HFkDYQIXW3JnRCVFOE5VeRpbDFcCIlxyFRdJdwtBVnkaEQVjAxdfRFFKFnELQ1Z7HV8AYgUUXEdRcxRFCw%3d%3d; ipLoc-djd=1-72-0-0; areaId=1; PCSYCityID=CN_110000_110100_110105; pin=czl315; unick=czl315; _tp=EOpsxLedIh%2Bha%2FKPkDpqCg%3D%3D; _pst=czl315; __jdv=76161171|haosou-pinzhuan|t_288551095_haosoupinzhuan|cpc|0a875d61c5fe47d8bc48679132932d23_0_c3cd2209ad944fd791d7913688b564ba|1596204971247; TrackID=1Vbfbd_zkwlXcQ22_xlIF-QdiE9nwySTVVA8OvKDta6_C8A66-CHJm4gXR7NrL0Z8F8eqDp0EayxrYqnqbHmbPA; thor=A718E266D9B2378CAFBC9387160E8751BB370098F119F3AC14970BDDC9487BDEE406962E356999D3CE532DA9460A2846CC0E45D9B0DB1DB92BE8C480CEB6B3F1541170B96A6ABE57B6CFA27BB519D8966AC4796C410BDE537479A56D942F56982A726944E437B77FCD4F7662C18BE658A563A0656CBDC8BF6032BADE99BA8D07; ceshi3.com=201; shshshfp=3683cf46c39f8108007a8fe6766042c4; shshshsID=b512fe68fb0d4c307d17890ecd6e5e0c_3_1596249321134; __guid=211148491.959919709830732800.1596249332740.9607; __jda=122270672.15143778252431524477047.1514377825.1596212307.1596249262.571; __jdc=122270672; 3AB9D23F7A4B3C9B=3NPW7L6RMBADGBRW4PE5K4UBZTHIUSJ64WTYYACB2QADAC6WQJKSB6FDQTR6LEM53W3RXEJ7ARX72YUJX27HCCQXME; monitor_count=2; __jdb=122270672.7.15143778252431524477047|571.1596249262";
 
     /**
      * 新品季
@@ -34,16 +34,16 @@ public class NewSeason extends TimerTask {
      * @param args args
      */
     public static void main(String[] args) {
-//        doBizTask();
-        long initDelay = getTimeMillis("18:00:00") - System.currentTimeMillis();
-        ScheduledExecutorService pool = new ScheduledThreadPoolExecutor(1);
-        pool.scheduleAtFixedRate(new Runnable() {
-            public void run() {
-                // task to run goes here
-                System.out.println("新品季-定时做任务");
-                doBizTask();
-            }
-        }, 0, 60 * 60 * 4, TimeUnit.SECONDS);
+        doBizTask();
+//        long initDelay = getTimeMillis("18:00:00") - System.currentTimeMillis();
+//        ScheduledExecutorService pool = new ScheduledThreadPoolExecutor(1);
+//        pool.scheduleAtFixedRate(new Runnable() {
+//            public void run() {
+//                // task to run goes here
+//                System.out.println("新品季-定时做任务");
+//                doBizTask();
+//            }
+//        }, 0, 60 * 60 * 4, TimeUnit.SECONDS);
     }
 
 
@@ -174,7 +174,7 @@ public class NewSeason extends TimerTask {
      */
     private static String getGoodsPrize(String cookie, String browseType, String goodsListJsonObj) {
         try {
-            Thread.sleep(10001);//间隔10秒
+            Thread.sleep(5001);//间隔10秒
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
