@@ -1,6 +1,6 @@
 /**基金交易的最新净值-收益率**/
 SELECT
-	ol_fund_trade.FD_INFO
+	ol_fund_trade.FD_INFO AS 最新收益倒序
 	,ROUND(
 		(ol_fund_trade.LAST_NET - ol_fund_trade.CONFIRM_NET) * ol_fund_trade.CONFIRM_SHARE / ol_fund_trade.ORDER_AMT * 100,
 		4
@@ -58,7 +58,7 @@ WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
 	AND ol_fund_trade.TYPE = '申购'
-	AND ol_fund_trade.CONFIRM_AMT <1000
+-- 	AND ol_fund_trade.CONFIRM_AMT <1000
 -- 	AND ol_fund_trade.TYPE in( '申购(赎回)' )
 -- 	AND ol_fund_trade.TYPE = '赎回'
 -- AND ol_fund_trade.FD_INFO LIKE '%160633|鹏华证券分级%'
