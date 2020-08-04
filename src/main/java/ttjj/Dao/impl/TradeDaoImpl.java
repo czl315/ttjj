@@ -70,7 +70,8 @@ public class TradeDaoImpl implements TradeDao {
      * @param cookie
      */
 //    private List<FundTrade> findMyTrade(String cookie, String fundCode) {
-    private static List<FundTrade> findMyTrade(String cookie, String fundCode, String startDate, String endDate, String busType) {
+
+    public List<FundTrade> findMyTrade(String cookie, String fundCode, String startDate, String endDate, String busType) {
         String url = "https://query.1234567.com.cn/Query/DelegateList";
         StringBuffer urlParam = new StringBuffer();
         urlParam.append("DataType=1");
@@ -331,14 +332,14 @@ public class TradeDaoImpl implements TradeDao {
         String startDate = "2020-02-31";
         String endDate = "2020-12-31";
 //        String busType = "0";//0-全部;1-申购;2-卖出;
-//        String busType = "1";//0-全部;1-申购;2-卖出;
-        String busType = "2";//0-全部;1-申购;2-赎回;
-        List<FundTrade> rs = findMyTrade(cookie, fundCode, startDate, endDate, busType);
+        String busType = "1";//0-全部;1-申购;2-卖出;
+//        String busType = "2";//0-全部;1-申购;2-赎回;
+        List<FundTrade> rs = new TradeDaoImpl().findMyTrade(cookie, fundCode, startDate, endDate, busType);
 //        System.out.println("findMyTrade:"+JSON.toJSON(rs));
         for (FundTrade fundTrade : rs) {
             if (fundTrade.getOrderStatus() != null && (fundTrade.getOrderStatus().contains("申购"))) {
                 //显示插入数据库语句
-//                showInsertDb(fundTrade);
+                showInsertDb(fundTrade);
                 //显示-更新数据库语句
 //                showUpdateDb(fundTrade);
 
