@@ -1,5 +1,6 @@
 package ttjj.Dao.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import ttjj.Dao.TradeDao;
 import ttjj.dto.FundTrade;
 import ttjj.dto.LsjzDataLsjz;
@@ -253,11 +254,11 @@ public class TradeDaoImpl implements TradeDao {
 //                                confirmDate = confirmDate.replace("</td>","" );
 //                                System.out.println("confirmDate:"+confirmDate);
 //                            }
-//                            // 确认净值(元)
-//                            if (confirmField.contains(".")) {
+                            // 确认净值(元)  净值规则：长度6位，第二位是小数点
+//                            if (confirmField.length()==6 && confirmField.contains(".")) {
 //                                String confirmNet = confirmField.substring(1);
 //                                confirmNet = confirmNet.replace("</td>","");
-//                                System.out.println("confirmNet:"+confirmNet);
+////                                System.out.println("confirmNet:"+confirmNet);
 //                            }
                         }
 //                        String[] arrayConfirm = tradeConfirmInfoTbody.split("<td>");
