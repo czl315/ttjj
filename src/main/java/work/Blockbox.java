@@ -87,7 +87,7 @@ public class Blockbox extends TimerTask {
 //        System.out.println("查询任务列表-taskVo1："+JSON.toJSONString(taskVo1));
 
 //        String shopRs = doShopTask();//店铺任务
-
+//
         //
         String rsDoSkuTask = doSkuTask();//商品任务
 
