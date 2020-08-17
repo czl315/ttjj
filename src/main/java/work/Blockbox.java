@@ -25,7 +25,7 @@ public class Blockbox extends TimerTask {
     /**
      * cookie
      */
-    private final static String cookie = "shshshfpa=7d458cc5-ef69-8cca-04f9-04e8eefb8031-1577076121; __jdu=15770761202431945958964; pinId=xcWTturruQA; shshshfpb=yjlcj3AiuwWhpqP6phZkXFA%3D%3D; pin=czl315; unick=czl315; _tp=EOpsxLedIh%2Bha%2FKPkDpqCg%3D%3D; _pst=czl315; user-key=1775a64e-111a-4b21-8480-cb8f9b143bdb; ipLocation=%u5317%u4eac; __jdv=76161171|direct|-|none|-|1596619327388; ipLoc-djd=1-2809-0-0; areaId=1; PCSYCityID=CN_110000_110100_110112; sso.jd.com=BJ.e470756c36614e06b73a9d2922bf2464; TrackID=155sXVZPw_k90RzdsAuJy3y9VlSNrswd6Py5sdONODbDMrPtETIU3Pd6dOEoe8A7gQidoomXmt_lbsBER69fxFoBL5zp5UUwFzEocj35ZN-I; thor=A718E266D9B2378CAFBC9387160E8751610BA81EF537B4E0723EC2C58ACAA34B02B885729991A25557E74BC4E3F6AC301CD94FF8701296CD9A9F0A5A4FB6A0D965E90942763810790606334D0C2B29BEA06A4BE834955E01E662BACBB14CFF474903586F29721DD73824C2AE07D92A56EA81B94D0F2081E326A6A6AD31C8D074; ceshi3.com=201; __jda=76161171.15770761202431945958964.1577076120.1597304419.1597306894.92; __jdc=76161171; cn=8; mba_muid=15770761202431945958964; shshshfp=9b70e2fbaeffa2bed396601b41f523f7; shshshsID=0779ae365f49835b9865945f6759ec37_4_1597306950258; 3AB9D23F7A4B3C9B=VOWID4DTU2HHVPCPK7E5QYV37B7YKZTJPACOO3A6MKHBE6SQK7MVOB3MOGFTS7EMJJ7BYZTAVFRA4TXOU7ZAHNOC24; TrackerID=Jh2fRUCObmt1jG6QStC7z7GPWt4u4C5uoedHJz4WETbN9zVk-Hsya2qIocWH1jCclsH55Lq2N4tTpm6Lkurn6KswtSQ9cfKUnMnk0LSqKRQF2hjkdIoPGA0PAdCmMdKA; pt_key=AAJfNPhZADCDZuxregA4yeJm6NGLOIL-PJjq4fgeZXElmX9Cj1qJayzR2d-grtnKoquY5lDyA88; pt_pin=czl315; pt_token=6kletqdf; pwdt_id=czl315; __jdb=76161171.9.15770761202431945958964|92.1597306894; mba_sid=15973069171611611636355508512.3; __jd_ref_cls=txmh_1577090969334%7C2";
+    private final static String cookie = "shshshfpa=7d458cc5-ef69-8cca-04f9-04e8eefb8031-1577076121; __jdu=15770761202431945958964; pinId=xcWTturruQA; shshshfpb=yjlcj3AiuwWhpqP6phZkXFA%3D%3D; pin=czl315; unick=czl315; _tp=EOpsxLedIh%2Bha%2FKPkDpqCg%3D%3D; _pst=czl315; user-key=1775a64e-111a-4b21-8480-cb8f9b143bdb; ipLocation=%u5317%u4eac; __jdv=76161171|direct|-|none|-|1596619327388; PCSYCityID=CN_110000_110100_110112; cn=8; sso.jd.com=BJ.d40beb78418646b692d56a3a219afc44; areaId=1; ipLoc-djd=1-2809-0-0; TrackID=1GT6ms2pgRBb5OQNNkSm-NeMPEY5e8bbduFYis-GnyKUDnwEXWhPi6dMfCZTw-k9iFUTkP8vv5LVCIz7vmgEnlbbEVQRuedDZwFDxiwZ-pw8; ceshi3.com=201; mba_muid=15770761202431945958964; shshshfp=9b70e2fbaeffa2bed396601b41f523f7; TrackerID=9c6MRXmPZ-PUjBc7a2p2jBngQ1yyLx1XgNWlQAk-4NoxvMBq47WWOo3M3rKCP3P67kRtUU5AEeGYbSQ9k3CysS5hLXJWK9qFuvizaL1T4b30ds6dK9GvccBQAtfuormG; pt_key=AAJfOfKOADCdnXueJmMy9H6cs6ARcmgqRtJYUVsLJ71Uf8F0mzIp5owCHVocrs2O--_1pxJXjJk; pt_pin=czl315; pt_token=1akla7xo; pwdt_id=czl315; __jd_ref_cls=Mnpm_ComponentApplied; __jda=122270672.15770761202431945958964.1577076120.1597633109.1597645617.96; __jdc=122270672; 3AB9D23F7A4B3C9B=PMRCFLCUO2QEAKTO3OLBOKLRFTIBQFWR423GYIVNGBMDU3YZKT53RRFSK4TL72V5IF5FRF24EEQKY5ANIUW7RDPGPU; thor=A718E266D9B2378CAFBC9387160E8751A9CA25BBC9FECAE715DF166FA1D6BDA5592DA768614C5748E4522A89C3E32174F6491AE8D583C2076D8665EF4737BFA3CE97EF99BABA94E30A4028CBAA38424FFEAE1344A28FE6DAA90004EF494709B9BC688FEED80AF98D2F83404870BE84C21B4656C9959CE599FAA07110422A96E2; __jdb=122270672.2.15770761202431945958964|96.1597645617";
 
     /**
      * 新品季
@@ -86,7 +86,7 @@ public class Blockbox extends TimerTask {
         TaskVo taskVo1 = JSON.parseObject(task1Str, TaskVo.class);
 //        System.out.println("查询任务列表-taskVo1："+JSON.toJSONString(taskVo1));
 
-//        String shopRs = doShopTask();//店铺任务
+        String shopRs = doShopTask();//店铺任务
 
         //
         String rsDoSkuTask = doSkuTask();//商品任务
@@ -146,7 +146,7 @@ public class Blockbox extends TimerTask {
             //浏览会场
             String browseShopRsStr = browseShop("https://blindbox.jd.com/active/strollActive","activeId");
             try {
-                Thread.sleep(10000);
+                Thread.sleep(8000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
