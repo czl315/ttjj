@@ -25,12 +25,14 @@ WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
 	AND ol_fund_trade.TYPE = '申购'
+-- AND ol_fund_trade.FD_INFO LIKE '%沪%'
 -- AND ol_fund_trade.FD_INFO LIKE '%医%'
 -- AND ol_fund_trade.FD_INFO LIKE '%创业%'
 -- AND ol_fund_trade.FD_INFO LIKE '%军%'
 -- AND ol_fund_trade.FD_INFO LIKE '%消费%'
 -- AND ol_fund_trade.FD_INFO LIKE '%农业%'
-AND ol_fund_trade.FD_INFO LIKE '%金%'
+-- AND ol_fund_trade.FD_INFO LIKE '%金%'
+-- AND ol_fund_trade.FD_INFO LIKE '%沪深300%'
 -- 	AND ol_fund_trade.CONFIRM_AMT <1000
 -- 	AND ol_fund_trade.TYPE in( '申购(赎回)' )
 -- 	AND ol_fund_trade.TYPE = '赎回'
@@ -64,7 +66,8 @@ FROM
 WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
-	AND ol_fund_trade.TYPE = '申购'
+-- 	AND DATEDIFF(NOW() ,ol_fund_trade.TRADE_TIME)>15
+-- 	AND ol_fund_trade.TYPE = '申购'
 -- 	AND ol_fund_trade.CONFIRM_AMT <1000
 -- 	AND ol_fund_trade.TYPE in( '申购(赎回)' )
 -- 	AND ol_fund_trade.TYPE = '赎回'
@@ -107,6 +110,13 @@ WHERE
 ORDER BY
 	每日收益率 DESC
 -- ol_fund_trade.REDEM_TIME  DESC
+;
+
+SELECT ol_fund_trade.FD_INFO,SUM(ol_fund_trade.CONFIRM_AMT)  AS sumamt
+	FROM ol_fund_trade
+	WHERE ol_fund_trade.TYPE in( '申购' ) AND ol_fund_trade.SOURCE =3
+	GROUP BY ol_fund_trade.FD_INFO
+	ORDER by sumamt  DESC
 ;
 
 
