@@ -10,5 +10,5 @@ import java.util.List;
 public interface TradeDao {
     List<FundTrade> findFundTrade(String fundCode,String cookie);
 
-    List<FundTrade> findMyTrade(String cookie, String fundCode, String startDate, String endDate, String busType);
+    List<FundTrade> findMyTrade(String cookie, String fundCode, String startDate, String endDate, String busType ,String pageIndex);
 }

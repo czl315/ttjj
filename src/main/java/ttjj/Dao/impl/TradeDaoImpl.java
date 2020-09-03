@@ -1,5 +1,6 @@
 package ttjj.Dao.impl;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.Dao.TradeDao;
 import ttjj.dto.FundTrade;
@@ -30,7 +31,7 @@ public class TradeDaoImpl implements TradeDao {
         String startDate = "2020-01-01";
         String endDate = "2020-12-31";
         String busType = "";
-        fundTradeList = findMyTrade(cookie, fundCode, startDate, endDate, busType);
+        fundTradeList = findMyTrade(cookie, fundCode, startDate, endDate, busType,"1");
 
         return fundTradeList;
     }
@@ -72,7 +73,7 @@ public class TradeDaoImpl implements TradeDao {
      */
 //    private List<FundTrade> findMyTrade(String cookie, String fundCode) {
 
-    public List<FundTrade> findMyTrade(String cookie, String fundCode, String startDate, String endDate, String busType) {
+    public List<FundTrade> findMyTrade(String cookie, String fundCode, String startDate, String endDate, String busType,String pageIndex) {
         String url = "https://query.1234567.com.cn/Query/DelegateList";
         StringBuffer urlParam = new StringBuffer();
         urlParam.append("DataType=1");
@@ -81,7 +82,7 @@ public class TradeDaoImpl implements TradeDao {
         urlParam.append("&BusType=").append(busType);
         urlParam.append("&Statu=0&Account=&FundType=0");
         urlParam.append("&PageSize=1000");
-        urlParam.append("&PageIndex=1");
+        urlParam.append("&PageIndex="+pageIndex);
         urlParam.append("&Container=tb_delegate");
         urlParam.append("&FundCode=" + fundCode);
 //        urlParam.append("&IsHistory=true");
@@ -89,7 +90,7 @@ public class TradeDaoImpl implements TradeDao {
         urlParam.append("&callback=undefined");
 
         //        System.out.println(rs);
-//        System.out.println("请求url:"+url+JSON.toJSONString(urlParam));
+//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
         String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
 //        System.out.println("myTradeRs:"+rs);
         List<FundTrade> fundTradeList = formatTradeShow(rs, cookie);
@@ -335,7 +336,7 @@ public class TradeDaoImpl implements TradeDao {
 //        String busType = "0";//0-全部;1-申购;2-卖出;
         String busType = "1";//0-全部;1-申购;2-卖出;
 //        String busType = "2";//0-全部;1-申购;2-赎回;
-        List<FundTrade> rs = new TradeDaoImpl().findMyTrade(cookie, fundCode, startDate, endDate, busType);
+        List<FundTrade> rs = new TradeDaoImpl().findMyTrade(cookie, fundCode, startDate, endDate, busType,"1");
 //        System.out.println("findMyTrade:"+JSON.toJSON(rs));
         for (FundTrade fundTrade : rs) {
             if (fundTrade.getOrderStatus() != null && (fundTrade.getOrderStatus().contains("申购"))) {
