@@ -237,7 +237,39 @@ WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
 -- 	AND ol_fund_trade.TYPE = '申购'
-AND ol_fund_trade.FD_INFO LIKE '%金%'
+AND (ol_fund_trade.FD_INFO LIKE '%金银%' OR  ol_fund_trade.FD_INFO LIKE '%白银%' )
+-- ORDER BY ol_fund_trade.TRADE_TIME ASC
+-- ORDER BY 最大收益率 DESC
+ORDER BY 最新收益率 DESC;
+-- 每日收益率 DESC;
+;
+
+/**基金交易的最新净值-收益率**/
+SELECT
+	ol_fund_trade.FD_INFO AS 消费
+
+	,ol_fund_trade.CONFIRM_SHARE AS 买入份额
+	,ROUND(
+		(ol_fund_trade.LAST_NET - ol_fund_trade.CONFIRM_NET) * ol_fund_trade.CONFIRM_SHARE / ol_fund_trade.ORDER_AMT * 100,
+		4
+	) AS 最新收益率
+,ROUND((ol_fund_trade.LAST_NET - ol_fund_trade.CONFIRM_NET) * ol_fund_trade.CONFIRM_SHARE / ol_fund_trade.ORDER_AMT * 100/DATEDIFF(NOW() ,ol_fund_trade.TRADE_TIME) ,4)
+		AS 每日收益率
+	,ol_fund_trade.CONFIRM_AMT AS 交易金额
+,DATEDIFF(NOW() ,ol_fund_trade.TRADE_TIME) AS 持有天数
+	,ol_fund_trade.TRADE_TIME
+	,ROUND(ol_fund_trade.LAST_NET * ol_fund_trade.CONFIRM_SHARE ,2) AS '最新金额'
+	,ol_fund_trade.CONFIRM_NET AS confirmNet
+	,ol_fund_trade.LAST_NET lastNet
+,ol_fund_trade.TYPE
+FROM
+	`ol_fund_trade` ol_fund_trade
+-- LEFT JOIN `ol_fund_earn` ON ol_fund_trade.FD_ID = ol_fund_earn.FD_ID
+WHERE
+	1 = 1
+	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
+	AND ol_fund_trade.TYPE = '申购'
+AND (ol_fund_trade.FD_INFO LIKE '%消费%' OR  ol_fund_trade.FD_INFO LIKE '%酒%' )
 -- ORDER BY ol_fund_trade.TRADE_TIME ASC
 -- ORDER BY 最大收益率 DESC
 ORDER BY 最新收益率 DESC;
