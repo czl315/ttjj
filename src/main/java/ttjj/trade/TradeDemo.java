@@ -23,10 +23,10 @@ public class TradeDemo {
         String cookie = "undTradeLoginTab=0; FundTradeLoginCard=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=44810029469052; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=1; st_psi=20200906230853659-119085303933-8625564551; st_asi=delete; cp_token=d13d2507944e43a596f0664b74c2ed79; FundTradeLoginUser=BNIYIrLP2Tm6eGw6Nqhld1UYG/7B9c6lJC1Sy0Guk29MsG9vRACHnZpdxNWiNCuKNWa+XptJ; fund_trade_cn=BaaWOaxY//jVi7TSatjoj/ntMffvh8WbHenvXgLuK9BXOsdZUiN+xxSUybS4tOSkDZW1zHGP4WRmMUxDkNecpOgjc3GnQIXI5UK+VhF5I7mHDaO56c0=; fund_trade_name=BhKeMV7FRTm+6J8+78hhGbjDfj6BWhbUVXs8y17KFCdF6GMMY5ohgLpzmvNqG5GKjOpbfOEH; fund_trade_visitor=Bx2lloB69TFtpKnGZuh5AUc88NdB45W/5IRpyuzEKxkVwGFzaCXbtspShGyXfE2K+oBf4bRO; fund_trade_risk=BP8ygP88eThyFjcb6hhL4k8MrTZBqwEUpgRJyGkGBfGIYGJbctEBeYpH5Ur3lnPK8dQcOkSM; fund_trade_gps=2; VipLevel=0; TradeLoginToken=a0b392dc41854fb6a3aa91bcedced4a9; UTOKEN=BaaWOaxY//jVi7TSatjoj/ntMffvh8WbHenvXgLuK9BXOsdZUiN+xxSUybS4tOSkDZW1zlGXkEgCrWli/50OpMaQy/q7WIWrS9KqiKFZcI5g0jxDWrg=; LToken=1254e32ce36f4c748b0dfc5ef455c7c7; fund_trade_trackid=eEyHFxsTxal2PmjgV9T/aeUGzCiWSzkUC85CSM0iGshL54BiukZo/j8Nwgk8uf1vp1k0T/5VlM0Uf9WAytQPSw==; ASP.NET_SessionId=crh0ugs0ndrk2srbqicfgcnc; monitor_count=2";
 
 //        String busType = "0";//0-全部;1-申购;2-卖出;
-        //显示插入数据库语句
-        showInsertDb(cookie, "2020-09-04", "2020-12-31", "1");
-//        //显示更新数据库语句
-        showUpdateDb(cookie, "2020-03-01", "2020-12-31", "1");
+//        //显示插入数据库语句
+//        showInsertDb(cookie, "2020-09-04", "2020-12-31", "1");
+////        //显示更新数据库语句
+//        showUpdateDb(cookie, "2020-03-01", "2020-12-31", "1");
 //        赎回
         showDbRedem(cookie, "2020-03-01", "2020-12-31", "2");
 
@@ -116,7 +116,7 @@ public class TradeDemo {
         String fundCode = "";
         TradeDao tradeService = new TradeDaoImpl();
         List<FundTrade> rs = new ArrayList<FundTrade>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 1; i < 20; i++) {
             List<FundTrade> tempRs = tradeService.findMyTrade(cookie, fundCode, startDate, endDate, busType, i + "");
             if (tempRs.size() == 0) {
                 break;
@@ -128,11 +128,18 @@ public class TradeDemo {
             if (fundTrade.getOrderStatus() != null && (fundTrade.getOrderStatus().contains("赎回")) && fundTrade.getOrderAmt() != null) {
                 //打印-赎回-update
                 BigDecimal enrnAmtSubServerCharge = fundTrade.getOrderAmt().subtract(fundTrade.getServerCharge());
-                System.out.println("UPDATE `ol_fund_trade` " +
-                        "SET `TYPE`='申购(赎回)'" +
+                StringBuffer sb = new StringBuffer();
+                sb.append("UPDATE `ol_fund_trade` "+
+//                System.out.println("UPDATE `ol_fund_trade` " +
+                        "SET `TYPE`='申购(赎回)'");
+                if(fundTrade.getConfirmNet()!=null){
+                    sb.append(",`NET_REDEM`=" + fundTrade.getConfirmNet() + " ");
+                }
+                if(fundTrade.getConfirmShare()!=null){
+                    sb.append(",`REDEM_SHARE`=" + fundTrade.getConfirmShare() + " ");
+                }
 //                        ",`ORDER_AMT`=" + fundTrade.getOrderAmt() + " " +
-//                        ",`NET_REDEM`=" + fundTrade.get + " " +
-                        ",`REDEM_TIME`='" + fundTrade.getConfirmNetData() + "' " +
+                sb.append(",`REDEM_TIME`='" + fundTrade.getConfirmNetData() + "' " +
                         ",`REDEM_AMT`=" + fundTrade.getOrderAmt() + " " +
 //                        ",`SERVER_CHARGE`=ROUND((" + fundTrade.getServerCharge() + "+`SERVER_CHARGE`) ,2)" +
                         ",`SERVER_CHARGE_REDEM`=" + fundTrade.getServerCharge() + "" +
@@ -142,6 +149,7 @@ public class TradeDemo {
                         + "AND (`TYPE` = '申购' OR `TYPE` = '申购(赎回中)')"
                         + "AND `CONFIRM_SHARE` = '" + fundTrade.getConfirmShare() + "' " +
                         " LIMIT 1; ");
+                System.out.println(sb.toString());
             }
         }
     }
