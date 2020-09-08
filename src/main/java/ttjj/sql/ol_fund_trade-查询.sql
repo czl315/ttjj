@@ -77,12 +77,13 @@ WHERE
 ORDER BY
 每日收益率 DESC;
 
-/**赎回**/
+-- /**赎回**/
 SELECT
 	ol_fund_trade.FD_INFO AS 赎回信息,
 	ol_fund_trade.TRADE_TIME,
 	ol_fund_trade.REDEM_TIME,
 	ol_fund_trade.ORDER_AMT,
+	ol_fund_trade.REDEM_SHARE,
 	ol_fund_trade.CONFIRM_NET AS confirmNet,
 	ol_fund_trade.LAST_NET lastNet
 	,ROUND(
@@ -97,13 +98,11 @@ SELECT
 ,ol_fund_trade.TYPE
 FROM
 	`ol_fund_trade` ol_fund_trade
--- LEFT JOIN `ol_fund_earn` ON ol_fund_trade.FD_ID = ol_fund_earn.FD_ID
+LEFT JOIN `ol_fund_earn` ON ol_fund_trade.FD_ID = ol_fund_earn.FD_ID
 WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
--- 	AND ol_fund_trade.TYPE = '申购'
-	AND ol_fund_trade.TYPE in( '申购(赎回)' )
--- 	AND ol_fund_trade.TYPE = '赎回'
+-- 	AND ol_fund_trade.TYPE in('申购(赎回)')
 -- AND ol_fund_trade.FD_INFO LIKE '%160633|鹏华证券分级%'
 -- ORDER BY lastDate DESC
 -- ORDER BY 最大收益率 DESC
