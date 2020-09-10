@@ -402,14 +402,14 @@ public class TradeDaoImpl implements TradeDao {
                 " `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, " +
                 " `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`," +
                 " `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, " +
-                " `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`," +
+                " `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, " +
                 " `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`" +
                 ") VALUES (" +
                 " '', '" + fundTrade.getFundInfo() + "', '" + fundTrade.getOrderStatus() + "', '" + fundTrade.getTradeTime() + "', '" + fundTrade.getOrderStatus() + "'" +
                 ", " + fundTrade.getConfirmShare() + ", " + fundTrade.getConfirmNet() + ", " + fundTrade.getOrderAmt() + ", " + "'确认成功', " +
                 "  '', " + fundTrade.getOrderAmt() + ", 0, " +
                 " 0, '" + fundTrade.getConfirmNetData() + "', " + fundTrade.getServerCharge() + ", " +
-                " '0', 0,  '3000-01-01 00:00:00', '3000-01-01 00:00:00', " +
+                " '0', 0,  '3000-01-01 00:00:00', " +
                 " '3', '', now(), now()" +
                 ");");
     }

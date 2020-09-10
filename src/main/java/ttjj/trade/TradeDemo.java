@@ -20,11 +20,11 @@ import java.util.List;
 public class TradeDemo {
     public static void main(String[] args) {
 //        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=168568481.3275105768631237000.1587299075419.1528; st_si=16529934604496; st_asi=delete; b_p_log_key=YqYlmCtMJVbt2nCdsyCq6TbxbtD+GRXUJrxBZEDZITxHIfCgUw8tCrxUk731QiB0nvUsM8TkmchTyB/oeM7g5nSq+YBBzSV3o1LtTI5IkSzzNbvkXT0=; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=2; st_psi=20200626125212882-119085303933-7379745562; cp_token=2ca40dd1c09e4f6c99ad548acef6e639; FundTradeLoginUser=WryU2RGKLMQddvOrt9ie5DH681dVJ7Rs98U+3fkkCPoMMYm+TogQg18eMgwrDAYRCBbS6blW; fund_trade_cn=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tnYaLdfbHWm6cxq48Uvcrj2Xgx//HDR5H1pWcbYwG3sOur8=; fund_trade_name=WQ+qNJQRkM2gf0ve7giilJV4jbTVicEdkpYh3wCIEEQaZYpiX5NWK08mI5edsToRSpyAZ+3a; fund_trade_visitor=WZGFRsGAsMwx6GI0b4iGrpXig4GVnUDJkDgn3Wcq5hDS7YYCBDJ7f88D0Q7jDR0Rmf6wuKvi; fund_trade_risk=WGB21Yg1xMyCP00D20iUUjQveZdV0FAjhnlZ38Sw4BK48YjyjP+Qq98bpqDDQTeRLcjQLeub; fund_trade_gps=2; VipLevel=0; TradeLoginToken=0cdd00b4660749efbbb2b1ad5a00a1a2; UTOKEN=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tuY+U8CMvNFZKtf18kYRYJD80Zr4yERG9mq9X6yRf4eEJPk=; LToken=919b1cc8f4244369b65efa898ff7ae58; fund_trade_trackid=gSRgeG/HOvMXtvvf2k5YRsWme3vrnWmciDUr/Y5kDpfBbZD9+RhA8YnjkfRSoYT1EaJ8OL/0ktaZzbgM46qQ3g==; monitor_count=14";
-        String cookie = "FundTradeLoginTab=0; FundTradeLoginCard=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=29950727457679; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=1; st_psi=20200908234125751-119085303933-9754965980; st_asi=delete; cp_token=571bb41839ed4b6f9c06a8997918e879; FundTradeLoginUser=jfnHqcos564/8adv4qxkTPssdMQievIjlA2AOVsNckyBJg3nBqqkW7ypweesFXKbxAJMiPeJ; fund_trade_cn=jX015Qryz53WKg6glUIg8LBBzCROxaXO+LlSiqMb4Oi0Ih8hMw/uLktZOMjZVOKcKRt+5lgZw+06gfVYQXg3y41VxwFsn19xSKbAwUpKPFssSwIhOKc=; fund_trade_name=jsrPG4Mpm6pm/vboRxxAE2uME0AiQBkzt+yNO7aIPmmX6gUqcNsY72ygIi7zzXpbsBFkDKUI; fund_trade_visitor=jrM0F5gSt6vvuKdbRgxLGYzbq77iieRB0CRbOPF8d8eSVgs7K6PXQLyMku2uacNba1w+bChy; fund_trade_risk=jetNJiEKN6z9XFzpGOxuOMfoTfbi5+PsfFmCOwjKKhzPvgHdeIBZobyKNOl55yNbi5lglngw; fund_trade_gps=2; VipLevel=0; TradeLoginToken=3044b952089743a5b5d1cb765512fda4; UTOKEN=jX015Qryz53WKg6glUIg8LBBzCROxaXO+LlSiqMb4Oi0Ih8hMw/uLktZOMjZVOKcKRt+5NgUUVn6sLMm+vVoyFD+k+PuL5NSkXbgqgloApgxyE//bYY=; LToken=8e2909978ecb4c2da783f770ab43fc44; fund_trade_trackid=kSipSJJsO2rqQUUn1n9f3lWImIfr2aClD2Fa5VVBdEKKB53KntPPuC9cxnWtE/LhdfOycygk3V0nox9lzjm6rw==; ASP.NET_SessionId=lzrjdcyjxgsabdbhpyx1c3r3; monitor_count=2";
+        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=37312356486356; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=1; st_psi=20200910225624653-119085303933-0333226696; st_asi=delete; cp_token=ef60ff3a687b40f0a80627125cbb9a9e; FundTradeLoginUser=1bwohBJZjlRLPzbnMSFbsLA45lNq3RDuswwvn1E434L+KzJ5UAAXDikPUZlDZ1N9U7szVkd5; fund_trade_cn=12HNss7MwFRDFvlcadHz9ySRk/iWFrzwZrW3BcNk77qtGjMEQjKdc0V9nS11KWNwByNduqz4f2ivbhzYYMpukbAVb2N8e4NEyi9l3MmEmbs71/LG3Y4=; fund_trade_name=1oUWrsP8Jl6A1mI0eeFD6lnPzMCqXB18I9hun616l5rgPzwdO4Uc7ck8SXcH/th9DIaqPhGX; fund_trade_visitor=1PYSBCB0dlVism5jgUFj6Zuxi9XqLKRnu7xyn0PmaGOyhzoMt3v/yqkns3m6po89fSkERBOq; fund_trade_risk=1/9ocnlBEl2JfOPqSLFdNtjtUb2qQVZJqkIxnqGd/JLYYzXAKPgTmtk6/tKQ+YT9fipIAxnt; fund_trade_gps=2; VipLevel=0; TradeLoginToken=ffc5dfaff0174e27aac930938eb97ce0; UTOKEN=12HNss7MwFRDFvlcadHz9ySRk/iWFrzwZrW3BcNk77qtGjMEQjKdc0V9nS11KWNwByNdu5z055l+agOk21DgkPZO+xPQls+Xz89EYyeNWUc8aNDlI3g=; LToken=74281a639813456cb05aacf023d1260c; fund_trade_trackid=hqCEHHE7gHJeGdJz6BJbVvbZ5qtD253UEjp/4D6Ed9RWNi8gAhrZvOYHUGqDkA1oX3bSScHV3+58zBBrKU6biA==; ASP.NET_SessionId=p1qizsy202rsh3utdkaeg0bn; monitor_count=8";
 
 //        String busType = "0";//0-全部;1-申购;2-卖出;
         //显示插入数据库语句
-        showInsertDb(cookie, "2020-09-05", "2020-12-31", "1");
+        showInsertDb(cookie, "2020-09-09", "2020-12-31", "1");
 //        //显示更新数据库语句
         showUpdateDb(cookie, "2020-04-01", "2020-12-31", "1");
 //        赎回
@@ -50,14 +50,14 @@ public class TradeDemo {
                         " `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, " +
                         " `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`," +
                         " `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, " +
-                        " `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, `REDEM_ACCT_TIME`," +
+                        " `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, " +
                         " `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`" +
                         ") VALUES (" +
                         " '', '" + fundTrade.getFundInfo() + "', '" + fundTrade.getOrderStatus() + "', '" + fundTrade.getTradeTime() + "', '" + fundTrade.getOrderStatus() + "'" +
                         ", " + fundTrade.getConfirmShare() + ", " + fundTrade.getConfirmNet() + ", " + fundTrade.getOrderAmt() + ", " + "'确认成功', " +
                         "  '', " + fundTrade.getOrderAmt() + ", 0, " +
                         " 0, '" + fundTrade.getConfirmNetData() + "', " + fundTrade.getServerCharge() + ", " +
-                        " '0', 0,  '3000-01-01 00:00:00', '3000-01-01 00:00:00', " +
+                        " '0', 0,  '3000-01-01 00:00:00',  " +
                         " '3', '', now(), now()" +
                         ");");
             }
@@ -76,7 +76,7 @@ public class TradeDemo {
         String fundCode = "";
         TradeDao tradeService = new TradeDaoImpl();
         List<FundTrade> rs = new ArrayList<FundTrade>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 1; i < 20; i++) {
             List<FundTrade> tempRs = tradeService.findMyTrade(cookie, fundCode, startDate, endDate, busType, i + "");
             if (tempRs.size() == 0) {
                 break;

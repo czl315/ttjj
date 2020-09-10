@@ -48,7 +48,6 @@ public class FundTrade {
 //            `REDEM_STATUS` varchar(20) DEFAULT NULL COMMENT '赎回状态',
 //            `REDEM_SHARE` double DEFAULT NULL COMMENT '赎回份数',
 //            `REDEM_TIME` datetime DEFAULT NULL COMMENT '赎回时间',
-//            `REDEM_ACCT_TIME` datetime DEFAULT NULL COMMENT '赎回到账时间',
 //            `SOURCE` varchar(50) DEFAULT NULL COMMENT '交易渠道',
 //            `FD_CODE` varchar(100) DEFAULT NULL COMMENT '基金代码',
 //            `CREATE_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
