@@ -16,6 +16,7 @@ SELECT
 	,ol_fund_trade.CONFIRM_NET AS confirmNet
 	,ol_fund_trade.LAST_NET lastNet
 	,ol_fund_trade.TYPE
+	,ol_fund_trade.BIZ_TP
 FROM
 	`ol_fund_trade` ol_fund_trade
 -- LEFT JOIN `ol_fund_earn` ON ol_fund_trade.FD_ID = ol_fund_earn.FD_ID
