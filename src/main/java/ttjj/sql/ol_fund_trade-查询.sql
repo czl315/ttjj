@@ -24,13 +24,6 @@ WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
 	AND ol_fund_trade.TYPE = '申购'
--- AND ol_fund_trade.FD_INFO LIKE '%沪%'
--- AND ol_fund_trade.FD_INFO LIKE '%医%'
--- AND ol_fund_trade.FD_INFO LIKE '%创业%'
--- AND ol_fund_trade.FD_INFO LIKE '%军%'
--- AND ol_fund_trade.FD_INFO LIKE '%消费%'
--- AND ol_fund_trade.FD_INFO LIKE '%农业%'
--- AND ol_fund_trade.FD_INFO LIKE '%金%'
 -- AND ol_fund_trade.FD_INFO LIKE '%沪深300%'
 -- 	AND ol_fund_trade.CONFIRM_AMT <1000
 -- 	AND ol_fund_trade.TYPE in( '申购(赎回)' )
@@ -96,7 +89,6 @@ SELECT
 	,ol_fund_trade.REDEM_TIME
 FROM
 	`ol_fund_trade` ol_fund_trade
-LEFT JOIN `ol_fund_earn` ON ol_fund_trade.FD_ID = ol_fund_earn.FD_ID
 WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
@@ -300,6 +292,37 @@ WHERE
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
 	AND ol_fund_trade.TYPE = '申购'
 	AND ROUND(ol_fund_trade.CONFIRM_NET*ol_fund_trade.RK_ST_LOSS * ol_fund_trade.CONFIRM_SHARE ,2) > ROUND(ol_fund_trade.LAST_NET * ol_fund_trade.CONFIRM_SHARE ,2)
+ORDER BY TRADE_TIME DESC;
+-- 每日收益率 DESC;
+;
+
+/**超过止盈线**/
+SELECT
+	ol_fund_trade.FD_INFO AS 超过止盈线
+
+	,ol_fund_trade.CONFIRM_SHARE AS 买入份额
+	,ROUND(
+		(ol_fund_trade.LAST_NET - ol_fund_trade.CONFIRM_NET) * ol_fund_trade.CONFIRM_SHARE / ol_fund_trade.ORDER_AMT * 100,
+		4
+	) AS 最新收益率
+,ROUND((ol_fund_trade.LAST_NET - ol_fund_trade.CONFIRM_NET) * ol_fund_trade.CONFIRM_SHARE / ol_fund_trade.ORDER_AMT * 100/DATEDIFF(NOW() ,ol_fund_trade.TRADE_TIME) ,4)
+		AS 每日收益率
+	,ol_fund_trade.CONFIRM_AMT AS 交易金额
+,DATEDIFF(NOW() ,ol_fund_trade.TRADE_TIME) AS 持有天数
+	,ol_fund_trade.TRADE_TIME
+	,ROUND(ol_fund_trade.LAST_NET * ol_fund_trade.CONFIRM_SHARE ,2) AS '最新金额'
+	,ROUND(ol_fund_trade.CONFIRM_NET*ol_fund_trade.RK_ST_PROFIT * ol_fund_trade.CONFIRM_SHARE ,2) AS '止盈金额'
+	,ol_fund_trade.CONFIRM_NET AS confirmNet
+	,ol_fund_trade.LAST_NET lastNet
+	,ol_fund_trade.TYPE
+FROM
+	`ol_fund_trade` ol_fund_trade
+-- LEFT JOIN `ol_fund_earn` ON ol_fund_trade.FD_ID = ol_fund_earn.FD_ID
+WHERE
+	1 = 1
+	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
+	AND ol_fund_trade.TYPE = '申购'
+	AND ROUND(ol_fund_trade.CONFIRM_NET*ol_fund_trade.RK_ST_PROFIT * ol_fund_trade.CONFIRM_SHARE ,2) < ROUND(ol_fund_trade.LAST_NET * ol_fund_trade.CONFIRM_SHARE ,2)
 ORDER BY TRADE_TIME DESC;
 -- 每日收益率 DESC;
 ;
