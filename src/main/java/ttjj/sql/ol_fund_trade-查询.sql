@@ -101,7 +101,9 @@ ORDER BY
 -- ol_fund_trade.REDEM_TIME  DESC
 ;
 
-SELECT ol_fund_trade.FD_INFO,SUM(ol_fund_trade.CONFIRM_AMT)  AS sumamt
+SELECT ol_fund_trade.FD_INFO AS 合计金额
+	,SUM(ol_fund_trade.CONFIRM_AMT)  AS sumamt
+	,COUNT(ol_fund_trade.CONFIRM_AMT)
 	FROM ol_fund_trade
 	WHERE ol_fund_trade.TYPE in( '申购' ) AND ol_fund_trade.SOURCE =3
 	GROUP BY ol_fund_trade.FD_INFO
