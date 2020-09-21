@@ -16,6 +16,10 @@ public class FundTrade {
     private String orderStatus;//订单状态
     private String tradeTime;//交易发起时间
     /**
+     * 业务类型
+     */
+    private String bizTy;
+    /**
      * 基金编码
      */
     private String fundCode;
@@ -134,5 +138,13 @@ public class FundTrade {
 
     public void setFundCode(String fundCode) {
         this.fundCode = fundCode;
+    }
+
+    public String getBizTy() {
+        return bizTy;
+    }
+
+    public void setBizTy(String bizTy) {
+        this.bizTy = bizTy;
     }
 }
