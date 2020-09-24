@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2020-07-05 22:21:40
+Date: 2020-09-25 00:00:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -51,7 +51,7 @@ CREATE TABLE `ol_fund_fupan` (
   `CREATE_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `UPDATE_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='基金复盘';
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='基金复盘';
 
 -- ----------------------------
 -- Records of ol_fund_fupan
@@ -87,3 +87,5 @@ INSERT INTO `ol_fund_fupan` VALUES ('28', '20200617', '', '', '1', '[{\"行业\"
 INSERT INTO `ol_fund_fupan` VALUES ('29', '20200618', '', '', '1', '[{\"行业\":[{\"通讯\":\"华为缓和\"}]},{\"国内\":[{\"会议\":\"降准\"},{\"会议\":\"中美经贸会议\"]}}{\"国际\":[]}]', '[{\"行业\":[{\"医药\":\"回调\"}]},{\"国内\":[]}{\"国际\":[]}]', '', '[{\"rate\":3.4334,\"name\":\"通讯行业\"},{\"rate\":2.7136,\"name\":\"电子元件\"},{\"rate\":2.5835,\"name\":\"智能穿戴\"},{\"rate\":2.303,\"name\":\"华为概念\"},{\"rate\":2.0429,\"name\":\"量子通信\"},{\"rate\":1.9698,\"name\":\"生物识别\"},{\"rate\":1.9227,\"name\":\"苹果概念\"},{\"rate\":1.8488,\"name\":\"煤炭采选\"},{\"rate\":1.7843,\"name\":\"5G概念\"},{\"rate\":1.7647,\"name\":\"中超概念\"}]', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '2020-06-18 09:19:43', '2020-06-19 09:23:23');
 INSERT INTO `ol_fund_fupan` VALUES ('30', '2020wk25', '', '', '1', '', '', '', '[{\"rate\":6.4843,\"name\":\"生物疫苗\"},{\"rate\":5.9671,\"name\":\"病毒防治\"},{\"rate\":5.579,\"name\":\"材料行业\"},{\"rate\":5.5071,\"name\":\"中药\"},{\"rate\":5.3428,\"name\":\"社保重仓\"},{\"rate\":5.3254,\"name\":\"单抗概念\"},{\"rate\":5.2543,\"name\":\"特斯拉\"},{\"rate\":5.2166,\"name\":\"医疗行业\"},{\"rate\":5.1691,\"name\":\"二胎概念\"},{\"rate\":5.0697,\"name\":\"医疗器械\"}]\r\n', '1.64', '3.7', '5.11', '2.39', '2.89', '2.07', '0.07', '1.85', '', '', '', '', '', '', '', '', '', '', '', '2020-06-21 21:33:27', '2020-06-21 21:42:27');
 INSERT INTO `ol_fund_fupan` VALUES ('31', '2020wk26-yq', '', '', '0', '[{\"行业\":[{\"创业板\":\"新规政策\"}]},{\"国内\":[]}]', '', '券商；创业板50；中报', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '2020-06-21 21:33:27', '2020-06-21 21:37:10');
+INSERT INTO `ol_fund_fupan` VALUES ('32', '20200924', null, null, '1', null, '美股大跌-0.5；节前行情-0.5；北向流出-0.8', null, null, '-1.72', '-2.24', '-2.46', '-1.92', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2020-09-24 23:36:27', '2020-09-24 23:46:14');
+INSERT INTO `ol_fund_fupan` VALUES ('33', '20200925', '', '', '0', '超跌反弹+1.1；美股涨+0.3；', '节前行情-0.3；', '50；300', '', '+1.1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '2020-09-24 23:36:27', '2020-09-24 23:49:58');
