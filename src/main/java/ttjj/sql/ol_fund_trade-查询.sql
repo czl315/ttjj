@@ -294,7 +294,7 @@ WHERE
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
 	AND ol_fund_trade.TYPE = '申购'
 	AND ROUND(ol_fund_trade.CONFIRM_NET*ol_fund_trade.RK_ST_LOSS * ol_fund_trade.CONFIRM_SHARE ,2) > ROUND(ol_fund_trade.LAST_NET * ol_fund_trade.CONFIRM_SHARE ,2)
-ORDER BY TRADE_TIME DESC;
+ORDER BY TRADE_TIME ;
 -- 每日收益率 DESC;
 ;
 
