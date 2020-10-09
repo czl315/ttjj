@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2020-10-08 22:47:19
+Date: 2020-10-09 23:26:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -57,7 +57,7 @@ CREATE TABLE `ol_fund_fupan` (
   `CREATE_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `UPDATE_TIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='基金复盘';
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='基金复盘';
 
 -- ----------------------------
 -- Records of ol_fund_fupan
@@ -116,3 +116,4 @@ INSERT INTO `ol_fund_fupan` VALUES ('51', '30', '20200132', '', '', '1', '-2.41'
 INSERT INTO `ol_fund_fupan` VALUES ('52', '30', '20201032', '', '', '0', '3', '3', '1.5', '', '2.5', '3.5', '2', '', null, null, null, '', null, null, '节后+1;利好+4;外盘+0;趋势+1;北向+1;', '节后-0;利空-3;外盘-0;趋势-1;北向-0', '', '', '', '', '', '', '', '', '', '', '', '', '2020-09-24 23:36:27', '2020-10-06 23:15:16');
 INSERT INTO `ol_fund_fupan` VALUES ('53', '7', '20201009', '', '', '0', '1.8', '2', '1.5', '', '2.2', '2.5', '2', '', null, null, null, '', null, null, '节后+2;利好+1;外盘+1;趋势+2;北向+0;', '节后-0;利空-2;外盘-1;趋势-1;北向-0', '', '', '', '', '', '', '', '', '', '', '', '', '2020-09-24 23:36:27', '2020-10-06 23:23:26');
 INSERT INTO `ol_fund_fupan` VALUES ('54', '1', '20201009', '', '', '0', '1.8', '2', '1.5', '', '2.2', '2.5', '2', '', null, null, null, '', null, null, '节后+2;利好+1;外盘+1;趋势+2;北向+0;', '节后-0;利空-2;外盘-1;趋势-1;北向-0', '', '', '', '', '', '', '', '', '', '', '', '', '2020-09-24 23:36:27', '2020-10-06 23:24:40');
+INSERT INTO `ol_fund_fupan` VALUES ('55', '1', '20201009', '', '', '1', '1.68', '2.96', '3.81', '', '1.68', '2.04', '4.51', '2.67', '3272.08', '3272.08', '2672.93', '3286.86', '4681.14', '2474.35', '节后+2;利好+0.5;外盘+1;趋势+0;北向+0.5;', '节后-0;利空-1;外盘-0;趋势-0;北向-0', '', '', '', '', '', '', '', '', '', '', '', '', '2020-09-24 23:36:27', '2020-10-09 23:11:41');
