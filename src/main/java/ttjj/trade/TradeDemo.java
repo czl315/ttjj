@@ -63,7 +63,7 @@ public class TradeDemo {
                         " '0', 0,  '3000-01-01 00:00:00',  " +
                         " '3', '', now(), now()" +
                         " ,'" + fundTrade.getBizTy() + "'" +
-                        " ,0.9,1.2" +
+                        " ,0.92,1.2" +
                         ");");
             }
         }
@@ -76,25 +76,25 @@ public class TradeDemo {
      */
     private static void handlerBizTp(FundTrade fundTrade) {
         if ("001875|前海开源沪港深优势精选混合".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("大盘");
+            fundTrade.setBizTy("指数");
         }
         if ("004746|易方达上证50指数C".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("大盘");
+            fundTrade.setBizTy("指数");
         }
         if ("110003|易方达上证50指数A".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("大盘");
+            fundTrade.setBizTy("指数");
         }
         if ("002671|万家沪深300指数增强C".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("大盘");
+            fundTrade.setBizTy("指数");
         }
         if ("160420|华安创业板50指数分级".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("大盘");
+            fundTrade.setBizTy("指数");
         }
         if ("009300|西部利得中证500指数增强C".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("中小盘");
+            fundTrade.setBizTy("指数");
         }
         if ("110011|易方达中小盘混合".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("中小盘");
+            fundTrade.setBizTy("指数");
         }
         if ("008086|华夏中证5G通信主题ETF联接A".equals(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("科技");
@@ -115,7 +115,7 @@ public class TradeDemo {
             fundTrade.setBizTy("金融");
         }
         if ("161028|富国中证新能源汽车指数分级".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("汽车");
+            fundTrade.setBizTy("科技");
         }
         if ("004857|广发中证全指建筑材料指数C".equals(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("建材");
