@@ -31,7 +31,7 @@ public class TradeDaoImpl implements TradeDao {
         String startDate = "2020-01-01";
         String endDate = "2020-12-31";
         String busType = "";
-        fundTradeList = findMyTrade(cookie, fundCode, startDate, endDate, busType,"1");
+        fundTradeList = findMyTrade(cookie, fundCode, startDate, endDate, busType, "1");
 
         return fundTradeList;
     }
@@ -72,8 +72,7 @@ public class TradeDaoImpl implements TradeDao {
      * @param cookie
      */
 //    private List<FundTrade> findMyTrade(String cookie, String fundCode) {
-
-    public List<FundTrade> findMyTrade(String cookie, String fundCode, String startDate, String endDate, String busType,String pageIndex) {
+    public List<FundTrade> findMyTrade(String cookie, String fundCode, String startDate, String endDate, String busType, String pageIndex) {
         String url = "https://query.1234567.com.cn/Query/DelegateList";
         StringBuffer urlParam = new StringBuffer();
         urlParam.append("DataType=1");
@@ -82,7 +81,7 @@ public class TradeDaoImpl implements TradeDao {
         urlParam.append("&BusType=").append(busType);
         urlParam.append("&Statu=0&Account=&FundType=0");
         urlParam.append("&PageSize=1000");
-        urlParam.append("&PageIndex="+pageIndex);
+        urlParam.append("&PageIndex=" + pageIndex);
         urlParam.append("&Container=tb_delegate");
         urlParam.append("&FundCode=" + fundCode);
 //        urlParam.append("&IsHistory=true");
@@ -266,6 +265,10 @@ public class TradeDaoImpl implements TradeDao {
 //                        for (String str : arrayConfirm) {
 //                            System.out.println();
 //                        }
+//                        System.out.println("tradeConfirmInfoTbody："+tradeConfirmInfoTbody);
+                        if (tradeConfirmInfoTbody.contains("失败")) {
+                            continue;
+                        }
                         tradeConfirmInfoTbody = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td class=\"success\">成功</td>") + 27);
                         String confirmNet = tradeConfirmInfoTbody.substring(tradeConfirmInfoTbody.indexOf("<td>") + 4, tradeConfirmInfoTbody.indexOf("</td>"));
 //                        System.out.println("confirmNet："+confirmNet);
@@ -336,7 +339,7 @@ public class TradeDaoImpl implements TradeDao {
 //        String busType = "0";//0-全部;1-申购;2-卖出;
         String busType = "1";//0-全部;1-申购;2-卖出;
 //        String busType = "2";//0-全部;1-申购;2-赎回;
-        List<FundTrade> rs = new TradeDaoImpl().findMyTrade(cookie, fundCode, startDate, endDate, busType,"1");
+        List<FundTrade> rs = new TradeDaoImpl().findMyTrade(cookie, fundCode, startDate, endDate, busType, "1");
 //        System.out.println("findMyTrade:"+JSON.toJSON(rs));
         for (FundTrade fundTrade : rs) {
             if (fundTrade.getOrderStatus() != null && (fundTrade.getOrderStatus().contains("申购"))) {
@@ -347,7 +350,7 @@ public class TradeDaoImpl implements TradeDao {
 
             }
             //赎回
-            if (fundTrade.getOrderStatus() != null && (fundTrade.getOrderStatus().contains("赎回")) && fundTrade.getOrderAmt()!=null) {
+            if (fundTrade.getOrderStatus() != null && (fundTrade.getOrderStatus().contains("赎回")) && fundTrade.getOrderAmt() != null) {
                 //打印-赎回-update
                 BigDecimal enrnAmtSubServerCharge = fundTrade.getOrderAmt().subtract(fundTrade.getServerCharge());
                 System.out.println("UPDATE `ol_fund_trade` " +
@@ -371,28 +374,30 @@ public class TradeDaoImpl implements TradeDao {
 
     /**
      * 显示-更新数据库语句-更新-我的交易-最新净值和日期
+     *
      * @param fundTrade
      */
     private static void showUpdateDb(FundTrade fundTrade) {
         String lsjzUrl = "fundCode=" + fundTrade.getFundCode() + "&pageIndex=1&pageSize=100&startDate=" + "" + "&endDate=" + "" + "&_=1558194929451";
-        byte[] bytes ="".getBytes();
+        byte[] bytes = "".getBytes();
         LsjzDataLsjz lsjzDataLsjz = HttpUtil.sendPostTtjjLsjzLastOne(lsjzUrl, bytes, new HashMap<String, String>());
 //        System.out.println("lsjzDataLsjz:"+JSON.toJSON(lsjzDataLsjz));
         //打印-
-        if(lsjzDataLsjz==null){
+        if (lsjzDataLsjz == null) {
             return;
         }
         System.out.println("UPDATE `ol_fund_trade` " +
                 "SET " +
                 " `LAST_NET`=" + lsjzDataLsjz.getDWJZ() + " " +
                 ",`LAST_DATE`='" + lsjzDataLsjz.getFSRQ() + "' " +
-                "WHERE  `FD_INFO` = '" + fundTrade.getFundInfo() + "' "+
-                "AND `TYPE` = '申购' "+
+                "WHERE  `FD_INFO` = '" + fundTrade.getFundInfo() + "' " +
+                "AND `TYPE` = '申购' " +
                 " ;");
     }
 
     /**
      * 显示插入数据库语句
+     *
      * @param fundTrade
      */
     private static void showInsertDb(FundTrade fundTrade) {
