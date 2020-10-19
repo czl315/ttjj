@@ -23,6 +23,14 @@ public class FundTrade {
      * 基金编码
      */
     private String fundCode;
+    /**
+     * 风控-系数-止损
+     */
+    private Double riskStLoss;
+    /**
+     * 风控-系数-止盈
+     */
+    private Double riskStProfit;
 
     public FundTrade() {
     }
@@ -146,5 +154,21 @@ public class FundTrade {
 
     public void setBizTy(String bizTy) {
         this.bizTy = bizTy;
+    }
+
+    public Double getRiskStLoss() {
+        return riskStLoss;
+    }
+
+    public void setRiskStLoss(Double riskStLoss) {
+        this.riskStLoss = riskStLoss;
+    }
+
+    public Double getRiskStProfit() {
+        return riskStProfit;
+    }
+
+    public void setRiskStProfit(Double riskStProfit) {
+        this.riskStProfit = riskStProfit;
     }
 }
