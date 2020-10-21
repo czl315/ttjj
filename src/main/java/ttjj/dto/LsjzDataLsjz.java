@@ -6,6 +6,9 @@ package ttjj.dto;
  */
 public class LsjzDataLsjz {
     private String FSRQ;
+    /**
+     * 当晚净值
+     */
     private String DWJZ;
     private String LJJZ;
     private String SDATE;
