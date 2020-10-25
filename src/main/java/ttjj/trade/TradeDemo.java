@@ -20,7 +20,7 @@ import java.util.List;
 public class TradeDemo {
     public static void main(String[] args) {
 //        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=168568481.3275105768631237000.1587299075419.1528; st_si=16529934604496; st_asi=delete; b_p_log_key=YqYlmCtMJVbt2nCdsyCq6TbxbtD+GRXUJrxBZEDZITxHIfCgUw8tCrxUk731QiB0nvUsM8TkmchTyB/oeM7g5nSq+YBBzSV3o1LtTI5IkSzzNbvkXT0=; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=2; st_psi=20200626125212882-119085303933-7379745562; cp_token=2ca40dd1c09e4f6c99ad548acef6e639; FundTradeLoginUser=WryU2RGKLMQddvOrt9ie5DH681dVJ7Rs98U+3fkkCPoMMYm+TogQg18eMgwrDAYRCBbS6blW; fund_trade_cn=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tnYaLdfbHWm6cxq48Uvcrj2Xgx//HDR5H1pWcbYwG3sOur8=; fund_trade_name=WQ+qNJQRkM2gf0ve7giilJV4jbTVicEdkpYh3wCIEEQaZYpiX5NWK08mI5edsToRSpyAZ+3a; fund_trade_visitor=WZGFRsGAsMwx6GI0b4iGrpXig4GVnUDJkDgn3Wcq5hDS7YYCBDJ7f88D0Q7jDR0Rmf6wuKvi; fund_trade_risk=WGB21Yg1xMyCP00D20iUUjQveZdV0FAjhnlZ38Sw4BK48YjyjP+Qq98bpqDDQTeRLcjQLeub; fund_trade_gps=2; VipLevel=0; TradeLoginToken=0cdd00b4660749efbbb2b1ad5a00a1a2; UTOKEN=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tuY+U8CMvNFZKtf18kYRYJD80Zr4yERG9mq9X6yRf4eEJPk=; LToken=919b1cc8f4244369b65efa898ff7ae58; fund_trade_trackid=gSRgeG/HOvMXtvvf2k5YRsWme3vrnWmciDUr/Y5kDpfBbZD9+RhA8YnjkfRSoYT1EaJ8OL/0ktaZzbgM46qQ3g==; monitor_count=14";
-        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=81986892458132; st_asi=delete; Fund_GiveLike=32a50132a0c842ffbbc99d5657f8289c; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=2; st_psi=20201024215744702-119085303933-6606823901; cp_token=3036d179323a419c80032864d2a3d6ed; FundTradeLoginUser=yhAn9V9SQ69SzB1Fz7ANUugEOxDD6yRkKRr8oCsl7kQ4WdZy+2aFtpuXP+TTBnMeKiwQX8T5; fund_trade_cn=ya2D2wHNWzHRZ06grkLa3BQqDE0CAPi0YDzuC/ML7hDHZbddbNBT4ljCo23MT2/RoQn1JJd0Tljv6gM6f/A3u5ScB8a0naunv0eJN99Xz/+VSuG6DOc=; fund_trade_name=yNI/M6Rat6TDi59MGKAFfBN5vQgDQLbICa8LoU7Qi9piGdXGmOkqjiuXBlO62VOeIcQdmr2k; fund_trade_visitor=y7juioT3G6s+YzIXjKANxIOnSS1DaJSI7vAdo/+JxzSNddVn3LW3FdukTa2rW7ieqoVku6QG; fund_trade_risk=yLuDowf396Fq/OH5PYAaSbidylbDzFUbrX41omNmWga+RdxutM+rV4uS4Cu0m+veTN85wWdC; fund_trade_gps=2; VipLevel=0; TradeLoginToken=60518c25ca0342ac879deb50a006a9fe; UTOKEN=ya2D2wHNWzHRZ06grkLa3BQqDE0CAPi0YDzuC/ML7hDHZbddbNBT4ljCo23MT2/RoQn1JAdRWXFyi7hhCYIYuAj20NKlDEbeYzeLvtSdP6ic6cPeVcc=; LToken=729cc47df396452a9fda3b0da1b929cf; fund_trade_trackid=A6xDM5oVXJJiOFcpuN9DlAwoU5jSnu65CewgW/TENhxAlNlsRBMlEvxukBOZl0e+BtV5uUDc6PfRUhsRkfxHkQ==; ASP.NET_SessionId=pfulaeyjboxz2ftdzexog3jx; monitor_count=8";
+        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=97115446454185; st_asi=delete; Fund_GiveLike=f0d96d8e903848078adc092f9febe5a3; cp_token=9dd84750cb83491fbbb555de5e553a9f; FundTradeLoginUser=z1gYFVNBpc8wpNzItMDfbVkesgCHHOHQWobw3UHGTleL3ZBJgFfDctA4/38e5MxfJNCB5vJd; fund_trade_cn=zXbJmK+O2icjFzcVJzKnDUF7XmpJD3bBzmuk5V3hG/H7zYaBY9w2PPVH3BdISuM0an7x4SZsrHrWtKEz1ssKA9QA6S7iSO6qwZfR1R8fg/1IXw1HfPY=; fund_trade_name=zcQLZt/BxcZV1TKMiDDbdnozIfPH/Q9vJ9MA3vn1jr7XeZNuHINwtQAXRB16A/2fwKWy1E/4; fund_trade_visitor=zZSBjrX4TcrvVBojBLDh1nnoJkSHtiXDBVoi31zzSdVUMZYKNdkzLgAywjCQbOjfhZz6b95O; fund_trade_risk=zpVou4lSZcxk3Gl81uDinqllTERHlo4it1by3H83xQoQwZdpVJ1gXBA8AwOwHmCfXpgsGo6W; fund_trade_gps=2; VipLevel=0; TradeLoginToken=2f53abb7cb054329aa486060c4ca5ed7; UTOKEN=zXbJmK+O2icjFzcVJzKnDUF7XmpJD3bBzmuk5V3hG/H7zYaBY9w2PPVH3BdISuM0an7x4nZM61MdyxmSlq52AP0651XyufnA0Afr8ePwC/cc8e4lz6A=; LToken=18f3c40e278d44c5831ab2214938beed; fund_trade_trackid=e06b3UJKoegwE+YUmIE8gEK2QuDI+38FAM/Y491iUEQ9dpTpsaNJsoYwalHjl/PtVhS9ZmNyqqopt6V16etaYA==; ASP.NET_SessionId=qmmse3qbe1yzyqycpvj2ezaw; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=3; st_psi=20201025111001475-0-4159083837; monitor_count=18";
 
 ////        String busType = "0";//0-全部;1-申购;2-卖出;
 //        //显示插入数据库语句
@@ -30,6 +30,8 @@ public class TradeDemo {
 ////        赎回
 //        showDbRedem(cookie, "2020-04-01", "2020-12-31", "2");
 
+//        // 更新最新净值-限定时间段的最大最小净值
+//        showUpdateDbMaxMinNetByDays(cookie, "2020-04-01", "2020-12-31", "1",2);
         // 更新最新净值-限定时间段的最大最小净值
 //        showUpdateDbMaxMinNetByDays(cookie, "2020-04-01", "2020-12-31", "1",30);
 //        // 更新最新净值-限定时间段的最大最小净值
@@ -245,6 +247,8 @@ public class TradeDemo {
             System.out.println("UPDATE `ol_fund_trade` " +
                     "SET " +
                     " `LAST_NET`=" + lsjzDataLsjz.getDWJZ() + " " +
+                    ",`NET_MAX_1`=" + lsjzDataLsjz.getLJJZ() + " " +
+                    ",`NET_MIN_1`=" + lsjzDataLsjz.getLJJZ() + " " +
                     ",`LAST_DATE`='" + lsjzDataLsjz.getFSRQ() + "' " +
                     "WHERE  `FD_INFO` = '" + fundTrade.getFundInfo() + "' " +
 //                        "AND (`TYPE` = '申购' OR `TYPE` = '申购(赎回中)')"+

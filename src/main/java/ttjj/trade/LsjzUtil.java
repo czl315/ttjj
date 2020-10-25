@@ -72,6 +72,10 @@ public class LsjzUtil {
             StringBuffer sb = new StringBuffer();
             sb.append("UPDATE `ol_fund_trade` ");
             sb.append("SET ");
+            if(days==1){
+                sb.append(" `NET_MAX_1`=" + maxJz + " ");
+                sb.append(" ,`NET_MIN_1`=" + minJz + " ");
+            }
             if(days==30){
                 sb.append(" `NET_MAX_30`=" + maxJz + " ");
                 sb.append(" ,`NET_MIN_30`=" + minJz + " ");
@@ -112,7 +116,8 @@ public class LsjzUtil {
         Double lastDwjz = 0.0;
         for (LsjzDataLsjz lsjzDataLsjz : lsjzDataLsjzList) {
 //                    System.out.println(JSON.toJSONString(lsjzDataLsjz));
-            String dwJz = lsjzDataLsjz.getDWJZ();
+//            String dwJz = lsjzDataLsjz.getDWJZ();//当晚净值
+            String dwJz = lsjzDataLsjz.getLJJZ();//累计净值
             String fsrq = lsjzDataLsjz.getFSRQ();
 //            System.out.println("fsrq:" + fsrq + ",dwjzLong:" + dwJz);
             Double dwjzLong = Double.valueOf(dwJz);

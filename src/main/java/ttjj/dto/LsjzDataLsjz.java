@@ -10,6 +10,9 @@ public class LsjzDataLsjz {
      * 当晚净值
      */
     private String DWJZ;
+    /**
+     * 累计净值
+     */
     private String LJJZ;
     private String SDATE;
     private String ACTUALSYI;
