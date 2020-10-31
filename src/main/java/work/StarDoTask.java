@@ -22,7 +22,7 @@ public class StarDoTask extends TimerTask {
     /**
      * cookie
      */
-    private final static String cookie = "shshshfpa=7d458cc5-ef69-8cca-04f9-04e8eefb8031-1577076121; __jdu=15770761202431945958964; pinId=xcWTturruQA; shshshfpb=yjlcj3AiuwWhpqP6phZkXFA%3D%3D; pin=czl315; unick=czl315; _tp=EOpsxLedIh%2Bha%2FKPkDpqCg%3D%3D; _pst=czl315; user-key=ca3009ba-f2ec-4e53-b8a1-ce2bc354f73f; __jdv=137720036|direct|-|none|-|1602131826715; ceshi3.com=201; cn=46; ipLoc-djd=1-2809-0-0; areaId=1; TrackID=1vXii0AmNa7-HkSc47cFQqDy0w9IRV0jCKB12SZHDULqNLPo7756033PV--MrQOhJ4Jq8gyc60q83Y0eYO6QT5IR10UIIFu3aGotbI6XPd8k; jd.erp.lang=zh_CN; erp1.jd.com=7674AEEEDE87FAD500DFD91F29B55E0942D12E1BF2A66AF21B660315F9F413F1302F7A66613F32F801C719FD593E74BB48CBD92CBDB854F8B840D0FB4E6010BD5AD3A7A27E6CE3975AEC8A30154349718C9E51251F67EA7C1405F9118408B847; sso.jd.com=BJ.b69ac0d6afbc437f9051f7e9e3dc80a4; mba_muid=15770761202431945958964; shshshfp=87af3de7878d7588aca9a89af95a1d15; shshshsID=cbf2d7a1cd5c181639fea8c29ad8201a_1_1603417606753; TrackerID=c-uj_o3L2gyCbprQRVNIW8ksleaznsuGYkMT4GSa7MMsjY_b2FVofbYnibAYDwzFaxuzQV-V-YKKCsbaJ6xNDvmlqSjxpz1ixbuOUlUgAbGqSps2MFZGR-qiRcdBQNue; pt_key=AAJfkjYPADBc9wj48xLnoI2kA1-9J40a5kKOj2LKQPGLKosskrQtFXAg_T1CNAf_fJ4luaZhDMY; pt_pin=czl315; pt_token=x3nkomjx; pwdt_id=czl315; sfstoken=tk01mb9b61c1ba8sMSsxKzN4RlB4IDSPcjTYiirn2aNDnTk4WmTHRew4Lnd4CbIHyl9D8aEt4vRcQXex3E9G0kJtNBJk; __jda=122270672.15770761202431945958964.1577076120.1603362594.1603415953.357; __jdc=122270672; 3AB9D23F7A4B3C9B=PMRCFLCUO2QEAKTO3OLBOKLRFTIBQFWR423GYIVNGBMDU3YZKT53RRFSK4TL72V5IF5FRF24EEQKY5ANIUW7RDPGPU; mba_sid=16034168544427363555979529712.7; __jd_ref_cls=Mnpm_ComponentApplied; thor=A718E266D9B2378CAFBC9387160E8751722FD49DF04EB58CAB38C0C68F509655CBB4E3828E62F3827E01738DB3C7AD208CAD5CBAB4CCF4BB5CEED698CD7FAF4EC93B1C56A3C12C5BA059F93A26C949C8763D2C615BCD6784E0B9E709121344C0092C91E006AFE2711DD5CC7F99496824FCBB4707333B6D604793E56A1AFF9EB6; __jdb=122270672.12.15770761202431945958964|357.1603415953";
+    private final static String cookie = "shshshfpa=00c2369e-1ebc-a87a-c0d6-f23f02eb461f-1525437685; shshshfpb=268190f132b494db48c188c56f94acb765aec54f6338d03f664da35f97; pinId=xcWTturruQA; __jdu=15143778252431524477047; __guid=211148491.959919709830732800.1596249332740.9607; areaId=1; ipLoc-djd=1-72-0-0; pin=czl315; unick=czl315; _tp=EOpsxLedIh%2Bha%2FKPkDpqCg%3D%3D; _pst=czl315; __jdv=137720036|direct|-|none|-|1603471133013; TrackID=1DhC7y9vh8--XK9qq3eYIWJL_yLHEPl99vhLGMVHy8QrHdEOXK3Zg_9JvevcObWn8AqUQXtp5sn-avZDP9vdBLA; thor=A718E266D9B2378CAFBC9387160E8751C139A29BC4AA2B6352E12DB10D30B7B4A70E6FE70799D8F285DA7AECF1F1D6EB37DBEF034FB1889820FC9A35562681904830B7EDC21F33FBC0EBC05F2E70489B1022AAED1EE9D4252B3978D11A66558E9D9FB6224E3627F00032D1B5776B4F2953035CC8ABE43FC020507E9AA09F7A80; ceshi3.com=201; shshshfp=5cde40273325e7c97f146bb943194707; shshshsID=c03debc5c7c7091616dc036749fb6fe7_2_1604073303251; __jda=122270672.15143778252431524477047.1514377825.1603730399.1604073289.591; __jdc=122270672; 3AB9D23F7A4B3C9B=3NPW7L6RMBADGBRW4PE5K4UBZTHIUSJ64WTYYACB2QADAC6WQJKSB6FDQTR6LEM53W3RXEJ7ARX72YUJX27HCCQXME; monitor_count=2; __jdb=122270672.6.15143778252431524477047|591.1604073289";
 
     /**
      * 新品季
@@ -31,7 +31,9 @@ public class StarDoTask extends TimerTask {
      */
     public static void main(String[] args) {
         String urlPre = "https://urvsaggpt.m.jd.com/guardianstar/getHomePage";
-        String param = "starId=aokesilingengxin";
+//        String param = "starId=aokesilingengxin";
+//        String param = "starId=skgwangyibo";
+        String param = "starId=bolangwutiaoren";
         doBizTask(urlPre, param);
 //        long initDelay = getTimeMillis("18:00:00") - System.currentTimeMillis();
 //        ScheduledExecutorService pool = new ScheduledThreadPoolExecutor(1);
@@ -89,16 +91,16 @@ public class StarDoTask extends TimerTask {
         JSONObject dateJson = dateJsonList.getJSONObject(0);
         String starId = dateJson.getString("starId");
         //任务-店铺
-//        for (int i = 0; i < dateJsonList.size(); i++) {
-//            JSONArray objList = dateJson.getJSONArray("shopList");
-//            doTaskList(objList, starId, "shop","shopId");
-//        }
+        for (int i = 0; i < dateJsonList.size(); i++) {
+            JSONArray objList = dateJson.getJSONArray("shopList");
+            doTaskList(objList, starId, "shop","shopId");
+        }
 
 //        //任务-venue
-//        for (int i = 0; i < dateJsonList.size(); i++) {
-//            JSONArray objList = dateJson.getJSONArray("venueList");
-//            doTaskList(objList, starId, "venue","venueId");
-//        }
+        for (int i = 0; i < dateJsonList.size(); i++) {
+            JSONArray objList = dateJson.getJSONArray("venueList");
+            doTaskList(objList, starId, "venue","venueId");
+        }
         //任务-productList
         for (int i = 0; i < dateJsonList.size(); i++) {
             JSONArray objList = dateJson.getJSONArray("productList");
@@ -126,19 +128,25 @@ public class StarDoTask extends TimerTask {
             String status1 = "1";
             String urlParam = String.join("", "starId=", starId, "&", "type=", type, "&", "id=", shopId, "&", "status=", status1);
             System.out.println(url+","+urlParam);
-            String rs = HttpUtil.sendPost(url, urlParam, cookie);
-            System.out.println("做任务-立即领取-结果：" + rs);
-
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            String rs = HttpUtil.sendPost(url, urlParam, cookie);
+            System.out.println("做任务-立即领取-结果：" + rs);
+
+
 
             //第2步：立即领取
             String status = "2";
             String urlParam2 = String.join("", "starId=", starId, "&", "type=", type, "&", "id=", shopId, "&", "status=", status);
             System.out.println(url+","+urlParam2);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             String rs2 = HttpUtil.sendPost(url, urlParam2, cookie);
             System.out.println("做任务-立即领取-结果：" + rs2);
         }
