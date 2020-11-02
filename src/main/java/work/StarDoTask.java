@@ -9,6 +9,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * 守护明星
@@ -22,19 +24,99 @@ public class StarDoTask extends TimerTask {
     /**
      * cookie
      */
-    private final static String cookie = "shshshfpa=00c2369e-1ebc-a87a-c0d6-f23f02eb461f-1525437685; shshshfpb=268190f132b494db48c188c56f94acb765aec54f6338d03f664da35f97; pinId=xcWTturruQA; __jdu=15143778252431524477047; __guid=211148491.959919709830732800.1596249332740.9607; areaId=1; ipLoc-djd=1-72-0-0; pin=czl315; unick=czl315; _tp=EOpsxLedIh%2Bha%2FKPkDpqCg%3D%3D; _pst=czl315; __jdv=137720036|direct|-|none|-|1603471133013; TrackID=1DhC7y9vh8--XK9qq3eYIWJL_yLHEPl99vhLGMVHy8QrHdEOXK3Zg_9JvevcObWn8AqUQXtp5sn-avZDP9vdBLA; thor=A718E266D9B2378CAFBC9387160E8751C139A29BC4AA2B6352E12DB10D30B7B4A70E6FE70799D8F285DA7AECF1F1D6EB37DBEF034FB1889820FC9A35562681904830B7EDC21F33FBC0EBC05F2E70489B1022AAED1EE9D4252B3978D11A66558E9D9FB6224E3627F00032D1B5776B4F2953035CC8ABE43FC020507E9AA09F7A80; ceshi3.com=201; shshshfp=5cde40273325e7c97f146bb943194707; shshshsID=c03debc5c7c7091616dc036749fb6fe7_2_1604073303251; __jda=122270672.15143778252431524477047.1514377825.1603730399.1604073289.591; __jdc=122270672; 3AB9D23F7A4B3C9B=3NPW7L6RMBADGBRW4PE5K4UBZTHIUSJ64WTYYACB2QADAC6WQJKSB6FDQTR6LEM53W3RXEJ7ARX72YUJX27HCCQXME; monitor_count=2; __jdb=122270672.6.15143778252431524477047|591.1604073289";
+    private final static String cookie = "shshshfpa=7d458cc5-ef69-8cca-04f9-04e8eefb8031-1577076121; __jdu=15770761202431945958964; pinId=xcWTturruQA; shshshfpb=yjlcj3AiuwWhpqP6phZkXFA%3D%3D; pin=czl315; unick=czl315; _tp=EOpsxLedIh%2Bha%2FKPkDpqCg%3D%3D; _pst=czl315; __jdv=234025733%7Cdirect%7C-%7Cnone%7C-%7C1603431599538; ceshi3.com=201; cn=64; areaId=1; ipLoc-djd=1-2809-0-0; mba_muid=15770761202431945958964; jd.erp.lang=zh_CN; TrackerID=NuNEspfz4PznLHujGd4U3307DmzzMzjyNaek7HdFEiHadRGmvVLQ5gF7LSOmkCUPO-nSZ5lIy7noWhgKrMYih-XvCpcit272ca0Dy9TYSwLTYS2FLGdYYbut4nFqY3_s; pt_key=AAJfnoBTADBOjIUaCthp2P5AD8QXjLHAzpKpD_DmMmbj5D31FbDQCuBDnZt91k9JrqKlfK93ZTs; pt_pin=czl315; pt_token=59u1brl3; pwdt_id=czl315; sfstoken=tk01mc3e61c9fa8sM3gxWnBYK2VsuF1jy8fLyCL+cX6FpxwbU5LXaMYWjOzgrJIuSqYRHaP6KzsxxiH6S/Sv3q46oZID; wxa_level=1; cid=9; retina=1; jxsid=16042230711310362884; webp=1; visitkey=3895287832699100; sc_width=320; shshshfp=08d10ebabe90662903288b61e4627ae7; sk_history=10022091720995%2C100008792742%2C70836099494%2C; cartNum=45; cartLastOpTime=1604226807; kplTitleShow=1; __wga=1604226812668.1604225346069.1604223072201.1604223072201.3.2; PPRD_P=UUID.15770761202431945958964-LOGID.1604226708125.578731168-CT.138442.1.3; jxsid_s_u=https%3A//p.m.jd.com/cart/cart.action; jxsid_s_t=1604226812841; wq_logid=1604226820.1310953517; erp1.jd.com=FB7CBB67189AAB731E5E3F0ED89C564F67614F6C0FF8B921F8033BB815C797D763BAC6B8B9D74ECFA37909C2A8D1860C610E989D19353F0A39DA687C119474CD8438DF90DC6C1641E9E1421901A562BA178CED7137B0008FC43DC048E96247CF; sso.jd.com=BJ.14499367c4f2449ea769f14a6b61996b; mba_sid=16043008025328722652551447683.1; __jd_ref_cls=Mnpm_ComponentApplied; __jdc=122270672; __jda=122270672.15770761202431945958964.1577076120.1604298783.1604300802.410; wlfstk_smdl=uxtam6b7iitlohuhzjb7bxgv13zclouf; TrackID=1hcXCpQFga9TNLQL2TLm5KunEmautGo5Vz_fq8lP8zm2BwITEzbrS29zIID0QRVL0G9JBevQBxle5bWsMQbKcvyn6M2kV-N0DLAkRGC8fHHk; thor=A718E266D9B2378CAFBC9387160E875120B26DAF21D5A5A00C3B7B9B7E6A3345C3096860ADFD60331DE7F5FA152D8E028718831838CE819C896BFD7E3A7FAE70C963F797BC92C234072304B571BF2E60B891D4BBE5D6722BF50B6DE38BFD4648F230C9ABD4ECC4AB99C0A28417C00068B6179314AFBA3534EB324D57B0BED044; 3AB9D23F7A4B3C9B=PMRCFLCUO2QEAKTO3OLBOKLRFTIBQFWR423GYIVNGBMDU3YZKT53RRFSK4TL72V5IF5FRF24EEQKY5ANIUW7RDPGPU; __jdb=122270672.6.15770761202431945958964|410.1604300802";
 
     /**
-     * 新品季
+     * #海尔毛晓彤
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=haiermaoxiaotong
+     *
+     * #创维毛不易
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=chuangweimaobuyi
+     *
+     * #欧乐B杨紫
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=oulebyangzi
+     *
+     * #美的佟丽娅
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=meiditongliya
+     *
+     * #雀巢朱一龙
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=quechaozhuyilong
+     *
+     * #海尔空调陈晓
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=haierchenxiao
+     *
+     * #飞利浦李现
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=feilipulixian
+     *
+     * #飞利浦任嘉伦
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=feilipurenjialun
+     *
+     * #海信成果
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=haixinchengguo
+     *
+     * #九阳邓伦
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=jiuyangdenglun
+     *
+     * #老板宋威龙
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=laobansongweilong
+     *
+     * #方太
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=fangtai
+     *
+     * #奥克斯林更新
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=aokesilingengxin
+     *
+     * #LG杨子姗
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=lgyangzishan
+     *
+     * #长虹宋轶
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=changhongsongyi
+     *
+     * #飞利浦王子异
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=feilipuwangziyi
+     *
+     * #博朗五条人
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=bolangwutiaoren
+     *
+     * #三星宁静-暂未对外
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=sanxingningjing
+     *
+     * #_heidianliyitong_20-黑电李艺彤(第二波明星-品类)
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=heidianliyitong
+     * #_kongtiaozhangjike_21-空调张继科(第二波明星-品类)
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=kongtiaozhangjike
+     * #_xiaojiadianxiongziqi_22-小家电熊梓淇(第二波明星-品类)
+     * https://urvsaggpt.m.jd.com/static/index.html#/?starId=xiaojiadianxiongziqi
      *
      * @param args args
      */
     public static void main(String[] args) {
         String urlPre = "https://urvsaggpt.m.jd.com/guardianstar/getHomePage";
 //        String param = "starId=aokesilingengxin";
-//        String param = "starId=skgwangyibo";
-        String param = "starId=bolangwutiaoren";
-        doBizTask(urlPre, param);
+//        String param = "starId=haiermaoxiaotong";
+//        String param = "starId=chuangweimaobuyi";
+//        String param = "starId=oulebyangzi";
+        String param = "starId=heidianliyitong";
+//        String param = "starId=kongtiaozhangjike";
+//        String param = "starId=xiaojiadianxiongziqi";
+
+        //设置线程
+        ExecutorService executorService= Executors.newFixedThreadPool(2);
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                doBizTask(urlPre, "starId=kongtiaozhangjike");
+            }
+        });
+
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                doBizTask(urlPre, "starId=xiaojiadianxiongziqi");
+            }
+        });
+
+//        doBizTask(urlPre, param);
 //        long initDelay = getTimeMillis("18:00:00") - System.currentTimeMillis();
 //        ScheduledExecutorService pool = new ScheduledThreadPoolExecutor(1);
 //        pool.scheduleAtFixedRate(new Runnable() {
@@ -44,26 +126,6 @@ public class StarDoTask extends TimerTask {
 //                doBizTask();
 //            }
 //        }, 0, 60 * 60 * 4, TimeUnit.SECONDS);
-    }
-
-
-    /**
-     * 获取指定时间对应的毫秒数
-     *
-     * @param time "HH:mm:ss"
-     * @return
-     */
-
-    private static long getTimeMillis(String time) {
-        try {
-            DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
-            DateFormat dayFormat = new SimpleDateFormat("yy-MM-dd");
-            Date curDate = dateFormat.parse(dayFormat.format(new Date()) + " " + time);
-            return curDate.getTime();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
 
 
@@ -90,13 +152,13 @@ public class StarDoTask extends TimerTask {
         }
         JSONObject dateJson = dateJsonList.getJSONObject(0);
         String starId = dateJson.getString("starId");
-        //任务-店铺
+//        任务-店铺
         for (int i = 0; i < dateJsonList.size(); i++) {
             JSONArray objList = dateJson.getJSONArray("shopList");
             doTaskList(objList, starId, "shop","shopId");
         }
 
-//        //任务-venue
+        //任务-venue
         for (int i = 0; i < dateJsonList.size(); i++) {
             JSONArray objList = dateJson.getJSONArray("venueList");
             doTaskList(objList, starId, "venue","venueId");
@@ -106,17 +168,6 @@ public class StarDoTask extends TimerTask {
             JSONArray objList = dateJson.getJSONArray("productList");
             doTaskList(objList, starId, "product","productId");
         }
-
-
-//        browseType = "listMeeting";//会场
-//        listJsonObj = listGoods(cookie, browseType);//查询
-//        browseGoods(listJsonObj, cookie, browseType);//浏览
-//        getGoodsPrize(cookie, browseType, listJsonObj);//领奖
-//
-//        browseType = "shopInfo";//店铺
-//        listJsonObj = listGoods(cookie, browseType);//查询
-//        browseGoods(listJsonObj, cookie, browseType);//浏览
-//        getGoodsPrize(cookie, browseType, listJsonObj);//领奖
     }
 
     private static void doTaskList(JSONArray shopList, String starId, String type, String keyObjId) {
@@ -128,25 +179,19 @@ public class StarDoTask extends TimerTask {
             String status1 = "1";
             String urlParam = String.join("", "starId=", starId, "&", "type=", type, "&", "id=", shopId, "&", "status=", status1);
             System.out.println(url+","+urlParam);
+            String rs = HttpUtil.sendPost(url, urlParam, cookie);
+            System.out.println("做任务-浏览任务"+",type="+type+"-结果：" + rs);
+
             try {
-                Thread.sleep(1000);
+                Thread.sleep(10000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            String rs = HttpUtil.sendPost(url, urlParam, cookie);
-            System.out.println("做任务-立即领取-结果：" + rs);
-
-
 
             //第2步：立即领取
             String status = "2";
             String urlParam2 = String.join("", "starId=", starId, "&", "type=", type, "&", "id=", shopId, "&", "status=", status);
             System.out.println(url+","+urlParam2);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             String rs2 = HttpUtil.sendPost(url, urlParam2, cookie);
             System.out.println("做任务-立即领取-结果：" + rs2);
         }
