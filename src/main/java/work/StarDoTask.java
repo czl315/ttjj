@@ -24,7 +24,7 @@ public class StarDoTask extends TimerTask {
     /**
      * cookie
      */
-    private final static String cookie = "shshshfpa=7d458cc5-ef69-8cca-04f9-04e8eefb8031-1577076121; __jdu=15770761202431945958964; pinId=xcWTturruQA; shshshfpb=yjlcj3AiuwWhpqP6phZkXFA%3D%3D; pin=czl315; unick=czl315; _tp=EOpsxLedIh%2Bha%2FKPkDpqCg%3D%3D; _pst=czl315; __jdv=234025733%7Cdirect%7C-%7Cnone%7C-%7C1603431599538; ceshi3.com=201; cn=64; areaId=1; ipLoc-djd=1-2809-0-0; mba_muid=15770761202431945958964; jd.erp.lang=zh_CN; TrackerID=NuNEspfz4PznLHujGd4U3307DmzzMzjyNaek7HdFEiHadRGmvVLQ5gF7LSOmkCUPO-nSZ5lIy7noWhgKrMYih-XvCpcit272ca0Dy9TYSwLTYS2FLGdYYbut4nFqY3_s; pt_key=AAJfnoBTADBOjIUaCthp2P5AD8QXjLHAzpKpD_DmMmbj5D31FbDQCuBDnZt91k9JrqKlfK93ZTs; pt_pin=czl315; pt_token=59u1brl3; pwdt_id=czl315; sfstoken=tk01mc3e61c9fa8sM3gxWnBYK2VsuF1jy8fLyCL+cX6FpxwbU5LXaMYWjOzgrJIuSqYRHaP6KzsxxiH6S/Sv3q46oZID; wxa_level=1; cid=9; retina=1; jxsid=16042230711310362884; webp=1; visitkey=3895287832699100; sc_width=320; shshshfp=08d10ebabe90662903288b61e4627ae7; sk_history=10022091720995%2C100008792742%2C70836099494%2C; cartNum=45; cartLastOpTime=1604226807; kplTitleShow=1; __wga=1604226812668.1604225346069.1604223072201.1604223072201.3.2; PPRD_P=UUID.15770761202431945958964-LOGID.1604226708125.578731168-CT.138442.1.3; jxsid_s_u=https%3A//p.m.jd.com/cart/cart.action; jxsid_s_t=1604226812841; wq_logid=1604226820.1310953517; erp1.jd.com=FB7CBB67189AAB731E5E3F0ED89C564F67614F6C0FF8B921F8033BB815C797D763BAC6B8B9D74ECFA37909C2A8D1860C610E989D19353F0A39DA687C119474CD8438DF90DC6C1641E9E1421901A562BA178CED7137B0008FC43DC048E96247CF; sso.jd.com=BJ.14499367c4f2449ea769f14a6b61996b; mba_sid=16043008025328722652551447683.1; __jd_ref_cls=Mnpm_ComponentApplied; __jdc=122270672; __jda=122270672.15770761202431945958964.1577076120.1604298783.1604300802.410; wlfstk_smdl=uxtam6b7iitlohuhzjb7bxgv13zclouf; TrackID=1hcXCpQFga9TNLQL2TLm5KunEmautGo5Vz_fq8lP8zm2BwITEzbrS29zIID0QRVL0G9JBevQBxle5bWsMQbKcvyn6M2kV-N0DLAkRGC8fHHk; thor=A718E266D9B2378CAFBC9387160E875120B26DAF21D5A5A00C3B7B9B7E6A3345C3096860ADFD60331DE7F5FA152D8E028718831838CE819C896BFD7E3A7FAE70C963F797BC92C234072304B571BF2E60B891D4BBE5D6722BF50B6DE38BFD4648F230C9ABD4ECC4AB99C0A28417C00068B6179314AFBA3534EB324D57B0BED044; 3AB9D23F7A4B3C9B=PMRCFLCUO2QEAKTO3OLBOKLRFTIBQFWR423GYIVNGBMDU3YZKT53RRFSK4TL72V5IF5FRF24EEQKY5ANIUW7RDPGPU; __jdb=122270672.6.15770761202431945958964|410.1604300802";
+    private final static String cookie = "shshshfpa=7d458cc5-ef69-8cca-04f9-04e8eefb8031-1577076121; __jdu=15770761202431945958964; pinId=xcWTturruQA; shshshfpb=yjlcj3AiuwWhpqP6phZkXFA%3D%3D; pin=czl315; unick=czl315; _tp=EOpsxLedIh%2Bha%2FKPkDpqCg%3D%3D; _pst=czl315; __jdv=234025733%7Cdirect%7C-%7Cnone%7C-%7C1603431599538; ceshi3.com=201; cn=64; areaId=1; ipLoc-djd=1-2809-0-0; mba_muid=15770761202431945958964; jd.erp.lang=zh_CN; TrackerID=NuNEspfz4PznLHujGd4U3307DmzzMzjyNaek7HdFEiHadRGmvVLQ5gF7LSOmkCUPO-nSZ5lIy7noWhgKrMYih-XvCpcit272ca0Dy9TYSwLTYS2FLGdYYbut4nFqY3_s; pt_key=AAJfnoBTADBOjIUaCthp2P5AD8QXjLHAzpKpD_DmMmbj5D31FbDQCuBDnZt91k9JrqKlfK93ZTs; pt_pin=czl315; pt_token=59u1brl3; pwdt_id=czl315; sfstoken=tk01mc3e61c9fa8sM3gxWnBYK2VsuF1jy8fLyCL+cX6FpxwbU5LXaMYWjOzgrJIuSqYRHaP6KzsxxiH6S/Sv3q46oZID; cid=9; retina=1; webp=1; visitkey=3895287832699100; sc_width=320; cartNum=45; cartLastOpTime=1604226807; kplTitleShow=1; sso.jd.com=BJ.db551c9cd7cc49b3957087cca34a3451; erp1.jd.com=03C86BC8E9A39C9EF6CD93ABCA55AC6627CD1EE8D8844B8F587A8D52672A93DCBB9C03F17CCD06FE0D7C0D6C65DDB0466EE10A71832BF13E9AAB8B707CA0EE172937AC850C9424D37D517F23C4B54C1B4B335EFD4E80E2CE08E290E27EE77F2F; wq_logid=1604369208.1703829997; wxa_level=1; jxsid=16043692091029144849; __wga=1604369210818.1604369210818.1604225346069.1604223072201.1.3; PPRD_P=UUID.15770761202431945958964-LOGID.1604369210834.935141755-CT.138442.1.3; jxsid_s_t=1604369210890; jxsid_s_u=https%3A//item.m.jd.com/product/100015893322.html; shshshfp=08d10ebabe90662903288b61e4627ae7; sk_history=100015893322%2C10022091720995%2C100008792742%2C70836099494%2C; __jd_ref_cls=Mnpm_ComponentApplied; __jda=122270672.15770761202431945958964.1577076120.1604394254.1604399046.419; __jdc=122270672; wlfstk_smdl=uq2936u8qeyzxd355uhrvnsdmyoq74q1; TrackID=1WVzpFl-DBwWn9nj3YbamQ3swGgotZLQj1gFAhKsp64lE0CIWXBsf7Kk5ywv7WhfP5BUqdDAixhd6YfDQ18yN0FNnQ8wvYcC5k9AKLZJ1NsQ; thor=A718E266D9B2378CAFBC9387160E87515B6FDC95E2552D94B15B3932B34B5BD35275694A6E94CC0050BCF0A08859310FE86F912CADBA72F289BCC0F057F5BB4623E2990A1E35B2679D82247BD2A585930E4AA57897A03CF82D569CE84D5F7F4801AB105090BEC1C477493C8DF02611E0E2F899BBF39BE10BDF007A878296FAD1; 3AB9D23F7A4B3C9B=PMRCFLCUO2QEAKTO3OLBOKLRFTIBQFWR423GYIVNGBMDU3YZKT53RRFSK4TL72V5IF5FRF24EEQKY5ANIUW7RDPGPU; __jdb=122270672.5.15770761202431945958964|419.1604399046";
 
     /**
      * #海尔毛晓彤
@@ -120,14 +120,21 @@ public class StarDoTask extends TimerTask {
             public void run() {
                 doBizTask(urlPre, "starId=heidianliyitong");
             }
-        });
+        }).start();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 doBizTask(urlPre, "starId=xiaojiadianxiongziqi");
             }
-        });
+        }).start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+//                doBizTask(urlPre, "starId=kongtiaozhangjike");
+            }
+        }).start();
 
 //        doBizTask(urlPre, param);
 //        long initDelay = getTimeMillis("18:00:00") - System.currentTimeMillis();
@@ -160,7 +167,8 @@ public class StarDoTask extends TimerTask {
 
         JSONObject rsJson = JSONObject.parseObject(rs);
         JSONArray dateJsonList = rsJson.getJSONArray("data");
-        if (dateJsonList == null) {
+        if (dateJsonList == null ||dateJsonList.size()==0) {
+            System.out.println(dateJsonList+"==0");
             return;
         }
         JSONObject dateJson = dateJsonList.getJSONObject(0);
@@ -193,7 +201,7 @@ public class StarDoTask extends TimerTask {
             String urlParam = String.join("", "starId=", starId, "&", "type=", type, "&", "id=", shopId, "&", "status=", status1);
             System.out.println(url+","+urlParam);
             String rs = HttpUtil.sendPost(url, urlParam, cookie);
-            System.out.println("做任务-浏览任务"+",type="+type+"-结果：" + rs);
+//            System.out.println("做任务-浏览任务"+",type="+type+"-结果：" + rs);
 
             try {
                 Thread.sleep(10000);
