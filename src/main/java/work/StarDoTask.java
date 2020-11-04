@@ -101,20 +101,14 @@ public class StarDoTask extends TimerTask {
 //        String param = "starId=xiaojiadianxiongziqi";
 
         //设置线程
-//        ExecutorService executorService= Executors.newFixedThreadPool(30);
-//        executorService.submit(new Runnable() {
-//            @Override
-//            public void run() {
-//                doBizTask(urlPre, "starId=kongtiaozhangjike");
-//            }
-//        });
-//
-//        executorService.submit(new Runnable() {
-//            @Override
-//            public void run() {
-//                doBizTask(urlPre, "starId=xiaojiadianxiongziqi");
-//            }
-//        });
+        ExecutorService executorService= Executors.newFixedThreadPool(5);
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                doBizTask(urlPre, "starId=kongtiaozhangjike");
+            }
+        });
+
         new Thread(new Runnable() {
             @Override
             public void run() {
