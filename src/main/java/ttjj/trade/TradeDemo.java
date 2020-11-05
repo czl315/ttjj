@@ -31,16 +31,16 @@ public class TradeDemo {
 //        showDbRedem(cookie, "2020-04-01", "2020-12-31", "2");
 
 
-////         更新最新净值-限定时间段的最大最小净值
-        showUpdateDbMaxMinNetByDays(cookie, "2020-04-20", "2020-12-31", "1",30);
-        // 更新最新净值-限定时间段的最大最小净值
-        showUpdateDbMaxMinNetByDays(cookie, "2020-04-20", "2020-12-31", "1",60);
-        // 更新最新净值-限定时间段的最大最小净值
-        showUpdateDbMaxMinNetByDays(cookie, "2020-04-20", "2020-12-31", "1",90);
-////        // 更新最新净值-限定时间段的最大最小净值
-        showUpdateDbMaxMinNetByDays(cookie, "2020-04-20", "2020-12-31", "1",180);
-        // 更新最新净值-限定时间段的最大最小净值
-        showUpdateDbMaxMinNetByDays(cookie, "2020-04-20", "2020-12-31", "1",360);
+//////         更新最新净值-限定时间段的最大最小净值
+//        showUpdateDbMaxMinNetByDays(cookie, "2020-04-20", "2020-12-31", "1",30);
+//        // 更新最新净值-限定时间段的最大最小净值
+//        showUpdateDbMaxMinNetByDays(cookie, "2020-04-20", "2020-12-31", "1",60);
+//        // 更新最新净值-限定时间段的最大最小净值
+//        showUpdateDbMaxMinNetByDays(cookie, "2020-04-20", "2020-12-31", "1",90);
+//////        // 更新最新净值-限定时间段的最大最小净值
+//        showUpdateDbMaxMinNetByDays(cookie, "2020-04-20", "2020-12-31", "1",180);
+//        // 更新最新净值-限定时间段的最大最小净值
+//        showUpdateDbMaxMinNetByDays(cookie, "2020-04-20", "2020-12-31", "1",360);
 
         //        // 更新最新净值-限定时间段的最大最小净值
 //        showUpdateDbMaxMinNetByDays(cookie, "2020-04-01", "2020-12-31", "1",1);
