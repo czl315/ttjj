@@ -12,7 +12,7 @@ SELECT
 	,ol_fund_trade.CONFIRM_AMT AS 交易金额
 ,DATEDIFF(NOW() ,ol_fund_trade.TRADE_TIME) AS 持有天数
 	,ol_fund_trade.TRADE_TIME
-,ROUND((ol_fund_trade.LAST_NET / ol_fund_trade.NET_MAX_30) * 100,2) AS 当晚净值比最大率
+,ROUND((ol_fund_trade.LAST_NET / ol_fund_trade.NET_MAX_1) * 100,2) AS 当晚净值比最大率
 	,ROUND(ol_fund_trade.LAST_NET * ol_fund_trade.CONFIRM_SHARE ,2) AS '最新金额'
 	,ol_fund_trade.CONFIRM_NET AS confirmNet
 	,ol_fund_trade.LAST_NET lastNet
@@ -26,7 +26,7 @@ WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
 	AND ol_fund_trade.TYPE = '申购'
--- AND ol_fund_trade.FD_INFO LIKE '%沪深300%'
+-- AND ol_fund_trade.FD_INFO LIKE '%320007|诺安成长混合%'
 -- 	AND ol_fund_trade.CONFIRM_AMT <1000
 -- 	AND ol_fund_trade.TYPE in( '申购(赎回)' )
 -- 	AND ol_fund_trade.TYPE = '赎回'
@@ -102,11 +102,13 @@ ORDER BY
 -- ol_fund_trade.REDEM_TIME  DESC
 ;
 
-SELECT ol_fund_trade.FD_INFO AS 合计金额
+SELECT ol_fund_trade.FD_INFO AS 基金分组
 	,SUM(ol_fund_trade.CONFIRM_AMT)  AS sumamt
 	,COUNT(ol_fund_trade.CONFIRM_AMT)
 	FROM ol_fund_trade
-	WHERE ol_fund_trade.TYPE in( '申购' ) AND ol_fund_trade.SOURCE =3
+WHERE 1=1
+	AND ol_fund_trade.SOURCE =3
+	AND ol_fund_trade.TYPE in( '申购' )
 	GROUP BY ol_fund_trade.FD_INFO
 	ORDER by sumamt  DESC
 ;

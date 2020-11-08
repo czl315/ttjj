@@ -25,13 +25,20 @@ public class SzzsData {
 
 
 //        //k线-上证-日线
-        kline("", SZ,30, "101");//klt=101:日;102:周;103:月;104:3月
+//        kline("", SZ,4, "102");//klt=101:日;102:周;103:月;104:3月
+
+        //        //k线-
+//        kline("", "0.399001",4, "102");//klt=101:日;102:周;103:月;104:3月
+//        kline("", "0.399006",4, "102");//klt=101:日;102:周;103:月;104:3月
+//        kline("", "1.000016",4, "102");//klt=101:日;102:周;103:月;104:3月
+        kline("", "1.000905",4, "102");//klt=101:日;102:周;103:月;104:3月
 
         //k线-沪深300-HS_300_000300
-//        kline("", HS_300_000300,30, "101");//klt=101:日;102:周;103:月;104:3月
+//        kline("", HS_300_000300,4, "102");//klt=101:日;102:周;103:月;104:3月
 
 //        //k线-创业板50-399673
 //        kline("", CYB_50_399673, 30, "101");//klt=101:日;102:周;103:月;104:3月
+//        kline("", CYB_50_399673, 4, "102");//klt=101:日;102:周;103:月;104:3月
     }
 
     /**
@@ -224,7 +231,7 @@ public class SzzsData {
 
         } else {
             url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=1." + zhiShu);
+            url.append("&secid=" + zhiShu);
             url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
             url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
             url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
@@ -242,7 +249,7 @@ public class SzzsData {
         String rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), cookie);
         String rsJson = rs.substring(rs.indexOf("{"));
         rsJson = rsJson.replace(");", "");
-//        System.out.println("szKline:" + rsJson);
+        System.out.println("szKline:" + rsJson);
 
         List<String> klineList = new ArrayList<String>();
         JSONObject szzzMonthJson = JSON.parseObject(rsJson);

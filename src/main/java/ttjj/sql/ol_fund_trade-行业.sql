@@ -1,12 +1,4 @@
 /**	分组-行业	*/
-SELECT ol_fund_trade.BIZ_TP
-	FROM ol_fund_trade
-	WHERE 1=1
-	AND ol_fund_trade.BIZ_TP NOT IN ('债券','货币')
-	GROUP BY ol_fund_trade.BIZ_TP
-;
-
-/**	分组-行业	*/
 SELECT 	ol_fund_trade.FD_INFO AS 指数
 	,ol_fund_trade.CONFIRM_SHARE AS 买入份额
 	,ROUND(
@@ -154,4 +146,12 @@ SELECT 	ol_fund_trade.FD_INFO AS 建材
 	AND ol_fund_trade.TYPE = '申购'
 	AND ol_fund_trade.BIZ_TP = '建材'
 ORDER BY 最新收益率 DESC
+;
+
+/**	分组-行业	*/
+SELECT ol_fund_trade.BIZ_TP
+	FROM ol_fund_trade
+	WHERE 1=1
+	AND ol_fund_trade.BIZ_TP NOT IN ('债券','货币')
+	GROUP BY ol_fund_trade.BIZ_TP
 ;
