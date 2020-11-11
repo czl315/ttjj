@@ -64,8 +64,8 @@ public class LsjzUtil {
 //            System.out.println("最大净值：" + maxJz);
 //            System.out.println("最小净值：" + minJz);
 //            System.out.println("最新净值：" + lastDwjz);
-            Double lvLastDwjzMax = lastDwjz / maxJz * 100;
-            Double lvLastDwjzMin = (lastDwjz / minJz) * 100-100;
+//            Double lvLastDwjzMax = lastDwjz / maxJz * 100;
+//            Double lvLastDwjzMin = (lastDwjz / minJz) * 100-100;
 //            System.out.println("当晚净值比最大率：" + lvLastDwjzMax);
 //            System.out.println("当晚净值比最小率：" + lvLastDwjzMin);
 
