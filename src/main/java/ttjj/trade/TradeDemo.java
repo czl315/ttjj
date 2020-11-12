@@ -28,7 +28,7 @@ public class TradeDemo {
         if(showType==1){
             //        String busType = "0";//0-全部;1-申购;2-卖出;
 //        //显示插入数据库语句
-        showInsertDb(cookie, "2020-11-07", "2020-12-31", "1");
+        showInsertDb(cookie, "2020-11-11", "2020-12-31", "1");
         //显示更新数据库语句
         showUpdateDb(cookie, "2020-06-29", "2020-12-31", "1");
 //        赎回
