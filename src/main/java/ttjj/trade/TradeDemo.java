@@ -103,86 +103,131 @@ public class TradeDemo {
      * @param fundTrade
      */
     private static void handlerBizTp(FundTrade fundTrade) {
-//        List<String> typeListZhiShu = new ArrayList<>();
-//        typeListZhiShu.add("110003|易方达上证50指数A");
-//        typeListZhiShu.add("004746|易方达上证50指数C");
-//        if(typeListZhiShu.contains(fundTrade.getFundInfo())){
+        List<String> typeListZhiShu = new ArrayList<>();
+        typeListZhiShu.add("110003|易方达上证50指数A");
+        typeListZhiShu.add("004746|易方达上证50指数C");
+        typeListZhiShu.add("002671|万家沪深300指数增强C");
+        typeListZhiShu.add("004789|富荣沪深300指数增强C");
+        typeListZhiShu.add("001875|前海开源沪港深优势精选混合");
+        typeListZhiShu.add("160420|华安创业板50指数分级");
+        typeListZhiShu.add("160637|鹏华创业板分级");
+        typeListZhiShu.add("009300|西部利得中证500指数增强C");
+        typeListZhiShu.add("110011|易方达中小盘混合");
+
+        if(typeListZhiShu.contains(fundTrade.getFundInfo())){
+            fundTrade.setBizTy("指数");
+            fundTrade.setRiskStLoss(0.92);
+            fundTrade.setRiskStProfit(1.1);
+            return;
+        }
+
+        List<String> typeListKeJj = new ArrayList<>();
+        typeListKeJj.add("008086|华夏中证5G通信主题ETF联接A");
+        typeListKeJj.add("001986|前海开源人工智能主题混合");
+        typeListKeJj.add("320007|诺安成长混合");
+        typeListKeJj.add("519005|海富通股票混合");
+        typeListKeJj.add("000977|长城环保主题混合");
+        typeListKeJj.add("519674|银河创新成长混合");
+        typeListKeJj.add("009314|广发双擎升级混合C");
+        typeListKeJj.add("161028|富国中证新能源汽车指数分级");
+        typeListKeJj.add("001606|农银工业4.0混合");
+        typeListKeJj.add("004997|广发高端制造股票A");
+        typeListKeJj.add("163402|兴全趋势投资混合(LOF)");
+        typeListKeJj.add("161903|万家行业优选混合(LOF)");
+
+        if(typeListKeJj.contains(fundTrade.getFundInfo())){
+            fundTrade.setBizTy("科技");
+            fundTrade.setRiskStLoss(0.92);
+            fundTrade.setRiskStProfit(1.1);
+            return;
+        }
+
+
+        typeListZhiShu.add("004746");
+        typeListZhiShu.add("004746");
+        typeListZhiShu.add("004746");
+        typeListZhiShu.add("004746");
+        typeListZhiShu.add("004746");
+
+        typeListZhiShu.add("004746");
+        typeListZhiShu.add("004746");
+        typeListZhiShu.add("004746");
+        typeListZhiShu.add("004746");
+        typeListZhiShu.add("004746");
+
+//        if ("004746|易方达上证50指数C".equals(fundTrade.getFundInfo())||"110003|易方达上证50指数A".equals(fundTrade.getFundInfo())) {
 //            fundTrade.setBizTy("指数");
 //            fundTrade.setRiskStLoss(0.92);
 //            fundTrade.setRiskStProfit(1.1);
 //        }
-        if ("004746|易方达上证50指数C".equals(fundTrade.getFundInfo())||"110003|易方达上证50指数A".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("指数");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
-        }
-        if ("002671|万家沪深300指数增强C".equals(fundTrade.getFundInfo()) || "004789|富荣沪深300指数增强C".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("指数");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
-        }
-        if ("001875|前海开源沪港深优势精选混合".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("指数");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
-        }
-        if ("160420|华安创业板50指数分级".equals(fundTrade.getFundInfo())||"160637|鹏华创业板分级".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("指数");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
-        }
-        if ("009300|西部利得中证500指数增强C".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("指数");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
-        }
-        if ("110011|易方达中小盘混合".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("指数");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
-        }
+//        if ("002671|万家沪深300指数增强C".equals(fundTrade.getFundInfo()) || "004789|富荣沪深300指数增强C".equals(fundTrade.getFundInfo())) {
+//            fundTrade.setBizTy("指数");
+//            fundTrade.setRiskStLoss(0.92);
+//            fundTrade.setRiskStProfit(1.1);
+//        }
+//        if ("001875|前海开源沪港深优势精选混合".equals(fundTrade.getFundInfo())) {
+//            fundTrade.setBizTy("指数");
+//            fundTrade.setRiskStLoss(0.92);
+//            fundTrade.setRiskStProfit(1.1);
+//        }
+//        if ("160420|华安创业板50指数分级".equals(fundTrade.getFundInfo())||"160637|鹏华创业板分级".equals(fundTrade.getFundInfo())) {
+//            fundTrade.setBizTy("指数");
+//            fundTrade.setRiskStLoss(0.92);
+//            fundTrade.setRiskStProfit(1.1);
+//        }
+//        if ("009300|西部利得中证500指数增强C".equals(fundTrade.getFundInfo())) {
+//            fundTrade.setBizTy("指数");
+//            fundTrade.setRiskStLoss(0.92);
+//            fundTrade.setRiskStProfit(1.1);
+//        }
+//        if ("110011|易方达中小盘混合".equals(fundTrade.getFundInfo())) {
+//            fundTrade.setBizTy("指数");
+//            fundTrade.setRiskStLoss(0.92);
+//            fundTrade.setRiskStProfit(1.1);
+//        }
 
-        if ("008086|华夏中证5G通信主题ETF联接A".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("科技");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
-        }
-        if ("001986|前海开源人工智能主题混合".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("科技");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
-        }
-        if ("320007|诺安成长混合".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("科技");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
-        }
-        if ("519005|海富通股票混合".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("科技");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
-        }
-        if ("000977|长城环保主题混合".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("科技");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
-        }
-        if ("519674|银河创新成长混合".equals(fundTrade.getFundInfo()) || "009314|广发双擎升级混合C".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("科技");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
-        }
+//        if ("008086|华夏中证5G通信主题ETF联接A".equals(fundTrade.getFundInfo())) {
+//            fundTrade.setBizTy("科技");
+//            fundTrade.setRiskStLoss(0.92);
+//            fundTrade.setRiskStProfit(1.1);
+//        }
+//        if ("001986|前海开源人工智能主题混合".equals(fundTrade.getFundInfo())) {
+//            fundTrade.setBizTy("科技");
+//            fundTrade.setRiskStLoss(0.92);
+//            fundTrade.setRiskStProfit(1.1);
+//        }
+//        if ("320007|诺安成长混合".equals(fundTrade.getFundInfo())) {
+//            fundTrade.setBizTy("科技");
+//            fundTrade.setRiskStLoss(0.92);
+//            fundTrade.setRiskStProfit(1.1);
+//        }
+//        if ("519005|海富通股票混合".equals(fundTrade.getFundInfo())) {
+//            fundTrade.setBizTy("科技");
+//            fundTrade.setRiskStLoss(0.92);
+//            fundTrade.setRiskStProfit(1.1);
+//        }
+//        if ("000977|长城环保主题混合".equals(fundTrade.getFundInfo())) {
+//            fundTrade.setBizTy("科技");
+//            fundTrade.setRiskStLoss(0.92);
+//            fundTrade.setRiskStProfit(1.1);
+//        }
+//        if ("519674|银河创新成长混合".equals(fundTrade.getFundInfo()) || "009314|广发双擎升级混合C".equals(fundTrade.getFundInfo())) {
+//            fundTrade.setBizTy("科技");
+//            fundTrade.setRiskStLoss(0.92);
+//            fundTrade.setRiskStProfit(1.1);
+//        }
+//        if ("161028|富国中证新能源汽车指数分级".equals(fundTrade.getFundInfo())) {
+//            fundTrade.setBizTy("科技");
+//            fundTrade.setRiskStLoss(0.92);
+//            fundTrade.setRiskStProfit(1.1);
+//        }
 
         if ("160633|鹏华证券分级".equals(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("金融");
             fundTrade.setRiskStLoss(0.92);
             fundTrade.setRiskStProfit(1.1);
         }
-        if ("161028|富国中证新能源汽车指数分级".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("科技");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
-        }
+
         if ("004857|广发中证全指建筑材料指数C".equals(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("建材");
             fundTrade.setRiskStLoss(0.92);
