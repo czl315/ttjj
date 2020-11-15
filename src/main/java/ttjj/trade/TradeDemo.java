@@ -20,7 +20,7 @@ import java.util.List;
 public class TradeDemo {
     public static void main(String[] args) {
 //        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=168568481.3275105768631237000.1587299075419.1528; st_si=16529934604496; st_asi=delete; b_p_log_key=YqYlmCtMJVbt2nCdsyCq6TbxbtD+GRXUJrxBZEDZITxHIfCgUw8tCrxUk731QiB0nvUsM8TkmchTyB/oeM7g5nSq+YBBzSV3o1LtTI5IkSzzNbvkXT0=; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=2; st_psi=20200626125212882-119085303933-7379745562; cp_token=2ca40dd1c09e4f6c99ad548acef6e639; FundTradeLoginUser=WryU2RGKLMQddvOrt9ie5DH681dVJ7Rs98U+3fkkCPoMMYm+TogQg18eMgwrDAYRCBbS6blW; fund_trade_cn=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tnYaLdfbHWm6cxq48Uvcrj2Xgx//HDR5H1pWcbYwG3sOur8=; fund_trade_name=WQ+qNJQRkM2gf0ve7giilJV4jbTVicEdkpYh3wCIEEQaZYpiX5NWK08mI5edsToRSpyAZ+3a; fund_trade_visitor=WZGFRsGAsMwx6GI0b4iGrpXig4GVnUDJkDgn3Wcq5hDS7YYCBDJ7f88D0Q7jDR0Rmf6wuKvi; fund_trade_risk=WGB21Yg1xMyCP00D20iUUjQveZdV0FAjhnlZ38Sw4BK48YjyjP+Qq98bpqDDQTeRLcjQLeub; fund_trade_gps=2; VipLevel=0; TradeLoginToken=0cdd00b4660749efbbb2b1ad5a00a1a2; UTOKEN=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tuY+U8CMvNFZKtf18kYRYJD80Zr4yERG9mq9X6yRf4eEJPk=; LToken=919b1cc8f4244369b65efa898ff7ae58; fund_trade_trackid=gSRgeG/HOvMXtvvf2k5YRsWme3vrnWmciDUr/Y5kDpfBbZD9+RhA8YnjkfRSoYT1EaJ8OL/0ktaZzbgM46qQ3g==; monitor_count=14";
-        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=85551223730194; st_asi=delete; ASP.NET_SessionId=quqkus5yxv33zosijxpyoubv; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=7; st_psi=20201111225631898-119085303933-3578202004; cp_token=6020f7b837b342c29bc036f50ff9dad9; FundTradeLoginUser=cAtjMaAtlPPmxeQe5+vUOTbiTXd9bUNt/sT35Gf4sB6mvGUb27qVv5F1/MuGoYuRmnW4FB7h; fund_trade_cn=cmBPYgBndVrn78PUQQ3QBy2DLRipv+cFmzEaZlQyBZ9n0s9ZOrK6PY2O5bOE8/xeelV8G1G0mnImh2fFsU6/F+/0u8MMniNM49RLLb3GQpdWhguThzk=; fund_trade_name=cdbR0WrIXPoQ9ACzd7v9wRwXQuV9qz+13uQB5SdqjzeqpGT6ue1i+VFs4bJ4zAQR3pvJzBUd; fund_trade_visitor=c1OwUzosvP7iW11RmxvBK+FaUij9G393wKDT54fErGPYlGQFq0PSR+F+T/fvUuQRhAEQlw/M; fund_trade_risk=c9M3hCwgdPKJ54SiiGvX6OgCbes9mXy9GSjc5s2T0JUVkGPSs8wrWAFF9p3hVerRaev7IwJF; fund_trade_gps=2; VipLevel=0; TradeLoginToken=81465d3c62474317b0ecf0ae05109887; UTOKEN=cmBPYgBndVrn78PUQQ3QBy2DLRipv+cFmzEaZlQyBZ9n0s9ZOrK6PY2O5bOE8/xeelV8GqGJ1fGdEboYg41+Fu1CSfN9Z3KVXlRNXhI55vUl/Uzovrc=; LToken=63ee6851e0ee43c09eb9320c1ec355c6; fund_trade_trackid=Hqx7xgoi3bZj2SZrO36M/i3WcOJ2HSs+0XamtOzG7kD4mBDZF4peARksgR2musv+aGtxxl7U1Sbzd32sqnYQIw==; monitor_count=7";
+        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=87669368439991; st_asi=delete; cp_token=3a24d6c2107e4041a870a2cedd676ee8; FundTradeLoginUser=qTUxIvn933SQ8UqeeagYh49Vp8flGpfy/oo4dOJnh91LU5VBQIWfI13OptsY1HsAF4TO/P5r; fund_trade_cn=qefKHcENUamfy13SrpASBDWUfmiPgXgc3L8YZo9p6ElZaDY54AUqswm4dL3dGUzDJqNMZu5662NVe4hNF3T83weaoP2/C+2IVzAXMs5TNx+YThTJzZE=; fund_trade_name=qju7NKvPE3anE45fgJgkiLb6x7Ul9doqNIJTd91tgxwIh56Ra46LJ+39fJAtswOAOACv/KEZ; fund_trade_visitor=qyVXnrhGS3hidpIPocgAhljqrmol/v9Ipr1ldoZHEFSiR57bUqQ3TX3TY0gZw5gA4p/1pNkZ; fund_trade_risk=qB/sHa4l93ERLmrhjGgo1cyFX+5l+XmOcKSmdRablIUQ255oNvGCgB3vjfidDJjAwbLF6MCM; fund_trade_gps=2; VipLevel=0; TradeLoginToken=6ce28686b88b4969aac63162ff0361a7; UTOKEN=qefKHcENUamfy13SrpASBDWUfmiPgXgc3L8YZo9p6ElZaDY54AUqswm4dL3dGUzDJqNMZM5OY43YkUMRskGp3K9kd/LIM2OEy1AG0kkMXu61T2kQX0A=; LToken=24a268d6ff2949c29a155a04630e6751; fund_trade_trackid=l2D7v39SAdu5bi089lGT+9xqy+0+HJSlArNDpRiweUgzn5idv87qvbMj6PwRPGi3bvReuF/8QNvnqVHD3nMDWg==; ASP.NET_SessionId=ei1ojhv1ffweidrf120bzvzj; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=2; st_psi=20201114110042312-0-5299425693; monitor_count=2";
 
 //        int showType =1;
         int showType =2;
@@ -28,15 +28,17 @@ public class TradeDemo {
         if(showType==1){
             //        String busType = "0";//0-全部;1-申购;2-卖出;
 //        //显示插入数据库语句
-        showInsertDb(cookie, "2020-11-11", "2020-12-31", "1");
+        showInsertDb(cookie, "2020-11-12", "2020-12-31", "1");
         //显示更新数据库语句
-        showUpdateDb(cookie, "2020-06-29", "2020-12-31", "1");
+//        showUpdateDb(cookie, "2020-06-29", "2020-12-31", "1");
+        showUpdateDb(cookie, "2020-01-01", "2020-12-31", "1");
 //        赎回
-        showDbRedem(cookie, "2020-06-29", "2020-12-31", "2");
+//        showDbRedem(cookie, "2020-06-29", "2020-12-31", "2");
+        showDbRedem(cookie, "2020-01-01", "2020-12-31", "2");
         }
 
         if(showType==2){
-            //////         更新最新净值-限定时间段的最大最小净值
+//            //////         更新最新净值-限定时间段的最大最小净值
             showUpdateDbMaxMinNetByDays(cookie, "2020-06-29", "2020-12-31", "1",30);
             // 更新最新净值-限定时间段的最大最小净值
             showUpdateDbMaxMinNetByDays(cookie, "2020-06-29", "2020-12-31", "1",60);
@@ -101,17 +103,15 @@ public class TradeDemo {
      * @param fundTrade
      */
     private static void handlerBizTp(FundTrade fundTrade) {
-        if ("001875|前海开源沪港深优势精选混合".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("指数");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
-        }
-        if ("004746|易方达上证50指数C".equals(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("指数");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
-        }
-        if ("110003|易方达上证50指数A".equals(fundTrade.getFundInfo())) {
+//        List<String> typeListZhiShu = new ArrayList<>();
+//        typeListZhiShu.add("110003|易方达上证50指数A");
+//        typeListZhiShu.add("004746|易方达上证50指数C");
+//        if(typeListZhiShu.contains(fundTrade.getFundInfo())){
+//            fundTrade.setBizTy("指数");
+//            fundTrade.setRiskStLoss(0.92);
+//            fundTrade.setRiskStProfit(1.1);
+//        }
+        if ("004746|易方达上证50指数C".equals(fundTrade.getFundInfo())||"110003|易方达上证50指数A".equals(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("指数");
             fundTrade.setRiskStLoss(0.92);
             fundTrade.setRiskStProfit(1.1);
@@ -121,7 +121,12 @@ public class TradeDemo {
             fundTrade.setRiskStLoss(0.92);
             fundTrade.setRiskStProfit(1.1);
         }
-        if ("160420|华安创业板50指数分级".equals(fundTrade.getFundInfo())) {
+        if ("001875|前海开源沪港深优势精选混合".equals(fundTrade.getFundInfo())) {
+            fundTrade.setBizTy("指数");
+            fundTrade.setRiskStLoss(0.92);
+            fundTrade.setRiskStProfit(1.1);
+        }
+        if ("160420|华安创业板50指数分级".equals(fundTrade.getFundInfo())||"160637|鹏华创业板分级".equals(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("指数");
             fundTrade.setRiskStLoss(0.92);
             fundTrade.setRiskStProfit(1.1);
@@ -136,6 +141,7 @@ public class TradeDemo {
             fundTrade.setRiskStLoss(0.92);
             fundTrade.setRiskStProfit(1.1);
         }
+
         if ("008086|华夏中证5G通信主题ETF联接A".equals(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("科技");
             fundTrade.setRiskStLoss(0.92);

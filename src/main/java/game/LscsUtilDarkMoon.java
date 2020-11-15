@@ -2,46 +2,50 @@ package game;
 
 import com.alibaba.fastjson.JSON;
 import game.dto.CardJson;
+import game.dto.CardJsonDarkMoon;
 import game.dto.CardJsonPt;
+import game.dto.CardJsonPtDarkMoon;
 import org.apache.commons.lang3.StringUtils;
 import utils.HttpUtil;
 
 import java.util.List;
 
-public class LscsHtmlUtil {
+public class LscsUtilDarkMoon {
 
     public static void main(String[] args) {
         String str = "";
         {
-            str = "";
         }
 
         String page = "";
-        String cardSet = "scholomance-academy";//通灵学院
-//        String cardClass = "demonhunter";
-        String cardClass = "neutral";
-        for (int i = 1; i < 20; i++) {
-            String rsJson = findJsonCard("", cardClass, i + page, cardSet);
-//            System.out.println(rsJson);//返回结果
-            CardJsonPt cardJsonPt = JSON.parseObject(rsJson, CardJsonPt.class);
-            List<CardJson> cardJsonList = cardJsonPt.getCards();
+//        String cardSet = "scholomance-academy";//通灵学院
+        String cardSet = "madness-at-the-darkmoon-faire";//暗月马戏团
+        String cardTye = "1暗月马戏团";//
+//        String cardClass = "neutral";
+        String cardClass = "";
+        for (int i = 0; i <= 0; i++) {
+            String rsJson = findJsonCardByDarkMoon("", cardClass, i + page, cardSet);
+            System.out.println(rsJson);//返回结果
+            CardJsonPtDarkMoon cardJsonPt = JSON.parseObject(rsJson, CardJsonPtDarkMoon.class);
+            List<CardJsonDarkMoon> cardJsonList = cardJsonPt.getData();
             if (cardJsonList == null || cardJsonList.size() <= 0) {
                 break;
             }
-            for (CardJson cardJson : cardJsonList) {
+            for (CardJsonDarkMoon cardJson : cardJsonList) {
 //            System.out.println(JSON.toJSONString(cardJson));
                 handlerCardRs(cardJson);
-                System.out.println(cardJson.getName() + "\t"
-                        + cardJson.getCode() + "\t"
-                        + cardJson.getDescription() + "\t"
-                        + cardJson.getCardType() + "\t"
+                System.out.println("\t"
+                        + cardJson.getName() + "\t"
+                        + cardJson.getSlug() + "\t"
+                        + cardJson.getText() + "\t"
                         + cardJson.getMinionType() + "\t"
+                        + cardJson.getCardType() + "\t"
                         + cardJson.getAttack() + "\t"
                         + cardJson.getHealth() + "\t"
                         + cardJson.getCardClass() + "\t"
                         + cardJson.getManaCost() + "\t"
                         + cardJson.getCardRarity() + "\t"
-                        + "1通灵学院");
+                        + cardTye);
             }
         }
 
@@ -53,7 +57,7 @@ public class LscsHtmlUtil {
      *
      * @param cardJson
      */
-    private static void handlerCardRs(CardJson cardJson) {
+    private static void handlerCardRs(CardJsonDarkMoon cardJson) {
         if (cardJson == null) {
             return;
         }
@@ -102,39 +106,38 @@ public class LscsHtmlUtil {
         }
 
         //关键字
-        if(StringUtils.isBlank(cardJson.getCardClass())){
+        if (StringUtils.isBlank(cardJson.getCardClass())) {
             if (cardJson.getLegacyKeywords().contains("恶魔猎手")) {
-                cardJson.setCardClass(cardJson.getCardClass()+"恶魔猎手,");
+                cardJson.setCardClass(cardJson.getCardClass() + "恶魔猎手,");
             }
             if (cardJson.getLegacyKeywords().contains("德鲁伊")) {
-                cardJson.setCardClass(cardJson.getCardClass()+"德鲁伊,");
+                cardJson.setCardClass(cardJson.getCardClass() + "德鲁伊,");
             }
             if (cardJson.getLegacyKeywords().contains("猎人")) {
-                cardJson.setCardClass(cardJson.getCardClass()+"猎人,");
+                cardJson.setCardClass(cardJson.getCardClass() + "猎人,");
             }
             if (cardJson.getLegacyKeywords().contains("法师")) {
-                cardJson.setCardClass(cardJson.getCardClass()+"法师,");
+                cardJson.setCardClass(cardJson.getCardClass() + "法师,");
             }
             if (cardJson.getLegacyKeywords().contains("牧师")) {
-                cardJson.setCardClass(cardJson.getCardClass()+"牧师,");
+                cardJson.setCardClass(cardJson.getCardClass() + "牧师,");
             }
             if (cardJson.getLegacyKeywords().contains("圣骑士")) {
-                cardJson.setCardClass(cardJson.getCardClass()+"圣骑士,");
+                cardJson.setCardClass(cardJson.getCardClass() + "圣骑士,");
             }
             if (cardJson.getLegacyKeywords().contains("潜行者")) {
-                cardJson.setCardClass(cardJson.getCardClass()+"潜行者,");
+                cardJson.setCardClass(cardJson.getCardClass() + "潜行者,");
             }
             if (cardJson.getLegacyKeywords().contains("萨满")) {
-                cardJson.setCardClass(cardJson.getCardClass()+"萨满,");
+                cardJson.setCardClass(cardJson.getCardClass() + "萨满,");
             }
             if (cardJson.getLegacyKeywords().contains("术士")) {
-                cardJson.setCardClass(cardJson.getCardClass()+"术士,");
+                cardJson.setCardClass(cardJson.getCardClass() + "术士,");
             }
             if (cardJson.getLegacyKeywords().contains("战士")) {
-                cardJson.setCardClass(cardJson.getCardClass()+"战士,");
+                cardJson.setCardClass(cardJson.getCardClass() + "战士,");
             }
         }
-
 
 
         //随从类型
@@ -177,20 +180,20 @@ public class LscsHtmlUtil {
      * @param page
      * @param cardSet
      */
-    private static String findJsonCard(String cookie, String cardClass, String page, String cardSet) {
-        String url = "https://hs.blizzard.cn/action/cards/query";
+    private static String findJsonCardByDarkMoon(String cookie, String cardClass, String page, String cardSet) {
+        String url = "https://hs.blizzard.cn/action/gameguide/cards";
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("cardClass="+"druid");
-        urlParam.append("&cardClass=" + cardClass +
-                "&p=" + page +
-                "&standard=1" +
-                "&keywords=" +
-                "&t=1596363737564" +
-                "&cardSet=" + cardSet);
+        urlParam.append("cardSet=" + cardSet +
+                        "&cardClass=" + cardClass +
+                        "&pageSize=1200" +
+                        "&t=1605413091274"
+//                "&keywords=" +
+        );
 
         //        System.out.println(rs);
 //        System.out.println("请求url:"+url+JSON.toJSONString(urlParam));
-        String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
+        String rs = HttpUtil.sendPost(url, urlParam.toString(), cookie);
 //        System.out.println("myTradeRs:"+rs);
 //        System.out.println("fundTradeList:" + JSON.toJSONString(fundTradeList));
         return rs;
