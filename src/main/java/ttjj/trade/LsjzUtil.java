@@ -45,7 +45,7 @@ public class LsjzUtil {
         pramaMap.put(Content.endDate, new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 
 
-        String lsjzUrl = "fundCode=" + pramaMap.get(Content.jjCode) + "&pageIndex=1&pageSize=100&startDate=" + pramaMap.get(Content.startDate) + "&endDate=" + pramaMap.get(Content.endDate) + "&_=1558194929451";
+        String lsjzUrl = "fundCode=" + pramaMap.get(Content.jjCode) + "&pageIndex=1&pageSize=1000&startDate=" + pramaMap.get(Content.startDate) + "&endDate=" + pramaMap.get(Content.endDate) + "&_=1558194929451";
         byte[] bytes = "".getBytes();
         LsjzPt lsjzPt = HttpUtil.sendPostTtjjLsjj(lsjzUrl, bytes, pramaMap);
         List<LsjzDataLsjz> lsjzDataLsjzList = lsjzPt.getData().getLSJZList();

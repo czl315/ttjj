@@ -27,10 +27,6 @@ WHERE
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
 	AND ol_fund_trade.TYPE = '申购'
 -- AND ol_fund_trade.FD_INFO LIKE '%320007|诺安成长混合%'
--- 	AND ol_fund_trade.CONFIRM_AMT <1000
--- 	AND ol_fund_trade.TYPE in( '申购(赎回)' )
--- 	AND ol_fund_trade.TYPE = '赎回'
--- AND ol_fund_trade.FD_INFO LIKE '%110011|易方达中小盘混合%'
 -- ORDER BY ol_fund_trade.TRADE_TIME ASC
 ORDER BY 最新收益率 DESC;
 -- 每日收益率 DESC;
