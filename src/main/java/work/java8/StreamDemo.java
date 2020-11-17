@@ -24,8 +24,22 @@ public class StreamDemo {
 //        steamForEach();
 //        map();
 //        mapDistinct();
-        filter();
+//        filter();
+//        limit();
+        sorted();
 
+    }
+
+    private static void sorted() {
+        Random random = new Random();
+        random.ints(0,3).limit(5).sorted().forEach(e->{
+            System.out.println(e);
+        });
+    }
+
+    private static void limit() {
+        Random random = new Random();
+        random.ints().limit(5).forEach(System.out::println);
     }
 
     private static void filter() {
