@@ -149,6 +149,7 @@ public class TradeDaoImpl implements TradeDao {
         String[] rsTrs = rs.split("<tr");
         for (String rsTr : rsTrs) {
             FundTrade fundTrade = new FundTrade();
+            fundTrade.setFundInfo("");
 //            System.out.println("每行：<tr " + rsTr);
             String[] rsTds = rsTr.split("<td");
             for (String rsTd : rsTds) {
