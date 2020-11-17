@@ -23,7 +23,32 @@ public class StreamDemo {
 //        steam01();
 //        steamForEach();
 //        map();
-        mapDistinct();
+//        mapDistinct();
+        filter();
+
+    }
+
+    private static void filter() {
+        System.out.println("filter 方法用于通过设置的条件过滤出元素。");
+        List<FundTrade> fundTradeList = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            FundTrade fundTrade1 = new FundTrade();
+            fundTrade1.setFundInfo("测试" + i);
+            fundTradeList.add(fundTrade1);
+
+            FundTrade fundTrade2 = new FundTrade();
+            fundTrade2.setFundInfo("测试" + i);
+            fundTradeList.add(fundTrade2);
+        }
+
+        List<FundTrade> rs = new ArrayList<>();
+        long count = fundTradeList.stream().filter(fundTrade -> {
+            if("测试1".equals(fundTrade.getFundInfo())){
+                return true;
+            }
+            return false;
+        }).count();
+        System.out.println(count);
 
     }
 
