@@ -7,7 +7,6 @@ SELECT
 	,ROUND((ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_90) * 100,2) AS 回撤90
 	,ROUND((ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_180) * 100,2) AS 回撤180
 	,ROUND((ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_360) * 100,2) AS 回撤360
-
 	,ROUND(((ol_fund_trade.NET_MAX_60-ol_fund_trade.NET_MIN_60) / ol_fund_trade.NET_MIN_60) * 100,2) AS 涨幅60
 	,ROUND(((ol_fund_trade.NET_MAX_90-ol_fund_trade.NET_MIN_90) / ol_fund_trade.NET_MIN_90) * 100,2) AS 涨幅90
 	,ROUND(((ol_fund_trade.NET_MAX_180-ol_fund_trade.NET_MIN_180) / ol_fund_trade.NET_MIN_180) * 100,2) AS 涨幅180

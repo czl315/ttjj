@@ -26,7 +26,11 @@ WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
 	AND ol_fund_trade.TYPE = '申购'
--- AND ol_fund_trade.FD_INFO LIKE '%320007|诺安成长混合%'
+-- AND ol_fund_trade.FD_INFO LIKE '%000977|长城环保主题混合%'
+-- AND ol_fund_trade.FD_INFO LIKE '%164402|前海开源中航军工%'
+-- AND ol_fund_trade.FD_INFO LIKE '%160633|鹏华证券分级%'
+
+
 -- ORDER BY ol_fund_trade.TRADE_TIME ASC
 ORDER BY 最新收益率 DESC;
 -- 每日收益率 DESC;
