@@ -24,8 +24,8 @@ public class TradeDemo {
 //        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=168568481.3275105768631237000.1587299075419.1528; st_si=16529934604496; st_asi=delete; b_p_log_key=YqYlmCtMJVbt2nCdsyCq6TbxbtD+GRXUJrxBZEDZITxHIfCgUw8tCrxUk731QiB0nvUsM8TkmchTyB/oeM7g5nSq+YBBzSV3o1LtTI5IkSzzNbvkXT0=; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=2; st_psi=20200626125212882-119085303933-7379745562; cp_token=2ca40dd1c09e4f6c99ad548acef6e639; FundTradeLoginUser=WryU2RGKLMQddvOrt9ie5DH681dVJ7Rs98U+3fkkCPoMMYm+TogQg18eMgwrDAYRCBbS6blW; fund_trade_cn=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tnYaLdfbHWm6cxq48Uvcrj2Xgx//HDR5H1pWcbYwG3sOur8=; fund_trade_name=WQ+qNJQRkM2gf0ve7giilJV4jbTVicEdkpYh3wCIEEQaZYpiX5NWK08mI5edsToRSpyAZ+3a; fund_trade_visitor=WZGFRsGAsMwx6GI0b4iGrpXig4GVnUDJkDgn3Wcq5hDS7YYCBDJ7f88D0Q7jDR0Rmf6wuKvi; fund_trade_risk=WGB21Yg1xMyCP00D20iUUjQveZdV0FAjhnlZ38Sw4BK48YjyjP+Qq98bpqDDQTeRLcjQLeub; fund_trade_gps=2; VipLevel=0; TradeLoginToken=0cdd00b4660749efbbb2b1ad5a00a1a2; UTOKEN=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tuY+U8CMvNFZKtf18kYRYJD80Zr4yERG9mq9X6yRf4eEJPk=; LToken=919b1cc8f4244369b65efa898ff7ae58; fund_trade_trackid=gSRgeG/HOvMXtvvf2k5YRsWme3vrnWmciDUr/Y5kDpfBbZD9+RhA8YnjkfRSoYT1EaJ8OL/0ktaZzbgM46qQ3g==; monitor_count=14";
         String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=38182617297224; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=1; st_psi=20201123231006748-119085303933-5186951525; st_asi=delete; cp_token=01c3c749117245859650727b4d53d4ac; FundTradeLoginUser=CxXmDFfgJCGCBZmJgFrovLK5Q5PXiisrzemehSE1bw9qkwXqiOd+j72ce/BYRC5qTeCzUT5Y; fund_trade_cn=CKoPAe7FIxWANwCze2klk1zKe7YzrF1D0D5bSroiNIXX/dm2gltWmkGghUiGrJ+bnUvJ7hwzWxaU//dzg5W226aHCJLudrM2MbqZpNfCKub6tS+h+j4=; fund_trade_name=CZNHnwuxwCWNV5tMkir7Rcc1ZPdXAmviwf93h8qigaALmwGIktHUQ22hsLLP9qpqql6+KFCX; fund_trade_visitor=C0o1COqljCmTa4RDGmrT/C0QRktX/olWnPj8h95Hhz80Xw5K1H1K4R25BCvShvvqxFJM5mqd; fund_trade_risk=Cn2k5VMgeCgj26nNuorpRuV4VnSXDm579RVFh+I/Ra4ETwZqKN8Rr+2iJbQSbekqmMN5814a; fund_trade_gps=2; VipLevel=0; TradeLoginToken=c678a71e360e49ae92617df43398ac10; UTOKEN=CKoPAe7FIxWANwCze2klk1zKe7YzrF1D0D5bSroiNIXX/dm2gltWmkGghUiGrJ+bnUvJ7wwDTPIBRZ3cUZIv2poIHOTHp8sVLnqQWit/WbKesbJJtHE=; LToken=6fcd2b4e2baa48a7b0670d67b461122d; fund_trade_trackid=dwlnd2dMx6lJZI7N/JnZw98OP+PkfFAG/sArYsVdLI39v6ZV0b2e01uyU1IVvzqt9UyMo+N5Kb3hXKqR4YJ7Pw==; ASP.NET_SessionId=asf2zq2aytesyacsxp5xw5l3; monitor_count=2";
 
-        int showType = 1;
-//        int showType =2;
+//        int showType = 1;
+        int showType =2;
 
         if (showType == 1) {
             //        String busType = "0";//0-全部;1-申购;2-卖出;
@@ -144,11 +144,14 @@ public class TradeDemo {
         }
 
 
-        typeListZhiShu.add("004746");
-        typeListZhiShu.add("004746");
-        typeListZhiShu.add("004746");
-        typeListZhiShu.add("004746");
-        typeListZhiShu.add("004746");
+        List<String> typeListBaoXian = new ArrayList<>();
+        typeListBaoXian.add("167301|方正富邦保险主题指数分级");
+        if (typeListBaoXian.contains(fundTrade.getFundInfo())) {
+            fundTrade.setBizTy("保险");
+            fundTrade.setRiskStLoss(0.92);
+            fundTrade.setRiskStProfit(1.1);
+            return;
+        }
 
         typeListZhiShu.add("004746");
         typeListZhiShu.add("004746");

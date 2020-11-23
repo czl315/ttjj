@@ -180,11 +180,15 @@ ORDER BY 净值比率最大180 DESC
 SELECT
 	ol_fund_trade.FD_INFO AS 回撤
 	,ROUND((ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_360) * 100,2) AS 回撤360
-	,ROUND((ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_30) * 100,2) AS 净值比率最大30
-	,ROUND((ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_60) * 100,2) AS 净值比率最大60
-	,ROUND((ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_90) * 100,2) AS 净值比率最大90
-	,ROUND((ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_180) * 100,2) AS 净值比率最大180
-
+	,ROUND((ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_30) * 100,2) AS 回撤30
+	,ROUND((ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_60) * 100,2) AS 回撤60
+	,ROUND((ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_90) * 100,2) AS 回撤90
+	,ROUND((ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_180) * 100,2) AS 回撤180
+	,ROUND(((ol_fund_trade.NET_MAX_30-ol_fund_trade.NET_MIN_30) / ol_fund_trade.NET_MIN_30) * 100,2) AS 涨幅30
+	,ROUND(((ol_fund_trade.NET_MAX_60-ol_fund_trade.NET_MIN_60) / ol_fund_trade.NET_MIN_60) * 100,2) AS 涨幅60
+	,ROUND(((ol_fund_trade.NET_MAX_90-ol_fund_trade.NET_MIN_90) / ol_fund_trade.NET_MIN_90) * 100,2) AS 涨幅90
+	,ROUND(((ol_fund_trade.NET_MAX_180-ol_fund_trade.NET_MIN_180) / ol_fund_trade.NET_MIN_180) * 100,2) AS 涨幅180
+	,ROUND(((ol_fund_trade.NET_MAX_360-ol_fund_trade.NET_MIN_360) / ol_fund_trade.NET_MIN_360) * 100,2) AS 涨幅360
 	,ROUND(ol_fund_trade.LAST_NET * ol_fund_trade.CONFIRM_SHARE ,2) AS '最新金额'
 	,ol_fund_trade.CONFIRM_NET AS confirmNet
 	,ol_fund_trade.LAST_NET lastNet
