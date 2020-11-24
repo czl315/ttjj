@@ -15,13 +15,13 @@ import java.util.List;
  * @date 2020/10/7
  */
 public class SzzsData {
-    static String SHANG_HAI = "1.000001";
-    static String SHEN_ZHEN = "0.399001";
-    static String CYB = "0.399006";
-    static String HS_300_000300 = "1.000300";
-    static String CYB_50_399673 = "1.399673";
-    static String ZZ_500_000905 = "1.000905";
-    static String SH_50_000016 = "1.000016";
+    static final String SHANG_HAI = "1.000001";
+    static final String SHEN_ZHEN = "0.399001";
+    static final String CYB = "0.399006";
+    static final String HS_300_000300 = "1.000300";
+    static final String CYB_50_399673 = "1.399673";
+    static final String ZZ_500_000905 = "1.000905";
+    static final String SH_50_000016 = "1.000016";
 
     /**
      * klt=101:日;102:周;103:月;104:3月
@@ -39,14 +39,7 @@ public class SzzsData {
         String dateTypeDay = "1";//一天
 
         String klt= kltDay;//klt=101:日;102:周;103:月;104:3月
-//        k线-周线
-//        kline(cookie, HS_300_000300, 1, kltWeek,dateTypeWeek);//沪深300
-//        kline(cookie, CYB_50_399673, 1, kltWeek, dateTypeWeek);//创业板50
-//        kline(cookie, ZZ_500_000905, 1, kltWeek, dateTypeWeek);//中证500
-//        kline(cookie, SH_50_000016, 1, kltWeek, dateTypeWeek);//上证50
-//        kline(cookie, SHANG_HAI,1, kltWeek, dateTypeWeek);//上证
-//        kline(cookie, SHEN_ZHEN,1, kltWeek, dateTypeWeek);//深证成指
-//        kline(cookie, CYB,1, kltWeek, dateTypeWeek);//创业板
+
 
         //k线-日线
         kline(cookie, HS_300_000300, 1, klt,dateTypeDay);//沪深300
@@ -66,6 +59,15 @@ public class SzzsData {
         klineLast(cookie, SHANG_HAI,2, klt, dateTypeDay);//上证
         klineLast(cookie, SHEN_ZHEN,2, klt, dateTypeDay);//深证成指
         klineLast(cookie, CYB,2, klt, dateTypeDay);//创业板
+
+        //        k线-周线
+//        kline(cookie, HS_300_000300, 1, kltWeek,dateTypeWeek);//沪深300
+//        kline(cookie, CYB_50_399673, 1, kltWeek, dateTypeWeek);//创业板50
+//        kline(cookie, ZZ_500_000905, 1, kltWeek, dateTypeWeek);//中证500
+//        kline(cookie, SH_50_000016, 1, kltWeek, dateTypeWeek);//上证50
+//        kline(cookie, SHANG_HAI,1, kltWeek, dateTypeWeek);//上证
+//        kline(cookie, SHEN_ZHEN,1, kltWeek, dateTypeWeek);//深证成指
+//        kline(cookie, CYB,1, kltWeek, dateTypeWeek);//创业板
 
 
         //k线每月

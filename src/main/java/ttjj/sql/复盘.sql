@@ -13,7 +13,8 @@ SELECT
 ,ol_fund_fupan.fupan_kong
 ,ol_fund_fupan.amt
 ,ol_fund_fupan.earn
-,ol_fund_fupan.topic
+,ol_fund_fupan.topic_good
+,ol_fund_fupan.topic_kong
 ,ol_fund_fupan.ex
 	,ol_fund_fupan.pt_sh
 	,ol_fund_fupan.pt_sh_last
