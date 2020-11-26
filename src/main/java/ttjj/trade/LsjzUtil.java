@@ -119,6 +119,9 @@ public class LsjzUtil {
 //                    System.out.println(JSON.toJSONString(lsjzDataLsjz));
 //            String dwJz = lsjzDataLsjz.getDWJZ();//当晚净值
             String dwJz = lsjzDataLsjz.getLJJZ();//累计净值
+            if(StringUtils.isBlank(dwJz)){
+                dwJz = "0";
+            }
             String fsrq = lsjzDataLsjz.getFSRQ();
 //            System.out.println("fsrq:" + fsrq + ",dwjzLong:" + dwJz);
             Double dwjzLong = Double.valueOf(dwJz);
