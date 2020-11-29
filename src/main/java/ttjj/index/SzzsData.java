@@ -50,7 +50,6 @@ public class SzzsData {
         kline(cookie, SHEN_ZHEN,1, klt, dateTypeDay);//深证成指
         kline(cookie, CYB,1, klt, dateTypeDay);//创业板
         System.out.println();
-
         //k线（上一日期）-日线
         klineLast(cookie, HS_300_000300, 2, klt,dateTypeDay);//沪深300
         klineLast(cookie, CYB_50_399673, 2, klt, dateTypeDay);//创业板50
@@ -60,7 +59,7 @@ public class SzzsData {
         klineLast(cookie, SHEN_ZHEN,2, klt, dateTypeDay);//深证成指
         klineLast(cookie, CYB,2, klt, dateTypeDay);//创业板
 
-        //        k线-周线
+//        //        k线-周线
 //        kline(cookie, HS_300_000300, 1, kltWeek,dateTypeWeek);//沪深300
 //        kline(cookie, CYB_50_399673, 1, kltWeek, dateTypeWeek);//创业板50
 //        kline(cookie, ZZ_500_000905, 1, kltWeek, dateTypeWeek);//中证500
@@ -68,6 +67,14 @@ public class SzzsData {
 //        kline(cookie, SHANG_HAI,1, kltWeek, dateTypeWeek);//上证
 //        kline(cookie, SHEN_ZHEN,1, kltWeek, dateTypeWeek);//深证成指
 //        kline(cookie, CYB,1, kltWeek, dateTypeWeek);//创业板
+//        //        k线（上一日期）-周线
+//        klineLast(cookie, HS_300_000300, 2, klt,dateTypeWeek);//沪深300
+//        klineLast(cookie, CYB_50_399673, 2, klt, dateTypeWeek);//创业板50
+//        klineLast(cookie, ZZ_500_000905, 2, klt, dateTypeWeek);//中证500
+//        klineLast(cookie, SH_50_000016, 2, klt, dateTypeWeek);//上证50
+//        klineLast(cookie, SHANG_HAI,2, klt, dateTypeWeek);//上证
+//        klineLast(cookie, SHEN_ZHEN,2, klt, dateTypeWeek);//深证成指
+//        klineLast(cookie, CYB,2, klt, dateTypeWeek);//创业板
 
 
         //k线每月
@@ -420,13 +427,13 @@ public class SzzsData {
 //            System.out.print("开盘:" + klineArray[1] + ",\t");
 //            System.out.print("最高:" + klineArray[3] + ",");
 //            System.out.print("最低:" + klineArray[4] + ",");
-//            System.out.print("成交量:" + klineArray[5] + ",");
-//            System.out.print("成交额:" + klineArray[6] + ",");
+            System.out.print("成交量:\t" + klineArray[5] + ",\t\t");
+            System.out.print("成交额:\t" + klineArray[6] + ",\t\t");
 //            System.out.print("振幅:" + klineArray[7] + ",");
 //            System.out.print("涨跌额:" + klineArray[9] + ",");
 //            System.out.print("换手率:" + klineArray[10] + ",");
 //            System.out.println();
-            System.out.println("UPDATE `ol_fund_fupan` SET `" + dbFieldRt + "`='" + zhangDie + "', `" + dbFieldNet + "`='" + shouPan + "' WHERE (`CODE`='" + curDate + "') AND ol_fund_fupan.TYPE='"+dayTpye+"';");
+            System.out.println("UPDATE `ol_fund_fupan` SET `" + dbFieldRt + "`='" + zhangDie + "', `" + dbFieldNet + "`='" + shouPan + "' WHERE (`CODE`='" + curDate + "') AND ol_fund_fupan.period='"+dayTpye + "'"+" AND ol_fund_fupan.TYPE=1;");
         }
     }
 
@@ -606,7 +613,7 @@ public class SzzsData {
 //            System.out.print("涨跌额:" + klineArray[9] + ",");
 //            System.out.print("换手率:" + klineArray[10] + ",");
 //            System.out.println();
-            System.out.println("UPDATE `ol_fund_fupan` SET `" + dbFieldNet + "`='" + shouPan + "' WHERE (`CODE`='" + curDate + "') AND ol_fund_fupan.TYPE='"+dayTpye+"';");
+            System.out.println("UPDATE `ol_fund_fupan` SET `" + dbFieldNet + "`='" + shouPan + "' WHERE (`CODE`='" + curDate + "') AND ol_fund_fupan.period='"+dayTpye + "'"+" AND ol_fund_fupan.TYPE=1;");
         }
     }
 }
