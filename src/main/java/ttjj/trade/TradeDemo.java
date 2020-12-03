@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.toCollection;
 public class TradeDemo {
     public static void main(String[] args) {
 //        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=168568481.3275105768631237000.1587299075419.1528; st_si=16529934604496; st_asi=delete; b_p_log_key=YqYlmCtMJVbt2nCdsyCq6TbxbtD+GRXUJrxBZEDZITxHIfCgUw8tCrxUk731QiB0nvUsM8TkmchTyB/oeM7g5nSq+YBBzSV3o1LtTI5IkSzzNbvkXT0=; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=2; st_psi=20200626125212882-119085303933-7379745562; cp_token=2ca40dd1c09e4f6c99ad548acef6e639; FundTradeLoginUser=WryU2RGKLMQddvOrt9ie5DH681dVJ7Rs98U+3fkkCPoMMYm+TogQg18eMgwrDAYRCBbS6blW; fund_trade_cn=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tnYaLdfbHWm6cxq48Uvcrj2Xgx//HDR5H1pWcbYwG3sOur8=; fund_trade_name=WQ+qNJQRkM2gf0ve7giilJV4jbTVicEdkpYh3wCIEEQaZYpiX5NWK08mI5edsToRSpyAZ+3a; fund_trade_visitor=WZGFRsGAsMwx6GI0b4iGrpXig4GVnUDJkDgn3Wcq5hDS7YYCBDJ7f88D0Q7jDR0Rmf6wuKvi; fund_trade_risk=WGB21Yg1xMyCP00D20iUUjQveZdV0FAjhnlZ38Sw4BK48YjyjP+Qq98bpqDDQTeRLcjQLeub; fund_trade_gps=2; VipLevel=0; TradeLoginToken=0cdd00b4660749efbbb2b1ad5a00a1a2; UTOKEN=WOQWkk599pK/DrM33DcU8UfIp1hdiIqkOBDKtTcnjgVcLCFELaR5ciCT33q3rNqfMHS/tuY+U8CMvNFZKtf18kYRYJD80Zr4yERG9mq9X6yRf4eEJPk=; LToken=919b1cc8f4244369b65efa898ff7ae58; fund_trade_trackid=gSRgeG/HOvMXtvvf2k5YRsWme3vrnWmciDUr/Y5kDpfBbZD9+RhA8YnjkfRSoYT1EaJ8OL/0ktaZzbgM46qQ3g==; monitor_count=14";
-        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=35010801245075; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=1; st_asi=delete; st_psi=20201202230418367-119085303933-0299133186; cp_token=4312a108f4c2423cbb5bee2f68dcdaa4; FundTradeLoginUser=4tOsMBLeLCT/2sHkKDIn+ESR90KPj13lb7sUwPnGDKlrlmP1vmRzXhdIIbuThN37UFZmEkK8; fund_trade_cn=49N8j9U8yDN/SCCVNF47t5WinMC/I1G4lHnNRwMyiTPj7GurAGod7TlywpvM+cipapyMwKmbvwoOxm81C+Hrdkj7aubzJWf4nc74PxVpctutcP+ohuU=; fund_trade_name=4cYmnUgMqCQx7koUvPIBpCPh4VHPOnJUjrDmwLxwfR8N1mdMTE6mmqdQeF03ePS7IyxtCBEX; fund_trade_visitor=42/oKQX58Cl0SsA6EaIQxSMAfzePZAEBoq8RwazxaKed6mPKJ0MGnvdOZCqBjyh7E0ah1Qgr; fund_trade_risk=4JOb9owfSC3l2AeV7ZIs1kY7Q9YPBA/4L1jkwkKhu/dMamKOtfDnHed+XUFxCdk7iCOLCEfv; fund_trade_gps=2; VipLevel=0; TradeLoginToken=cc787d2266354b8e850c1862a61e4388; UTOKEN=49N8j9U8yDN/SCCVNF47t5WinMC/I1G4lHnNRwMyiTPj7GurAGod7TlywpvM+cipapyMwKmVOKp7VGOszbW7doKgEk0RswmE3g7DyVkcPU9i89UGdvE=; LToken=8d364546c8c34cd4a54a20ec7382a7a4; fund_trade_trackid=NcCP2Fn8ubxX9nW/8LwmsfLdqw0Hlh3CWrhQfngXN+YAwGCT/SHsuTgYcuDZeC5wqcl6VyKAnuYZ20o+edl/9g==; ASP.NET_SessionId=zx25zup50yogft4jffpdu1zu; monitor_count=30";
+        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=27285829983243; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=1; st_psi=20201203223110464-119085303933-6380240171; st_asi=delete; cp_token=a9cc3778230a41f1863956aa56426d7a; FundTradeLoginUser=oSYKewF3rnNwusbkXMYZ0YrIpFUKF5hrhy1jv8Op/VXW9GVUIxeeKcUUKhz22kFcXNixuoyw; fund_trade_cn=oZ+Z4fTt+tL6esnW92kdhPj1kXVZYVE83vmc6xtqc/KU9dTNHRN0KB5hvMU+LiePeQImY7GXfDxK97ks1Vw5Uv5bd08aw4p2gKcF4KJUsU62yx8CGQQ=; fund_trade_name=oU+FMrYYknLiqhzObyYLs6PbYXQKzvHQ6Q4uv9QxCnumrG48SUkmD9UGwdweEekcH1qDV3uL; fund_trade_visitor=oniMKcFNRn0oLcVowwYBI4mf8r7K1Bu1w+rMvsoEdhUmmGWCKwROcYUrJ6Gsf9FcMkygWUjh; fund_trade_risk=oYBFHShDQnFn2r9xSiY+MqebBjjKAD0QwHkivFVOCNY0gG9z2d0HkNU4SnBps7VcEtSryAXf; fund_trade_gps=2; VipLevel=0; TradeLoginToken=d5b5bf5cd2d74229b3e4cad8180bee29; UTOKEN=oZ+Z4fTt+tL6esnW92kdhPj1kXVZYVE83vmc6xtqc/KU9dTNHRN0KB5hvMU+LiePeQImYzGJHyAaUfyEZ9QtUU77Fp4cdQsbs2cC5GHr9x6V1AjBuaE=; LToken=6e7ad8c2e0e34fb9936b0ad078bc8643; fund_trade_trackid=q0Sv/mQF5UBi8MDgBMud7hp+woTJdSwLpaZHHLDyg7By21n+mgnBjhZTQ77pbEut0gZrsBMh1feEzkKac8Bnxw==; ASP.NET_SessionId=banc1x0nrbtqj2b5iv1tndfc; monitor_count=2";
 
 //        int showType = 1;
         int showType =2;
@@ -30,26 +30,28 @@ public class TradeDemo {
         if (showType == 1) {
             //        String busType = "0";//0-全部;1-申购;2-卖出;
 //        //显示插入数据库语句
-            showInsertDb(cookie, "2020-12-01", "2020-12-31", "1");
+            String startDate = "2020-07-13";
+            showInsertDb(cookie, "2020-12-03", "2020-12-31", "1");
             //显示更新数据库语句
-            showUpdateDb(cookie, "2020-06-29", "2020-12-31", "1");
+            showUpdateDb(cookie, startDate, "2020-12-31", "1");
 //            showUpdateDb(cookie, "2020-01-01", "2020-12-31", "1");
 //        赎回
-            showDbRedem(cookie, "2020-06-29", "2020-12-31", "2");
+            showDbRedem(cookie, startDate, "2020-12-31", "2");
 //            showDbRedem(cookie, "2020-01-01", "2020-12-31", "2");
         }
 
         if (showType == 2) {
+            String startDate = "2020-07-13";
 //            //////         更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(cookie, "2020-06-29", "2020-12-31", "1", 30);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, "2020-12-31", "1", 30);
             // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(cookie, "2020-06-29", "2020-12-31", "1", 60);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, "2020-12-31", "1", 60);
             // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(cookie, "2020-06-29", "2020-12-31", "1", 90);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, "2020-12-31", "1", 90);
 ////        // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(cookie, "2020-06-29", "2020-12-31", "1", 180);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, "2020-12-31", "1", 180);
             // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(cookie, "2020-06-29", "2020-12-31", "1", 360);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, "2020-12-31", "1", 360);
 
             //        // 更新最新净值-限定时间段的最大最小净值
 //        showUpdateDbMaxMinNetByDays(cookie, "2020-04-01", "2020-12-31", "1",1);
@@ -130,6 +132,7 @@ public class TradeDemo {
         typeListKeJj.add("519674|银河创新成长混合");
         typeListKeJj.add("009314|广发双擎升级混合C");
         typeListKeJj.add("161028|富国中证新能源汽车指数分级");
+        typeListKeJj.add("002190|农银新能源主题");
         typeListKeJj.add("001606|农银工业4.0混合");
         typeListKeJj.add("004997|广发高端制造股票A");
         typeListKeJj.add("163402|兴全趋势投资混合(LOF)");
