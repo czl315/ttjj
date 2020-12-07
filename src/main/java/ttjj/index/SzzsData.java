@@ -42,40 +42,40 @@ public class SzzsData {
 
 
         //k线-日线
-//        int count = 1;
-//        kline(cookie, HS_300_000300, count, klt,dateTypeDay);//沪深300
-//        kline(cookie, CYB_50_399673, count, klt, dateTypeDay);//创业板50
-//        kline(cookie, ZZ_500_000905, count, klt, dateTypeDay);//中证500
-//        kline(cookie, SH_50_000016, count, klt, dateTypeDay);//上证50
-//        kline(cookie, SHANG_HAI,count, klt, dateTypeDay);//上证
-//        kline(cookie, SHEN_ZHEN,count, klt, dateTypeDay);//深证成指
-//        kline(cookie, CYB,count, klt, dateTypeDay);//创业板
+        int count = 1;
+        kline(cookie, HS_300_000300, count, klt,dateTypeDay);//沪深300
+        kline(cookie, CYB_50_399673, count, klt, dateTypeDay);//创业板50
+        kline(cookie, ZZ_500_000905, count, klt, dateTypeDay);//中证500
+        kline(cookie, SH_50_000016, count, klt, dateTypeDay);//上证50
+        kline(cookie, SHANG_HAI,count, klt, dateTypeDay);//上证
+        kline(cookie, SHEN_ZHEN,count, klt, dateTypeDay);//深证成指
+        kline(cookie, CYB,count, klt, dateTypeDay);//创业板
         System.out.println();
         //k线（上一日期）-日线
-//        klineLast(cookie, HS_300_000300, 2, klt,dateTypeDay);//沪深300
-//        klineLast(cookie, CYB_50_399673, 2, klt, dateTypeDay);//创业板50
-//        klineLast(cookie, ZZ_500_000905, 2, klt, dateTypeDay);//中证500
-//        klineLast(cookie, SH_50_000016, 2, klt, dateTypeDay);//上证50
-//        klineLast(cookie, SHANG_HAI,2, klt, dateTypeDay);//上证
-//        klineLast(cookie, SHEN_ZHEN,2, klt, dateTypeDay);//深证成指
-//        klineLast(cookie, CYB,2, klt, dateTypeDay);//创业板
+        klineLast(cookie, HS_300_000300, 2, klt,dateTypeDay);//沪深300
+        klineLast(cookie, CYB_50_399673, 2, klt, dateTypeDay);//创业板50
+        klineLast(cookie, ZZ_500_000905, 2, klt, dateTypeDay);//中证500
+        klineLast(cookie, SH_50_000016, 2, klt, dateTypeDay);//上证50
+        klineLast(cookie, SHANG_HAI,2, klt, dateTypeDay);//上证
+        klineLast(cookie, SHEN_ZHEN,2, klt, dateTypeDay);//深证成指
+        klineLast(cookie, CYB,2, klt, dateTypeDay);//创业板
 
-//        //        k线-周线
-        kline(cookie, HS_300_000300, 1, kltWeek,dateTypeWeek);//沪深300
-        kline(cookie, CYB_50_399673, 1, kltWeek, dateTypeWeek);//创业板50
-        kline(cookie, ZZ_500_000905, 1, kltWeek, dateTypeWeek);//中证500
-        kline(cookie, SH_50_000016, 1, kltWeek, dateTypeWeek);//上证50
-        kline(cookie, SHANG_HAI,1, kltWeek, dateTypeWeek);//上证
-        kline(cookie, SHEN_ZHEN,1, kltWeek, dateTypeWeek);//深证成指
-        kline(cookie, CYB,1, kltWeek, dateTypeWeek);//创业板
-        //        k线（上一日期）-周线
-        klineLast(cookie, HS_300_000300, 2, klt,dateTypeWeek);//沪深300
-        klineLast(cookie, CYB_50_399673, 2, klt, dateTypeWeek);//创业板50
-        klineLast(cookie, ZZ_500_000905, 2, klt, dateTypeWeek);//中证500
-        klineLast(cookie, SH_50_000016, 2, klt, dateTypeWeek);//上证50
-        klineLast(cookie, SHANG_HAI,2, klt, dateTypeWeek);//上证
-        klineLast(cookie, SHEN_ZHEN,2, klt, dateTypeWeek);//深证成指
-        klineLast(cookie, CYB,2, klt, dateTypeWeek);//创业板
+////        //        k线-周线
+//        kline(cookie, HS_300_000300, 1, kltWeek,dateTypeWeek);//沪深300
+//        kline(cookie, CYB_50_399673, 1, kltWeek, dateTypeWeek);//创业板50
+//        kline(cookie, ZZ_500_000905, 1, kltWeek, dateTypeWeek);//中证500
+//        kline(cookie, SH_50_000016, 1, kltWeek, dateTypeWeek);//上证50
+//        kline(cookie, SHANG_HAI,1, kltWeek, dateTypeWeek);//上证
+//        kline(cookie, SHEN_ZHEN,1, kltWeek, dateTypeWeek);//深证成指
+//        kline(cookie, CYB,1, kltWeek, dateTypeWeek);//创业板
+//        //        k线（上一日期）-周线
+//        klineLast(cookie, HS_300_000300, 2, klt,dateTypeWeek);//沪深300
+//        klineLast(cookie, CYB_50_399673, 2, klt, dateTypeWeek);//创业板50
+//        klineLast(cookie, ZZ_500_000905, 2, klt, dateTypeWeek);//中证500
+//        klineLast(cookie, SH_50_000016, 2, klt, dateTypeWeek);//上证50
+//        klineLast(cookie, SHANG_HAI,2, klt, dateTypeWeek);//上证
+//        klineLast(cookie, SHEN_ZHEN,2, klt, dateTypeWeek);//深证成指
+//        klineLast(cookie, CYB,2, klt, dateTypeWeek);//创业板
 
 
         //k线每月
