@@ -124,17 +124,17 @@ public class TradeDemo {
         }
 
         List<String> typeListKeJj = new ArrayList<>();
-        typeListKeJj.add("008086|华夏中证5G通信主题ETF联接A");
-        typeListKeJj.add("001986|前海开源人工智能主题混合");
-        typeListKeJj.add("320007|诺安成长混合");
-        typeListKeJj.add("519005|海富通股票混合");
-        typeListKeJj.add("000977|长城环保主题混合");
+        typeListKeJj.add("002190|农银新能源主题");
+        typeListKeJj.add("004997|广发高端制造股票A");
         typeListKeJj.add("519674|银河创新成长混合");
         typeListKeJj.add("009314|广发双擎升级混合C");
+        typeListKeJj.add("320007|诺安成长混合");
+        typeListKeJj.add("001986|前海开源人工智能主题混合");
         typeListKeJj.add("161028|富国中证新能源汽车指数分级");
-        typeListKeJj.add("002190|农银新能源主题");
         typeListKeJj.add("001606|农银工业4.0混合");
-        typeListKeJj.add("004997|广发高端制造股票A");
+        typeListKeJj.add("008086|华夏中证5G通信主题ETF联接A");
+        typeListKeJj.add("519005|海富通股票混合");
+        typeListKeJj.add("000977|长城环保主题混合");
         typeListKeJj.add("163402|兴全趋势投资混合(LOF)");
         typeListKeJj.add("161903|万家行业优选混合(LOF)");
         if (typeListKeJj.contains(fundTrade.getFundInfo())) {
@@ -152,6 +152,16 @@ public class TradeDemo {
         typeListXiaoFei.add("006308|汇添富全球消费混合人民币A");
         if (typeListXiaoFei.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("消费");
+            fundTrade.setRiskStLoss(0.92);
+            fundTrade.setRiskStProfit(1.1);
+            return;
+        }
+
+        List<String> typeListYiLiao= new ArrayList<>();
+        typeListYiLiao.add("003096|中欧医疗健康混合C");
+        typeListYiLiao.add("005967|鹏华创新驱动混合");
+        if (typeListYiLiao.contains(fundTrade.getFundInfo())) {
+            fundTrade.setBizTy("医药");
             fundTrade.setRiskStLoss(0.92);
             fundTrade.setRiskStProfit(1.1);
             return;
@@ -204,11 +214,11 @@ public class TradeDemo {
             return;
         }
 
-        List<String> typeListYiLiao= new ArrayList<>();
-        typeListYiLiao.add("003096|中欧医疗健康混合C");
-        typeListYiLiao.add("005967|鹏华创新驱动混合");
-        if (typeListYiLiao.contains(fundTrade.getFundInfo())) {
-            fundTrade.setBizTy("医药");
+
+        List<String> typeListNongYe= new ArrayList<>();
+        typeListNongYe.add("001027|前海开源中证大农业指数增强");
+        if (typeListNongYe.contains(fundTrade.getFundInfo())) {
+            fundTrade.setBizTy("农业");
             fundTrade.setRiskStLoss(0.92);
             fundTrade.setRiskStProfit(1.1);
             return;
