@@ -30,31 +30,32 @@ public class TradeDemo {
         if (showType == 1) {
             //        String busType = "0";//0-全部;1-申购;2-卖出;
 //        //显示插入数据库语句
+            String insertStartDate = "2020-07-13";
             String startDate = "2020-07-13";
-            showInsertDb(cookie, "2020-12-10", "2020-12-31", "1");
+            String endDate = "2020-12-31";
+            showInsertDb(cookie, "2020-12-11", endDate, "1");
             //显示更新数据库语句
-            showUpdateDb(cookie, startDate, "2020-12-31", "1");
+            showUpdateDb(cookie, startDate, endDate, "1");
 //            showUpdateDb(cookie, "2020-01-01", "2020-12-31", "1");
 //        赎回
-            showDbRedem(cookie, startDate, "2020-12-31", "2");
+            showDbRedem(cookie, startDate, endDate, "2");
 //            showDbRedem(cookie, "2020-01-01", "2020-12-31", "2");
         }
 
         if (showType == 2) {
             String startDate = "2020-07-13";
-//            //////         更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(cookie, startDate, "2020-12-31", "1", 30);
-            // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(cookie, startDate, "2020-12-31", "1", 60);
-            // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(cookie, startDate, "2020-12-31", "1", 90);
-////        // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(cookie, startDate, "2020-12-31", "1", 180);
-            // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(cookie, startDate, "2020-12-31", "1", 360);
-
+            String endDate = "2020-12-31";
+            String bizType = "1";
             //        // 更新最新净值-限定时间段的最大最小净值
-//        showUpdateDbMaxMinNetByDays(cookie, "2020-04-01", "2020-12-31", "1",1);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,1);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 30);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 60);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 90);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 180);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 360);
+
+//            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, "1",7);
+
         }
 
 
