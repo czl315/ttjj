@@ -23,6 +23,8 @@ public class SzzsData {
     static final String ZZ_500_000905 = "1.000905";
     static final String SH_50_000016 = "1.000016";
 
+    static final String BIZ_QUANSHANG = "0.399975";
+
     /**
      * klt=101:日;102:周;103:月;104:3月
      */
@@ -42,23 +44,30 @@ public class SzzsData {
 
 
         //k线-日线
+//        int count = 1;
+//        kline(cookie, HS_300_000300, count, klt,dateTypeDay);//沪深300
+//        kline(cookie, CYB_50_399673, count, klt, dateTypeDay);//创业板50
+//        kline(cookie, ZZ_500_000905, count, klt, dateTypeDay);//中证500
+//        kline(cookie, SH_50_000016, count, klt, dateTypeDay);//上证50
+//        kline(cookie, SHANG_HAI,count, klt, dateTypeDay);//上证
+//        kline(cookie, SHEN_ZHEN,count, klt, dateTypeDay);//深证成指
+//        kline(cookie, CYB,count, klt, dateTypeDay);//创业板
+//        System.out.println();
+//        //k线（上一日期）-日线
+//        klineLast(cookie, HS_300_000300, 2, klt,dateTypeDay);//沪深300
+//        klineLast(cookie, CYB_50_399673, 2, klt, dateTypeDay);//创业板50
+//        klineLast(cookie, ZZ_500_000905, 2, klt, dateTypeDay);//中证500
+//        klineLast(cookie, SH_50_000016, 2, klt, dateTypeDay);//上证50
+//        klineLast(cookie, SHANG_HAI,2, klt, dateTypeDay);//上证
+//        klineLast(cookie, SHEN_ZHEN,2, klt, dateTypeDay);//深证成指
+//        klineLast(cookie, CYB,2, klt, dateTypeDay);//创业板
+
+        //k线-日线-行业指数
         int count = 1;
-        kline(cookie, HS_300_000300, count, klt,dateTypeDay);//沪深300
-        kline(cookie, CYB_50_399673, count, klt, dateTypeDay);//创业板50
-        kline(cookie, ZZ_500_000905, count, klt, dateTypeDay);//中证500
-        kline(cookie, SH_50_000016, count, klt, dateTypeDay);//上证50
-        kline(cookie, SHANG_HAI,count, klt, dateTypeDay);//上证
-        kline(cookie, SHEN_ZHEN,count, klt, dateTypeDay);//深证成指
-        kline(cookie, CYB,count, klt, dateTypeDay);//创业板
+        kline(cookie, BIZ_QUANSHANG, count, klt,dateTypeDay);
         System.out.println();
         //k线（上一日期）-日线
-        klineLast(cookie, HS_300_000300, 2, klt,dateTypeDay);//沪深300
-        klineLast(cookie, CYB_50_399673, 2, klt, dateTypeDay);//创业板50
-        klineLast(cookie, ZZ_500_000905, 2, klt, dateTypeDay);//中证500
-        klineLast(cookie, SH_50_000016, 2, klt, dateTypeDay);//上证50
-        klineLast(cookie, SHANG_HAI,2, klt, dateTypeDay);//上证
-        klineLast(cookie, SHEN_ZHEN,2, klt, dateTypeDay);//深证成指
-        klineLast(cookie, CYB,2, klt, dateTypeDay);//创业板
+        klineLast(cookie, BIZ_QUANSHANG, 2, klt,dateTypeDay);
 
 ////        //        k线-周线
 //        kline(cookie, HS_300_000300, 1, kltWeek,dateTypeWeek);//沪深300
@@ -362,7 +371,7 @@ public class SzzsData {
             dbFieldRt = "rt_cyb50";
             dbFieldNet = "pt_cyb50";
             dbFieldCje = "cje_hs300";
-        } else if (ZZ_500_000905.equals(zhiShu)) {
+        } else if (BIZ_QUANSHANG.equals(zhiShu)) {
             url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
             url.append("&secid=" + zhiShu);
             url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
@@ -373,10 +382,10 @@ public class SzzsData {
             url.append("&end=20500101");
             url.append("&lmt=1000");
             url.append("&_=1602168987942");
-            dbFieldRt = "rt_zz500";
-            dbFieldNet = "pt_zz500";
-            dbFieldCje = "cje_zz500";
-        } else {
+            dbFieldRt = "rt_";
+            dbFieldNet = "pt_";
+            dbFieldCje = "cje_";
+        } else  if ("".equals(zhiShu)){
             url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
             url.append("&secid=" + zhiShu);
             url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
@@ -390,6 +399,20 @@ public class SzzsData {
             dbFieldRt = "";
             dbFieldNet = "";
             dbFieldCje = "";
+        }else if (ZZ_500_000905.equals(zhiShu)) {
+            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
+            url.append("&secid=" + zhiShu);
+            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
+            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
+            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
+            url.append("&klt=" + klt);
+            url.append("&fqt=1");
+            url.append("&end=20500101");
+            url.append("&lmt=1000");
+            url.append("&_=1602168987942");
+            dbFieldRt = "rt_zz500";
+            dbFieldNet = "pt_zz500";
+            dbFieldCje = "cje_zz500";
         }
 
         StringBuffer urlParam = new StringBuffer();
@@ -554,7 +577,7 @@ public class SzzsData {
             url.append("&lmt=1000");
             url.append("&_=1602168987942");
             dbFieldNet = "pt_zz500_last";
-        } else {
+        } else if ("".equals(zhiShu)){
             url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
             url.append("&secid=" + zhiShu);
             url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
@@ -566,6 +589,18 @@ public class SzzsData {
             url.append("&lmt=1000");
             url.append("&_=1602168987942");
             dbFieldNet = "";
+        }else if (BIZ_QUANSHANG.equals(zhiShu)) {
+            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
+            url.append("&secid=" + zhiShu);
+            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
+            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
+            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
+            url.append("&klt=" + klt);
+            url.append("&fqt=1");
+            url.append("&end=20500101");
+            url.append("&lmt=1000");
+            url.append("&_=1602168987942");
+            dbFieldNet = "pt_?_last";
         }
 
         StringBuffer urlParam = new StringBuffer();
