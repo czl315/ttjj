@@ -38,7 +38,7 @@ public class LsjzUtil {
         }
 
         Map<String, String> pramaMap = new HashMap<String, String>();
-        LocalDate lastMonth1 = LocalDate.now().minusDays(days);
+        LocalDate lastMonth1 = LocalDate.now().minusDays(days);//如果1，取开始时间是今天
 //        System.out.println(lastMonth1.toString());
 
         pramaMap.put(Content.jjCode, codeStr.substring(0, codeStr.indexOf("|")));
