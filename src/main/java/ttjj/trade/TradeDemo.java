@@ -27,18 +27,18 @@ public class TradeDemo {
         int showType =2;
 
         if (showType == 1) {
-            //        String busType = "0";//0-全部;1-申购;2-卖出;
 //        //显示插入数据库语句
-            String insertStartDate = "2020-12-23";
+            String insertStartDate = "2020-12-24";
             String startDate = "2020-07-13";
             String endDate = "2020-12-31";
-            String bizTypeBuy = "1";
+            String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
+            String bizTypeRedem = "2";//0-全部;1-申购;2-卖出;
             showInsertDb(cookie, insertStartDate, endDate, bizTypeBuy);
             //显示更新数据库语句
             showUpdateDb(cookie, startDate, endDate, bizTypeBuy);
 //            showUpdateDb(cookie, "2020-01-01", "2020-12-31", "1");
 //        赎回
-            showDbRedem(cookie, startDate, endDate, "2");
+            showDbRedem(cookie, startDate, endDate, bizTypeRedem);
 //            showDbRedem(cookie, "2020-01-01", "2020-12-31", "2");
         }
 

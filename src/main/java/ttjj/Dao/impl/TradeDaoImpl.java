@@ -1,7 +1,5 @@
 package ttjj.Dao.impl;
 
-import com.alibaba.fastjson.JSON;
-import org.apache.commons.lang3.StringUtils;
 import ttjj.Dao.TradeDao;
 import ttjj.dto.FundTrade;
 import ttjj.dto.LsjzDataLsjz;
@@ -190,11 +188,19 @@ public class TradeDaoImpl implements TradeDao {
 //                System.out.println("确认数:"+rsTd);
                     String[] array = rsTd.split("class=\"text-right\">");
                     if (array.length > 0) {
+                        String stringContent = "<span class='black mr5'>";
+                        String stringContentAmt = "<span class='red fw-bold mr5'>";
                         for (String str : array) {
-                            if (str.contains("元")) {
-                                amt = str.substring(str.indexOf("<span class='red fw-bold mr5'>") + 30, str.indexOf("</span>元</td>"));
+                            if (str.contains("元") && str.contains(stringContent)) {
+                                amt = str.substring(str.indexOf(stringContent) + stringContent.length(), str.indexOf("</span>元</td>"));
 //                            System.out.println("amt:" + amt);
                                 fundTrade.setOrderAmt(new BigDecimal(amt));
+                            } else if (str.contains("元") && str.contains(stringContentAmt)) {
+                                amt = str.substring(str.indexOf(stringContentAmt) + stringContentAmt.length(), str.indexOf("</span>元</td>"));
+//                            System.out.println("amt:" + amt);
+                                fundTrade.setOrderAmt(new BigDecimal(amt));
+                            } else {
+//                                System.out.println("str:" + str);
                             }
                         }
                     }
