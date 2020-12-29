@@ -28,7 +28,7 @@ public class TradeDemo {
 
         if (showType == 1) {
 //        //显示插入数据库语句
-            String insertStartDate = "2020-12-25";
+            String insertStartDate = "2020-12-26";
             String startDate = "2020-07-13";
             String endDate = "2020-12-31";
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
@@ -117,6 +117,7 @@ public class TradeDemo {
         typeListZhiShu.add("160637|鹏华创业板分级");
         typeListZhiShu.add("009300|西部利得中证500指数增强C");
         typeListZhiShu.add("110011|易方达中小盘混合");
+        typeListZhiShu.add("481010|工银中小盘混合");
         typeListZhiShu.add("005827|易方达蓝筹精选混合");
         if (typeListZhiShu.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("指数");
