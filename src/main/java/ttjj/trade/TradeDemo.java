@@ -21,25 +21,25 @@ import static java.util.stream.Collectors.toCollection;
  */
 public class TradeDemo {
     public static void main(String[] args) {
-        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=57041719663084; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=1; st_psi=20201228235247131-119085303933-2712065212; st_asi=delete; cp_token=90e662b41eb84f78af41247ae100669d; FundTradeLoginUser=VpLfvCknai29PolJ7+i0Y4UeyW/l9pAsmdUMepr6+fHK072x1DsoqWE9XWHQOEUd1exgWUQv; fund_trade_cn=VncuXPYYWlgr+Pi/f2Uc2td3heKiiP9afacgnOtCFZlsMjayTnI81UONes/ag1LNH/yLRx7zTMYR0sm0LEJEETWtImhZnfEhSBdrnJyiB6brAn4C8CY=; fund_trade_name=V2qBxijw1iIn6O0Lrii4m1es8eJlUqK+f8bceGKWv1w487YckOth0SEJl28I7WFdScDc38EL; fund_trade_visitor=VYWX8dW08iQodrclQti9riDE5ovlyv8fMU7Be0JZkEkFm7YOfZvZzzE4sqxlarCdUd5cPRE7; fund_trade_risk=VAvF91OPfiTDlLXOwJiZKcpsme2l3fc1yXXzet5rGqhEi71FWW8LbAEkxep0+K+dsYCOFto9; fund_trade_gps=2; VipLevel=0; TradeLoginToken=2042af8dfacd4023918a1e28edf114e1; UTOKEN=VncuXPYYWlgr+Pi/f2Uc2td3heKiiP9afacgnOtCFZlsMjayTnI81UONes/ag1LNH/yLRy7TrG42+8WrBCXnEZQTm0ChiAiI+9dEt+mC1JfCEpw390o=; LToken=d7239a35563a454280e58b9b9339b9e5; fund_trade_trackid=curblJTv305jXjCCmf6KL7mF6Ogp5IJOxllg8l9QJvhJL9aamR0hx7H4sk1dvkpe7hdxwrHxY9B97q72QicoGA==; ASP.NET_SessionId=bhq5rvwe14dm0vpquc4d0k32; monitor_count=11";
+        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=82410439651846; st_asi=delete; cp_token=a9ad06ef8c4a4885a1c5237042c671ea; FundTradeLoginUser=NaMze0lAhxmifB7gcvstqg9EG8S63buouGHeoSDeKF4pIs1oTOdbvvoAmqWh6WT35jr/qh9J; fund_trade_cn=NO/pZHOav5qqIqxmeuOSsw3hTDcFsq4u7gVTKDwcA26NQq9zj9kTLD6Eo5nL+gJ6HEbq+0sgfEQphQqg6pQlou5J1nwGpewman3Mne4TkI+D7P5hVBc=; fund_trade_name=NwbKbmD+wxCdxuqsP1sRNFBKHUw6pt2bX3QWosKlW5hvAsymPqoG/toJk4hR9dY33Pmxxa1i; fund_trade_visitor=N+xj9SgH+xvYzi8DVisNK7Aj6YI6enxjtTdSoVwrVI+ZLsTlWHjHmzoFM140cqU3aOwJgTk5; fund_trade_risk=NwU1EMngxxbdvxe67bsfU6MXWa86NMHnwiXToHnZJyf+7sCmn671u1oM64nbNOC31AVjh2qa; fund_trade_gps=2; VipLevel=0; TradeLoginToken=eeb9ebedbccf4a9fba9a6038b8003e21; UTOKEN=NO/pZHOav5qqIqxmeuOSsw3hTDcFsq4u7gVTKDwcA26NQq9zj9kTLD6Eo5nL+gJ6HEbq+3sz1cF6X0EEurWQoAHhZVVx/227AX3E6w38BAXiCWkfHk0=; LToken=dd0ce1e867a746fa9eb4fbf6b5086740; fund_trade_trackid=B2bkcHyKkQix7rw+A+OOMqe7Rn+ODgdexPNHQSDyTIa8x6UAQIroKF0N+uvYjrUdNOFpzNUc7iSldBrl1RjDKQ==; ASP.NET_SessionId=ud2dhhbxqd43obavn4gw54gp; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=2; st_psi=20201230235346820-0-5572264750; monitor_count=7";
 
 //        int showType = 1;
         int showType =2;
 
         if (showType == 1) {
 //        //显示插入数据库语句
-            String insertStartDate = "2020-12-26";
+            String insertStartDate = "2020-12-29";
             String startDate = "2020-07-13";
-            String endDate = "2020-12-31";
+            String endDate = "2021-12-31";
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String bizTypeRedem = "2";//0-全部;1-申购;2-卖出;
             showInsertDb(cookie, insertStartDate, endDate, bizTypeBuy);
             //显示更新数据库语句
             showUpdateDb(cookie, startDate, endDate, bizTypeBuy);
-//            showUpdateDb(cookie, "2020-01-01", "2020-12-31", "1");
+//            showUpdateDb(cookie, "2020-01-01", "2021-12-31", "1");
 //        赎回
             showDbRedem(cookie, startDate, endDate, bizTypeRedem);
-//            showDbRedem(cookie, "2020-01-01", "2020-12-31", "2");
+//            showDbRedem(cookie, "2020-01-01", "2021-12-31", "2");
         }
 
         if (showType == 2) {
@@ -52,7 +52,7 @@ public class TradeDemo {
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,60);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,90);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,180);
-            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,360);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,365);
 
 //            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, "1",7);
 
