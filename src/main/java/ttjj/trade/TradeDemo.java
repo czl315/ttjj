@@ -28,7 +28,7 @@ public class TradeDemo {
 
         if (showType == 1) {
 //        //显示插入数据库语句
-            String insertStartDate = "2020-12-29";
+            String insertStartDate = "2020-12-30";
             String startDate = "2020-07-13";
             String endDate = "2021-12-31";
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
@@ -52,7 +52,7 @@ public class TradeDemo {
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,60);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,90);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,180);
-            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,365);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,360);
 
 //            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, "1",7);
 

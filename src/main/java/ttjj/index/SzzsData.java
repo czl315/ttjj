@@ -24,7 +24,10 @@ public class SzzsData {
     static final String SH_50_000016 = "1.000016";
 
     static final String BIZ_QUANSHANG = "0.399975";
-
+    /**
+     * klt=101:日;102:周;103:月;104:3月
+     */
+    static String kltDay = "101";
     /**
      * klt=101:日;102:周;103:月;104:3月
      */
@@ -32,35 +35,35 @@ public class SzzsData {
     /**
      * klt=101:日;102:周;103:月;104:3月
      */
-    static String kltDay = "101";
+    static String kltMonth = "103";
 
     public static void main(String[] args) {
 
         String cookie = "";//
         String dateTypeWeek = "7";//一周
-        String dateTypeDay = "1";//一天
-
-        String klt= kltDay;//klt=101:日;102:周;103:月;104:3月
 
 
-        //k线-日线
+
+        //k线
+        String dateType = "30";//一天
+        String klt= kltMonth;//klt=101:日;102:周;103:月;104:3月
         int count = 1;
-        kline(cookie, HS_300_000300, count, klt,dateTypeDay);//沪深300
-        kline(cookie, CYB_50_399673, count, klt, dateTypeDay);//创业板50
-        kline(cookie, ZZ_500_000905, count, klt, dateTypeDay);//中证500
-        kline(cookie, SH_50_000016, count, klt, dateTypeDay);//上证50
-        kline(cookie, SHANG_HAI,count, klt, dateTypeDay);//上证
-        kline(cookie, SHEN_ZHEN,count, klt, dateTypeDay);//深证成指
-        kline(cookie, CYB,count, klt, dateTypeDay);//创业板
+        kline(cookie, HS_300_000300, count, klt,dateType);//沪深300
+        kline(cookie, CYB_50_399673, count, klt, dateType);//创业板50
+        kline(cookie, ZZ_500_000905, count, klt, dateType);//中证500
+        kline(cookie, SH_50_000016, count, klt, dateType);//上证50
+        kline(cookie, SHANG_HAI,count, klt, dateType);//上证
+        kline(cookie, SHEN_ZHEN,count, klt, dateType);//深证成指
+        kline(cookie, CYB,count, klt, dateType);//创业板
         System.out.println();
-        //k线（上一日期）-日线
-        klineLast(cookie, HS_300_000300, 2, klt,dateTypeDay);//沪深300
-        klineLast(cookie, CYB_50_399673, 2, klt, dateTypeDay);//创业板50
-        klineLast(cookie, ZZ_500_000905, 2, klt, dateTypeDay);//中证500
-        klineLast(cookie, SH_50_000016, 2, klt, dateTypeDay);//上证50
-        klineLast(cookie, SHANG_HAI,2, klt, dateTypeDay);//上证
-        klineLast(cookie, SHEN_ZHEN,2, klt, dateTypeDay);//深证成指
-        klineLast(cookie, CYB,2, klt, dateTypeDay);//创业板
+        //k线（上一日期）
+        klineLast(cookie, HS_300_000300, 2, klt,dateType);//沪深300
+        klineLast(cookie, CYB_50_399673, 2, klt, dateType);//创业板50
+        klineLast(cookie, ZZ_500_000905, 2, klt, dateType);//中证500
+        klineLast(cookie, SH_50_000016, 2, klt, dateType);//上证50
+        klineLast(cookie, SHANG_HAI,2, klt, dateType);//上证
+        klineLast(cookie, SHEN_ZHEN,2, klt, dateType);//深证成指
+        klineLast(cookie, CYB,2, klt, dateType);//创业板
 
 //        //k线-日线-行业指数
 //        int count = 1;
