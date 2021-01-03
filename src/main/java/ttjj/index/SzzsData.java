@@ -45,8 +45,8 @@ public class SzzsData {
 
 
         //k线
-        String dateType = "30";//一天
-        String klt= kltMonth;//klt=101:日;102:周;103:月;104:3月
+        String dateType = "365";//一天
+        String klt= "106";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
         int count = 1;
         kline(cookie, HS_300_000300, count, klt,dateType);//沪深300
         kline(cookie, CYB_50_399673, count, klt, dateType);//创业板50

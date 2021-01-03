@@ -179,6 +179,6 @@ SELECT 	ol_fund_trade.FD_INFO AS 计划卖出基金
 	WHERE 1=1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
 	AND ol_fund_trade.TYPE = '申购'
-	AND ol_fund_trade.FD_INFO in( '000977|长城环保主题混合','005967|鹏华创新驱动混合','005621|中欧品质消费股票C')
+	AND ol_fund_trade.FD_INFO in( '161903|万家行业优选混合(LOF)','005967|鹏华创新驱动混合','005621|中欧品质消费股票C')
 ORDER BY 最新收益率 DESC
 ;

@@ -199,7 +199,7 @@ WHERE
 	AND ol_fund_trade.SOURCE=3
 -- 	AND (ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_30)=(ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_360)
 GROUP BY ol_fund_trade.FD_INFO
-ORDER BY 回撤360 DESC
+ORDER BY 回撤360 DESC,回撤30 DESC,涨幅30 DESC
 ;
 
 /****/
