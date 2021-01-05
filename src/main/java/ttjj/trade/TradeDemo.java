@@ -21,7 +21,7 @@ import static java.util.stream.Collectors.toCollection;
  */
 public class TradeDemo {
     public static void main(String[] args) {
-        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=18281012171331; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=1; st_psi=20210104231523875-119085303933-3349177229; st_asi=delete; cp_token=0f7abab3cc0a4dffa9356fa9ae312a3e; FundTradeLoginUser=jw35lZVN+gjQBzcYAL7NVLNW4isF6KKnL0LlNDUAKnOOMwCItDpj3pkYS5Fwvx0ij7gqEHUY; fund_trade_cn=jqDiWK86eULgOngRFhKmVpOs4Wq3741LOwDNd/AuWJFvT0/RZoouTd3qNI5fHUvwqPsnChwbtgcrTbvkDGU/kUn7hErFuVvCKaibvKrReFWabNT6Qjg=; fund_trade_name=jEBZNsvlJgVge4rjJE7FMtHPSDfFR9BN7JAXNzkWNmTMcwb3Ff0QvgkcJe0ykCYijc23ahwq; fund_trade_visitor=j4qoiqKUngqp+YERt+7bzxyMGqnFZJCZ19YnN+vu9ONbUwSvGCL6q0kgymfF2WRixQQxMa71; fund_trade_risk=jTUtTvSungOzaocGqd7yIccjaNfFA5PJ6FguNarHBEyTkwPF+VIOH+kKbEmG02PiD59YSpf/; fund_trade_gps=2; VipLevel=0; TradeLoginToken=96f5631c33d447cb9e129c6bb20ded95; UTOKEN=jqDiWK86eULgOngRFhKmVpOs4Wq3741LOwDNd/AuWJFvT0/RZoouTd3qNI5fHUvwqPsnCDwrz9qfWjh6+ZFNkcADqWdMoCqOQ+iLZUXvxU0PdZkARA0=; LToken=e846b64ff0e1439a96fcfe170abcef4b; fund_trade_trackid=eRmnUCDEa/7maYAPrwc4PvIZ31SsBKX7dfCK3xeyqBh61C92pavVRhVHRJ+AP8snM0mfPUC7w5pXgVBmgQMZMg==; ASP.NET_SessionId=2ulxqgw4lt42wkmrwcrunqmf; monitor_count=2";
+        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=84957022446463; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=1; st_psi=20210105224636797-119085303933-7217890384; st_asi=delete; cp_token=b600a869156e46e9821b09e63b3fba18; FundTradeLoginUser=nPDewWJBmxoADsP1AqFlIym9Rb7tgoFZXQBtoy0BHCt/avPoniQsBGSji5yt/vja24VOyZGV; fund_trade_cn=nQnDJh6iOlTmn4xTWDjB9UmvhfvDFtJD//QP28X29ZtjVBTPGeHLw7/iomv1MC9rXyClQtvzA4N4maK2xoKtSIvN131q1QXSotalZPar0yTZPdnlrIs=; fund_trade_name=nXZp7nbQ2xCdctI9+5FPF1cghbLtve81A44PoV2Kpl4HVvleY+FcQtSRki2a3LMaAwxwbd6g; fund_trade_visitor=nNFeYeDYExrLxNfjF0FaeC4rRA2tBkzHkkAUoq5AhVZhBvJFx3Mh03Srge8N/l1aDTzCh0xh; fund_trade_risk=nLbDU0ZFixNlKO+g7JFPDVfAxLhtEmpmnMIyou9aRkoMRv/pdSiqJ9SeFKI0bh3aFCG9Mi5O; fund_trade_gps=2; VipLevel=0; TradeLoginToken=5f2f579e7cff450a977bb2adc65f24d3; UTOKEN=nQnDJh6iOlTmn4xTWDjB9UmvhfvDFtJD//QP28X29ZtjVBTPGeHLw7/iomv1MC9rXyClQsvkONYGmjLemgwgSegPdTH9deLFEGa56nQPa76JLnZwxPk=; LToken=464d8ec699a24e0db7ce0df2f89ade9d; fund_trade_trackid=YJniwSLNXQX0CVza1ecf02YDenUQprg1VcEog3+1eqOkE7j9RIXkBG4kgK7s17OCvZlxtduhIQ6LJsJqz/F34Q==; ASP.NET_SessionId=w4gl1tkhn31klebdrukphg2r; monitor_count=7";
 
 //        int showType = 1;
         int showType =2;
@@ -107,6 +107,8 @@ public class TradeDemo {
      * @param fundTrade
      */
     private static void handlerBizTp(FundTrade fundTrade) {
+        double baseRiskStLoss = 0.92;
+        double baseRiskStProfit = 1.15;
         List<String> typeListZhiShu = new ArrayList<>();
         typeListZhiShu.add("110003|易方达上证50指数A");
         typeListZhiShu.add("004746|易方达上证50指数C");
@@ -121,8 +123,8 @@ public class TradeDemo {
         typeListZhiShu.add("005827|易方达蓝筹精选混合");
         if (typeListZhiShu.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("指数");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
+            fundTrade.setRiskStLoss(baseRiskStLoss);
+            fundTrade.setRiskStProfit(baseRiskStProfit);
             return;
         }
 
@@ -142,8 +144,8 @@ public class TradeDemo {
         typeListKeJj.add("161903|万家行业优选混合(LOF)");
         if (typeListKeJj.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("科技");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
+            fundTrade.setRiskStLoss(baseRiskStLoss);
+            fundTrade.setRiskStProfit(baseRiskStProfit);
             return;
         }
 
@@ -155,8 +157,8 @@ public class TradeDemo {
         typeListXiaoFei.add("006308|汇添富全球消费混合人民币A");
         if (typeListXiaoFei.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("消费");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
+            fundTrade.setRiskStLoss(baseRiskStLoss);
+            fundTrade.setRiskStProfit(baseRiskStProfit);
             return;
         }
 
@@ -165,8 +167,8 @@ public class TradeDemo {
         typeListYiLiao.add("005967|鹏华创新驱动混合");
         if (typeListYiLiao.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("医药");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
+            fundTrade.setRiskStLoss(baseRiskStLoss);
+            fundTrade.setRiskStProfit(baseRiskStProfit);
             return;
         }
 
@@ -175,8 +177,8 @@ public class TradeDemo {
         typeListJinRong.add("160633|鹏华证券分级");
         if (typeListJinRong.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("金融");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
+            fundTrade.setRiskStLoss(baseRiskStLoss);
+            fundTrade.setRiskStProfit(baseRiskStProfit);
             return;
         }
 
@@ -185,8 +187,8 @@ public class TradeDemo {
         typeListYouSe.add("002207|前海开源金银珠宝混合C");
         if (typeListYouSe.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("有色");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
+            fundTrade.setRiskStLoss(baseRiskStLoss);
+            fundTrade.setRiskStProfit(baseRiskStProfit);
             return;
         }
 
@@ -194,8 +196,8 @@ public class TradeDemo {
         typeListChuanMei.add("160629|鹏华传媒分级");
         if (typeListChuanMei.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("传媒");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
+            fundTrade.setRiskStLoss(baseRiskStLoss);
+            fundTrade.setRiskStProfit(baseRiskStProfit);
             return;
         }
 
@@ -203,8 +205,8 @@ public class TradeDemo {
         typeListJianCai.add("004857|广发中证全指建筑材料指数C");
         if (typeListJianCai.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("建材");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
+            fundTrade.setRiskStLoss(baseRiskStLoss);
+            fundTrade.setRiskStProfit(baseRiskStProfit);
             return;
         }
 
@@ -212,8 +214,8 @@ public class TradeDemo {
         typeListJunGong.add("164402|前海开源中航军工");
         if (typeListJunGong.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("军工");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
+            fundTrade.setRiskStLoss(baseRiskStLoss);
+            fundTrade.setRiskStProfit(baseRiskStProfit);
             return;
         }
 
@@ -222,8 +224,8 @@ public class TradeDemo {
         typeListNongYe.add("001027|前海开源中证大农业指数增强");
         if (typeListNongYe.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("农业");
-            fundTrade.setRiskStLoss(0.92);
-            fundTrade.setRiskStProfit(1.1);
+            fundTrade.setRiskStLoss(baseRiskStLoss);
+            fundTrade.setRiskStProfit(baseRiskStProfit);
             return;
         }
     }

@@ -104,7 +104,7 @@ public class TradeDaoImpl implements TradeDao {
     private static List<FundTrade> findMyTradeAll(String cookie, String fundCode) {
         String url = "https://query.1234567.com.cn/Query/DelegateList";
         StringBuffer urlParam = new StringBuffer();
-        urlParam.append("DataType=1&StartDate=2020-01-01&EndDate=2020-12-31");
+        urlParam.append("DataType=1&StartDate=2020-01-01&EndDate=2021-12-31");
 //        urlParam.append("DataType=1&StartDate=2020-06-01&EndDate=2020-06-20");
 //        urlParam.append("DataType=1&StartDate=2020-05-01&EndDate=2020-05-31");
 //        urlParam.append("DataType=1&StartDate=2020-04-01&EndDate=2020-04-30");
@@ -155,7 +155,15 @@ public class TradeDaoImpl implements TradeDao {
                 // 日期
                 if (rsTd.contains("<span>20")) {
 //                    System.out.println("每列：<td "+rsTd);
-                    dateTime = rsTd.substring(rsTd.indexOf("<span>2020") + 6, rsTd.indexOf("<span>2020") + 16);
+                    String strTemp2020 = "<span>2020";
+                    if(rsTd.contains(strTemp2020)){
+                        dateTime = rsTd.substring(rsTd.indexOf(strTemp2020) + 6, rsTd.indexOf(strTemp2020) + 16);
+                    }else{
+                        String strTemp2021 = "<span>2021";
+                        dateTime = rsTd.substring(rsTd.indexOf(strTemp2021) + 6, rsTd.indexOf(strTemp2021) + 16);
+                    }
+
+
                     time = rsTd.substring(rsTd.indexOf("<span style=\"color:#939290\">") + 28, rsTd.indexOf("<span style=\"color:#939290\">") + 36);
                     dateTime = dateTime + " " + time;
 //                    System.out.println("交易发起时间:" + dateTime);
@@ -234,6 +242,12 @@ public class TradeDaoImpl implements TradeDao {
 //                            System.out.println("confirmField:"+confirmField);
                             // 日期
                             if (confirmField.contains("2020")) {
+                                confirmDate = confirmField.substring(1);
+                                confirmDate = confirmDate.replace("</td>", "");
+//                                System.out.println("confirmDate:"+confirmDate);
+                                fundTrade.setConfirmNetData(confirmDate);
+                            }
+                            if (confirmField.contains("2021")) {
                                 confirmDate = confirmField.substring(1);
                                 confirmDate = confirmDate.replace("</td>", "");
 //                                System.out.println("confirmDate:"+confirmDate);
