@@ -29,7 +29,7 @@ public class TradeDemo {
         if (showType == 1) {
 //        //显示插入数据库语句
             String insertStartDate = "2021-01-05";
-            String startDate = "2020-08-20";
+            String startDate = "2020-09-16";
             String endDate = "2021-12-31";
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String bizTypeRedem = "2";//0-全部;1-申购;2-卖出;
@@ -43,7 +43,7 @@ public class TradeDemo {
         }
 
         if (showType == 2) {
-            String startDate = "2020-08-20";
+            String startDate = "2020-09-16";
             String endDate = "2021-12-31";
             String bizType = "1";
             //        // 更新最新净值-限定时间段的最大最小净值
@@ -135,7 +135,7 @@ public class TradeDemo {
         typeListKeJj.add("009314|广发双擎升级混合C");
         typeListKeJj.add("320007|诺安成长混合");
         typeListKeJj.add("001986|前海开源人工智能主题混合");
-        typeListKeJj.add("161028|富国中证新能源汽车指数分级");
+        typeListKeJj.add("161028|富国中证新能源汽车指数");
         typeListKeJj.add("001606|农银工业4.0混合");
         typeListKeJj.add("008086|华夏中证5G通信主题ETF联接A");
         typeListKeJj.add("519005|海富通股票混合");
@@ -153,7 +153,7 @@ public class TradeDemo {
         typeListXiaoFei.add("005621|中欧品质消费股票C");
         typeListXiaoFei.add("161810|银华内需精选混合(LOF)");
         typeListXiaoFei.add("110022|易方达消费行业股票");
-        typeListXiaoFei.add("161725|招商中证白酒指数分级");
+        typeListXiaoFei.add("161725|招商中证白酒指数");
         typeListXiaoFei.add("006308|汇添富全球消费混合人民币A");
         if (typeListXiaoFei.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("消费");
@@ -173,8 +173,9 @@ public class TradeDemo {
         }
 
         List<String> typeListJinRong = new ArrayList<>();
-        typeListJinRong.add("167301|方正富邦保险主题指数分级");
-        typeListJinRong.add("160633|鹏华证券分级");
+        typeListJinRong.add("167301|方正富邦保险主题指数");
+        typeListJinRong.add("160633|鹏华中证全指证券公司指数(LOF)");
+        typeListJinRong.add("161121|易方达中证银行指数(LOF)A");
         if (typeListJinRong.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("金融");
             fundTrade.setRiskStLoss(baseRiskStLoss);
@@ -183,7 +184,7 @@ public class TradeDemo {
         }
 
         List<String> typeListYouSe = new ArrayList<>();
-        typeListYouSe.add("165520|信诚中证800有色指数分级");
+        typeListYouSe.add("165520|信诚中证800有色指数(LOF)");
         typeListYouSe.add("002207|前海开源金银珠宝混合C");
         if (typeListYouSe.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("有色");
@@ -193,7 +194,8 @@ public class TradeDemo {
         }
 
         List<String> typeListChuanMei = new ArrayList<>();
-        typeListChuanMei.add("160629|鹏华传媒分级");
+//        typeListChuanMei.add("160629|鹏华传媒分级");
+        typeListChuanMei.add("160629|鹏华中证传媒指数(LOF)");
         if (typeListChuanMei.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("传媒");
             fundTrade.setRiskStLoss(baseRiskStLoss);
