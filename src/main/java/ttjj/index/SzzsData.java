@@ -45,9 +45,10 @@ public class SzzsData {
 
 
         //k线
-        String dateType = "1";//一天
         String klt= "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
+        String dateType = "1";//1：一天;7:周;30:月;
         int count = 1;
+        int lastCount = 2;
         kline(cookie, HS_300_000300, count, klt,dateType);//沪深300
         kline(cookie, CYB_50_399673, count, klt, dateType);//创业板50
         kline(cookie, ZZ_500_000905, count, klt, dateType);//中证500
@@ -57,7 +58,6 @@ public class SzzsData {
         kline(cookie, CYB,count, klt, dateType);//创业板
         System.out.println();
         //k线（上一日期）
-        int lastCount = 2;
         klineLast(cookie, HS_300_000300, lastCount, klt,dateType);//沪深300
         klineLast(cookie, CYB_50_399673, lastCount, klt, dateType);//创业板50
         klineLast(cookie, ZZ_500_000905, lastCount, klt, dateType);//中证500

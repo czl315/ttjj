@@ -21,14 +21,14 @@ import static java.util.stream.Collectors.toCollection;
  */
 public class TradeDemo {
     public static void main(String[] args) {
-        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=26890232.4298960297175944000.1584177952348.2258; st_si=50584643799326; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=1; st_psi=20210106232523416-119085303933-3046891374; st_asi=delete; cp_token=1040e23970e941ddb4bb98caddcac208; FundTradeLoginUser=zxp6v07raNukvjkaHu2v6SRlRd9rLy30Yy3jmvjvYTcqu4kYe0rS7foWpU4uwD28gAUPDiRC; fund_trade_cn=zZQaddsX6uX8EeN/6KHnbkHuTFGf290+QvtV2BQ1F6rgKepBO/h3ylw8mRPvbl7cZZ/x1n4C9RWklm3EDo/ro2t+uHMBOZlyIK8Lqzz7tq/CmW6SJC4=; fund_trade_name=zXGMIHHrnNCFoF0RJc2x97VJ83vrPKXNtGghmBtxVXisG4RdEOP4TwoK26oaGj98xNErLP6o; fund_trade_visitor=zslVbbI23NUqQiUpBb2hPg5ZaXLr+Ppj/nC2m64OmsUxI4YkX8WchMo2seubtX+8a52070U8; fund_trade_risk=zNbq9PDobN81fnfSCo2S4d3HhuzrrDv70vu3m9WPcTtfb4fCRdk7JloI0/4EcC78A9PdS3V5; fund_trade_gps=2; VipLevel=0; TradeLoginToken=83f4848338f94d9fbe71086a66c5291b; UTOKEN=zZQaddsX6uX8EeN/6KHnbkHuTFGf290+QvtV2BQ1F6rgKepBO/h3ylw8mRPvbl7cZZ/x1v4ADJX3/JBwwR+5ouP3HCyyYiwbIj8ObyD75drEzh/Gt7s=; LToken=99e78208d9054fd5a9a9417d491d120d; fund_trade_trackid=hl89RK5DjQT6W2SOAJ8UWYEfa9jy4SrJ99EzqyTWCpm66J0oh4veYnh3eb3bC08v3KFP+R4wcoOBf5PEqN2mBw==; ASP.NET_SessionId=p0ykhz54my4z2vx1halxwoud; monitor_count=13";
+        String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; st_si=51681348394617; st_asi=delete; cp_token=f7955015d5af4c359eab82543dabc2e6; FundTradeLoginUser=Fwo9L4Aua42kKn/3twgjRGid0AGpD4zizdGbTNB6SK/QK8wEIDe4HwXkyZrO2MjF4tLRToGL; fund_trade_cn=F9hTZSvNjorbxB4PH59LnFeesnELgweJ8Z0GqsYGvPpVF+o1Gqf/tzN8TsClhi3y37ZasT85OyLarX1+vBmRX3JXYyfnvRaFpgFFD6iGolJ038AQ1No=; fund_trade_name=FYwKCZPak4tlSxCjINgCfd0TziWpRDs8D1CgTPNk3jgNd8/NvxEZUMX58gq42SlFiQmHefAm; fund_trade_visitor=FUVfnUDit4QBlVzdbZgx2iRy0f3pJxJKv2riTqosT5CaG8YPy4HALHXwvMHdY//FbBFRxsei; fund_trade_risk=Fh1HCR4oS4jiyFLnaBgFc1GaDBrpJIGd5SAYTcbr+NLcV8GAESnd5yXTvtORLSVFyxoEH6Hk; fund_trade_gps=2; VipLevel=0; TradeLoginToken=bfa809c96e9d4ae0a1ee3199f41ff0d7; UTOKEN=F9hTZSvNjorbxB4PH59LnFeesnELgweJ8Z0GqsYGvPpVF+o1Gqf/tzN8TsClhi3y37Zasv87QEEavKhNZuGrXyHixR1qQbC0UrF5LJojaAsi7LPlzTc=; LToken=2e71420320e04782bbb1b57bedaeedea; fund_trade_trackid=Km+o1W+7R+av3UuU8TSfYboeVkbsbxW/hRACLFRR6ZYSJ5SdvAHfHEHKcFf9gxy+C9OFOLLm8fAjs4il3kHHVg==; ASP.NET_SessionId=g3qc1ozvaqh32afovlmn4vib; __guid=26890232.840238135491018600.1610158880294.6384; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=2; st_psi=20210109102120590-0-4000482530; monitor_count=2";
 
 //        int showType = 1;
         int showType =2;
 
         if (showType == 1) {
 //        //显示插入数据库语句
-            String insertStartDate = "2021-01-05";
+            String insertStartDate = "2021-01-07";
             String startDate = "2020-09-16";
             String endDate = "2021-12-31";
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
