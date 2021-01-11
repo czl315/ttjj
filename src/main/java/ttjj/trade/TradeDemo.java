@@ -115,7 +115,7 @@ public class TradeDemo {
         typeListZhiShu.add("002671|万家沪深300指数增强C");
         typeListZhiShu.add("004789|富荣沪深300指数增强C");
         typeListZhiShu.add("001875|前海开源沪港深优势精选混合");
-        typeListZhiShu.add("160420|华安创业板50指数分级");
+        typeListZhiShu.add("160420|华安创业板50指数");
         typeListZhiShu.add("160637|鹏华创业板分级");
         typeListZhiShu.add("009300|西部利得中证500指数增强C");
         typeListZhiShu.add("110011|易方达中小盘混合");
