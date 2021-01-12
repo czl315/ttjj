@@ -48,7 +48,7 @@ public class SzzsData {
         klineLast(cookie, CYB,lastCount, klt, dateType);//创业板
 
         //k线-日线-行业指数
-//        kline(cookie, BIZ_QUANSHANG, count, klt, dateType);
+        kline(cookie, BIZ_QUANSHANG, count, klt, dateType);
 
 ////        //        k线-周线
 //        kline(cookie, HS_300_000300, 1, kltWeek,dateTypeWeek);//沪深300

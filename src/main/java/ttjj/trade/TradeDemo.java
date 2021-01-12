@@ -28,8 +28,8 @@ public class TradeDemo {
 
         if (showType == 1) {
 //        //显示插入数据库语句
-            String insertStartDate = "2021-01-07";
-            String startDate = "2020-09-16";
+            String insertStartDate = "2021-01-09";
+            String startDate = "2020-10-09";
             String endDate = "2021-12-31";
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String bizTypeRedem = "2";//0-全部;1-申购;2-卖出;
@@ -43,7 +43,7 @@ public class TradeDemo {
         }
 
         if (showType == 2) {
-            String startDate = "2020-09-16";
+            String startDate = "2020-10-09";
             String endDate = "2021-12-31";
             String bizType = "1";
             //        // 更新最新净值-限定时间段的最大最小净值

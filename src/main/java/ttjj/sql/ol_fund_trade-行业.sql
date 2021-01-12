@@ -126,7 +126,7 @@ ORDER BY 最新收益率 DESC
 ;
 
 /**	分组-行业	*/
-SELECT 	ol_fund_trade.FD_INFO AS 建材农业有色
+SELECT 	ol_fund_trade.FD_INFO AS 建材农业有色传媒
 	,ol_fund_trade.CONFIRM_SHARE AS 买入份额
 	,ROUND(
 		(ol_fund_trade.LAST_NET - ol_fund_trade.CONFIRM_NET) * ol_fund_trade.CONFIRM_SHARE / ol_fund_trade.ORDER_AMT * 100,
@@ -146,7 +146,7 @@ SELECT 	ol_fund_trade.FD_INFO AS 建材农业有色
 	WHERE 1=1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
 	AND ol_fund_trade.TYPE = '申购'
-	AND ol_fund_trade.BIZ_TP in ('建材','农业','有色')
+	AND ol_fund_trade.BIZ_TP in ('建材','农业','有色','传媒')
 ORDER BY 最新收益率 DESC
 ;
 

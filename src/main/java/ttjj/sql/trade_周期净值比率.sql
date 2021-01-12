@@ -18,7 +18,7 @@ SELECT
 	,ol_fund_trade.BIZ_TP
 FROM `ol_fund_trade` ol_fund_trade
 WHERE 	1 = 1 AND ol_fund_trade.SOURCE=3 AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
-	AND ol_fund_trade.TYPE = '申购'
+	AND ol_fund_trade.TYPE = '申购' 
 GROUP BY ol_fund_trade.FD_INFO
 ORDER BY 回撤30 DESC,回撤360 DESC,涨幅30 DESC
 -- ORDER BY 涨幅30 DESC
@@ -44,7 +44,7 @@ SELECT
 	,ol_fund_trade.BIZ_TP
 FROM `ol_fund_trade` ol_fund_trade
 WHERE 	1 = 1 AND ol_fund_trade.SOURCE=3 AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
-	AND ol_fund_trade.TYPE = '申购'
+	AND ol_fund_trade.TYPE = '申购' 
 GROUP BY ol_fund_trade.FD_INFO
 -- ORDER BY 回撤30 DESC
 ORDER BY 涨幅30 DESC
@@ -71,7 +71,7 @@ SELECT
 	,ol_fund_trade.BIZ_TP
 FROM `ol_fund_trade` ol_fund_trade
 WHERE 	1 = 1 AND ol_fund_trade.SOURCE=3 AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
-	AND ol_fund_trade.TYPE = '申购'
+	AND ol_fund_trade.TYPE = '申购' 
 -- GROUP BY ol_fund_trade.FD_INFO
 ORDER BY 回撤30 DESC ,ol_fund_trade.FD_INFO DESC
 -- ORDER BY 涨幅30 DESC
@@ -98,7 +98,7 @@ FROM
 WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
-	AND ol_fund_trade.TYPE = '申购'
+	AND ol_fund_trade.TYPE = '申购' 
 	AND ol_fund_trade.SOURCE=3
 -- 	AND (ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_30)=(ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_360)
 GROUP BY ol_fund_trade.FD_INFO
@@ -131,7 +131,7 @@ FROM
 WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
-	AND ol_fund_trade.TYPE = '申购'
+	AND ol_fund_trade.TYPE = '申购' 
 	AND ol_fund_trade.SOURCE=3
 -- 	AND (ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_30)=(ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_360)
 GROUP BY ol_fund_trade.FD_INFO
@@ -163,7 +163,7 @@ FROM
 WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
-	AND ol_fund_trade.TYPE = '申购'
+	AND ol_fund_trade.TYPE = '申购' 
 	AND ol_fund_trade.SOURCE=3
 -- 	AND (ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_30)=(ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_360)
 GROUP BY ol_fund_trade.FD_INFO
@@ -195,7 +195,7 @@ FROM
 WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
-	AND ol_fund_trade.TYPE = '申购'
+	AND ol_fund_trade.TYPE = '申购' 
 	AND ol_fund_trade.SOURCE=3
 -- 	AND (ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_30)=(ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_360)
 GROUP BY ol_fund_trade.FD_INFO
@@ -229,7 +229,7 @@ FROM
 WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
-	AND ol_fund_trade.TYPE = '申购'
+	AND ol_fund_trade.TYPE = '申购' 
 	AND ol_fund_trade.SOURCE=3
 -- 	AND (ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_30)=(ol_fund_trade.NET_MAX_1 / ol_fund_trade.NET_MAX_360)
 GROUP BY ol_fund_trade.FD_INFO
