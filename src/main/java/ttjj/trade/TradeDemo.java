@@ -24,13 +24,14 @@ public class TradeDemo {
         String cookie = "FundTradeLoginCard=0; FundTradeLoginTab=0; st_si=51681348394617; st_asi=delete; cp_token=f7955015d5af4c359eab82543dabc2e6; FundTradeLoginUser=Fwo9L4Aua42kKn/3twgjRGid0AGpD4zizdGbTNB6SK/QK8wEIDe4HwXkyZrO2MjF4tLRToGL; fund_trade_cn=F9hTZSvNjorbxB4PH59LnFeesnELgweJ8Z0GqsYGvPpVF+o1Gqf/tzN8TsClhi3y37ZasT85OyLarX1+vBmRX3JXYyfnvRaFpgFFD6iGolJ038AQ1No=; fund_trade_name=FYwKCZPak4tlSxCjINgCfd0TziWpRDs8D1CgTPNk3jgNd8/NvxEZUMX58gq42SlFiQmHefAm; fund_trade_visitor=FUVfnUDit4QBlVzdbZgx2iRy0f3pJxJKv2riTqosT5CaG8YPy4HALHXwvMHdY//FbBFRxsei; fund_trade_risk=Fh1HCR4oS4jiyFLnaBgFc1GaDBrpJIGd5SAYTcbr+NLcV8GAESnd5yXTvtORLSVFyxoEH6Hk; fund_trade_gps=2; VipLevel=0; TradeLoginToken=bfa809c96e9d4ae0a1ee3199f41ff0d7; UTOKEN=F9hTZSvNjorbxB4PH59LnFeesnELgweJ8Z0GqsYGvPpVF+o1Gqf/tzN8TsClhi3y37Zasv87QEEavKhNZuGrXyHixR1qQbC0UrF5LJojaAsi7LPlzTc=; LToken=2e71420320e04782bbb1b57bedaeedea; fund_trade_trackid=Km+o1W+7R+av3UuU8TSfYboeVkbsbxW/hRACLFRR6ZYSJ5SdvAHfHEHKcFf9gxy+C9OFOLLm8fAjs4il3kHHVg==; ASP.NET_SessionId=g3qc1ozvaqh32afovlmn4vib; __guid=26890232.840238135491018600.1610158880294.6384; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=2; st_psi=20210109102120590-0-4000482530; monitor_count=2";
 
 //        int showType = 1;
-        int showType =2;
+        int showType = 2;
+
+        String startDate = "2020-10-09";
+        String endDate = "2021-12-31";
 
         if (showType == 1) {
 //        //显示插入数据库语句
-            String insertStartDate = "2021-01-09";
-            String startDate = "2020-10-09";
-            String endDate = "2021-12-31";
+            String insertStartDate = "2021-01-12";
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String bizTypeRedem = "2";//0-全部;1-申购;2-卖出;
             showInsertDb(cookie, insertStartDate, endDate, bizTypeBuy);
@@ -43,16 +44,14 @@ public class TradeDemo {
         }
 
         if (showType == 2) {
-            String startDate = "2020-10-09";
-            String endDate = "2021-12-31";
             String bizType = "1";
             //        // 更新最新净值-限定时间段的最大最小净值
 //            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,1);
-            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,30);
-            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,60);
-            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,90);
-            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,180);
-            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,360);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 30);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 60);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 90);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 180);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 360);
 
 //            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, "1",7);
 
@@ -149,7 +148,7 @@ public class TradeDemo {
             return;
         }
 
-        List<String> typeListXiaoFei= new ArrayList<>();
+        List<String> typeListXiaoFei = new ArrayList<>();
         typeListXiaoFei.add("005621|中欧品质消费股票C");
         typeListXiaoFei.add("161810|银华内需精选混合(LOF)");
         typeListXiaoFei.add("110022|易方达消费行业股票");
@@ -162,7 +161,7 @@ public class TradeDemo {
             return;
         }
 
-        List<String> typeListYiLiao= new ArrayList<>();
+        List<String> typeListYiLiao = new ArrayList<>();
         typeListYiLiao.add("003096|中欧医疗健康混合C");
         typeListYiLiao.add("005967|鹏华创新驱动混合");
         if (typeListYiLiao.contains(fundTrade.getFundInfo())) {
@@ -212,7 +211,7 @@ public class TradeDemo {
             return;
         }
 
-        List<String> typeListJunGong= new ArrayList<>();
+        List<String> typeListJunGong = new ArrayList<>();
         typeListJunGong.add("164402|前海开源中航军工");
         if (typeListJunGong.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("军工");
@@ -222,7 +221,7 @@ public class TradeDemo {
         }
 
 
-        List<String> typeListNongYe= new ArrayList<>();
+        List<String> typeListNongYe = new ArrayList<>();
         typeListNongYe.add("001027|前海开源中证大农业指数增强");
         if (typeListNongYe.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("农业");
