@@ -26,8 +26,8 @@ public class SzzsData {
     public static void main(String[] args) {
         String cookie = "";//
         //k线
-        String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-        String dateType = "1";//1：一天;7:周;30:月;
+        String klt = "102";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
+        String dateType = "7";//1：一天;7:周;30:月;
         int count = 1;
         int lastCount = 2;
         kline(cookie, HS_300_000300, count, klt,dateType);//沪深300
@@ -364,9 +364,9 @@ public class SzzsData {
             url.append("&end=20500101");
             url.append("&lmt=1000");
             url.append("&_=1602168987942");
-            dbFieldRt = "rt_biz_qs_399975";
-            dbFieldNet = "pt_biz_qs_399975";
-            dbFieldCje = "cje_biz_qs_399975";
+            dbFieldRt = "rt_biz_qs";
+            dbFieldNet = "pt_biz_qs";
+            dbFieldCje = "cje_biz_qs";
         } else if ("".equals(zhiShu)) {
             url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
             url.append("&secid=" + zhiShu);

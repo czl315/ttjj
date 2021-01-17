@@ -26,12 +26,12 @@ public class TradeDemo {
 //        int showType = 1;
         int showType = 2;
 
-        String startDate = "2020-10-09";
+        String startDate = "2020-10-26";
         String endDate = "2021-12-31";
 
         if (showType == 1) {
 //        //显示插入数据库语句
-            String insertStartDate = "2021-01-12";
+            String insertStartDate = "2021-01-14";
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String bizTypeRedem = "2";//0-全部;1-申购;2-卖出;
             showInsertDb(cookie, insertStartDate, endDate, bizTypeBuy);
@@ -51,7 +51,7 @@ public class TradeDemo {
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 60);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 90);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 180);
-            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 360);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 365);
 
 //            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, "1",7);
 
@@ -134,13 +134,14 @@ public class TradeDemo {
         typeListKeJj.add("009314|广发双擎升级混合C");
         typeListKeJj.add("320007|诺安成长混合");
         typeListKeJj.add("001986|前海开源人工智能主题混合");
-        typeListKeJj.add("161028|富国中证新能源汽车指数");
+        typeListKeJj.add("161028|富国中证新能源汽车指数(LOF)");
         typeListKeJj.add("001606|农银工业4.0混合");
         typeListKeJj.add("008086|华夏中证5G通信主题ETF联接A");
         typeListKeJj.add("519005|海富通股票混合");
         typeListKeJj.add("000977|长城环保主题混合");
         typeListKeJj.add("163402|兴全趋势投资混合(LOF)");
         typeListKeJj.add("161903|万家行业优选混合(LOF)");
+        typeListKeJj.add("005969|创金合信工业周期股票C");
         if (typeListKeJj.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("科技");
             fundTrade.setRiskStLoss(baseRiskStLoss);
@@ -212,7 +213,7 @@ public class TradeDemo {
         }
 
         List<String> typeListJunGong = new ArrayList<>();
-        typeListJunGong.add("164402|前海开源中航军工");
+        typeListJunGong.add("164402|前海开源中航军工指数");
         if (typeListJunGong.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("军工");
             fundTrade.setRiskStLoss(baseRiskStLoss);
