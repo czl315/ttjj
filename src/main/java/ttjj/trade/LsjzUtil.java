@@ -95,7 +95,7 @@ public class LsjzUtil {
                 sb.append(" `NET_MAX_180`=" + maxJz + " ");
                 sb.append(" ,`NET_MIN_180`=" + minJz + " ");
             }
-            if (days == 360) {
+            if (days == 360 || days == 365) {
                 sb.append(" `NET_MAX_360`=" + maxJz + " ");
                 sb.append(" ,`NET_MIN_360`=" + minJz + " ");
             }

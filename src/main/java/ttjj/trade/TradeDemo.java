@@ -31,7 +31,7 @@ public class TradeDemo {
 
         if (showType == 1) {
 //        //显示插入数据库语句
-            String insertStartDate = "2021-01-14";
+            String insertStartDate = "2021-01-15";
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String bizTypeRedem = "2";//0-全部;1-申购;2-卖出;
             showInsertDb(cookie, insertStartDate, endDate, bizTypeBuy);
@@ -153,7 +153,7 @@ public class TradeDemo {
         typeListXiaoFei.add("005621|中欧品质消费股票C");
         typeListXiaoFei.add("161810|银华内需精选混合(LOF)");
         typeListXiaoFei.add("110022|易方达消费行业股票");
-        typeListXiaoFei.add("161725|招商中证白酒指数");
+        typeListXiaoFei.add("161725|招商中证白酒指数(LOF)");
         typeListXiaoFei.add("006308|汇添富全球消费混合人民币A");
         if (typeListXiaoFei.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("消费");
