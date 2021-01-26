@@ -26,12 +26,12 @@ public class TradeDemo {
 //        int showType = 1;
         int showType = 2;
 
-        String startDate = "2020-10-26";
+        String startDate = "2020-11-05";
         String endDate = "2021-12-31";
 
         if (showType == 1) {
 //        //显示插入数据库语句
-            String insertStartDate = "2021-01-16";
+            String insertStartDate = "2021-01-23";
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String bizTypeRedem = "2";//0-全部;1-申购;2-卖出;
             showInsertDb(cookie, insertStartDate, endDate, bizTypeBuy);
@@ -176,6 +176,7 @@ public class TradeDemo {
         typeListJinRong.add("167301|方正富邦保险主题指数");
         typeListJinRong.add("160633|鹏华中证全指证券公司指数(LOF)");
         typeListJinRong.add("161121|易方达中证银行指数(LOF)A");
+        typeListJinRong.add("160628|鹏华中证800地产指数(LOF)");
         if (typeListJinRong.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("金融");
             fundTrade.setRiskStLoss(baseRiskStLoss);
