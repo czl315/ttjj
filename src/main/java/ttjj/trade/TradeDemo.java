@@ -31,7 +31,7 @@ public class TradeDemo {
 
         if (showType == 1) {
 //        //显示插入数据库语句
-            String insertStartDate = "2021-01-23";
+            String insertStartDate = "2021-01-27";
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String bizTypeRedem = "2";//0-全部;1-申购;2-卖出;
             showInsertDb(cookie, insertStartDate, endDate, bizTypeBuy);
