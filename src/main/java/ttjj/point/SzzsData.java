@@ -1,4 +1,4 @@
-package ttjj.index;
+package ttjj.point;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -29,14 +29,14 @@ public class SzzsData {
         //k线
         String klt = "103";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
         String dateType = "30";//1：一天;7:周;30:月;
-        int count = 10;
+        int count = 13;
         int lastCount = 2;
         kline(cookie, HS_300_000300, count, klt,dateType);//沪深300
         System.out.println();
         kline(cookie, CYB_50_399673, count, klt, dateType);//创业板50
         System.out.println();
-//        kline(cookie, ZZ_500_000905, count, klt, dateType);//中证500
-//        System.out.println();
+        kline(cookie, ZZ_500_000905, count, klt, dateType);//中证500
+        System.out.println();
         kline(cookie, SH_50_000016, count, klt, dateType);//上证50
         System.out.println();
         kline(cookie, SHANG_HAI,count, klt, dateType);//上证
