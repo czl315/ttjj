@@ -55,7 +55,7 @@ FROM
 WHERE
 	1 = 1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
-	AND ol_fund_trade.TYPE = '申购' 
+	AND ol_fund_trade.TYPE in( '申购','申购(赎回中)') 
 -- AND ol_fund_trade.FD_INFO LIKE '%160633|鹏华证券分级%' 
 ORDER BY ol_fund_trade.TRADE_TIME ASC
 ;

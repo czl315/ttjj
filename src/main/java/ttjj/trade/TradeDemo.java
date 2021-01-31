@@ -31,7 +31,7 @@ public class TradeDemo {
 
         if (showType == 1) {
 //        //显示插入数据库语句
-            String insertStartDate = "2021-01-27";
+            String insertStartDate = "2021-01-29";
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String bizTypeRedem = "2";//0-全部;1-申购;2-卖出;
             showInsertDb(cookie, insertStartDate, endDate, bizTypeBuy);
@@ -46,7 +46,7 @@ public class TradeDemo {
         if (showType == 2) {
             String bizType = "1";
             //        // 更新最新净值-限定时间段的最大最小净值
-//            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,1);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,1);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 30);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 60);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 90);
@@ -142,6 +142,7 @@ public class TradeDemo {
         typeListKeJj.add("163402|兴全趋势投资混合(LOF)");
         typeListKeJj.add("161903|万家行业优选混合(LOF)");
         typeListKeJj.add("005969|创金合信工业周期股票C");
+        typeListKeJj.add("000594|大摩进取优选股票");
         if (typeListKeJj.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("科技");
             fundTrade.setRiskStLoss(baseRiskStLoss);
@@ -271,8 +272,10 @@ public class TradeDemo {
             System.out.println("UPDATE `ol_fund_trade` " +
                     "SET " +
                     " `LAST_NET`=" + lsjzDataLsjz.getDWJZ() + " " +
-                    ",`NET_MAX_1`=" + lsjzDataLsjz.getLJJZ() + " " +
-                    ",`NET_MIN_1`=" + lsjzDataLsjz.getLJJZ() + " " +
+//                    ",`NET_MAX_1`=" + lsjzDataLsjz.getLJJZ() + " " +
+//                    ",`NET_MIN_1`=" + lsjzDataLsjz.getLJJZ() + " " +
+                    ",`NET_MAX_1`=" + lsjzDataLsjz.getDWJZ() + " " +
+                    ",`NET_MIN_1`=" + lsjzDataLsjz.getDWJZ() + " " +
                     ",`LAST_DATE`='" + lsjzDataLsjz.getFSRQ() + "' " +
                     "WHERE  `FD_INFO` = '" + fundTrade.getFundInfo() + "' " +
 //                        "AND (`TYPE` = '申购' OR `TYPE` = '申购(赎回中)')"+

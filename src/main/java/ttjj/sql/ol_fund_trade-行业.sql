@@ -179,6 +179,7 @@ SELECT 	ol_fund_trade.FD_INFO AS 计划卖出基金
 	WHERE 1=1
 	AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'
 	AND ol_fund_trade.TYPE = '申购'
-	AND ol_fund_trade.FD_INFO in( '161903|万家行业优选混合(LOF)','005967|鹏华创新驱动混合','005621|中欧品质消费股票C')
+	AND ol_fund_trade.FD_INFO in( '160628|鹏华中证800地产指数(LOF)','161121|易方达中证银行指数(LOF)A','167301|方正富邦保险主题指数'
+			,'008086|华夏中证5G通信主题ETF联接A','320007|诺安成长混合')
 ORDER BY 最新收益率 DESC
 ;

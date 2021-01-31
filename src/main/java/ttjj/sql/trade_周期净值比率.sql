@@ -14,7 +14,6 @@ SELECT
 	,ol_fund_trade.LAST_NET lastNet
 ,ol_fund_trade.NET_MAX_30 NET_MAX_30
 ,ol_fund_trade.NET_MAX_60 NET_MAX_60
-	,ol_fund_trade.TYPE
 	,ol_fund_trade.BIZ_TP
 FROM `ol_fund_trade` ol_fund_trade
 WHERE 	1 = 1 AND ol_fund_trade.SOURCE=3 AND ol_fund_trade.TRADE_TIME>='2020-01-01 00:00:00'

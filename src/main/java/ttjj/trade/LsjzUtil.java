@@ -119,8 +119,8 @@ public class LsjzUtil {
         Double lastDwjz = 0.0;
         for (LsjzDataLsjz lsjzDataLsjz : lsjzDataLsjzList) {
 //                    System.out.println(JSON.toJSONString(lsjzDataLsjz));
-//            String dwJz = lsjzDataLsjz.getDWJZ();//当晚净值
-            String dwJz = lsjzDataLsjz.getLJJZ();//累计净值
+            String dwJz = lsjzDataLsjz.getDWJZ();//当晚净值
+//            String dwJz = lsjzDataLsjz.getLJJZ();//累计净值
             if (StringUtils.isBlank(dwJz)) {
                 dwJz = "0";
             }
