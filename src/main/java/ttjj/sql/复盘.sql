@@ -38,7 +38,7 @@ SELECT
 FROM
 	`ol_fund_fupan`
 WHERE 1=1 
-	AND ol_fund_fupan.period = 30 
+	AND ol_fund_fupan.period = 1 
 -- 	AND ol_fund_fupan.TYPE=1
 ORDER BY ol_fund_fupan.`CODE` DESC ,ol_fund_fupan.ID DESC
 LIMIT 0,1000;
@@ -112,6 +112,7 @@ SELECT
 	,ol_fund_fupan.money_mlf
 	,ol_fund_fupan.money_mlf-ol_fund_fupan.money_nhg 逆回购差值
 	,ol_fund_fupan.rt_hs300
+,ol_fund_fupan.*
 FROM
 	`ol_fund_fupan`
 WHERE 1=1 
