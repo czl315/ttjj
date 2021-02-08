@@ -26,12 +26,12 @@ public class TradeDemo {
 //        int showType = 1;
         int showType = 2;
 
-        String startDate = "2020-11-05";
+        String startDate = "2020-11-16";
         String endDate = "2021-12-31";
 
         if (showType == 1) {
 //        //显示插入数据库语句
-            String insertStartDate = "2021-01-30";
+            String insertStartDate = "2021-02-05";
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String bizTypeRedem = "2";//0-全部;1-申购;2-卖出;
             showInsertDb(cookie, insertStartDate, endDate, bizTypeBuy);
@@ -120,6 +120,7 @@ public class TradeDemo {
         typeListZhiShu.add("110011|易方达中小盘混合");
         typeListZhiShu.add("481010|工银中小盘混合");
         typeListZhiShu.add("005827|易方达蓝筹精选混合");
+        typeListZhiShu.add("004408|招商深证100指数C");
         if (typeListZhiShu.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("指数");
             fundTrade.setRiskStLoss(baseRiskStLoss);
@@ -272,10 +273,10 @@ public class TradeDemo {
             System.out.println("UPDATE `ol_fund_trade` " +
                     "SET " +
                     " `LAST_NET`=" + lsjzDataLsjz.getDWJZ() + " " +
-//                    ",`NET_MAX_1`=" + lsjzDataLsjz.getLJJZ() + " " +
-//                    ",`NET_MIN_1`=" + lsjzDataLsjz.getLJJZ() + " " +
-                    ",`NET_MAX_1`=" + lsjzDataLsjz.getDWJZ() + " " +
-                    ",`NET_MIN_1`=" + lsjzDataLsjz.getDWJZ() + " " +
+                    ",`NET_MAX_1`=" + lsjzDataLsjz.getLJJZ() + " " +
+                    ",`NET_MIN_1`=" + lsjzDataLsjz.getLJJZ() + " " +
+//                    ",`NET_MAX_1`=" + lsjzDataLsjz.getDWJZ() + " " +
+//                    ",`NET_MIN_1`=" + lsjzDataLsjz.getDWJZ() + " " +
                     ",`LAST_DATE`='" + lsjzDataLsjz.getFSRQ() + "' " +
                     "WHERE  `FD_INFO` = '" + fundTrade.getFundInfo() + "' " +
 //                        "AND (`TYPE` = '申购' OR `TYPE` = '申购(赎回中)')"+

@@ -17,6 +17,8 @@ import java.util.*;
 public class LsjzUtil {
     static String keyRsMax = "rsMax";
     static String keyRsMin = "rsMin";
+    static String keyNewestDayNet = "rsNewestDayNet";
+    static String keyOldestDayNet = "rsOldestDayNet";
     static String keyLastDwjz = "lastDwjz";
 
     public static void main(String[] args) {
@@ -62,6 +64,8 @@ public class LsjzUtil {
             Map<String, Double> rs = handlerMaxJz(lsjzDataLsjzList);
             Double maxJz = rs.get(keyRsMax);
             Double minJz = rs.get(keyRsMin);
+//            Double maxJz = rs.get(keyNewestDayNet);
+//            Double minJz = rs.get(keyOldestDayNet);
 //            Double lastDwjz = rs.get(keyLastDwjz);
 //            System.out.println("最大净值：" + maxJz);
 //            System.out.println("最小净值：" + minJz);
@@ -117,16 +121,27 @@ public class LsjzUtil {
         Double rsMax = 0.0;
         Double rsMin = 0.0;
         Double lastDwjz = 0.0;
+        Double rsNewestDayNet = 0.0;
+        Double rsOldestDayNet = 0.0;
+        int curTempInt = 0;
         for (LsjzDataLsjz lsjzDataLsjz : lsjzDataLsjzList) {
 //                    System.out.println(JSON.toJSONString(lsjzDataLsjz));
-            String dwJz = lsjzDataLsjz.getDWJZ();//当晚净值
-//            String dwJz = lsjzDataLsjz.getLJJZ();//累计净值
+//            String dwJz = lsjzDataLsjz.getDWJZ();//当晚净值
+            String dwJz = lsjzDataLsjz.getLJJZ();//累计净值
+
             if (StringUtils.isBlank(dwJz)) {
                 dwJz = "0";
             }
             String fsrq = lsjzDataLsjz.getFSRQ();
 //            System.out.println("fsrq:" + fsrq + ",dwjzLong:" + dwJz);
             Double dwjzLong = Double.valueOf(dwJz);
+            if (curTempInt == 0) {//最新一天的净值
+                rsNewestDayNet = dwjzLong;
+            }
+            if (curTempInt == (lsjzDataLsjzList.size()-1)) {//最老一天的净值
+                rsOldestDayNet = dwjzLong;
+            }
+            curTempInt++;
             if (dwjzLong > rsMax) {
                 rsMax = dwjzLong;
             }
@@ -137,6 +152,8 @@ public class LsjzUtil {
         }
         rs.put(keyRsMax, rsMax);
         rs.put(keyRsMin, rsMin);
+        rs.put(keyNewestDayNet, rsNewestDayNet);
+        rs.put(keyOldestDayNet, rsOldestDayNet);
         rs.put(keyLastDwjz, lastDwjz);
         return rs;
     }
