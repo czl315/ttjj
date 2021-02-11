@@ -39,6 +39,7 @@ public class HttpUtil {
 //            connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             connection.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36");
             connection.setRequestProperty("Cookie", cookie);
+            connection.setConnectTimeout(100);
             // 建立实际的连接
             connection.connect();
 

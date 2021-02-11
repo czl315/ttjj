@@ -11,9 +11,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * 新品季
  */
-public class NhjXjkTyjSend extends TimerTask {
-    private final static Logger logger = Logger.getLogger(NhjXjkTyjSend.class);
-    private static int tempStep = 0;
+public class NhjXjkTyjSend400 extends TimerTask {
+    private final static Logger logger = Logger.getLogger(NhjXjkTyjSend400.class);
+    private static int tempStep = 490;//ok
 
 
 
@@ -24,21 +24,21 @@ public class NhjXjkTyjSend extends TimerTask {
      */
     public static void main(String[] args) {
         // 初始化延迟0ms开始执行，每隔200ms重新执行一次任务。
-        ScheduledExecutorService  pool = new ScheduledThreadPoolExecutor(1);
+        ScheduledExecutorService  pool = new ScheduledThreadPoolExecutor(10);
         pool.scheduleAtFixedRate(new Runnable() {
             public void run() {
                 // task to run goes here
-                for (int i = tempStep; i < 10; i++) {
-                    String url = "https://computerdigital.jd.com/admin/saveXjkTyjSendByBatchNum";
+//                for (int i = tempStep; i < 10; i++) {
+                    String url = "https://computerdigital.jd.com/admin/saveSignInUserNum";
                     StringBuffer urlParam = new StringBuffer();
                     urlParam.append("startAllPinKeyModNum="+tempStep+"&endAllPinKeyModNum="+tempStep);
                     String rs = HttpUtil.sendGet(url, urlParam.toString(), "");
                     System.out.println(rs);
                     tempStep++;
-                }
+//                }
 
             }
-        }, 0, 600, TimeUnit.SECONDS);
+        }, 0, 1, TimeUnit.SECONDS);
 
     }
 
