@@ -29,7 +29,7 @@ public class SzzsData {
         //k线
         String klt = "102";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
         String dateType = "7";//1：一天;7:周;30:月;
-        int count = 1;
+        int count = 5;
         int lastCount = 2;
         kline(cookie, HS_300_000300, count, klt,dateType);//沪深300
 //        System.out.println();
@@ -45,14 +45,14 @@ public class SzzsData {
 //        System.out.println();
         kline(cookie, CYB,count, klt, dateType);//创业板
         System.out.println();
-//        //k线（上一日期）
-        klineLast(cookie, HS_300_000300, lastCount, klt,dateType);//沪深300
-        klineLast(cookie, CYB_50_399673, lastCount, klt, dateType);//创业板50
-        klineLast(cookie, ZZ_500_000905, lastCount, klt, dateType);//中证500
-        klineLast(cookie, SH_50_000016, lastCount, klt, dateType);//上证50
-        klineLast(cookie, SHANG_HAI,lastCount, klt, dateType);//上证
-        klineLast(cookie, SHEN_ZHEN,lastCount, klt, dateType);//深证成指
-        klineLast(cookie, CYB,lastCount, klt, dateType);//创业板
+////        //k线（上一日期）
+//        klineLast(cookie, HS_300_000300, lastCount, klt,dateType);//沪深300
+//        klineLast(cookie, CYB_50_399673, lastCount, klt, dateType);//创业板50
+//        klineLast(cookie, ZZ_500_000905, lastCount, klt, dateType);//中证500
+//        klineLast(cookie, SH_50_000016, lastCount, klt, dateType);//上证50
+//        klineLast(cookie, SHANG_HAI,lastCount, klt, dateType);//上证
+//        klineLast(cookie, SHEN_ZHEN,lastCount, klt, dateType);//深证成指
+//        klineLast(cookie, CYB,lastCount, klt, dateType);//创业板
 //
 //        //k线-日线-行业指数
         kline(cookie, BIZ_QUANSHANG, count, klt, dateType);
