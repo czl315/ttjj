@@ -79,7 +79,7 @@ public class LsjzUtil {
             StringBuffer sb = new StringBuffer();
             sb.append("UPDATE `ol_fund_trade` ");
             sb.append("SET ");
-            if (days == 1) {
+            if (days == 1 || days == 0) {
                 sb.append(" `NET_MAX_1`=" + maxJz + " ");
                 sb.append(" ,`NET_MIN_1`=" + minJz + " ");
             }

@@ -31,7 +31,7 @@ public class TradeDemo {
 
         if (showType == 1) {
 //        //显示插入数据库语句
-            String insertStartDate = "2021-02-05";
+            String insertStartDate = "2021-02-10";
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String bizTypeRedem = "2";//0-全部;1-申购;2-卖出;
             showInsertDb(cookie, insertStartDate, endDate, bizTypeBuy);
@@ -46,7 +46,7 @@ public class TradeDemo {
         if (showType == 2) {
             String bizType = "1";
             //        // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,1);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,0);//0是今天，1是昨天
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 30);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 60);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 90);
@@ -108,19 +108,21 @@ public class TradeDemo {
     private static void handlerBizTp(FundTrade fundTrade) {
         double baseRiskStLoss = 0.95;
         double baseRiskStProfit = 1.15;
+
+        //指数
         List<String> typeListZhiShu = new ArrayList<>();
-        typeListZhiShu.add("110003|易方达上证50指数A");
-        typeListZhiShu.add("004746|易方达上证50指数C");
-        typeListZhiShu.add("002671|万家沪深300指数增强C");
+        typeListZhiShu.add("004746|易方达上证50增强C");
         typeListZhiShu.add("004789|富荣沪深300指数增强C");
+        typeListZhiShu.add("005827|易方达蓝筹精选混合");
         typeListZhiShu.add("001875|前海开源沪港深优势精选混合");
         typeListZhiShu.add("160420|华安创业板50指数");
-        typeListZhiShu.add("160637|鹏华创业板分级");
-        typeListZhiShu.add("009300|西部利得中证500指数增强C");
         typeListZhiShu.add("110011|易方达中小盘混合");
         typeListZhiShu.add("481010|工银中小盘混合");
-        typeListZhiShu.add("005827|易方达蓝筹精选混合");
         typeListZhiShu.add("004408|招商深证100指数C");
+        typeListZhiShu.add("009300|西部利得中证500指数增强C");
+        typeListZhiShu.add("160637|鹏华创业板分级");
+        typeListZhiShu.add("002671|万家沪深300指数增强C");
+        typeListZhiShu.add("110003|易方达上证50增强A");
         if (typeListZhiShu.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("指数");
             fundTrade.setRiskStLoss(baseRiskStLoss);
@@ -128,23 +130,24 @@ public class TradeDemo {
             return;
         }
 
-        List<String> typeListKeJj = new ArrayList<>();
-        typeListKeJj.add("002190|农银新能源主题");
-        typeListKeJj.add("004997|广发高端制造股票A");
-        typeListKeJj.add("519674|银河创新成长混合");
-        typeListKeJj.add("009314|广发双擎升级混合C");
-        typeListKeJj.add("320007|诺安成长混合");
-        typeListKeJj.add("001986|前海开源人工智能主题混合");
-        typeListKeJj.add("161028|富国中证新能源汽车指数(LOF)");
-        typeListKeJj.add("001606|农银工业4.0混合");
-        typeListKeJj.add("008086|华夏中证5G通信主题ETF联接A");
-        typeListKeJj.add("519005|海富通股票混合");
-        typeListKeJj.add("000977|长城环保主题混合");
-        typeListKeJj.add("163402|兴全趋势投资混合(LOF)");
-        typeListKeJj.add("161903|万家行业优选混合(LOF)");
-        typeListKeJj.add("005969|创金合信工业周期股票C");
-        typeListKeJj.add("000594|大摩进取优选股票");
-        if (typeListKeJj.contains(fundTrade.getFundInfo())) {
+        //科技
+        List<String> typeListKeJi = new ArrayList<>();
+        typeListKeJi.add("002190|农银新能源主题");
+        typeListKeJi.add("004997|广发高端制造股票A");
+        typeListKeJi.add("519674|银河创新成长混合");
+        typeListKeJi.add("009314|广发双擎升级混合C");
+        typeListKeJi.add("320007|诺安成长混合");
+        typeListKeJi.add("001986|前海开源人工智能主题混合");
+        typeListKeJi.add("161028|富国中证新能源汽车指数(LOF)");
+        typeListKeJi.add("001606|农银工业4.0混合");
+        typeListKeJi.add("008086|华夏中证5G通信主题ETF联接A");
+        typeListKeJi.add("519005|海富通股票混合");
+        typeListKeJi.add("000977|长城环保主题混合");
+        typeListKeJi.add("163402|兴全趋势投资混合(LOF)");
+        typeListKeJi.add("161903|万家行业优选混合(LOF)");
+        typeListKeJi.add("005969|创金合信工业周期股票C");
+        typeListKeJi.add("000594|大摩进取优选股票");
+        if (typeListKeJi.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("科技");
             fundTrade.setRiskStLoss(baseRiskStLoss);
             fundTrade.setRiskStProfit(baseRiskStProfit);
