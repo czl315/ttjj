@@ -17,23 +17,27 @@ import java.util.List;
  */
 public class FundRankDemo {
     public static void main(String[] args) {
-        listRank("", 20,"pg");
+        listRank("", 20, "pg","sc");
     }
 
     /**
      * 查询
-     *
-     * @param cookie cookie
-     * @param ft 类型
+     *  @param cookie cookie
+     * @param ft     类型：pg-偏股；
+     * @param sc 周期：r-日；z-周；
      */
-    public static void listRank(String cookie, int count, String ft) {
-        String url = "https://fundapi.eastmoney.com/fundtradenew.aspx";
-        StringBuffer urlParam = new StringBuffer();
-        if(StringUtils.isNotBlank(ft)){
-            urlParam.append("ft="+ft);
+    public static void listRank(String cookie, int count, String ft, String sc) {
+        String url = "https://fundapi.eastmoney.com/fundtradenew.aspx?";
+        if (StringUtils.isNotBlank(ft)) {
+            url = url + "ft=" + ft;
         }
-        urlParam.append("&sc=r&st=desc&pi=1&pn=100&cp=&ct=&cd=&ms=&fr=&plevel=&fst=&ftype=&fr1=&fl=0&isab=1");
-//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
+        if (StringUtils.isNotBlank(sc)) {
+            url = url + "sc=" + sc;
+        }
+        url = url + "&sc=r&st=desc&pi=1&pn=100&cp=&ct=&cd=&ms=&fr=&plevel=&fst=&ftype=&fr1=&fl=0&isab=1";
+        StringBuffer urlParam = new StringBuffer();
+//        urlParam.append("");
+        System.out.println("请求url:" + url);
         String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
 //        System.out.println("http-rs:"+rs);
         //返回数据转换为json格式
