@@ -25,8 +25,10 @@ public class FundRankDemo {
      * @param cookie
      */
     public static void listRank(String cookie, int count) {
-        String url = "https://fundapi.eastmoney.com/fundtradenew.aspx?ft=gp&sc=r&st=desc&pi=1&pn=100&cp=&ct=&cd=&ms=&fr=&plevel=&fst=&ftype=&fr1=&fl=0&isab=1";
+        String url = "https://fundapi.eastmoney.com/fundtradenew.aspx";
         StringBuffer urlParam = new StringBuffer();
+        urlParam.append("ft=gp" +
+                "&sc=r&st=desc&pi=1&pn=100&cp=&ct=&cd=&ms=&fr=&plevel=&fst=&ftype=&fr1=&fl=0&isab=1");
 //        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
         String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
 //        System.out.println("http-rs:"+rs);
@@ -45,7 +47,7 @@ public class FundRankDemo {
         int curNum = 1;
         for (int i = 0; i < klineList.size(); i++) {
             String objStr = klineList.get(i);
-            System.out.println("objStr:" + objStr);
+//            System.out.println("objStr:" + objStr);
             //161721|招商沪深300地产等权重指数|股票型|2021-02-25|0.8975|6.23|5.85|6.91|-1.98|-7.38|6.80|18.84|7.81|4.51|45.33|3|1|1|0.10|0||050,051,054|1|1|100元|1.00%|0.10%|0.10%|1
             String[] klineArray = objStr.split("\\|");
             FundRank fundRank = new FundRank();
@@ -64,22 +66,22 @@ public class FundRankDemo {
             fundRank.setGrowth1080(klineArray[12]);
             fundRank.setGrowthCurYear(klineArray[13]);
             fundRank.setGrowthEstablish(klineArray[14]);
-            System.out.print("num:" + curNum + ",\t");
-            System.out.print("代码:" + fundRank.getFundCode() + ",\t");
-            System.out.print("名称:" + fundRank.getFundInfo() + ",\t\t");
-            System.out.print("类型:" + fundRank.getBizTy() + ",\t");
-            System.out.print("日期:" + fundRank.getPeriodDate() + ",\t");
-            System.out.print("净值:" + fundRank.getNet() + ",\t");
-            System.out.print("日增长率:" + fundRank.getGrowth1() + ",\t");
-            System.out.print("近一周:" + fundRank.getGrowth7() + ",\t");
-            System.out.print("近一月:" + fundRank.getGrowth30() + ",\t");
-            System.out.print("近三月:" + fundRank.getGrowth90() + ",\t");
-            System.out.print("近六月:" + fundRank.getGrowth180() + ",\t");
-            System.out.print("近一年:" + fundRank.getGrowth360() + ",\t");
-            System.out.print("近两年:" + fundRank.getGrowth720() + ",\t");
-            System.out.print("近三年:" + fundRank.getGrowth1080() + ",\t");
-            System.out.print("今年:" + fundRank.getGrowthCurYear() + ",\t");
-            System.out.print("成立来:" + fundRank.getGrowthEstablish() + ",\t");
+            System.out.print("" + curNum + ",");
+            System.out.print("日增长率:" + fundRank.getGrowth1() + ",");
+            System.out.print("近一周:" + fundRank.getGrowth7() + ",");
+            System.out.print("近一月:" + fundRank.getGrowth30() + ",");
+            System.out.print("近三月:" + fundRank.getGrowth90() + ",");
+            System.out.print("近六月:" + fundRank.getGrowth180() + ",");
+            System.out.print("近一年:" + fundRank.getGrowth360() + ",");
+            System.out.print("近两年:" + fundRank.getGrowth720() + ",");
+            System.out.print("近三年:" + fundRank.getGrowth1080() + ",");
+            System.out.print("今年:" + fundRank.getGrowthCurYear() + ",");
+            System.out.print("成立来:" + fundRank.getGrowthEstablish() + ",");
+            System.out.print("代码:" + fundRank.getFundCode() + ",");
+            System.out.print("名称:" + fundRank.getFundInfo() + ",\t");
+            System.out.print("类型:" + fundRank.getBizTy() + ",");
+            System.out.print("日期:" + fundRank.getPeriodDate() + ",");
+            System.out.print("净值:" + fundRank.getNet() + ",");
             System.out.println();
             if (curNum == count) {
                 break;
