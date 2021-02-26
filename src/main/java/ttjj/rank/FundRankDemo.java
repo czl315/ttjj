@@ -2,6 +2,7 @@ package ttjj.rank;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import org.apache.commons.lang3.StringUtils;
 import ttjj.dto.FundRank;
 import utils.HttpUtil;
 
@@ -16,19 +17,22 @@ import java.util.List;
  */
 public class FundRankDemo {
     public static void main(String[] args) {
-        listRank("", 10);
+        listRank("", 20,"");
     }
 
     /**
      * 查询
      *
-     * @param cookie
+     * @param cookie cookie
+     * @param ft 类型
      */
-    public static void listRank(String cookie, int count) {
+    public static void listRank(String cookie, int count, String ft) {
         String url = "https://fundapi.eastmoney.com/fundtradenew.aspx";
         StringBuffer urlParam = new StringBuffer();
-        urlParam.append("ft=gp" +
-                "&sc=r&st=desc&pi=1&pn=100&cp=&ct=&cd=&ms=&fr=&plevel=&fst=&ftype=&fr1=&fl=0&isab=1");
+        if(StringUtils.isNotBlank(ft)){
+            urlParam.append("ft="+ft);
+        }
+        urlParam.append("&sc=r&st=desc&pi=1&pn=100&cp=&ct=&cd=&ms=&fr=&plevel=&fst=&ftype=&fr1=&fl=0&isab=1");
 //        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
         String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
 //        System.out.println("http-rs:"+rs);
