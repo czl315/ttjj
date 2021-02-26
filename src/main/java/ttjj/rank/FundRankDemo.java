@@ -6,8 +6,11 @@ import org.apache.commons.lang3.StringUtils;
 import ttjj.dto.FundRank;
 import utils.HttpUtil;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 基金排行
@@ -20,14 +23,15 @@ public class FundRankDemo {
         /**
          * 列表查询-排行榜
          */
-        listRank("", 20, "pg","r");
+//        listRank("", 50, "pg","ln");//成立
+        listRank("", 50, "pg","jn");//今年
     }
 
     /**
      * 查询
      *  @param cookie cookie
      * @param ft     类型：pg-偏股；
-     * @param sc 周期：r-日；z-周；
+     * @param sc 周期：r-日；z-周；y-月；3y-3月；6y-6月；1n-1年；jn-今年；ln-成立；
      */
     public static void listRank(String cookie, int count, String ft, String sc) {
         String url = "https://fundapi.eastmoney.com/fundtradenew.aspx?";
@@ -55,6 +59,7 @@ public class FundRankDemo {
         }
 
         //
+        List<FundRank> fundRankList = new ArrayList<>();
         int curNum = 1;
         for (int i = 0; i < klineList.size(); i++) {
             String objStr = klineList.get(i);
@@ -62,13 +67,15 @@ public class FundRankDemo {
             //161721|招商沪深300地产等权重指数|股票型|2021-02-25|0.8975|6.23|5.85|6.91|-1.98|-7.38|6.80|18.84|7.81|4.51|45.33|3|1|1|0.10|0||050,051,054|1|1|100元|1.00%|0.10%|0.10%|1
             String[] klineArray = objStr.split("\\|");
             FundRank fundRank = new FundRank();
+            fundRank.setNum(curNum);
+            fundRank.setPeriodTy(sc);
             fundRank.setFundCode(klineArray[0]);
             fundRank.setFundInfo(klineArray[1]);
             fundRank.setBizTy(klineArray[2]);
             fundRank.setPeriodDate(klineArray[3]);
             fundRank.setNet(klineArray[4]);
             fundRank.setGrowth1(klineArray[5]);
-            fundRank.setGrowth7(klineArray[6]);
+            fundRank.setGrowth7(new BigDecimal(klineArray[6]));
             fundRank.setGrowth30(klineArray[7]);
             fundRank.setGrowth90(klineArray[8]);
             fundRank.setGrowth180(klineArray[9]);
@@ -77,28 +84,56 @@ public class FundRankDemo {
             fundRank.setGrowth1080(klineArray[12]);
             fundRank.setGrowthCurYear(klineArray[13]);
             fundRank.setGrowthEstablish(klineArray[14]);
-            System.out.print("" + curNum + ",");
-            System.out.print("日增长率:" + fundRank.getGrowth1() + ",");
-            System.out.print("近一周:" + fundRank.getGrowth7() + ",");
-            System.out.print("近一月:" + fundRank.getGrowth30() + ",");
-            System.out.print("近三月:" + fundRank.getGrowth90() + ",");
-            System.out.print("近六月:" + fundRank.getGrowth180() + ",");
-            System.out.print("近一年:" + fundRank.getGrowth360() + ",");
-            System.out.print("近两年:" + fundRank.getGrowth720() + ",");
-            System.out.print("近三年:" + fundRank.getGrowth1080() + ",");
-            System.out.print("今年:" + fundRank.getGrowthCurYear() + ",");
-            System.out.print("成立来:" + fundRank.getGrowthEstablish() + ",");
-            System.out.print("代码:" + fundRank.getFundCode() + ",");
-            System.out.print("名称:" + fundRank.getFundInfo() + ",\t");
-            System.out.print("类型:" + fundRank.getBizTy() + ",");
-            System.out.print("日期:" + fundRank.getPeriodDate() + ",");
-            System.out.print("净值:" + fundRank.getNet() + ",");
-            System.out.println();
+
+            fundRankList.add(fundRank);
+
+//            System.out.print("" + fundRank.getNum() + ",\t");
+//            System.out.print("日增:" + fundRank.getGrowth1() + ",\t");
+//            System.out.print("近一周:" + fundRank.getGrowth7() + ",\t");
+//            System.out.print("近一月:" + fundRank.getGrowth30() + ",\t");
+//            System.out.print("近三月:" + fundRank.getGrowth90() + ",");
+//            System.out.print("近六月:" + fundRank.getGrowth180() + ",");
+//            System.out.print("近一年:" + fundRank.getGrowth360() + ",");
+////            System.out.print("近两年:" + fundRank.getGrowth720() + ",");
+////            System.out.print("近三年:" + fundRank.getGrowth1080() + ",");
+//            System.out.print("今年:" + fundRank.getGrowthCurYear() + ",");
+//            System.out.print("成立来:" + fundRank.getGrowthEstablish() + ",");
+//            System.out.print("代码:" + fundRank.getFundCode() + ",");
+//            System.out.print("名称:" + fundRank.getFundInfo() + ",\t");
+//            System.out.print("类型:" + fundRank.getBizTy() + ",");
+////            System.out.print("日期:" + fundRank.getPeriodDate() + ",");
+//            System.out.print("净值:" + fundRank.getNet() + ",");
+////            System.out.print("周期类型:" + fundRank.getPeriodTy() + ",");
+//            System.out.println();
+
+            //显示数量限定
             if (curNum == count) {
                 break;
             }
             curNum++;
         }
+
+        List<FundRank> filterSortedRs = fundRankList.stream().filter(e -> e.getGrowthEstablish()!=null).sorted(Comparator.comparing(FundRank::getGrowth7)) .collect(Collectors.toList());
+        filterSortedRs.stream().forEach(fundRank -> {
+            System.out.print("" + fundRank.getNum() + ",\t");
+            System.out.print("日增:" + fundRank.getGrowth1() + ",\t");
+            System.out.print("近一周:" + fundRank.getGrowth7() + ",\t");
+            System.out.print("近一月:" + fundRank.getGrowth30() + ",\t");
+            System.out.print("近三月:" + fundRank.getGrowth90() + ",");
+            System.out.print("近六月:" + fundRank.getGrowth180() + ",");
+            System.out.print("近一年:" + fundRank.getGrowth360() + ",");
+//            System.out.print("近两年:" + fundRank.getGrowth720() + ",");
+//            System.out.print("近三年:" + fundRank.getGrowth1080() + ",");
+            System.out.print("今年:" + fundRank.getGrowthCurYear() + ",");
+            System.out.print("成立来:" + fundRank.getGrowthEstablish() + ",");
+            System.out.print("代码:" + fundRank.getFundCode() + ",");
+            System.out.print("名称:" + fundRank.getFundInfo() + ",\t");
+            System.out.print("类型:" + fundRank.getBizTy() + ",");
+//            System.out.print("日期:" + fundRank.getPeriodDate() + ",");
+            System.out.print("净值:" + fundRank.getNet() + ",");
+//            System.out.print("周期类型:" + fundRank.getPeriodTy() + ",");
+            System.out.println();
+        });
     }
 
 

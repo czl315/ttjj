@@ -1,5 +1,7 @@
 package ttjj.dto;
 
+import java.math.BigDecimal;
+
 /**
  * 基金涨跌排行
  * https://fundapi.eastmoney.com/fundtradenew.aspx?ft=gp&sc=r&st=desc&pi=1&pn=100&cp=&ct=&cd=&ms=&fr=&plevel=&fst=&ftype=&fr1=&fl=0&isab=1
@@ -31,6 +33,10 @@ public class FundRank {
      */
     private String periodDate;
     /**
+     * periodDate 周期类型
+     */
+    private String periodTy;
+    /**
      * net 确认净值
      */
     private String net;
@@ -41,7 +47,7 @@ public class FundRank {
     /**
      * growthDay 增长率-周
      */
-    private String growth7;
+    private BigDecimal growth7;
     /**
      * growthDay 增长率-1个月
      */
@@ -74,10 +80,6 @@ public class FundRank {
      * growthDay 增长率-成立
      */
     private String growthEstablish;
-    /**
-     * serverCharge 手续费
-     */
-    private String serverCharge;
 
     public int getNum() {
         return num;
@@ -143,11 +145,11 @@ public class FundRank {
         this.growth1 = growth1;
     }
 
-    public String getGrowth7() {
+    public BigDecimal getGrowth7() {
         return growth7;
     }
 
-    public void setGrowth7(String growth7) {
+    public void setGrowth7(BigDecimal growth7) {
         this.growth7 = growth7;
     }
 
@@ -207,19 +209,19 @@ public class FundRank {
         this.growthEstablish = growthEstablish;
     }
 
-    public String getServerCharge() {
-        return serverCharge;
-    }
-
-    public void setServerCharge(String serverCharge) {
-        this.serverCharge = serverCharge;
-    }
-
     public String getGrowth180() {
         return growth180;
     }
 
     public void setGrowth180(String growth180) {
         this.growth180 = growth180;
+    }
+
+    public String getPeriodTy() {
+        return periodTy;
+    }
+
+    public void setPeriodTy(String periodTy) {
+        this.periodTy = periodTy;
     }
 }
