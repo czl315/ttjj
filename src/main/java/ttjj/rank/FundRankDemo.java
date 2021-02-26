@@ -35,9 +35,9 @@ public class FundRankDemo {
             url = url + "ft=" + ft;
         }
         if (StringUtils.isNotBlank(sc)) {
-            url = url + "sc=" + sc;
+            url = url + "&sc=" + sc;
         }
-        url = url + "&sc=r&st=desc&pi=1&pn=100&cp=&ct=&cd=&ms=&fr=&plevel=&fst=&ftype=&fr1=&fl=0&isab=1";
+        url = url + "&st=desc&pi=1&pn=100&cp=&ct=&cd=&ms=&fr=&plevel=&fst=&ftype=&fr1=&fl=0&isab=1";
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("");
         System.out.println("请求url:" + url);

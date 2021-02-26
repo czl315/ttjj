@@ -11,6 +11,10 @@ public class FundRank {
      */
     private int id;
     /**
+     * num 排名号
+     */
+    private int num;
+    /**
      * 基金编码
      */
     private String fundCode;
@@ -74,6 +78,14 @@ public class FundRank {
      * serverCharge 手续费
      */
     private String serverCharge;
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
 
     public int getId() {
         return id;
