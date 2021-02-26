@@ -24,7 +24,15 @@ public class FundRankDemo {
          * 列表查询-排行榜
          */
 //        listRank("", 50, "pg","ln");//成立
-        listRank("", 100, "pg", "jn");//今年
+//        listRank("", 100, "pg", "jn");
+//        //股票-今年
+//        listRank("", 100, "gp", "jn");
+//        //混合-今年
+//        listRank("", 100, "hh", "jn");
+        //指数-今年
+        listRank("", 100, "zs", "jn");
+        //qdii-今年
+        listRank("", 100, "qdii", "jn");
     }
 
     /**
@@ -84,7 +92,10 @@ public class FundRankDemo {
             fundRank.setGrowth720(StringUtils.isNotBlank(klineArray[11]) ? new BigDecimal(klineArray[11]) : null);
             fundRank.setGrowth1080(StringUtils.isNotBlank(klineArray[12]) ? new BigDecimal(klineArray[12]) : null);
             fundRank.setGrowthCurYear(StringUtils.isNotBlank(klineArray[13]) ? new BigDecimal(klineArray[13]) : null);
-            fundRank.setGrowthEstablish(StringUtils.isNotBlank(klineArray[14]) ? new BigDecimal(klineArray[14]) : null);
+            fundRank.setGrowthEstablish(StringUtils.isNotBlank(klineArray[14]) ? new BigDecimal(klineArray[14].replace(",","")) : null);
+//            if(curNum == 90){
+//                System.out.println("");
+//            }
 
             fundRankList.add(fundRank);
 
