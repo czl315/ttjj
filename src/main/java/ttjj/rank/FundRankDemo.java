@@ -17,7 +17,10 @@ import java.util.List;
  */
 public class FundRankDemo {
     public static void main(String[] args) {
-        listRank("", 20, "pg","sc");
+        /**
+         * 列表查询-排行榜
+         */
+        listRank("", 20, "pg","r");
     }
 
     /**
