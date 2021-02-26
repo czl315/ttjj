@@ -43,7 +43,7 @@ public class FundRank {
     /**
      * growthDay 增长率-日
      */
-    private String growth1;
+    private BigDecimal growth1;
     /**
      * growthDay 增长率-周
      */
@@ -51,43 +51,35 @@ public class FundRank {
     /**
      * growthDay 增长率-1个月
      */
-    private String growth30;
+    private BigDecimal growth30;
     /**
      * growthDay 增长率
      */
-    private String growth90;
+    private BigDecimal growth90;
     /**
      * growthDay 增长率
      */
-    private String growth180;
+    private BigDecimal growth180;
     /**
      * growthDay 增长率
      */
-    private String growth360;
+    private BigDecimal growth360;
     /**
      * growthDay 增长率
      */
-    private String growth720;
+    private BigDecimal growth720;
     /**
      * growthDay 增长率
      */
-    private String growth1080;
+    private BigDecimal growth1080;
     /**
      * growthDay 增长率-今年
      */
-    private String growthCurYear;
+    private BigDecimal growthCurYear;
     /**
      * growthDay 增长率-成立
      */
-    private String growthEstablish;
-
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
-    }
+    private BigDecimal growthEstablish;
 
     public int getId() {
         return id;
@@ -95,6 +87,14 @@ public class FundRank {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public String getFundCode() {
@@ -129,6 +129,14 @@ public class FundRank {
         this.periodDate = periodDate;
     }
 
+    public String getPeriodTy() {
+        return periodTy;
+    }
+
+    public void setPeriodTy(String periodTy) {
+        this.periodTy = periodTy;
+    }
+
     public String getNet() {
         return net;
     }
@@ -137,11 +145,11 @@ public class FundRank {
         this.net = net;
     }
 
-    public String getGrowth1() {
+    public BigDecimal getGrowth1() {
         return growth1;
     }
 
-    public void setGrowth1(String growth1) {
+    public void setGrowth1(BigDecimal growth1) {
         this.growth1 = growth1;
     }
 
@@ -153,75 +161,67 @@ public class FundRank {
         this.growth7 = growth7;
     }
 
-    public String getGrowth30() {
+    public BigDecimal getGrowth30() {
         return growth30;
     }
 
-    public void setGrowth30(String growth30) {
+    public void setGrowth30(BigDecimal growth30) {
         this.growth30 = growth30;
     }
 
-    public String getGrowth90() {
+    public BigDecimal getGrowth90() {
         return growth90;
     }
 
-    public void setGrowth90(String growth90) {
+    public void setGrowth90(BigDecimal growth90) {
         this.growth90 = growth90;
     }
 
-    public String getGrowth360() {
-        return growth360;
-    }
-
-    public void setGrowth360(String growth360) {
-        this.growth360 = growth360;
-    }
-
-    public String getGrowth720() {
-        return growth720;
-    }
-
-    public void setGrowth720(String growth720) {
-        this.growth720 = growth720;
-    }
-
-    public String getGrowth1080() {
-        return growth1080;
-    }
-
-    public void setGrowth1080(String growth1080) {
-        this.growth1080 = growth1080;
-    }
-
-    public String getGrowthCurYear() {
-        return growthCurYear;
-    }
-
-    public void setGrowthCurYear(String growthCurYear) {
-        this.growthCurYear = growthCurYear;
-    }
-
-    public String getGrowthEstablish() {
-        return growthEstablish;
-    }
-
-    public void setGrowthEstablish(String growthEstablish) {
-        this.growthEstablish = growthEstablish;
-    }
-
-    public String getGrowth180() {
+    public BigDecimal getGrowth180() {
         return growth180;
     }
 
-    public void setGrowth180(String growth180) {
+    public void setGrowth180(BigDecimal growth180) {
         this.growth180 = growth180;
     }
 
-    public String getPeriodTy() {
-        return periodTy;
+    public BigDecimal getGrowth360() {
+        return growth360;
     }
 
-    public void setPeriodTy(String periodTy) {
-        this.periodTy = periodTy;
+    public void setGrowth360(BigDecimal growth360) {
+        this.growth360 = growth360;
+    }
+
+    public BigDecimal getGrowth720() {
+        return growth720;
+    }
+
+    public void setGrowth720(BigDecimal growth720) {
+        this.growth720 = growth720;
+    }
+
+    public BigDecimal getGrowth1080() {
+        return growth1080;
+    }
+
+    public void setGrowth1080(BigDecimal growth1080) {
+        this.growth1080 = growth1080;
+    }
+
+    public BigDecimal getGrowthCurYear() {
+        return growthCurYear;
+    }
+
+    public void setGrowthCurYear(BigDecimal growthCurYear) {
+        this.growthCurYear = growthCurYear;
+    }
+
+    public BigDecimal getGrowthEstablish() {
+        return growthEstablish;
+    }
+
+    public void setGrowthEstablish(BigDecimal growthEstablish) {
+        this.growthEstablish = growthEstablish;
     }
 }
