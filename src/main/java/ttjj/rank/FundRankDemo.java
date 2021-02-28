@@ -24,15 +24,55 @@ public class FundRankDemo {
          * 列表查询-排行榜
          */
 //        listRank("", 50, "pg","ln");//成立
-//        listRank("", 100, "pg", "jn");
-//        //股票-今年
-//        listRank("", 100, "gp", "jn");
-//        //混合-今年
-//        listRank("", 100, "hh", "jn");
-        //指数-今年
-        listRank("", 100, "zs", "jn");
-        //qdii-今年
-        listRank("", 100, "qdii", "jn");
+
+//        //今年
+//        listRank("", 100, "pg", "jn");//偏股-今年
+//        listRank("", 100, "gp", "jn");//股票-今年
+//        listRank("", 100, "hh", "jn");//混合-今年
+//        listRank("", 100, "zs", "jn");//指数-今年
+//        listRank("", 100, "qdii", "jn");//qdii-今年
+
+//        //近一天
+//        listRank("", 100, "pg", "r");//偏股-今年
+//        listRank("", 100, "gp", "r");//股票-今年
+//        listRank("", 100, "hh", "r");//混合-今年
+//        listRank("", 100, "zs", "r");//指数-今年
+//        listRank("", 100, "qdii", "r");//qdii-今年
+
+//        //近一周
+//        listRank("", 100, "pg", "z");//偏股-今年
+//        listRank("", 100, "gp", "z");//股票-今年
+//        listRank("", 100, "hh", "z");//混合-今年
+//        listRank("", 100, "zs", "z");//指数-今年
+//        listRank("", 100, "qdii", "z");//qdii-今年
+
+//        //近一月
+//        listRank("", 100, "pg", "y");//偏股-今年
+//        listRank("", 100, "gp", "y");//股票-今年
+//        listRank("", 100, "hh", "y");//混合-今年
+//        listRank("", 100, "zs", "y");//指数-今年
+//        listRank("", 100, "qdii", "y");//qdii-今年
+
+//        //近3月
+//        listRank("", 100, "pg", "3y");//偏股-今年
+//        listRank("", 100, "gp", "3y");//股票-今年
+//        listRank("", 100, "hh", "3y");//混合-今年
+//        listRank("", 100, "zs", "3y");//指数-今年
+//        listRank("", 100, "qdii", "3y");//qdii-今年
+
+//        //近3月
+//        listRank("", 100, "pg", "6y");//偏股-今年
+//        listRank("", 100, "gp", "6y");//股票-今年
+//        listRank("", 100, "hh", "6y");//混合-今年
+//        listRank("", 100, "zs", "6y");//指数-今年
+//        listRank("", 100, "qdii", "6y");//qdii-今年
+
+        //近3月
+        listRank("", 100, "pg", "1n");//偏股-今年
+        listRank("", 100, "gp", "1n");//股票-今年
+        listRank("", 100, "hh", "1n");//混合-今年
+        listRank("", 100, "zs", "1n");//指数-今年
+        listRank("", 100, "qdii", "1n");//qdii-今年
     }
 
     /**

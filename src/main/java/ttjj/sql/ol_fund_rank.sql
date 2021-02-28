@@ -22,11 +22,11 @@ DROP TABLE IF EXISTS `ol_fund_rank`;
 CREATE TABLE `ol_fund_rank` (
   `id` int NOT NULL AUTO_INCREMENT,
   `num` int DEFAULT NULL COMMENT '排名号',
-  `fundCode` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '基金编码',
-  `fundInfo` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `bizTy` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `periodTy` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '周期类型',
-  `periodDate` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `fundCode` varchar(20)  DEFAULT NULL COMMENT '基金编码',
+  `fundInfo` varchar(100)  DEFAULT NULL,
+  `bizTy` varchar(10)  DEFAULT NULL,
+  `periodTy` varchar(255)  DEFAULT NULL COMMENT '周期类型',
+  `periodDate` varchar(20)  DEFAULT NULL,
   `net` varchar(255) DEFAULT NULL,
   `growth1` varchar(255) DEFAULT NULL,
   `growth7` varchar(255) DEFAULT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE `ol_fund_rank` (
   `growthEstablish` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `mulUni` (`periodDate`,`periodTy`,`fundCode`,`bizTy`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8mb4 ;
 
 -- ----------------------------
 -- Records of ol_fund_rank
