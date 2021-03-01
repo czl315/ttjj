@@ -1,0 +1,5 @@
+2021-03-01:
+1、交易，demo：增加最近7天、最近14天的最大净值、最小净值。、sql：增加相关字段：NET_MAX_7、NET_MIN_7、NET_MAX_14、NET_MIN_14。
+2、交易，sql：查询最近n天的涨幅。
+3、交易，sql：增加相关字段：增加买入理由-reason_buy、卖出理由-reason_sell、买卖经验-reason_ex。
+4、查询主题排名

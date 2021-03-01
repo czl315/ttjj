@@ -83,6 +83,14 @@ public class LsjzUtil {
                 sb.append(" `NET_MAX_1`=" + maxJz + " ");
                 sb.append(" ,`NET_MIN_1`=" + minJz + " ");
             }
+            if (days == 7) {
+                sb.append(" `NET_MAX_7`=" + maxJz + " ");
+                sb.append(" ,`NET_MIN_7`=" + minJz + " ");
+            }
+            if (days == 14) {
+                sb.append(" `NET_MAX_14`=" + maxJz + " ");
+                sb.append(" ,`NET_MIN_14`=" + minJz + " ");
+            }
             if (days == 30) {
                 sb.append(" `NET_MAX_30`=" + maxJz + " ");
                 sb.append(" ,`NET_MIN_30`=" + minJz + " ");
