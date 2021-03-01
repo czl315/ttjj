@@ -17,8 +17,8 @@ public class TopicRank {
     public static void main(String[] args) {
         int endCount = 10;//显示数量
 
-//        String findDateType ="SYL_Z";//查询类型 SYL_D:日；SYL_Z：周；SYL_Y：月；SYL_3Y：季；SYL_6Y：半年；SYL_1N：1年；SYL_JN：今年；
-        String findDateType ="SYL_W";//查询类型 SYL_D:日；SYL_W：周；SYL_Y：月；SYL_3Y：季；SYL_6Y：半年；SYL_1N：1年；SYL_JN：今年；
+        String findDateType ="SYL_Z";//查询类型 SYL_D:日；SYL_Z：周；SYL_Y：月；SYL_3Y：季；SYL_6Y：半年；SYL_1N：1年；SYL_JN：今年；
+//        String findDateType ="SYL_W";//查询类型 SYL_D:日；SYL_W：周；SYL_Y：月；SYL_3Y：季；SYL_6Y：半年；SYL_1N：1年；SYL_JN：今年；
         System.out.println("查询主题排名:");
         findTtjjTopicByYesterday(findDateType,endCount);//查询主题排名by时间类型、显示个数
 //        System.out.println("查询主题排名-周:");
@@ -44,16 +44,17 @@ public class TopicRank {
     private static void findTtjjTopicByYesterday(String findDateType, int endCount) {
         //查询日  ：https://fundztapi.eastmoney.com/fundspecialapi/fundspecialfundtopiclist.ashx?callback=jQuery31107334621007101361_1591854447815&callbackname=fundData&sort=SYL_D&sorttype=desc&pageindex=1&pagesize=500&dt=11&tt=0&rs=WRANK&_=1591854447818
         //查询周  ：https://fundztapi.eastmoney.com/fundspecialapi/fundspecialfundtopiclist.ashx?callback=jQuery3110927108387611935_1591854756830 &callbackname=fundData&sort=SYL_Z&sorttype=desc&pageindex=1&pagesize=500&dt=11&tt=0&rs=WRANK&_=1591854756832
-        String url = "http://api.fund.eastmoney.com/ztjj/GetZTJJList";
         StringBuffer urlParam = new StringBuffer();
-        urlParam.append("callback=jQuery311015658602123786958_1591838943711&callbackname=fundData");
-        urlParam.append("&st="+findDateType);//查询类型
-        urlParam.append("&_=1614523183291");
 
-//        String url = "https://fundztapi.eastmoney.com/fundspecialapi/fundspecialfundtopiclist.ashx";
+//        String url = "http://api.fund.eastmoney.com/ztjj/GetZTJJList";
 //        urlParam.append("callback=jQuery311015658602123786958_1591838943711&callbackname=fundData");
-//        urlParam.append("&sort="+findDateType);//查询类型
-//        urlParam.append("&sorttype=desc&pageindex=1&pagesize=500&dt=123&tt=0&rs=WRANK&_=1591838943713");
+//        urlParam.append("&st="+findDateType);//查询类型
+//        urlParam.append("&_=1614523183291");
+
+        String url = "https://fundztapi.eastmoney.com/fundspecialapi/fundspecialfundtopiclist.ashx";
+        urlParam.append("callback=jQuery311015658602123786958_1591838943711&callbackname=fundData");
+        urlParam.append("&sort="+findDateType);//查询类型
+        urlParam.append("&sorttype=desc&pageindex=1&pagesize=500&dt=123&tt=0&rs=WRANK&_=1591838943713");
         String rs = HttpUtil.sendGet(url, urlParam.toString(), "");
 //        System.out.println(rs);
         if(rs == null){
