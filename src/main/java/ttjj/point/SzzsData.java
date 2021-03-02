@@ -27,8 +27,8 @@ public class SzzsData {
     public static void main(String[] args) {
         String cookie = "";//
         //k线
-        String klt = "102";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-        String dateType = "7";//1：一天;7:周;30:月;
+        String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
+        String dateType = "1";//1：一天;7:周;30:月;
         int count = 1;
         int lastCount = 2;
         kline(cookie, HS_300_000300, count, klt,dateType);//沪深300

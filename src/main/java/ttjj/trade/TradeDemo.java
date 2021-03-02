@@ -28,7 +28,7 @@ public class TradeDemo {
 
         String startDate = "2020-12-09";
         String endDate = "2021-12-31";
-        String insertStartDate = "2021-02-24";//查询新增交易的开始时间
+        String insertStartDate = "2021-02-27";//查询新增交易的开始时间
 
         if (showType == 1) {
 //        //显示插入数据库语句
@@ -46,14 +46,14 @@ public class TradeDemo {
         if (showType == 2) {
             String bizType = "1";
             //        // 更新最新净值-限定时间段的最大最小净值
-//            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,0);//0是今天，1是昨天
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,0);//0是今天，1是昨天
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,7);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,14);
-//            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 30);
-//            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 60);
-//            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 90);
-//            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 180);
-//            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 365);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 30);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 60);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 90);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 180);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 365);
 
 //            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, "1",7);
 
@@ -234,6 +234,26 @@ public class TradeDemo {
         typeListNongYe.add("001027|前海开源中证大农业指数增强");
         if (typeListNongYe.contains(fundTrade.getFundInfo())) {
             fundTrade.setBizTy("农业");
+            fundTrade.setRiskStLoss(baseRiskStLoss);
+            fundTrade.setRiskStProfit(baseRiskStProfit);
+            return;
+        }
+
+        //混合
+        List<String> typeListHunHe = new ArrayList<>();
+        typeListHunHe.add("519212|万家宏观择时多策略混合");
+        if (typeListHunHe.contains(fundTrade.getFundInfo())) {
+            fundTrade.setBizTy("混合");
+            fundTrade.setRiskStLoss(baseRiskStLoss);
+            fundTrade.setRiskStProfit(baseRiskStProfit);
+            return;
+        }
+
+        //环保
+        List<String> typeListHuanBao = new ArrayList<>();
+        typeListHuanBao.add("501031|汇添富中证环境治理指数C");
+        if (typeListHuanBao.contains(fundTrade.getFundInfo())) {
+            fundTrade.setBizTy("环保");
             fundTrade.setRiskStLoss(baseRiskStLoss);
             fundTrade.setRiskStProfit(baseRiskStProfit);
             return;
