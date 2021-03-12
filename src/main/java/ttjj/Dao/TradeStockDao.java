@@ -9,5 +9,5 @@ import java.util.List;
  * 交易服务-股票
  */
 public interface TradeStockDao {
-    List<StockTrade> findMyStockTrade(String cookie, String fundCode, String startDate, String endDate, String busType, String pageIndex);
+    List<StockTrade> findMyStockTrade(String cookie, String fundCode, String startDate, String endDate, String busType, String pageIndex, String validatekey);
 }

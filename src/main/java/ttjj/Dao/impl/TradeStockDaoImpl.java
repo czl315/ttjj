@@ -26,7 +26,7 @@ public class TradeStockDaoImpl implements TradeStockDao {
      */
     public static void main(String[] args) {
         String cookie = "__guid=260925462.4161440383634452500.1615302736826.6602; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; mobileimei=a1acfe85-1eca-4664-81fa-1f8959c9d8ce; Uuid=dc064ff54ccf48989c8d092a31c024c8; monitor_count=25";
-
+        String validatekey = "c2c1e931-cb40-44d5-9106-4c66362fe9ef";
 //        System.out.println("查询开始：");=
         String fundCode = "";
 //        String fundCode = "002207";
@@ -35,7 +35,7 @@ public class TradeStockDaoImpl implements TradeStockDao {
 //        String busType = "0";//0-全部;1-申购;2-卖出;
         String busType = "1";//0-全部;1-申购;2-卖出;
 //        String busType = "2";//0-全部;1-申购;2-赎回;
-        List<StockTrade> rs = new TradeStockDaoImpl().findMyStockTrade(cookie, fundCode, startDate, endDate, busType, "1");
+        List<StockTrade> rs = new TradeStockDaoImpl().findMyStockTrade(cookie, fundCode, startDate, endDate, busType, "1",validatekey);
 //        System.out.println("findMyStockTrade:"+JSON.toJSON(rs));
 
 
@@ -47,8 +47,8 @@ public class TradeStockDaoImpl implements TradeStockDao {
      *
      * @param cookie
      */
-    public List<StockTrade> findMyStockTrade(String cookie, String fundCode, String startDate, String endDate, String busType, String pageIndex) {
-        String url = "https://jywg.18.cn/Search/GetFundsFlow?validatekey=dc980336-d506-42b9-aebe-722159c4c71b";
+    public List<StockTrade> findMyStockTrade(String cookie, String fundCode, String startDate, String endDate, String busType, String pageIndex, String validatekey) {
+        String url = "https://jywg.18.cn/Search/GetFundsFlow?validatekey="+validatekey;
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("st=2021-03-04&et=2021-03-11&qqhs=20&dwc=");
         urlParam.append("st=").append(startDate);
