@@ -43,7 +43,11 @@ public class LsjzUtil {
         LocalDate lastMonth1 = LocalDate.now().minusDays(days);//如果1，取开始时间是今天
 //        System.out.println(lastMonth1.toString());
 
-        pramaMap.put(Content.jjCode, codeStr.substring(0, codeStr.indexOf("|")));
+        if(codeStr.contains("|")){
+            pramaMap.put(Content.jjCode, codeStr.substring(0, codeStr.indexOf("|")));
+        }else{
+            pramaMap.put(Content.jjCode, codeStr);
+        }
         pramaMap.put(Content.startDate, lastMonth1.toString());
 //        pramaMap.put(Content.endDate, "2020-04-13");
         pramaMap.put(Content.endDate, new SimpleDateFormat("yyyy-MM-dd").format(new Date()));

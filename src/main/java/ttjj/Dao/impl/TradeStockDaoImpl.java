@@ -8,6 +8,7 @@ import ttjj.Dao.TradeStockDao;
 import ttjj.dto.FundTrade;
 import ttjj.dto.LsjzDataLsjz;
 import ttjj.dto.StockTrade;
+import ttjj.dto.StockTradeToday;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
@@ -17,6 +18,8 @@ import java.util.List;
 
 /**
  * 交易服务
+ * @author Administrator
+ * @date 2021-03-15 21:39
  */
 public class TradeStockDaoImpl implements TradeStockDao {
     //    private final static Logger logger = Logger.getLogger(TradeDaoImpl.class);
@@ -35,7 +38,7 @@ public class TradeStockDaoImpl implements TradeStockDao {
 //        String busType = "0";//0-全部;1-申购;2-卖出;
         String busType = "1";//0-全部;1-申购;2-卖出;
 //        String busType = "2";//0-全部;1-申购;2-赎回;
-        List<StockTrade> rs = new TradeStockDaoImpl().findMyStockTrade(cookie, fundCode, startDate, endDate, busType, "1",validatekey);
+        List<StockTrade> rs = new TradeStockDaoImpl().findMyStockTrade(cookie, startDate, endDate,validatekey);
 //        System.out.println("findMyStockTrade:"+JSON.toJSON(rs));
 
 
@@ -47,8 +50,8 @@ public class TradeStockDaoImpl implements TradeStockDao {
      *
      * @param cookie
      */
-    public List<StockTrade> findMyStockTrade(String cookie, String fundCode, String startDate, String endDate, String busType, String pageIndex, String validatekey) {
-        String url = "https://jywg.18.cn/Search/GetFundsFlow?validatekey="+validatekey;
+    public List<StockTrade> findMyStockTrade(String cookie, String startDate, String endDate, String validatekey) {
+        String url = "https://jywg.18.cn/Search/GetHisDealData?validatekey="+validatekey;
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("st=2021-03-04&et=2021-03-11&qqhs=20&dwc=");
         urlParam.append("st=").append(startDate);
@@ -70,27 +73,4 @@ public class TradeStockDaoImpl implements TradeStockDao {
         return array;
     }
 
-    /**
-     * 显示插入数据库语句
-     *
-     * @param fundTrade
-     */
-    private static void showInsertDb(FundTrade fundTrade) {
-        //打印-
-        System.out.println("INSERT INTO `bank19`.`ol_stock_trade`(" +
-                " `FD_ID`, `FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, " +
-                " `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, " +
-                " `ORDER_CODE`, `CONFIRM_AMT`, `REDEM_AMT`," +
-                " `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, " +
-                " `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`, " +
-                " `SOURCE`, `FD_CODE`, `CREATE_TIME`, `UPDATE_TIME`" +
-                ") VALUES (" +
-                " '', '" + fundTrade.getFundInfo() + "', '" + fundTrade.getOrderStatus() + "', '" + fundTrade.getTradeTime() + "', '" + fundTrade.getOrderStatus() + "'" +
-                ", " + fundTrade.getConfirmShare() + ", " + fundTrade.getConfirmNet() + ", " + fundTrade.getOrderAmt() + ", " + "'确认成功', " +
-                "  '', " + fundTrade.getOrderAmt() + ", 0, " +
-                " 0, '" + fundTrade.getConfirmNetData() + "', " + fundTrade.getServerCharge() + ", " +
-                " '0', 0,  '3000-01-01 00:00:00', " +
-                " '3', '', now(), now()" +
-                ");");
-    }
 }
