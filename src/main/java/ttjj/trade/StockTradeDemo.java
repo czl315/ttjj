@@ -4,57 +4,46 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
-import org.apache.log4j.Logger;
-import ttjj.Dao.TradeDao;
 import ttjj.Dao.TradeStockDao;
-import ttjj.Dao.impl.TradeDaoImpl;
 import ttjj.Dao.impl.TradeStockDaoImpl;
 import ttjj.dto.FundTrade;
 import ttjj.dto.LsjzDataLsjz;
 import ttjj.dto.StockTrade;
-import ttjj.dto.StockTradeToday;
-import ttjj.point.SzzsData;
 import utils.HttpUtil;
-import work.NhjXjkTyjSend200;
 
 import java.math.BigDecimal;
-import java.security.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toCollection;
 
 /**
  * @author chenzhilong
  * @date 2020/8/4
  */
-public class StockTraceDemo {
+public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsMin = "rsMin";
 
     public static void main(String[] args) {
-        String cookie = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=22854f22-d447-4da4-b3d4-6a4863129413; Uuid=36fe1d1b00d04d7c8cadf1dc0f60b08b; monitor_count=4";
-        String validatekey = "16c027d0-b34b-4b52-9d17-9cd1b2601677";
+        String cookie = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=27b3b1ce-1839-452d-87a7-48849864debd; Uuid=9973a971f6674443a005fa643e6bcf5d; monitor_count=150";
+        String validatekey = "5f090882-d116-4f2e-a1b1-9b40afd82512";
 
-        int showType = 1;
-//        int showType = 2;
+//        int showType = 1;
+        int showType = 2;
 
         if (showType == 1) {
+            String startDate = "2021-03-19";//查询新增交易的开始时间
 //        //显示插入数据库语句
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
-            String insertStartDate = "2021-01-01";//查询新增交易的开始时间
-            String insertEndDate = "2021-03-15";//查询新增交易的结束时间
+            String insertStartDate = startDate;//查询新增交易的开始时间
+            String insertEndDate = "2021-03-31";//查询新增交易的结束时间
             showInsertDb(cookie, validatekey, insertStartDate, insertEndDate, bizTypeBuy);
 
-//            //  赎回
-//            String bizTypeSell = "2";//0-全部;1-申购;2-卖出;
-//            String sellStartDate = "2021-01-01";
-//            String sellEndDate = "2021-12-31";
-//            showDbRedem(cookie,validatekey, sellStartDate, sellEndDate, bizTypeSell);
+            //  赎回
+            String bizTypeSell = "2";//0-全部;1-申购;2-卖出;
+            String sellStartDate = startDate;
+            String sellEndDate = "2021-03-31";
+            showDbRedem(cookie,validatekey, sellStartDate, sellEndDate, bizTypeSell);
         }
 
 
@@ -69,10 +58,7 @@ public class StockTraceDemo {
             showUpdateDbMaxMinNetByDays(cookie, 90,  "NET_MIN_90", "NET_MAX_90");
             showUpdateDbMaxMinNetByDays(cookie, 180,  "NET_MIN_180", "NET_MAX_180");
             showUpdateDbMaxMinNetByDays(cookie, 365,  "NET_MIN_360", "NET_MAX_360");
-
         }
-
-
     }
 
     /**
@@ -83,21 +69,21 @@ public class StockTraceDemo {
     private static void showInsertDb(String cookie, String validatekey, String startDate, String endDate, String busType) {
         TradeStockDao tradeService = new TradeStockDaoImpl();
         List<StockTrade> rs = tradeService.findMyStockTrade(cookie, startDate, endDate, validatekey);
-        System.out.println("findMyTrade:" + JSON.toJSON(rs));
+//        System.out.println("findMyTrade:" + JSON.toJSON(rs));
         for (StockTrade trade : rs) {
             //"ywsm": "证券买入",
             String type = "证券买入";
-            if (type.equals(trade.getYwsm())) {
+            if (type.equals(trade.getMmsm())) {
                 //处理业务类型
                 handlerBizTp(trade);
 
                 Date tradeTimeDate = null;
                 try {
-                    tradeTimeDate = new SimpleDateFormat("yyyyMMdd hhmmss").parse(trade.getFsrq() + " " + trade.getFssj());
+                    tradeTimeDate = new SimpleDateFormat("yyyyMMdd HHmmss").parse(trade.getCjrq() + " " + trade.getCjsj());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                String tradeTimeDateStr = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(tradeTimeDate);
+                String tradeTimeDateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(tradeTimeDate);
 
                 //显示插入数据库语句
                 System.out.println("INSERT INTO `bank19`.`ol_stock_trade`(" +
@@ -159,117 +145,141 @@ public class StockTraceDemo {
         double baseRiskStLoss = 0.95;
         double baseRiskStProfit = 1.15;
 
-        //指数
-        List<String> typeListZhiShu = new ArrayList<>();
-        typeListZhiShu.add("510050");//50ETF
-        typeListZhiShu.add("159915");//创业板
-        typeListZhiShu.add("510310");//HS300ETF
-        typeListZhiShu.add("159982");//中证500
-        typeListZhiShu.add("588090");//科创板
-        typeListZhiShu.add("588080");//科创板50
-        if (typeListZhiShu.contains(fundTrade.getZqdm())) {
-            fundTrade.setBizTy("指数");
-            fundTrade.setRiskStLoss(baseRiskStLoss);
-            fundTrade.setRiskStProfit(baseRiskStProfit);
-            return;
+        List<StockTrade> rs = listMyStock();
+        for (StockTrade stockTrade : rs) {
+            if(stockTrade.getZqdm().equals(fundTrade.getZqdm())){
+                fundTrade.setBizTy(stockTrade.getBizTy());
+                fundTrade.setRiskStLoss(baseRiskStLoss);
+                fundTrade.setRiskStProfit(baseRiskStProfit);
+                return;
+            }
         }
-
-        //传媒
-        List<String> typeListChuanMei = new ArrayList<>();
-        typeListChuanMei.add("002027");//分众传媒
-        if (typeListChuanMei.contains(fundTrade.getZqdm())) {
-            fundTrade.setBizTy("传媒");
-            fundTrade.setRiskStLoss(baseRiskStLoss);
-            fundTrade.setRiskStProfit(baseRiskStProfit);
-            return;
-        }
-
-        //工程建设
-        List<String> typeListGongCheng = new ArrayList<>();
-        typeListGongCheng.add("601668");//中国建筑
-        typeListGongCheng.add("002271");//东方雨虹-水泥建材
-        if (typeListGongCheng.contains(fundTrade.getZqdm())) {
-            fundTrade.setBizTy("工程建设");
-            fundTrade.setRiskStLoss(baseRiskStLoss);
-            fundTrade.setRiskStProfit(baseRiskStProfit);
-            return;
-        }
-
-        //旅游酒店
-        List<String> typeListLvYouJiuDian = new ArrayList<>();
-        typeListLvYouJiuDian.add("600138");//中青旅
-        typeListLvYouJiuDian.add("600258");//首旅酒店
-        typeListLvYouJiuDian.add("600115");//东方航空-民航机场
-        if (typeListLvYouJiuDian.contains(fundTrade.getZqdm())) {
-            fundTrade.setBizTy("旅游酒店");
-            fundTrade.setRiskStLoss(baseRiskStLoss);
-            fundTrade.setRiskStProfit(baseRiskStProfit);
-            return;
-        }
-
-        //科技
-        List<String> typeListKeJi = new ArrayList<>();
-        typeListKeJi.add("515050");//5GETF
-        typeListKeJi.add("159995");//芯片ETF
-        typeListKeJi.add("002202");//金风科技
-        typeListKeJi.add("600517");//国网英大
-        typeListKeJi.add("159813");//芯片
-        typeListKeJi.add("600703");//三安光电
-        if (typeListKeJi.contains(fundTrade.getZqdm())) {
-            fundTrade.setBizTy("科技");
-            fundTrade.setRiskStLoss(baseRiskStLoss);
-            fundTrade.setRiskStProfit(baseRiskStProfit);
-            return;
-        }
-
-        //环保
-        List<String> typeListHuanBao = new ArrayList<>();
-        typeListHuanBao.add("600217");//中再资环
-        typeListHuanBao.add("002340");//格林美
-        if (typeListHuanBao.contains(fundTrade.getZqdm())) {
-            fundTrade.setBizTy("环保");
-            fundTrade.setRiskStLoss(baseRiskStLoss);
-            fundTrade.setRiskStProfit(baseRiskStProfit);
-            return;
-        }
-
-
-
-        List<String> typeListJunGong = new ArrayList<>();
-        typeListJunGong.add("512560");//中证军工
-        if (typeListJunGong.contains(fundTrade.getZqdm())) {
-            fundTrade.setBizTy("军工");
-            fundTrade.setRiskStLoss(baseRiskStLoss);
-            fundTrade.setRiskStProfit(baseRiskStProfit);
-            return;
-        }
-
-        List<String> typeListQiHuo = new ArrayList<>();
-        typeListQiHuo.add("159985");//豆粕ETF
-        if (typeListQiHuo.contains(fundTrade.getZqdm())) {
-            fundTrade.setBizTy("期货");
-            fundTrade.setRiskStLoss(baseRiskStLoss);
-            fundTrade.setRiskStProfit(baseRiskStProfit);
-            return;
-        }
-
-        List<String> typeListJinRong = new ArrayList<>();
-        typeListJinRong.add("601555");//东吴证券
-        if (typeListJinRong.contains(fundTrade.getZqdm())) {
-            fundTrade.setBizTy("金融");
-            fundTrade.setRiskStLoss(baseRiskStLoss);
-            fundTrade.setRiskStProfit(baseRiskStProfit);
-            return;
-        }
-
-        List<String> typeListYiLiao = new ArrayList<>();
-        typeListYiLiao.add("159929");//医药ETF
-        if (typeListYiLiao.contains(fundTrade.getZqdm())) {
-            fundTrade.setBizTy("医药");
-            fundTrade.setRiskStLoss(baseRiskStLoss);
-            fundTrade.setRiskStProfit(baseRiskStProfit);
-            return;
-        }
+//
+//        //指数
+//        List<String> typeListZhiShu = new ArrayList<>();
+//        typeListZhiShu.add("510050");//50ETF
+//        typeListZhiShu.add("159915");//创业板
+//        typeListZhiShu.add("510310");//HS300ETF
+//        typeListZhiShu.add("159982");//中证500
+//        typeListZhiShu.add("588090");//科创板
+//        typeListZhiShu.add("588080");//科创板50
+//        typeListZhiShu.add("159949");//创业板50
+//        typeListZhiShu.add("513550");//港股通50
+//        if (typeListZhiShu.contains(fundTrade.getZqdm())) {
+//            fundTrade.setBizTy("指数");
+//            fundTrade.setRiskStLoss(baseRiskStLoss);
+//            fundTrade.setRiskStProfit(baseRiskStProfit);
+//            return;
+//        }
+//
+//        //传媒
+//        List<String> typeListChuanMei = new ArrayList<>();
+//        typeListChuanMei.add("002027");//分众传媒
+//        if (typeListChuanMei.contains(fundTrade.getZqdm())) {
+//            fundTrade.setBizTy("传媒");
+//            fundTrade.setRiskStLoss(baseRiskStLoss);
+//            fundTrade.setRiskStProfit(baseRiskStProfit);
+//            return;
+//        }
+//
+//        //玻璃陶瓷
+//        List<String> typeListBltc = new ArrayList<>();
+//        typeListBltc.add("600176");//中国巨石
+//        if (typeListBltc.contains(fundTrade.getZqdm())) {
+//            fundTrade.setBizTy("玻璃陶瓷");
+//            fundTrade.setRiskStLoss(baseRiskStLoss);
+//            fundTrade.setRiskStProfit(baseRiskStProfit);
+//            return;
+//        }
+//
+//        //工程建设
+//        List<String> typeListGongCheng = new ArrayList<>();
+//        typeListGongCheng.add("601668");//中国建筑
+//        typeListGongCheng.add("002271");//东方雨虹-水泥建材
+//        if (typeListGongCheng.contains(fundTrade.getZqdm())) {
+//            fundTrade.setBizTy("工程建设");
+//            fundTrade.setRiskStLoss(baseRiskStLoss);
+//            fundTrade.setRiskStProfit(baseRiskStProfit);
+//            return;
+//        }
+//
+//        //旅游酒店
+//        List<String> typeListLvYouJiuDian = new ArrayList<>();
+//        typeListLvYouJiuDian.add("600138");//中青旅
+//        typeListLvYouJiuDian.add("600258");//首旅酒店
+//        typeListLvYouJiuDian.add("600115");//东方航空-民航机场
+//        if (typeListLvYouJiuDian.contains(fundTrade.getZqdm())) {
+//            fundTrade.setBizTy("旅游酒店");
+//            fundTrade.setRiskStLoss(baseRiskStLoss);
+//            fundTrade.setRiskStProfit(baseRiskStProfit);
+//            return;
+//        }
+//
+//        //科技
+//        List<String> typeListKeJi = new ArrayList<>();
+//        typeListKeJi.add("515050");//5GETF
+//        typeListKeJi.add("159995");//芯片ETF
+//        typeListKeJi.add("002202");//金风科技
+//        typeListKeJi.add("600517");//国网英大
+//        typeListKeJi.add("159813");//芯片
+//        typeListKeJi.add("600703");//三安光电
+//        typeListKeJi.add("513330");//恒生互联
+//        if (typeListKeJi.contains(fundTrade.getZqdm())) {
+//            fundTrade.setBizTy("科技");
+//            fundTrade.setRiskStLoss(baseRiskStLoss);
+//            fundTrade.setRiskStProfit(baseRiskStProfit);
+//            return;
+//        }
+//
+//        //环保
+//        List<String> typeListHuanBao = new ArrayList<>();
+//        typeListHuanBao.add("600217");//中再资环
+//        typeListHuanBao.add("002340");//格林美
+//        if (typeListHuanBao.contains(fundTrade.getZqdm())) {
+//            fundTrade.setBizTy("环保");
+//            fundTrade.setRiskStLoss(baseRiskStLoss);
+//            fundTrade.setRiskStProfit(baseRiskStProfit);
+//            return;
+//        }
+//
+//
+//
+//        List<String> typeListJunGong = new ArrayList<>();
+//        typeListJunGong.add("512560");//中证军工
+//        if (typeListJunGong.contains(fundTrade.getZqdm())) {
+//            fundTrade.setBizTy("军工");
+//            fundTrade.setRiskStLoss(baseRiskStLoss);
+//            fundTrade.setRiskStProfit(baseRiskStProfit);
+//            return;
+//        }
+//
+//        List<String> typeListQiHuo = new ArrayList<>();
+//        typeListQiHuo.add("159985");//豆粕ETF
+//        if (typeListQiHuo.contains(fundTrade.getZqdm())) {
+//            fundTrade.setBizTy("期货");
+//            fundTrade.setRiskStLoss(baseRiskStLoss);
+//            fundTrade.setRiskStProfit(baseRiskStProfit);
+//            return;
+//        }
+//
+//        List<String> typeListJinRong = new ArrayList<>();
+//        typeListJinRong.add("601555");//东吴证券
+//        typeListJinRong.add("501025");//香港银行
+//        if (typeListJinRong.contains(fundTrade.getZqdm())) {
+//            fundTrade.setBizTy("金融");
+//            fundTrade.setRiskStLoss(baseRiskStLoss);
+//            fundTrade.setRiskStProfit(baseRiskStProfit);
+//            return;
+//        }
+//
+//        List<String> typeListYiLiao = new ArrayList<>();
+//        typeListYiLiao.add("159929");//医药ETF
+//        if (typeListYiLiao.contains(fundTrade.getZqdm())) {
+//            fundTrade.setBizTy("医药");
+//            fundTrade.setRiskStLoss(baseRiskStLoss);
+//            fundTrade.setRiskStProfit(baseRiskStProfit);
+//            return;
+//        }
 
 //        List<String> typeListXiaoFei = new ArrayList<>();
 //        typeListXiaoFei.add("005621|中欧品质消费股票C");
@@ -314,8 +324,6 @@ public class StockTraceDemo {
 //            fundTrade.setRiskStProfit(baseRiskStProfit);
 //            return;
 //        }
-
-
     }
 
     /**
@@ -323,148 +331,168 @@ public class StockTraceDemo {
      */
     private static List<StockTrade> listMyStock() {
         List<StockTrade> rs = new ArrayList<>();
-        StockTrade stockTradeTemp = new StockTrade();
-
-        //传媒
-        List<StockTrade> typeListChuanMei = new ArrayList<>();
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("002027");//分众传媒
-        typeListChuanMei.add(stockTradeTemp);
-
-        //工程建设
-        List<StockTrade> typeListGongCheng = new ArrayList<>();
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("601668");//中国建筑
-        typeListGongCheng.add(stockTradeTemp);
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("002271");//东方雨虹-水泥建材
-        typeListGongCheng.add(stockTradeTemp);
-
-        //旅游酒店
-        List<StockTrade> typeListLvYouJiuDian = new ArrayList<>();
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("600138");//中青旅
-        typeListLvYouJiuDian.add(stockTradeTemp);
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("600258");//首旅酒店
-        typeListLvYouJiuDian.add(stockTradeTemp);
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("600115");//东方航空-民航机场
-        typeListLvYouJiuDian.add(stockTradeTemp);
-
-        //科技
-        List<StockTrade> typeListKeJi = new ArrayList<>();
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("515050");//5GETF
-        typeListKeJi.add(stockTradeTemp);
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("159995");//芯片ETF
-        typeListKeJi.add(stockTradeTemp);
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("002202");//金风科技
-        typeListKeJi.add(stockTradeTemp);
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("600517");//国网英大
-        typeListKeJi.add(stockTradeTemp);
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("159813");//芯片
-        typeListKeJi.add(stockTradeTemp);
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("600703");//三安光电
-        typeListKeJi.add(stockTradeTemp);
-
-        //环保
-        List<StockTrade> typeListHuanBao = new ArrayList<>();
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("600217");//中再资环
-        typeListHuanBao.add(stockTradeTemp);
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("002340");//格林美
-        typeListHuanBao.add(stockTradeTemp);
+        double baseRiskStLoss = 0.95;
+        double baseRiskStProfit = 1.15;
 
         //指数
-        List<StockTrade> typeListZhiShu = new ArrayList<>();
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("510050");//50ETF
-        typeListZhiShu.add(stockTradeTemp);
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("159915");//创业板
-        typeListZhiShu.add(stockTradeTemp);
-        stockTradeTemp.setZqdm("510310");//HS300ETF
-        typeListZhiShu.add(stockTradeTemp);
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("159982");//中证500
-        typeListZhiShu.add(stockTradeTemp);
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("588090");//科创板
-        typeListZhiShu.add(stockTradeTemp);
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("588080");//科创板50
-        typeListZhiShu.add(stockTradeTemp);
-
-
-        List<StockTrade> typeListJunGong = new ArrayList<>();
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("512560");//中证军工
-        typeListJunGong.add(stockTradeTemp);
-
-        List<StockTrade> typeListQiHuo = new ArrayList<>();
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("159985");//豆粕ETF
-        typeListQiHuo.add(stockTradeTemp);
-
-        List<StockTrade> typeListJinRong = new ArrayList<>();
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("601555");//东吴证券
-        typeListJinRong.add(stockTradeTemp);
-
-        List<StockTrade> typeListYiLiao = new ArrayList<>();
-        stockTradeTemp = new StockTrade();
-        stockTradeTemp.setZqdm("159929");//医药ETF
-        typeListYiLiao.add(stockTradeTemp);
-
-        rs.addAll(typeListChuanMei);
-        rs.addAll(typeListGongCheng);
-        rs.addAll(typeListHuanBao);
-        rs.addAll(typeListJinRong);
-        rs.addAll(typeListJunGong);
-        rs.addAll(typeListKeJi);
-        rs.addAll(typeListLvYouJiuDian);
-        rs.addAll(typeListQiHuo);
-        rs.addAll(typeListYiLiao);
-        rs.addAll(typeListZhiShu);
-        return rs;
-    }
-
-    /**
-     * 更新最新净值
-     *
-     * @param startDate
-     * @param endDate
-     */
-    private static void showUpdateDb(String startDate, String endDate, String tableName) {
-        List<StockTrade> stockTradeList = listMyStock();
-        for (StockTrade fundTrade : stockTradeList) {
-            String lsjzUrl = "fundCode=" + fundTrade.getZqdm() + "&pageIndex=1&pageSize=100&startDate=" + startDate + "" + "&endDate=" + endDate + "" + "&_=1558194929451";
-            byte[] bytes = "".getBytes();
-            LsjzDataLsjz lsjzDataLsjz = HttpUtil.sendPostTtjjLsjzLastOne(lsjzUrl, bytes, new HashMap<String, String>());
-//        System.out.println("lsjzDataLsjz:"+JSON.toJSON(lsjzDataLsjz));
-            //打印-
-            if (lsjzDataLsjz == null) {
-                continue;
-            }
-            System.out.println("UPDATE `" + tableName + "` " +
-                    "SET " +
-                    " `LAST_NET`=" + lsjzDataLsjz.getDWJZ() + " " +
-                    ",`NET_MAX_1`=" + lsjzDataLsjz.getLJJZ() + " " +
-                    ",`NET_MIN_1`=" + lsjzDataLsjz.getLJJZ() + " " +
-//                    ",`NET_MAX_1`=" + lsjzDataLsjz.getDWJZ() + " " +
-//                    ",`NET_MIN_1`=" + lsjzDataLsjz.getDWJZ() + " " +
-                    ",`LAST_DATE`='" + lsjzDataLsjz.getFSRQ() + "' " +
-                    "WHERE  `FD_CODE` = '" + fundTrade.getZqdm() + "' " +
-//                        "AND (`TYPE` = '申购' OR `TYPE` = '申购(赎回中)')"+
-                    " ;");
+        List<String> typeListZhiShu = new ArrayList<>();
+        typeListZhiShu.add("510050");//50ETF
+        typeListZhiShu.add("159915");//创业板
+        typeListZhiShu.add("510310");//HS300ETF
+        typeListZhiShu.add("159982");//中证500
+        typeListZhiShu.add("588090");//科创板
+        typeListZhiShu.add("588080");//科创板50
+        typeListZhiShu.add("159949");//创业板50
+        typeListZhiShu.add("513550");//港股通50
+        for (String zqdm : typeListZhiShu) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("指数");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
         }
+
+        //传媒
+        List<String> typeListChuanMei = new ArrayList<>();
+        typeListChuanMei.add("002027");//分众传媒
+        for (String zqdm : typeListChuanMei) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("文化传媒");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
+        //玻璃陶瓷
+        List<String> typeListBltc = new ArrayList<>();
+        typeListBltc.add("600176");//中国巨石
+        for (String zqdm : typeListBltc) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("玻璃陶瓷");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
+        //工程建设
+        List<String> typeListGongCheng = new ArrayList<>();
+        typeListGongCheng.add("601668");//中国建筑
+        typeListGongCheng.add("002271");//东方雨虹-水泥建材
+        for (String zqdm : typeListGongCheng) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("工程建设");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
+        //旅游酒店
+        List<String> typeListLvYouJiuDian = new ArrayList<>();
+        typeListLvYouJiuDian.add("600138");//中青旅
+        typeListLvYouJiuDian.add("600258");//首旅酒店
+        typeListLvYouJiuDian.add("600115");//东方航空-民航机场
+        for (String zqdm : typeListLvYouJiuDian) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("旅游酒店");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
+        //科技
+        List<String> typeListKeJi = new ArrayList<>();
+        typeListKeJi.add("515050");//5GETF
+        typeListKeJi.add("159995");//芯片ETF
+        typeListKeJi.add("002202");//金风科技
+        typeListKeJi.add("600517");//国网英大
+        typeListKeJi.add("159813");//芯片
+        typeListKeJi.add("600703");//三安光电
+        typeListKeJi.add("513330");//恒生互联
+        for (String zqdm : typeListKeJi) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("科技");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
+        //环保
+        List<String> typeListHuanBao = new ArrayList<>();
+        typeListHuanBao.add("600217");//中再资环
+        typeListHuanBao.add("002340");//格林美
+        for (String zqdm : typeListHuanBao) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("环保");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
+        List<String> typeListJunGong = new ArrayList<>();
+        typeListJunGong.add("512560");//中证军工
+        for (String zqdm : typeListJunGong) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("军工");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
+        List<String> typeListQiHuo = new ArrayList<>();
+        typeListQiHuo.add("159985");//豆粕ETF
+        for (String zqdm : typeListQiHuo) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("期货");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
+        List<String> typeListJinRong = new ArrayList<>();
+        typeListJinRong.add("601555");//东吴证券
+        typeListJinRong.add("501025");//香港银行
+        for (String zqdm : typeListJinRong) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("金融");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
+        List<String> typeListYiLiao = new ArrayList<>();
+        typeListYiLiao.add("159929");//医药ETF
+        for (String zqdm : typeListYiLiao) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("医药");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
+        //酿酒行业
+        List<String> typeListNiangJiu = new ArrayList<>();
+        typeListNiangJiu.add("600600");//青岛啤酒
+        for (String zqdm : typeListNiangJiu) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("酿酒行业");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
+        return rs;
     }
 
     /**
@@ -476,13 +504,13 @@ public class StockTraceDemo {
      */
     private static void showUpdateDbMaxMinNetByDays(String cookie, int days, String dbFieldLastNetMin, String dbFieldLastNetMax) {
         List<StockTrade> stockTradeList = listMyStock();//查询我的列表
-        for (StockTrade fundTrade : stockTradeList) {
+        for (StockTrade stockTradeTemp : stockTradeList) {
             //查询 -限定时间段的最大最小净值
 //            LsjzUtil.findJzMaxMin(fundTrade.getZqdm(), days);
             //k线
             String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
             String dateType = "1";//1：一天;7:周;30:月;
-            kline(cookie, fundTrade.getZqdm(), days, klt, dbFieldLastNetMin, dbFieldLastNetMax);//沪深300
+            kline(cookie, stockTradeTemp.getZqdm(), days, klt, dbFieldLastNetMin, dbFieldLastNetMax);//沪深300
         }
     }
 
@@ -545,7 +573,8 @@ public class StockTraceDemo {
         sb.append("SET ");
         sb.append(" `" + dbFieldLastNetMin + "`=" + minJz + " ");
         sb.append(" ,`" + dbFieldLastNetMax + "`=" + maxJz + " ");
-        sb.append(" WHERE `FD_CODE`='" + zhiShu + "'" + " AND TYPE = '证券买入'" + ";");
+//        sb.append(" WHERE `FD_CODE`='" + zhiShu + "'" + " AND TYPE = '证券买入'" + ";");
+        sb.append(" WHERE `FD_CODE`='" + zhiShu + "'" + "" + ";");
         System.out.println(sb);
     }
 
@@ -666,14 +695,14 @@ public class StockTraceDemo {
         List<StockTrade> stockTradeList = tradeService.findMyStockTrade(cookie, startDate, endDate, validatekey);
         for (StockTrade stockTrade : stockTradeList) {
             String type = "证券卖出";
-            if (stockTrade.getYwsm().equals(type)) {
+            if (stockTrade.getMmsm().equals(type)) {
                 BigDecimal serverChargeRedem = new BigDecimal(stockTrade.getSxf());//赎回手续费=佣金+交易规费
                 BigDecimal enrnAmtSubServerCharge = new BigDecimal(stockTrade.getCjje()).subtract(serverChargeRedem);
 
                 //发生日期时间格式化
                 Date tradeTimeDate = null;
                 try {
-                    tradeTimeDate = new SimpleDateFormat("yyyyMMdd hhmmss").parse(stockTrade.getFsrq() + " " + stockTrade.getFssj());
+                    tradeTimeDate = new SimpleDateFormat("yyyyMMdd hhmmss").parse(stockTrade.getCjrq() + " " + stockTrade.getCjsj());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

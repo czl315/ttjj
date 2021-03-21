@@ -3,6 +3,7 @@ package ttjj.point;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import utils.HttpUtil;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
  * @author chenzhilong
  * @date 2020/10/7
  */
-public class SzzsData {
+public class SzzsDataDemo {
     static final String SHANG_HAI = "1.000001";
     static final String SHEN_ZHEN = "0.399001";
     static final String CYB = "0.399006";
@@ -24,38 +25,40 @@ public class SzzsData {
     static final String SH_50_000016 = "1.000016";
     static final String BIZ_QUANSHANG = "0.399975";
     static final String BIZ_BANDAOTI_XINPIAN_990001 = "0.007300";
+
     public static void main(String[] args) {
         String cookie = "";//
         //k线
         String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
         String dateType = "1";//1：一天;7:周;30:月;
+        String date = "";
         int count = 1;
         int lastCount = 2;
-        kline(cookie, HS_300_000300, count, klt,dateType);//沪深300
+        kline(cookie, HS_300_000300, count, klt, dateType, date);//沪深300
 //        System.out.println();
-        kline(cookie, CYB_50_399673, count, klt, dateType);//创业板50
+        kline(cookie, CYB_50_399673, count, klt, dateType, date);//创业板50
 //        System.out.println();
-        kline(cookie, ZZ_500_000905, count, klt, dateType);//中证500
+        kline(cookie, ZZ_500_000905, count, klt, dateType, date);//中证500
 //        System.out.println();
-        kline(cookie, SH_50_000016, count, klt, dateType);//上证50
+        kline(cookie, SH_50_000016, count, klt, dateType, date);//上证50
 //        System.out.println();
-        kline(cookie, SHANG_HAI,count, klt, dateType);//上证
+        kline(cookie, SHANG_HAI, count, klt, dateType, date);//上证
 //        System.out.println();
-        kline(cookie, SHEN_ZHEN,count, klt, dateType);//深证成指
+        kline(cookie, SHEN_ZHEN, count, klt, dateType, date);//深证成指
 //        System.out.println();
-        kline(cookie, CYB,count, klt, dateType);//创业板
+        kline(cookie, CYB, count, klt, dateType, date);//创业板
         System.out.println();
 //        //k线（上一日期）
-        klineLast(cookie, HS_300_000300, lastCount, klt,dateType);//沪深300
+        klineLast(cookie, HS_300_000300, lastCount, klt, dateType);//沪深300
         klineLast(cookie, CYB_50_399673, lastCount, klt, dateType);//创业板50
         klineLast(cookie, ZZ_500_000905, lastCount, klt, dateType);//中证500
         klineLast(cookie, SH_50_000016, lastCount, klt, dateType);//上证50
-        klineLast(cookie, SHANG_HAI,lastCount, klt, dateType);//上证
-        klineLast(cookie, SHEN_ZHEN,lastCount, klt, dateType);//深证成指
-        klineLast(cookie, CYB,lastCount, klt, dateType);//创业板
+        klineLast(cookie, SHANG_HAI, lastCount, klt, dateType);//上证
+        klineLast(cookie, SHEN_ZHEN, lastCount, klt, dateType);//深证成指
+        klineLast(cookie, CYB, lastCount, klt, dateType);//创业板
 //
 //        //k线-日线-行业指数
-        kline(cookie, BIZ_QUANSHANG, count, klt, dateType);
+        kline(cookie, BIZ_QUANSHANG, count, klt, dateType, date);
 //        klineLast(cookie, BIZ_QUANSHANG, lastCount, klt, dateType);
 //        kline(cookie, BIZ_BANDAOTI_XINPIAN_990001, count, klt, dateType);
 
@@ -248,13 +251,14 @@ public class SzzsData {
     /**
      * 查询-ETF-指数
      *
-     * @param cookie cookie
-     * @param zhiShu 指数
-     * @param count 数量
+     * @param cookie  cookie
+     * @param zhiShu  指数
+     * @param count   数量
+     * @param klt     K线周期类型
      * @param dayTpye 日期类型
-     * @param klt  K线周期类型
+     * @param date
      */
-    public static void kline(String cookie, String zhiShu, int count, String klt, String dayTpye) {
+    public static void kline(String cookie, String zhiShu, int count, String klt, String dayTpye, String date) {
         StringBuffer url = new StringBuffer();
         String dbFieldRt = "";
         String dbFieldNet = "";
@@ -469,6 +473,11 @@ public class SzzsData {
 //            System.out.print("换手率:" + klineArray[10] + ",");
 //            System.out.println();
             System.out.println("UPDATE `ol_fund_fupan` SET `" + dbFieldRt + "`='" + zhangDie + "', `" + dbFieldNet + "`='" + shouPan + "', `" + dbFieldCje + "`='" + chengJiaoE + "' WHERE (`CODE`='" + curDate + "') AND ol_fund_fupan.period='" + dayTpye + "'" + " AND ol_fund_fupan.TYPE=1;");
+//            if(StringUtils.isNotBlank(date) && curDate.equals(date)){//指定日期
+//                System.out.println("UPDATE `ol_fund_fupan` SET `" + dbFieldRt + "`='" + zhangDie + "', `" + dbFieldNet + "`='" + shouPan + "', `" + dbFieldCje + "`='" + chengJiaoE + "' WHERE (`CODE`='" + curDate + "') AND ol_fund_fupan.period='" + dayTpye + "'" + " AND ol_fund_fupan.TYPE=1;");
+//            }else{
+//                System.out.println("UPDATE `ol_fund_fupan` SET `" + dbFieldRt + "`='" + zhangDie + "', `" + dbFieldNet + "`='" + shouPan + "', `" + dbFieldCje + "`='" + chengJiaoE + "' WHERE (`CODE`='" + curDate + "') AND ol_fund_fupan.period='" + dayTpye + "'" + " AND ol_fund_fupan.TYPE=1;");
+//            }
         }
     }
 

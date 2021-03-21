@@ -17,9 +17,9 @@ public class TopicRank {
     public static void main(String[] args) {
         int endCount = 10;//显示数量
 
-        String findDateType ="SYL_Z";//查询类型 SYL_D:日；SYL_Z：周；SYL_Y：月；SYL_3Y：季；SYL_6Y：半年；SYL_1N：1年；SYL_JN：今年；
+        String findDateType ="SYL_D";//查询类型 SYL_D:日；SYL_Z：周；SYL_Y：月；SYL_3Y：季；SYL_6Y：半年；SYL_1N：1年；SYL_JN：今年；
 //        String findDateType ="SYL_W";//查询类型 SYL_D:日；SYL_W：周；SYL_Y：月；SYL_3Y：季；SYL_6Y：半年；SYL_1N：1年；SYL_JN：今年；
-        System.out.println("查询主题排名:");
+        System.out.println("查询主题排名:"+findDateType);
         findTtjjTopicByYesterday(findDateType,endCount);//查询主题排名by时间类型、显示个数
 //        System.out.println("查询主题排名-周:");
 //        findTtjjTopicByYesterday("SYL_Z",endCount);//查询主题排名by时间类型、显示个数

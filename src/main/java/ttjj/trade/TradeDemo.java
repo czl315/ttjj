@@ -26,14 +26,14 @@ public class TradeDemo {
 //        int showType = 1;
         int showType = 2;
 
-        String startDate = "2020-12-09";
+        String startDate = "2020-12-16";
         String endDate = "2021-12-31";
-        String insertStartDate = "2021-03-02";//查询新增交易的开始时间
 
         if (showType == 1) {
 //        //显示插入数据库语句
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String bizTypeRedem = "2";//0-全部;1-申购;2-卖出;
+            String insertStartDate = "2021-03-12";//查询新增交易的开始时间
             showInsertDb(cookie, insertStartDate, endDate, bizTypeBuy);
             //显示更新数据库语句
             showUpdateDb(cookie, startDate, endDate, bizTypeBuy);
@@ -44,9 +44,9 @@ public class TradeDemo {
         if (showType == 2) {
             String bizType = "1";
             //        // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,0);//0是今天，1是昨天
-            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,7);
-            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType,14);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 1);//0是今天，1是昨天
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 7);
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 14);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 30);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 60);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 90);
