@@ -51,13 +51,13 @@ public class StockTradeDemo {
             //        // 更新最新净值-限定时间段的最大最小净值
             showUpdateDbMaxMinNetByDays(cookie, 1,  "LAST_NET", "LAST_NET");
             showUpdateDbMaxMinNetByDays(cookie, 1, "NET_MIN_1", "NET_MAX_1");
-            showUpdateDbMaxMinNetByDays(cookie, 7,  "NET_MIN_7", "NET_MAX_7");
-            showUpdateDbMaxMinNetByDays(cookie, 14,  "NET_MIN_14", "NET_MAX_14");
-            showUpdateDbMaxMinNetByDays(cookie, 30,  "NET_MIN_30", "NET_MAX_30");
-            showUpdateDbMaxMinNetByDays(cookie, 60,  "NET_MIN_60", "NET_MAX_60");
-            showUpdateDbMaxMinNetByDays(cookie, 90,  "NET_MIN_90", "NET_MAX_90");
-            showUpdateDbMaxMinNetByDays(cookie, 180,  "NET_MIN_180", "NET_MAX_180");
-            showUpdateDbMaxMinNetByDays(cookie, 365,  "NET_MIN_360", "NET_MAX_360");
+//            showUpdateDbMaxMinNetByDays(cookie, 7,  "NET_MIN_7", "NET_MAX_7");
+//            showUpdateDbMaxMinNetByDays(cookie, 14,  "NET_MIN_14", "NET_MAX_14");
+//            showUpdateDbMaxMinNetByDays(cookie, 30,  "NET_MIN_30", "NET_MAX_30");
+//            showUpdateDbMaxMinNetByDays(cookie, 60,  "NET_MIN_60", "NET_MAX_60");
+//            showUpdateDbMaxMinNetByDays(cookie, 90,  "NET_MIN_90", "NET_MAX_90");
+//            showUpdateDbMaxMinNetByDays(cookie, 180,  "NET_MIN_180", "NET_MAX_180");
+//            showUpdateDbMaxMinNetByDays(cookie, 365,  "NET_MIN_360", "NET_MAX_360");
         }
     }
 
