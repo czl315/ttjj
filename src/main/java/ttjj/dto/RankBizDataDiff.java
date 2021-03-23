@@ -5,9 +5,25 @@ package ttjj.dto;
  * @date
  */
 public class RankBizDataDiff {
+    /**
+     * orderNum 排序号
+     */
+    private int orderNum;
+    /**
+     * f1 类别？
+     */
     private int f1;
+    /**
+     * f2 指数点
+     */
     private double f2;
+    /**
+     * f3 涨幅
+     */
     private double f3;
+    /**
+     * f4
+     */
     private double f4;
     private long f5;
     private long f6;
@@ -373,5 +389,13 @@ public class RankBizDataDiff {
 
     public void setF222(double f222) {
         this.f222 = f222;
+    }
+
+    public int getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(int orderNum) {
+        this.orderNum = orderNum;
     }
 }

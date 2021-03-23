@@ -33,7 +33,7 @@ public class TradeDemo {
 //        //显示插入数据库语句
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String bizTypeRedem = "2";//0-全部;1-申购;2-卖出;
-            String insertStartDate = "2021-03-12";//查询新增交易的开始时间
+            String insertStartDate = "2021-03-19";//查询新增交易的开始时间
             showInsertDb(cookie, insertStartDate, endDate, bizTypeBuy);
             //显示更新数据库语句
             showUpdateDb(cookie, startDate, endDate, bizTypeBuy);
