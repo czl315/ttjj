@@ -44,7 +44,7 @@ public class TradeDemo {
         if (showType == 2) {
             String bizType = "1";
             //        // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 1);//0是今天，1是昨天
+            showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 0);//0是今天，1是昨天
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 7);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 14);
             showUpdateDbMaxMinNetByDays(cookie, startDate, endDate, bizType, 30);

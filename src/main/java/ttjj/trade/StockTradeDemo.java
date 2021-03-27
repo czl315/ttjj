@@ -25,14 +25,14 @@ public class StockTradeDemo {
     static String keyRsMin = "rsMin";
 
     public static void main(String[] args) {
-//        int showType = 1;//新增赎回
-        int showType = 2;
+        int showType = 1;//新增赎回
+//        int showType = 2;
 
         if (showType == 1) {
-            String cookie = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=4851b046-d33d-4a6b-baf7-42f34c188ddb; Uuid=1d130c631daa497186c48cd451320b31; monitor_count=25";
+            String cookie = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=bdaefe9d-7933-4475-8f00-9a1fc87b5991; Uuid=dc629c773d2e4b3692d07c14dc60d76e; monitor_count=58";
             String validatekey = "bcb2df3e-b7b3-4782-bb46-207f3da4c085";
 
-            String startDate = "2021-03-23";//查询新增交易的开始时间
+            String startDate = "2021-03-26";//查询新增交易的开始时间
 //        //显示插入数据库语句
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String insertStartDate = startDate;//查询新增交易的开始时间
@@ -40,10 +40,9 @@ public class StockTradeDemo {
             showInsertDb(cookie, validatekey, insertStartDate, insertEndDate, bizTypeBuy);
 
             //  赎回
-            String bizTypeSell = "2";//0-全部;1-申购;2-卖出;
             String sellStartDate = startDate;
             String sellEndDate = "2021-03-31";
-            showDbRedem(cookie,validatekey, sellStartDate, sellEndDate, bizTypeSell);
+            showDbRedem(cookie,validatekey, sellStartDate, sellEndDate);
         }
 
 
@@ -86,7 +85,7 @@ public class StockTradeDemo {
                 String tradeTimeDateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(tradeTimeDate);
 
                 //显示插入数据库语句
-                System.out.println("INSERT INTO `bank19`.`ol_stock_trade`(" +
+                System.out.println("INSERT INTO `bank19`.`stock_trade`(" +
                         " `FD_CODE`" +
                         ",`FD_INFO`" +
                         ", `TYPE`" +
@@ -334,6 +333,36 @@ public class StockTradeDemo {
         double baseRiskStLoss = 0.95;
         double baseRiskStProfit = 1.15;
 
+        //科技
+        List<String> typeListKeJi = new ArrayList<>();
+        typeListKeJi.add("515050");//5GETF
+        typeListKeJi.add("159995");//芯片ETF
+        typeListKeJi.add("002202");//金风科技
+        typeListKeJi.add("600517");//国网英大
+        typeListKeJi.add("159813");//芯片
+        typeListKeJi.add("600703");//三安光电
+        typeListKeJi.add("513330");//恒生互联
+        for (String zqdm : typeListKeJi) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("科技");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
+        //软件服务
+        List<String> typeListRuanJianFuWu = new ArrayList<>();
+        typeListRuanJianFuWu.add("002230");//科大讯飞
+        for (String zqdm : typeListRuanJianFuWu) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("软件服务");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
         //指数
         List<String> typeListZhiShu = new ArrayList<>();
         typeListZhiShu.add("510050");//50ETF
@@ -343,6 +372,7 @@ public class StockTradeDemo {
         typeListZhiShu.add("159949");//创业板50
         typeListZhiShu.add("513550");//港股通50
         typeListZhiShu.add("513050");//中概互联
+        typeListZhiShu.add("160416");//石油基金
 //        typeListZhiShu.add("159915");//创业板
 //        typeListZhiShu.add("588090");//科创板
         for (String zqdm : typeListZhiShu) {
@@ -378,6 +408,18 @@ public class StockTradeDemo {
             rs.add(stockTradeTemp);
         }
 
+        //贵金属
+        List<String> typeListGjs = new ArrayList<>();
+        typeListGjs.add("601899");//紫金矿业
+        for (String zqdm : typeListGjs) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("贵金属");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
         //工程建设
         List<String> typeListGongCheng = new ArrayList<>();
         typeListGongCheng.add("601668");//中国建筑
@@ -405,23 +447,7 @@ public class StockTradeDemo {
             rs.add(stockTradeTemp);
         }
 
-        //科技
-        List<String> typeListKeJi = new ArrayList<>();
-        typeListKeJi.add("515050");//5GETF
-        typeListKeJi.add("159995");//芯片ETF
-        typeListKeJi.add("002202");//金风科技
-        typeListKeJi.add("600517");//国网英大
-        typeListKeJi.add("159813");//芯片
-        typeListKeJi.add("600703");//三安光电
-        typeListKeJi.add("513330");//恒生互联
-        for (String zqdm : typeListKeJi) {
-            StockTrade stockTradeTemp = new StockTrade();
-            stockTradeTemp.setBizTy("科技");
-            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
-            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
-            stockTradeTemp.setZqdm(zqdm);
-            rs.add(stockTradeTemp);
-        }
+
 
         //环保
         List<String> typeListHuanBao = new ArrayList<>();
@@ -441,6 +467,18 @@ public class StockTradeDemo {
         for (String zqdm : typeListJunGong) {
             StockTrade stockTradeTemp = new StockTrade();
             stockTradeTemp.setBizTy("军工");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
+        //航天航空
+        List<String> typeListHtHk = new ArrayList<>();
+        typeListHtHk.add("002151");//北斗星通
+        for (String zqdm : typeListHtHk) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("航天航空");
             stockTradeTemp.setRiskStLoss(baseRiskStLoss);
             stockTradeTemp.setRiskStProfit(baseRiskStProfit);
             stockTradeTemp.setZqdm(zqdm);
@@ -568,7 +606,7 @@ public class StockTradeDemo {
         Double maxJz = netRs.get(keyRsMax);
 
         StringBuffer sb = new StringBuffer();
-        sb.append("UPDATE `ol_stock_trade` ");
+        sb.append("UPDATE `stock_trade` ");
         sb.append("SET ");
         sb.append(" `" + dbFieldLastNetMin + "`=" + minJz + " ");
         sb.append(" ,`" + dbFieldLastNetMax + "`=" + maxJz + " ");
@@ -686,9 +724,8 @@ public class StockTradeDemo {
      * @param cookie
      * @param startDate
      * @param endDate
-     * @param busType
      */
-    private static void showDbRedem(String cookie,String validatekey, String startDate, String endDate, String busType) {
+    private static void showDbRedem(String cookie,String validatekey, String startDate, String endDate) {
         TradeStockDao tradeService = new TradeStockDaoImpl();
         List<StockTrade> stockTradeList = tradeService.findMyStockTrade(cookie, startDate, endDate, validatekey);
         for (StockTrade stockTrade : stockTradeList) {
@@ -707,7 +744,7 @@ public class StockTradeDemo {
                 String tradeTimeDateStr = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(tradeTimeDate);
 
                 StringBuffer sb = new StringBuffer();
-                sb.append("UPDATE `ol_stock_trade` " +
+                sb.append("UPDATE `stock_trade` " +
 //                System.out.println("UPDATE `ol_fund_trade` " +
                         "SET `TYPE`='证券买入(卖出)'");
                 if (stockTrade.getCjjg() != null) {

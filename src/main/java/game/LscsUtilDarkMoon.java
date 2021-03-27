@@ -19,20 +19,21 @@ public class LscsUtilDarkMoon {
 
         String page = "";
 //        String cardSet = "scholomance-academy";//通灵学院
-        String cardSet = "madness-at-the-darkmoon-faire";//暗月马戏团
-        String cardTye = "1暗月马戏团";//
+//        String cardSet = "madness-at-the-darkmoon-faire";//暗月马戏团
+        String cardSet = "forged-in-the-barrens";//
+        String cardTye = "1贫瘠之地的锤炼";//
 //        String cardClass = "neutral";
         String cardClass = "";
         for (int i = 0; i <= 0; i++) {
             String rsJson = findJsonCardByDarkMoon("", cardClass, i + page, cardSet);
-            System.out.println(rsJson);//返回结果
+//            System.out.println("返回结果:"+rsJson);//返回结果
             CardJsonPtDarkMoon cardJsonPt = JSON.parseObject(rsJson, CardJsonPtDarkMoon.class);
-            List<CardJsonDarkMoon> cardJsonList = cardJsonPt.getData();
+            List<CardJsonDarkMoon> cardJsonList = cardJsonPt.getData().getList();
             if (cardJsonList == null || cardJsonList.size() <= 0) {
                 break;
             }
             for (CardJsonDarkMoon cardJson : cardJsonList) {
-//            System.out.println(JSON.toJSONString(cardJson));
+//                System.out.println(JSON.toJSONString(cardJson));
                 handlerCardRs(cardJson);
                 System.out.println("\t"
                         + cardJson.getName() + "\t"
@@ -106,7 +107,7 @@ public class LscsUtilDarkMoon {
         }
 
         //关键字
-        if (StringUtils.isBlank(cardJson.getCardClass())) {
+        if (StringUtils.isBlank(cardJson.getCardClass()) &&  (StringUtils.isNotBlank(cardJson.getLegacyKeywords()))) {
             if (cardJson.getLegacyKeywords().contains("恶魔猎手")) {
                 cardJson.setCardClass(cardJson.getCardClass() + "恶魔猎手,");
             }

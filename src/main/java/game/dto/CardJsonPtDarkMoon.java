@@ -19,7 +19,7 @@ public class CardJsonPtDarkMoon {
     /**
      *
      */
-    private List<CardJsonDarkMoon> data;
+    private CardJsonData data;
 
     public String getMsg() {
         return msg;
@@ -37,11 +37,11 @@ public class CardJsonPtDarkMoon {
         this.status = status;
     }
 
-    public List<CardJsonDarkMoon> getData() {
+    public CardJsonData getData() {
         return data;
     }
 
-    public void setData(List<CardJsonDarkMoon> data) {
+    public void setData(CardJsonData data) {
         this.data = data;
     }
 }

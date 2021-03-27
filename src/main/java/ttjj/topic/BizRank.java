@@ -19,6 +19,7 @@ public class BizRank {
 
     /**
      * ttjj
+     *
      * @param args args
      */
     public static void main(String[] args) {
@@ -33,108 +34,113 @@ public class BizRank {
 
     /**
      * 显示业务排行-插入sql
+     *
      * @param rankBizDataDiffList
      */
     private static void showBizSql(List<RankBizDataDiff> rankBizDataDiffList) {
-        int orderNum =0;//序号
+        int orderNum = 0;//序号
         String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
         for (RankBizDataDiff entity : rankBizDataDiffList) {
             orderNum++;
             //显示插入数据库语句
-            System.out.println("INSERT INTO `bank19`.`stock_biz`(" +
-                    "`rs`" +
-                    ",`date`" +
-                    ",`order_num`" +
-                    ",`f2`" +
-                    ",`f3`" +
-                    ",`f4`" +
-                    ",`f5`" +
-                    ",`f6`" +
-                    ",`f7`" +
-                    ",`f8`" +
-                    ",`f9`" +
-                    ",`f10`" +
-                    ",`f11`" +
-                    ",`f12`" +
-                    ",`f13`" +
-                    ",`f14`" +
-                    ",`f15`" +
-                    ",`f16`" +
-                    ",`f17`" +
-                    ",`f18`" +
-                    ",`f20`" +
-                    ",`f21`" +
-                    ",`f22`" +
-                    ",`f23`" +
-                    ",`f24`" +
-                    ",`f25`" +
-                    ",`f26`" +
-                    ",`f33`" +
-                    ",`f62`" +
-                    ",`f104`" +
-                    ",`f105`" +
-                    ",`f107`" +
-                    ",`f115`" +
-                    ",`f124`" +
-                    ",`f128`" +
-                    ",`f140`" +
-                    ",`f141`" +
-                    ",`f136`" +
-                    ",`f152`" +
-                    ",`f207`" +
-                    ",`f208`" +
-                    ",`f209`" +
-                    ",`f222`" +
-                    ") VALUES (" +
-                    " '" + JSON.toJSONString(entity) + "'" +
-                    " ,'" + today + "'" +
-                    " ," + orderNum + "" +
-                    " ," + entity.getF2() + "" +
-                    " ," + entity.getF3() + "" +
-                    " ," + entity.getF4() + "" +
-                    " ," + entity.getF5() + "" +
-                    " ," + entity.getF6() + "" +
-                    " ," + entity.getF7() + "" +
-                    " ," + entity.getF8() + "" +
-                    " ," + entity.getF9() + "" +
-                    " ," + entity.getF10() + "" +
-                    " ," + entity.getF11() + "" +
-                    " ,'" + entity.getF12() + "'" +
-                    " ," + entity.getF13() + "" +
-                    " ,'" + entity.getF14() + "'" +
-                    " ," + entity.getF15() + "" +
-                    " ," + entity.getF16() + "" +
-                    " ," + entity.getF17() + "" +
-                    " ," + entity.getF18() + "" +
-                    " ," + entity.getF20() + "" +
-                    " ," + entity.getF21() + "" +
-                    " ," + entity.getF22() + "" +
-                    " ,'" + entity.getF23() + "'" +
-                    " ," + entity.getF24() + "" +
-                    " ," + entity.getF25() + "" +
-                    " ,'" + entity.getF26() + "'" +
-                    " ," + entity.getF33() + "" +
-                    " ," + entity.getF62() + "" +
-                    " ," + entity.getF104() + "" +
-                    " ," + entity.getF105() + "" +
-                    " ," + entity.getF107() + "" +
-                    " ,'" + entity.getF115() + "'" +
-                    " ," + entity.getF124() + "" +
-                    " ,'" + entity.getF128() + "'" +
-                    " ,'" + entity.getF140() + "'" +
-                    " ," + entity.getF141() + "" +
-                    " ," + entity.getF136() + "" +
-                    " ," + entity.getF152() + "" +
-                    " ,'" + entity.getF207() + "'" +
-                    " ,'" + entity.getF208() + "'" +
-                    " ," + entity.getF209() + "" +
-                    " ," + entity.getF222() + "" +
-                    ");");
+            {
+                System.out.println("INSERT INTO `bank19`.`stock_biz`(" +
+                        "`rs`" +
+                        ",`date`" +
+                        ",`order_num`" +
+                        ",`f2`" +
+                        ",`f3`" +
+                        ",`f4`" +
+                        ",`f5`" +
+                        ",`f6`" +
+                        ",`f7`" +
+                        ",`f8`" +
+                        ",`f9`" +
+                        ",`f10`" +
+                        ",`f11`" +
+                        ",`f12`" +
+                        ",`f13`" +
+                        ",`f14`" +
+                        ",`f15`" +
+                        ",`f16`" +
+                        ",`f17`" +
+                        ",`f18`" +
+                        ",`f20`" +
+                        ",`f21`" +
+                        ",`f22`" +
+                        ",`f23`" +
+                        ",`f24`" +
+                        ",`f25`" +
+                        ",`f26`" +
+                        ",`f33`" +
+                        ",`f62`" +
+                        ",`f104`" +
+                        ",`f105`" +
+                        ",`f107`" +
+                        ",`f115`" +
+                        ",`f124`" +
+                        ",`f128`" +
+                        ",`f140`" +
+                        ",`f141`" +
+                        ",`f136`" +
+                        ",`f152`" +
+                        ",`f207`" +
+                        ",`f208`" +
+                        ",`f209`" +
+                        ",`f222`" +
+                        ") VALUES (" +
+                        " '" + JSON.toJSONString(entity) + "'" +
+                        " ,'" + today + "'" +
+                        " ," + orderNum + "" +
+                        " ," + entity.getF2() + "" +
+                        " ," + entity.getF3() + "" +
+                        " ," + entity.getF4() + "" +
+                        " ," + entity.getF5() + "" +
+                        " ," + entity.getF6() + "" +
+                        " ," + entity.getF7() + "" +
+                        " ," + entity.getF8() + "" +
+                        " ," + entity.getF9() + "" +
+                        " ," + entity.getF10() + "" +
+                        " ," + entity.getF11() + "" +
+                        " ,'" + entity.getF12() + "'" +
+                        " ," + entity.getF13() + "" +
+                        " ,'" + entity.getF14() + "'" +
+                        " ," + entity.getF15() + "" +
+                        " ," + entity.getF16() + "" +
+                        " ," + entity.getF17() + "" +
+                        " ," + entity.getF18() + "" +
+                        " ," + entity.getF20() + "" +
+                        " ," + entity.getF21() + "" +
+                        " ," + entity.getF22() + "" +
+                        " ,'" + entity.getF23() + "'" +
+                        " ," + entity.getF24() + "" +
+                        " ," + entity.getF25() + "" +
+                        " ,'" + entity.getF26() + "'" +
+                        " ," + entity.getF33() + "" +
+                        " ," + entity.getF62() + "" +
+                        " ," + entity.getF104() + "" +
+                        " ," + entity.getF105() + "" +
+                        " ," + entity.getF107() + "" +
+                        " ,'" + entity.getF115() + "'" +
+                        " ," + entity.getF124() + "" +
+                        " ,'" + entity.getF128() + "'" +
+                        " ,'" + entity.getF140() + "'" +
+                        " ," + entity.getF141() + "" +
+                        " ," + entity.getF136() + "" +
+                        " ," + entity.getF152() + "" +
+                        " ,'" + entity.getF207() + "'" +
+                        " ,'" + entity.getF208() + "'" +
+                        " ," + entity.getF209() + "" +
+                        " ," + entity.getF222() + "" +
+                        ");");
+            }
+
         }
     }
 
     /**
      * 查询昨日主题排名
+     *
      * @param endCount
      */
     private static List<RankBizDataDiff> listBiz(int endCount) {
@@ -148,21 +154,21 @@ public class BizRank {
         String url = "http://28.push2.eastmoney.com/api/qt/clist/get";
         urlParam.append("cb=jQuery112408110589206747254_1616379873172" +
                 "&pn=1" +
-                "&pz=" +endCount+
+                "&pz=" + endCount +
                 "&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3" +
                 "&fs=m:90+t:2+f:!50" +
                 "&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222" +
                 "&_=1616379873199");
         String rs = HttpUtil.sendGet(url, urlParam.toString(), "");
 //        System.out.println(rs);
-        if(rs == null){
+        if (rs == null) {
             return null;
         }
-        if(rs.startsWith("jQuery")){
+        if (rs.startsWith("jQuery")) {
             rs = rs.substring(rs.indexOf("{"));
         }
-        if(rs.endsWith(");")){
-            rs = rs.substring(0,rs.length()-2);
+        if (rs.endsWith(");")) {
+            rs = rs.substring(0, rs.length() - 2);
         }
 //        System.out.println(rs);//返回结果
         JSONArray jsonArrayBiz = new JSONArray();
@@ -171,16 +177,16 @@ public class BizRank {
         JSONArray rsJsonDataDiff = rsJsonData.getJSONArray("diff");
         List<RankBizDataDiff> rankBizDataDiffList = JSON.parseArray(JSON.toJSONString(rsJsonDataDiff), RankBizDataDiff.class);
         for (RankBizDataDiff row : rankBizDataDiffList) {
-//            System.out.println(row);//每个行业一行数据
+//            System.out.println(JSON.toJSON(row));//每个行业一行数据
             JSONObject jsonObjectBiz = new JSONObject();
-            jsonObjectBiz.put("name",row.getF14());
-            jsonObjectBiz.put("rate",row.getF3());
+            jsonObjectBiz.put("name", row.getF14());
+            jsonObjectBiz.put("rate", row.getF3());
             jsonArrayBiz.add(jsonObjectBiz);
         }
-
 //        System.out.println(jsonArrayBiz);//行业排行数组
+
         for (Object obj : jsonArrayBiz) {
-            JSONObject jsonObjectBiz =(JSONObject)obj;
+            JSONObject jsonObjectBiz = (JSONObject) obj;
 //            System.out.println(jsonObjectBiz);
         }
 
