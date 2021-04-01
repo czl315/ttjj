@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import ttjj.Dao.TradeStockDao;
 import ttjj.Dao.impl.TradeStockDaoImpl;
 import ttjj.dto.FundTrade;
@@ -23,32 +24,41 @@ import java.util.*;
 public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsMin = "rsMin";
+    static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=37058ab7-b76c-47de-b0b0-b445e8ec2c84; Uuid=d556af124bb64737a587a84bf3b11f16; monitor_count=62";
 
     public static void main(String[] args) {
-        int showType = 1;//新增赎回
-//        int showType = 2;
+        int showType = 21;//最新一天
+//        int showType = 1;//新增赎回
+//        int showType = 22;//最新一年内
 
         if (showType == 1) {
-            String cookie = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=bdaefe9d-7933-4475-8f00-9a1fc87b5991; Uuid=dc629c773d2e4b3692d07c14dc60d76e; monitor_count=58";
             String validatekey = "bcb2df3e-b7b3-4782-bb46-207f3da4c085";
 
-            String startDate = "2021-03-26";//查询新增交易的开始时间
-//        //显示插入数据库语句
+//            String startDate = "2021-03-31";//查询新增交易的开始时间
+            String startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            String endDate = "2021-12-31";
+            //显示插入数据库语句
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String insertStartDate = startDate;//查询新增交易的开始时间
-            String insertEndDate = "2021-12-31";//查询新增交易的结束时间
-            showInsertDb(cookie, validatekey, insertStartDate, insertEndDate, bizTypeBuy);
+            String insertEndDate = endDate;//查询新增交易的结束时间
+            showInsertDb(COOKIE_DFCF, validatekey, insertStartDate, insertEndDate, bizTypeBuy);
 
             //  赎回
             String sellStartDate = startDate;
-            String sellEndDate = "2021-03-31";
-            showDbRedem(cookie,validatekey, sellStartDate, sellEndDate);
+            String sellEndDate = endDate;
+            showDbRedem(COOKIE_DFCF, validatekey, sellStartDate, sellEndDate);
         }
 
 
-        if (showType == 2) {
-            //        // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(1,  "LAST_NET", "LAST_NET");
+        if (showType == 21) {
+            // 更新最新净值-限定时间段的最大最小净值
+            showUpdateDbMaxMinNetByDays(1, "LAST_NET", "LAST_NET");
+            showUpdateDbMaxMinNetByDays(1, "NET_MIN_1", "NET_MAX_1");
+        }
+
+        if (showType == 22) {
+            // 更新最新净值-限定时间段的最大最小净值
+            showUpdateDbMaxMinNetByDays(1, "LAST_NET", "LAST_NET");
             showUpdateDbMaxMinNetByDays(1, "NET_MIN_1", "NET_MAX_1");
             showUpdateDbMaxMinNetByDays(7, "NET_MIN_7", "NET_MAX_7");
             showUpdateDbMaxMinNetByDays(14, "NET_MIN_14", "NET_MAX_14");
@@ -146,7 +156,7 @@ public class StockTradeDemo {
 
         List<StockTrade> rs = listMyStock();
         for (StockTrade stockTrade : rs) {
-            if(stockTrade.getZqdm().equals(fundTrade.getZqdm())){
+            if (stockTrade.getZqdm().equals(fundTrade.getZqdm())) {
                 fundTrade.setBizTy(stockTrade.getBizTy());
                 fundTrade.setRiskStLoss(baseRiskStLoss);
                 fundTrade.setRiskStProfit(baseRiskStProfit);
@@ -351,6 +361,19 @@ public class StockTradeDemo {
             rs.add(stockTradeTemp);
         }
 
+        //输配电气
+        List<String> typeListSpdq = new ArrayList<>();
+        typeListSpdq.add("002202");//金风科技
+        typeListSpdq.add("600517");//国网英大
+        for (String zqdm : typeListSpdq) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("输配电气");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
         //软件服务
         List<String> typeListRuanJianFuWu = new ArrayList<>();
         typeListRuanJianFuWu.add("002230");//科大讯飞
@@ -447,11 +470,22 @@ public class StockTradeDemo {
             rs.add(stockTradeTemp);
         }
 
-
+        //民航机场
+        List<String> typeListMhjc = new ArrayList<>();
+        typeListMhjc.add("600115");//东方航空
+        typeListMhjc.add("601021");//春秋航空
+        for (String zqdm : typeListMhjc) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("民航机场");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
 
         //环保
         List<String> typeListHuanBao = new ArrayList<>();
-        typeListHuanBao.add("600217");//中再资环
+//        typeListHuanBao.add("600217");//中再资环
         typeListHuanBao.add("002340");//格林美
         for (String zqdm : typeListHuanBao) {
             StockTrade stockTradeTemp = new StockTrade();
@@ -499,6 +533,7 @@ public class StockTradeDemo {
         List<String> typeListJinRong = new ArrayList<>();
         typeListJinRong.add("601555");//东吴证券
         typeListJinRong.add("501025");//香港银行
+        typeListJinRong.add("000776");//广发证券
         for (String zqdm : typeListJinRong) {
             StockTrade stockTradeTemp = new StockTrade();
             stockTradeTemp.setBizTy("金融");
@@ -522,6 +557,7 @@ public class StockTradeDemo {
         //酿酒行业
         List<String> typeListNiangJiu = new ArrayList<>();
         typeListNiangJiu.add("600600");//青岛啤酒
+        typeListNiangJiu.add("000729");//燕京啤酒
         for (String zqdm : typeListNiangJiu) {
             StockTrade stockTradeTemp = new StockTrade();
             stockTradeTemp.setBizTy("酿酒行业");
@@ -547,7 +583,6 @@ public class StockTradeDemo {
 //            LsjzUtil.findJzMaxMin(fundTrade.getZqdm(), days);
             //k线
             String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-            String dateType = "1";//1：一天;7:周;30:月;
             kline(stockTradeTemp.getZqdm(), days, klt, dbFieldLastNetMin, dbFieldLastNetMax);//沪深300
         }
     }
@@ -725,7 +760,7 @@ public class StockTradeDemo {
      * @param startDate
      * @param endDate
      */
-    private static void showDbRedem(String cookie,String validatekey, String startDate, String endDate) {
+    private static void showDbRedem(String cookie, String validatekey, String startDate, String endDate) {
         TradeStockDao tradeService = new TradeStockDaoImpl();
         List<StockTrade> stockTradeList = tradeService.findMyStockTrade(cookie, startDate, endDate, validatekey);
         for (StockTrade stockTrade : stockTradeList) {
