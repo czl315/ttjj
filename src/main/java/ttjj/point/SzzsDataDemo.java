@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import ttjj.trade.StockTradeDemo;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
@@ -37,28 +38,23 @@ public class SzzsDataDemo {
 //        boolean showMyStock = true;//显示-我的股票
         boolean showMyStock = false;//不显示-我的股票
 
-        boolean showMyTtjj = true;//显示-我的基金
+//        boolean showMyTtjj = true;//显示-我的基金
+        boolean showMyTtjj = false;//不显示-我的基金
 
         if (showDaPanKline) {
             String cookie = "";//
             //k线
-            String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-            String dateType = "1";//1：一天;7:周;30:月;
-            String date = "";
-            int count = 1;
-            int lastCount = 2;
+            String klt = "103";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
+            String dateType = "30";//1：一天;7:周;30:月;
+            String date = "2021-03-31";
+            int count = 2;
+            int lastCount = 3;
             kline(cookie, HS_300_000300, count, klt, dateType, date);//沪深300
-//        System.out.println();
             kline(cookie, CYB_50_399673, count, klt, dateType, date);//创业板50
-//        System.out.println();
             kline(cookie, ZZ_500_000905, count, klt, dateType, date);//中证500
-//        System.out.println();
             kline(cookie, SH_50_000016, count, klt, dateType, date);//上证50
-//        System.out.println();
             kline(cookie, SHANG_HAI, count, klt, dateType, date);//上证
-//        System.out.println();
             kline(cookie, SHEN_ZHEN, count, klt, dateType, date);//深证成指
-//        System.out.println();
             kline(cookie, CYB, count, klt, dateType, date);//创业板
             System.out.println();
 //        //k线（上一日期）
@@ -95,9 +91,8 @@ public class SzzsDataDemo {
 
         if (showMyStock) {
             //显示股票每日收益
-            String cookieDfcf = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=5dfd1623-04dd-44d7-b4d8-e156e5265178; Uuid=52c74f76dfa84ff68296d0696de5f57f; monitor_count=46";
-            String validatekey = "5f090882-d116-4f2e-a1b1-9b40afd82512";
-            queryAssetByDfcfStock(cookieDfcf, validatekey);
+            String cookieDfcf = StockTradeDemo.COOKIE_DFCF;
+            queryAssetByDfcfStock(cookieDfcf);
         }
 
 //        if (showMyTtjj) {
@@ -107,9 +102,34 @@ public class SzzsDataDemo {
 //            queryAssetByTtjj(cookieTtjj);
 //        }
 
+        if (showMyTtjj) {
+            String amt = "82889.79";
+            String amt_fund = "69251.38";
+            String amt_fund_last = "71203.61";
+            String earn_fund = "1015.76";
+            handlerFundByTtjj(amt, amt_fund, amt_fund_last, earn_fund);
+        }
+
+    }
+
+    /**
+     * 计算我的天天基金收益
+     *
+     * @param amt
+     * @param amt_fund
+     * @param amt_fund_last
+     */
+    private static void handlerFundByTtjj(String amt, String amt_fund, String amt_fund_last, String earn_fund) {
+        String curDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String dayProfitRt = new BigDecimal(earn_fund).divide(new BigDecimal(amt_fund_last), 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).divide(new BigDecimal("1"), 4, BigDecimal.ROUND_HALF_UP).toString();//当日盈亏收益率
+        System.out.println("UPDATE `fupan` SET `amt`='" + amt + "', `amt_fund`='" + amt_fund + "', `amt_fund_last`='" + amt_fund_last
+                + "', `earn_fund`='" + earn_fund
+                + "', `rt_zh`='" + dayProfitRt
+                + "' WHERE (`CODE`='" + curDate + "') AND fupan.period='1'" + " AND fupan.TYPE=1;");
 
 
-
+//        String rsDate = rsArray.getString("Data");
+//        System.out.println(rsDate);
     }
 
     /**
@@ -159,7 +179,7 @@ public class SzzsDataDemo {
      *
      * @param
      */
-    private static void queryAssetByDfcfStock(String cookie, String validatekey) {
+    private static void queryAssetByDfcfStock(String cookie) {
 //        String url = "https://jywg.18.cn/Com/queryAssetAndPositionV1?validatekey=" + validatekey;
         String url = "https://jywg.18.cn/AccountAnalyze/Asset/GetHold?v=1617202981877";
 
@@ -583,12 +603,12 @@ public class SzzsDataDemo {
 //            System.out.print("涨跌额:" + klineArray[9] + ",");
 //            System.out.print("换手率:" + klineArray[10] + ",");
 //            System.out.println();
-            System.out.println("UPDATE `fupan` SET `" + dbFieldRt + "`='" + zhangDie + "', `" + dbFieldNet + "`='" + shouPan + "', `" + dbFieldCje + "`='" + chengJiaoE + "' WHERE (`CODE`='" + curDate + "') AND fupan.period='" + dayTpye + "'" + " AND fupan.TYPE=1;");
-//            if(StringUtils.isNotBlank(date) && curDate.equals(date)){//指定日期
-//                System.out.println("UPDATE `fupan` SET `" + dbFieldRt + "`='" + zhangDie + "', `" + dbFieldNet + "`='" + shouPan + "', `" + dbFieldCje + "`='" + chengJiaoE + "' WHERE (`CODE`='" + curDate + "') AND fupan.period='" + dayTpye + "'" + " AND fupan.TYPE=1;");
-//            }else{
-//                System.out.println("UPDATE `fupan` SET `" + dbFieldRt + "`='" + zhangDie + "', `" + dbFieldNet + "`='" + shouPan + "', `" + dbFieldCje + "`='" + chengJiaoE + "' WHERE (`CODE`='" + curDate + "') AND fupan.period='" + dayTpye + "'" + " AND fupan.TYPE=1;");
-//            }
+//            System.out.println("UPDATE `fupan` SET `" + dbFieldRt + "`='" + zhangDie + "', `" + dbFieldNet + "`='" + shouPan + "', `" + dbFieldCje + "`='" + chengJiaoE + "' WHERE (`CODE`='" + curDate + "') AND fupan.period='" + dayTpye + "'" + " AND fupan.TYPE=1;");
+            if(StringUtils.isNotBlank(date) && curDate.equals(date)){//指定日期
+                System.out.println("UPDATE `fupan` SET `" + dbFieldRt + "`='" + zhangDie + "', `" + dbFieldNet + "`='" + shouPan + "', `" + dbFieldCje + "`='" + chengJiaoE + "' WHERE (`CODE`='" + curDate + "') AND fupan.period='" + dayTpye + "'" + " AND fupan.TYPE=1;");
+            }else{
+                System.out.println("UPDATE `fupan` SET `" + dbFieldRt + "`='" + zhangDie + "', `" + dbFieldNet + "`='" + shouPan + "', `" + dbFieldCje + "`='" + chengJiaoE + "' WHERE (`CODE`='" + curDate + "') AND fupan.period='" + dayTpye + "'" + " AND fupan.TYPE=1;");
+            }
         }
     }
 
