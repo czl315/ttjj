@@ -14,11 +14,11 @@ public class RankBizDataDiff {
      */
     private int f1;
     /**
-     * f2 指数点
+     * f2 指数点（当前价格）
      */
     private double f2;
     /**
-     * f3 涨幅
+     * f3 涨跌幅
      */
     private double f3;
     /**
@@ -26,10 +26,19 @@ public class RankBizDataDiff {
      */
     private double f4;
     private long f5;
+    /**
+     * f6 成交额
+     */
     private long f6;
     private double f7;
     private double f8;
+    /**
+     * f9 市盈(动)
+     */
     private double f9;
+    /**
+     * f10 量比
+     */
     private double f10;
     private double f11;
     private String f12;
@@ -39,7 +48,13 @@ public class RankBizDataDiff {
     private double f16;
     private double f17;
     private double f18;
+    /**
+     * f20 总市值
+     */
     private long f20;
+    /**
+     * f21 流通市值
+     */
     private long f21;
     private int f22;
     private String f23;

@@ -47,7 +47,7 @@ public class SzzsDataDemo {
             String klt = "103";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
             String dateType = "30";//1：一天;7:周;30:月;
             String date = "2021-03-31";
-            int count = 2;
+            int count = 3;
             int lastCount = 3;
             kline(cookie, HS_300_000300, count, klt, dateType, date);//沪深300
             kline(cookie, CYB_50_399673, count, klt, dateType, date);//创业板50
