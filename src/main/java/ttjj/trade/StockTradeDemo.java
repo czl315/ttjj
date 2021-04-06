@@ -27,9 +27,9 @@ public class StockTradeDemo {
     public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=70834230146663; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=; st_sn=1; st_psi=2021040223275973-11923323313501-2184183546; st_asi=delete; mobileimei=a176e69d-15ac-44f4-a2c6-44e0c6ac2d65; Uuid=65e21c597fdc4665ad7fa18c5c6454ab; monitor_count=68";
 
     public static void main(String[] args) {
-//        int showType = 21;//最新一天
+        int showType = 21;//最新一天
 //        int showType = 1;//新增赎回
-        int showType = 22;//最新一年内
+//        int showType = 22;//最新一年内
 
         if (showType == 1) {
             String validatekey = "bcb2df3e-b7b3-4782-bb46-207f3da4c085";
