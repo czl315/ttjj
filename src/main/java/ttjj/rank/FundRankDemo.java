@@ -194,7 +194,7 @@ public class FundRankDemo {
 
     private static void showInsertDb(FundRank fundRank) {
         //显示插入数据库语句
-        System.out.println("INSERT INTO `ol_fund_rank` (`num`, `fundCode`, `fundInfo`, `bizTy`, `periodDate`, `periodTy`," +
+        System.out.println("INSERT INTO `rank_fund` (`num`, `fundCode`, `fundInfo`, `bizTy`, `periodDate`, `periodTy`," +
                 "`net`, " +
                 "`growth1`, `growth7`, `growth30`, `growth90`, `growth180`, " +
                 "`growth360`, `growth720`, `growth1080`, `growthCurYear`, `growthEstablish`) " +

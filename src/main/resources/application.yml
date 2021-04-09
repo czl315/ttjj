@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: 198303
+    url: jdbc:mysql://localhost:3306/czl315?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+
+  mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: ttjj.Dao
+
+  #showSql
+  logging:
+  level:
+  com:
+  example:
+  mapper : debug
+    ————————————————
+    版权声明：本文为CSDN博主「海岛拾贝」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+    原文链接：https://blog.csdn.net/iku5200/article/details/82856621

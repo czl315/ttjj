@@ -46,7 +46,7 @@ public class BizRank {
             orderNum++;
             //显示插入数据库语句
             {
-                System.out.println("INSERT INTO `bank19`.`stock_biz`(" +
+                System.out.println("INSERT INTO `bank19`.`rank_st_biz`(" +
                         "`rs`" +
                         ",`date`" +
                         ",`type`" +
@@ -224,7 +224,7 @@ public class BizRank {
                 "&np=1" +
                 "&ut=bd1d9ddb04089700cf9c27f6f7426281" +
                 "&fltt=2" +//浮点数精度
-                "&invt=2" +//显示格式：-；0.0
+                "&invt=3" +//显示格式：-；0.0
                 "&fid=f3" +//排序字段
 //                "&fs=m:90+t:2+f:!50" +
                 "&fs=m:90+t:3+f:!50" +

@@ -41,6 +41,9 @@ public class RankBizDataDiff {
      */
     private double f10;
     private double f11;
+    /**
+     * f12 股票代码
+     */
     private String f12;
     private int f13;
     private String f14;

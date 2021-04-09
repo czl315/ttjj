@@ -35,20 +35,20 @@ public class SzzsDataDemo {
         boolean showDaPanKline = true;//显示-大盘指数
 //        boolean showDaPanKline = false;//不显示-大盘指数
 
-//        boolean showMyStock = true;//显示-我的股票
-        boolean showMyStock = false;//不显示-我的股票
+        boolean showMyStock = true;//显示-我的股票
+//        boolean showMyStock = false;//不显示-我的股票
 
-//        boolean showMyTtjj = true;//显示-我的基金
-        boolean showMyTtjj = false;//不显示-我的基金
+        boolean showMyTtjj = true;//显示-我的基金
+//        boolean showMyTtjj = false;//不显示-我的基金
 
         if (showDaPanKline) {
             String cookie = "";//
             //k线
-            String klt = "103";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-            String dateType = "30";//1：一天;7:周;30:月;
-            String date = "2021-03-31";
-            int count = 3;
-            int lastCount = 3;
+            String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
+            String dateType = "1";//1：一天;7:周;30:月;
+            String date = "";
+            int count = 1;
+            int lastCount = 2;
             kline(cookie, HS_300_000300, count, klt, dateType, date);//沪深300
             kline(cookie, CYB_50_399673, count, klt, dateType, date);//创业板50
             kline(cookie, ZZ_500_000905, count, klt, dateType, date);//中证500
@@ -103,10 +103,10 @@ public class SzzsDataDemo {
 //        }
 
         if (showMyTtjj) {
-            String amt = "82889.79";
-            String amt_fund = "69251.38";
-            String amt_fund_last = "71203.61";
-            String earn_fund = "1015.76";
+            String amt = "72315.02";
+            String amt_fund = "66789.38";
+            String amt_fund_last = "68502.69";
+            String earn_fund = "172.1";
             handlerFundByTtjj(amt, amt_fund, amt_fund_last, earn_fund);
         }
 

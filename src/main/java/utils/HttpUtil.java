@@ -27,8 +27,8 @@ public class HttpUtil {
     public static String sendGet(String url, String param, String cookie) {
         String result = "";
         BufferedReader in = null;
+        String urlNameString = url + "?" + param;
         try {
-            String urlNameString = url + "?" + param;
 //            System.out.println(urlNameString);
             URL realUrl = new URL(urlNameString);
             // 打开和URL之间的连接
@@ -56,8 +56,9 @@ public class HttpUtil {
                 result += line;
             }
         } catch (Exception e) {
-            System.out.println("发送GET请求出现异常！" + e);
-            e.printStackTrace();
+            System.out.println("/**发送GET请求出现异常！" + urlNameString + e+"**/");
+//            throw new RuntimeException();
+//            e.printStackTrace();
         }
         // 使用finally块来关闭输入流
         finally {
