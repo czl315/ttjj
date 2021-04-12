@@ -23,15 +23,17 @@ import java.util.*;
  * @date 2020/8/4
  */
 public class StockTradeDemo {
-    static String keyRsMax = "rsMax";
     static String keyRsMin = "rsMin";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=67722640593007; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=; st_sn=1; st_psi=20210408231717450-11923323313501-1749997100; st_asi=delete; mobileimei=5240cc29-7442-4834-a102-005aff76f589; Uuid=fff5db7a67de4f99bebbfeb478d751d3; monitor_count=14";
+    static String keyRsMax = "rsMax";
+    static String keyRsNetCloseMin = "keyRsNetCloseMin";
+    static String keyRsNetCloseMax = "keyRsNetCloseMax";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=95150408404748; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=; st_sn=1; st_psi=20210412222325356-11923323313501-8132853952; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=e724635f-0b4f-4bff-a321-b853d9d1bb0f; Uuid=9bcdc105943445eca105938e60cdddb3; monitor_count=9";
 
     public static void main(String[] args) {
 //        boolean showBuyOrSell = true;//新增赎回
         boolean showBuyOrSell = false;//新增赎回
-//        int showTypeNet = 21;//最新一天
-        int showTypeNet = 22;//最新一年内
+        int showTypeNet = 21;//最新一天
+//        int showTypeNet = 22;//最新一年内
 
         if (showBuyOrSell) {
             String validatekey = "bcb2df3e-b7b3-4782-bb46-207f3da4c085";
@@ -52,29 +54,29 @@ public class StockTradeDemo {
         }
 
         //更新题材概念
-//        if (showTypeNet == 21) {
-//            List<StockTrade> stockTradeList = listMyStock();//查询我的列表
-//            updateConception(stockTradeList);
-//        }
+        if (showBuyOrSell) {
+            List<StockTrade> stockTradeList = listMyStock();//查询我的列表
+            updateConception(stockTradeList);
+        }
 
 
         if (showTypeNet == 21) {
             // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(1, "LAST_NET", "LAST_NET");
-            showUpdateDbMaxMinNetByDays(1, "NET_MIN_1", "NET_MAX_1");
+            showUpdateDbMaxMinNetByDays(1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
+            showUpdateDbMaxMinNetByDays(1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
         }
 
         if (showTypeNet == 22) {
             // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(1, "LAST_NET", "LAST_NET");
-            showUpdateDbMaxMinNetByDays(1, "NET_MIN_1", "NET_MAX_1");
-            showUpdateDbMaxMinNetByDays(7, "NET_MIN_7", "NET_MAX_7");
-            showUpdateDbMaxMinNetByDays(14, "NET_MIN_14", "NET_MAX_14");
-            showUpdateDbMaxMinNetByDays(30, "NET_MIN_30", "NET_MAX_30");
-            showUpdateDbMaxMinNetByDays(60, "NET_MIN_60", "NET_MAX_60");
-            showUpdateDbMaxMinNetByDays(90, "NET_MIN_90", "NET_MAX_90");
-            showUpdateDbMaxMinNetByDays(180, "NET_MIN_180", "NET_MAX_180");
-            showUpdateDbMaxMinNetByDays(365, "NET_MIN_360", "NET_MAX_360");
+            showUpdateDbMaxMinNetByDays(1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
+            showUpdateDbMaxMinNetByDays(1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
+            showUpdateDbMaxMinNetByDays(7, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
+            showUpdateDbMaxMinNetByDays(14, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
+            showUpdateDbMaxMinNetByDays(30, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
+            showUpdateDbMaxMinNetByDays(60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
+            showUpdateDbMaxMinNetByDays(90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
+            showUpdateDbMaxMinNetByDays(180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
+            showUpdateDbMaxMinNetByDays(365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
         }
     }
 
@@ -706,14 +708,14 @@ public class StockTradeDemo {
      * @param days
      * @param dbFieldLastNetMin
      */
-    private static void showUpdateDbMaxMinNetByDays(int days, String dbFieldLastNetMin, String dbFieldLastNetMax) {
+    private static void showUpdateDbMaxMinNetByDays(int days, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
         List<StockTrade> stockTradeList = listMyStock();//查询我的列表
         for (StockTrade stockTradeTemp : stockTradeList) {
             //查询 -限定时间段的最大最小净值
 //            LsjzUtil.findJzMaxMin(fundTrade.getZqdm(), days);
             //k线
             String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-            kline(stockTradeTemp.getZqdm(), days, klt, dbFieldLastNetMin, dbFieldLastNetMax);//沪深300
+            kline(stockTradeTemp.getZqdm(), days, klt, dbFieldLastNetMin, dbFieldLastNetMax, dbFieldLastNetMinClose, dbFieldLastNetMaxClose);//沪深300
         }
     }
 
@@ -726,7 +728,7 @@ public class StockTradeDemo {
      * @param dbFieldLastNetMin
      * @param dbFieldLastNetMax
      */
-    public static void kline(String zhiShu, int count, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax) {
+    public static void kline(String zhiShu, int count, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
         StringBuffer url = new StringBuffer();
         url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
         if (zhiShu.startsWith("5") || zhiShu.startsWith("6")) {
@@ -781,15 +783,21 @@ public class StockTradeDemo {
         Map<String, Double> netRs = handlerMaxJz(klineList);
         Double minJz = netRs.get(keyRsMin);
         Double maxJz = netRs.get(keyRsMax);
+        Double netCloseMin = netRs.get(keyRsNetCloseMin);
+        Double netCloseMax = netRs.get(keyRsNetCloseMax);
 
         StringBuffer sb = new StringBuffer();
         sb.append("UPDATE `stock_trade` ");
         sb.append("SET ");
-        sb.append(" `" + dbFieldLastNetMin + "`=" + minJz + " ");
-        sb.append(" ,`" + dbFieldLastNetMax + "`=" + maxJz + " ");
+        sb.append(" `" + dbFieldLastNetMin + "`=" + minJz + ", ");
+        sb.append(" `" + dbFieldLastNetMinClose + "`=" + netCloseMin + ", ");
+        sb.append(" `" + dbFieldLastNetMax + "`=" + maxJz + ", ");
+        sb.append(" `" + dbFieldLastNetMaxClose + "`=" + netCloseMax + " ");
 //        sb.append(" WHERE `FD_CODE`='" + zhiShu + "'" + " AND TYPE = '证券买入'" + ";");
-        sb.append(" WHERE `FD_CODE`='" + zhiShu + "'" + "" + ";");
+        sb.append(" WHERE `FD_CODE`='" + zhiShu + "'" + "");
+        sb.append(";");
         System.out.println(sb);
+
     }
 
     /**
@@ -802,14 +810,16 @@ public class StockTradeDemo {
         Double rsMax = 0.0;
         Double rsMin = 0.0;
         Double lastDwjz = 0.0;
-        Double rsNewestDayNet = 0.0;
-        Double rsOldestDayNet = 0.0;
+        Double rsNetCloseMin = 0.0;
+        Double rsNetCloseMax = 0.0;
         int curTempInt = 0;
         for (String klineStr : klineList) {
             //  日期，开盘，收盘,最高，最低，成交量，成交额，振幅，涨跌幅，涨跌额，换手率
             //"2020-09-30,3389.74,3218.05,3425.63,3202.34,4906229054,6193724911616.00,6.58,-5.23,-177.63,13.40"
             String[] klineArray = klineStr.split(",");
             String shouPan = klineArray[2];
+            String netMax = klineArray[3];
+            String netMin = klineArray[4];
             String zhangDie = klineArray[8];
             String chengJiaoE = klineArray[6];
             String curDate = klineArray[0];
@@ -835,20 +845,29 @@ public class StockTradeDemo {
             }
             String fsrq = curDate;
 //            System.out.println("fsrq:" + fsrq + ",dwjzLong:" + dwJz);
+
+            Double netMaxDou = Double.valueOf(netMax);
+            if (netMaxDou > rsMax) {
+                rsMax = netMaxDou;
+            }
+            Double netMinDou = Double.valueOf(netMin);
+            if (netMinDou < rsMin || rsMin == 0.0) {
+                rsMin = netMinDou;
+            }
+
+            //
             Double dwjzLong = Double.valueOf(dwJz);
-            if (curTempInt == 0) {//最新一天的净值
-                rsNewestDayNet = dwjzLong;
+            if (dwjzLong > rsNetCloseMax) {
+                rsNetCloseMax = dwjzLong;
             }
-            curTempInt++;
-            if (dwjzLong > rsMax) {
-                rsMax = dwjzLong;
-            }
-            if (dwjzLong < rsMin || rsMin == 0.0) {
-                rsMin = dwjzLong;
+            if (dwjzLong < rsNetCloseMin || rsNetCloseMin == 0.0) {
+                rsNetCloseMin = dwjzLong;
             }
         }
         rs.put(keyRsMax, rsMax);
         rs.put(keyRsMin, rsMin);
+        rs.put(keyRsNetCloseMin, rsNetCloseMin);
+        rs.put(keyRsNetCloseMax, rsNetCloseMax);
         return rs;
     }
 

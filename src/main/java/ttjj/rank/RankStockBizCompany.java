@@ -14,8 +14,10 @@ import java.util.*;
  * 排行-行业股票-公司-每日明细
  */
 public class RankStockBizCompany {
-    static String keyRsMax = "rsMax";
     static String keyRsMin = "rsMin";
+    static String keyRsMax = "rsMax";
+    static String keyRsNetCloseMin = "keyRsNetCloseMin";
+    static String keyRsNetCloseMax = "keyRsNetCloseMax";
 
     /**
      * @param args
@@ -23,47 +25,52 @@ public class RankStockBizCompany {
     public static void main(String[] args) {
         List<String> bizList = new ArrayList<>();
 //        bizList.add("BK0459");//电子元件
-
 //        bizList.add("BK0737");//软件服务
 
 //        bizList.add("BK0477");//酿酒行业
 //        bizList.add("BK0438");//食品饮料
-
 //        bizList.add("BK0485");//旅游酒店
 
 //        bizList.add("BK0727");//医疗行业
 //        bizList.add("BK0465");//医药制造
 
 //        bizList.add("BK0473");//券商信托
+//        bizList.add("BK0478");//有色金属
+//        bizList.add("BK0486");//文化传媒
+//        bizList.add("BK0425");//工程建设
+
+//        bizList.add("BK0474");//保险
+
+//        bizList.add("BK0479");//钢铁行业
+//        bizList.add("BK0428");//电力行业
+//        bizList.add("BK0427");//公用事业
+        bizList.add("BK0728");//环保工程
 
 //        bizList.add("BK0729");//船舶制造
-//        bizList.add("BK0479");//钢铁行业
 //        bizList.add("BK0450");//港口水运
 
-//        bizList.add("BK0478");//有色金属
-//        bizList.add("BK0474");//保险
 
         for (String biz : bizList) {
             List<RankBizDataDiff> rankBizDataDiffListBiz = listRankStockByBiz(500, biz);
             //显示业务排行-插入sql
-//            String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
-        String today = "20210408";
+            String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
+//            String today = "20210409";
 
             System.out.println("/**" + biz + "**/");
             showBizSql(rankBizDataDiffListBiz, biz, today);
-
-            //更新题材概念
+//
+//            //更新题材概念
             updateConception(today, biz, rankBizDataDiffListBiz);
 
             // 最新周期价格
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 1, "NET_MIN_1", "NET_MAX_1");
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 7, "NET_MIN_7", "NET_MAX_7");
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 14, "NET_MIN_14", "NET_MAX_14");
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 30, "NET_MIN_30", "NET_MAX_30");
-//            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 60, "NET_MIN_60", "NET_MAX_60");
-//            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 90, "NET_MIN_90", "NET_MAX_90");
-//            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 180, "NET_MIN_180", "NET_MAX_180");
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 365, "NET_MIN_360", "NET_MAX_360");
+            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
+            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 7, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
+            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 14, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
+            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 30, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
+            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
+            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
+            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
+            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
         }
 
 
@@ -152,14 +159,16 @@ public class RankStockBizCompany {
      * @param rankBizDataDiffListBiz
      * @param days
      * @param dbFieldLastNetMin
+     * @param dbFieldLastNetMinClose
+     * @param dbFieldLastNetMaxClose
      */
-    private static void showUpdateDbMaxMinNetByDays(String today, List<RankBizDataDiff> rankBizDataDiffListBiz, int days, String dbFieldLastNetMin, String dbFieldLastNetMax) {
+    private static void showUpdateDbMaxMinNetByDays(String today, List<RankBizDataDiff> rankBizDataDiffListBiz, int days, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
         for (RankBizDataDiff stockInfo : rankBizDataDiffListBiz) {
             //查询 -限定时间段的最大最小净值
 //            LsjzUtil.findJzMaxMin(fundTrade.getZqdm(), days);
             //k线
             String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-            kline(today, stockInfo.getF12(), days, klt, dbFieldLastNetMin, dbFieldLastNetMax);
+            kline(today, stockInfo.getF12(), days, klt, dbFieldLastNetMin, dbFieldLastNetMax, dbFieldLastNetMinClose, dbFieldLastNetMaxClose);
         }
     }
 
@@ -167,13 +176,15 @@ public class RankStockBizCompany {
      * 查询-ETF-指数
      *
      * @param today
-     * @param zhiShu            指数
-     * @param count             数量
-     * @param klt               K线周期类型
+     * @param zhiShu                 指数
+     * @param count                  数量
+     * @param klt                    K线周期类型
      * @param dbFieldLastNetMin
      * @param dbFieldLastNetMax
+     * @param dbFieldLastNetMinClose
+     * @param dbFieldLastNetMaxClose
      */
-    public static void kline(String today, String zhiShu, int count, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax) {
+    public static void kline(String today, String zhiShu, int count, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
         StringBuffer url = new StringBuffer();
         url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
         if (zhiShu.startsWith("5") || zhiShu.startsWith("6")) {
@@ -209,7 +220,7 @@ public class RankStockBizCompany {
         for (int i = 0; i < 10; i++) {
             if (StringUtils.isBlank(rs)) {
                 rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
-            }else{
+            } else {
                 break;
             }
         }
@@ -238,12 +249,16 @@ public class RankStockBizCompany {
         Map<String, Double> netRs = handlerMaxJz(klineList);
         Double minJz = netRs.get(keyRsMin);
         Double maxJz = netRs.get(keyRsMax);
+        Double netCloseMin = netRs.get(keyRsNetCloseMin);
+        Double netCloseMax = netRs.get(keyRsNetCloseMax);
 
         StringBuffer sb = new StringBuffer();
         sb.append("UPDATE `rank_st_biz_com` ");
         sb.append("SET ");
-        sb.append(" `" + dbFieldLastNetMin + "`=" + minJz + " ");
-        sb.append(" ,`" + dbFieldLastNetMax + "`=" + maxJz + " ");
+        sb.append(" `" + dbFieldLastNetMin + "`=" + minJz + ", ");
+        sb.append(" `" + dbFieldLastNetMinClose + "`=" + netCloseMin + ", ");
+        sb.append(" `" + dbFieldLastNetMax + "`=" + maxJz + ", ");
+        sb.append(" `" + dbFieldLastNetMaxClose + "`=" + netCloseMax + " ");
 //        sb.append(" WHERE `FD_CODE`='" + zhiShu + "'" + " AND TYPE = '证券买入'" + ";");
         sb.append(" WHERE `f12`='" + zhiShu + "'");
         sb.append(" AND `date`='" + today + "'");
@@ -262,14 +277,16 @@ public class RankStockBizCompany {
         Double rsMax = 0.0;
         Double rsMin = 0.0;
         Double lastDwjz = 0.0;
-        Double rsNewestDayNet = 0.0;
-        Double rsOldestDayNet = 0.0;
+        Double rsNetCloseMin = 0.0;
+        Double rsNetCloseMax = 0.0;
         int curTempInt = 0;
         for (String klineStr : klineList) {
             //  日期，开盘，收盘,最高，最低，成交量，成交额，振幅，涨跌幅，涨跌额，换手率
             //"2020-09-30,3389.74,3218.05,3425.63,3202.34,4906229054,6193724911616.00,6.58,-5.23,-177.63,13.40"
             String[] klineArray = klineStr.split(",");
             String shouPan = klineArray[2];
+            String netMax = klineArray[3];
+            String netMin = klineArray[4];
             String zhangDie = klineArray[8];
             String chengJiaoE = klineArray[6];
             String curDate = klineArray[0];
@@ -295,20 +312,29 @@ public class RankStockBizCompany {
             }
             String fsrq = curDate;
 //            System.out.println("fsrq:" + fsrq + ",dwjzLong:" + dwJz);
+
+            Double netMaxDou = Double.valueOf(netMax);
+            if (netMaxDou > rsMax) {
+                rsMax = netMaxDou;
+            }
+            Double netMinDou = Double.valueOf(netMin);
+            if (netMinDou < rsMin || rsMin == 0.0) {
+                rsMin = netMinDou;
+            }
+
+            //
             Double dwjzLong = Double.valueOf(dwJz);
-            if (curTempInt == 0) {//最新一天的净值
-                rsNewestDayNet = dwjzLong;
+            if (dwjzLong > rsNetCloseMax) {
+                rsNetCloseMax = dwjzLong;
             }
-            curTempInt++;
-            if (dwjzLong > rsMax) {
-                rsMax = dwjzLong;
-            }
-            if (dwjzLong < rsMin || rsMin == 0.0) {
-                rsMin = dwjzLong;
+            if (dwjzLong < rsNetCloseMin || rsNetCloseMin == 0.0) {
+                rsNetCloseMin = dwjzLong;
             }
         }
         rs.put(keyRsMax, rsMax);
         rs.put(keyRsMin, rsMin);
+        rs.put(keyRsNetCloseMin, rsNetCloseMin);
+        rs.put(keyRsNetCloseMax, rsNetCloseMax);
         return rs;
     }
 
