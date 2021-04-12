@@ -1,168 +1,172 @@
 /** 涨跌-每天	**/
 SELECT
-	ol_fund_fupan.`CODE` 阶段涨幅
-	,ol_fund_fupan.period
-	,ol_fund_fupan.rt_zh
-	,ol_fund_fupan.rt_hs300 AS 沪深300
-	,ol_fund_fupan.rt_sh50 AS 上证50
-	,ol_fund_fupan.rt_cyb50 AS 创业板50
-	,ol_fund_fupan.rt_sz AS 深证
-	,ol_fund_fupan.rt_cyb AS 创业板
-	,ol_fund_fupan.rt_sh AS 上证
-	,ol_fund_fupan.rt_zz500 AS 中证500
-,ol_fund_fupan.amt
-,ol_fund_fupan.amt_fund
-,ol_fund_fupan.amt_hqb
-,ol_fund_fupan.earn
-,ol_fund_fupan.earn_fund
-,ol_fund_fupan.fupan_good
-,ol_fund_fupan.fupan_kong
-,ol_fund_fupan.topic_good
-,ol_fund_fupan.topic_kong
-,ol_fund_fupan.ex
-	,ol_fund_fupan.pt_sh
-	,ol_fund_fupan.pt_sh_last
-	,ol_fund_fupan.pt_sz
-	,ol_fund_fupan.pt_sz_last
-	,ol_fund_fupan.pt_cyb
-	,ol_fund_fupan.pt_cyb_last
-	,ol_fund_fupan.pt_sh50
-	,ol_fund_fupan.pt_sh50_last
-	,ol_fund_fupan.pt_hs300
-	,ol_fund_fupan.pt_hs300_last
-	,ol_fund_fupan.pt_cyb50
-	,ol_fund_fupan.pt_cyb50_last
-	,ol_fund_fupan.pt_zz500
-	,ol_fund_fupan.pt_zz500_last
-,ol_fund_fupan.*
+	fupan.`CODE` 阶段涨幅
+	,fupan.period
+	,fupan.rt_zh
+	,fupan.rt_st
+	,fupan.rt_hs300 AS 沪深300
+	,fupan.rt_sh50 AS 上证50
+	,fupan.rt_cyb50 AS 创业板50
+	,fupan.rt_sz AS 深证
+	,fupan.rt_cyb AS 创业板
+	,fupan.rt_sh AS 上证
+	,fupan.rt_zz500 AS 中证500
+,fupan.amt
+,fupan.amt_fund
+,ROUND(fupan.earn_fund+fupan.earn_st,2) 收益合计
+,fupan.earn_fund
+,fupan.earn_st
+,fupan.fupan_good
+,fupan.fupan_kong
+,fupan.topic_good
+,fupan.topic_kong
+,fupan.ex
+	,fupan.pt_sh
+	,fupan.pt_sh_last
+	,fupan.pt_sz
+	,fupan.pt_sz_last
+	,fupan.pt_cyb
+	,fupan.pt_cyb_last
+	,fupan.pt_sh50
+	,fupan.pt_sh50_last
+	,fupan.pt_hs300
+	,fupan.pt_hs300_last
+	,fupan.pt_cyb50
+	,fupan.pt_cyb50_last
+	,fupan.pt_zz500
+	,fupan.pt_zz500_last
+,fupan.*
 FROM
-	`ol_fund_fupan`
-WHERE 1=1 
-	AND ol_fund_fupan.period = 1 
--- 	AND ol_fund_fupan.TYPE=1
-ORDER BY ol_fund_fupan.`CODE` DESC ,ol_fund_fupan.ID DESC
+	`fupan`
+WHERE 1=1
+	AND fupan.period = 1 /**1：每天；7：每周 **/
+	AND fupan.TYPE=1
+ORDER BY fupan.`CODE` DESC ,fupan.ID DESC
 LIMIT 0,1000;
 
-/** 涨跌-每周	**/
-SELECT
-	ol_fund_fupan.`CODE` 阶段涨幅
-	,ol_fund_fupan.period
-	,ol_fund_fupan.rt_zh
-	,ol_fund_fupan.rt_hs300 AS 沪深300
-	,ol_fund_fupan.rt_sh50 AS 上证50
-	,ol_fund_fupan.rt_cyb50 AS 创业板50
-	,ol_fund_fupan.rt_sz AS 深证
-	,ol_fund_fupan.rt_cyb AS 创业板
-	,ol_fund_fupan.rt_sh AS 上证
-	,ol_fund_fupan.rt_zz500 AS 中证500
-,ol_fund_fupan.amt
-,ol_fund_fupan.amt_fund
-,ol_fund_fupan.amt_hqb
-,ol_fund_fupan.earn
-,ol_fund_fupan.earn_fund
-,ol_fund_fupan.fupan_good
-,ol_fund_fupan.fupan_kong
-,ol_fund_fupan.topic_good
-,ol_fund_fupan.topic_kong
-,ol_fund_fupan.ex
-	,ol_fund_fupan.pt_sh
-	,ol_fund_fupan.pt_sh_last
-	,ol_fund_fupan.pt_sz
-	,ol_fund_fupan.pt_sz_last
-	,ol_fund_fupan.pt_cyb
-	,ol_fund_fupan.pt_cyb_last
-	,ol_fund_fupan.pt_sh50
-	,ol_fund_fupan.pt_sh50_last
-	,ol_fund_fupan.pt_hs300
-	,ol_fund_fupan.pt_hs300_last
-	,ol_fund_fupan.pt_cyb50
-	,ol_fund_fupan.pt_cyb50_last
-	,ol_fund_fupan.pt_zz500
-	,ol_fund_fupan.pt_zz500_last
-,ol_fund_fupan.*
-FROM
-	`ol_fund_fupan`
-WHERE 1=1 
-	AND ol_fund_fupan.period = 7 
-	AND ol_fund_fupan.TYPE=1
-ORDER BY ol_fund_fupan.`CODE` DESC ,ol_fund_fupan.ID DESC
-LIMIT 0,1000;
+-- /** 涨跌-每周	**/
+-- SELECT
+-- 	fupan.`CODE` 每周涨跌
+-- 	,fupan.period
+-- 	,fupan.rt_zh
+-- 	,fupan.rt_hs300 AS 沪深300
+-- 	,fupan.rt_sh50 AS 上证50
+-- 	,fupan.rt_cyb50 AS 创业板50
+-- 	,fupan.rt_sz AS 深证
+-- 	,fupan.rt_cyb AS 创业板
+-- 	,fupan.rt_sh AS 上证
+-- 	,fupan.rt_zz500 AS 中证500
+-- ,fupan.amt
+-- ,fupan.amt_fund
+-- ,fupan.amt_hqb
+-- ,fupan.earn
+-- ,fupan.earn_fund
+-- ,fupan.fupan_good
+-- ,fupan.fupan_kong
+-- ,fupan.topic_good
+-- ,fupan.topic_kong
+-- ,fupan.ex
+-- 	,fupan.pt_sh
+-- 	,fupan.pt_sh_last
+-- 	,fupan.pt_sz
+-- 	,fupan.pt_sz_last
+-- 	,fupan.pt_cyb
+-- 	,fupan.pt_cyb_last
+-- 	,fupan.pt_sh50
+-- 	,fupan.pt_sh50_last
+-- 	,fupan.pt_hs300
+-- 	,fupan.pt_hs300_last
+-- 	,fupan.pt_cyb50
+-- 	,fupan.pt_cyb50_last
+-- 	,fupan.pt_zz500
+-- 	,fupan.pt_zz500_last
+-- ,fupan.*
+-- FROM
+-- 	`fupan`
+-- WHERE 1=1
+-- 	AND fupan.period = 7
+-- 	AND fupan.TYPE=1
+-- ORDER BY fupan.`CODE` DESC ,fupan.ID DESC
+-- LIMIT 0,1000;
 
-/** 复盘	**/
+/** 成交量	**/
 SELECT
-	ol_fund_fupan.`CODE`
-	,ol_fund_fupan.period
-	,ol_fund_fupan.rt_zh
-	,ROUND((ol_fund_fupan.pt_hs300 - ol_fund_fupan.pt_hs300_last) / ol_fund_fupan.pt_hs300_last * 100,2) AS 沪深300
-	,ROUND((ol_fund_fupan.pt_sh50 - ol_fund_fupan.pt_sh50_last) / ol_fund_fupan.pt_sh50_last * 100,2) AS 上证50
-	,ROUND((ol_fund_fupan.pt_cyb50 - ol_fund_fupan.pt_cyb50_last) / ol_fund_fupan.pt_cyb50_last * 100,2) AS 创业板50
-	,ROUND((ol_fund_fupan.pt_sz - ol_fund_fupan.pt_sz_last) / ol_fund_fupan.pt_sz_last * 100,2) AS 深证
-	,ROUND((ol_fund_fupan.pt_cyb - ol_fund_fupan.pt_cyb_last) / ol_fund_fupan.pt_cyb_last * 100,2) AS 创业板
-	,ROUND((ol_fund_fupan.pt_sh - ol_fund_fupan.pt_sh_last) / ol_fund_fupan.pt_sh_last * 100,2) AS 上证
-	,ROUND((ol_fund_fupan.pt_zz500 - ol_fund_fupan.pt_zz500_last) / ol_fund_fupan.pt_zz500_last * 100,2) AS 中证500
-,ol_fund_fupan.amt
-,ol_fund_fupan.amt_fund
-,ol_fund_fupan.amt_hqb
-,ol_fund_fupan.earn
-,ol_fund_fupan.earn_fund
-,ol_fund_fupan.fupan_good
-,ol_fund_fupan.fupan_kong
-,ol_fund_fupan.topic_good
-,ol_fund_fupan.topic_kong
-,ol_fund_fupan.ex
-	,ol_fund_fupan.pt_sh
-	,ol_fund_fupan.pt_sh_last
-	,ol_fund_fupan.pt_sz
-	,ol_fund_fupan.pt_sz_last
-	,ol_fund_fupan.pt_cyb
-	,ol_fund_fupan.pt_cyb_last
-	,ol_fund_fupan.pt_sh50
-	,ol_fund_fupan.pt_sh50_last
-	,ol_fund_fupan.pt_hs300
-	,ol_fund_fupan.pt_hs300_last
-	,ol_fund_fupan.pt_cyb50
-	,ol_fund_fupan.pt_cyb50_last
-	,ol_fund_fupan.pt_zz500
-	,ol_fund_fupan.pt_zz500_last
-,ol_fund_fupan.*
+	fupan.`CODE` 成交量
+	,ROUND(fupan.cje_hs300/100000000,0) AS 沪深300
+	,fupan.rt_hs300 AS 沪深300涨跌
+	,fupan.pt_hs300 AS 沪深300指数
+	,ROUND(fupan.cje_sh50/100000000,0) AS 上证50
+	,fupan.rt_sh50 AS 上证50涨跌
+	,fupan.pt_sh50 AS 上证50指数
+	,ROUND(fupan.cje_cyb50/100000000,0) AS 创业板50
+	,fupan.rt_cyb50 AS 创业板50涨跌
+	,fupan.pt_cyb50 AS 创业板50指数
+	,ROUND(fupan.cje_cyb/100000000,0) AS 创业板
+	,fupan.rt_cyb AS 创业板涨跌
+	,fupan.pt_cyb AS 创业板指数
+	,ROUND(fupan.cje_sz/100000000,0) AS 深证
+	,fupan.rt_sz AS 深证涨跌
+	,fupan.pt_sz AS 深证指数
+	,ROUND(fupan.cje_sh/100000000,0) AS 上证
+	,fupan.rt_sh AS 上证涨跌
+	,fupan.pt_sh AS 上证指数
+	,ROUND(fupan.cje_zz500/100000000,0) AS 中证500
+	,fupan.rt_zz500 AS 中证500涨跌
+	,fupan.pt_zz500 AS 中证500指数
+,fupan.*
 FROM
-	`ol_fund_fupan`
-WHERE 1=1 
--- 	AND ol_fund_fupan.period = 7 AND ol_fund_fupan.TYPE=1
-ORDER BY ol_fund_fupan.`CODE` DESC ,ol_fund_fupan.ID DESC
+	`fupan`
+WHERE 1=1
+-- 	AND fupan.`CODE`<='2021-03-05'
+	AND fupan.period = 1 AND fupan.TYPE=1
+ORDER BY fupan.`CODE` DESC ,fupan.ID DESC
 LIMIT 0,1000;
 
 
 
-/** 成交额-行业	**/
+/** 券商	**/
 SELECT
-	ol_fund_fupan.`CODE` '成交额-行业'
--- 	,ol_fund_fupan.cje_biz_qs
-	,ROUND(ol_fund_fupan.cje_biz_qs/100000000,0) '券商'
-	,ol_fund_fupan.rt_biz_qs
-	,ol_fund_fupan.pt_biz_qs
-,ol_fund_fupan.*
+	fupan.`CODE` '券商'
+-- 	,fupan.cje_biz_qs
+	,ROUND(fupan.cje_biz_qs/100000000,0) '成交额'
+	,fupan.rt_biz_qs
+	,fupan.pt_biz_qs
+,fupan.*
 FROM
-	`ol_fund_fupan`
-WHERE 1=1 
-	AND ol_fund_fupan.period = 1 AND ol_fund_fupan.TYPE=1
-ORDER BY ol_fund_fupan.`CODE` DESC ,ol_fund_fupan.ID DESC
--- ORDER BY ol_fund_fupan.pt_biz_qs
--- ORDER BY ol_fund_fupan.cje_biz_qs DESC
+	`fupan`
+WHERE 1=1
+	AND fupan.period = 1 AND fupan.TYPE=1
+ORDER BY fupan.`CODE` DESC ,fupan.ID DESC
+-- ORDER BY fupan.pt_biz_qs
+-- ORDER BY fupan.cje_biz_qs DESC
 LIMIT 0,1000;
 
 /** 货币政策	**/
 SELECT
-	ol_fund_fupan.`CODE`
-	,ol_fund_fupan.period
-	,ol_fund_fupan.money_nhg
-	,ol_fund_fupan.money_mlf
-	,ol_fund_fupan.money_mlf-ol_fund_fupan.money_nhg 逆回购差值
-	,ol_fund_fupan.rt_hs300
-,ol_fund_fupan.*
+	fupan.`CODE` 逆回购
+	,fupan.period
+	,fupan.money_nhg
+	,fupan.money_mlf
+	,fupan.money_mlf-fupan.money_nhg 逆回购差值
+	,fupan.rt_hs300
+,fupan.*
 FROM
-	`ol_fund_fupan`
-WHERE 1=1 
-	 AND ol_fund_fupan.TYPE=1
-ORDER BY ol_fund_fupan.`CODE` DESC ,ol_fund_fupan.ID DESC
+	`fupan`
+WHERE 1=1
+	 AND fupan.TYPE=1
+ORDER BY fupan.`CODE` DESC ,fupan.ID DESC
+LIMIT 0,1000;
+
+/** 行业板块排名	**/
+SELECT
+	fupan.`CODE` 行业板块排名
+	,fupan.topic_good
+	,fupan.topic_kong
+	,fupan.ex
+,fupan.*
+FROM
+	`fupan`
+WHERE 1=1
+	 AND fupan.TYPE=1
+ORDER BY fupan.`CODE` DESC ,fupan.ID DESC
 LIMIT 0,1000;

@@ -5,12 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ca85812-23e8-4912-aa72-996e5b64ab48" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/ttjj/sql/stock_周期净值比率.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ttjj/sql/stock_股票.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-业务概念.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-基金排行.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-每日股票涨跌幅.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/game/lscs-21-04.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/lscs-21-04.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/doc/ttjj.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/doc/ttjj.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/rank/RankStockBizCompany.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/rank/RankStockBizCompany.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-行业.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-行业.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/sql/sakila.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/sql/testczl.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/sql/trade_周期净值比率.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-周期净值比率.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/sql/world.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/sql/基金排行.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/sql/复盘.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/sql/复盘.sql" afterDir="false" />
     </list>
     <list id="ed2e1449-ef22-4f61-a315-cbcd50c17e28" name="no Changelist" comment="no Changelist">
       <change beforePath="$PROJECT_DIR$/target/classes/utils/HttpUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/HttpUtil.class" afterDir="false" />
@@ -29,83 +36,91 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/复盘.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="33" column="44" lean-forward="true" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
-              <folding>
-                <element signature="method#showInsertDb#0;class#StockTradeDemo#0" />
-              </folding>
+            <state relative-caret-position="569">
+              <caret line="171" column="13" selection-start-line="171" selection-start-column="13" selection-end-line="171" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/BizRank.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-基金排行.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-90">
-              <caret line="15" column="3" lean-forward="true" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
+            <state relative-caret-position="359">
+              <caret line="110" column="4" lean-forward="true" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/FundRankDemo.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-每日股票涨跌幅.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="14" column="3" lean-forward="true" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+            <state relative-caret-position="569">
+              <caret line="175" column="4" selection-start-line="175" selection-start-column="4" selection-end-line="175" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/RankBizDataDiff.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-业务概念.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-              <folding>
-                <element signature="e#6278#6279#0" expanded="true" />
-                <element signature="e#6310#6311#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/RankStockBizCompany.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="79">
-              <caret line="43" column="38" lean-forward="true" selection-start-line="43" selection-start-column="38" selection-end-line="43" selection-end-column="38" />
-              <folding>
-                <element signature="method#updateConception#0;class#RankStockBizCompany#0" />
-              </folding>
+            <state relative-caret-position="239">
+              <caret line="74" column="21" lean-forward="true" selection-start-line="74" selection-start-column="21" selection-end-line="74" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-周期净值比率.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="69" column="69" lean-forward="true" selection-start-line="69" selection-start-column="69" selection-end-line="69" selection-end-column="69" />
-              <folding>
-                <element signature="e#4100#4127#0" />
-                <element signature="method#szzsKlineMonth#0;class#SzzsDataDemo#0" />
-                <element signature="method#szKlineWeek#0;class#SzzsDataDemo#0" />
-                <element signature="method#hs300Kline#0;class#SzzsDataDemo#0" />
-              </folding>
+            <state relative-caret-position="569">
+              <caret line="264" selection-start-line="264" selection-end-line="264" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/utils/HttpUtil.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/stock_biz.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1410">
-              <caret line="58" column="73" selection-start-line="58" selection-start-column="73" selection-end-line="58" selection-end-column="73" />
-              <folding>
-                <element signature="method#sendGetTtjj#0;class#HttpUtil#0" />
-              </folding>
+            <state relative-caret-position="480">
+              <caret line="16" selection-start-line="16" selection-end-line="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/stock_股票.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="569">
+              <caret line="229" column="1" selection-start-line="229" selection-start-column="1" selection-end-line="229" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/stock_周期净值比率.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="359">
+              <caret line="80" column="4" lean-forward="true" selection-start-line="80" selection-start-column="4" selection-end-line="80" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-查询.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="10" column="16" lean-forward="true" selection-end-line="203" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-行业.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="569">
+              <caret line="190" column="1" selection-start-line="190" selection-start-column="1" selection-end-line="190" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -180,20 +195,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Dao/TradeDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/FundTrade.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/trade/LsjjDemo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/LsjzDataLsjz.java" />
-        <option value="$PROJECT_DIR$/src/main/java/work/NewSeason.java" />
-        <option value="$PROJECT_DIR$/src/main/java/work/StarDoTask.java" />
         <option value="$PROJECT_DIR$/src/main/java/game/LscsHtmlUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/game/dto/CardJsonPtDrakMoon.java" />
         <option value="$PROJECT_DIR$/src/main/java/game/dto/CardJsonDarkMoon.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/复盘.sql" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-查询.sql" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/Dao/impl/TradeDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/trade_周期净值比率.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-行业.sql" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/index/SzzsData.java" />
         <option value="$PROJECT_DIR$/src/main/java/work/rtdl/userPsd" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_rank.sql" />
@@ -231,6 +238,14 @@
         <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/RankStockBizCompany.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/复盘.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/基金排行.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-每日股票涨跌幅.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-业务概念.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/stock_股票.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/stock_周期净值比率.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-行业.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-周期净值比率.sql" />
       </list>
     </option>
   </component>
@@ -352,6 +367,15 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="ttjj" type="462c0819:PsiDirectoryNode" />
               <item name="rank" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
+              <item name="sql" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
@@ -493,13 +517,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1590287300739</updated>
-    </task>
-    <task id="LOCAL-00154" summary="sql">
-      <created>1610036115020</created>
-      <option name="number" value="00154" />
-      <option name="presentableId" value="LOCAL-00154" />
-      <option name="project" value="LOCAL" />
-      <updated>1610036115021</updated>
     </task>
     <task id="LOCAL-00155" summary="sql">
       <created>1610179568602</created>
@@ -837,7 +854,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617936326193</updated>
     </task>
-    <option name="localTasksCounter" value="203" />
+    <task id="LOCAL-00203" summary="交易">
+      <created>1618238229909</created>
+      <option name="number" value="00203" />
+      <option name="presentableId" value="LOCAL-00203" />
+      <option name="project" value="LOCAL" />
+      <updated>1618238229909</updated>
+    </task>
+    <option name="localTasksCounter" value="204" />
     <servers />
   </component>
   <component name="TodoView">
@@ -853,7 +877,7 @@
     <frame x="-11" y="-11" width="2582" height="1406" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49802372" visible="true" weight="0.20987159" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49802372" visible="true" weight="0.20987159" />
       <window_info id="Structure" order="1" sideWeight="0.5019763" side_tool="true" weight="0.21669342" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -865,7 +889,7 @@
       <window_info anchor="bottom" id="Debug" order="2" weight="0.41210613" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.4995987" visible="true" weight="0.44278607" />
+      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.4995987" visible="true" weight="0.44278607" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3286424" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4995987" weight="0.327529" />
       <window_info anchor="bottom" id="风险组件扫描" order="8" />
@@ -1005,105 +1029,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/doc/fund-迭代.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/LsjzData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
-          <folding>
-            <element signature="e#307#308#0" expanded="true" />
-            <element signature="e#338#339#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/Dao/impl/TradeStockDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="52" column="28" selection-start-line="52" selection-start-column="28" selection-end-line="52" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/LsjzDataLsjz.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://L:/work/Java/repository/org/apache/commons/commons-lang3/3.5/commons-lang3-3.5-sources.jar!/org/apache/commons/lang3/time/DateUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="445" column="77" selection-start-line="445" selection-start-column="77" selection-end-line="445" selection-end-column="77" />
-          <folding>
-            <element signature="e#18746#18747#0" expanded="true" />
-            <element signature="e#18809#18810#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/Ttjj_00_0629.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/game/dto/CardJsonPtDarkMoon.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="930">
-          <caret line="39" column="17" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="17" />
-          <folding>
-            <element signature="e#590#591#0" expanded="true" />
-            <element signature="e#617#618#0" expanded="true" />
-            <element signature="e#663#664#0" expanded="true" />
-            <element signature="e#695#696#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/game/dto/CardJsonData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/game/dto/CardJsonDarkMoon.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
-          <folding>
-            <element signature="e#1052#1053#0" expanded="true" />
-            <element signature="e#1089#1090#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/game/LscsHtmlUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="19" column="53" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/game/LscsUtilDarkMoon.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="750">
-          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://L:/work/Java/repository/com/alibaba/fastjson/1.2.62/fastjson-1.2.62.jar!/com/alibaba/fastjson/JSONObject.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/utils/LsjzUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1320">
@@ -1125,13 +1050,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="27" selection-start-line="27" selection-end-line="31" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/stock_biz.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
         </state>
       </provider>
     </entry>
@@ -1571,6 +1489,93 @@
             <element signature="method#szKlineWeek#0;class#SzzsDataDemo#0" />
             <element signature="method#hs300Kline#0;class#SzzsDataDemo#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-每日股票涨跌幅.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="175" column="4" selection-start-line="175" selection-start-column="4" selection-end-line="175" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-基金排行.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="110" column="4" lean-forward="true" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/复盘.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="171" column="13" selection-start-line="171" selection-start-column="13" selection-end-line="171" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/world.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1440" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-业务概念.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="74" column="21" lean-forward="true" selection-start-line="74" selection-start-column="21" selection-end-line="74" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/testczl.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3420" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/sakila.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1080">
+          <caret line="12" column="25" lean-forward="true" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/stock_biz.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/stock_股票.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="229" column="1" selection-start-line="229" selection-start-column="1" selection-end-line="229" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/stock_周期净值比率.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="80" column="4" lean-forward="true" selection-start-line="80" selection-start-column="4" selection-end-line="80" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-查询.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="10" column="16" lean-forward="true" selection-end-line="203" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-行业.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="190" column="1" selection-start-line="190" selection-start-column="1" selection-end-line="190" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-周期净值比率.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="264" selection-start-line="264" selection-end-line="264" />
         </state>
       </provider>
     </entry>
