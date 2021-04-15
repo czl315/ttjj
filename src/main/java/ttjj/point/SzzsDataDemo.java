@@ -104,9 +104,9 @@ public class SzzsDataDemo {
 
         if (showMyTtjj) {
             String amt = "";
-            String amt_fund = "64657.39";
-            String amt_fund_last = "65892.83";
-            String earn_fund = "-1235.45";
+            String amt_fund = "64805.83";
+            String amt_fund_last = "65162.16";
+            String earn_fund = "-356.34";
             handlerFundByTtjj(amt, amt_fund, amt_fund_last, earn_fund);
         }
 

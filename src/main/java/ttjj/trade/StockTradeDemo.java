@@ -27,13 +27,13 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=95150408404748; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=; st_sn=1; st_psi=20210412222325356-11923323313501-8132853952; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=e724635f-0b4f-4bff-a321-b853d9d1bb0f; Uuid=9bcdc105943445eca105938e60cdddb3; monitor_count=9";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=42948795903821; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=; st_sn=1; st_psi=20210415232859886-11923323313501-1402935354; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=9ae2192e-531a-45ed-9a3c-fbc2427b2456; Uuid=337c2895a69a44d7af0608ed5244404a; monitor_count=3";
 
     public static void main(String[] args) {
-//        boolean showBuyOrSell = true;//新增赎回
-        boolean showBuyOrSell = false;//新增赎回
-        int showTypeNet = 21;//最新一天
-//        int showTypeNet = 22;//最新一年内
+        boolean showBuyOrSell = true;//新增赎回
+//        boolean showBuyOrSell = false;//新增赎回
+//        int showTypeNet = 21;//最新一天
+        int showTypeNet = 22;//最新一年内
 
         if (showBuyOrSell) {
             String validatekey = "bcb2df3e-b7b3-4782-bb46-207f3da4c085";
@@ -758,9 +758,15 @@ public class StockTradeDemo {
             rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
         }
 
-        //http重试
-        if(StringUtils.isBlank(rs)){
-            rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
+        /**
+         * 如果返回异常，n次重试
+         */
+        for (int i = 0; i < 10; i++) {
+            if (StringUtils.isBlank(rs)) {
+                rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
+            } else {
+                break;
+            }
         }
 
         String rsJson = rs.substring(rs.indexOf("{"));

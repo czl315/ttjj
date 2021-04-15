@@ -23,18 +23,35 @@ public class RankStockBizCompany {
      * @param args
      */
     public static void main(String[] args) {
-        List<String> bizList = new ArrayList<>();
+        Map<String,String> bizMap = new HashMap();
+//        bizMap.put("BK0727","医疗行业");
+//        bizMap.put("BK0465","医药制造");
+
+        bizMap.put("BK0477","酿酒行业");
+        bizMap.put("BK0438","食品饮料");
+        bizMap.put("BK0485","旅游酒店");
+
+
 //        bizList.add("BK0459");//电子元件
 //        bizList.add("BK0737");//软件服务
+//        bizList.add("BK0447");//电子信息
 
-//        bizList.add("BK0477");//酿酒行业
-//        bizList.add("BK0438");//食品饮料
-//        bizList.add("BK0485");//旅游酒店
+//        bizList.add("BK0456");//家电行业
+//        bizList.add("BK0481");//汽车行业
+//        bizList.add("BK0476");//木业家具
+//        bizList.add("BK0725");//装修装饰
+//        bizList.add("BK0424");//水泥建材
+//        bizList.add("BK0425");//工程建设
+//        bizList.add("BK0420");//民航机场
 
-//        bizList.add("BK0727");//医疗行业
-//        bizList.add("BK0465");//医药制造
 
-//        bizList.add("BK0473");//券商信托
+//                bizList.add("BK0482");//商业百货
+//                bizList.add("BK0471");//化纤行业
+//                bizList.add("BK0546");//玻璃陶瓷
+//                bizList.add("BK0739");//金属制品
+
+//        bizMap.put("BK0473","券商信托");
+
 //        bizList.add("BK0478");//有色金属
 //        bizList.add("BK0486");//文化传媒
 //        bizList.add("BK0425");//工程建设
@@ -44,20 +61,22 @@ public class RankStockBizCompany {
 //        bizList.add("BK0479");//钢铁行业
 //        bizList.add("BK0428");//电力行业
 //        bizList.add("BK0427");//公用事业
-        bizList.add("BK0728");//环保工程
+//        bizList.add("BK0728");//环保工程
 
 //        bizList.add("BK0729");//船舶制造
 //        bizList.add("BK0450");//港口水运
 
+        //        bizList.add("BK0433");//农牧饲渔
 
-        for (String biz : bizList) {
+
+        for (String biz : bizMap.keySet()) {
             List<RankBizDataDiff> rankBizDataDiffListBiz = listRankStockByBiz(500, biz);
             //显示业务排行-插入sql
             String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
 //            String today = "20210409";
 
             System.out.println("/**" + biz + "**/");
-            showBizSql(rankBizDataDiffListBiz, biz, today);
+            showBizSql(rankBizDataDiffListBiz, biz,bizMap.get(biz), today);
 //
 //            //更新题材概念
             updateConception(today, biz, rankBizDataDiffListBiz);
@@ -345,7 +364,7 @@ public class RankStockBizCompany {
      * @param queryType
      * @param today
      */
-    private static void showBizSql(List<RankBizDataDiff> rankBizDataDiffList, String queryType, String today) {
+    private static void showBizSql(List<RankBizDataDiff> rankBizDataDiffList, String queryType,String typeName, String today) {
         int orderNum = 0;//序号
 
         for (RankBizDataDiff entity : rankBizDataDiffList) {
@@ -356,6 +375,7 @@ public class RankStockBizCompany {
                         "`rs`" +
                         ",`date`" +
                         ",`type`" +
+                        ",`type_name`" +
                         ",`order_num`" +
                         ",`f2`" +
                         ",`f3`" +
@@ -401,6 +421,7 @@ public class RankStockBizCompany {
                         " '" + JSON.toJSONString(entity) + "'" +
                         " ,'" + today + "'" +
                         " ,'" + queryType + "'" +
+                        " ,'" + typeName + "'" +
                         " ," + orderNum + "" +
                         " ," + entity.getF2() + "" +
                         " ," + entity.getF3() + "" +
