@@ -26,24 +26,29 @@ public class RankStockBizCompany {
         Map<String,String> bizMap = new HashMap();
 //        bizMap.put("BK0727","医疗行业");
 //        bizMap.put("BK0465","医药制造");
+//
+//        bizMap.put("BK0477","酿酒行业");
+//        bizMap.put("BK0438","食品饮料");
+//        bizMap.put("BK0485","旅游酒店");
 
-        bizMap.put("BK0477","酿酒行业");
-        bizMap.put("BK0438","食品饮料");
-        bizMap.put("BK0485","旅游酒店");
+//        bizMap.put("BK0459","电子元件");
+//        bizMap.put("BK0737","软件服务");
+//        bizMap.put("BK0447","电子信息");
 
+//        bizMap.put("BK0478","有色金属");
+//        bizMap.put("BK0732","贵金属");
+//        bizMap.put("BK0479","钢铁行业");
+//        bizMap.put("BK0437","煤炭采选");
 
-//        bizList.add("BK0459");//电子元件
-//        bizList.add("BK0737");//软件服务
-//        bizList.add("BK0447");//电子信息
+//        bizMap.put("BK0481","汽车行业");
+//        bizMap.put("BK0456","家电行业");
 
-//        bizList.add("BK0456");//家电行业
-//        bizList.add("BK0481");//汽车行业
-//        bizList.add("BK0476");//木业家具
-//        bizList.add("BK0725");//装修装饰
+        bizMap.put("BK0476","木业家具");
+        bizMap.put("BK0725","装修装饰");
+        bizMap.put("BK0420","民航机场");
+
 //        bizList.add("BK0424");//水泥建材
 //        bizList.add("BK0425");//工程建设
-//        bizList.add("BK0420");//民航机场
-
 
 //                bizList.add("BK0482");//商业百货
 //                bizList.add("BK0471");//化纤行业
@@ -52,13 +57,10 @@ public class RankStockBizCompany {
 
 //        bizMap.put("BK0473","券商信托");
 
-//        bizList.add("BK0478");//有色金属
 //        bizList.add("BK0486");//文化传媒
-//        bizList.add("BK0425");//工程建设
 
 //        bizList.add("BK0474");//保险
 
-//        bizList.add("BK0479");//钢铁行业
 //        bizList.add("BK0428");//电力行业
 //        bizList.add("BK0427");//公用事业
 //        bizList.add("BK0728");//环保工程
