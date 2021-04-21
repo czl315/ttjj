@@ -35,17 +35,17 @@ public class SzzsDataDemo {
         boolean showDaPanKline = true;//显示-大盘指数
 //        boolean showDaPanKline = false;//不显示-大盘指数
 
-//        boolean showMyStock = true;//显示-我的股票
-        boolean showMyStock = false;//不显示-我的股票
+        boolean showMyStock = true;//显示-我的股票
+//        boolean showMyStock = false;//不显示-我的股票
 
-//        boolean showMyTtjj = true;//显示-我的基金
-        boolean showMyTtjj = false;//不显示-我的基金
+        boolean showMyTtjj = true;//显示-我的基金
+//        boolean showMyTtjj = false;//不显示-我的基金
 
         if (showDaPanKline) {
             String cookie = "";//
             //k线
-            String klt = "102";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-            String dateType = "7";//1：一天;7:周;30:月;
+            String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
+            String dateType = "1";//1：一天;7:周;30:月;
             String date = "";
             int count = 1;
             int lastCount = 2;
@@ -103,10 +103,10 @@ public class SzzsDataDemo {
 //        }
 
         if (showMyTtjj) {
-            String amt = "";
-            String amt_fund = "64855.11";
-            String amt_fund_last = "64805.83";
-            String earn_fund = "49.28";
+            String amt = "61621.15";
+            String amt_fund = "57150.10";
+            String amt_fund_last = "66200.67";
+            String earn_fund = "-112.89";
             handlerFundByTtjj(amt, amt_fund, amt_fund_last, earn_fund);
         }
 

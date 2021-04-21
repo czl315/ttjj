@@ -23,7 +23,10 @@ public class RankStockBizCompany {
      * @param args
      */
     public static void main(String[] args) {
-        Map<String,String> bizMap = new HashMap();
+        String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
+//        String today = "20210420";
+
+        Map<String, String> bizMap = new HashMap();
 //        bizMap.put("BK0727","医疗行业");
 //        bizMap.put("BK0465","医药制造");
 //
@@ -35,17 +38,18 @@ public class RankStockBizCompany {
 //        bizMap.put("BK0737","软件服务");
 //        bizMap.put("BK0447","电子信息");
 
-//        bizMap.put("BK0478","有色金属");
-//        bizMap.put("BK0732","贵金属");
+//        bizMap.put("BK0481","汽车行业");
+//        bizMap.put("BK0456","家电行业");
+//        bizMap.put("BK0478", "有色金属");
+//        bizMap.put("BK0732", "贵金属");
+
 //        bizMap.put("BK0479","钢铁行业");
 //        bizMap.put("BK0437","煤炭采选");
 
-//        bizMap.put("BK0481","汽车行业");
-//        bizMap.put("BK0456","家电行业");
 
-        bizMap.put("BK0476","木业家具");
-        bizMap.put("BK0725","装修装饰");
-        bizMap.put("BK0420","民航机场");
+//        bizMap.put("BK0476","木业家具");
+//        bizMap.put("BK0725","装修装饰");
+//        bizMap.put("BK0420","民航机场");
 
 //        bizList.add("BK0424");//水泥建材
 //        bizList.add("BK0425");//工程建设
@@ -74,11 +78,10 @@ public class RankStockBizCompany {
         for (String biz : bizMap.keySet()) {
             List<RankBizDataDiff> rankBizDataDiffListBiz = listRankStockByBiz(500, biz);
             //显示业务排行-插入sql
-            String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
-//            String today = "20210409";
+
 
             System.out.println("/**" + biz + "**/");
-            showBizSql(rankBizDataDiffListBiz, biz,bizMap.get(biz), today);
+            showBizSql(rankBizDataDiffListBiz, biz, bizMap.get(biz), today);
 //
 //            //更新题材概念
             updateConception(today, biz, rankBizDataDiffListBiz);
@@ -366,7 +369,7 @@ public class RankStockBizCompany {
      * @param queryType
      * @param today
      */
-    private static void showBizSql(List<RankBizDataDiff> rankBizDataDiffList, String queryType,String typeName, String today) {
+    private static void showBizSql(List<RankBizDataDiff> rankBizDataDiffList, String queryType, String typeName, String today) {
         int orderNum = 0;//序号
 
         for (RankBizDataDiff entity : rankBizDataDiffList) {

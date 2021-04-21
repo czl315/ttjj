@@ -3,19 +3,24 @@ package ttjj.rank;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import ttjj.dto.RankBizDataDiff;
+import ttjj.dto.StockTrade;
 import utils.HttpUtil;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 主题排行
  */
 public class BizRankDemo {
 
+    static String keyRsMin = "rsMin";
+    static String keyRsMax = "rsMax";
+    static String keyRsNetCloseMin = "keyRsNetCloseMin";
+    static String keyRsNetCloseMax = "keyRsNetCloseMax";
 
     /**
      * ttjj
@@ -23,20 +28,235 @@ public class BizRankDemo {
      * @param args args
      */
     public static void main(String[] args) {
-//        String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
-        String date = "20210416";
-//        List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(100);//查询主题排名by时间类型、显示个数
-//        //显示业务排行-插入sql
-//        showBizSql(rankBizDataDiffListBiz,"hy");//hy-行业
-//
-//        List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(500);//查询主题排名by时间类型、显示个数
-//        //显示业务排行-插入sql
-//        showBizSql(rankBizDataDiffListConcept,"gn");
+        String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
+//        String date = "20210416";
+
+        boolean insertDbTodayBiz = true;
+        boolean insertDbTodayConcept = true;
+//        boolean insertDbTodayBiz = false;
+//        boolean insertDbTodayConcept = false;
+
+//        boolean insertDbTodayEtf = true;
+//        boolean updateDbEtfNet = true;
+        boolean insertDbTodayEtf = false;
+        boolean updateDbEtfNet = false;
+
+        if (insertDbTodayBiz) {
+            List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(100);//查询主题排名by时间类型、显示个数
+            //显示业务排行-插入sql
+            showBizSql(date, rankBizDataDiffListBiz, "hy");//hy-行业
+        }
+
+        if (insertDbTodayConcept) {
+            List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(500);//查询主题排名by时间类型、显示个数
+            //显示业务排行-插入sql
+            showBizSql(date, rankBizDataDiffListConcept, "gn");
+        }
 
         List<RankBizDataDiff> rankEtf = listEtf(1000);//2021-04-16:425;
-        showBizSql(date, rankEtf, "etf");//etf-etf指数基金场内
+
+        if (insertDbTodayEtf) {
+            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
+        }
+
+        if (updateDbEtfNet) {
+            // 更新最新净值-限定时间段的最大最小净值
+            String table = "rank_st_biz";
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
+                showUpdateDbMaxMinNetByDays(date, rankEtf, table, 7, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
+                showUpdateDbMaxMinNetByDays(date, rankEtf, table, 14, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
+                showUpdateDbMaxMinNetByDays(date, rankEtf, table, 30, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
+                showUpdateDbMaxMinNetByDays(date, rankEtf, table, 60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
+                showUpdateDbMaxMinNetByDays(date, rankEtf, table, 90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
+                showUpdateDbMaxMinNetByDays(date, rankEtf, table, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
+                showUpdateDbMaxMinNetByDays(date, rankEtf, table, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
+        }
 
     }
+
+    /**
+     * 更新最新净值-限定时间段的最大最小净值
+     *
+     * @param date
+     * @param rankEtf
+     * @param table
+     * @param days
+     * @param dbFieldLastNetMin
+     */
+    private static void showUpdateDbMaxMinNetByDays(String date, List<RankBizDataDiff> rankEtf, String table, int days, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
+        for (RankBizDataDiff entity : rankEtf) {
+            //查询 -限定时间段的最大最小净值
+//            LsjzUtil.findJzMaxMin(fundTrade.getZqdm(), days);
+            //k线
+            String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
+            kline(date, entity.getF12(), table, days, klt, dbFieldLastNetMin, dbFieldLastNetMax, dbFieldLastNetMinClose, dbFieldLastNetMaxClose);//沪深300
+        }
+    }
+
+    /**
+     * 查询-ETF-指数
+     *
+     * @param date
+     * @param zhiShu            指数
+     * @param table
+     * @param count             数量
+     * @param klt               K线周期类型
+     * @param dbFieldLastNetMin
+     * @param dbFieldLastNetMax
+     */
+    public static void kline(String date, String zhiShu, String table, int count, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
+        long curTime = System.currentTimeMillis();
+        StringBuffer url = new StringBuffer();
+        url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
+        if (zhiShu.startsWith("5") || zhiShu.startsWith("6")) {
+            url.append("&secid=" + "1." + zhiShu);
+        } else {
+            url.append("&secid=" + "0." + zhiShu);
+        }
+
+        url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
+        url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
+        url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
+        url.append("&klt=" + klt);
+        url.append("&fqt=1");
+        url.append("&end=20500101");
+        url.append("&lmt=" + count);
+        url.append("&_=" + curTime);
+
+        StringBuffer urlParam = new StringBuffer();
+//        urlParam.append("&StartDate=").append(startDate);
+
+//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
+        String rs = "";
+        try {
+            rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
+        } catch (Exception e) {
+            System.out.println("/** http重试 **/");
+            rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
+        }
+
+        /**
+         * 如果返回异常，n次重试
+         */
+        for (int i = 0; i < 10; i++) {
+            if (StringUtils.isBlank(rs)) {
+                rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
+            } else {
+                break;
+            }
+        }
+
+        String rsJson = rs.substring(rs.indexOf("{"));
+        rsJson = rsJson.replace(");", "");
+//        System.out.println("szKline:" + rsJson);
+
+        List<String> klineList = new ArrayList<String>();
+        JSONObject szzzMonthJson = JSON.parseObject(rsJson);
+        JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
+//        String name = szzzMonthDataJson.getString("name");
+//        System.out.println("指数名称："+name);
+        JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
+        if (klines != null) {
+            for (Object kline : klines) {
+                String klineStr = (String) kline;
+                klineList.add(klineStr);
+            }
+        }
+
+        Map<String, Double> netRs = handlerMaxJz(klineList);
+        Double minJz = netRs.get(keyRsMin);
+        Double maxJz = netRs.get(keyRsMax);
+        Double netCloseMin = netRs.get(keyRsNetCloseMin);
+        Double netCloseMax = netRs.get(keyRsNetCloseMax);
+
+        StringBuffer sb = new StringBuffer();
+        sb.append("UPDATE `" + table + "` ");
+        sb.append("SET ");
+        sb.append(" `" + dbFieldLastNetMin + "`=" + minJz + ", ");
+        sb.append(" `" + dbFieldLastNetMinClose + "`=" + netCloseMin + ", ");
+        sb.append(" `" + dbFieldLastNetMax + "`=" + maxJz + ", ");
+        sb.append(" `" + dbFieldLastNetMaxClose + "`=" + netCloseMax + " ");
+//        sb.append(" WHERE `FD_CODE`='" + zhiShu + "'" + " AND TYPE = '证券买入'" + ";");
+        sb.append(" WHERE `f12`='" + zhiShu + "'" + "");
+        sb.append(" AND `date`='" + date + "'" + "");
+        sb.append(";");
+        sb.append("/**" + szzzMonthDataJson.getString("name") + "**/");
+        System.out.println(sb);
+
+    }
+
+    /**
+     * 计算最大净值、最小净值
+     *
+     * @return
+     */
+    private static Map<String, Double> handlerMaxJz(List<String> klineList) {
+        Map<String, Double> rs = new HashMap<String, Double>();
+        Double rsMax = 0.0;
+        Double rsMin = 0.0;
+        Double lastDwjz = 0.0;
+        Double rsNetCloseMin = 0.0;
+        Double rsNetCloseMax = 0.0;
+        int curTempInt = 0;
+        for (String klineStr : klineList) {
+            //  日期，开盘，收盘,最高，最低，成交量，成交额，振幅，涨跌幅，涨跌额，换手率
+            //"2020-09-30,3389.74,3218.05,3425.63,3202.34,4906229054,6193724911616.00,6.58,-5.23,-177.63,13.40"
+            String[] klineArray = klineStr.split(",");
+            String shouPan = klineArray[2];
+            String netMax = klineArray[3];
+            String netMin = klineArray[4];
+            String zhangDie = klineArray[8];
+            String chengJiaoE = klineArray[6];
+            String curDate = klineArray[0];
+//            System.out.print("日期:" + curDate + ",");
+//            System.out.print("收盘:" + shouPan + ",");
+//            System.out.print("涨跌幅:" + zhangDie + ",\t");
+//            System.out.print("开盘:" + klineArray[1] + ",\t");
+//            System.out.print("最高:" + klineArray[3] + ",");
+//            System.out.print("最低:" + klineArray[4] + ",");
+//            System.out.print("成交量:\t" + klineArray[5] + ",\t\t");
+//            System.out.print("成交额:\t" + klineArray[6] + ",\t\t");
+//            System.out.print("振幅:" + klineArray[7] + ",");
+//            System.out.print("涨跌额:" + klineArray[9] + ",");
+//            System.out.print("换手率:" + klineArray[10] + ",");
+//            System.out.println();
+
+//                    System.out.println(JSON.toJSONString(lsjzDataLsjz));
+//            String dwJz = lsjzDataLsjz.getDWJZ();//当晚净值
+            String dwJz = shouPan;//累计净值
+
+            if (StringUtils.isBlank(dwJz)) {
+                dwJz = "0";
+            }
+            String fsrq = curDate;
+//            System.out.println("fsrq:" + fsrq + ",dwjzLong:" + dwJz);
+
+            Double netMaxDou = Double.valueOf(netMax);
+            if (netMaxDou > rsMax) {
+                rsMax = netMaxDou;
+            }
+            Double netMinDou = Double.valueOf(netMin);
+            if (netMinDou < rsMin || rsMin == 0.0) {
+                rsMin = netMinDou;
+            }
+
+            //
+            Double dwjzLong = Double.valueOf(dwJz);
+            if (dwjzLong > rsNetCloseMax) {
+                rsNetCloseMax = dwjzLong;
+            }
+            if (dwjzLong < rsNetCloseMin || rsNetCloseMin == 0.0) {
+                rsNetCloseMin = dwjzLong;
+            }
+        }
+        rs.put(keyRsMax, rsMax);
+        rs.put(keyRsMin, rsMin);
+        rs.put(keyRsNetCloseMin, rsNetCloseMin);
+        rs.put(keyRsNetCloseMax, rsNetCloseMax);
+        return rs;
+    }
+
 
     private static List<RankBizDataDiff> listEtf(int pageSize) {
 //          http://32.push2.eastmoney.com/api/qt/clist/get?cb=jQuery11240476946102335426_1618637035810&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=b:MK0021,b:MK0022,b:MK0023,b:MK0024&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152&_=1618637035811
@@ -71,7 +291,7 @@ public class BizRankDemo {
                 "f160,f161,f162,f163,f164,f165,f166,f167,f168,f169" + "," +
                 "f170,f171,f172,f173,f174,f175,f176,f177,f178,f179" + "," +
                 "f180,f181,f182,f183,f184,f185,f186,f187,f188,f189" + "," +
-                "f190,f191,f192,f193,f194,f195,f196,f197,f198,f199"+ "," +
+                "f190,f191,f192,f193,f194,f195,f196,f197,f198,f199" + "," +
                 "f200,f201,f202,f203,f204,f205,f206,f207,f208,f209" + "," +
                 "f210,f211,f212,f213,f214,f215,f216,f217,f218,f219" + "," +
                 "f220,f221,f222,f223,f224,f225,f226,f227,f228,f229" +
@@ -79,7 +299,6 @@ public class BizRankDemo {
 
 //                "f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222" +
 
-                "&fields=" +
                 "&_=" + curTime);
         String rs = HttpUtil.sendGet(url, urlParam.toString(), "");
 //        System.out.println(rs);
@@ -154,7 +373,7 @@ public class BizRankDemo {
                         ",`f209`" +
                         ",`f222`,`f223`" +
                         ") VALUES (" +
-                        " '" + (entity.getRs() == null ? "" : entity.getRs()) + "'" +
+                        " ''" +
                         " ,'" + today + "'" +
                         " ,'" + queryType + "'" +
                         " ," + orderNum + "" +
@@ -201,12 +420,12 @@ public class BizRankDemo {
      */
     private static List<RankBizDataDiff> listBiz(int endCount) {
         //http://28.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408110589206747254_1616379873172&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=m:90+t:2+f:!50&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222&_=1616379873199
+        long curTime = System.currentTimeMillis();
         StringBuffer urlParam = new StringBuffer();
 //        String url = "http://api.fund.eastmoney.com/ztjj/GetZTJJList";
 //        urlParam.append("callback=jQuery311015658602123786958_1591838943711&callbackname=fundData");
 //        urlParam.append("&st="+findDateType);//查询类型
 //        urlParam.append("&_=1614523183291");
-
         String url = "http://28.push2.eastmoney.com/api/qt/clist/get";
         urlParam.append("cb=jQuery112408110589206747254_1616379873172" +
                 "&pn=1" +//页数
@@ -215,11 +434,32 @@ public class BizRankDemo {
                 "&np=1" +
                 "&ut=bd1d9ddb04089700cf9c27f6f7426281" +
                 "&fltt=2" +//浮点数精度
-                "&invt=2" +//显示格式：-；0.0
+                "&invt=3" +//显示格式：-；0.0
                 "&fid=f3" +//排序字段
                 "&fs=m:90+t:2+f:!50" +
-                "&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f30,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222" +
-                "&_=1616379873199");
+                "&fields=" +
+                "f1,f2,f3,f4,f5,f6,f7,f8,f9," +
+                "f10,f11,f12,f13,f14,f15,f16,f17,f18,f19," +
+                "f20,f21,f22,f23,f24,f25,f26,f27,f28,f29," +
+                "f30,f31,f32,f33,f34,f35,f36,f37,f38,f39," +
+                "f60,f61,f62,f63,f64,f65,f66,f67,f68,f69," +
+                "f70,f71,f72,f73,f74,f75,f76,f77,f78,f79," +
+                "f80,f81,f82,f83,f84,f85,f86,f87,f88,f89," +
+                "f90,f91,f92,f93,f94,f95,f96,f97,f98,f99," +
+                "f100,f101,f102,f103,f104,f105,f106,f107,f108,f109" + "," +
+                "f110,f111,f112,f113,f114,f115,f116,f117,f118,f119" + "," +
+                "f120,f121,f122,f123,f124,f125,f126,f127,f128,f129" + "," +
+                "f130,f131,f132,f133,f134,f135,f136,f137,f138,f139" + "," +
+                "f140,f141,f142,f143,f144,f145,f146,f147,f148,f149" + "," +
+                "f150,f151,f152,f153,f154,f155,f156,f157,f158,f159" + "," +
+                "f160,f161,f162,f163,f164,f165,f166,f167,f168,f169" + "," +
+                "f170,f171,f172,f173,f174,f175,f176,f177,f178,f179" + "," +
+                "f180,f181,f182,f183,f184,f185,f186,f187,f188,f189" + "," +
+                "f190,f191,f192,f193,f194,f195,f196,f197,f198,f199" + "," +
+                "f200,f201,f202,f203,f204,f205,f206,f207,f208,f209" + "," +
+                "f210,f211,f212,f213,f214,f215,f216,f217,f218,f219" + "," +
+                "f220,f221,f222,f223,f224,f225,f226,f227,f228,f229" +
+                "&_=" + curTime);
         String rs = HttpUtil.sendGet(url, urlParam.toString(), "");
 //        System.out.println(rs);
         if (rs == null) {
@@ -232,26 +472,13 @@ public class BizRankDemo {
             rs = rs.substring(0, rs.length() - 2);
         }
 //        System.out.println(rs);//返回结果
-        JSONArray jsonArrayBiz = new JSONArray();
         JSONObject rsJsonObj = JSONObject.parseObject(rs);
         JSONObject rsJsonData = rsJsonObj.getJSONObject("data");
         JSONArray rsJsonDataDiff = rsJsonData.getJSONArray("diff");
         List<RankBizDataDiff> rankBizDataDiffList = JSON.parseArray(JSON.toJSONString(rsJsonDataDiff), RankBizDataDiff.class);
-        for (RankBizDataDiff row : rankBizDataDiffList) {
-            row.setRs(rs);
+//        for (RankBizDataDiff row : rankBizDataDiffList) {
 //            System.out.println(JSON.toJSON(row));//每个行业一行数据
-            JSONObject jsonObjectBiz = new JSONObject();
-            jsonObjectBiz.put("name", row.getF14());
-            jsonObjectBiz.put("rate", row.getF3());
-            jsonArrayBiz.add(jsonObjectBiz);
-        }
-//        System.out.println(jsonArrayBiz);//行业排行数组
-
-        for (Object obj : jsonArrayBiz) {
-            JSONObject jsonObjectBiz = (JSONObject) obj;
-//            System.out.println(jsonObjectBiz);
-        }
-
+//        }
         return rankBizDataDiffList;
     }
 
@@ -261,6 +488,7 @@ public class BizRankDemo {
      * @param endCount
      */
     private static List<RankBizDataDiff> listConcept(int endCount) {
+        long curTime = System.currentTimeMillis();
         //http://28.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408110589206747254_1616379873172&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=m:90+t:2+f:!50&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222&_=1616379873199
 //        http://70.push2.eastmoney.com/api/qt/clist/get?cb=jQuery1124026081630094811414_1617261240739&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=m:90+t:3+f:!50&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222&_=1617261240740
         StringBuffer urlParam = new StringBuffer();
@@ -281,8 +509,29 @@ public class BizRankDemo {
                 "&fid=f3" +//排序字段
 //                "&fs=m:90+t:2+f:!50" +
                 "&fs=m:90+t:3+f:!50" +
-                "&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f30,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222" +
-                "&_=1616379873199");
+                "&fields=" +
+                "f1,f2,f3,f4,f5,f6,f7,f8,f9," +
+                "f10,f11,f12,f13,f14,f15,f16,f17,f18,f19," +
+                "f20,f21,f22,f23,f24,f25,f26,f27,f28,f29," +
+                "f30,f31,f32,f33,f34,f35,f36,f37,f38,f39," +
+                "f60,f61,f62,f63,f64,f65,f66,f67,f68,f69," +
+                "f70,f71,f72,f73,f74,f75,f76,f77,f78,f79," +
+                "f80,f81,f82,f83,f84,f85,f86,f87,f88,f89," +
+                "f90,f91,f92,f93,f94,f95,f96,f97,f98,f99," +
+                "f100,f101,f102,f103,f104,f105,f106,f107,f108,f109" + "," +
+                "f110,f111,f112,f113,f114,f115,f116,f117,f118,f119" + "," +
+                "f120,f121,f122,f123,f124,f125,f126,f127,f128,f129" + "," +
+                "f130,f131,f132,f133,f134,f135,f136,f137,f138,f139" + "," +
+                "f140,f141,f142,f143,f144,f145,f146,f147,f148,f149" + "," +
+                "f150,f151,f152,f153,f154,f155,f156,f157,f158,f159" + "," +
+                "f160,f161,f162,f163,f164,f165,f166,f167,f168,f169" + "," +
+                "f170,f171,f172,f173,f174,f175,f176,f177,f178,f179" + "," +
+                "f180,f181,f182,f183,f184,f185,f186,f187,f188,f189" + "," +
+                "f190,f191,f192,f193,f194,f195,f196,f197,f198,f199" + "," +
+                "f200,f201,f202,f203,f204,f205,f206,f207,f208,f209" + "," +
+                "f210,f211,f212,f213,f214,f215,f216,f217,f218,f219" + "," +
+                "f220,f221,f222,f223,f224,f225,f226,f227,f228,f229" +
+                "&_=" + curTime);
         String rs = HttpUtil.sendGet(url, urlParam.toString(), "");
 //        System.out.println(rs);
         if (rs == null) {

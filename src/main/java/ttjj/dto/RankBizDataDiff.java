@@ -58,9 +58,8 @@ public class RankBizDataDiff {
      * f12 股票代码
      */
     private String f12;
-
     /**
-     * f13
+     * f13 ？1-沪市；0-深市；其他固定90
      */
     private Long f13;
     /**
@@ -84,6 +83,9 @@ public class RankBizDataDiff {
      */
     private Double f18;
 
+    /**
+     * f19 ？2、3、9、10
+     */
     private Long f19;
     /**
      * f20 总市值
@@ -113,31 +115,52 @@ public class RankBizDataDiff {
     private Double f39;
     private Double f60;
     private Double f61;
+    /**
+     * f62 今日主力净流入
+     */
     private Long f62;
     private Double f63;
     private Double f64;
     private Double f65;
+    /**
+     * f66 今日超大单净流入
+     */
     private Double f66;
     private Double f67;
     private Double f68;
+    /**
+     * f69 超大单净比
+     */
     private Double f69;
     private Double f70;
     private Double f71;
+    /**
+     * f72 今日大单净流入
+     */
     private Double f72;
     private Double f73;
     private Double f74;
     private Double f75;
     private Double f76;
     private Double f77;
+    /**
+     * f78 今日中单净流入
+     */
     private Double f78;
     private Double f79;
     private Double f80;
     private Long f81;
     private Long f82;
     private Long f83;
+    /**
+     * f84 今日小单净流入
+     */
     private Long f84;
     private Double f85;
     private Double f86;
+    /**
+     * f87 小单净比
+     */
     private Double f87;
     private Double f88;
     private Double f89;
@@ -151,7 +174,13 @@ public class RankBizDataDiff {
     private Long f97;
     private Long f98;
     private Long f99;
+    /**
+     * f104 上涨家数
+     */
     private Long f104;
+    /**
+     * f105 下跌家数
+     */
     private Long f105;
     private Long f107;
     private Double f109;
@@ -161,18 +190,30 @@ public class RankBizDataDiff {
     private Long f124;
     private Double f127;
     /**
-     * f128 涨幅最高股票-名称
+     * f128 领涨股票-名称
      */
     private String f128;
+    /**
+     * f136 领涨股票-涨跌幅
+     */
     private Double f136;
+    /**
+     * f139 ？固定3
+     */
     private Long f139;
     /**
-     * f140 涨幅最高股票-编码
+     * f140 领涨股票-编码
      */
     private String f140;
+    /**
+     * f141 领涨股票：1-沪市；0-深市
+     */
     private Long f141;
     private Double f142;
     private Double f143;
+    /**
+     * f144 收盘价
+     */
     private Double f144;
     private Double f145;
     private Long f148;
@@ -203,18 +244,25 @@ public class RankBizDataDiff {
     private Double f183;
     private Double f184;
     /**
-     * f207 跌幅最高股票-名称
+     * f207 领跌股票-名称
      */
     private String f207;
     /**
-     * f208 跌幅最高股票-编码
+     * f208 领跌股票-编码
      */
     private String f208;
+    /**
+     * f209 领跌股票-1-沪市；0-深市
+     */
     private Long f209;
-    private Long f211;
-    private Long f212;
+    /**
+     * f222 领跌股票-涨跌值
+     */
     private Double f222;
-    private Long f223;//序号
+    /**
+     * f223 排序号
+     */
+    private Long f223;
 
     public String getRs() {
         return rs;
@@ -1222,22 +1270,6 @@ public class RankBizDataDiff {
 
     public void setF209(Long f209) {
         this.f209 = f209;
-    }
-
-    public Long getF211() {
-        return f211;
-    }
-
-    public void setF211(Long f211) {
-        this.f211 = f211;
-    }
-
-    public Long getF212() {
-        return f212;
-    }
-
-    public void setF212(Long f212) {
-        this.f212 = f212;
     }
 
     public Double getF222() {

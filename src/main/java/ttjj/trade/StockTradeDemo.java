@@ -27,11 +27,11 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=08364290657286; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=; st_sn=1; st_psi=2021041622304017-11923323313501-5639603358; st_asi=delete; mobileimei=be63e0fb-da0d-4936-9af3-460a428bfa6e; Uuid=c5a3b984dad34c28ad2a64e6bf006993; monitor_count=17";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=58392922735402; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=; st_sn=2; st_psi=20210420233857203-11923323313501-2827166187; mobileimei=f74a6a84-b26d-49d0-9d21-80562c0f3bb2; Uuid=e5209512533d4286be58cbfede9116c0; monitor_count=18";
 
     public static void main(String[] args) {
-        boolean showBuyOrSell = true;//新增赎回
-//        boolean showBuyOrSell = false;//新增赎回
+//        boolean showBuyOrSell = true;//新增赎回
+        boolean showBuyOrSell = false;//新增赎回
 //        int showTypeNet = 21;//最新一天
         int showTypeNet = 22;//最新一年内
 
@@ -438,6 +438,18 @@ public class StockTradeDemo {
             rs.add(stockTradeTemp);
         }
 
+        //食品饮料
+        List<String> typeListSpyl = new ArrayList<>();
+        typeListSpyl.add("000895");//双汇发展
+        for (String zqdm : typeListSpyl) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("食品饮料");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
         //科技
         List<String> typeListKeJi = new ArrayList<>();
 //        typeListKeJi.add("515050");//5GETF
@@ -502,6 +514,7 @@ public class StockTradeDemo {
         typeListZhiShu.add("513550");//港股通50
         typeListZhiShu.add("513050");//中概互联
         typeListZhiShu.add("159929");//医药ETF
+        typeListZhiShu.add("515250");//智能汽车
 //        typeListZhiShu.add("160416");//石油基金
 //        typeListZhiShu.add("159915");//创业板
 //        typeListZhiShu.add("588090");//科创板
