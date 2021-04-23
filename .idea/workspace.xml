@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8ca85812-23e8-4912-aa72-996e5b64ab48" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/doc/ttjj.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/doc/ttjj.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/rank/RankStockBizCompany.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/rank/RankStockBizCompany.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java" afterDir="false" />
     </list>
     <list id="ed2e1449-ef22-4f61-a315-cbcd50c17e28" name="no Changelist" comment="no Changelist">
       <change beforePath="$PROJECT_DIR$/target/classes/utils/HttpUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/HttpUtil.class" afterDir="false" />
@@ -31,7 +27,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/RankStockBizCompany.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
-              <caret line="93" column="25" lean-forward="true" selection-start-line="93" selection-start-column="25" selection-end-line="93" selection-end-column="25" />
+              <caret line="93" column="25" selection-start-line="93" selection-start-column="25" selection-end-line="93" selection-end-column="25" />
               <folding>
                 <element signature="method#updateConception#0;class#RankStockBizCompany#0" />
               </folding>
@@ -42,8 +38,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/RankBizDataDiff.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="193" column="7" lean-forward="true" selection-start-line="193" selection-start-column="7" selection-end-line="193" selection-end-column="7" />
+            <state relative-caret-position="510">
+              <caret line="197" column="7" lean-forward="true" selection-start-line="197" selection-start-column="7" selection-end-line="197" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -86,7 +82,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="330">
-              <caret line="41" column="47" lean-forward="true" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+              <caret line="41" column="47" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
               <folding>
                 <element signature="method#szzsKlineMonth#0;class#SzzsDataDemo#0" />
                 <element signature="method#szKlineWeek#0;class#SzzsDataDemo#0" />
@@ -299,88 +295,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-              <item name="doc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-              <item name="dto" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-              <item name="point" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-              <item name="rank" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-              <item name="trade" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -508,20 +423,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1590287300739</updated>
-    </task>
-    <task id="LOCAL-00160" summary="sql">
-      <created>1610895702648</created>
-      <option name="number" value="00160" />
-      <option name="presentableId" value="LOCAL-00160" />
-      <option name="project" value="LOCAL" />
-      <updated>1610895702649</updated>
-    </task>
-    <task id="LOCAL-00161" summary="sql">
-      <created>1610984987875</created>
-      <option name="number" value="00161" />
-      <option name="presentableId" value="LOCAL-00161" />
-      <option name="project" value="LOCAL" />
-      <updated>1610984987877</updated>
     </task>
     <task id="LOCAL-00162" summary="sql">
       <created>1611074647414</created>
@@ -852,7 +753,21 @@
       <option name="project" value="LOCAL" />
       <updated>1619140841101</updated>
     </task>
-    <option name="localTasksCounter" value="209" />
+    <task id="LOCAL-00209" summary="交易">
+      <created>1619192595151</created>
+      <option name="number" value="00209" />
+      <option name="presentableId" value="LOCAL-00209" />
+      <option name="project" value="LOCAL" />
+      <updated>1619192595152</updated>
+    </task>
+    <task id="LOCAL-00210" summary="sql">
+      <created>1619194201960</created>
+      <option name="number" value="00210" />
+      <option name="presentableId" value="LOCAL-00210" />
+      <option name="project" value="LOCAL" />
+      <updated>1619194201960</updated>
+    </task>
+    <option name="localTasksCounter" value="211" />
     <servers />
   </component>
   <component name="TodoView">
@@ -971,13 +886,13 @@
     <MESSAGE value="行业排行：行业板块" />
     <MESSAGE value="game：lscs" />
     <MESSAGE value="排行-行业股票-公司-每日明细" />
-    <MESSAGE value="sql" />
     <MESSAGE value="test：mybatis" />
     <MESSAGE value="sql：back-work" />
     <MESSAGE value="数据备份" />
     <MESSAGE value="etf" />
     <MESSAGE value="交易" />
-    <option name="LAST_COMMIT_MESSAGE" value="交易" />
+    <MESSAGE value="sql" />
+    <option name="LAST_COMMIT_MESSAGE" value="sql" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1502,7 +1417,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
-          <caret line="41" column="47" lean-forward="true" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+          <caret line="41" column="47" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
           <folding>
             <element signature="method#szzsKlineMonth#0;class#SzzsDataDemo#0" />
             <element signature="method#szKlineWeek#0;class#SzzsDataDemo#0" />
@@ -1514,7 +1429,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/RankStockBizCompany.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
-          <caret line="93" column="25" lean-forward="true" selection-start-line="93" selection-start-column="25" selection-end-line="93" selection-end-column="25" />
+          <caret line="93" column="25" selection-start-line="93" selection-start-column="25" selection-end-line="93" selection-end-column="25" />
           <folding>
             <element signature="method#updateConception#0;class#RankStockBizCompany#0" />
           </folding>
@@ -1523,8 +1438,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/RankBizDataDiff.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="193" column="7" lean-forward="true" selection-start-line="193" selection-start-column="7" selection-end-line="193" selection-end-column="7" />
+        <state relative-caret-position="510">
+          <caret line="197" column="7" lean-forward="true" selection-start-line="197" selection-start-column="7" selection-end-line="197" selection-end-column="7" />
         </state>
       </provider>
     </entry>
