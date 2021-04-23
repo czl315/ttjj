@@ -27,19 +27,19 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=63677396105251; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=3; st_psi=20210422221500566-11923323313501-6992003175; mobileimei=f4562cb3-c657-4bc1-b105-181d40175b4a; Uuid=2871d7fa8eb045feab283dbd306d1239; monitor_count=40";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=55314587038655; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210423222401704-11923323313501-3098296098; mobileimei=f185df39-1377-47c1-bda4-32880ade069d; Uuid=b709c30c0e254ce7910da4720e4dc777; monitor_count=50";
 
     public static void main(String[] args) {
-//        boolean showBuyOrSell = true;//新增赎回
-        boolean showBuyOrSell = false;//新增赎回
+        boolean showBuyOrSell = true;//新增赎回
+//        boolean showBuyOrSell = false;//新增赎回
 //        int showTypeNet = 21;//最新一天
         int showTypeNet = 22;//最新一年内
 
         if (showBuyOrSell) {
             String validatekey = "bcb2df3e-b7b3-4782-bb46-207f3da4c085";
 
-//            String startDate = "2021-03-31";//查询新增交易的开始时间
-            String startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            String startDate = "2021-04-22";//查询新增交易的开始时间
+//            String startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             String endDate = "2021-12-31";
             //显示插入数据库语句
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
@@ -495,6 +495,7 @@ public class StockTradeDemo {
         //软件服务
         List<String> typeListRuanJianFuWu = new ArrayList<>();
         typeListRuanJianFuWu.add("002230");//科大讯飞
+        typeListRuanJianFuWu.add("002987");//京北方
         for (String zqdm : typeListRuanJianFuWu) {
             StockTrade stockTradeTemp = new StockTrade();
             stockTradeTemp.setBizTy("软件服务");

@@ -28,12 +28,14 @@ public class RankStockBizCompany {
 
         Map<String, String> bizMap = new HashMap();
 
+//        boolean yiYao = true;
+        boolean yiYao = false;
 //        boolean xiaoFei= true;
         boolean xiaoFei = false;
 //        boolean keJi = true;
         boolean keJi = false;
-//        boolean yiYao = true;
-        boolean yiYao = false;
+        boolean jinShuGangTie = true;
+//        boolean jinShuGangTie = false;
 
         if (yiYao) {
             bizMap.put("BK0727", "医疗行业");
@@ -43,27 +45,28 @@ public class RankStockBizCompany {
             bizMap.put("BK0477", "酿酒行业");
             bizMap.put("BK0438", "食品饮料");
             bizMap.put("BK0485", "旅游酒店");
+            bizMap.put("BK0481", "汽车行业");
+            bizMap.put("BK0456", "家电行业");
         }
         if (keJi) {
             bizMap.put("BK0459", "电子元件");
             bizMap.put("BK0737", "软件服务");
             bizMap.put("BK0447", "电子信息");
         }
+        if (jinShuGangTie) {
+            bizMap.put("BK0478", "有色金属");
+            bizMap.put("BK0732", "贵金属");
+            bizMap.put("BK0479", "钢铁行业");
+        }
 
-        bizMap.put("BK0481","汽车行业");
-        bizMap.put("BK0456","家电行业");
-        bizMap.put("BK0478", "有色金属");
-        bizMap.put("BK0732", "贵金属");
+//        bizList.add("BK0424");//水泥建材
 
-//        bizMap.put("BK0479","钢铁行业");
 //        bizMap.put("BK0437","煤炭采选");
-
 
 //        bizMap.put("BK0476","木业家具");
 //        bizMap.put("BK0725","装修装饰");
 //        bizMap.put("BK0420","民航机场");
 
-//        bizList.add("BK0424");//水泥建材
 //        bizList.add("BK0425");//工程建设
 
 //                bizList.add("BK0482");//商业百货
