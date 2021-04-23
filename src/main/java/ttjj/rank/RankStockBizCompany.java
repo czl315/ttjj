@@ -27,21 +27,33 @@ public class RankStockBizCompany {
 //        String today = "20210420";
 
         Map<String, String> bizMap = new HashMap();
-//        bizMap.put("BK0727","医疗行业");
-//        bizMap.put("BK0465","医药制造");
-//
-//        bizMap.put("BK0477","酿酒行业");
-//        bizMap.put("BK0438","食品饮料");
-//        bizMap.put("BK0485","旅游酒店");
 
-//        bizMap.put("BK0459","电子元件");
-//        bizMap.put("BK0737","软件服务");
-//        bizMap.put("BK0447","电子信息");
+//        boolean xiaoFei= true;
+        boolean xiaoFei = false;
+//        boolean keJi = true;
+        boolean keJi = false;
+//        boolean yiYao = true;
+        boolean yiYao = false;
 
-//        bizMap.put("BK0481","汽车行业");
-//        bizMap.put("BK0456","家电行业");
-//        bizMap.put("BK0478", "有色金属");
-//        bizMap.put("BK0732", "贵金属");
+        if (yiYao) {
+            bizMap.put("BK0727", "医疗行业");
+            bizMap.put("BK0465", "医药制造");
+        }
+        if (xiaoFei) {
+            bizMap.put("BK0477", "酿酒行业");
+            bizMap.put("BK0438", "食品饮料");
+            bizMap.put("BK0485", "旅游酒店");
+        }
+        if (keJi) {
+            bizMap.put("BK0459", "电子元件");
+            bizMap.put("BK0737", "软件服务");
+            bizMap.put("BK0447", "电子信息");
+        }
+
+        bizMap.put("BK0481","汽车行业");
+        bizMap.put("BK0456","家电行业");
+        bizMap.put("BK0478", "有色金属");
+        bizMap.put("BK0732", "贵金属");
 
 //        bizMap.put("BK0479","钢铁行业");
 //        bizMap.put("BK0437","煤炭采选");

@@ -41,6 +41,13 @@ public class SzzsDataDemo {
         boolean showMyTtjj = true;//显示-我的基金
 //        boolean showMyTtjj = false;//不显示-我的基金
 
+        String amt = "";
+        String amt_fund = "54305.1";
+        String amt_fund_last = "57362.12";
+        String earn_fund = "163.34";
+
+        String cookieDfcf = StockTradeDemo.COOKIE_DFCF;
+
         if (showDaPanKline) {
             String cookie = "";//
             //k线
@@ -91,7 +98,6 @@ public class SzzsDataDemo {
 
         if (showMyStock) {
             //显示股票每日收益
-            String cookieDfcf = StockTradeDemo.COOKIE_DFCF;
             queryAssetByDfcfStock(cookieDfcf);
         }
 
@@ -103,10 +109,6 @@ public class SzzsDataDemo {
 //        }
 
         if (showMyTtjj) {
-            String amt = "61621.15";
-            String amt_fund = "57150.10";
-            String amt_fund_last = "66200.67";
-            String earn_fund = "-112.89";
             handlerFundByTtjj(amt, amt_fund, amt_fund_last, earn_fund);
         }
 

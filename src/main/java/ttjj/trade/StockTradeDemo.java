@@ -27,7 +27,7 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=58392922735402; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=; st_sn=2; st_psi=20210420233857203-11923323313501-2827166187; mobileimei=f74a6a84-b26d-49d0-9d21-80562c0f3bb2; Uuid=e5209512533d4286be58cbfede9116c0; monitor_count=18";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=63677396105251; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=3; st_psi=20210422221500566-11923323313501-6992003175; mobileimei=f4562cb3-c657-4bc1-b105-181d40175b4a; Uuid=2871d7fa8eb045feab283dbd306d1239; monitor_count=40";
 
     public static void main(String[] args) {
 //        boolean showBuyOrSell = true;//新增赎回
@@ -529,6 +529,7 @@ public class StockTradeDemo {
 
         List<String> typeListYiLiao = new ArrayList<>();
         typeListYiLiao.add("600085");//同仁堂
+        typeListYiLiao.add("002773");//康弘药业
         for (String zqdm : typeListYiLiao) {
             StockTrade stockTradeTemp = new StockTrade();
             stockTradeTemp.setBizTy("医药制造");

@@ -36,10 +36,12 @@ public class BizRankDemo {
 //        boolean insertDbTodayBiz = false;
 //        boolean insertDbTodayConcept = false;
 
-//        boolean insertDbTodayEtf = true;
-//        boolean updateDbEtfNet = true;
-        boolean insertDbTodayEtf = false;
-        boolean updateDbEtfNet = false;
+        boolean insertDbTodayEtf = true;
+        boolean updateDbEtfNet = true;
+//        boolean updateDbEtfNetLast1 = true;
+//        boolean insertDbTodayEtf = false;
+//        boolean updateDbEtfNet = false;
+        boolean updateDbEtfNetLast1 = false;
 
         if (insertDbTodayBiz) {
             List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(100);//查询主题排名by时间类型、显示个数
@@ -59,6 +61,13 @@ public class BizRankDemo {
             showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
         }
 
+        if (updateDbEtfNetLast1) {
+            // 更新最新净值-限定时间段的最大最小净值
+            String table = "rank_st_biz";
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
+
+        }
         if (updateDbEtfNet) {
             // 更新最新净值-限定时间段的最大最小净值
             String table = "rank_st_biz";
