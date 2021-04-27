@@ -35,8 +35,8 @@ public class BizRankDemo {
      * @param args args
      */
     public static void main(String[] args) {
-        String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
-//        String date = "20210416";
+//        String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        String date = "20210427";
 
 //        boolean insertDbTodayBiz = true;
         boolean insertDbTodayBiz = false;
@@ -44,11 +44,11 @@ public class BizRankDemo {
 //        boolean insertDbTodayConcept = true;
         boolean insertDbTodayConcept = false;
 
-        boolean insertDbTodayEtf = true;
-//        boolean insertDbTodayEtf = false;
-//        boolean updateDbEtfNet = true;
+//        boolean insertDbTodayEtf = true;
+        boolean insertDbTodayEtf = false;
+        boolean updateDbEtfNetFlag = true;
+//        boolean updateDbEtfNetFlag = false;
 //        boolean updateDbEtfNetLast1 = true;
-        boolean updateDbEtfNet = false;
         boolean updateDbEtfNetLast1 = false;
 
         if (insertDbTodayBiz) {
@@ -80,24 +80,25 @@ public class BizRankDemo {
             showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
 
         }
-        if (updateDbEtfNet) {
+        if (updateDbEtfNetFlag) {
             // 更新最新净值-限定时间段的最大最小净值
             String table = "rank_st_biz";
-            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
-            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
-                showUpdateDbMaxMinNetByDays(date, rankEtf, table, 7, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
-                showUpdateDbMaxMinNetByDays(date, rankEtf, table, 14, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
-                showUpdateDbMaxMinNetByDays(date, rankEtf, table, 30, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
-                showUpdateDbMaxMinNetByDays(date, rankEtf, table, 60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
-                showUpdateDbMaxMinNetByDays(date, rankEtf, table, 90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
-                showUpdateDbMaxMinNetByDays(date, rankEtf, table, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
-                showUpdateDbMaxMinNetByDays(date, rankEtf, table, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
+//            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
+//            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
+//            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 7, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 14, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 30, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
         }
 
     }
 
     /**
      * db-插入
+     *
      * @param date
      * @param rankBizDataDiffListBiz
      * @param type
@@ -123,6 +124,22 @@ public class BizRankDemo {
     }
 
     /**
+     * @param rankBizDataDiffListBiz
+     * @return
+     */
+    private static int updateEtfNet(RankBizDataDiff rankBizDataDiffListBiz) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.update("ttjj.dao.mapper.RandBizEtfMapper.updateEtfNet", rankBizDataDiffListBiz);
+            session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
      * 更新最新净值-限定时间段的最大最小净值
      *
      * @param date
@@ -137,22 +154,23 @@ public class BizRankDemo {
 //            LsjzUtil.findJzMaxMin(fundTrade.getZqdm(), days);
             //k线
             String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-            kline(date, entity.getF12(), table, days, klt, dbFieldLastNetMin, dbFieldLastNetMax, dbFieldLastNetMinClose, dbFieldLastNetMaxClose);//沪深300
+            kline(entity, date, entity.getF12(), table, days, klt, dbFieldLastNetMin, dbFieldLastNetMax, dbFieldLastNetMinClose, dbFieldLastNetMaxClose);//沪深300
         }
     }
 
     /**
      * 查询-ETF-指数
      *
+     * @param rankEtf
      * @param date
      * @param zhiShu            指数
      * @param table
-     * @param count             数量
+     * @param days              数量
      * @param klt               K线周期类型
      * @param dbFieldLastNetMin
      * @param dbFieldLastNetMax
      */
-    public static void kline(String date, String zhiShu, String table, int count, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
+    public static void kline(RankBizDataDiff rankEtf, String date, String zhiShu, String table, int days, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
         long curTime = System.currentTimeMillis();
         StringBuffer url = new StringBuffer();
         url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
@@ -168,7 +186,7 @@ public class BizRankDemo {
         url.append("&klt=" + klt);
         url.append("&fqt=1");
         url.append("&end=20500101");
-        url.append("&lmt=" + count);
+        url.append("&lmt=" + days);
         url.append("&_=" + curTime);
 
         StringBuffer urlParam = new StringBuffer();
@@ -230,6 +248,59 @@ public class BizRankDemo {
         sb.append(";");
         sb.append("/**" + szzzMonthDataJson.getString("name") + "**/");
         System.out.println(sb);
+
+        //insertDb
+        rankEtf.setDate(date);
+        if (days == 1) {
+            rankEtf.setLAST_NET(minJz);
+            rankEtf.setNET_MIN_1(minJz);
+            rankEtf.setNET_MIN_CLOS_1(netCloseMin);
+            rankEtf.setNET_MAX_1(maxJz);
+            rankEtf.setNET_MAX_CLOS_1(netCloseMax);
+        }
+        if (days == 7) {
+            rankEtf.setNET_MIN_7(minJz);
+            rankEtf.setNET_MIN_CLOS_7(netCloseMin);
+            rankEtf.setNET_MAX_7(maxJz);
+            rankEtf.setNET_MAX_CLOS_7(netCloseMax);
+        }
+        if (days == 14) {
+            rankEtf.setNET_MIN_14(minJz);
+            rankEtf.setNET_MIN_CLOS_14(netCloseMin);
+            rankEtf.setNET_MAX_14(maxJz);
+            rankEtf.setNET_MAX_CLOS_14(netCloseMax);
+        }
+        if (days == 30) {
+            rankEtf.setNET_MIN_30(minJz);
+            rankEtf.setNET_MIN_CLOS_30(netCloseMin);
+            rankEtf.setNET_MAX_30(maxJz);
+            rankEtf.setNET_MAX_CLOS_30(netCloseMax);
+        }
+        if (days == 60) {
+            rankEtf.setNET_MIN_60(minJz);
+            rankEtf.setNET_MIN_CLOS_60(netCloseMin);
+            rankEtf.setNET_MAX_60(maxJz);
+            rankEtf.setNET_MAX_CLOS_60(netCloseMax);
+        }
+        if (days == 90) {
+            rankEtf.setNET_MIN_90(minJz);
+            rankEtf.setNET_MIN_CLOS_90(netCloseMin);
+            rankEtf.setNET_MAX_90(maxJz);
+            rankEtf.setNET_MAX_CLOS_90(netCloseMax);
+        }
+        if (days == 180) {
+            rankEtf.setNET_MIN_180(minJz);
+            rankEtf.setNET_MIN_CLOS_180(netCloseMin);
+            rankEtf.setNET_MAX_180(maxJz);
+            rankEtf.setNET_MAX_CLOS_180(netCloseMax);
+        }
+        if (days == 365) {
+            rankEtf.setNET_MIN_360(minJz);
+            rankEtf.setNET_MIN_CLOS_360(netCloseMin);
+            rankEtf.setNET_MAX_360(maxJz);
+            rankEtf.setNET_MAX_CLOS_360(netCloseMax);
+        }
+        updateEtfNet(rankEtf);
 
     }
 
