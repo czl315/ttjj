@@ -5,6 +5,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import ttjj.dao.MyBatisUtils;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.StockTrade;
 import utils.HttpUtil;
@@ -16,6 +19,10 @@ import java.util.*;
  * 主题排行
  */
 public class BizRankDemo {
+    /**
+     * sqlSessionFactory mybatis
+     */
+    static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
 
     static String keyRsMin = "rsMin";
     static String keyRsMax = "rsMax";
@@ -32,33 +39,38 @@ public class BizRankDemo {
 //        String date = "20210416";
 
 //        boolean insertDbTodayBiz = true;
-//        boolean insertDbTodayConcept = true;
         boolean insertDbTodayBiz = false;
+
+//        boolean insertDbTodayConcept = true;
         boolean insertDbTodayConcept = false;
 
         boolean insertDbTodayEtf = true;
-        boolean updateDbEtfNet = true;
-//        boolean updateDbEtfNetLast1 = true;
 //        boolean insertDbTodayEtf = false;
-//        boolean updateDbEtfNet = false;
+//        boolean updateDbEtfNet = true;
+//        boolean updateDbEtfNetLast1 = true;
+        boolean updateDbEtfNet = false;
         boolean updateDbEtfNetLast1 = false;
 
         if (insertDbTodayBiz) {
             List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(100);//查询主题排名by时间类型、显示个数
-            //显示业务排行-插入sql
-            showBizSql(date, rankBizDataDiffListBiz, "hy");//hy-行业
+            //db-插入
+            insertDbBiz(date, rankBizDataDiffListBiz, "hy");//hy-行业
+
+//            showBizSql(date, rankBizDataDiffListBiz, "hy");//显示sql-业务排行-插入
         }
 
         if (insertDbTodayConcept) {
             List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(500);//查询主题排名by时间类型、显示个数
-            //显示业务排行-插入sql
-            showBizSql(date, rankBizDataDiffListConcept, "gn");
+            //db-插入
+            insertDbBiz(date, rankBizDataDiffListConcept, "gn");//hy-行业
+
+//            showBizSql(date, rankBizDataDiffListConcept, "gn");//显示业务排行-插入sql
         }
 
         List<RankBizDataDiff> rankEtf = listEtf(1000);//2021-04-16:425;
-
         if (insertDbTodayEtf) {
-            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
+            insertDbBiz(date, rankEtf, "etf");//hy-行业
+//            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
         }
 
         if (updateDbEtfNetLast1) {
@@ -82,6 +94,32 @@ public class BizRankDemo {
                 showUpdateDbMaxMinNetByDays(date, rankEtf, table, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
         }
 
+    }
+
+    /**
+     * db-插入
+     * @param date
+     * @param rankBizDataDiffListBiz
+     * @param type
+     */
+    private static int insertDbBiz(String date, List<RankBizDataDiff> rankBizDataDiffListBiz, String type) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        long temp = 0;
+        try {
+            for (RankBizDataDiff rankBizDataDiff : rankBizDataDiffListBiz) {
+//                System.out.println(JSON.toJSONString(rankBizDataDiff));
+                rankBizDataDiff.setRs("");
+                rankBizDataDiff.setDate(date);
+                rankBizDataDiff.setType(type);
+                rankBizDataDiff.setOrderNum(++temp);
+                rs = session.insert("ttjj.dao.mapper.RandBizEtfMapper.insertRandBizEtf", rankBizDataDiff);
+                session.commit();
+            }
+        } finally {
+            session.close();
+        }
+        return rs;
     }
 
     /**
@@ -347,11 +385,8 @@ public class BizRankDemo {
             //显示插入数据库语句
             {
                 System.out.println("INSERT INTO `bank19`.`rank_st_biz`(" +
-                        "`rs`" +
-                        ",`date`" +
-                        ",`type`" +
-                        ",`order_num`" +
-                        ",`f1`,`f2`,`f3`,`f4`" +
+                        "`rs`,`date`,`type`,`order_num`," +
+                        "`f1`,`f2`,`f3`,`f4`" +
                         ",`f5`,`f6`,`f7`,`f8`,`f9`" +
                         ",`f10`,`f11`,`f12`,`f13`,`f14`" +
                         ",`f15`,`f16`,`f17`,`f18`,`f19`" +

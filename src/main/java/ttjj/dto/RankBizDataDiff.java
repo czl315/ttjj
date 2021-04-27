@@ -10,6 +10,14 @@ public class RankBizDataDiff {
      */
     private String rs;
     /**
+     * date 日期
+     */
+    private String date;
+    /**
+     * type 类型：hy-行业；gn-概念；etf；
+     */
+    private String type;
+    /**
      * orderNum 排序号
      */
     private Long orderNum;
@@ -1310,5 +1318,21 @@ public class RankBizDataDiff {
 
     public void setF223(Long f223) {
         this.f223 = f223;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

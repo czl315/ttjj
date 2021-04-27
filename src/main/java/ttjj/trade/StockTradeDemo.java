@@ -32,8 +32,8 @@ public class StockTradeDemo {
     public static void main(String[] args) {
 //        boolean showBuyOrSell = true;//新增赎回
         boolean showBuyOrSell = false;//新增赎回
-//        int showTypeNet = 21;//最新一天
-        int showTypeNet = 22;//最新一年内
+        int showTypeNet = 21;//最新一天
+//        int showTypeNet = 22;//最新一年内
 
         if (showBuyOrSell) {
             String validatekey = "bcb2df3e-b7b3-4782-bb46-207f3da4c085";

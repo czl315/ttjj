@@ -5,27 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ca85812-23e8-4912-aa72-996e5b64ab48" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/FupanMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/spring-config-imp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ttjj/dao/MyBatisUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ttjj/dao/TestMybatis.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/RandBizEtfMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ttjj/db/Fupan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ttjj/fupan/FupanDemo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/game/lscs-21-04.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/lscs-21-04.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Dao/TradeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/dao/TradeDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Dao/TradeStockDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/dao/TradeStockDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Dao/impl/TradeDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/dao/impl/TradeDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Dao/impl/TradeStockDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/dao/impl/TradeStockDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Dao/mapper/TestMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/TestMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/Dao/mapper/TestMybatis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/TestMybatis.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/MybatisApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/MybatisApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/dto/Fupan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/dto/Fupan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/FupanMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/TestMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/FupanMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/TestMybatis.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/dto/Fupan.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/dto/RankBizDataDiff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/dto/RankBizDataDiff.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/rank/BizRankDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/rank/BizRankDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/rank/RankStockBizCompany.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/rank/RankStockBizCompany.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/trade/AssetStockDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/trade/AssetStockDemo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/trade/TradeDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/trade/TradeDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/trade/impl/TradeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/trade/impl/TradeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/spring-config-imp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config-mybatis.xml" afterDir="false" />
     </list>
     <list id="ed2e1449-ef22-4f61-a315-cbcd50c17e28" name="no Changelist" comment="no Changelist">
       <change beforePath="$PROJECT_DIR$/target/classes/utils/HttpUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/HttpUtil.class" afterDir="false" />
@@ -44,10 +38,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/TestMapper.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/FupanMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="18" column="10" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
+            <state relative-caret-position="570">
+              <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -56,21 +50,90 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/Fupan.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/RandBizEtfMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+            <state relative-caret-position="390">
+              <caret line="19" column="50" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="31" column="44" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
+              <folding>
+                <element signature="method#showInsertDb#0;class#StockTradeDemo#0" />
+                <element signature="method#kline#0;class#StockTradeDemo#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/MyBatisUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="413">
+              <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="900">
+              <caret line="41" column="47" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+              <folding>
+                <element signature="method#szzsKlineMonth#0;class#SzzsDataDemo#0" />
+                <element signature="method#szKlineWeek#0;class#SzzsDataDemo#0" />
+                <element signature="method#hs300Kline#0;class#SzzsDataDemo#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/fupan/FupanDemo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="661">
+              <caret line="141" column="5" selection-start-line="131" selection-start-column="45" selection-end-line="141" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/TestMybatis.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/BizRankDemo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="44" column="43" lean-forward="true" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="43" />
+            <state relative-caret-position="343">
+              <caret line="71" column="53" lean-forward="true" selection-start-line="71" selection-start-column="53" selection-end-line="71" selection-end-column="53" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="method#listEtf#0;class#BizRankDemo#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/RankBizDataDiff.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="179">
+              <caret line="286" column="16" selection-start-line="286" selection-start-column="16" selection-end-line="286" selection-end-column="16" />
+              <folding>
+                <element signature="e#4835#4836#0" expanded="true" />
+                <element signature="e#4875#4876#0" expanded="true" />
+                <element signature="e#21089#21090#0" expanded="true" />
+                <element signature="e#21116#21117#0" expanded="true" />
+                <element signature="e#21156#21157#0" expanded="true" />
+                <element signature="e#21188#21189#0" expanded="true" />
+                <element signature="e#21219#21220#0" expanded="true" />
+                <element signature="e#21246#21247#0" expanded="true" />
+                <element signature="e#21286#21287#0" expanded="true" />
+                <element signature="e#21318#21319#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -86,55 +149,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://L:/work/Java/repository/org/mybatis/mybatis/3.4.5/mybatis-3.4.5.jar!/org/apache/ibatis/session/SqlSession.class">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/config-mybatis.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/FupanMapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="4" column="45" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/spring-config-imp.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="9" column="78" selection-start-line="9" selection-start-column="78" selection-end-line="9" selection-end-column="78" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/TradeDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/impl/TradeDaoImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/impl/TradeStockDaoImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="22" column="3" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
+            <state relative-caret-position="480">
+              <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -145,22 +163,12 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>int</find>
-      <find>f6</find>
-      <find>F6</find>
-      <find>F7</find>
-      <find>F8</find>
-      <find>f8</find>
-      <find>handlerMaxJz</find>
-      <find>keyRsMin</find>
-      <find>证券买入(卖出中)</find>
-      <find>sb.append(&quot;;&quot;);</find>
-      <find>&amp;fields=</find>
       <find>&quot;&amp;_=</find>
       <find>食品饮料</find>
       <find>sendG</find>
@@ -180,11 +188,19 @@
       <find>typeAlias</find>
       <find>getAllRupan</find>
       <find>selectBlog</find>
+      <find>FupanMapper</find>
+      <find>ttjj.dao.mapper.FupanMapper</find>
+      <find>GetUserByID</find>
+      <find>yyyy-</find>
+      <find>updateFupan</find>
+      <find>fupanRs</find>
+      <find>sqlSessionFactory</find>
+      <find>insert</find>
+      <find>insertRandBizEtf</find>
+      <find>date</find>
+      <find>`</find>
     </findStrings>
     <replaceStrings>
-      <replace>showUpdateDbMaxMinNetByDays(rankBizDataDiffListBiz</replace>
-      <replace>showUpdateDbMaxMinNetByDays(rankBizDataDiffListBiz,</replace>
-      <replace>rank_st_biz</replace>
       <replace>f4</replace>
       <replace>f5</replace>
       <replace>f11</replace>
@@ -212,6 +228,9 @@
       <replace>F9</replace>
       <replace>f9</replace>
       <replace>ttjj.dao</replace>
+      <replace>&quot;,</replace>
+      <replace>#{f</replace>
+      <replace>}</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -220,16 +239,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/StockTradeToday.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/StockTrade.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/topic/TopicRank.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/trade/StockTraceDemo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/doc/fund-迭代.txt" />
-        <option value="$PROJECT_DIR$/src/main/java/game/dto/CardJsonPtDarkMoon.java" />
-        <option value="$PROJECT_DIR$/src/main/java/game/dto/CardJsonData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/game/LscsUtilDarkMoon.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/topic/BizRank.java" />
-        <option value="$PROJECT_DIR$/src/main/java/utils/LsjzUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/trade/AssetStockDemo.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/RankStockCompany.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application-dev.yml" />
@@ -250,10 +259,7 @@
         <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-周期净值比率.sql" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/fundRank.txt" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/trade/TradeDemo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/RankBizDataDiff.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/point/TrendsDemo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/BizRankDemo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/RankStockBizCompany.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.yml" />
@@ -266,11 +272,24 @@
         <option value="$PROJECT_DIR$/src/main/java/ttjj/Dao/mapper/TestMybatis.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/Dao/TradeStockDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/Dao/impl/TradeDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/FupanMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/spring-config-imp.xml" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/TestMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/Fupan.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/MyBatisUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/User.xml.fxml" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/FupanMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/config-mybatis.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/Fupan.xml" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/TestMybatis.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/TestMybatis.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/Fupan.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/fupan/FupanDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/FupanMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/db/Fupan.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/db/RankBizEtf.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/RankBizDataDiff.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/RandBizEtfMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/BizRankDemo.java" />
       </list>
     </option>
   </component>
@@ -327,12 +346,11 @@
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
-      <showMembers ProjectPane="false" />
+      <showMembers ProjectPane="true" />
       <abbreviatePackageNames ProjectPane="true" />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -364,14 +382,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="ttjj" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -382,16 +392,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="ttjj" type="462c0819:PsiDirectoryNode" />
               <item name="dao" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
@@ -410,7 +410,74 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="ttjj" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
+              <item name="RandBizEtfMapper" type="1a9f42e2:ClassTreeNode" />
+            </path>
+            <path>
+              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
+              <item name="db" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
               <item name="dto" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
+              <item name="dto" type="462c0819:PsiDirectoryNode" />
+              <item name="RankBizDataDiff" type="1a9f42e2:ClassTreeNode" />
+            </path>
+            <path>
+              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
+              <item name="fupan" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
+              <item name="point" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
+              <item name="rank" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
+              <item name="rank" type="462c0819:PsiDirectoryNode" />
+              <item name="BizRankDemo" type="1a9f42e2:ClassTreeNode" />
             </path>
             <path>
               <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
@@ -453,6 +520,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -466,12 +534,15 @@
       <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\study\base\principle" />
       <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\sql" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ttjj.db" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ttjj.dao.mapper" />
+      <recent name="ttjj.db" />
+      <recent name="ttjj.fupan" />
       <recent name="ttjj.point" />
       <recent name="ttjj.rank" />
-      <recent name="game.dto" />
-      <recent name="ttjj.dto" />
-      <recent name="ttjj.topic" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java" />
@@ -493,13 +564,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.TestMybatis (1)">
-    <configuration name="MybatisApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ttjj.MybatisApplication" />
+  <component name="RunManager" selected="Application.BizRankDemo">
+    <configuration name="BizRankDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ttjj.rank.BizRankDemo" />
       <module name="ttjj202004" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ttjj.*" />
+          <option name="PATTERN" value="ttjj.rank.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -507,12 +578,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RankStockBizCompany" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ttjj.rank.RankStockBizCompany" />
+    <configuration name="FupanDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ttjj.fupan.FupanDemo" />
       <module name="ttjj202004" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ttjj.rank.*" />
+          <option name="PATTERN" value="ttjj.fupan.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StockTradeDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ttjj.trade.StockTradeDemo" />
+      <module name="ttjj202004" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ttjj.trade.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -533,12 +617,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestMybatis (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ttjj.dao.mapper.TestMybatis" />
+    <configuration name="TestMybatis" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ttjj.Dao.mapper.TestMybatis" />
       <module name="ttjj202004" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ttjj.dao.mapper.*" />
+          <option name="PATTERN" value="ttjj.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -547,11 +631,11 @@
       </method>
     </configuration>
     <configuration name="TestMybatis" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ttjj.Dao.mapper.TestMybatis" />
+      <option name="MAIN_CLASS_NAME" value="ttjj.dao.TestMybatis" />
       <module name="ttjj202004" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ttjj.dao.mapper.*" />
+          <option name="PATTERN" value="ttjj.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -561,11 +645,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.TestMybatis (1)" />
-        <item itemvalue="Application.TestMybatis" />
-        <item itemvalue="Application.MybatisApplication" />
-        <item itemvalue="Application.RankStockBizCompany" />
+        <item itemvalue="Application.BizRankDemo" />
+        <item itemvalue="Application.FupanDemo" />
         <item itemvalue="Application.SzzsDataDemo" />
+        <item itemvalue="Application.StockTradeDemo" />
+        <item itemvalue="Application.TestMybatis" />
       </list>
     </recent_temporary>
   </component>
@@ -580,13 +664,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1590287300739</updated>
-    </task>
-    <task id="LOCAL-00164" summary="sql">
-      <created>1611676630542</created>
-      <option name="number" value="00164" />
-      <option name="presentableId" value="LOCAL-00164" />
-      <option name="project" value="LOCAL" />
-      <updated>1611676630544</updated>
     </task>
     <task id="LOCAL-00165" summary="sql">
       <created>1611763942917</created>
@@ -924,7 +1001,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619399933723</updated>
     </task>
-    <option name="localTasksCounter" value="213" />
+    <task id="LOCAL-00213" summary="test：mybatis">
+      <created>1619489070282</created>
+      <option name="number" value="00213" />
+      <option name="presentableId" value="LOCAL-00213" />
+      <option name="project" value="LOCAL" />
+      <updated>1619489070284</updated>
+    </task>
+    <option name="localTasksCounter" value="214" />
     <servers />
   </component>
   <component name="TodoView">
@@ -940,7 +1024,7 @@
     <frame x="-11" y="-11" width="2582" height="1406" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49802372" visible="true" weight="0.19382022" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49802372" visible="true" weight="0.19622792" />
       <window_info id="Structure" order="1" sideWeight="0.5019763" side_tool="true" weight="0.21669342" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -952,7 +1036,7 @@
       <window_info anchor="bottom" id="Debug" order="2" weight="0.41210613" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.4995987" visible="true" weight="0.45273632" />
+      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.4995987" visible="true" weight="0.5315091" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3283582" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4995987" weight="0.327529" />
       <window_info anchor="bottom" id="风险组件扫描" order="8" />
@@ -1043,14 +1127,14 @@
     <MESSAGE value="行业排行：行业板块" />
     <MESSAGE value="game：lscs" />
     <MESSAGE value="排行-行业股票-公司-每日明细" />
-    <MESSAGE value="test：mybatis" />
     <MESSAGE value="sql：back-work" />
     <MESSAGE value="数据备份" />
     <MESSAGE value="etf" />
     <MESSAGE value="交易" />
     <MESSAGE value="sql" />
     <MESSAGE value="复盘：指数趋势" />
-    <option name="LAST_COMMIT_MESSAGE" value="复盘：指数趋势" />
+    <MESSAGE value="test：mybatis" />
+    <option name="LAST_COMMIT_MESSAGE" value="test：mybatis" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1061,45 +1145,16 @@
           <properties />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ttjj/rank/BizRankDemo.java</url>
+          <line>110</line>
+          <properties />
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/controller/PersonController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="11" column="2" lean-forward="true" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/DemoApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/domain/PersonDO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://L:/work/Java/repository/org/mybatis/mybatis/3.4.5/mybatis-3.4.5.jar!/org/apache/ibatis/annotations/Mapper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/dao/PersonMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://L:/work/Java/repository/org/springframework/spring-web/5.2.5.RELEASE/spring-web-5.2.5.RELEASE.jar!/org/springframework/web/bind/annotation/RequestMapping.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
@@ -1243,13 +1298,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/RankBizDataDiff.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6150">
-          <caret line="205" column="7" selection-start-line="205" selection-start-column="7" selection-end-line="205" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/trade/TradeDemo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -1267,42 +1315,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/BizRankDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="42" column="41" selection-start-line="42" selection-start-column="41" selection-end-line="42" selection-end-column="41" />
-          <folding>
-            <element signature="method#listEtf#0;class#BizRankDemo#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/FundRankDemo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="21" column="44" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-270">
-          <folding>
-            <element signature="method#showInsertDb#0;class#StockTradeDemo#0" />
-            <element signature="method#kline#0;class#StockTradeDemo#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="45" column="42" lean-forward="true" selection-start-line="45" selection-start-column="42" selection-end-line="45" selection-end-column="42" />
-          <folding>
-            <element signature="method#szzsKlineMonth#0;class#SzzsDataDemo#0" />
-            <element signature="method#szKlineWeek#0;class#SzzsDataDemo#0" />
-            <element signature="method#hs300Kline#0;class#SzzsDataDemo#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1354,51 +1370,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/TestMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" column="10" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/Fupan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/TradeStockDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://L:/work/Java/repository/org/mybatis/mybatis/3.4.5/mybatis-3.4.5.jar!/org/apache/ibatis/session/SqlSession.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/FupanMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="4" column="45" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-config-imp.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="9" column="78" selection-start-line="9" selection-start-column="78" selection-end-line="9" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/TradeDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -1420,12 +1391,145 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/TestMybatis.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/User.xml.fxml" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/Fupan.xml" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/TestMybatis.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="44" column="43" lean-forward="true" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="43" />
+        <state relative-caret-position="300">
+          <caret line="14" selection-start-line="14" selection-end-line="17" selection-end-column="85" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://L:/work/Java/repository/org/mybatis/mybatis/3.4.5/mybatis-3.4.5.jar!/org/apache/ibatis/session/SqlSession.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="31" column="44" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
+          <folding>
+            <element signature="method#showInsertDb#0;class#StockTradeDemo#0" />
+            <element signature="method#kline#0;class#StockTradeDemo#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="41" column="47" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+          <folding>
+            <element signature="method#szzsKlineMonth#0;class#SzzsDataDemo#0" />
+            <element signature="method#szKlineWeek#0;class#SzzsDataDemo#0" />
+            <element signature="method#hs300Kline#0;class#SzzsDataDemo#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/TradeStockDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/config-mybatis.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/db/RankBizEtf.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/db/Fupan.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="13" column="24" lean-forward="true" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+          <folding>
+            <element signature="e#376#377#0" expanded="true" />
+            <element signature="e#406#407#0" expanded="true" />
+            <element signature="e#452#453#0" expanded="true" />
+            <element signature="e#490#491#0" expanded="true" />
+            <element signature="e#525#526#0" expanded="true" />
+            <element signature="e#556#557#0" expanded="true" />
+            <element signature="e#604#605#0" expanded="true" />
+            <element signature="e#644#645#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/fupan/FupanDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="661">
+          <caret line="141" column="5" selection-start-line="131" selection-start-column="45" selection-end-line="141" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/MyBatisUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/FupanMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/RankBizDataDiff.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="286" column="16" selection-start-line="286" selection-start-column="16" selection-end-line="286" selection-end-column="16" />
+          <folding>
+            <element signature="e#4835#4836#0" expanded="true" />
+            <element signature="e#4875#4876#0" expanded="true" />
+            <element signature="e#21089#21090#0" expanded="true" />
+            <element signature="e#21116#21117#0" expanded="true" />
+            <element signature="e#21156#21157#0" expanded="true" />
+            <element signature="e#21188#21189#0" expanded="true" />
+            <element signature="e#21219#21220#0" expanded="true" />
+            <element signature="e#21246#21247#0" expanded="true" />
+            <element signature="e#21286#21287#0" expanded="true" />
+            <element signature="e#21318#21319#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/RandBizEtfMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="19" column="50" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/BizRankDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="71" column="53" lean-forward="true" selection-start-line="71" selection-start-column="53" selection-end-line="71" selection-end-column="53" />
+          <folding>
+            <element signature="method#listEtf#0;class#BizRankDemo#0" />
           </folding>
         </state>
       </provider>

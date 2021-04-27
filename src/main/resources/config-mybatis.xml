@@ -15,7 +15,6 @@
     </environments>
     <mappers>
         <package name="ttjj.dao.mapper"/>
-<!--        <mapper resource="ttjj/dao/mapper/FupanMapper.xml"/>-->
-<!--        <mapper class="ttjj.dao.mapper.TestMapper"/>-->
+<!--        <mapper resource="com/yiibai/mybatis/models/User.xml"/>-->
     </mappers>
 </configuration>
