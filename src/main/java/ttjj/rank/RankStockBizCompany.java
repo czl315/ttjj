@@ -32,8 +32,10 @@ public class RankStockBizCompany {
         boolean yiYao = false;
 //        boolean xiaoFei= true;
         boolean xiaoFei = false;
+//
 //        boolean keJi = true;
         boolean keJi = false;
+//
         boolean jinShuGangTie = true;
 //        boolean jinShuGangTie = false;
 

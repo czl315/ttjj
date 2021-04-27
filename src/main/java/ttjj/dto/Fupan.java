@@ -8,6 +8,16 @@ package ttjj.dto;
 public class Fupan {
     int ID;
 
+    String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public int getID() {
         return ID;
     }

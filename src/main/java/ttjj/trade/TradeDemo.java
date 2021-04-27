@@ -1,7 +1,7 @@
 package ttjj.trade;
 
-import ttjj.Dao.TradeDao;
-import ttjj.Dao.impl.TradeDaoImpl;
+import ttjj.dao.TradeDao;
+import ttjj.dao.impl.TradeDaoImpl;
 import ttjj.dto.FundTrade;
 import ttjj.dto.LsjzDataLsjz;
 import utils.HttpUtil;

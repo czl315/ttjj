@@ -2,7 +2,7 @@ package ttjj.trade.impl;
 
 import com.alibaba.fastjson.JSON;
 import ttjj.dto.FundTrade;
-import ttjj.Dao.impl.TradeDaoImpl;
+import ttjj.dao.impl.TradeDaoImpl;
 import ttjj.trade.TradeService;
 import utils.HttpUtil;
 

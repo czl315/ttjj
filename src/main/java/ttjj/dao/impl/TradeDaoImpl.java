@@ -1,6 +1,6 @@
-package ttjj.Dao.impl;
+package ttjj.dao.impl;
 
-import ttjj.Dao.TradeDao;
+import ttjj.dao.TradeDao;
 import ttjj.dto.FundTrade;
 import ttjj.dto.LsjzDataLsjz;
 import utils.HttpUtil;

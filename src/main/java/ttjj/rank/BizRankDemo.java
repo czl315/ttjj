@@ -31,10 +31,10 @@ public class BizRankDemo {
         String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
 //        String date = "20210416";
 
-        boolean insertDbTodayBiz = true;
-        boolean insertDbTodayConcept = true;
-//        boolean insertDbTodayBiz = false;
-//        boolean insertDbTodayConcept = false;
+//        boolean insertDbTodayBiz = true;
+//        boolean insertDbTodayConcept = true;
+        boolean insertDbTodayBiz = false;
+        boolean insertDbTodayConcept = false;
 
         boolean insertDbTodayEtf = true;
         boolean updateDbEtfNet = true;

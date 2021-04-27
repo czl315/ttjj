@@ -1,4 +1,4 @@
-package ttjj.Dao;
+package ttjj.dao;
 
 import ttjj.dto.FundTrade;
 import ttjj.dto.StockTrade;

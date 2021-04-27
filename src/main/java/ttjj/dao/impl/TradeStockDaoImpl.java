@@ -1,10 +1,10 @@
-package ttjj.Dao.impl;
+package ttjj.dao.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import ttjj.Dao.TradeDao;
-import ttjj.Dao.TradeStockDao;
+import ttjj.dao.TradeDao;
+import ttjj.dao.TradeStockDao;
 import ttjj.dto.FundTrade;
 import ttjj.dto.LsjzDataLsjz;
 import ttjj.dto.StockTrade;
