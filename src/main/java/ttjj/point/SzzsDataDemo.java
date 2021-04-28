@@ -43,8 +43,8 @@ public class SzzsDataDemo {
 
         String amt = "";
         String amt_fund = "52416.17";
-        String amt_fund_last = "52832.54";
-        String earn_fund = "-416.38";
+        String amt_fund_last = "52553.56";
+        String earn_fund = "137.38";
 
         String cookieDfcf = StockTradeDemo.COOKIE_DFCF;
 

@@ -17,4 +17,4 @@ spring:
   level:
   com:
   example:
-  mapper : debug
+  mapper : info

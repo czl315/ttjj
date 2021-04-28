@@ -23,8 +23,8 @@ public class RankStockBizCompany {
      * @param args
      */
     public static void main(String[] args) {
-        String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
-//        String today = "20210420";
+//        String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        String today = "20210427";
 
         Map<String, String> bizMap = new HashMap();
 
@@ -33,11 +33,11 @@ public class RankStockBizCompany {
 //        boolean xiaoFei= true;
         boolean xiaoFei = false;
 //
-//        boolean keJi = true;
-        boolean keJi = false;
+        boolean keJi = true;
+//        boolean keJi = false;
 //
-        boolean jinShuGangTie = true;
-//        boolean jinShuGangTie = false;
+//        boolean jinShuGangTie = true;
+        boolean jinShuGangTie = false;
 
         if (yiYao) {
             bizMap.put("BK0727", "医疗行业");

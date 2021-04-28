@@ -27,18 +27,18 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=69178670577273; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210426215801927-11923323313501-5766397486; mobileimei=70b5a000-301f-42e1-993c-75c067745bd7; Uuid=7828611b49f64f758c7f4890d0756424; monitor_count=13";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=80362089315667; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210427220806562-11923323313501-0582524220; mobileimei=11691d27-a54d-4989-b518-cd37c3e8a663; Uuid=2b341cdb377c49878a0dbc22e4b14d50; monitor_count=26";
 
     public static void main(String[] args) {
-//        boolean showBuyOrSell = true;//新增赎回
-        boolean showBuyOrSell = false;//新增赎回
-        int showTypeNet = 21;//最新一天
-//        int showTypeNet = 22;//最新一年内
+        boolean showBuyOrSell = true;//新增赎回
+//        boolean showBuyOrSell = false;//新增赎回
+//        int showTypeNet = 21;//最新一天
+        int showTypeNet = 22;//最新一年内
 
         if (showBuyOrSell) {
             String validatekey = "bcb2df3e-b7b3-4782-bb46-207f3da4c085";
 
-//            String startDate = "2021-04-22";//查询新增交易的开始时间
+//            String startDate = "2021-04-27";//查询新增交易的开始时间
             String startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             String endDate = "2021-12-31";
             //显示插入数据库语句
