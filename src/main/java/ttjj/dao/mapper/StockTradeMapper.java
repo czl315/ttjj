@@ -15,6 +15,7 @@ public interface StockTradeMapper {
     @Update({"<script>",
             "update stock_trade",
             "  <set>",
+            "    <if test='conception != null'>conception=#{conception},</if>",
             "    <if test='LAST_NET != null'>LAST_NET=#{LAST_NET},</if>",
             "    <if test='NET_MIN_1 != null'>NET_MIN_1=#{NET_MIN_1},</if>",
             "    <if test='NET_MIN_CLOS_1 != null'>NET_MIN_CLOS_1=#{NET_MIN_CLOS_1},</if>",

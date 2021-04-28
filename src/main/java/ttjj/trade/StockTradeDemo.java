@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import ttjj.dao.MyBatisUtils;
@@ -13,7 +12,6 @@ import ttjj.dao.impl.TradeStockDaoImpl;
 import ttjj.db.StockTradeDb;
 import ttjj.dto.FundTrade;
 import ttjj.dto.LsjzDataLsjz;
-import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.StockTrade;
 import utils.HttpUtil;
 
@@ -35,12 +33,12 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=80362089315667; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210427220806562-11923323313501-0582524220; mobileimei=11691d27-a54d-4989-b518-cd37c3e8a663; Uuid=2b341cdb377c49878a0dbc22e4b14d50; monitor_count=26";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=31152392900601; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210428151740417-11923323313501-9336978019; st_asi=delete; mobileimei=c6266e11-c3e5-444c-86eb-bfef14d1b824; Uuid=046e9ba31cc547daabe5bde8464158ca; monitor_count=30";
 
     public static void main(String[] args) {
-//        boolean showBuyOrSell = true;//新增赎回
-        boolean showBuyOrSell = false;//新增赎回
-        int showTypeNet = 21;//最新一天
+        boolean showBuyOrSell = true;//新增赎回
+//        boolean showBuyOrSell = false;//新增赎回
+        int showTypeNet = 23;//最新一天
 //        int showTypeNet = 22;//最新一年内
 
         if (showBuyOrSell) {
@@ -155,9 +153,15 @@ public class StockTradeDemo {
             sb.append(" `conception`='" + ydnr + "' ");
             sb.append(" WHERE `FD_CODE`='" + stCode + "'");
             sb.append(";");
-            sb.append("/**" + stockInfo.getZqmc() + "**/");
+//            sb.append("/**" + rsJo.getString("hxtc") + "**/");
 
             System.out.println(sb);
+
+            //db-更新要点内容
+            StockTradeDb entity = new StockTradeDb();
+            entity.setFD_CODE(stCode);
+            entity.setConception(ydnr);//要点内容
+            updateByCode(entity);
         }
     }
 
@@ -753,7 +757,7 @@ public class StockTradeDemo {
             //k线
             String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
             StockTradeDb entity = kline(stockTradeTemp.getZqdm(), days, klt, dbFieldLastNetMin, dbFieldLastNetMax, dbFieldLastNetMinClose, dbFieldLastNetMaxClose);//沪深300
-            updateEtfNet(entity);
+            updateByCode(entity);
         }
     }
 
@@ -780,7 +784,7 @@ public class StockTradeDemo {
      * @param entity
      * @return
      */
-    private static int updateEtfNet(StockTradeDb entity) {
+    private static int updateByCode(StockTradeDb entity) {
         SqlSession session = sqlSessionFactory.openSession();
         int rs = 0;
         try {
@@ -875,7 +879,7 @@ public class StockTradeDemo {
 //        sb.append(" WHERE `FD_CODE`='" + zhiShu + "'" + " AND TYPE = '证券买入'" + ";");
         sb.append(" WHERE `FD_CODE`='" + zhiShu + "'" + "");
         sb.append(";");
-        System.out.println(sb);
+//        System.out.println(sb);
 
         StockTradeDb stockTradeDb = new StockTradeDb();
         stockTradeDb.setFD_CODE(zhiShu);

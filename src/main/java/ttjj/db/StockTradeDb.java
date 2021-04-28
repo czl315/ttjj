@@ -4,11 +4,15 @@ package ttjj.db;
  * 交易-股票
  */
 public class StockTradeDb {
-
     /**
      * FD_CODE 证券编码
      */
     private String FD_CODE;
+    /**
+     * conception 概念-要点内容
+     */
+    private String conception;
+
     private Double LAST_NET;
     /**
      * NET_MIN_1 净值-最低-1天
@@ -316,5 +320,13 @@ public class StockTradeDb {
 
     public void setLAST_NET(Double LAST_NET) {
         this.LAST_NET = LAST_NET;
+    }
+
+    public String getConception() {
+        return conception;
+    }
+
+    public void setConception(String conception) {
+        this.conception = conception;
     }
 }
