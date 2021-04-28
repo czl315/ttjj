@@ -4,6 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import ttjj.dao.MyBatisUtils;
+import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.RankBizDataDiff;
 import utils.HttpUtil;
 
@@ -14,6 +18,10 @@ import java.util.*;
  * 排行-行业股票-公司-每日明细
  */
 public class RankStockBizCompany {
+    /**
+     * sqlSessionFactory mybatis
+     */
+    static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
     static String keyRsMin = "rsMin";
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
@@ -23,13 +31,14 @@ public class RankStockBizCompany {
      * @param args
      */
     public static void main(String[] args) {
-//        String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
-        String today = "20210427";
+        String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
+//        String today = "20210427";
 
         Map<String, String> bizMap = new HashMap();
 
-//        boolean yiYao = true;
-        boolean yiYao = false;
+        boolean yiYao = true;
+//        boolean yiYao = false;
+
 //        boolean xiaoFei= true;
         boolean xiaoFei = false;
 //
@@ -99,11 +108,11 @@ public class RankStockBizCompany {
 
             System.out.println("/**" + biz + "**/");
             showBizSql(rankBizDataDiffListBiz, biz, bizMap.get(biz), today);
-//
-//            //更新题材概念
+
+            //更新题材概念
             updateConception(today, biz, rankBizDataDiffListBiz);
 
-            // 最新周期价格
+//            // 最新周期价格
             showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
             showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 7, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
             showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 14, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
@@ -190,6 +199,13 @@ public class RankStockBizCompany {
             sb.append("/**" + stockInfo.getF14() + "**/");
 
             System.out.println(sb);
+
+            //db-更新要点内容
+            RankStockCommpanyDb entity = new RankStockCommpanyDb();
+            entity.setF12(stockInfo.getF12());
+            entity.setDate(today);
+            entity.setConception(ydnr);//要点内容
+            updateByCode(entity);
         }
     }
 
@@ -209,7 +225,12 @@ public class RankStockBizCompany {
 //            LsjzUtil.findJzMaxMin(fundTrade.getZqdm(), days);
             //k线
             String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-            kline(today, stockInfo.getF12(), days, klt, dbFieldLastNetMin, dbFieldLastNetMax, dbFieldLastNetMinClose, dbFieldLastNetMaxClose);
+            RankStockCommpanyDb entity = kline(today, stockInfo.getF12(), days, klt, dbFieldLastNetMin, dbFieldLastNetMax, dbFieldLastNetMinClose, dbFieldLastNetMaxClose);
+            if(entity==null || StringUtils.isBlank(entity.getF12()) || StringUtils.isBlank(entity.getDate())){
+                System.out.println("实体信息异常，不更新db："+JSON.toJSONString(entity));
+            }else{
+                updateByCode(entity);
+            }
         }
     }
 
@@ -218,14 +239,14 @@ public class RankStockBizCompany {
      *
      * @param today
      * @param zhiShu                 指数
-     * @param count                  数量
+     * @param days                  数量
      * @param klt                    K线周期类型
      * @param dbFieldLastNetMin
      * @param dbFieldLastNetMax
      * @param dbFieldLastNetMinClose
      * @param dbFieldLastNetMaxClose
      */
-    public static void kline(String today, String zhiShu, int count, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
+    public static RankStockCommpanyDb kline(String today, String zhiShu, int days, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
         StringBuffer url = new StringBuffer();
         url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
         if (zhiShu.startsWith("5") || zhiShu.startsWith("6")) {
@@ -240,7 +261,7 @@ public class RankStockBizCompany {
         url.append("&klt=" + klt);
         url.append("&fqt=1");
         url.append("&end=20500101");
-        url.append("&lmt=" + count);
+        url.append("&lmt=" + days);
         url.append("&_=1602168987942");
 
         StringBuffer urlParam = new StringBuffer();
@@ -277,7 +298,7 @@ public class RankStockBizCompany {
 //        System.out.println("指数名称："+name);
         if (szzzMonthDataJson == null || !szzzMonthDataJson.containsKey("klines")) {
 //            System.out.println("klines未查询到："+zhiShu);
-            return;
+            return null;
         }
         JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
         if (klines != null) {
@@ -306,6 +327,59 @@ public class RankStockBizCompany {
         sb.append(";");
 
         System.out.println(sb);
+
+        RankStockCommpanyDb rankStockCommpanyDb = new RankStockCommpanyDb();
+        rankStockCommpanyDb.setF12(zhiShu);
+        rankStockCommpanyDb.setDate(today);
+        if (days == 1) {
+            rankStockCommpanyDb.setNET_MIN_1(minJz);
+            rankStockCommpanyDb.setNET_MIN_CLOS_1(netCloseMin);
+            rankStockCommpanyDb.setNET_MAX_1(maxJz);
+            rankStockCommpanyDb.setNET_MAX_CLOS_1(netCloseMax);
+        }
+        if (days == 7) {
+            rankStockCommpanyDb.setNET_MIN_7(minJz);
+            rankStockCommpanyDb.setNET_MIN_CLOS_7(netCloseMin);
+            rankStockCommpanyDb.setNET_MAX_7(maxJz);
+            rankStockCommpanyDb.setNET_MAX_CLOS_7(netCloseMax);
+        }
+        if (days == 14) {
+            rankStockCommpanyDb.setNET_MIN_14(minJz);
+            rankStockCommpanyDb.setNET_MIN_CLOS_14(netCloseMin);
+            rankStockCommpanyDb.setNET_MAX_14(maxJz);
+            rankStockCommpanyDb.setNET_MAX_CLOS_14(netCloseMax);
+        }
+        if (days == 30) {
+            rankStockCommpanyDb.setNET_MIN_30(minJz);
+            rankStockCommpanyDb.setNET_MIN_CLOS_30(netCloseMin);
+            rankStockCommpanyDb.setNET_MAX_30(maxJz);
+            rankStockCommpanyDb.setNET_MAX_CLOS_30(netCloseMax);
+        }
+        if (days == 60) {
+            rankStockCommpanyDb.setNET_MIN_60(minJz);
+            rankStockCommpanyDb.setNET_MIN_CLOS_60(netCloseMin);
+            rankStockCommpanyDb.setNET_MAX_60(maxJz);
+            rankStockCommpanyDb.setNET_MAX_CLOS_60(netCloseMax);
+        }
+        if (days == 90) {
+            rankStockCommpanyDb.setNET_MIN_90(minJz);
+            rankStockCommpanyDb.setNET_MIN_CLOS_90(netCloseMin);
+            rankStockCommpanyDb.setNET_MAX_90(maxJz);
+            rankStockCommpanyDb.setNET_MAX_CLOS_90(netCloseMax);
+        }
+        if (days == 180) {
+            rankStockCommpanyDb.setNET_MIN_180(minJz);
+            rankStockCommpanyDb.setNET_MIN_CLOS_180(netCloseMin);
+            rankStockCommpanyDb.setNET_MAX_180(maxJz);
+            rankStockCommpanyDb.setNET_MAX_CLOS_180(netCloseMax);
+        }
+        if (days == 365) {
+            rankStockCommpanyDb.setNET_MIN_360(minJz);
+            rankStockCommpanyDb.setNET_MIN_CLOS_360(netCloseMin);
+            rankStockCommpanyDb.setNET_MAX_360(maxJz);
+            rankStockCommpanyDb.setNET_MAX_CLOS_360(netCloseMax);
+        }
+        return rankStockCommpanyDb;
     }
 
     /**
@@ -389,7 +463,7 @@ public class RankStockBizCompany {
     private static void showBizSql(List<RankBizDataDiff> rankBizDataDiffList, String queryType, String typeName, String today) {
         int orderNum = 0;//序号
 
-        for (RankBizDataDiff entity : rankBizDataDiffList) {
+        for (RankBizDataDiff rankBizDataDiff : rankBizDataDiffList) {
             orderNum++;
             //显示插入数据库语句
             {
@@ -440,55 +514,140 @@ public class RankStockBizCompany {
                         ",`f209`" +
                         ",`f222`" +
                         ") VALUES (" +
-                        " '" + JSON.toJSONString(entity) + "'" +
+                        " '" + JSON.toJSONString(rankBizDataDiff) + "'" +
                         " ,'" + today + "'" +
                         " ,'" + queryType + "'" +
                         " ,'" + typeName + "'" +
                         " ," + orderNum + "" +
-                        " ," + entity.getF2() + "" +
-                        " ," + entity.getF3() + "" +
-                        " ," + entity.getF4() + "" +
-                        " ," + entity.getF5() + "" +
-                        " ," + entity.getF6() + "" +
-                        " ," + entity.getF7() + "" +
-                        " ," + entity.getF8() + "" +
-                        " ," + entity.getF9() + "" +
-                        " ," + entity.getF10() + "" +
-                        " ," + entity.getF11() + "" +
-                        " ,'" + entity.getF12() + "'" +
-                        " ," + entity.getF13() + "" +
-                        " ,'" + entity.getF14() + "'" +
-                        " ," + entity.getF15() + "" +
-                        " ," + entity.getF16() + "" +
-                        " ," + entity.getF17() + "" +
-                        " ," + entity.getF18() + "" +
-                        " ," + entity.getF20() + "" +
-                        " ," + entity.getF21() + "" +
-                        " ," + entity.getF22() + "" +
-                        " ,'" + entity.getF23() + "'" +
-                        " ," + entity.getF24() + "" +
-                        " ," + entity.getF25() + "" +
-                        " ,'" + entity.getF26() + "'" +
-                        " ," + entity.getF33() + "" +
-                        " ," + entity.getF62() + "" +
-                        " ," + entity.getF104() + "" +
-                        " ," + entity.getF105() + "" +
-                        " ," + entity.getF107() + "" +
-                        " ,'" + entity.getF115() + "'" +
-                        " ," + entity.getF124() + "" +
-                        " ,'" + entity.getF128() + "'" +
-                        " ,'" + entity.getF140() + "'" +
-                        " ," + entity.getF141() + "" +
-                        " ," + entity.getF136() + "" +
-                        " ," + entity.getF152() + "" +
-                        " ,'" + entity.getF207() + "'" +
-                        " ,'" + entity.getF208() + "'" +
-                        " ," + entity.getF209() + "" +
-                        " ," + entity.getF222() + "" +
+                        " ," + rankBizDataDiff.getF2() + "" +
+                        " ," + rankBizDataDiff.getF3() + "" +
+                        " ," + rankBizDataDiff.getF4() + "" +
+                        " ," + rankBizDataDiff.getF5() + "" +
+                        " ," + rankBizDataDiff.getF6() + "" +
+                        " ," + rankBizDataDiff.getF7() + "" +
+                        " ," + rankBizDataDiff.getF8() + "" +
+                        " ," + rankBizDataDiff.getF9() + "" +
+                        " ," + rankBizDataDiff.getF10() + "" +
+                        " ," + rankBizDataDiff.getF11() + "" +
+                        " ,'" + rankBizDataDiff.getF12() + "'" +
+                        " ," + rankBizDataDiff.getF13() + "" +
+                        " ,'" + rankBizDataDiff.getF14() + "'" +
+                        " ," + rankBizDataDiff.getF15() + "" +
+                        " ," + rankBizDataDiff.getF16() + "" +
+                        " ," + rankBizDataDiff.getF17() + "" +
+                        " ," + rankBizDataDiff.getF18() + "" +
+                        " ," + rankBizDataDiff.getF20() + "" +
+                        " ," + rankBizDataDiff.getF21() + "" +
+                        " ," + rankBizDataDiff.getF22() + "" +
+                        " ,'" + rankBizDataDiff.getF23() + "'" +
+                        " ," + rankBizDataDiff.getF24() + "" +
+                        " ," + rankBizDataDiff.getF25() + "" +
+                        " ,'" + rankBizDataDiff.getF26() + "'" +
+                        " ," + rankBizDataDiff.getF33() + "" +
+                        " ," + rankBizDataDiff.getF62() + "" +
+                        " ," + rankBizDataDiff.getF104() + "" +
+                        " ," + rankBizDataDiff.getF105() + "" +
+                        " ," + rankBizDataDiff.getF107() + "" +
+                        " ,'" + rankBizDataDiff.getF115() + "'" +
+                        " ," + rankBizDataDiff.getF124() + "" +
+                        " ,'" + rankBizDataDiff.getF128() + "'" +
+                        " ,'" + rankBizDataDiff.getF140() + "'" +
+                        " ," + rankBizDataDiff.getF141() + "" +
+                        " ," + rankBizDataDiff.getF136() + "" +
+                        " ," + rankBizDataDiff.getF152() + "" +
+                        " ,'" + rankBizDataDiff.getF207() + "'" +
+                        " ,'" + rankBizDataDiff.getF208() + "'" +
+                        " ," + rankBizDataDiff.getF209() + "" +
+                        " ," + rankBizDataDiff.getF222() + "" +
                         ");");
+
+                //db-更新要点内容
+                RankStockCommpanyDb entity = new RankStockCommpanyDb();
+                entity.setRs("");
+                entity.setDate(today);
+                entity.setType(queryType);
+                entity.setType_name(typeName);
+                entity.setOrder_num(Long.valueOf(orderNum));
+                entity.setF2(rankBizDataDiff.getF2());
+                entity.setF3(rankBizDataDiff.getF3());
+                entity.setF4(rankBizDataDiff.getF4());
+                entity.setF5(rankBizDataDiff.getF5());
+                entity.setF6(rankBizDataDiff.getF6());
+                entity.setF7(rankBizDataDiff.getF7());
+                entity.setF8(rankBizDataDiff.getF8());
+                entity.setF9(rankBizDataDiff.getF9());
+                entity.setF10(rankBizDataDiff.getF10());
+                entity.setF11(rankBizDataDiff.getF11());
+                entity.setF12(rankBizDataDiff.getF12());
+                entity.setF13(rankBizDataDiff.getF13());
+                entity.setF14(rankBizDataDiff.getF14());
+                entity.setF15(rankBizDataDiff.getF15());
+                entity.setF16(rankBizDataDiff.getF16());
+                entity.setF17(rankBizDataDiff.getF17());
+                entity.setF18(rankBizDataDiff.getF18());
+                entity.setF20(rankBizDataDiff.getF20());
+                entity.setF21(rankBizDataDiff.getF21());
+                entity.setF22(rankBizDataDiff.getF22());
+                entity.setF23(rankBizDataDiff.getF23());
+                entity.setF24(rankBizDataDiff.getF24());
+                entity.setF25(rankBizDataDiff.getF25());
+                entity.setF26(rankBizDataDiff.getF26());
+                entity.setF33(rankBizDataDiff.getF33());
+                entity.setF62(rankBizDataDiff.getF62());
+                entity.setF104(rankBizDataDiff.getF104());
+                entity.setF105(rankBizDataDiff.getF105());
+                entity.setF107(rankBizDataDiff.getF107());
+                entity.setF115(rankBizDataDiff.getF115());
+                entity.setF124(rankBizDataDiff.getF124());
+                entity.setF128(rankBizDataDiff.getF128());
+                entity.setF140(rankBizDataDiff.getF140());
+                entity.setF141(rankBizDataDiff.getF141());
+                entity.setF136(rankBizDataDiff.getF136());
+                entity.setF152(rankBizDataDiff.getF152());
+                entity.setF207(rankBizDataDiff.getF207());
+                entity.setF208(rankBizDataDiff.getF208());
+                entity.setF209(rankBizDataDiff.getF209());
+                entity.setF222(rankBizDataDiff.getF222());
+                insertDb(entity);
             }
 
         }
+    }
+
+    /**
+     * db-插入
+     *
+     * @param entity
+     */
+    private static int insertDb(RankStockCommpanyDb entity) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+//                System.out.println(JSON.toJSONString(entity));
+            rs = session.insert("ttjj.dao.mapper.RankStockCommpanyMapper.insert", entity);
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * @param entity
+     * @return
+     */
+    private static int updateByCode(RankStockCommpanyDb entity) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.update("ttjj.dao.mapper.RankStockCommpanyMapper.update", entity);
+            session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
     }
 
     /**
