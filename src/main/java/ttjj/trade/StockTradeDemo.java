@@ -33,13 +33,13 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=31152392900601; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210428151740417-11923323313501-9336978019; st_asi=delete; mobileimei=c6266e11-c3e5-444c-86eb-bfef14d1b824; Uuid=046e9ba31cc547daabe5bde8464158ca; monitor_count=30";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=31152392900601; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210428232008811-11923323313501-1682968208; mobileimei=57c51898-6ce7-4ed1-a14d-8ca3cb20de52; Uuid=271b6a6537514c298daaec7f69aa731e; monitor_count=36";
 
     public static void main(String[] args) {
-        boolean showBuyOrSell = true;//新增赎回
-//        boolean showBuyOrSell = false;//新增赎回
-        int showTypeNet = 23;//最新一天
-//        int showTypeNet = 22;//最新一年内
+//        boolean showBuyOrSell = true;//新增赎回
+        boolean showBuyOrSell = false;//新增赎回
+//        int showTypeNet = 1;//最新一天
+        int showTypeNet = 365;//最新一年内
 
         if (showBuyOrSell) {
             String validatekey = "bcb2df3e-b7b3-4782-bb46-207f3da4c085";
@@ -66,13 +66,13 @@ public class StockTradeDemo {
         }
 
 
-        if (showTypeNet == 21) {
+        if (showTypeNet == 1) {
             // 更新最新净值-限定时间段的最大最小净值
             showUpdateDbMaxMinNetByDays(1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
             showUpdateDbMaxMinNetByDays(1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
         }
 
-        if (showTypeNet == 22) {
+        if (showTypeNet == 365) {
             // 更新最新净值-限定时间段的最大最小净值
             showUpdateDbMaxMinNetByDays(1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
             showUpdateDbMaxMinNetByDays(1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");

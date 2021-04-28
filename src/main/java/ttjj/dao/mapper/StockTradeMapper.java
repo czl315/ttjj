@@ -80,7 +80,7 @@ public interface StockTradeMapper {
     @Update({"<script>",
             "update stock_trade",
             "  <set>",
-            "    <if test='TYPE != null'>TYPE='证券买入(卖出)',</if>",
+            "    TYPE='证券买入(卖出)',",
             "    <if test='NET_REDEM != null'>NET_REDEM=#{NET_REDEM},</if>",
             "    <if test='REDEM_SHARE != null'>REDEM_SHARE=#{REDEM_SHARE},</if>",
             "    <if test='REDEM_TIME != null'>REDEM_TIME=#{REDEM_TIME},</if>",
