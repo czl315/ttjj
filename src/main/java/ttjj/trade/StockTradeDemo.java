@@ -5,8 +5,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import ttjj.dao.MyBatisUtils;
 import ttjj.dao.TradeStockDao;
 import ttjj.dao.impl.TradeStockDaoImpl;
+import ttjj.db.StockTradeDb;
 import ttjj.dto.FundTrade;
 import ttjj.dto.LsjzDataLsjz;
 import ttjj.dto.RankBizDataDiff;
@@ -23,6 +27,10 @@ import java.util.*;
  * @date 2020/8/4
  */
 public class StockTradeDemo {
+    /**
+     * sqlSessionFactory mybatis
+     */
+    static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
     static String keyRsMin = "rsMin";
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
@@ -30,10 +38,10 @@ public class StockTradeDemo {
     public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=80362089315667; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210427220806562-11923323313501-0582524220; mobileimei=11691d27-a54d-4989-b518-cd37c3e8a663; Uuid=2b341cdb377c49878a0dbc22e4b14d50; monitor_count=26";
 
     public static void main(String[] args) {
-        boolean showBuyOrSell = true;//新增赎回
-//        boolean showBuyOrSell = false;//新增赎回
-//        int showTypeNet = 21;//最新一天
-        int showTypeNet = 22;//最新一年内
+//        boolean showBuyOrSell = true;//新增赎回
+        boolean showBuyOrSell = false;//新增赎回
+        int showTypeNet = 21;//最新一天
+//        int showTypeNet = 22;//最新一年内
 
         if (showBuyOrSell) {
             String validatekey = "bcb2df3e-b7b3-4782-bb46-207f3da4c085";
@@ -728,31 +736,6 @@ public class StockTradeDemo {
             rs.add(stockTradeTemp);
         }
 
-//        //航天航空
-//        List<String> typeListHtHk = new ArrayList<>();
-//        typeListHtHk.add("002151");//北斗星通
-//        for (String zqdm : typeListHtHk) {
-//            StockTrade stockTradeTemp = new StockTrade();
-//            stockTradeTemp.setBizTy("航天航空");
-//            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
-//            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
-//            stockTradeTemp.setZqdm(zqdm);
-//            rs.add(stockTradeTemp);
-//        }
-
-//        List<String> typeListQiHuo = new ArrayList<>();
-//        typeListQiHuo.add("159985");//豆粕ETF
-//        for (String zqdm : typeListQiHuo) {
-//            StockTrade stockTradeTemp = new StockTrade();
-//            stockTradeTemp.setBizTy("期货");
-//            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
-//            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
-//            stockTradeTemp.setZqdm(zqdm);
-//            rs.add(stockTradeTemp);
-//        }
-
-
-
         return rs;
     }
 
@@ -769,20 +752,56 @@ public class StockTradeDemo {
 //            LsjzUtil.findJzMaxMin(fundTrade.getZqdm(), days);
             //k线
             String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-            kline(stockTradeTemp.getZqdm(), days, klt, dbFieldLastNetMin, dbFieldLastNetMax, dbFieldLastNetMinClose, dbFieldLastNetMaxClose);//沪深300
+            StockTradeDb entity = kline(stockTradeTemp.getZqdm(), days, klt, dbFieldLastNetMin, dbFieldLastNetMax, dbFieldLastNetMinClose, dbFieldLastNetMaxClose);//沪深300
+            updateEtfNet(entity);
         }
+    }
+
+    /**
+     * db-插入
+     *
+     * @param entity
+     */
+    private static int insertDb(StockTradeDb entity) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        long temp = 0;
+        try {
+//                System.out.println(JSON.toJSONString(entity));
+                rs = session.insert("ttjj.dao.mapper.StockTradeMapper.XXX", entity);
+                session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * @param entity
+     * @return
+     */
+    private static int updateEtfNet(StockTradeDb entity) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.update("ttjj.dao.mapper.StockTradeMapper.updateNet", entity);
+            session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
     }
 
     /**
      * 查询-ETF-指数
      *
      * @param zhiShu            指数
-     * @param count             数量
+     * @param days             数量
      * @param klt               K线周期类型
      * @param dbFieldLastNetMin
      * @param dbFieldLastNetMax
      */
-    public static void kline(String zhiShu, int count, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
+    public static StockTradeDb kline(String zhiShu, int days, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
         StringBuffer url = new StringBuffer();
         url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
         if (zhiShu.startsWith("5") || zhiShu.startsWith("6")) {
@@ -797,7 +816,7 @@ public class StockTradeDemo {
         url.append("&klt=" + klt);
         url.append("&fqt=1");
         url.append("&end=20500101");
-        url.append("&lmt=" + count);
+        url.append("&lmt=" + days);
         url.append("&_=1602168987942");
 
         StringBuffer urlParam = new StringBuffer();
@@ -858,6 +877,58 @@ public class StockTradeDemo {
         sb.append(";");
         System.out.println(sb);
 
+        StockTradeDb stockTradeDb = new StockTradeDb();
+        stockTradeDb.setFD_CODE(zhiShu);
+        if (days == 1) {
+            stockTradeDb.setLAST_NET(netCloseMin);
+            stockTradeDb.setNET_MIN_1(minJz);
+            stockTradeDb.setNET_MIN_CLOS_1(netCloseMin);
+            stockTradeDb.setNET_MAX_1(maxJz);
+            stockTradeDb.setNET_MAX_CLOS_1(netCloseMax);
+        }
+        if (days == 7) {
+            stockTradeDb.setNET_MIN_7(minJz);
+            stockTradeDb.setNET_MIN_CLOS_7(netCloseMin);
+            stockTradeDb.setNET_MAX_7(maxJz);
+            stockTradeDb.setNET_MAX_CLOS_7(netCloseMax);
+        }
+        if (days == 14) {
+            stockTradeDb.setNET_MIN_14(minJz);
+            stockTradeDb.setNET_MIN_CLOS_14(netCloseMin);
+            stockTradeDb.setNET_MAX_14(maxJz);
+            stockTradeDb.setNET_MAX_CLOS_14(netCloseMax);
+        }
+        if (days == 30) {
+            stockTradeDb.setNET_MIN_30(minJz);
+            stockTradeDb.setNET_MIN_CLOS_30(netCloseMin);
+            stockTradeDb.setNET_MAX_30(maxJz);
+            stockTradeDb.setNET_MAX_CLOS_30(netCloseMax);
+        }
+        if (days == 60) {
+            stockTradeDb.setNET_MIN_60(minJz);
+            stockTradeDb.setNET_MIN_CLOS_60(netCloseMin);
+            stockTradeDb.setNET_MAX_60(maxJz);
+            stockTradeDb.setNET_MAX_CLOS_60(netCloseMax);
+        }
+        if (days == 90) {
+            stockTradeDb.setNET_MIN_90(minJz);
+            stockTradeDb.setNET_MIN_CLOS_90(netCloseMin);
+            stockTradeDb.setNET_MAX_90(maxJz);
+            stockTradeDb.setNET_MAX_CLOS_90(netCloseMax);
+        }
+        if (days == 180) {
+            stockTradeDb.setNET_MIN_180(minJz);
+            stockTradeDb.setNET_MIN_CLOS_180(netCloseMin);
+            stockTradeDb.setNET_MAX_180(maxJz);
+            stockTradeDb.setNET_MAX_CLOS_180(netCloseMax);
+        }
+        if (days == 365) {
+            stockTradeDb.setNET_MIN_360(minJz);
+            stockTradeDb.setNET_MIN_CLOS_360(netCloseMin);
+            stockTradeDb.setNET_MAX_360(maxJz);
+            stockTradeDb.setNET_MAX_CLOS_360(netCloseMax);
+        }
+        return stockTradeDb;
     }
 
     /**

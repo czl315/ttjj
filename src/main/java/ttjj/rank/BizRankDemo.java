@@ -252,7 +252,7 @@ public class BizRankDemo {
         //insertDb
         rankEtf.setDate(date);
         if (days == 1) {
-            rankEtf.setLAST_NET(minJz);
+            rankEtf.setLAST_NET(netCloseMin);
             rankEtf.setNET_MIN_1(minJz);
             rankEtf.setNET_MIN_CLOS_1(netCloseMin);
             rankEtf.setNET_MAX_1(maxJz);
