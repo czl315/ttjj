@@ -126,7 +126,7 @@ public class StockTradeDemo {
 
 //            System.out.println("rs:" + rs);
             if (rs == null || rs.contains("不合法")) {
-                System.out.println("/**rs:" + rs+"**/");
+                System.out.println("/**rs:" + rs + "**/");
                 continue;
             }
 
@@ -191,30 +191,11 @@ public class StockTradeDemo {
 
                 //显示插入数据库语句
                 System.out.println("INSERT INTO `bank19`.`stock_trade`(" +
-                        " `FD_CODE`" +
-                        ",`FD_INFO`" +
-                        ", `TYPE`" +
-                        ", `TRADE_TIME`" +
-                        ", `ORDER_STATUS`, " +
-                        " `CONFIRM_SHARE`" +
-                        ", `CONFIRM_NET`" +
-                        ", `ORDER_AMT`" +
-                        ", `STATUS`, " +
-                        " `ORDER_CODE`" +
-                        ", `CONFIRM_AMT`" +
-                        ", `REDEM_AMT`," +
-                        " `EARN_AMT`" +
-                        ", `CONFIRM_NET_DATA`" +
-                        ", `SERVER_CHARGE`, " +
-                        " `REDEM_STATUS`" +
-                        ", `REDEM_SHARE`" +
-                        ", `REDEM_TIME`" +
-                        ",`SOURCE`" +
-                        ",  `CREATE_TIME`" +
-                        ", `UPDATE_TIME`" +
-                        " ,`BIZ_TP`" +
-                        " ,`RK_ST_LOSS`" +
-                        ",`RK_ST_PROFIT`" +
+                        " `FD_CODE`,`FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, " +
+                        " `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `ORDER_CODE`," +
+                        " `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, " +
+                        " `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`,`SOURCE`,  `CREATE_TIME`," +
+                        " `UPDATE_TIME` ,`BIZ_TP` ,`RK_ST_LOSS`,`RK_ST_PROFIT`" +
                         ") VALUES (" +
                         " '" + trade.getZqdm() + "'" +
                         ", '" + trade.getZqmc() + "'" +
@@ -236,6 +217,35 @@ public class StockTradeDemo {
                         " ," + trade.getRiskStProfit() + "" +
 //                        " ,0.92,1.1" +
                         ");");
+
+//                        " `UPDATE_TIME` ,`BIZ_TP` ,`RK_ST_LOSS`,`RK_ST_PROFIT`" +
+                //db-更新要点内容
+                StockTradeDb entity = new StockTradeDb();
+                entity.setFD_CODE(trade.getZqdm());
+                entity.setFD_INFO(trade.getZqmc());
+                entity.setTYPE(type);
+                entity.setTRADE_TIME(tradeTimeDateStr);
+                entity.setORDER_STATUS(type);
+                entity.setCONFIRM_SHARE(Double.valueOf(trade.getCjsl()));
+                entity.setCONFIRM_NET(Double.valueOf(trade.getCjjg()));
+                entity.setORDER_AMT(Double.valueOf(trade.getCjje()));
+                entity.setSTATUS("确认成功");
+                entity.setORDER_CODE("");
+                entity.setCONFIRM_AMT(Double.valueOf(trade.getCjje()));
+                entity.setREDEM_AMT(null);
+                entity.setEARN_AMT(null);
+                entity.setCONFIRM_NET_DATA(tradeTimeDateStr);
+                entity.setSERVER_CHARGE(Double.valueOf(trade.getSxf()));
+                entity.setREDEM_STATUS("0");//未赎回
+                entity.setREDEM_SHARE(null);
+                entity.setREDEM_TIME(null);
+                entity.setSOURCE("4");//来源：东财
+                entity.setCREATE_TIME(tradeTimeDateStr);
+                entity.setUPDATE_TIME(tradeTimeDateStr);
+                entity.setBIZ_TP(trade.getBizTy());
+                entity.setRK_ST_LOSS(trade.getRiskStLoss());
+                entity.setRK_ST_PROFIT(trade.getRiskStProfit());
+                insertDb(entity);
             }
         }
     }
@@ -715,7 +725,6 @@ public class StockTradeDemo {
         }
 
 
-
         //酿酒行业
         List<String> typeListNiangJiu = new ArrayList<>();
         typeListNiangJiu.add("600600");//青岛啤酒
@@ -769,11 +778,12 @@ public class StockTradeDemo {
     private static int insertDb(StockTradeDb entity) {
         SqlSession session = sqlSessionFactory.openSession();
         int rs = 0;
-        long temp = 0;
         try {
 //                System.out.println(JSON.toJSONString(entity));
-                rs = session.insert("ttjj.dao.mapper.StockTradeMapper.XXX", entity);
-                session.commit();
+            rs = session.insert("ttjj.dao.mapper.StockTradeMapper.insert", entity);
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             session.close();
         }
@@ -797,10 +807,28 @@ public class StockTradeDemo {
     }
 
     /**
+     * 更新-卖出
+     *
+     * @param entity
+     * @return
+     */
+    private static int updateSellOut(StockTradeDb entity) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.update("ttjj.dao.mapper.StockTradeMapper.updateSellOut", entity);
+            session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
      * 查询-ETF-指数
      *
      * @param zhiShu            指数
-     * @param days             数量
+     * @param days              数量
      * @param klt               K线周期类型
      * @param dbFieldLastNetMin
      * @param dbFieldLastNetMax
@@ -827,7 +855,7 @@ public class StockTradeDemo {
 //        urlParam.append("&StartDate=").append(startDate);
 
 //        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
-        String rs ="";
+        String rs = "";
         try {
             rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
         } catch (Exception e) {
@@ -1094,6 +1122,19 @@ public class StockTradeDemo {
                         + "AND `CONFIRM_SHARE` = '" + stockTrade.getCjsl() + "' " +
                         " LIMIT 1; ");
                 System.out.println(sb.toString());
+
+                //db-更新-卖出
+                StockTradeDb entity = new StockTradeDb();
+                entity.setNET_REDEM(Double.valueOf(stockTrade.getCjjg()));
+                entity.setREDEM_SHARE(Double.valueOf(stockTrade.getCjsl()));
+                entity.setREDEM_TIME(tradeTimeDateStr);
+                entity.setREDEM_AMT(Double.valueOf(stockTrade.getCjje()));
+                entity.setSERVER_CHARGE_REDEM(serverChargeRedem);
+                entity.setREDEM_STATUS("1");//卖出
+                entity.setFD_CODE(stockTrade.getZqdm());
+                entity.setEARN_AMT(enrnAmtSubServerCharge);
+                entity.setCONFIRM_SHARE(Double.valueOf(stockTrade.getCjsl()));
+                updateSellOut(entity);//更新-卖出
             }
         }
     }

@@ -12,6 +12,24 @@ import ttjj.dto.RankBizDataDiff;
  * @date 2021/4/7
  */
 public interface StockTradeMapper {
+
+    @Insert({"<script>",
+            "INSERT INTO `bank19`.`stock_trade`(",
+            " `FD_CODE`,`FD_INFO`, `TYPE`, `TRADE_TIME`, `ORDER_STATUS`, ",
+            " `CONFIRM_SHARE`, `CONFIRM_NET`, `ORDER_AMT`, `STATUS`, `ORDER_CODE`,",
+            " `CONFIRM_AMT`, `REDEM_AMT`, `EARN_AMT`, `CONFIRM_NET_DATA`, `SERVER_CHARGE`, ",
+            " `REDEM_STATUS`, `REDEM_SHARE`, `REDEM_TIME`,`SOURCE`,  `CREATE_TIME`",
+            ", `UPDATE_TIME` ,`BIZ_TP` ,`RK_ST_LOSS`,`RK_ST_PROFIT`",
+            ") VALUES (",
+            "   #{FD_CODE},#{FD_INFO},#{TYPE},#{TRADE_TIME},#{ORDER_STATUS},",
+            "   #{CONFIRM_SHARE}, #{CONFIRM_NET}, #{ORDER_AMT}, #{STATUS}, #{ORDER_CODE},",
+            "   #{CONFIRM_AMT}, #{REDEM_AMT}, #{EARN_AMT}, #{CONFIRM_NET_DATA}, #{SERVER_CHARGE},",
+            "   #{REDEM_STATUS}, #{REDEM_SHARE}, #{REDEM_TIME},#{SOURCE},  #{CREATE_TIME},",
+            "   #{UPDATE_TIME},#{BIZ_TP},#{RK_ST_LOSS},#{RK_ST_PROFIT}",
+            ");",
+            "</script>"})
+    void insert(StockTradeDb entity);
+
     @Update({"<script>",
             "update stock_trade",
             "  <set>",
@@ -53,5 +71,29 @@ public interface StockTradeMapper {
             "where FD_CODE=#{FD_CODE} ",
             "</script>"})
     void updateNet(StockTradeDb entity);
+
+    /**
+     * 更新-卖出
+     *
+     * @param entity
+     */
+    @Update({"<script>",
+            "update stock_trade",
+            "  <set>",
+            "    <if test='TYPE != null'>TYPE='证券买入(卖出)',</if>",
+            "    <if test='NET_REDEM != null'>NET_REDEM=#{NET_REDEM},</if>",
+            "    <if test='REDEM_SHARE != null'>REDEM_SHARE=#{REDEM_SHARE},</if>",
+            "    <if test='REDEM_TIME != null'>REDEM_TIME=#{REDEM_TIME},</if>",
+            "    <if test='REDEM_AMT != null'>REDEM_AMT=#{REDEM_AMT},</if>",
+            "    <if test='SERVER_CHARGE_REDEM != null'>SERVER_CHARGE_REDEM=#{SERVER_CHARGE_REDEM},</if>",
+            "    <if test='REDEM_STATUS != null'>REDEM_STATUS=#{REDEM_STATUS},</if>",
+            "    <if test='EARN_AMT != null'>EARN_AMT=`EARN_AMT`=ROUND((#{EARN_AMT}-`CONFIRM_AMT`-`SERVER_CHARGE`) ,2),</if>",
+            "  </set>",
+            "where FD_CODE=#{FD_CODE} ",
+            "   AND (`TYPE` = '证券买入' OR `TYPE` = '证券买入(卖出中)') ",
+            "   AND `CONFIRM_SHARE` = #{CONFIRM_SHARE} ",
+            "LIMIT 1; ",
+            "</script>"})
+    void updateSellOut(StockTradeDb entity);
 
 }
