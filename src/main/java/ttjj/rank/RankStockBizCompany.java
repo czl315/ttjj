@@ -37,70 +37,30 @@ public class RankStockBizCompany {
         Map<String, String> bizMap = new HashMap();
 
         List<RankBizDataDiff> bizList = listBiz(100);//查询主题排名by时间类型、显示个数
-        boolean bizTempBreakFlag = true;
+        int startNum = 0;
+        int bizCountLimit = 999;
+        int bizCountTemp = 0;
         for (RankBizDataDiff biz : bizList) {
-            System.out.println("/**" + JSON.toJSONString(biz) + "**/");
-//            if(biz.getF12().equals("BK0458")){
-//                bizTempBreakFlag = false;
-//            }
-//            if(bizTempBreakFlag){
-//                continue;
-//            }
-            bizMap.put(biz.getF12(),biz.getF14());
+            bizCountTemp++;
+            if (bizCountTemp < startNum) {
+                continue;//已完成
+            }
+            if (bizCountTemp > bizCountLimit) {
+                break;//限定个数中断
+            }
+//            System.out.println("/**" + JSON.toJSONString(biz) + "**/");
+            bizMap.put(biz.getF12(), biz.getF14());
         }
-
-//            bizMap.put("BK0727", "医疗行业");
-//            bizMap.put("BK0465", "医药制造");
-//            bizMap.put("BK0477", "酿酒行业");
-//            bizMap.put("BK0438", "食品饮料");
-//            bizMap.put("BK0485", "旅游酒店");
-//            bizMap.put("BK0481", "汽车行业");
-//            bizMap.put("BK0456", "家电行业");
-//            bizMap.put("BK0459", "电子元件");
-//            bizMap.put("BK0737", "软件服务");
-//            bizMap.put("BK0447", "电子信息");
-//            bizMap.put("BK0478", "有色金属");
-//            bizMap.put("BK0732", "贵金属");
-//            bizMap.put("BK0479", "钢铁行业");
-//        bizList.add("BK0424");//水泥建材
-
-//        bizMap.put("BK0437","煤炭采选");
-
-//        bizMap.put("BK0476","木业家具");
-//        bizMap.put("BK0725","装修装饰");
-//        bizMap.put("BK0420","民航机场");
-
-//        bizList.add("BK0425");//工程建设
-
-//                bizList.add("BK0482");//商业百货
-//                bizList.add("BK0471");//化纤行业
-//                bizList.add("BK0546");//玻璃陶瓷
-//                bizList.add("BK0739");//金属制品
-
-//        bizMap.put("BK0473","券商信托");
-
-//        bizList.add("BK0486");//文化传媒
-
-//        bizList.add("BK0474");//保险
-
-//        bizList.add("BK0428");//电力行业
-//        bizList.add("BK0427");//公用事业
-//        bizList.add("BK0728");//环保工程
-
-//        bizList.add("BK0729");//船舶制造
-//        bizList.add("BK0450");//港口水运
-
-        //        bizList.add("BK0433");//农牧饲渔
-
-
+        int stBizCountTemp = 0;
         for (String biz : bizMap.keySet()) {
-            List<RankBizDataDiff> rankBizDataDiffListBiz = listRankStockByBiz(500, biz);
+            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + JSON.toJSONString(biz));
+            List<RankStockCommpanyDb> rankBizDataDiffListBiz = listRankStockByBiz(500, biz);
             //显示业务排行-插入sql
 
             int insertRs = showBizSql(rankBizDataDiffListBiz, biz, bizMap.get(biz), today);
-            if(insertRs==0){
-                continue;//如果插入重复；下一条
-            }
+//            if (insertRs == 0) {
+//                continue;//如果插入重复；下一条
+//            }
 
             //更新题材概念
             updateConception(today, biz, rankBizDataDiffListBiz);
@@ -110,13 +70,20 @@ public class RankStockBizCompany {
             showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 7, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
             showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 14, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
             showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 30, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
-//            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
-//            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
-//            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
+            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
+            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
+            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
             showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
+
+            for (RankStockCommpanyDb entity : rankBizDataDiffListBiz) {
+                if (entity == null || StringUtils.isBlank(entity.getF12()) || StringUtils.isBlank(entity.getDate())) {
+                    System.out.println("实体信息异常，不更新db：" + JSON.toJSONString(entity));
+                } else {
+                    updateByCode(entity);
+                }
+            }
+            stBizCountTemp++;
         }
-
-
     }
 
     /**
@@ -133,7 +100,7 @@ public class RankStockBizCompany {
 //        urlParam.append("&st="+findDateType);//查询类型
 //        urlParam.append("&_=1614523183291");
         String url = "http://28.push2.eastmoney.com/api/qt/clist/get";
-        urlParam.append("cb=jQuery112408110589206747254_1616379873172" +
+        urlParam.append("cb=jQuery112408110589206747254_" +curTime+
                 "&pn=1" +//页数
                 "&pz=" + endCount +//每页数量
                 "&po=1" +//pageorder:页面排序：0-正序；1-倒序
@@ -195,8 +162,8 @@ public class RankStockBizCompany {
      * @param biz
      * @param rankBizDataDiffListBiz
      */
-    private static void updateConception(String today, String biz, List<RankBizDataDiff> rankBizDataDiffListBiz) {
-        for (RankBizDataDiff stockInfo : rankBizDataDiffListBiz) {
+    private static void updateConception(String today, String biz, List<RankStockCommpanyDb> rankBizDataDiffListBiz) {
+        for (RankStockCommpanyDb stockInfo : rankBizDataDiffListBiz) {
             String stCode = stockInfo.getF12();
             StringBuffer url = new StringBuffer();
             url.append("http://f10.eastmoney.com/CoreConception/CoreConceptionAjax");
@@ -281,34 +248,31 @@ public class RankStockBizCompany {
      * @param dbFieldLastNetMinClose
      * @param dbFieldLastNetMaxClose
      */
-    private static void showUpdateDbMaxMinNetByDays(String today, List<RankBizDataDiff> rankBizDataDiffListBiz, int days, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
-        for (RankBizDataDiff stockInfo : rankBizDataDiffListBiz) {
+    private static void showUpdateDbMaxMinNetByDays(String today, List<RankStockCommpanyDb> rankBizDataDiffListBiz, int days, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
+        for (RankStockCommpanyDb stockInfo : rankBizDataDiffListBiz) {
             //查询 -限定时间段的最大最小净值
 //            LsjzUtil.findJzMaxMin(fundTrade.getZqdm(), days);
             //k线
             String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-            RankStockCommpanyDb entity = kline(today, stockInfo.getF12(), days, klt, dbFieldLastNetMin, dbFieldLastNetMax, dbFieldLastNetMinClose, dbFieldLastNetMaxClose);
-            if(entity==null || StringUtils.isBlank(entity.getF12()) || StringUtils.isBlank(entity.getDate())){
-                System.out.println("实体信息异常，不更新db："+JSON.toJSONString(entity));
-            }else{
-                updateByCode(entity);
-            }
+            RankStockCommpanyDb entity = kline(stockInfo, today, stockInfo.getF12(), days, klt, dbFieldLastNetMin, dbFieldLastNetMax, dbFieldLastNetMinClose, dbFieldLastNetMaxClose);
+
         }
     }
 
     /**
      * 查询-ETF-指数
      *
+     * @param stockInfo
      * @param today
      * @param zhiShu                 指数
-     * @param days                  数量
+     * @param days                   数量
      * @param klt                    K线周期类型
      * @param dbFieldLastNetMin
      * @param dbFieldLastNetMax
      * @param dbFieldLastNetMinClose
      * @param dbFieldLastNetMaxClose
      */
-    public static RankStockCommpanyDb kline(String today, String zhiShu, int days, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
+    public static RankStockCommpanyDb kline(RankStockCommpanyDb stockInfo, String today, String zhiShu, int days, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
         StringBuffer url = new StringBuffer();
         url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
         if (zhiShu.startsWith("5") || zhiShu.startsWith("6")) {
@@ -390,58 +354,56 @@ public class RankStockBizCompany {
 
         System.out.println(sb);
 
-        RankStockCommpanyDb rankStockCommpanyDb = new RankStockCommpanyDb();
-        rankStockCommpanyDb.setF12(zhiShu);
-        rankStockCommpanyDb.setDate(today);
+        stockInfo.setDate(today);
         if (days == 1) {
-            rankStockCommpanyDb.setNET_MIN_1(minJz);
-            rankStockCommpanyDb.setNET_MIN_CLOS_1(netCloseMin);
-            rankStockCommpanyDb.setNET_MAX_1(maxJz);
-            rankStockCommpanyDb.setNET_MAX_CLOS_1(netCloseMax);
+            stockInfo.setNET_MIN_1(minJz);
+            stockInfo.setNET_MIN_CLOS_1(netCloseMin);
+            stockInfo.setNET_MAX_1(maxJz);
+            stockInfo.setNET_MAX_CLOS_1(netCloseMax);
         }
         if (days == 7) {
-            rankStockCommpanyDb.setNET_MIN_7(minJz);
-            rankStockCommpanyDb.setNET_MIN_CLOS_7(netCloseMin);
-            rankStockCommpanyDb.setNET_MAX_7(maxJz);
-            rankStockCommpanyDb.setNET_MAX_CLOS_7(netCloseMax);
+            stockInfo.setNET_MIN_7(minJz);
+            stockInfo.setNET_MIN_CLOS_7(netCloseMin);
+            stockInfo.setNET_MAX_7(maxJz);
+            stockInfo.setNET_MAX_CLOS_7(netCloseMax);
         }
         if (days == 14) {
-            rankStockCommpanyDb.setNET_MIN_14(minJz);
-            rankStockCommpanyDb.setNET_MIN_CLOS_14(netCloseMin);
-            rankStockCommpanyDb.setNET_MAX_14(maxJz);
-            rankStockCommpanyDb.setNET_MAX_CLOS_14(netCloseMax);
+            stockInfo.setNET_MIN_14(minJz);
+            stockInfo.setNET_MIN_CLOS_14(netCloseMin);
+            stockInfo.setNET_MAX_14(maxJz);
+            stockInfo.setNET_MAX_CLOS_14(netCloseMax);
         }
         if (days == 30) {
-            rankStockCommpanyDb.setNET_MIN_30(minJz);
-            rankStockCommpanyDb.setNET_MIN_CLOS_30(netCloseMin);
-            rankStockCommpanyDb.setNET_MAX_30(maxJz);
-            rankStockCommpanyDb.setNET_MAX_CLOS_30(netCloseMax);
+            stockInfo.setNET_MIN_30(minJz);
+            stockInfo.setNET_MIN_CLOS_30(netCloseMin);
+            stockInfo.setNET_MAX_30(maxJz);
+            stockInfo.setNET_MAX_CLOS_30(netCloseMax);
         }
         if (days == 60) {
-            rankStockCommpanyDb.setNET_MIN_60(minJz);
-            rankStockCommpanyDb.setNET_MIN_CLOS_60(netCloseMin);
-            rankStockCommpanyDb.setNET_MAX_60(maxJz);
-            rankStockCommpanyDb.setNET_MAX_CLOS_60(netCloseMax);
+            stockInfo.setNET_MIN_60(minJz);
+            stockInfo.setNET_MIN_CLOS_60(netCloseMin);
+            stockInfo.setNET_MAX_60(maxJz);
+            stockInfo.setNET_MAX_CLOS_60(netCloseMax);
         }
         if (days == 90) {
-            rankStockCommpanyDb.setNET_MIN_90(minJz);
-            rankStockCommpanyDb.setNET_MIN_CLOS_90(netCloseMin);
-            rankStockCommpanyDb.setNET_MAX_90(maxJz);
-            rankStockCommpanyDb.setNET_MAX_CLOS_90(netCloseMax);
+            stockInfo.setNET_MIN_90(minJz);
+            stockInfo.setNET_MIN_CLOS_90(netCloseMin);
+            stockInfo.setNET_MAX_90(maxJz);
+            stockInfo.setNET_MAX_CLOS_90(netCloseMax);
         }
         if (days == 180) {
-            rankStockCommpanyDb.setNET_MIN_180(minJz);
-            rankStockCommpanyDb.setNET_MIN_CLOS_180(netCloseMin);
-            rankStockCommpanyDb.setNET_MAX_180(maxJz);
-            rankStockCommpanyDb.setNET_MAX_CLOS_180(netCloseMax);
+            stockInfo.setNET_MIN_180(minJz);
+            stockInfo.setNET_MIN_CLOS_180(netCloseMin);
+            stockInfo.setNET_MAX_180(maxJz);
+            stockInfo.setNET_MAX_CLOS_180(netCloseMax);
         }
         if (days == 365) {
-            rankStockCommpanyDb.setNET_MIN_360(minJz);
-            rankStockCommpanyDb.setNET_MIN_CLOS_360(netCloseMin);
-            rankStockCommpanyDb.setNET_MAX_360(maxJz);
-            rankStockCommpanyDb.setNET_MAX_CLOS_360(netCloseMax);
+            stockInfo.setNET_MIN_360(minJz);
+            stockInfo.setNET_MIN_CLOS_360(netCloseMin);
+            stockInfo.setNET_MAX_360(maxJz);
+            stockInfo.setNET_MAX_CLOS_360(netCloseMax);
         }
-        return rankStockCommpanyDb;
+        return stockInfo;
     }
 
     /**
@@ -522,11 +484,11 @@ public class RankStockBizCompany {
      * @param queryType
      * @param today
      */
-    private static int showBizSql(List<RankBizDataDiff> rankBizDataDiffList, String queryType, String typeName, String today) {
+    private static int showBizSql(List<RankStockCommpanyDb> rankBizDataDiffList, String queryType, String typeName, String today) {
         int rs = 0;
         int orderNum = 0;//序号
 
-        for (RankBizDataDiff rankBizDataDiff : rankBizDataDiffList) {
+        for (RankStockCommpanyDb rankBizDataDiff : rankBizDataDiffList) {
             orderNum++;
             //显示插入数据库语句
             {
@@ -623,55 +585,64 @@ public class RankStockBizCompany {
                         " ," + rankBizDataDiff.getF209() + "" +
                         " ," + rankBizDataDiff.getF222() + "" +
                         ");");
+            }
+
+            {
+                rankBizDataDiff.setDate(today);
+                rankBizDataDiff.setType(queryType);
+                rankBizDataDiff.setType_name(typeName);
+                rankBizDataDiff.setOrder_num(Long.valueOf(orderNum));
 
                 //db-更新要点内容
-                RankStockCommpanyDb entity = new RankStockCommpanyDb();
-                entity.setRs("");
-                entity.setDate(today);
-                entity.setType(queryType);
-                entity.setType_name(typeName);
-                entity.setOrder_num(Long.valueOf(orderNum));
-                entity.setF2(rankBizDataDiff.getF2());
-                entity.setF3(rankBizDataDiff.getF3());
-                entity.setF4(rankBizDataDiff.getF4());
-                entity.setF5(rankBizDataDiff.getF5());
-                entity.setF6(rankBizDataDiff.getF6());
-                entity.setF7(rankBizDataDiff.getF7());
-                entity.setF8(rankBizDataDiff.getF8());
-                entity.setF9(rankBizDataDiff.getF9());
-                entity.setF10(rankBizDataDiff.getF10());
-                entity.setF11(rankBizDataDiff.getF11());
-                entity.setF12(rankBizDataDiff.getF12());
-                entity.setF13(rankBizDataDiff.getF13());
-                entity.setF14(rankBizDataDiff.getF14());
-                entity.setF15(rankBizDataDiff.getF15());
-                entity.setF16(rankBizDataDiff.getF16());
-                entity.setF17(rankBizDataDiff.getF17());
-                entity.setF18(rankBizDataDiff.getF18());
-                entity.setF20(rankBizDataDiff.getF20());
-                entity.setF21(rankBizDataDiff.getF21());
-                entity.setF22(rankBizDataDiff.getF22());
-                entity.setF23(rankBizDataDiff.getF23());
-                entity.setF24(rankBizDataDiff.getF24());
-                entity.setF25(rankBizDataDiff.getF25());
-                entity.setF26(rankBizDataDiff.getF26());
-                entity.setF33(rankBizDataDiff.getF33());
-                entity.setF62(rankBizDataDiff.getF62());
-                entity.setF104(rankBizDataDiff.getF104());
-                entity.setF105(rankBizDataDiff.getF105());
-                entity.setF107(rankBizDataDiff.getF107());
-                entity.setF115(rankBizDataDiff.getF115());
-                entity.setF124(rankBizDataDiff.getF124());
-                entity.setF128(rankBizDataDiff.getF128());
-                entity.setF140(rankBizDataDiff.getF140());
-                entity.setF141(rankBizDataDiff.getF141());
-                entity.setF136(rankBizDataDiff.getF136());
-                entity.setF152(rankBizDataDiff.getF152());
-                entity.setF207(rankBizDataDiff.getF207());
-                entity.setF208(rankBizDataDiff.getF208());
-                entity.setF209(rankBizDataDiff.getF209());
-                entity.setF222(rankBizDataDiff.getF222());
-                rs = insertDb(entity);
+                rs = insertDb(rankBizDataDiff);
+
+//                RankStockCommpanyDb entity = new RankStockCommpanyDb();
+//                entity.setRs("");
+//                entity.setDate(today);
+//                entity.setType(queryType);
+//                entity.setType_name(typeName);
+//                entity.setOrder_num(Long.valueOf(orderNum));
+//                entity.setF2(rankBizDataDiff.getF2());
+//                entity.setF3(rankBizDataDiff.getF3());
+//                entity.setF4(rankBizDataDiff.getF4());
+//                entity.setF5(rankBizDataDiff.getF5());
+//                entity.setF6(rankBizDataDiff.getF6());
+//                entity.setF7(rankBizDataDiff.getF7());
+//                entity.setF8(rankBizDataDiff.getF8());
+//                entity.setF9(rankBizDataDiff.getF9());
+//                entity.setF10(rankBizDataDiff.getF10());
+//                entity.setF11(rankBizDataDiff.getF11());
+//                entity.setF12(rankBizDataDiff.getF12());
+//                entity.setF13(rankBizDataDiff.getF13());
+//                entity.setF14(rankBizDataDiff.getF14());
+//                entity.setF15(rankBizDataDiff.getF15());
+//                entity.setF16(rankBizDataDiff.getF16());
+//                entity.setF17(rankBizDataDiff.getF17());
+//                entity.setF18(rankBizDataDiff.getF18());
+//                entity.setF20(rankBizDataDiff.getF20());
+//                entity.setF21(rankBizDataDiff.getF21());
+//                entity.setF22(rankBizDataDiff.getF22());
+//                entity.setF23(rankBizDataDiff.getF23());
+//                entity.setF24(rankBizDataDiff.getF24());
+//                entity.setF25(rankBizDataDiff.getF25());
+//                entity.setF26(rankBizDataDiff.getF26());
+//                entity.setF33(rankBizDataDiff.getF33());
+//                entity.setF62(rankBizDataDiff.getF62());
+//                entity.setF104(rankBizDataDiff.getF104());
+//                entity.setF105(rankBizDataDiff.getF105());
+//                entity.setF107(rankBizDataDiff.getF107());
+//                entity.setF115(rankBizDataDiff.getF115());
+//                entity.setF124(rankBizDataDiff.getF124());
+//                entity.setF128(rankBizDataDiff.getF128());
+//                entity.setF140(rankBizDataDiff.getF140());
+//                entity.setF141(rankBizDataDiff.getF141());
+//                entity.setF136(rankBizDataDiff.getF136());
+//                entity.setF152(rankBizDataDiff.getF152());
+//                entity.setF207(rankBizDataDiff.getF207());
+//                entity.setF208(rankBizDataDiff.getF208());
+//                entity.setF209(rankBizDataDiff.getF209());
+//                entity.setF222(rankBizDataDiff.getF222());
+
             }
 
         }
@@ -691,7 +662,8 @@ public class RankStockBizCompany {
             rs = session.insert("ttjj.dao.mapper.RankStockCommpanyMapper.insert", entity);
             session.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
         } finally {
             session.close();
         }
@@ -708,6 +680,8 @@ public class RankStockBizCompany {
         try {
             rs = session.update("ttjj.dao.mapper.RankStockCommpanyMapper.update", entity);
             session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             session.close();
         }
@@ -717,11 +691,12 @@ public class RankStockBizCompany {
     /**
      * 查询昨日主题排名
      */
-    private static List<RankBizDataDiff> listRankStockByBiz(int pageSize, String biz) {
+    private static List<RankStockCommpanyDb> listRankStockByBiz(int pageSize, String biz) {
         //http://push2.eastmoney.com/api/qt/clist/get?cb=jQuery112307730222083783287_1617467610779&fid=f62&po=1&pz=50&pn=1&np=1&fltt=2&invt=2&ut=b2884a393a59ad64002292a3e90d46a5&fs=b%3ABK0891&fields=f12%2Cf14%2Cf2%2Cf3%2Cf62%2Cf184%2Cf66%2Cf69%2Cf72%2Cf75%2Cf78%2Cf81%2Cf84%2Cf87%2Cf204%2Cf205%2Cf124
         StringBuffer urlParam = new StringBuffer();
+        long curTime = System.currentTimeMillis();
         String url = "http://push2.eastmoney.com/api/qt/clist/get?";
-        urlParam.append("cb=jQuery112307730222083783287_1617467610779" +
+        urlParam.append("cb=jQuery112307730222083783287_" +curTime+
                 "&pn=1" +//页数
                 "&pz=" + pageSize +//每页数量
                 "&po=1" +//pageorder:页面排序：0-正序；1-倒序
@@ -733,7 +708,28 @@ public class RankStockBizCompany {
                 "&fid=f3" +//排序字段：f3:涨跌幅
                 "&fs=b:" + biz +
                 //fields: f12,f14,f2,f3,f62,f184,f66,f69,f72,f75,f78,f81,f84,f87,f204,f205,f124
-                "&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f30,f11,f62,f72,f75,f78,f81,f84,f87,f204,f205,f124,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222" +
+                "&fields=" +
+                "f1,f2,f3,f4,f5,f6,f7,f8,f9," +
+                "f10,f11,f12,f13,f14,f15,f16,f17,f18,f19," +
+                "f20,f21,f22,f23,f24,f25,f26,f27,f28,f29," +
+                "f30,f31,f32,f33,f34,f35,f36,f37,f38,f39," +
+                "f60,f61,f62,f63,f64,f65,f66,f67,f68,f69," +
+                "f70,f71,f72,f73,f74,f75,f76,f77,f78,f79," +
+                "f80,f81,f82,f83,f84,f85,f86,f87,f88,f89," +
+                "f90,f91,f92,f93,f94,f95,f96,f97,f98,f99," +
+                "f100,f101,f102,f103,f104,f105,f106,f107,f108,f109" + "," +
+                "f110,f111,f112,f113,f114,f115,f116,f117,f118,f119" + "," +
+                "f120,f121,f122,f123,f124,f125,f126,f127,f128,f129" + "," +
+                "f130,f131,f132,f133,f134,f135,f136,f137,f138,f139" + "," +
+                "f140,f141,f142,f143,f144,f145,f146,f147,f148,f149" + "," +
+                "f150,f151,f152,f153,f154,f155,f156,f157,f158,f159" + "," +
+                "f160,f161,f162,f163,f164,f165,f166,f167,f168,f169" + "," +
+                "f170,f171,f172,f173,f174,f175,f176,f177,f178,f179" + "," +
+                "f180,f181,f182,f183,f184,f185,f186,f187,f188,f189" + "," +
+                "f190,f191,f192,f193,f194,f195,f196,f197,f198,f199" + "," +
+                "f200,f201,f202,f203,f204,f205,f206,f207,f208,f209" + "," +
+                "f210,f211,f212,f213,f214,f215,f216,f217,f218,f219" + "," +
+                "f220,f221,f222,f223,f224,f225,f226,f227,f228,f229" +
                 "");
         String rs = HttpUtil.sendGet(url, urlParam.toString(), "");
 //        System.out.println(rs);
@@ -751,7 +747,7 @@ public class RankStockBizCompany {
 //        System.out.println(rs);//返回结果
         JSONObject rsJsonData = rsJsonObj.getJSONObject("data");
         JSONArray rsJsonDataDiff = rsJsonData.getJSONArray("diff");
-        List<RankBizDataDiff> rankBizDataDiffList = JSON.parseArray(JSON.toJSONString(rsJsonDataDiff), RankBizDataDiff.class);
+        List<RankStockCommpanyDb> rankBizDataDiffList = JSON.parseArray(JSON.toJSONString(rsJsonDataDiff), RankStockCommpanyDb.class);
 //        for (RankBizDataDiff row : rankBizDataDiffList) {
 //            System.out.println(JSON.toJSON(row));//每个行业一行数据
 //        }

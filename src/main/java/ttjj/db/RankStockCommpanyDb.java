@@ -33,7 +33,7 @@ public class RankStockCommpanyDb {
      */
     private String conception;
     /**
-     * f1 类别：3-etf；
+     * f1 类别：2-一般股票；3-B股；
      */
     private Long f1;
     /**
@@ -103,7 +103,7 @@ public class RankStockCommpanyDb {
     private Double f18;
 
     /**
-     * f19 ？2、3、9、10
+     * f19 ？2-上证(600XXX)、80-创业板(300XXX)、7-B股(200XXX)、6-上证(00XXXX)、23-科创板(688XXX)、3-B股(900XXX)
      */
     private Long f19;
     /**
@@ -114,7 +114,13 @@ public class RankStockCommpanyDb {
      * f21 流通市值
      */
     private Long f21;
+    /**
+     * f22 -1；0；1；2
+     */
     private Long f22;
+    /**
+     * f23 市净率
+     */
     private String f23;
     private Double f24;
     private Double f25;
@@ -202,11 +208,17 @@ public class RankStockCommpanyDb {
      */
     private Long f105;
     private Long f107;
+    /**
+     * f109 5日涨跌
+     */
     private Double f109;
     private Double f110;
     private Long f111;
     private String f115;
     private Long f124;
+    /**
+     * f127 三日涨跌
+     */
     private Double f127;
     /**
      * f128 领涨股票-名称
@@ -236,6 +248,9 @@ public class RankStockCommpanyDb {
     private Double f144;
     private Double f145;
     private Long f148;
+    /**
+     * f149 6日涨跌
+     */
     private Double f149;
     private Long f152;
     private Long f153;

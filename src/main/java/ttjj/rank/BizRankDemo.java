@@ -89,6 +89,9 @@ public class BizRankDemo {
             showUpdateDbMaxMinNetByDays(date, rankEtf, table, 90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
             showUpdateDbMaxMinNetByDays(date, rankEtf, table, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
             showUpdateDbMaxMinNetByDays(date, rankEtf, table, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
+            for (RankBizDataDiff rankBizDataDiff : rankEtf) {
+                updateEtfNet(rankBizDataDiff);
+            }
         }
 
     }
@@ -297,7 +300,7 @@ public class BizRankDemo {
             rankEtf.setNET_MAX_360(maxJz);
             rankEtf.setNET_MAX_CLOS_360(netCloseMax);
         }
-        updateEtfNet(rankEtf);
+
 
     }
 
