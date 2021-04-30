@@ -44,16 +44,16 @@ public class FupanDemo {
         boolean showDaPanKline = true;//显示-大盘指数
 //        boolean showDaPanKline = false;//不显示-大盘指数
 
-//        boolean showMyStock = true;//显示-我的股票
-        boolean showMyStock = false;//不显示-我的股票
+        boolean showMyStock = true;//显示-我的股票
+//        boolean showMyStock = false;//不显示-我的股票
 
-//        boolean showMyTtjj = true;//显示-我的基金
-        boolean showMyTtjj = false;//不显示-我的基金
+        boolean showMyTtjj = true;//显示-我的基金
+//        boolean showMyTtjj = false;//不显示-我的基金
 
         String amt = "";
-        String amt_fund = "52416.17";
-        String amt_fund_last = "52832.54";
-        String earn_fund = "-416.38";
+        String amt_fund = "53293.86";
+        String amt_fund_last = "52416.17";
+        String earn_fund = "346.9";
 
         String cookieDfcf = StockTradeDemo.COOKIE_DFCF;
 

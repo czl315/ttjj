@@ -35,21 +35,18 @@ public class BizRankDemo {
      * @param args args
      */
     public static void main(String[] args) {
-//        String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
-        String date = "20210427";
+        String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
+//        String date = "20210427";
 
-//        boolean insertDbTodayBiz = true;
-        boolean insertDbTodayBiz = false;
+        boolean insertDbTodayBiz = true;
+//        boolean insertDbTodayBiz = false;
+        boolean insertDbTodayConcept = true;
+//        boolean insertDbTodayConcept = false;
+        boolean insertDbTodayEtf = true;
+//        boolean insertDbTodayEtf = false;
 
-//        boolean insertDbTodayConcept = true;
-        boolean insertDbTodayConcept = false;
-
-//        boolean insertDbTodayEtf = true;
-        boolean insertDbTodayEtf = false;
-        boolean updateDbEtfNetFlag = true;
-//        boolean updateDbEtfNetFlag = false;
-//        boolean updateDbEtfNetLast1 = true;
-        boolean updateDbEtfNetLast1 = false;
+        int updateDbEtfNetDays = 365;
+//        int updateDbEtfNetDays = 1;
 
         if (insertDbTodayBiz) {
             List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(100);//查询主题排名by时间类型、显示个数
@@ -73,25 +70,25 @@ public class BizRankDemo {
 //            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
         }
 
-        if (updateDbEtfNetLast1) {
+        if (updateDbEtfNetDays==1) {
             // 更新最新净值-限定时间段的最大最小净值
             String table = "rank_st_biz";
             showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
             showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
 
         }
-        if (updateDbEtfNetFlag) {
+        if (updateDbEtfNetDays==365) {
             // 更新最新净值-限定时间段的最大最小净值
             String table = "rank_st_biz";
 //            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
             showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
-//            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 7, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
-//            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 14, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
-//            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 30, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
-//            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
-//            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
-//            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
-//            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 7, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 14, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 30, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
+            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
         }
 
     }

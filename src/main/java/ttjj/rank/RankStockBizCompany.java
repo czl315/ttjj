@@ -36,40 +36,32 @@ public class RankStockBizCompany {
 
         Map<String, String> bizMap = new HashMap();
 
-        boolean yiYao = true;
-//        boolean yiYao = false;
-
-//        boolean xiaoFei= true;
-        boolean xiaoFei = false;
-//
-        boolean keJi = true;
-//        boolean keJi = false;
-//
-//        boolean jinShuGangTie = true;
-        boolean jinShuGangTie = false;
-
-        if (yiYao) {
-            bizMap.put("BK0727", "医疗行业");
-            bizMap.put("BK0465", "医药制造");
-        }
-        if (xiaoFei) {
-            bizMap.put("BK0477", "酿酒行业");
-            bizMap.put("BK0438", "食品饮料");
-            bizMap.put("BK0485", "旅游酒店");
-            bizMap.put("BK0481", "汽车行业");
-            bizMap.put("BK0456", "家电行业");
-        }
-        if (keJi) {
-            bizMap.put("BK0459", "电子元件");
-            bizMap.put("BK0737", "软件服务");
-            bizMap.put("BK0447", "电子信息");
-        }
-        if (jinShuGangTie) {
-            bizMap.put("BK0478", "有色金属");
-            bizMap.put("BK0732", "贵金属");
-            bizMap.put("BK0479", "钢铁行业");
+        List<RankBizDataDiff> bizList = listBiz(100);//查询主题排名by时间类型、显示个数
+        boolean bizTempBreakFlag = true;
+        for (RankBizDataDiff biz : bizList) {
+            System.out.println("/**" + JSON.toJSONString(biz) + "**/");
+//            if(biz.getF12().equals("BK0458")){
+//                bizTempBreakFlag = false;
+//            }
+//            if(bizTempBreakFlag){
+//                continue;
+//            }
+            bizMap.put(biz.getF12(),biz.getF14());
         }
 
+//            bizMap.put("BK0727", "医疗行业");
+//            bizMap.put("BK0465", "医药制造");
+//            bizMap.put("BK0477", "酿酒行业");
+//            bizMap.put("BK0438", "食品饮料");
+//            bizMap.put("BK0485", "旅游酒店");
+//            bizMap.put("BK0481", "汽车行业");
+//            bizMap.put("BK0456", "家电行业");
+//            bizMap.put("BK0459", "电子元件");
+//            bizMap.put("BK0737", "软件服务");
+//            bizMap.put("BK0447", "电子信息");
+//            bizMap.put("BK0478", "有色金属");
+//            bizMap.put("BK0732", "贵金属");
+//            bizMap.put("BK0479", "钢铁行业");
 //        bizList.add("BK0424");//水泥建材
 
 //        bizMap.put("BK0437","煤炭采选");
@@ -105,9 +97,10 @@ public class RankStockBizCompany {
             List<RankBizDataDiff> rankBizDataDiffListBiz = listRankStockByBiz(500, biz);
             //显示业务排行-插入sql
 
-
-            System.out.println("/**" + biz + "**/");
-            showBizSql(rankBizDataDiffListBiz, biz, bizMap.get(biz), today);
+            int insertRs = showBizSql(rankBizDataDiffListBiz, biz, bizMap.get(biz), today);
+            if(insertRs==0){
+                continue;//如果插入重复；下一条
+            }
 
             //更新题材概念
             updateConception(today, biz, rankBizDataDiffListBiz);
@@ -117,13 +110,82 @@ public class RankStockBizCompany {
             showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 7, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
             showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 14, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
             showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 30, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
+//            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
+//            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
+//            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
             showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
         }
 
 
+    }
+
+    /**
+     * 查询昨日主题排名
+     *
+     * @param endCount
+     */
+    private static List<RankBizDataDiff> listBiz(int endCount) {
+        //http://28.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408110589206747254_1616379873172&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=m:90+t:2+f:!50&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222&_=1616379873199
+        long curTime = System.currentTimeMillis();
+        StringBuffer urlParam = new StringBuffer();
+//        String url = "http://api.fund.eastmoney.com/ztjj/GetZTJJList";
+//        urlParam.append("callback=jQuery311015658602123786958_1591838943711&callbackname=fundData");
+//        urlParam.append("&st="+findDateType);//查询类型
+//        urlParam.append("&_=1614523183291");
+        String url = "http://28.push2.eastmoney.com/api/qt/clist/get";
+        urlParam.append("cb=jQuery112408110589206747254_1616379873172" +
+                "&pn=1" +//页数
+                "&pz=" + endCount +//每页数量
+                "&po=1" +//pageorder:页面排序：0-正序；1-倒序
+                "&np=1" +
+                "&ut=bd1d9ddb04089700cf9c27f6f7426281" +
+                "&fltt=2" +//浮点数精度
+                "&invt=3" +//显示格式：-；0.0
+                "&fid=f3" +//排序字段
+                "&fs=m:90+t:2+f:!50" +
+                "&fields=" +
+                "f1,f2,f3,f4,f5,f6,f7,f8,f9," +
+                "f10,f11,f12,f13,f14,f15,f16,f17,f18,f19," +
+                "f20,f21,f22,f23,f24,f25,f26,f27,f28,f29," +
+                "f30,f31,f32,f33,f34,f35,f36,f37,f38,f39," +
+                "f60,f61,f62,f63,f64,f65,f66,f67,f68,f69," +
+                "f70,f71,f72,f73,f74,f75,f76,f77,f78,f79," +
+                "f80,f81,f82,f83,f84,f85,f86,f87,f88,f89," +
+                "f90,f91,f92,f93,f94,f95,f96,f97,f98,f99," +
+                "f100,f101,f102,f103,f104,f105,f106,f107,f108,f109" + "," +
+                "f110,f111,f112,f113,f114,f115,f116,f117,f118,f119" + "," +
+                "f120,f121,f122,f123,f124,f125,f126,f127,f128,f129" + "," +
+                "f130,f131,f132,f133,f134,f135,f136,f137,f138,f139" + "," +
+                "f140,f141,f142,f143,f144,f145,f146,f147,f148,f149" + "," +
+                "f150,f151,f152,f153,f154,f155,f156,f157,f158,f159" + "," +
+                "f160,f161,f162,f163,f164,f165,f166,f167,f168,f169" + "," +
+                "f170,f171,f172,f173,f174,f175,f176,f177,f178,f179" + "," +
+                "f180,f181,f182,f183,f184,f185,f186,f187,f188,f189" + "," +
+                "f190,f191,f192,f193,f194,f195,f196,f197,f198,f199" + "," +
+                "f200,f201,f202,f203,f204,f205,f206,f207,f208,f209" + "," +
+                "f210,f211,f212,f213,f214,f215,f216,f217,f218,f219" + "," +
+                "f220,f221,f222,f223,f224,f225,f226,f227,f228,f229" +
+                "&_=" + curTime);
+        String rs = HttpUtil.sendGet(url, urlParam.toString(), "");
+//        System.out.println(rs);
+        if (rs == null) {
+            return null;
+        }
+        if (rs.startsWith("jQuery")) {
+            rs = rs.substring(rs.indexOf("{"));
+        }
+        if (rs.endsWith(");")) {
+            rs = rs.substring(0, rs.length() - 2);
+        }
+//        System.out.println(rs);//返回结果
+        JSONObject rsJsonObj = JSONObject.parseObject(rs);
+        JSONObject rsJsonData = rsJsonObj.getJSONObject("data");
+        JSONArray rsJsonDataDiff = rsJsonData.getJSONArray("diff");
+        List<RankBizDataDiff> rankBizDataDiffList = JSON.parseArray(JSON.toJSONString(rsJsonDataDiff), RankBizDataDiff.class);
+//        for (RankBizDataDiff row : rankBizDataDiffList) {
+//            System.out.println(JSON.toJSON(row));//每个行业一行数据
+//        }
+        return rankBizDataDiffList;
     }
 
     /**
@@ -460,7 +522,8 @@ public class RankStockBizCompany {
      * @param queryType
      * @param today
      */
-    private static void showBizSql(List<RankBizDataDiff> rankBizDataDiffList, String queryType, String typeName, String today) {
+    private static int showBizSql(List<RankBizDataDiff> rankBizDataDiffList, String queryType, String typeName, String today) {
+        int rs = 0;
         int orderNum = 0;//序号
 
         for (RankBizDataDiff rankBizDataDiff : rankBizDataDiffList) {
@@ -608,10 +671,11 @@ public class RankStockBizCompany {
                 entity.setF208(rankBizDataDiff.getF208());
                 entity.setF209(rankBizDataDiff.getF209());
                 entity.setF222(rankBizDataDiff.getF222());
-                insertDb(entity);
+                rs = insertDb(entity);
             }
 
         }
+        return rs;
     }
 
     /**

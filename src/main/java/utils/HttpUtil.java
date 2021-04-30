@@ -218,8 +218,6 @@ public class HttpUtil {
             //out = new PrintWriter(outputStream);
             // 发送请求参数
             out.write(param);
-//            System.out.println(out.toString());
-//            System.out.println(conn.getURL());
             // flush输出流的缓冲
             out.flush();
             // 定义BufferedReader输入流来读取URL的响应
@@ -231,7 +229,6 @@ public class HttpUtil {
 
             result = result.replace("jQuery183010470500509039282_1603296503156(", "");
             result = result.replace(")", "");
-//            System.out.println(result);
             lsjzPt = JSON.parseObject(result, LsjzPt.class);
             List<LsjzDataLsjz> lsjzDataLsjzs = lsjzPt.getData().getLSJZList();
             if (lsjzDataLsjzs != null && lsjzDataLsjzs.size() > 0) {
@@ -293,8 +290,6 @@ public class HttpUtil {
             //out = new PrintWriter(outputStream);
             // 发送请求参数
             out.write(param);
-//            System.out.println(out.toString());
-//            System.out.println(conn.getURL());
             // flush输出流的缓冲
             out.flush();
             // 定义BufferedReader输入流来读取URL的响应
@@ -306,7 +301,6 @@ public class HttpUtil {
 
             result = result.replace("jQuery18301820868923083503_1594476154019(", "");
             result = result.replace(")", "");
-            System.out.println(result);
             LsjzPt lsjzPt = JSON.parseObject(result, LsjzPt.class);
             List<LsjzDataLsjz> lsjzDataLsjzs = lsjzPt.getData().getLSJZList();
             if (lsjzDataLsjzs != null && lsjzDataLsjzs.size() > 0) {
@@ -323,7 +317,6 @@ public class HttpUtil {
                         lastDayNet = lsjzDataLsjz.getDWJZ();
                         continue;
                     }
-//                    System.out.println(JSON.toJSONString(lsjzDataLsjz));
                     System.out.print("INSERT INTO `bank19`.`ol_fund_earn` ( `FD_NAME`, `LASTEST_NET_DATA`, `LASTEST_NET`, `LASTEST_ADD_NET`, `DAY_ADD_RATE`, `TODAY_EARN_AMT`, `HOLD_AMT`, `HOLD_EARN_AMT`, `HOLD_EARN_RATE`, `HOLD_EARN_RATE_DAY`, `HOLD_EARN_RATE_MONTH`, `HOLD_EARN_RATE_YEAR`, `remark`, `remark_in`, `remark_out`, `CAN_SHARE`, `BUY_COST`, `UP_MSG`, `DOWN_MSG`, `UP_DOWN_DAYS`, `HOLD_DAYS`, `FIRST_NET_DATA`, `TRADE_ID`, `FD_ID`,`FD_TYPE`, `DATE_FLAG`, `SOURCE`, `CREATE_TIME`, `UPDATE_TIME`) ");
                     System.out.print("VALUES ('" + paramMap.get(Content.jjName));
                     System.out.print("','" + lsjzDataLsjz.getFSRQ() + "',");
@@ -342,7 +335,6 @@ public class HttpUtil {
 //                    BigDecimal todayEarnAmt = new BigDecimal(lsjzDataLsjz.getDWJZ()).multiply(new BigDecimal(paramMap.get("canShare"))).multiply(new BigDecimal(lsjzDataLsjz.getJZZZL()))
 //                            .divide(new BigDecimal(100));
                     BigDecimal todayEarnAmt = new BigDecimal(lsjzDataLsjz.getDWJZ()).subtract(new BigDecimal(lastDayNet)).multiply(new BigDecimal(paramMap.get(Content.canShare) != null ? paramMap.get(Content.canShare) : "0"));
-//                    System.out.println(todayEarnAmt.setScale(4, BigDecimal.ROUND_HALF_DOWN));//每日收益金额
                     //手续费
                     String sxf = paramMap.get(Content.SXF);
                     if (sxf != null && !"".equals(sxf)) {
