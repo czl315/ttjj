@@ -33,13 +33,13 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=97358841525287; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=3; st_psi=20210430223053554-11923323313501-0673085011; mobileimei=c08eb7ff-04b8-42aa-8a65-2d6ded496cad; Uuid=867eaefe0dd846f39b279beb70d9b6f5; monitor_count=51";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=64213788992978; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210506221423742-11923323313501-5541007004; mobileimei=c46e8aaa-d562-484c-b473-e1098151065a; Uuid=c7c135579d05480eb94ed3ee3b87743f; monitor_count=10";
 
     public static void main(String[] args) {
         boolean showBuyOrSell = true;//新增赎回
 //        boolean showBuyOrSell = false;//新增赎回
-        int showTypeNet = 1;//最新一天
-//        int showTypeNet = 365;//最新一年内
+//        int showTypeNet = 1;//最新一天
+        int showTypeNet = 365;//最新一年内
 
         if (showBuyOrSell) {
             String validatekey = "bcb2df3e-b7b3-4782-bb46-207f3da4c085";
@@ -61,8 +61,8 @@ public class StockTradeDemo {
 
         //更新题材概念
         if (showBuyOrSell) {
-//            List<StockTrade> stockTradeList = listMyStock();//查询我的列表
-//            updateConception(stockTradeList);
+            List<StockTrade> stockTradeList = listMyStock();//查询我的列表
+            updateConception(stockTradeList);
         }
 
 
@@ -448,17 +448,17 @@ public class StockTradeDemo {
         double baseRiskStLoss = 0.95;
         double baseRiskStProfit = 1.15;
 
-        //汽车行业
-        List<String> typeListQchy = new ArrayList<>();
-        typeListQchy.add("600066");//宇通客车
-        for (String zqdm : typeListQchy) {
-            StockTrade stockTradeTemp = new StockTrade();
-            stockTradeTemp.setBizTy("汽车行业");
-            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
-            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
-            stockTradeTemp.setZqdm(zqdm);
-            rs.add(stockTradeTemp);
-        }
+//        //汽车行业
+//        List<String> typeListQchy = new ArrayList<>();
+//        typeListQchy.add("600066");//宇通客车
+//        for (String zqdm : typeListQchy) {
+//            StockTrade stockTradeTemp = new StockTrade();
+//            stockTradeTemp.setBizTy("汽车行业");
+//            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+//            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+//            stockTradeTemp.setZqdm(zqdm);
+//            rs.add(stockTradeTemp);
+//        }
 
         //食品饮料
         List<String> typeListSpyl = new ArrayList<>();
@@ -499,9 +499,21 @@ public class StockTradeDemo {
             rs.add(stockTradeTemp);
         }
 
+        List<String> typeListTxhy= new ArrayList<>();
+        typeListTxhy.add("600745");//闻泰科技
+        for (String zqdm : typeListTxhy) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("通讯行业");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
         //电子信息
         List<String> typeListDzxx = new ArrayList<>();
         typeListDzxx.add("000997");//新 大 陆
+        typeListDzxx.add("002177");//御银股份
         for (String zqdm : typeListDzxx) {
             StockTrade stockTradeTemp = new StockTrade();
             stockTradeTemp.setBizTy("电子信息");

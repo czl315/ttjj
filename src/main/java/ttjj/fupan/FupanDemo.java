@@ -44,45 +44,45 @@ public class FupanDemo {
         boolean showDaPanKline = true;//显示-大盘指数
 //        boolean showDaPanKline = false;//不显示-大盘指数
 
-//        boolean showMyStock = true;//显示-我的股票
-        boolean showMyStock = false;//不显示-我的股票
+        boolean showMyStock = true;//显示-我的股票
+//        boolean showMyStock = false;//不显示-我的股票
 
-//        boolean showMyTtjj = true;//显示-我的基金
-        boolean showMyTtjj = false;//不显示-我的基金
+        boolean showMyTtjj = true;//显示-我的基金
+//        boolean showMyTtjj = false;//不显示-我的基金
 
         String amt = "";
-        String amt_fund = "53141.46";
-        String amt_fund_last = "52946.96";
-        String earn_fund = "-152.4";
+        String amt_fund = "52744.99";
+        String amt_fund_last = "53141.46";
+        String earn_fund = "-396.48";
 
         String cookieDfcf = StockTradeDemo.COOKIE_DFCF;
 
         if (showDaPanKline) {
             String cookie = "";//
             //k线
-            String klt = "103";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-            String dateType = "30";//1：一天;7:周;30:月;
+            String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
+            String dateType = "1";//1：一天;7:周;30:月;
 //            String date = "";
             String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             int count = 1;
             int lastCount = 2;
             updateDb(findFupanPointByKline(cookie, HS_300_000300, count, klt, dateType, date));//沪深300
 
-            findFupanPointByKline(cookie, CYB_50_399673, count, klt, dateType, date);//创业板50
-            findFupanPointByKline(cookie, ZZ_500_000905, count, klt, dateType, date);//中证500
-            findFupanPointByKline(cookie, SH_50_000016, count, klt, dateType, date);//上证50
-            findFupanPointByKline(cookie, SHANG_HAI, count, klt, dateType, date);//上证
-            findFupanPointByKline(cookie, SHEN_ZHEN, count, klt, dateType, date);//深证成指
-            findFupanPointByKline(cookie, CYB, count, klt, dateType, date);//创业板
+            updateDb(findFupanPointByKline(cookie, CYB_50_399673, count, klt, dateType, date));//创业板50
+            updateDb(findFupanPointByKline(cookie, ZZ_500_000905, count, klt, dateType, date));//中证500
+            updateDb(findFupanPointByKline(cookie, SH_50_000016, count, klt, dateType, date));//上证50
+            updateDb(findFupanPointByKline(cookie, SHANG_HAI, count, klt, dateType, date));//上证
+            updateDb(findFupanPointByKline(cookie, SHEN_ZHEN, count, klt, dateType, date));//深证成指
+            updateDb(findFupanPointByKline(cookie, CYB, count, klt, dateType, date));//创业板
             System.out.println();
-//        //k线（上一日期）
-            klineLast(cookie, HS_300_000300, lastCount, klt, dateType);//沪深300
-            klineLast(cookie, CYB_50_399673, lastCount, klt, dateType);//创业板50
-            klineLast(cookie, ZZ_500_000905, lastCount, klt, dateType);//中证500
-            klineLast(cookie, SH_50_000016, lastCount, klt, dateType);//上证50
-            klineLast(cookie, SHANG_HAI, lastCount, klt, dateType);//上证
-            klineLast(cookie, SHEN_ZHEN, lastCount, klt, dateType);//深证成指
-            klineLast(cookie, CYB, lastCount, klt, dateType);//创业板
+////        //k线（上一日期）
+//            klineLast(cookie, HS_300_000300, lastCount, klt, dateType);//沪深300
+//            klineLast(cookie, CYB_50_399673, lastCount, klt, dateType);//创业板50
+//            klineLast(cookie, ZZ_500_000905, lastCount, klt, dateType);//中证500
+//            klineLast(cookie, SH_50_000016, lastCount, klt, dateType);//上证50
+//            klineLast(cookie, SHANG_HAI, lastCount, klt, dateType);//上证
+//            klineLast(cookie, SHEN_ZHEN, lastCount, klt, dateType);//深证成指
+//            klineLast(cookie, CYB, lastCount, klt, dateType);//创业板
 //
 //        //k线-日线-行业指数
             findFupanPointByKline(cookie, BIZ_QUANSHANG, count, klt, dateType, date);

@@ -37,12 +37,21 @@ public class RankStockBizCompany {
         Map<String, String> bizMap = new HashMap();
 
         List<RankBizDataDiff> bizList = listBiz(100);//查询主题排名by时间类型、显示个数
+
+//        boolean flagInsertDb = true;//标识：是否插入数据库
+        boolean flagInsertDb = false;//标识：是否插入数据库
+        boolean flagUpdateConception = true;//标识：是否更新概念题材
+//        boolean flagUpdateConception = false;//标识：是否更新概念题材
+//        boolean flagUpdateNet = true;//标识：是否更新净值
+        boolean flagUpdateNet = false;//标识：是否更新净值
+
         int startNum = 0;
         int bizCountLimit = 999;
         int bizCountTemp = 0;
         for (RankBizDataDiff biz : bizList) {
             bizCountTemp++;
             if (bizCountTemp < startNum) {
+                System.out.println("已完成:" + biz.getF14() + "," + biz.getF12());
                 continue;//已完成
             }
             if (bizCountTemp > bizCountLimit) {
@@ -53,36 +62,41 @@ public class RankStockBizCompany {
         }
         int stBizCountTemp = 0;
         for (String biz : bizMap.keySet()) {
+            stBizCountTemp++;
             System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + JSON.toJSONString(biz));
             List<RankStockCommpanyDb> rankBizDataDiffListBiz = listRankStockByBiz(500, biz);
-            //显示业务排行-插入sql
 
-            int insertRs = showBizSql(rankBizDataDiffListBiz, biz, bizMap.get(biz), today);
-//            if (insertRs == 0) {
-//                continue;//如果插入重复；下一条
-//            }
+            if (flagInsertDb) {
+                int insertRs = showBizSql(rankBizDataDiffListBiz, biz, bizMap.get(biz), today);//显示业务排行-插入sql
+            }
 
-            //更新题材概念
-            updateConception(today, biz, rankBizDataDiffListBiz);
+            if (flagUpdateConception) {
+                //更新题材概念
+                updateConception(today, biz, rankBizDataDiffListBiz);
+            }
 
-//            // 最新周期价格
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 7, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 14, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 30, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
-            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
-
-            for (RankStockCommpanyDb entity : rankBizDataDiffListBiz) {
-                if (entity == null || StringUtils.isBlank(entity.getF12()) || StringUtils.isBlank(entity.getDate())) {
-                    System.out.println("实体信息异常，不更新db：" + JSON.toJSONString(entity));
-                } else {
-                    updateByCode(entity);
+            if (flagUpdateNet) {
+                // 最新周期价格
+                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
+                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 7, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
+                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 14, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
+                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 30, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
+                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
+//            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
+//            showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
+                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
+                for (RankStockCommpanyDb entity : rankBizDataDiffListBiz) {
+                    if (entity == null || StringUtils.isBlank(entity.getF12()) || StringUtils.isBlank(entity.getDate())) {
+                        System.out.println("实体信息异常，不更新db：" + JSON.toJSONString(entity));
+                    } else {
+                        updateByCode(entity);
+                    }
                 }
             }
-            stBizCountTemp++;
+
+
+
+
         }
     }
 
@@ -100,7 +114,7 @@ public class RankStockBizCompany {
 //        urlParam.append("&st="+findDateType);//查询类型
 //        urlParam.append("&_=1614523183291");
         String url = "http://28.push2.eastmoney.com/api/qt/clist/get";
-        urlParam.append("cb=jQuery112408110589206747254_" +curTime+
+        urlParam.append("cb=jQuery112408110589206747254_" + curTime +
                 "&pn=1" +//页数
                 "&pz=" + endCount +//每页数量
                 "&po=1" +//pageorder:页面排序：0-正序；1-倒序
@@ -351,6 +365,7 @@ public class RankStockBizCompany {
         sb.append(" WHERE `f12`='" + zhiShu + "'");
         sb.append(" AND `date`='" + today + "'");
         sb.append(";");
+        sb.append("/**" + stockInfo.getF14() + "**/");
 
         System.out.println(sb);
 
@@ -696,7 +711,7 @@ public class RankStockBizCompany {
         StringBuffer urlParam = new StringBuffer();
         long curTime = System.currentTimeMillis();
         String url = "http://push2.eastmoney.com/api/qt/clist/get?";
-        urlParam.append("cb=jQuery112307730222083783287_" +curTime+
+        urlParam.append("cb=jQuery112307730222083783287_" + curTime +
                 "&pn=1" +//页数
                 "&pz=" + pageSize +//每页数量
                 "&po=1" +//pageorder:页面排序：0-正序；1-倒序

@@ -33,7 +33,7 @@ public class RankStockCommpanyDb {
      */
     private String conception;
     /**
-     * f1 类别：2-一般股票；3-B股；
+     * f1 类别：2-一般股票；3-B股/etf；
      */
     private Long f1;
     /**
@@ -103,7 +103,7 @@ public class RankStockCommpanyDb {
     private Double f18;
 
     /**
-     * f19 ？2-上证(600XXX)、80-创业板(300XXX)、7-B股(200XXX)、6-上证(00XXXX)、23-科创板(688XXX)、3-B股(900XXX)
+     * f19 ？2-上证(600XXX)；3-B股(900XXX)；6-上证(00XXXX)；7-B股(200XXX)；10-etf(159XXX)；23-科创板(688XXX)；80-创业板(300XXX)；
      */
     private Long f19;
     /**
