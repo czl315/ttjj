@@ -146,6 +146,9 @@ public class RankStockCommpanyDb {
     private Long f62;
     private Double f63;
     private Double f64;
+    /**
+     * f65 超大单
+     */
     private Double f65;
     /**
      * f66 今日超大单净流入

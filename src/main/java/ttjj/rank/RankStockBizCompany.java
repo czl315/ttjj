@@ -31,8 +31,8 @@ public class RankStockBizCompany {
      * @param args
      */
     public static void main(String[] args) {
-        String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
-//        String today = "20210427";
+//        String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        String today = "20210507";
 
         Map<String, String> bizMap = new HashMap();
 
@@ -42,10 +42,10 @@ public class RankStockBizCompany {
         boolean flagInsertDb = false;//标识：是否插入数据库
         boolean flagUpdateConception = true;//标识：是否更新概念题材
 //        boolean flagUpdateConception = false;//标识：是否更新概念题材
-//        boolean flagUpdateNet = true;//标识：是否更新净值
-        boolean flagUpdateNet = false;//标识：是否更新净值
+        boolean flagUpdateNet = true;//标识：是否更新净值
+//        boolean flagUpdateNet = false;//标识：是否更新净值
 
-        int startNum = 0;
+        int startNum = 2;
         int bizCountLimit = 999;
         int bizCountTemp = 0;
         for (RankBizDataDiff biz : bizList) {
@@ -63,7 +63,7 @@ public class RankStockBizCompany {
         int stBizCountTemp = 0;
         for (String biz : bizMap.keySet()) {
             stBizCountTemp++;
-            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + JSON.toJSONString(biz));
+            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + JSON.toJSONString(bizMap));
             List<RankStockCommpanyDb> rankBizDataDiffListBiz = listRankStockByBiz(500, biz);
 
             if (flagInsertDb) {

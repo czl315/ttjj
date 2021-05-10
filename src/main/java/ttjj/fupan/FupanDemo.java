@@ -51,9 +51,9 @@ public class FupanDemo {
 //        boolean showMyTtjj = false;//不显示-我的基金
 
         String amt = "";
-        String amt_fund = "52744.99";
-        String amt_fund_last = "53141.46";
-        String earn_fund = "-396.48";
+        String amt_fund = "51853.92";
+        String amt_fund_last = "52744.99";
+        String earn_fund = "-839.05";
 
         String cookieDfcf = StockTradeDemo.COOKIE_DFCF;
 
@@ -68,12 +68,12 @@ public class FupanDemo {
             int lastCount = 2;
             updateDb(findFupanPointByKline(cookie, HS_300_000300, count, klt, dateType, date));//沪深300
 
-            updateDb(findFupanPointByKline(cookie, CYB_50_399673, count, klt, dateType, date));//创业板50
-            updateDb(findFupanPointByKline(cookie, ZZ_500_000905, count, klt, dateType, date));//中证500
-            updateDb(findFupanPointByKline(cookie, SH_50_000016, count, klt, dateType, date));//上证50
-            updateDb(findFupanPointByKline(cookie, SHANG_HAI, count, klt, dateType, date));//上证
-            updateDb(findFupanPointByKline(cookie, SHEN_ZHEN, count, klt, dateType, date));//深证成指
-            updateDb(findFupanPointByKline(cookie, CYB, count, klt, dateType, date));//创业板
+            findFupanPointByKline(cookie, CYB_50_399673, count, klt, dateType, date);//创业板50
+            findFupanPointByKline(cookie, ZZ_500_000905, count, klt, dateType, date);//中证500
+            findFupanPointByKline(cookie, SH_50_000016, count, klt, dateType, date);//上证50
+            findFupanPointByKline(cookie, SHANG_HAI, count, klt, dateType, date);//上证
+            findFupanPointByKline(cookie, SHEN_ZHEN, count, klt, dateType, date);//深证成指
+            findFupanPointByKline(cookie, CYB, count, klt, dateType, date);//创业板
             System.out.println();
 ////        //k线（上一日期）
 //            klineLast(cookie, HS_300_000300, lastCount, klt, dateType);//沪深300
