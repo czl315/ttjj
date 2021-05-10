@@ -52,8 +52,8 @@ public class FupanDemo {
 
         String amt = "";
         String amt_fund = "51853.92";
-        String amt_fund_last = "52744.99";
-        String earn_fund = "-839.05";
+        String amt_fund_last = "51599.76";
+        String earn_fund = "-254.17";
 
         String cookieDfcf = StockTradeDemo.COOKIE_DFCF;
 
