@@ -51,9 +51,9 @@ public class FupanDemo {
 //        boolean showMyTtjj = false;//不显示-我的基金
 
         String amt = "";
-        String amt_fund = "51853.92";
-        String amt_fund_last = "51599.76";
-        String earn_fund = "-254.17";
+        String amt_fund = "46231.79";
+        String amt_fund_last = "51853.92";
+        String earn_fund = "77.65";
 
         String cookieDfcf = StockTradeDemo.COOKIE_DFCF;
 

@@ -33,13 +33,13 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=09127966832482; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210510221410813-11923323313501-9655359829; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=87f6afd5-1e29-4792-bb7e-bf1d897d1367; Uuid=20b136d3b39c4a15b9052bf37be2bff2; monitor_count=3";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=98357550423711; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210511220217385-11923323313501-7775854427; st_asi=delete; mobileimei=5dcf88f5-02c3-41e6-95d8-7710d1549587; Uuid=4575480630844ff1bac81b0c2abf6dff; monitor_count=6";
 
     public static void main(String[] args) {
-        boolean showBuyOrSell = true;//新增赎回
-//        boolean showBuyOrSell = false;//新增赎回
-//        int showTypeNet = 1;//最新一天
-        int showTypeNet = 365;//最新一年内
+//        boolean showBuyOrSell = true;//新增赎回
+        boolean showBuyOrSell = false;//新增赎回
+        int showTypeNet = 1;//最新一天
+//        int showTypeNet = 365;//最新一年内
 
         if (showBuyOrSell) {
             String validatekey = "8788daca-b59b-4be1-8893-59bc7af56aa7";

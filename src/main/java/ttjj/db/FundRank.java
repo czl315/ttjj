@@ -1,4 +1,4 @@
-package ttjj.dto;
+package ttjj.db;
 
 import java.math.BigDecimal;
 
