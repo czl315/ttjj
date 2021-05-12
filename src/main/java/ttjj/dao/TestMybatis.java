@@ -20,7 +20,7 @@ public class TestMybatis {
     public static void main(String[] args) throws IOException {
         Fupan fupan = new Fupan();
         //set value
-        fupan.setRtHs300("5.0");
+        fupan.setRt_hs300("5.0");
         //where
         fupan.setCode("2021-04-27");
         fupan.setPeriod("1");

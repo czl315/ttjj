@@ -41,8 +41,8 @@ public class FupanDemo {
 
     public static void main(String[] args) {
 
-        boolean showDaPanKline = true;//显示-大盘指数
-//        boolean showDaPanKline = false;//不显示-大盘指数
+//        boolean showDaPanKline = true;//显示-大盘指数
+        boolean showDaPanKline = false;//不显示-大盘指数
 
         boolean showMyStock = true;//显示-我的股票
 //        boolean showMyStock = false;//不显示-我的股票
@@ -51,29 +51,29 @@ public class FupanDemo {
 //        boolean showMyTtjj = false;//不显示-我的基金
 
         String amt = "";
-        String amt_fund = "46231.79";
-        String amt_fund_last = "51853.92";
-        String earn_fund = "77.65";
+        String amt_fund = "46542.3";
+        String amt_fund_last = "46231.79";
+        String earn_fund = "310.5";
 
         String cookieDfcf = StockTradeDemo.COOKIE_DFCF;
-
-        if (showDaPanKline) {
-            String cookie = "";//
-            //k线
             String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
             String dateType = "1";//1：一天;7:周;30:月;
 //            String date = "";
             String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
+        if (showDaPanKline) {
+            String cookie = "";//
+            //k线
             int count = 1;
             int lastCount = 2;
             updateDb(findFupanPointByKline(cookie, HS_300_000300, count, klt, dateType, date));//沪深300
 
-            findFupanPointByKline(cookie, CYB_50_399673, count, klt, dateType, date);//创业板50
-            findFupanPointByKline(cookie, ZZ_500_000905, count, klt, dateType, date);//中证500
-            findFupanPointByKline(cookie, SH_50_000016, count, klt, dateType, date);//上证50
-            findFupanPointByKline(cookie, SHANG_HAI, count, klt, dateType, date);//上证
-            findFupanPointByKline(cookie, SHEN_ZHEN, count, klt, dateType, date);//深证成指
-            findFupanPointByKline(cookie, CYB, count, klt, dateType, date);//创业板
+            updateDb(findFupanPointByKline(cookie, CYB_50_399673, count, klt, dateType, date));//创业板50
+            updateDb(findFupanPointByKline(cookie, ZZ_500_000905, count, klt, dateType, date));//中证500
+            updateDb(findFupanPointByKline(cookie, SH_50_000016, count, klt, dateType, date));//上证50
+            updateDb(findFupanPointByKline(cookie, SHANG_HAI, count, klt, dateType, date));//上证
+            updateDb(findFupanPointByKline(cookie, SHEN_ZHEN, count, klt, dateType, date));//深证成指
+            updateDb(findFupanPointByKline(cookie, CYB, count, klt, dateType, date));//创业板
             System.out.println();
 ////        //k线（上一日期）
 //            klineLast(cookie, HS_300_000300, lastCount, klt, dateType);//沪深300
@@ -109,7 +109,8 @@ public class FupanDemo {
 
         if (showMyStock) {
             //显示股票每日收益
-            queryAssetByDfcfStock(cookieDfcf);
+            Fupan FupanMyStock = queryAssetByDfcfStock(cookieDfcf,dateType);
+            updateDb(FupanMyStock);
         }
 
 //        if (showMyTtjj) {
@@ -120,7 +121,8 @@ public class FupanDemo {
 //        }
 
         if (showMyTtjj) {
-            handlerFundByTtjj(amt, amt_fund, amt_fund_last, earn_fund);
+            Fupan FupanMyFund = handlerFundByTtjj(amt, amt_fund, amt_fund_last, earn_fund,date,dateType);
+            updateDb(FupanMyFund);
         }
 
     }
@@ -143,22 +145,31 @@ public class FupanDemo {
 
     /**
      * 计算我的天天基金收益
-     *
-     * @param amt
+     *  @param amt
      * @param amt_fund
      * @param amt_fund_last
+     * @param date
+     * @param dateType
      */
-    private static void handlerFundByTtjj(String amt, String amt_fund, String amt_fund_last, String earn_fund) {
-        String curDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    private static Fupan handlerFundByTtjj(String amt, String amt_fund, String amt_fund_last, String earn_fund, String date, String dateType) {
         String dayProfitRt = new BigDecimal(earn_fund).divide(new BigDecimal(amt_fund_last), 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).divide(new BigDecimal("1"), 4, BigDecimal.ROUND_HALF_UP).toString();//当日盈亏收益率
         System.out.println("UPDATE `fupan` SET `amt`='" + amt + "', `amt_fund`='" + amt_fund + "', `amt_fund_last`='" + amt_fund_last
                 + "', `earn_fund`='" + earn_fund
                 + "', `rt_zh`='" + dayProfitRt
-                + "' WHERE (`CODE`='" + curDate + "') AND fupan.period='1'" + " AND fupan.TYPE=1;");
+                + "' WHERE (`CODE`='" + date + "') AND fupan.period='1'" + " AND fupan.TYPE=1;");
 
-
-//        String rsDate = rsArray.getString("Data");
-//        System.out.println(rsDate);
+        Fupan fupanRs = new Fupan();
+        //where
+        fupanRs.setCode(date);
+        fupanRs.setPeriod(dateType);
+        fupanRs.setType("1");//实际
+        //setValue
+        fupanRs.setAmt(amt);
+        fupanRs.setAmt_fund(amt_fund);
+        fupanRs.setAmt_fund_last(amt_fund_last);
+        fupanRs.setEarn_fund(earn_fund);
+        fupanRs.setRt_zh(dayProfitRt);
+        return fupanRs;
     }
 
     /**
@@ -207,8 +218,9 @@ public class FupanDemo {
      * 查询东方财富股票账户-显示插入数据库语句
      *
      * @param
+     * @param dateType
      */
-    private static void queryAssetByDfcfStock(String cookie) {
+    private static Fupan queryAssetByDfcfStock(String cookie, String dateType) {
 //        String url = "https://jywg.18.cn/Com/queryAssetAndPositionV1?validatekey=" + validatekey;
         String url = "https://jywg.18.cn/AccountAnalyze/Asset/GetHold?v=1617202981877";
 
@@ -240,9 +252,18 @@ public class FupanDemo {
         String curDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         System.out.println("UPDATE `fupan` SET `amt_dfcf`='" + totalAmt + "', `hold_st`='" + fundMktVal + "', `earn_st`='" + dayProfit + "', `rt_st`='" + dayProfitRt + "' WHERE (`CODE`='" + curDate + "') AND fupan.period='1'" + " AND fupan.TYPE=1;");
 
+        Fupan fupanRs = new Fupan();
+        //where
+        fupanRs.setCode(curDate);
+        fupanRs.setPeriod(dateType);
+        fupanRs.setType("1");//实际
+        //setValue
+        fupanRs.setAmt_dfcf(totalAmt);
+        fupanRs.setHold_st(fundMktVal);
+        fupanRs.setEarn_st(dayProfit);
+        fupanRs.setRt_st(dayProfitRt);
+        return fupanRs;
 
-//        String rsDate = rsArray.getString("Data");
-//        System.out.println(rsDate);
     }
 
     /**
@@ -626,12 +647,42 @@ public class FupanDemo {
             String chengJiaoE = klineArray[6];
             String curDate = klineArray[0];
             if (HS_300_000300.equals(zhiShu)) {
-                fupanRs.setRtHs300(zhangDie);
-                fupanRs.setPtHs300(shouPan);
-                fupanRs.setCjeHs300(chengJiaoE);
+                fupanRs.setRt_hs300(zhangDie);
+                fupanRs.setPt_hs300(shouPan);
+                fupanRs.setCje_hs300(chengJiaoE);
                 dbFieldRt = "rt_hs300";
                 dbFieldNet = "pt_hs300";
                 dbFieldCje = "cje_hs300";
+            }
+            if (SHANG_HAI.equals(zhiShu)) {
+                fupanRs.setRt_sh(zhangDie);
+                fupanRs.setPt_sh(shouPan);
+                fupanRs.setCje_sh(chengJiaoE);
+            }
+            if (SHEN_ZHEN.equals(zhiShu)) {
+                fupanRs.setRt_sz(zhangDie);
+                fupanRs.setPt_sz(shouPan);
+                fupanRs.setCje_sz(chengJiaoE);
+            }
+            if (CYB.equals(zhiShu)) {
+                fupanRs.setRt_cyb(zhangDie);
+                fupanRs.setPt_cyb(shouPan);
+                fupanRs.setCje_cyb(chengJiaoE);
+            }
+            if (CYB_50_399673.equals(zhiShu)) {
+                fupanRs.setRt_cyb50(zhangDie);
+                fupanRs.setPt_cyb50(shouPan);
+                fupanRs.setCje_cyb50(chengJiaoE);
+            }
+            if (ZZ_500_000905.equals(zhiShu)) {
+                fupanRs.setRt_zz500(zhangDie);
+                fupanRs.setPt_zz500(shouPan);
+                fupanRs.setCje_zz500(chengJiaoE);
+            }
+            if (SH_50_000016.equals(zhiShu)) {
+                fupanRs.setRt_sh50(zhangDie);
+                fupanRs.setPt_sh50(shouPan);
+                fupanRs.setCje_sh50(chengJiaoE);
             }
 //            System.out.print("日期:" + curDate + ",");
 //            System.out.print("收盘:" + shouPan + ",");

@@ -19,6 +19,14 @@ import java.util.stream.Collectors;
 /**
  * 基金排行
  *
+ * ###基金排行榜
+ * #ft=类型；
+ * #&st=desc 倒序
+ * #ft=gp 股票
+ * https://fundapi.eastmoney.com/fundtradenew.aspx?ft=gp&sc=r&st=desc&pi=1&pn=100&cp=&ct=&cd=&ms=&fr=&plevel=&fst=&ftype=&fr1=&fl=0&isab=1
+ * #九种类型
+ * https://fundapi.eastmoney.com/fundtradenew.aspx?sc=r&st=desc&pi=1&pn=100&cp=&ct=&cd=&ms=&fr=&plevel=&fst=&ftype=&fr1=&fl=0&isab=1
+ *
  * @author chenzhilong9
  * @date 2021-02-26 10:08
  */
