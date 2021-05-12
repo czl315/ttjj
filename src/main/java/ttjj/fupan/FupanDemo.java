@@ -41,8 +41,8 @@ public class FupanDemo {
 
     public static void main(String[] args) {
 
-//        boolean showDaPanKline = true;//显示-大盘指数
-        boolean showDaPanKline = false;//不显示-大盘指数
+        boolean showDaPanKline = true;//显示-大盘指数
+//        boolean showDaPanKline = false;//不显示-大盘指数
 
         boolean showMyStock = true;//显示-我的股票
 //        boolean showMyStock = false;//不显示-我的股票
@@ -85,7 +85,7 @@ public class FupanDemo {
 //            klineLast(cookie, CYB, lastCount, klt, dateType);//创业板
 //
 //        //k线-日线-行业指数
-            findFupanPointByKline(cookie, BIZ_QUANSHANG, count, klt, dateType, date);
+            updateDb(findFupanPointByKline(cookie, BIZ_QUANSHANG, count, klt, dateType, date));
 //        klineLast(cookie, BIZ_QUANSHANG, lastCount, klt, dateType);
 //        kline(cookie, BIZ_BANDAOTI_XINPIAN_990001, count, klt, dateType);
 
@@ -683,6 +683,11 @@ public class FupanDemo {
                 fupanRs.setRt_sh50(zhangDie);
                 fupanRs.setPt_sh50(shouPan);
                 fupanRs.setCje_sh50(chengJiaoE);
+            }
+            if (BIZ_QUANSHANG.equals(zhiShu)) {
+                fupanRs.setRt_biz_qs(zhangDie);
+                fupanRs.setPt_biz_qs(shouPan);
+                fupanRs.setCje_biz_qs(chengJiaoE);
             }
 //            System.out.print("日期:" + curDate + ",");
 //            System.out.print("收盘:" + shouPan + ",");

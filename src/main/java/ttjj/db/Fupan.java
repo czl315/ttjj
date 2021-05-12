@@ -20,6 +20,7 @@ public class Fupan {
     String rt_cyb;
     String rt_sh;
     String rt_zz500;
+    String rt_biz_qs;
 
     /**
      * pt_hs300 指数沪深300
@@ -31,6 +32,7 @@ public class Fupan {
     String pt_sh;
     String pt_sz;
     String pt_zz500;
+    String pt_biz_qs;
     /**
      * cjeHs300 成交额-沪深300
      */
@@ -41,6 +43,7 @@ public class Fupan {
     String cje_cyb50;
     String cje_sh50;
     String cje_zz500;
+    String cje_biz_qs;
 
     String amt_dfcf;
     String hold_st;
@@ -52,6 +55,30 @@ public class Fupan {
     String amt_fund_last;
     String earn_fund;
     String rt_zh;
+
+    public String getRt_biz_qs() {
+        return rt_biz_qs;
+    }
+
+    public void setRt_biz_qs(String rt_biz_qs) {
+        this.rt_biz_qs = rt_biz_qs;
+    }
+
+    public String getPt_biz_qs() {
+        return pt_biz_qs;
+    }
+
+    public void setPt_biz_qs(String pt_biz_qs) {
+        this.pt_biz_qs = pt_biz_qs;
+    }
+
+    public String getCje_biz_qs() {
+        return cje_biz_qs;
+    }
+
+    public void setCje_biz_qs(String cje_biz_qs) {
+        this.cje_biz_qs = cje_biz_qs;
+    }
 
     public String getAmt() {
         return amt;
