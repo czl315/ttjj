@@ -33,11 +33,11 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=00684796047008; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210520222049681-11923323313501-0749682978; st_asi=delete; mobileimei=b2e0dc07-fc3b-45a9-8763-8c172a681f6a; Uuid=887a53d8e72f4213b6e13232c6f2d041; monitor_count=12";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=84041978355689; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210521221413924-11923323313501-0602693662; st_asi=delete; mobileimei=21694dea-7cf2-429f-87c8-ca312f703574; Uuid=60c70baa4fcf4daba3aa3a4bc9cb1a52; monitor_count=15";
 
     public static void main(String[] args) {
-        boolean showBuyOrSell = true;//新增赎回
-//        boolean showBuyOrSell = false;//新增赎回
+//        boolean showBuyOrSell = true;//新增赎回
+        boolean showBuyOrSell = false;//新增赎回
 //        int showTypeNet = 1;//最新一天
         int showTypeNet = 365;//最新一年内
 
@@ -465,6 +465,7 @@ public class StockTradeDemo {
         typeListZhiShu.add("512690");//酒ETF
         typeListZhiShu.add("510500");//500ETF
         typeListZhiShu.add("159880");//有色50
+        typeListZhiShu.add("512000");//券商ETF
 //        typeListZhiShu.add("160416");//石油基金
 //        typeListZhiShu.add("159915");//创业板
 //        typeListZhiShu.add("588090");//科创板
