@@ -33,13 +33,13 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=84041978355689; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210521221413924-11923323313501-0602693662; st_asi=delete; mobileimei=21694dea-7cf2-429f-87c8-ca312f703574; Uuid=60c70baa4fcf4daba3aa3a4bc9cb1a52; monitor_count=15";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=54343963568253; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210525235301944-11923323313501-4975330590; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=3ee34672-aa91-442f-ac60-e4a310e1c208; Uuid=f28eedf413874372a7ef644f3f5d3a56; monitor_count=3";
 
     public static void main(String[] args) {
 //        boolean showBuyOrSell = true;//新增赎回
         boolean showBuyOrSell = false;//新增赎回
-//        int showTypeNet = 1;//最新一天
-        int showTypeNet = 365;//最新一年内
+        int showTypeNet = 1;//最新一天
+//        int showTypeNet = 365;//最新一年内
 
         if (showBuyOrSell) {
             String validatekey = "8788daca-b59b-4be1-8893-59bc7af56aa7";
@@ -466,6 +466,7 @@ public class StockTradeDemo {
         typeListZhiShu.add("510500");//500ETF
         typeListZhiShu.add("159880");//有色50
         typeListZhiShu.add("512000");//券商ETF
+        typeListZhiShu.add("512170");//医疗ETF
 //        typeListZhiShu.add("160416");//石油基金
 //        typeListZhiShu.add("159915");//创业板
 //        typeListZhiShu.add("588090");//科创板

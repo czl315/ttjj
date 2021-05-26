@@ -2,6 +2,7 @@ package ttjj.db;
 
 /**
  * 复盘
+ *
  * @author chenzhilong
  * @date 2021/4/7
  */
@@ -33,6 +34,37 @@ public class Fupan {
     String pt_sz;
     String pt_zz500;
     String pt_biz_qs;
+
+    /**
+     * 指数-上一时段
+     */
+    String pt_hs300_last;
+    String pt_cyb50_last;
+    String pt_cyb_last;
+    String pt_sh50_last;
+    String pt_sh_last;
+    String pt_sz_last;
+    String pt_zz500_last;
+    String pt_biz_qs_last;
+
+    /**
+     * 指数-最大最小值
+     */
+    String pt_sh_min;
+    String pt_sh_max;
+    String pt_sh50_min;
+    String pt_sh50_max;
+    String pt_hs300_min;
+    String pt_hs300_max;
+    String pt_zz500_min;
+    String pt_zz500_max;
+    String pt_sz_min;
+    String pt_sz_max;
+    String pt_cyb_min;
+    String pt_cyb_max;
+    String pt_cyb50_min;
+    String pt_cyb50_max;
+
     /**
      * cjeHs300 成交额-沪深300
      */
@@ -350,5 +382,181 @@ public class Fupan {
 
     public void setCje_zz500(String cje_zz500) {
         this.cje_zz500 = cje_zz500;
+    }
+
+    public String getPt_hs300_last() {
+        return pt_hs300_last;
+    }
+
+    public void setPt_hs300_last(String pt_hs300_last) {
+        this.pt_hs300_last = pt_hs300_last;
+    }
+
+    public String getPt_cyb50_last() {
+        return pt_cyb50_last;
+    }
+
+    public void setPt_cyb50_last(String pt_cyb50_last) {
+        this.pt_cyb50_last = pt_cyb50_last;
+    }
+
+    public String getPt_cyb_last() {
+        return pt_cyb_last;
+    }
+
+    public void setPt_cyb_last(String pt_cyb_last) {
+        this.pt_cyb_last = pt_cyb_last;
+    }
+
+    public String getPt_sh50_last() {
+        return pt_sh50_last;
+    }
+
+    public void setPt_sh50_last(String pt_sh50_last) {
+        this.pt_sh50_last = pt_sh50_last;
+    }
+
+    public String getPt_sh_last() {
+        return pt_sh_last;
+    }
+
+    public void setPt_sh_last(String pt_sh_last) {
+        this.pt_sh_last = pt_sh_last;
+    }
+
+    public String getPt_sz_last() {
+        return pt_sz_last;
+    }
+
+    public void setPt_sz_last(String pt_sz_last) {
+        this.pt_sz_last = pt_sz_last;
+    }
+
+    public String getPt_zz500_last() {
+        return pt_zz500_last;
+    }
+
+    public void setPt_zz500_last(String pt_zz500_last) {
+        this.pt_zz500_last = pt_zz500_last;
+    }
+
+    public String getPt_biz_qs_last() {
+        return pt_biz_qs_last;
+    }
+
+    public void setPt_biz_qs_last(String pt_biz_qs_last) {
+        this.pt_biz_qs_last = pt_biz_qs_last;
+    }
+
+    public String getPt_sh_min() {
+        return pt_sh_min;
+    }
+
+    public void setPt_sh_min(String pt_sh_min) {
+        this.pt_sh_min = pt_sh_min;
+    }
+
+    public String getPt_sh_max() {
+        return pt_sh_max;
+    }
+
+    public void setPt_sh_max(String pt_sh_max) {
+        this.pt_sh_max = pt_sh_max;
+    }
+
+    public String getPt_sh50_min() {
+        return pt_sh50_min;
+    }
+
+    public void setPt_sh50_min(String pt_sh50_min) {
+        this.pt_sh50_min = pt_sh50_min;
+    }
+
+    public String getPt_sh50_max() {
+        return pt_sh50_max;
+    }
+
+    public void setPt_sh50_max(String pt_sh50_max) {
+        this.pt_sh50_max = pt_sh50_max;
+    }
+
+    public String getPt_hs300_min() {
+        return pt_hs300_min;
+    }
+
+    public void setPt_hs300_min(String pt_hs300_min) {
+        this.pt_hs300_min = pt_hs300_min;
+    }
+
+    public String getPt_hs300_max() {
+        return pt_hs300_max;
+    }
+
+    public void setPt_hs300_max(String pt_hs300_max) {
+        this.pt_hs300_max = pt_hs300_max;
+    }
+
+    public String getPt_zz500_min() {
+        return pt_zz500_min;
+    }
+
+    public void setPt_zz500_min(String pt_zz500_min) {
+        this.pt_zz500_min = pt_zz500_min;
+    }
+
+    public String getPt_zz500_max() {
+        return pt_zz500_max;
+    }
+
+    public void setPt_zz500_max(String pt_zz500_max) {
+        this.pt_zz500_max = pt_zz500_max;
+    }
+
+    public String getPt_sz_min() {
+        return pt_sz_min;
+    }
+
+    public void setPt_sz_min(String pt_sz_min) {
+        this.pt_sz_min = pt_sz_min;
+    }
+
+    public String getPt_sz_max() {
+        return pt_sz_max;
+    }
+
+    public void setPt_sz_max(String pt_sz_max) {
+        this.pt_sz_max = pt_sz_max;
+    }
+
+    public String getPt_cyb_min() {
+        return pt_cyb_min;
+    }
+
+    public void setPt_cyb_min(String pt_cyb_min) {
+        this.pt_cyb_min = pt_cyb_min;
+    }
+
+    public String getPt_cyb_max() {
+        return pt_cyb_max;
+    }
+
+    public void setPt_cyb_max(String pt_cyb_max) {
+        this.pt_cyb_max = pt_cyb_max;
+    }
+
+    public String getPt_cyb50_min() {
+        return pt_cyb50_min;
+    }
+
+    public void setPt_cyb50_min(String pt_cyb50_min) {
+        this.pt_cyb50_min = pt_cyb50_min;
+    }
+
+    public String getPt_cyb50_max() {
+        return pt_cyb50_max;
+    }
+
+    public void setPt_cyb50_max(String pt_cyb50_max) {
+        this.pt_cyb50_max = pt_cyb50_max;
     }
 }

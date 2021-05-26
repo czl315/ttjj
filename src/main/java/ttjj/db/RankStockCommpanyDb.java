@@ -138,6 +138,26 @@ public class RankStockCommpanyDb {
     private Double f37;
     private Double f38;
     private Double f39;
+    private String f40;
+    private String f41;
+    private String f42;
+    private String f43;
+    private String f44;
+    private String f45;
+    private String f46;
+    private String f47;
+    private String f48;
+    private String f49;
+    private Long f50;
+    private Double f51;
+    private Double f52;
+    private Double f53;
+    private String f54;
+    private String f55;
+    private String f56;
+    private String f57;
+    private String f58;
+    private String f59;
     private Double f60;
     private Double f61;
     /**
@@ -1668,5 +1688,165 @@ public class RankStockCommpanyDb {
 
     public void setConception(String conception) {
         this.conception = conception;
+    }
+
+    public String getF40() {
+        return f40;
+    }
+
+    public void setF40(String f40) {
+        this.f40 = f40;
+    }
+
+    public String getF41() {
+        return f41;
+    }
+
+    public void setF41(String f41) {
+        this.f41 = f41;
+    }
+
+    public String getF42() {
+        return f42;
+    }
+
+    public void setF42(String f42) {
+        this.f42 = f42;
+    }
+
+    public String getF43() {
+        return f43;
+    }
+
+    public void setF43(String f43) {
+        this.f43 = f43;
+    }
+
+    public String getF44() {
+        return f44;
+    }
+
+    public void setF44(String f44) {
+        this.f44 = f44;
+    }
+
+    public String getF45() {
+        return f45;
+    }
+
+    public void setF45(String f45) {
+        this.f45 = f45;
+    }
+
+    public String getF46() {
+        return f46;
+    }
+
+    public void setF46(String f46) {
+        this.f46 = f46;
+    }
+
+    public String getF47() {
+        return f47;
+    }
+
+    public void setF47(String f47) {
+        this.f47 = f47;
+    }
+
+    public String getF48() {
+        return f48;
+    }
+
+    public void setF48(String f48) {
+        this.f48 = f48;
+    }
+
+    public String getF49() {
+        return f49;
+    }
+
+    public void setF49(String f49) {
+        this.f49 = f49;
+    }
+
+    public Long getF50() {
+        return f50;
+    }
+
+    public void setF50(Long f50) {
+        this.f50 = f50;
+    }
+
+    public Double getF51() {
+        return f51;
+    }
+
+    public void setF51(Double f51) {
+        this.f51 = f51;
+    }
+
+    public Double getF52() {
+        return f52;
+    }
+
+    public void setF52(Double f52) {
+        this.f52 = f52;
+    }
+
+    public Double getF53() {
+        return f53;
+    }
+
+    public void setF53(Double f53) {
+        this.f53 = f53;
+    }
+
+    public String getF54() {
+        return f54;
+    }
+
+    public void setF54(String f54) {
+        this.f54 = f54;
+    }
+
+    public String getF55() {
+        return f55;
+    }
+
+    public void setF55(String f55) {
+        this.f55 = f55;
+    }
+
+    public String getF56() {
+        return f56;
+    }
+
+    public void setF56(String f56) {
+        this.f56 = f56;
+    }
+
+    public String getF57() {
+        return f57;
+    }
+
+    public void setF57(String f57) {
+        this.f57 = f57;
+    }
+
+    public String getF58() {
+        return f58;
+    }
+
+    public void setF58(String f58) {
+        this.f58 = f58;
+    }
+
+    public String getF59() {
+        return f59;
+    }
+
+    public void setF59(String f59) {
+        this.f59 = f59;
     }
 }

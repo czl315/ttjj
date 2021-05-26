@@ -42,9 +42,9 @@ public class SzzsDataDemo {
 //        boolean showMyTtjj = false;//不显示-我的基金
 
         String amt = "";
-        String amt_fund = "53141.46";
-        String amt_fund_last = "52946.96";
-        String earn_fund = "-152.4";
+        String amt_fund = "43060.94";
+        String amt_fund_last = "53141.46";
+        String earn_fund = "1294.31";
 
         String cookieDfcf = StockTradeDemo.COOKIE_DFCF;
 

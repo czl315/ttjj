@@ -49,22 +49,20 @@ public class BizRankDemo {
 //        int updateDbEtfNetDays = 1;
 
         if (insertDbTodayBiz) {
-            List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(100);//查询主题排名by时间类型、显示个数
+            List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(999);//查询主题排名by时间类型、显示个数
             //db-插入
             insertDbBiz(date, rankBizDataDiffListBiz, "hy");//hy-行业
-
 //            showBizSql(date, rankBizDataDiffListBiz, "hy");//显示sql-业务排行-插入
         }
 
         if (insertDbTodayConcept) {
-            List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(500);//查询主题排名by时间类型、显示个数
+            List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(999);//查询主题排名by时间类型、显示个数
             //db-插入
             insertDbBiz(date, rankBizDataDiffListConcept, "gn");//hy-行业
-
 //            showBizSql(date, rankBizDataDiffListConcept, "gn");//显示业务排行-插入sql
         }
 
-        List<RankBizDataDiff> rankEtf = listEtf(1000);//2021-04-16:425;
+        List<RankBizDataDiff> rankEtf = listEtf(999);//2021-04-16:425;
         if (insertDbTodayEtf) {
             insertDbBiz(date, rankEtf, "etf");//hy-行业
 //            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
@@ -396,6 +394,8 @@ public class BizRankDemo {
                 "f10,f11,f12,f13,f14,f15,f16,f17,f18,f19," +
                 "f20,f21,f22,f23,f24,f25,f26,f27,f28,f29," +
                 "f30,f31,f32,f33,f34,f35,f36,f37,f38,f39," +
+                "f40,f41,f42,f43,f44,f45,f46,f47,f48,f49," +
+                "f50,f51,f52,f53,f54,f55,f56,f57,f58,f59," +
                 "f60,f61,f62,f63,f64,f65,f66,f67,f68,f69," +
                 "f70,f71,f72,f73,f74,f75,f76,f77,f78,f79," +
                 "f80,f81,f82,f83,f84,f85,f86,f87,f88,f89," +
@@ -560,6 +560,8 @@ public class BizRankDemo {
                 "f10,f11,f12,f13,f14,f15,f16,f17,f18,f19," +
                 "f20,f21,f22,f23,f24,f25,f26,f27,f28,f29," +
                 "f30,f31,f32,f33,f34,f35,f36,f37,f38,f39," +
+                "f40,f41,f42,f43,f44,f45,f46,f47,f48,f49," +
+                "f50,f51,f52,f53,f54,f55,f56,f57,f58,f59," +
                 "f60,f61,f62,f63,f64,f65,f66,f67,f68,f69," +
                 "f70,f71,f72,f73,f74,f75,f76,f77,f78,f79," +
                 "f80,f81,f82,f83,f84,f85,f86,f87,f88,f89," +
@@ -632,6 +634,8 @@ public class BizRankDemo {
                 "f10,f11,f12,f13,f14,f15,f16,f17,f18,f19," +
                 "f20,f21,f22,f23,f24,f25,f26,f27,f28,f29," +
                 "f30,f31,f32,f33,f34,f35,f36,f37,f38,f39," +
+                "f40,f41,f42,f43,f44,f45,f46,f47,f48,f49," +
+                "f50,f51,f52,f53,f54,f55,f56,f57,f58,f59," +
                 "f60,f61,f62,f63,f64,f65,f66,f67,f68,f69," +
                 "f70,f71,f72,f73,f74,f75,f76,f77,f78,f79," +
                 "f80,f81,f82,f83,f84,f85,f86,f87,f88,f89," +

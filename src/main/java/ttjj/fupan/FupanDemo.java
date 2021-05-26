@@ -33,7 +33,7 @@ public class FupanDemo {
     static final String SHEN_ZHEN = "0.399001";
     static final String CYB = "0.399006";
     static final String HS_300_000300 = "1.000300";
-    static final String CYB_50_399673 = "1.399673";
+    static final String CYB_50_399673 = "0.399673";
     static final String ZZ_500_000905 = "1.000905";
     static final String SH_50_000016 = "1.000016";
     static final String BIZ_QUANSHANG = "0.399975";
@@ -44,30 +44,29 @@ public class FupanDemo {
         boolean showDaPanKline = true;//显示-大盘指数
 //        boolean showDaPanKline = false;//不显示-大盘指数
 
-//        boolean showMyStock = true;//显示-我的股票
-        boolean showMyStock = false;//不显示-我的股票
-
-//        boolean showMyTtjj = true;//显示-我的基金
-        boolean showMyTtjj = false;//不显示-我的基金
+        boolean showMyStock = true;//显示-我的股票
+//        boolean showMyStock = false;//不显示-我的股票
+//
+        boolean showMyTtjj = true;//显示-我的基金
+//        boolean showMyTtjj = false;//不显示-我的基金
 
         String amt = "";
-        String amt_fund = "41495.85";
-        String amt_fund_last = "41986.08";
-        String earn_fund = "-490.23";
+        String amt_fund = "43060.94";
+        String amt_fund_last = "41495.85";
+        String earn_fund = "1294.31";
 
         String cookieDfcf = StockTradeDemo.COOKIE_DFCF;
-            String klt = "102";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-            String dateType = "7";//1：一天;7:周;30:月;
-//            String date = "";
-            String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
+        String dateType = "1";//1：一天;7:周;30:月;
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+//            String date = "2021-05-21";
 
         if (showDaPanKline) {
             String cookie = "";//
             //k线
             int count = 1;
-            int lastCount = 2;
-            updateDb(findFupanPointByKline(cookie, HS_300_000300, count, klt, dateType, date));//沪深300
 
+            updateDb(findFupanPointByKline(cookie, HS_300_000300, count, klt, dateType, date));//沪深300
             updateDb(findFupanPointByKline(cookie, CYB_50_399673, count, klt, dateType, date));//创业板50
             updateDb(findFupanPointByKline(cookie, ZZ_500_000905, count, klt, dateType, date));//中证500
             updateDb(findFupanPointByKline(cookie, SH_50_000016, count, klt, dateType, date));//上证50
@@ -75,41 +74,15 @@ public class FupanDemo {
             updateDb(findFupanPointByKline(cookie, SHEN_ZHEN, count, klt, dateType, date));//深证成指
             updateDb(findFupanPointByKline(cookie, CYB, count, klt, dateType, date));//创业板
             System.out.println();
-////        //k线（上一日期）
-//            klineLast(cookie, HS_300_000300, lastCount, klt, dateType);//沪深300
-//            klineLast(cookie, CYB_50_399673, lastCount, klt, dateType);//创业板50
-//            klineLast(cookie, ZZ_500_000905, lastCount, klt, dateType);//中证500
-//            klineLast(cookie, SH_50_000016, lastCount, klt, dateType);//上证50
-//            klineLast(cookie, SHANG_HAI, lastCount, klt, dateType);//上证
-//            klineLast(cookie, SHEN_ZHEN, lastCount, klt, dateType);//深证成指
-//            klineLast(cookie, CYB, lastCount, klt, dateType);//创业板
-//
-//        //k线-日线-行业指数
-            updateDb(findFupanPointByKline(cookie, BIZ_QUANSHANG, count, klt, dateType, date));
-//        klineLast(cookie, BIZ_QUANSHANG, lastCount, klt, dateType);
-//        kline(cookie, BIZ_BANDAOTI_XINPIAN_990001, count, klt, dateType);
 
-////        //        k线-周线
-//        kline(cookie, HS_300_000300, 1, kltWeek,dateTypeWeek);//沪深300
-//        kline(cookie, CYB_50_399673, 1, kltWeek, dateTypeWeek);//创业板50
-//        kline(cookie, ZZ_500_000905, 1, kltWeek, dateTypeWeek);//中证500
-//        kline(cookie, SH_50_000016, 1, kltWeek, dateTypeWeek);//上证50
-//        kline(cookie, SHANG_HAI,1, kltWeek, dateTypeWeek);//上证
-//        kline(cookie, SHEN_ZHEN,1, kltWeek, dateTypeWeek);//深证成指
-//        kline(cookie, CYB,1, kltWeek, dateTypeWeek);//创业板
-//        //        k线（上一日期）-周线
-//        klineLast(cookie, HS_300_000300, 2, klt,dateTypeWeek);//沪深300
-//        klineLast(cookie, CYB_50_399673, 2, klt, dateTypeWeek);//创业板50
-//        klineLast(cookie, ZZ_500_000905, 2, klt, dateTypeWeek);//中证500
-//        klineLast(cookie, SH_50_000016, 2, klt, dateTypeWeek);//上证50
-//        klineLast(cookie, SHANG_HAI,2, klt, dateTypeWeek);//上证
-//        klineLast(cookie, SHEN_ZHEN,2, klt, dateTypeWeek);//深证成指
-//        klineLast(cookie, CYB,2, klt, dateTypeWeek);//创业板
+        //k线-日线-行业指数
+            updateDb(findFupanPointByKline(cookie, BIZ_QUANSHANG, count, klt, dateType, date));
+
         }
 
         if (showMyStock) {
             //显示股票每日收益
-            Fupan FupanMyStock = queryAssetByDfcfStock(cookieDfcf,dateType);
+            Fupan FupanMyStock = queryAssetByDfcfStock(cookieDfcf, dateType);
             updateDb(FupanMyStock);
         }
 
@@ -121,7 +94,7 @@ public class FupanDemo {
 //        }
 
         if (showMyTtjj) {
-            Fupan FupanMyFund = handlerFundByTtjj(amt, amt_fund, amt_fund_last, earn_fund,date,dateType);
+            Fupan FupanMyFund = handlerFundByTtjj(amt, amt_fund, amt_fund_last, earn_fund, date, dateType);
             updateDb(FupanMyFund);
         }
 
@@ -129,6 +102,7 @@ public class FupanDemo {
 
     /**
      * 更新数据库
+     *
      * @param fupan
      */
     private static int updateDb(Fupan fupan) {
@@ -145,7 +119,8 @@ public class FupanDemo {
 
     /**
      * 计算我的天天基金收益
-     *  @param amt
+     *
+     * @param amt
      * @param amt_fund
      * @param amt_fund_last
      * @param date
@@ -307,128 +282,8 @@ public class FupanDemo {
         }
     }
 
-    /**
-     * 查询
-     *
-     * @param cookie
-     */
-    public static void szKlineWeek(String cookie, int count, String klt) {
-        String url = "http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937" +
-                "&secid=1.000001" +
-                "&ut=fa5fd1943c7b386f172d6893dbfba10b" +
-                "&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6" +
-                "&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61" +
-                "&klt=" + klt +
-                "&fqt=1" +
-                "&end=20500101" +
-                "&lmt=1000" +
-                "&_=1602168987942";
-        StringBuffer urlParam = new StringBuffer();
-//        urlParam.append("&StartDate=").append(startDate);
 
-//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
-        String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
-        String rsJson = rs.substring(rs.indexOf("{"));
-        rsJson = rsJson.replace(");", "");
-//        System.out.println("szKline:"+rsJson);
-
-        List<String> klineList = new ArrayList<String>();
-        JSONObject szzzMonthJson = JSON.parseObject(rsJson);
-        JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
-        String name = szzzMonthDataJson.getString("name");
-        System.out.println(name);
-        JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
-        for (Object kline : klines) {
-            String klineStr = (String) kline;
-            klineList.add(klineStr);
-        }
-
-        //倒序
-        for (int i = klineList.size(); i >= 0; i--) {
-            if (count-- <= 0) {
-                break;
-            }
-
-            String klineStr = klineList.get(i - 1);
-            //  日期，开盘，收盘,最高，最低，成交量，成交额，振幅，涨跌幅，涨跌额，换手率
-            //"2020-09-30,3389.74,3218.05,3425.63,3202.34,4906229054,6193724911616.00,6.58,-5.23,-177.63,13.40"
-            String[] klineArray = klineStr.split(",");
-            System.out.print("日期:" + klineArray[0] + ",");
-            System.out.print("收盘:" + klineArray[2] + ",");
-            System.out.print("涨跌幅:" + klineArray[8] + ",\t");
-            System.out.print("开盘:" + klineArray[1] + ",\t");
-            System.out.print("最高:" + klineArray[3] + ",");
-            System.out.print("最低:" + klineArray[4] + ",");
-            System.out.print("成交量:" + klineArray[5] + ",");
-            System.out.print("成交额:" + klineArray[6] + ",");
-            System.out.print("振幅:" + klineArray[7] + ",");
-            System.out.print("涨跌额:" + klineArray[9] + ",");
-            System.out.print("换手率:" + klineArray[10] + ",");
-            System.out.println();
-        }
-    }
-
-    /**
-     * 查询-沪深300
-     *
-     * @param cookie
-     */
-    public static void hs300Kline(String cookie, int count, String klt) {
-        String url = "http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937" +
-                "&secid=1.000300" +
-                "&ut=fa5fd1943c7b386f172d6893dbfba10b" +
-                "&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6" +
-                "&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61" +
-                "&klt=" + klt +
-                "&fqt=1" +
-                "&end=20500101" +
-                "&lmt=1000" +
-                "&_=1602168987942";
-        StringBuffer urlParam = new StringBuffer();
-//        urlParam.append("&StartDate=").append(startDate);
-
-//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
-        String rs = HttpUtil.sendGet(url, urlParam.toString(), cookie);
-        String rsJson = rs.substring(rs.indexOf("{"));
-        rsJson = rsJson.replace(");", "");
-//        System.out.println("szKline:"+rsJson);
-
-        List<String> klineList = new ArrayList<String>();
-        JSONObject szzzMonthJson = JSON.parseObject(rsJson);
-        JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
-        String name = szzzMonthDataJson.getString("name");
-        System.out.println(name);
-        JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
-        for (Object kline : klines) {
-            String klineStr = (String) kline;
-            klineList.add(klineStr);
-        }
-
-        //倒序
-        for (int i = klineList.size(); i >= 0; i--) {
-            if (count-- <= 0) {
-                break;
-            }
-
-            String klineStr = klineList.get(i - 1);
-            //  日期，开盘，收盘,最高，最低，成交量，成交额，振幅，涨跌幅，涨跌额，换手率
-            //"2020-09-30,3389.74,3218.05,3425.63,3202.34,4906229054,6193724911616.00,6.58,-5.23,-177.63,13.40"
-            String[] klineArray = klineStr.split(",");
-            System.out.print("日期:" + klineArray[0] + ",");
-            System.out.print("收盘:" + klineArray[2] + ",");
-            System.out.print("涨跌幅:" + klineArray[8] + ",\t");
-            System.out.print("开盘:" + klineArray[1] + ",\t");
-            System.out.print("最高:" + klineArray[3] + ",");
-            System.out.print("最低:" + klineArray[4] + ",");
-            System.out.print("成交量:" + klineArray[5] + ",");
-            System.out.print("成交额:" + klineArray[6] + ",");
-            System.out.print("振幅:" + klineArray[7] + ",");
-            System.out.print("涨跌额:" + klineArray[9] + ",");
-            System.out.print("换手率:" + klineArray[10] + ",");
-            System.out.println();
-        }
-    }
-
+    static String closePointLast ="";//上一时段-收盘点位
     /**
      * 查询-ETF-指数
      *
@@ -441,6 +296,7 @@ public class FupanDemo {
      */
     public static Fupan findFupanPointByKline(String cookie, String zhiShu, int count, String klt, String dayTpye, String date) {
         Fupan fupanRs = new Fupan();
+
         //where
         fupanRs.setCode(date);
         fupanRs.setPeriod(dayTpye);
@@ -449,168 +305,50 @@ public class FupanDemo {
         String dbFieldRt = "";
         String dbFieldNet = "";
         String dbFieldCje = "";
-        if (HS_300_000300.equals(zhiShu)) {
+        if (HS_300_000300.equals(zhiShu) || SH_50_000016.equals(zhiShu) || SHANG_HAI.equals(zhiShu) || SHEN_ZHEN.equals(zhiShu) || CYB.equals(zhiShu) || BIZ_QUANSHANG.equals(zhiShu) || ZZ_500_000905.equals(zhiShu)) {
             url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldRt = "rt_hs300";
-            dbFieldNet = "pt_hs300";
-            dbFieldCje = "cje_hs300";
         } else if (CYB_50_399673.equals(zhiShu)) {
             url.append("http://50.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33107544000725313278_1602691226567");
-            url.append("&secid=0.399673");
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1" +
-                    "&end=20500101" +
-                    "&lmt=120" +
-                    "&_=1602691226576");
-//            System.out.println(url.toString());
             //http://50.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33107544000725313278_1602691226567&secid=0.399673&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&end=20500101&lmt=120&_=160269122657
-            //http://50.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33107544000725313278_1602691226567&secid=1.399673&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&end=20500101&lmt=120&_=1602691226576
-
-            dbFieldRt = "rt_cyb50";
-            dbFieldNet = "pt_cyb50";
-            dbFieldCje = "cje_cyb50";
-        } else if (SH_50_000016.equals(zhiShu)) {
-            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldRt = "rt_sh50";
-            dbFieldNet = "pt_sh50";
-            dbFieldCje = "cje_sh50";
-        } else if (SHANG_HAI.equals(zhiShu)) {
-            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldRt = "rt_sh";
-            dbFieldNet = "pt_sh";
-            dbFieldCje = "cje_sh";
-        } else if (SHEN_ZHEN.equals(zhiShu)) {
-            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldRt = "rt_sz";
-            dbFieldNet = "pt_sz";
-            dbFieldCje = "cje_sz";
-        } else if (CYB.equals(zhiShu)) {
-            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldRt = "rt_cyb";
-            dbFieldNet = "pt_cyb";
-            dbFieldCje = "cje_cyb";
-        } else if (CYB_50_399673.equals(zhiShu)) {
-            url.append("http://50.push2his.eastmoney.com/api/qt/stock/kline/get" +
-                    "?cb=jQuery33107544000725313278_1602691226567");
-            url.append("&secid=0.399673");
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1" +
-                    "&end=20500101" +
-                    "&lmt=120" +
-                    "&_=1602691226576");
+//            http://50.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33107544000725313278_1602691226567&secid=0.399673&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&end=20500101&lmt=120&_=1602691226576
+//            http://50.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33107544000725313278_1602691226567&secid=0.399673&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&end=20500101&lmt=120&_=1602691226576
+        } else if ("".equals(zhiShu)) {
+            System.out.println("指数不能为空！");
+        }
+        url.append("&secid=" + zhiShu);
+        url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
+        url.append("&fields1=f1");/** f1,f2,f3,f4,f5,f6**/
+        url.append("&fields2=" +
+//                "f1,f2,f3,f4,f5,f6,f7,f8,f9," +
+//                "f10,f11,f12,f13,f14,f15,f16,f17,f18,f19," +
+//                "f20,f21,f22,f23,f24,f25,f26,f27,f28,f29," +
+//                "f30,f31,f32,f33,f34,f35,f36,f37,f38,f39," +
+//                "f40,f41,f42,f43,f44,f45,f46,f47,f48,f49," +
+                "f50,f51,f52,f53,f54,f55,f56,f57,f58,f59,"+
+                "f60,f61,f62,f63,f64,f65,f66,f67,f68,f69" +
+//                "f70,f71,f72,f73,f74,f75,f76,f77,f78,f79," +
+//                "f80,f81,f82,f83,f84,f85,f86,f87,f88,f89," +
+//                "f90,f91,f92,f93,f94,f95,f96,f97,f98,f99," +
+//                "f100,f101,f102,f103,f104,f105,f106,f107,f108,f109" + "," +
+//                "f110,f111,f112,f113,f114,f115,f116,f117,f118,f119" + "," +
+//                "f120,f121,f122,f123,f124,f125,f126,f127,f128,f129" + "," +
+//                "f130,f131,f132,f133,f134,f135,f136,f137,f138,f139" + "," +
+//                "f140,f141,f142,f143,f144,f145,f146,f147,f148,f149" + "," +
+//                "f150,f151,f152,f153,f154,f155,f156,f157,f158,f159" + "," +
+//                "f160,f161,f162,f163,f164,f165,f166,f167,f168,f169" + "," +
+//                "f170,f171,f172,f173,f174,f175,f176,f177,f178,f179" + "," +
+//                "f180,f181,f182,f183,f184,f185,f186,f187,f188,f189" + "," +
+//                "f190,f191,f192,f193,f194,f195,f196,f197,f198,f199" + "," +
+//                "f200,f201,f202,f203,f204,f205,f206,f207,f208,f209" + "," +
+//                "f210,f211,f212,f213,f214,f215,f216,f217,f218,f219" + "," +
+//                "f220,f221,f222,f223,f224,f225,f226,f227,f228,f229" +
+                "");/**     f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61  日期，开盘，收盘,最高，最低，成交量，成交额，振幅，涨跌幅，涨跌额，换手率 **/
+        url.append("&klt=" + klt);
+        url.append("&fqt=1");
+        url.append("&end=20500101");
+        url.append("&lmt=10");
+        url.append("&_=" + System.currentTimeMillis());
 //            System.out.println(url.toString());
-            //http://50.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33107544000725313278_1602691226567&secid=0.399673&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&end=20500101&lmt=120&_=160269122657
-            //http://50.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33107544000725313278_1602691226567&secid=1.399673&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&end=20500101&lmt=120&_=1602691226576
-
-            dbFieldRt = "rt_cyb50";
-            dbFieldNet = "pt_cyb50";
-            dbFieldCje = "cje_hs300";
-        } else if (BIZ_QUANSHANG.equals(zhiShu)) {
-            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldRt = "rt_biz_qs";
-            dbFieldNet = "pt_biz_qs";
-            dbFieldCje = "cje_biz_qs";
-        }
-//        else if (BIZ_BANDAOTI_XINPIAN_990001.equals(zhiShu)) {
-//            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-//            url.append("&secid=" + zhiShu);
-//            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-//            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-//            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-//            url.append("&klt=" + klt);
-//            url.append("&fqt=1");
-//            url.append("&end=20500101");
-//            url.append("&lmt=1000");
-//            url.append("&_=1602168987942");
-//            dbFieldRt = "rt_biz_xp";
-//            dbFieldNet = "pt_biz_xp";
-//            dbFieldCje = "cje_biz_xp";
-//        }
-        else if ("".equals(zhiShu)) {
-            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldRt = "";
-            dbFieldNet = "";
-            dbFieldCje = "";
-        } else if (ZZ_500_000905.equals(zhiShu)) {
-            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldRt = "rt_zz500";
-            dbFieldNet = "pt_zz500";
-            dbFieldCje = "cje_zz500";
-        }
 
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("&StartDate=").append(startDate);
@@ -624,7 +362,7 @@ public class FupanDemo {
         List<String> klineList = new ArrayList<String>();
         JSONObject szzzMonthJson = JSON.parseObject(rsJson);
         JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
-        String name = szzzMonthDataJson.getString("name");
+//        String name = szzzMonthDataJson.getString("name");
 //        System.out.println("指数名称："+name);
         JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
         for (Object kline : klines) {
@@ -633,23 +371,25 @@ public class FupanDemo {
         }
 
         //倒序
-        for (int i = klineList.size(); i >= 0; i--) {
-            if (count-- <= 0) {
-                break;
-            }
-
-            String klineStr = klineList.get(i - 1);
+        for (int i = 0; i <= klineList.size()-1; i++) {
+            String klineStr = klineList.get(i);
             //  日期，开盘，收盘,最高，最低，成交量，成交额，振幅，涨跌幅，涨跌额，换手率
             //"2020-09-30,3389.74,3218.05,3425.63,3202.34,4906229054,6193724911616.00,6.58,-5.23,-177.63,13.40"
             String[] klineArray = klineStr.split(",");
             String shouPan = klineArray[2];
+            String max = klineArray[3];
+            String min = klineArray[4];
             String zhangDie = klineArray[8];
             String chengJiaoE = klineArray[6];
             String curDate = klineArray[0];
+
             if (HS_300_000300.equals(zhiShu)) {
                 fupanRs.setRt_hs300(zhangDie);
                 fupanRs.setPt_hs300(shouPan);
                 fupanRs.setCje_hs300(chengJiaoE);
+                fupanRs.setPt_hs300_last(closePointLast);
+                fupanRs.setPt_hs300_max(max);
+                fupanRs.setPt_hs300_min(min);
                 dbFieldRt = "rt_hs300";
                 dbFieldNet = "pt_hs300";
                 dbFieldCje = "cje_hs300";
@@ -658,37 +398,81 @@ public class FupanDemo {
                 fupanRs.setRt_sh(zhangDie);
                 fupanRs.setPt_sh(shouPan);
                 fupanRs.setCje_sh(chengJiaoE);
+                fupanRs.setPt_sh_last(closePointLast);
+                fupanRs.setPt_sh_max(max);
+                fupanRs.setPt_sh_min(min);
+                dbFieldRt = "rt_sh";
+                dbFieldNet = "pt_sh";
+                dbFieldCje = "cje_sh";
             }
             if (SHEN_ZHEN.equals(zhiShu)) {
                 fupanRs.setRt_sz(zhangDie);
                 fupanRs.setPt_sz(shouPan);
                 fupanRs.setCje_sz(chengJiaoE);
+                fupanRs.setPt_sz_last(closePointLast);
+                fupanRs.setPt_sz_max(max);
+                fupanRs.setPt_sz_min(min);
+                dbFieldRt = "rt_sz";
+                dbFieldNet = "pt_sz";
+                dbFieldCje = "cje_sz";
             }
             if (CYB.equals(zhiShu)) {
                 fupanRs.setRt_cyb(zhangDie);
                 fupanRs.setPt_cyb(shouPan);
                 fupanRs.setCje_cyb(chengJiaoE);
+                fupanRs.setPt_cyb_last(closePointLast);
+                fupanRs.setPt_cyb_max(max);
+                fupanRs.setPt_cyb_min(min);
+                dbFieldRt = "rt_cyb";
+                dbFieldNet = "pt_cyb";
+                dbFieldCje = "cje_cyb";
             }
             if (CYB_50_399673.equals(zhiShu)) {
                 fupanRs.setRt_cyb50(zhangDie);
                 fupanRs.setPt_cyb50(shouPan);
                 fupanRs.setCje_cyb50(chengJiaoE);
+                fupanRs.setPt_cyb50_last(closePointLast);
+                fupanRs.setPt_cyb50_max(max);
+                fupanRs.setPt_cyb50_min(min);
+                dbFieldRt = "rt_cyb50";
+                dbFieldNet = "pt_cyb50";
+                dbFieldCje = "cje_cyb50";
             }
             if (ZZ_500_000905.equals(zhiShu)) {
                 fupanRs.setRt_zz500(zhangDie);
                 fupanRs.setPt_zz500(shouPan);
                 fupanRs.setCje_zz500(chengJiaoE);
+                fupanRs.setPt_zz500_last(closePointLast);
+                fupanRs.setPt_zz500_max(max);
+                fupanRs.setPt_zz500_min(min);
+                dbFieldRt = "rt_zz500";
+                dbFieldNet = "pt_zz500";
+                dbFieldCje = "cje_zz500";
             }
             if (SH_50_000016.equals(zhiShu)) {
                 fupanRs.setRt_sh50(zhangDie);
                 fupanRs.setPt_sh50(shouPan);
                 fupanRs.setCje_sh50(chengJiaoE);
+                fupanRs.setPt_sh50_last(closePointLast);
+                fupanRs.setPt_sh50_max(max);
+                fupanRs.setPt_sh50_min(min);
+                dbFieldRt = "rt_sh50";
+                dbFieldNet = "pt_sh50";
+                dbFieldCje = "cje_sh50";
             }
             if (BIZ_QUANSHANG.equals(zhiShu)) {
                 fupanRs.setRt_biz_qs(zhangDie);
                 fupanRs.setPt_biz_qs(shouPan);
                 fupanRs.setCje_biz_qs(chengJiaoE);
+                fupanRs.setPt_biz_qs_last(closePointLast);
+                dbFieldRt = "rt_biz_qs";
+                dbFieldNet = "pt_biz_qs";
+                dbFieldCje = "cje_biz_qs";
             }
+
+//            System.out.println(klineStr+",上一时段-收盘点位:"+closePointLast);
+            closePointLast = klineArray[2];//上一时段-收盘点位
+
 //            System.out.print("日期:" + curDate + ",");
 //            System.out.print("收盘:" + shouPan + ",");
 //            System.out.print("涨跌幅:" + zhangDie + ",\t");
@@ -702,205 +486,14 @@ public class FupanDemo {
 //            System.out.print("换手率:" + klineArray[10] + ",");
 //            System.out.println();
 //            System.out.println("UPDATE `fupan` SET `" + dbFieldRt + "`='" + zhangDie + "', `" + dbFieldNet + "`='" + shouPan + "', `" + dbFieldCje + "`='" + chengJiaoE + "' WHERE (`CODE`='" + curDate + "') AND fupan.period='" + dayTpye + "'" + " AND fupan.TYPE=1;");
-            if(StringUtils.isNotBlank(date) && curDate.equals(date)){//指定日期
+            if (StringUtils.isNotBlank(date) && curDate.equals(date)) {//指定日期
                 System.out.println("UPDATE `fupan` SET `" + dbFieldRt + "`='" + zhangDie + "', `" + dbFieldNet + "`='" + shouPan + "', `" + dbFieldCje + "`='" + chengJiaoE + "' WHERE (`CODE`='" + curDate + "') AND fupan.period='" + dayTpye + "'" + " AND fupan.TYPE=1;");
-            }else{
-                System.out.println("UPDATE `fupan` SET `" + dbFieldRt + "`='" + zhangDie + "', `" + dbFieldNet + "`='" + shouPan + "', `" + dbFieldCje + "`='" + chengJiaoE + "' WHERE (`CODE`='" + curDate + "') AND fupan.period='" + dayTpye + "'" + " AND fupan.TYPE=1;");
+                return fupanRs;
+            } else {
+                System.out.println("/** 未指定日期 **/UPDATE `fupan` SET `" + dbFieldRt + "`='" + zhangDie + "', `" + dbFieldNet + "`='" + shouPan + "', `" + dbFieldCje + "`='" + chengJiaoE + "' WHERE (`CODE`='" + curDate + "') AND fupan.period='" + dayTpye + "'" + " AND fupan.TYPE=1;");
             }
         }
-        return fupanRs;
+        return null;
     }
 
-    /**
-     * 查询-ETF-指数:更新上一个日期指数数据
-     *
-     * @param cookie
-     * @param zhiShu
-     * @param count
-     * @param dayTpye
-     * @param klt
-     */
-    public static void klineLast(String cookie, String zhiShu, int count, String klt, String dayTpye) {
-        StringBuffer url = new StringBuffer();
-        String dbFieldRt = "";
-        String dbFieldNet = "";
-        if (HS_300_000300.equals(zhiShu)) {
-            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldNet = "pt_hs300_last";
-
-        } else if (CYB_50_399673.equals(zhiShu)) {
-            url.append("http://50.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33107544000725313278_1602691226567");
-            url.append("&secid=0.399673");
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1" +
-                    "&end=20500101" +
-                    "&lmt=120" +
-                    "&_=1602691226576");
-            dbFieldNet = "pt_cyb50_last";
-
-        } else if (SH_50_000016.equals(zhiShu)) {
-            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldNet = "pt_sh50_last";
-
-        } else if (SHANG_HAI.equals(zhiShu)) {
-            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldNet = "pt_sh_last";
-
-        } else if (SHEN_ZHEN.equals(zhiShu)) {
-            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldNet = "pt_sz_last";
-
-        } else if (CYB.equals(zhiShu)) {
-            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldNet = "pt_cyb_last";
-
-        } else if (CYB_50_399673.equals(zhiShu)) {
-            url.append("http://50.push2his.eastmoney.com/api/qt/stock/kline/get" +
-                    "?cb=jQuery33107544000725313278_1602691226567");
-            url.append("&secid=0.399673");
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1" +
-                    "&end=20500101" +
-                    "&lmt=120" +
-                    "&_=1602691226576");
-            dbFieldNet = "pt_cyb50_last";
-
-        } else if (ZZ_500_000905.equals(zhiShu)) {
-            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldNet = "pt_zz500_last";
-        } else if ("".equals(zhiShu)) {
-            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldNet = "";
-        } else if (BIZ_QUANSHANG.equals(zhiShu)) {
-            url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-            url.append("&secid=" + zhiShu);
-            url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-            url.append("&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6");
-            url.append("&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61");
-            url.append("&klt=" + klt);
-            url.append("&fqt=1");
-            url.append("&end=20500101");
-            url.append("&lmt=1000");
-            url.append("&_=1602168987942");
-            dbFieldNet = "pt_?_last";
-        }
-
-        StringBuffer urlParam = new StringBuffer();
-//        urlParam.append("&StartDate=").append(startDate);
-
-//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
-        String rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), cookie);
-        String rsJson = rs.substring(rs.indexOf("{"));
-        rsJson = rsJson.replace(");", "");
-//        System.out.println("szKline:" + rsJson);
-
-        List<String> klineList = new ArrayList<String>();
-        JSONObject szzzMonthJson = JSON.parseObject(rsJson);
-        JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
-        String name = szzzMonthDataJson.getString("name");
-//        System.out.println("指数名称："+name);
-        JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
-        for (Object kline : klines) {
-            String klineStr = (String) kline;
-            klineList.add(klineStr);
-        }
-
-        //倒序
-        String curDate = "";
-        for (int i = klineList.size(); i >= 0; i--) {
-            if (count <= 0) {
-                break;
-            }
-            count--;//
-
-            String klineStr = klineList.get(i - 1);
-            //  日期，开盘，收盘,最高，最低，成交量，成交额，振幅，涨跌幅，涨跌额，换手率
-            //"2020-09-30,3389.74,3218.05,3425.63,3202.34,4906229054,6193724911616.00,6.58,-5.23,-177.63,13.40"
-            String[] klineArray = klineStr.split(",");
-            String shouPan = klineArray[2];
-            String zhangDie = klineArray[8];
-            if (i == klineList.size()) {
-                curDate = klineArray[0];
-                continue;//只记录当前日期
-            }
-//            System.out.print("日期:" + curDate + ",");
-//            System.out.print("收盘:" + shouPan + ",");
-//            System.out.print("涨跌幅:" + zhangDie + ",\t");
-//            System.out.print("开盘:" + klineArray[1] + ",\t");
-//            System.out.print("最高:" + klineArray[3] + ",");
-//            System.out.print("最低:" + klineArray[4] + ",");
-//            System.out.print("成交量:" + klineArray[5] + ",");
-//            System.out.print("成交额:" + klineArray[6] + ",");
-//            System.out.print("振幅:" + klineArray[7] + ",");
-//            System.out.print("涨跌额:" + klineArray[9] + ",");
-//            System.out.print("换手率:" + klineArray[10] + ",");
-//            System.out.println();
-            System.out.println("UPDATE `fupan` SET `" + dbFieldNet + "`='" + shouPan + "' WHERE (`CODE`='" + curDate + "') AND fupan.period='" + dayTpye + "'" + " AND fupan.TYPE=1;");
-        }
-    }
 }
