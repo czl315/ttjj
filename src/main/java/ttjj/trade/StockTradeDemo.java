@@ -33,7 +33,7 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=87131435641494; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210531231041996-11923323313501-5144535414; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=0680d7f8-d286-4b81-992a-3fddfa5d2b98; Uuid=ad05acec23964d7db939603147bea049; monitor_count=3";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=05794622121237; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210603224752594-11923323313501-9677366381; mobileimei=816b1507-b285-443c-9186-cf8acf534b79; Uuid=fb675a3f80dc4604be3b91fa1273c821; monitor_count=28";
 
     public static void main(String[] args) {
         boolean showBuyOrSell = true;//新增赎回
@@ -42,9 +42,9 @@ public class StockTradeDemo {
         int showTypeNet = 365;//最新一年内
 
         if (showBuyOrSell) {
-            String validatekey = "8788daca-b59b-4be1-8893-59bc7af56aa7";
+            String validatekey = "";
 
-//            String startDate = "2021-05-26";//查询新增交易的开始时间
+//            String startDate = "2021-05-01";//查询新增交易的开始时间
             String startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             String endDate = "2021-12-31";
             //显示插入数据库语句

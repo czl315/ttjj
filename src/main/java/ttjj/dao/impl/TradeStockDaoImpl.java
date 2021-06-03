@@ -60,7 +60,7 @@ public class TradeStockDaoImpl implements TradeStockDao {
         urlParam.append("&dwc=" + "");
 
         //        System.out.println(rs);
-        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
+//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
         String rs = HttpUtil.sendPost(url, urlParam.toString(), cookie);
 //        System.out.println("findMyStockTrade:"+rs);
 
