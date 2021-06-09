@@ -12,6 +12,7 @@ import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.StockTrade;
 import utils.HttpUtil;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -36,7 +37,7 @@ public class BizRankDemo {
      */
     public static void main(String[] args) {
         String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
-//        String date = "20210427";
+//        String date = "20210604";
 
         boolean insertDbTodayBiz = true;
 //        boolean insertDbTodayBiz = false;
@@ -44,9 +45,12 @@ public class BizRankDemo {
 //        boolean insertDbTodayConcept = false;
         boolean insertDbTodayEtf = true;
 //        boolean insertDbTodayEtf = false;
+        boolean updateDbTodayEtfNetMaxMinTimeFlag = true;
+//        boolean updateDbTodayEtfNetMaxMinTimeFlag = false;
 
         int updateDbEtfNetDays = 365;
 //        int updateDbEtfNetDays = 1;
+//        int updateDbEtfNetDays = 0;
 
         if (insertDbTodayBiz) {
             List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(999);//查询主题排名by时间类型、显示个数
@@ -68,14 +72,14 @@ public class BizRankDemo {
 //            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
         }
 
-        if (updateDbEtfNetDays==1) {
+        if (updateDbEtfNetDays == 1) {
             // 更新最新净值-限定时间段的最大最小净值
             String table = "rank_st_biz";
             showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
             showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
 
         }
-        if (updateDbEtfNetDays==365) {
+        if (updateDbEtfNetDays == 365) {
             // 更新最新净值-限定时间段的最大最小净值
             String table = "rank_st_biz";
 //            showUpdateDbMaxMinNetByDays(date, rankEtf, table, 1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
@@ -92,6 +96,23 @@ public class BizRankDemo {
             }
         }
 
+        if (updateDbTodayEtfNetMaxMinTimeFlag) {
+            String curdate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+//            String curdate = "2021-06-04";
+            updateDbTodayEtfNetMaxMinTime(curdate, rankEtf);
+        }
+
+    }
+
+    private static void updateDbTodayEtfNetMaxMinTime(String date, List<RankBizDataDiff> rankEtf) {
+        for (RankBizDataDiff rankBizDataDiff : rankEtf) {
+            rankBizDataDiff.setDate(date);
+            findTrends(rankBizDataDiff, "", "fupan", rankBizDataDiff.getF12(), 1, date, "pt_sh_time_min", "pt_sh_time_max");//查询指定指数的最大值时间、最小值时间
+            if (rankBizDataDiff.getDate().contains("-")) {
+                rankBizDataDiff.setDate(rankBizDataDiff.getDate().replace("-", ""));
+            }
+            updateDbEtfNetMaxMinTimeByDate(rankBizDataDiff);
+        }
     }
 
     /**
@@ -130,6 +151,18 @@ public class BizRankDemo {
         int rs = 0;
         try {
             rs = session.update("ttjj.dao.mapper.RandBizEtfMapper.updateEtfNet", rankBizDataDiffListBiz);
+            session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    private static int updateDbEtfNetMaxMinTimeByDate(RankBizDataDiff rankBizDataDiffListBiz) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.update("ttjj.dao.mapper.RandBizEtfMapper.updateDbEtfNetMaxMinTimeByDate", rankBizDataDiffListBiz);
             session.commit();
         } finally {
             session.close();
@@ -431,7 +464,7 @@ public class BizRankDemo {
         }
 //        System.out.println(rs);//返回结果
         JSONObject rsJsonObj = JSONObject.parseObject(rs);
-        if(!rsJsonObj.containsKey("data")){
+        if (!rsJsonObj.containsKey("data")) {
             System.out.println("---------------data---error!!!!!");
         }
         JSONObject rsJsonData = rsJsonObj.getJSONObject("data");
@@ -688,4 +721,117 @@ public class BizRankDemo {
 
         return rankBizDataDiffList;
     }
+
+    /**
+     * 查询指定指数的最大值时间、最小值时间
+     *
+     * @param rankBizDataDiff
+     * @param cookie
+     * @param zhiShu
+     * @param days
+     * @param curDate
+     * @param field1
+     * @param field2
+     */
+    private static void findTrends(RankBizDataDiff rankBizDataDiff, String cookie, String table, String zhiShu, int days, String curDate, String field1, String field2) {
+        long curTime = System.currentTimeMillis();
+        String code = "";
+        String url = "http://push2his.eastmoney.com/api/qt/stock/trends2/get?cb=jQuery112408829480231577647_" + curTime;
+        if (zhiShu.startsWith("5") || zhiShu.startsWith("6")) {
+            code = "&secid=" + "1." + zhiShu;
+        } else {
+            code = "&secid=" + "0." + zhiShu;
+        }
+        url = url + code +
+                "&ut=fa5fd1943c7b386f172d6893dbfba10b" +
+                "&fields1=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11" +
+                "&fields2=f51,f53,f56,f58" +
+                "&iscr=0" +
+                "&ndays=" + days +
+                "&_=" + curTime +
+                "";
+//        StringBuffer urlParam = new StringBuffer();
+//        urlParam.append("&StartDate=").append(startDate);
+
+//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
+        String rs = HttpUtil.sendGet(url, "", cookie);
+        /**
+         * 如果返回异常，n次重试
+         */
+        for (int i = 0; i < 10; i++) {
+            if (StringUtils.isBlank(rs)) {
+                rs = HttpUtil.sendGet(url, "", cookie);
+            } else {
+                break;
+            }
+        }
+        if(!rs.contains("{")){
+            System.out.println("返回数据异常："+JSON.toJSONString(rs));
+            return;
+        }
+        String rsJson = rs.substring(rs.indexOf("{"));
+        rsJson = rsJson.replace(");", "");
+//        System.out.println("szKline:"+rsJson);
+
+        List<String> timePointList = new ArrayList<String>();
+        JSONObject szzzMonthJson = JSON.parseObject(rsJson);
+        JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
+        JSONArray trends = JSON.parseArray(szzzMonthDataJson.getString("trends"));
+//        System.out.println(trends);
+        for (Object timePoint : trends) {
+            String timePointStr = (String) timePoint;
+            timePointList.add(timePointStr);
+        }
+
+        BigDecimal dayPointMax = new BigDecimal(0);
+        BigDecimal dayPointMin = new BigDecimal(0);
+        String dayPointTimeMax = "";
+        String dayPointTimeMin = "";
+        boolean init = false;
+        for (int i = 0; i <= timePointList.size() - 1; i++) {
+            //"2021-04-23 09:30,2857.23,60147,2857.226"
+            String timePoint = timePointList.get(i);
+            String[] timePointArray = timePoint.split(",");
+            String dateTime = timePointArray[0];
+            String date = dateTime.substring(0, 10);
+            //指定具体日期
+            if (!curDate.equals(date)) {
+                continue;
+            }
+            String point = timePointArray[1];
+//            String count = timePointArray[2];
+//            String point2 = timePointArray[3];
+            //初始化
+            if (!init) {
+                init = true;
+                dayPointMax = new BigDecimal(point);
+                dayPointTimeMax = dateTime.substring(dateTime.indexOf(" "));
+                dayPointMin = new BigDecimal(point);
+                dayPointTimeMin = dateTime.substring(dateTime.indexOf(" "));
+            }
+
+            //比较最大最小
+            BigDecimal curPoint = new BigDecimal(point);
+            if (curPoint.compareTo(dayPointMin) <= 0) {
+                dayPointMin = new BigDecimal(point);
+                dayPointTimeMin = dateTime.substring(dateTime.indexOf(" ") + 1);
+                rankBizDataDiff.setPt_time_min(dayPointTimeMin);
+            }
+            if (curPoint.compareTo(dayPointMax) >= 0) {
+                dayPointMax = new BigDecimal(point);
+                dayPointTimeMax = dateTime.substring(dateTime.indexOf(" ") + 1);
+                rankBizDataDiff.setPt_time_max(dayPointTimeMax);
+            }
+        }
+//        System.out.println("最大值：" + dayPointTimeMax + "---" + dayPointMax);
+//        System.out.println("最小值：" + dayPointTimeMin + "---" + dayPointMin);
+
+        //sql
+//        System.out.println("UPDATE `" + table + "` " +
+//                "SET " +
+//                "`" + field1 + "`='" + dayPointTimeMin + "'" + "," +
+//                "`" + field2 + "`='" + dayPointTimeMax + "'" +
+//                " WHERE (`CODE`='" + curDate + "') AND fupan.period='1'" + " AND fupan.TYPE=1;");
+    }
+
 }

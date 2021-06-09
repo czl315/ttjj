@@ -128,4 +128,14 @@ public interface RandBizEtfMapper {
             "</script>"})
     void updateEtfNet(RankBizDataDiff entity);
 
+    @Update({"<script>",
+            "update rank_st_biz",
+            "  <set>",
+            "    <if test='pt_time_min != null'>pt_time_min=#{pt_time_min},</if>",
+            "    <if test='pt_time_max != null'>pt_time_max=#{pt_time_max},</if>",
+            "  </set>",
+            "where date=#{date} AND f12=#{f12}",
+            "</script>"})
+    void updateDbEtfNetMaxMinTimeByDate(RankBizDataDiff entity);
+
 }

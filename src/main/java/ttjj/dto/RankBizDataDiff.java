@@ -328,6 +328,31 @@ public class RankBizDataDiff {
     private Double NET_MAX_CLOS_180;
     private Double NET_MAX_CLOS_360;
 
+    /**
+     * pt_time_min 指数时间点-最小值
+     */
+    private String pt_time_min;
+    /**
+     * pt_time_max 指数时间点-最大值
+     */
+    private String pt_time_max;
+
+    public String getPt_time_min() {
+        return pt_time_min;
+    }
+
+    public void setPt_time_min(String pt_time_min) {
+        this.pt_time_min = pt_time_min;
+    }
+
+    public String getPt_time_max() {
+        return pt_time_max;
+    }
+
+    public void setPt_time_max(String pt_time_max) {
+        this.pt_time_max = pt_time_max;
+    }
+
     public String getRs() {
         return rs;
     }

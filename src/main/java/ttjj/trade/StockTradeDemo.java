@@ -33,11 +33,11 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=05794622121237; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210603224752594-11923323313501-9677366381; mobileimei=816b1507-b285-443c-9186-cf8acf534b79; Uuid=fb675a3f80dc4604be3b91fa1273c821; monitor_count=28";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=85627463783666; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210608223442889-11923323313501-1732885788; st_asi=delete; mobileimei=32849334-b809-4a44-b4da-37550312e4fa; Uuid=7c65a3739b8a4e8bbb4a4e9e5a1c04e5; monitor_count=10";
 
     public static void main(String[] args) {
-        boolean showBuyOrSell = true;//新增赎回
-//        boolean showBuyOrSell = false;//新增赎回
+//        boolean showBuyOrSell = true;//新增赎回
+        boolean showBuyOrSell = false;//新增赎回
 //        int showTypeNet = 1;//最新一天
         int showTypeNet = 365;//最新一年内
 
@@ -65,24 +65,24 @@ public class StockTradeDemo {
 //            updateConception(stockTradeList);
         }
 
-
+        List<StockTrade> myStockTradeList = listMyStock();//查询我的列表
         if (showTypeNet == 1) {
             // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
-            showUpdateDbMaxMinNetByDays(1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
+            showUpdateDbMaxMinNetByDays(myStockTradeList,1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
+            showUpdateDbMaxMinNetByDays(myStockTradeList, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
         }
 
         if (showTypeNet == 365) {
             // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
-            showUpdateDbMaxMinNetByDays(1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
-            showUpdateDbMaxMinNetByDays(7, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
-            showUpdateDbMaxMinNetByDays(14, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
-            showUpdateDbMaxMinNetByDays(30, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
-            showUpdateDbMaxMinNetByDays(60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
-            showUpdateDbMaxMinNetByDays(90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
-            showUpdateDbMaxMinNetByDays(180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
-            showUpdateDbMaxMinNetByDays(365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
+            showUpdateDbMaxMinNetByDays(myStockTradeList, 1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
+            showUpdateDbMaxMinNetByDays(myStockTradeList, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
+            showUpdateDbMaxMinNetByDays(myStockTradeList, 7, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
+            showUpdateDbMaxMinNetByDays(myStockTradeList, 14, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
+            showUpdateDbMaxMinNetByDays(myStockTradeList, 30, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
+            showUpdateDbMaxMinNetByDays(myStockTradeList, 60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
+            showUpdateDbMaxMinNetByDays(myStockTradeList, 90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
+            showUpdateDbMaxMinNetByDays(myStockTradeList, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
+            showUpdateDbMaxMinNetByDays(myStockTradeList, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
         }
     }
 
@@ -449,7 +449,6 @@ public class StockTradeDemo {
         double baseRiskStLoss = 0.95;
         double baseRiskStProfit = 1.15;
 
-
         //指数
         List<String> typeListZhiShu = new ArrayList<>();
         typeListZhiShu.add("510050");//50ETF
@@ -467,6 +466,8 @@ public class StockTradeDemo {
         typeListZhiShu.add("159880");//有色50
         typeListZhiShu.add("512000");//券商ETF
         typeListZhiShu.add("512170");//医疗ETF
+        typeListZhiShu.add("515030");//新汽车
+        typeListZhiShu.add("510880");//红利ETF
 //        typeListZhiShu.add("160416");//石油基金
 //        typeListZhiShu.add("159915");//创业板
 //        typeListZhiShu.add("588090");//科创板
@@ -736,6 +737,17 @@ public class StockTradeDemo {
             rs.add(stockTradeTemp);
         }
 
+        List<String> typeListGyzp = new ArrayList<>();
+        typeListGyzp.add("603398");//邦宝益智
+        for (String zqdm : typeListGyzp) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("工艺商品");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
 
         //酿酒行业
         List<String> typeListNiangJiu = new ArrayList<>();
@@ -780,11 +792,11 @@ public class StockTradeDemo {
     /**
      * 更新最新净值-限定时间段的最大最小净值
      *
+     * @param stockTradeList
      * @param days
      * @param dbFieldLastNetMin
      */
-    private static void showUpdateDbMaxMinNetByDays(int days, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
-        List<StockTrade> stockTradeList = listMyStock();//查询我的列表
+    private static void showUpdateDbMaxMinNetByDays(List<StockTrade> stockTradeList, int days, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
         for (StockTrade stockTradeTemp : stockTradeList) {
             //查询 -限定时间段的最大最小净值
 //            LsjzUtil.findJzMaxMin(fundTrade.getZqdm(), days);
@@ -1121,11 +1133,11 @@ public class StockTradeDemo {
                 //发生日期时间格式化
                 Date tradeTimeDate = null;
                 try {
-                    tradeTimeDate = new SimpleDateFormat("yyyyMMdd hhmmss").parse(stockTrade.getCjrq() + " " + stockTrade.getCjsj());
+                    tradeTimeDate = new SimpleDateFormat("yyyyMMdd HHmmss").parse(stockTrade.getCjrq() + " " + stockTrade.getCjsj());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                String tradeTimeDateStr = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(tradeTimeDate);
+                String tradeTimeDateStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(tradeTimeDate);
 
                 StringBuffer sb = new StringBuffer();
                 sb.append("UPDATE `stock_trade` " +

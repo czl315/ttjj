@@ -32,7 +32,7 @@ public class TrendsDemo {
 
     public static void main(String[] args) {
         String curDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-//        String curDate = "2021-05-21";
+//        String curDate = "2021-06-04";
         findTrends("", "fupan", SHANG_HAI, 5, curDate, "pt_sh_time_min", "pt_sh_time_max");//查询指定指数的最大值时间、最小值时间
         findTrends("", "fupan", SH_50_000016, 5, curDate, "pt_sh50_time_min", "pt_sh50_time_max");//查询指定指数的最大值时间、最小值时间
         findTrends("", "fupan", HS_300_000300, 5, curDate, "pt_hs300_time_min", "pt_hs300_time_max");//查询指定指数的最大值时间、最小值时间
