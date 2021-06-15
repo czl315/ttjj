@@ -1,4 +1,4 @@
-package ttjj.fupan;
+package ttjj.rank;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -8,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import ttjj.dao.MyBatisUtils;
 import ttjj.db.Fupan;
-import ttjj.trade.StockTradeDemo;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
@@ -62,7 +61,7 @@ public class FupanDemo {
 //            String date = "2021-05-21";
 
         if (showDaPanKline) {
-            String cookie = "";//
+            String cookie = "";
             //k线
             int count = 1;
 

@@ -1,4 +1,4 @@
-package ttjj.trade;
+package ttjj.rank;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;

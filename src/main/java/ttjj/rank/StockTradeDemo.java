@@ -1,4 +1,4 @@
-package ttjj.trade;
+package ttjj.rank;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -33,30 +33,33 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=85627463783666; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210608223442889-11923323313501-1732885788; st_asi=delete; mobileimei=32849334-b809-4a44-b4da-37550312e4fa; Uuid=7c65a3739b8a4e8bbb4a4e9e5a1c04e5; monitor_count=10";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=26424925034453; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210615215600916-11923323313501-8905547389; st_asi=delete; mobileimei=0133cc45-6a7e-40bb-b4dd-0748bdfab046; Uuid=945718eea32f451e88a731d466f49ee8; monitor_count=6";
 
     public static void main(String[] args) {
-//        boolean showBuyOrSell = true;//新增赎回
-        boolean showBuyOrSell = false;//新增赎回
+        boolean showBuyOrSell = true;//新增赎回
+//        boolean showBuyOrSell = false;//新增赎回
+        boolean sellDbFlag = true;//赎回
+//        boolean sellDbFlag = false;//赎回
 //        int showTypeNet = 1;//最新一天
         int showTypeNet = 365;//最新一年内
 
-        if (showBuyOrSell) {
-            String validatekey = "";
-
-//            String startDate = "2021-05-01";//查询新增交易的开始时间
+//            String startDate = "2021-03-19";//查询新增交易的开始时间
             String startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             String endDate = "2021-12-31";
+//            String endDate = "2021-03-19";
+        if (showBuyOrSell) {
             //显示插入数据库语句
             String bizTypeBuy = "1";//0-全部;1-申购;2-卖出;
             String insertStartDate = startDate;//查询新增交易的开始时间
             String insertEndDate = endDate;//查询新增交易的结束时间
-            showInsertDb(COOKIE_DFCF, validatekey, insertStartDate, insertEndDate, bizTypeBuy);
+            showInsertDb(COOKIE_DFCF, "", insertStartDate, insertEndDate, bizTypeBuy);
+        }
 
+        if (sellDbFlag) {
             //  赎回
             String sellStartDate = startDate;
             String sellEndDate = endDate;
-            showDbRedem(COOKIE_DFCF, validatekey, sellStartDate, sellEndDate);
+            showDbRedem(COOKIE_DFCF, "", sellStartDate, sellEndDate);
         }
 
         //更新题材概念
@@ -269,23 +272,6 @@ public class StockTradeDemo {
                 return;
             }
         }
-//
-//        //指数
-//        List<String> typeListZhiShu = new ArrayList<>();
-//        typeListZhiShu.add("510050");//50ETF
-//        typeListZhiShu.add("159915");//创业板
-//        typeListZhiShu.add("510310");//HS300ETF
-//        typeListZhiShu.add("159982");//中证500
-//        typeListZhiShu.add("588090");//科创板
-//        typeListZhiShu.add("588080");//科创板50
-//        typeListZhiShu.add("159949");//创业板50
-//        typeListZhiShu.add("513550");//港股通50
-//        if (typeListZhiShu.contains(fundTrade.getZqdm())) {
-//            fundTrade.setBizTy("指数");
-//            fundTrade.setRiskStLoss(baseRiskStLoss);
-//            fundTrade.setRiskStProfit(baseRiskStProfit);
-//            return;
-//        }
 //
 //        //传媒
 //        List<String> typeListChuanMei = new ArrayList<>();

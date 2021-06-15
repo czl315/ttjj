@@ -3,8 +3,6 @@ package ttjj.point;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.lang3.StringUtils;
-import ttjj.trade.StockTradeDemo;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
