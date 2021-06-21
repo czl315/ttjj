@@ -746,6 +746,16 @@ public class RankStockBizCompany {
                 "");
         String rs = HttpUtil.sendGet(url, urlParam.toString(), "");
 //        System.out.println(rs);
+        /**
+         * 如果返回异常，n次重试
+         */
+        for (int i = 0; i < 10; i++) {
+            if (StringUtils.isBlank(rs)) {
+                rs = HttpUtil.sendGet(url, urlParam.toString(), "");
+            } else {
+                break;
+            }
+        }
         if (rs == null) {
             return null;
         }
@@ -758,6 +768,10 @@ public class RankStockBizCompany {
 
         JSONObject rsJsonObj = JSONObject.parseObject(rs);
 //        System.out.println(rs);//返回结果
+        if (!rsJsonObj.containsKey("data")) {
+            System.out.println("data返回结果异常");//返回结果
+            return null;
+        }
         JSONObject rsJsonData = rsJsonObj.getJSONObject("data");
         JSONArray rsJsonDataDiff = rsJsonData.getJSONArray("diff");
         List<RankStockCommpanyDb> rankBizDataDiffList = JSON.parseArray(JSON.toJSONString(rsJsonDataDiff), RankStockCommpanyDb.class);

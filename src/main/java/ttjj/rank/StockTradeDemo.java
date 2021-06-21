@@ -29,23 +29,29 @@ public class StockTradeDemo {
      * sqlSessionFactory mybatis
      */
     static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
+    static String type_selling = "证券买入(卖出中)";
     static String keyRsMin = "rsMin";
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=26424925034453; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210615215600916-11923323313501-8905547389; st_asi=delete; mobileimei=0133cc45-6a7e-40bb-b4dd-0748bdfab046; Uuid=945718eea32f451e88a731d466f49ee8; monitor_count=6";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=59566858401646; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210621220718935-11923323313501-8279675288; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=4ac219fe-9df6-4f72-b132-bdecb8ddbf6f; Uuid=0766c0ba31094626b3373ffa3f5605f2; monitor_count=3";
 
     public static void main(String[] args) {
-        boolean showBuyOrSell = true;//新增赎回
-//        boolean showBuyOrSell = false;//新增赎回
-        boolean sellDbFlag = true;//赎回
-//        boolean sellDbFlag = false;//赎回
-//        int showTypeNet = 1;//最新一天
-        int showTypeNet = 365;//最新一年内
+        boolean tradeEnd = false;//"盘中交易-未结束"
+//        boolean tradeEnd = true;//"盘后交易结束"
+
+        boolean showBuyOrSell = false;//新增赎回
+        boolean sellDbFlag = false;//赎回
+        int showTypeNet = 1;//最新一天
+        if (tradeEnd) {
+            showBuyOrSell = true;//新增赎回
+            sellDbFlag = true;//赎回
+            showTypeNet = 365;//最新一年内
+        }
 
 //            String startDate = "2021-03-19";//查询新增交易的开始时间
-            String startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-            String endDate = "2021-12-31";
+        String startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String endDate = "2021-12-31";
 //            String endDate = "2021-03-19";
         if (showBuyOrSell) {
             //显示插入数据库语句
@@ -71,7 +77,7 @@ public class StockTradeDemo {
         List<StockTrade> myStockTradeList = listMyStock();//查询我的列表
         if (showTypeNet == 1) {
             // 更新最新净值-限定时间段的最大最小净值
-            showUpdateDbMaxMinNetByDays(myStockTradeList,1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
+            showUpdateDbMaxMinNetByDays(myStockTradeList, 1, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
             showUpdateDbMaxMinNetByDays(myStockTradeList, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
         }
 
@@ -507,7 +513,7 @@ public class StockTradeDemo {
             rs.add(stockTradeTemp);
         }
 
-        List<String> typeListTxhy= new ArrayList<>();
+        List<String> typeListTxhy = new ArrayList<>();
 //        typeListTxhy.add("600745");//闻泰科技
         for (String zqdm : typeListTxhy) {
             StockTrade stockTradeTemp = new StockTrade();
@@ -771,6 +777,18 @@ public class StockTradeDemo {
 //            stockTradeTemp.setZqdm(zqdm);
 //            rs.add(stockTradeTemp);
 //        }
+
+        //机械行业
+        List<String> typeListJxhy = new ArrayList<>();
+        typeListJxhy.add("605259");//绿田机械
+        for (String zqdm : typeListJxhy) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("机械行业");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
 
         return rs;
     }
