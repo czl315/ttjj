@@ -753,7 +753,7 @@ public class BizRankDemo {
 //        StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("&StartDate=").append(startDate);
 
-//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
+//        System.out.println("请求url:"+url);
         String rs = HttpUtil.sendGet(url, "", cookie);
         /**
          * 如果返回异常，n次重试

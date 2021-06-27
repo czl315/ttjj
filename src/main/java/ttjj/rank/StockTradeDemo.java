@@ -34,11 +34,11 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=59566858401646; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210621220718935-11923323313501-8279675288; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=4ac219fe-9df6-4f72-b132-bdecb8ddbf6f; Uuid=0766c0ba31094626b3373ffa3f5605f2; monitor_count=3";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=18551099499475; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210625233200913-11923323313501-0526852325; mobileimei=975e4908-f941-40f8-89bc-7194599731a9; Uuid=8e0ac520b3564c3d845c8096f02d4198; monitor_count=35";
 
     public static void main(String[] args) {
-        boolean tradeEnd = false;//"盘中交易-未结束"
-//        boolean tradeEnd = true;//"盘后交易结束"
+//        boolean tradeEnd = false;//"盘中交易-未结束"
+        boolean tradeEnd = true;//"盘后交易结束"
 
         boolean showBuyOrSell = false;//新增赎回
         boolean sellDbFlag = false;//赎回
@@ -460,6 +460,7 @@ public class StockTradeDemo {
         typeListZhiShu.add("512170");//医疗ETF
         typeListZhiShu.add("515030");//新汽车
         typeListZhiShu.add("510880");//红利ETF
+        typeListZhiShu.add("515790");//光伏ETF
 //        typeListZhiShu.add("160416");//石油基金
 //        typeListZhiShu.add("159915");//创业板
 //        typeListZhiShu.add("588090");//科创板

@@ -43,8 +43,8 @@ public class FupanDemo {
         boolean showDaPanKline = true;//显示-大盘指数
 //        boolean showDaPanKline = false;//不显示-大盘指数
 
-        boolean showMyStock = true;//显示-我的股票
-//        boolean showMyStock = false;//不显示-我的股票
+//        boolean showMyStock = true;//显示-我的股票
+        boolean showMyStock = false;//不显示-我的股票
 //
 //        boolean showMyTtjj = true;//显示-我的基金
         boolean showMyTtjj = false;//不显示-我的基金
@@ -55,8 +55,8 @@ public class FupanDemo {
         String earn_fund = "0";
 
         String cookieDfcf = StockTradeDemo.COOKIE_DFCF;
-        String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-        String dateType = "1";//1：一天;7:周;30:月;
+        String klt = "102";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
+        String dateType = "7";//1：一天;7:周;30:月;
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 //            String date = "2021-05-21";
 
