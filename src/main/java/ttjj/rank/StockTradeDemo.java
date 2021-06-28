@@ -34,7 +34,7 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=18551099499475; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210625233200913-11923323313501-0526852325; mobileimei=975e4908-f941-40f8-89bc-7194599731a9; Uuid=8e0ac520b3564c3d845c8096f02d4198; monitor_count=35";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=19241112962464; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210628185226801-11923323313501-4503215833; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=635596d5-9350-4a62-9b3f-f28589f38cf5; Uuid=20f355b9d7524c1da73d96cac88f17f9; monitor_count=7";
 
     public static void main(String[] args) {
 //        boolean tradeEnd = false;//"盘中交易-未结束"
@@ -669,6 +669,7 @@ public class StockTradeDemo {
 
         //民航机场
         List<String> typeListMhjc = new ArrayList<>();
+        typeListMhjc.add("600009");//上海机场
 //        typeListMhjc.add("600115");//东方航空
 //        typeListMhjc.add("601021");//春秋航空
         for (String zqdm : typeListMhjc) {
