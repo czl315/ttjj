@@ -7,14 +7,19 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import ttjj.dao.MyBatisUtils;
+import ttjj.db.FundRank;
 import ttjj.db.Fupan;
+import ttjj.dto.Asset;
+import ttjj.dto.AssetPosition;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 上证指数
@@ -45,14 +50,12 @@ public class FupanDemo {
 
         boolean showMyStock = true;//显示-我的股票
 //        boolean showMyStock = false;//不显示-我的股票
+
+        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓
+//        boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
 //
 //        boolean showMyTtjj = true;//显示-我的基金
         boolean showMyTtjj = false;//不显示-我的基金
-
-        String amt = "";
-        String amt_fund = "0";
-        String amt_fund_last = "0";
-        String earn_fund = "0";
 
         String cookieDfcf = StockTradeDemo.COOKIE_DFCF;
         String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
@@ -74,7 +77,7 @@ public class FupanDemo {
             updateDb(findFupanPointByKline(cookie, CYB, count, klt, dateType, date));//创业板
             System.out.println();
 
-        //k线-日线-行业指数
+            //k线-日线-行业指数
             updateDb(findFupanPointByKline(cookie, BIZ_QUANSHANG, count, klt, dateType, date));
 
         }
@@ -85,6 +88,12 @@ public class FupanDemo {
             updateDb(FupanMyStock);
         }
 
+        if (updateMyStockAssetPosition) {
+            //更新-我的股票-资产持仓
+            Fupan fupanMyStockAssetPosition = queryMyStockAssetPosition(cookieDfcf, dateType, date);
+            updateMyStockAssetPosition(fupanMyStockAssetPosition);
+        }
+
 //        if (showMyTtjj) {
 //            //显示每日收益-天天基金
 //            String cookieTtjj = "https://trade.1234567.com.cn/MyAssets/bankcardtb-banktbb=0; FundTradeLoginCard=0; FundTradeLoginTab=0; __guid=234620763.2234479903904567600.1595670543743.7263; st_si=75897173483057; st_asi=delete; FundTradeLoginUser=eSyBdwCDNI88w5CvIMRXefDBulaL560isdMdYBPJYPfeNkG97pJ1xeXBCIeV1ePMzYOoSkxz; fund_trade_cn=eYF4gJ3qrhs+PKIutFPCD4UKx77lRkQOrpJwYL50KMLTPYp14Z6DGcxkYFRmNqkLI5+3HlkbFa38aDi7kq+GXwizujwcKp7vd8MdBUuES/lP0vjwI5w=; fund_trade_name=eblm8ZTqFI07SdoAThR8onnxmD3Lq2pc/ykvY4m/JLdBYkaly3XIwfXfSsP6Xn9MVYWN/0uI; fund_trade_visitor=eNObSKvJ7IwWDFY0qeRnFpcVhjFLtsDLDkGlYwPhhyS5LkCkyOshjMXtlqX4J7LMXsxNzC6G; fund_trade_risk=ejg1/dcN6IxiQyIGYlR4e9OqTU2LKo9elEtmYeudX8j2MkNYSJX10xX1C+rJyldMnIsF6FRg; fund_trade_gps=2; VipLevel=0; TradeLoginToken=7617397110c94aaf9729d08f0ee68f70; UTOKEN=eYF4gJ3qrhs+PKIutFPCD4UKx77lRkQOrpJwYL50KMLTPYp14Z6DGcxkYFRmNqkLI5+3HpkPC6z4IzgzW81sXFuHmEmRpSYrHGMHOBNRTUZGNXNCtrQ=; LToken=9ecb06d8d1cd4d1db8157ea5794c5f48; fund_trade_trackid=qGufvhAXV1DDvDlRSiPVNEYjzjEIZUt69z6kHBc9je5OqdQCNjuVyIblV0B+zF5RUyXwUB0Sj3a7xwmf/4hgIQ==; b_p_log_key=LN4iAOH8if7VQBi4jiFlkfxvm2tLFX7g4WlP7SJxVwdatcYMQnsJkIci6HlT9k8dR9KbvRcmjBAYOrsSqxQqSGeAtEqb1+tnd1pl6U0ysdsd7bS98Qo=; ASP.NET_SessionId=pje40u0wqsmcip1dvc3a2dal; b_pl_bq=77bcd74f069146b390f0f9e7d47c7e46; monitor_count=14; st_pvi=34528644972697; st_sp=2020-03-21%2009%3A52%3A13; st_inirUrl=https%3A%2F%2Flogin.1234567.com.cn%2Flogin; st_sn=28; st_psi=20210331234529129-1190151312948-9502758665";
@@ -93,6 +102,10 @@ public class FupanDemo {
 //        }
 
         if (showMyTtjj) {
+            String amt = "";
+            String amt_fund = "0";
+            String amt_fund_last = "0";
+            String earn_fund = "0";
             Fupan FupanMyFund = handlerFundByTtjj(amt, amt_fund, amt_fund_last, earn_fund, date, dateType);
             updateDb(FupanMyFund);
         }
@@ -109,6 +122,23 @@ public class FupanDemo {
         int rs = 0;
         try {
             rs = session.update("ttjj.dao.mapper.FupanMapper.updateFupan", fupan);
+            session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * 更新-我的股票-资产持仓
+     *
+     * @param fupan
+     */
+    private static int updateMyStockAssetPosition(Fupan fupan) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.update("ttjj.dao.mapper.FupanMapper.updateMyStockAssetPosition", fupan);
             session.commit();
         } finally {
             session.close();
@@ -241,6 +271,84 @@ public class FupanDemo {
     }
 
     /**
+     * 查询-我的股票-资产持仓
+     *
+     * @param cookie
+     * @param dateType
+     * @param date
+     * @return
+     */
+    private static Fupan queryMyStockAssetPosition(String cookie, String dateType, String date) {
+        String url = "https://jywg.18.cn/Com/queryAssetAndPositionV1?validatekey=734d22f9-364d-4460-bac6-e6df18953822&moneyType=RMB";
+
+        StringBuffer urlParam = new StringBuffer();
+//        urlParam.append("moneyType=").append("RMB");
+
+//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
+        String assetPositionRs = HttpUtil.sendPost(url, urlParam.toString(), cookie);
+        System.out.println("queryAssetPositionRs:" + assetPositionRs);
+
+        JSONObject assetPositionRsJsonObject = JSON.parseObject(assetPositionRs);
+        JSONArray assetPositionDataArray = JSON.parseArray(assetPositionRsJsonObject.getString("Data"));
+        for (int i = 0; i < assetPositionDataArray.size(); i++) {
+            Asset asset = JSON.parseObject(assetPositionDataArray.getString(i), Asset.class);
+            List<AssetPosition> assetPositionList = asset.getPositions();
+            List<AssetPosition> assetPositionListSortLjyk = assetPositionList.stream().filter(e -> e != null).sorted(Comparator.comparing(AssetPosition::getLjyk, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            List<AssetPosition> assetPositionListSortDryk = assetPositionList.stream().filter(e -> e != null).sorted(Comparator.comparing(AssetPosition::getDryk, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            List<AssetPosition> assetPositionListSortDrykbl = assetPositionList.stream().filter(e -> e != null).sorted(Comparator.comparing(AssetPosition::getDrykbl, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            System.out.println("排序-当日盈亏比例：");
+            for (AssetPosition assetPosition : assetPositionListSortDrykbl) {
+                BigDecimal drykbl = assetPosition.getDrykbl();
+                BigDecimal dryk = assetPosition.getDryk();
+                if (drykbl == null) {
+                    drykbl = new BigDecimal(0);
+                }
+                if (dryk == null) {
+                    dryk = new BigDecimal(0);
+                }
+                System.out.println(assetPosition.getZqmc() + "\t，当日盈亏:" + assetPosition.getDryk() + "\t，当日盈亏比例:" + drykbl.multiply(new BigDecimal("100")) + "%"
+                        + "\t，累计盈亏:" + assetPosition.getLjyk() + "\t，累计盈亏比例:" + dryk.multiply(new BigDecimal("100")) + "%" + "\t，持款成本:" + assetPosition.getCkcb());
+            }
+            System.out.println("排序-当日盈亏：");
+            for (AssetPosition assetPosition : assetPositionListSortDryk) {
+                BigDecimal drykbl = assetPosition.getDrykbl();
+                BigDecimal dryk = assetPosition.getDryk();
+                if (drykbl == null) {
+                    drykbl = new BigDecimal(0);
+                }
+                if (dryk == null) {
+                    dryk = new BigDecimal(0);
+                }
+                System.out.println(assetPosition.getZqmc() + "\t，当日盈亏:" + assetPosition.getDryk() + "\t，当日盈亏比例:" + drykbl.multiply(new BigDecimal("100")) + "%"
+                        + "\t，累计盈亏:" + assetPosition.getLjyk() + "\t，累计盈亏比例:" + dryk.multiply(new BigDecimal("100")) + "%" + "\t，持款成本:" + assetPosition.getCkcb());
+            }
+            System.out.println("排序-累计盈亏：");
+            for (AssetPosition assetPosition : assetPositionListSortLjyk) {
+                BigDecimal drykbl = assetPosition.getDrykbl();
+                BigDecimal dryk = assetPosition.getDryk();
+                if (drykbl == null) {
+                    drykbl = new BigDecimal(0);
+                }
+                if (dryk == null) {
+                    dryk = new BigDecimal(0);
+                }
+                System.out.println(assetPosition.getZqmc() + "\t，当日盈亏:" + assetPosition.getDryk() + "\t，当日盈亏比例:" + drykbl.multiply(new BigDecimal("100")) + "%"
+                        + "\t，累计盈亏:" + assetPosition.getLjyk() + "\t，累计盈亏比例:" + dryk.multiply(new BigDecimal("100")) + "%" + "\t，持款成本:" + assetPosition.getCkcb());
+            }
+        }
+
+        Fupan fupanRs = new Fupan();
+        //where
+        fupanRs.setCode(date);
+        fupanRs.setPeriod(dateType);
+        fupanRs.setType("1");//实际
+        //setValue
+        fupanRs.setAssetPosition(assetPositionRs);
+        return fupanRs;
+
+    }
+
+    /**
      * @param count 最新n个
      */
     private static void szzsKlineMonth(int count) {
@@ -282,7 +390,8 @@ public class FupanDemo {
     }
 
 
-    static String closePointLast ="";//上一时段-收盘点位
+    static String closePointLast = "";//上一时段-收盘点位
+
     /**
      * 查询-ETF-指数
      *
@@ -323,7 +432,7 @@ public class FupanDemo {
 //                "f20,f21,f22,f23,f24,f25,f26,f27,f28,f29," +
 //                "f30,f31,f32,f33,f34,f35,f36,f37,f38,f39," +
 //                "f40,f41,f42,f43,f44,f45,f46,f47,f48,f49," +
-                "f50,f51,f52,f53,f54,f55,f56,f57,f58,f59,"+
+                "f50,f51,f52,f53,f54,f55,f56,f57,f58,f59," +
                 "f60,f61,f62,f63,f64,f65,f66,f67,f68,f69" +
 //                "f70,f71,f72,f73,f74,f75,f76,f77,f78,f79," +
 //                "f80,f81,f82,f83,f84,f85,f86,f87,f88,f89," +
@@ -370,7 +479,7 @@ public class FupanDemo {
         }
 
         //倒序
-        for (int i = 0; i <= klineList.size()-1; i++) {
+        for (int i = 0; i <= klineList.size() - 1; i++) {
             String klineStr = klineList.get(i);
             //  日期，开盘，收盘,最高，最低，成交量，成交额，振幅，涨跌幅，涨跌额，换手率
             //"2020-09-30,3389.74,3218.05,3425.63,3202.34,4906229054,6193724911616.00,6.58,-5.23,-177.63,13.40"

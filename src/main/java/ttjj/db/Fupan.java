@@ -88,6 +88,11 @@ public class Fupan {
     String earn_fund;
     String rt_zh;
 
+    /**
+     * assetPosition 资产持仓
+     */
+    String assetPosition;
+
     public String getRt_biz_qs() {
         return rt_biz_qs;
     }
@@ -558,5 +563,13 @@ public class Fupan {
 
     public void setPt_cyb50_max(String pt_cyb50_max) {
         this.pt_cyb50_max = pt_cyb50_max;
+    }
+
+    public String getAssetPosition() {
+        return assetPosition;
+    }
+
+    public void setAssetPosition(String assetPosition) {
+        this.assetPosition = assetPosition;
     }
 }

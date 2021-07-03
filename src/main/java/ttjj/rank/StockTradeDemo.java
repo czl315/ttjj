@@ -34,7 +34,7 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=19241112962464; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210628185226801-11923323313501-4503215833; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=635596d5-9350-4a62-9b3f-f28589f38cf5; Uuid=20f355b9d7524c1da73d96cac88f17f9; monitor_count=7";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=52930205075047; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=4; st_psi=20210702222943619-11923323313501-0808094317; mobileimei=6fe06d0a-a45f-4d97-a879-9ece4ef4ee87; Uuid=03e4639804ab483a8f6fcda4ccf9d79c; monitor_count=32";
 
     public static void main(String[] args) {
 //        boolean tradeEnd = false;//"盘中交易-未结束"
@@ -461,6 +461,7 @@ public class StockTradeDemo {
         typeListZhiShu.add("515030");//新汽车
         typeListZhiShu.add("510880");//红利ETF
         typeListZhiShu.add("515790");//光伏ETF
+        typeListZhiShu.add("159825");//农业ETF
 //        typeListZhiShu.add("160416");//石油基金
 //        typeListZhiShu.add("159915");//创业板
 //        typeListZhiShu.add("588090");//科创板
@@ -725,6 +726,17 @@ public class StockTradeDemo {
         for (String zqdm : typeListJinRong) {
             StockTrade stockTradeTemp = new StockTrade();
             stockTradeTemp.setBizTy("金融");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
+        List<String> typeListYinHang = new ArrayList<>();
+        typeListYinHang.add("601398");//工商银行
+        for (String zqdm : typeListYinHang) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("银行");
             stockTradeTemp.setRiskStLoss(baseRiskStLoss);
             stockTradeTemp.setRiskStProfit(baseRiskStProfit);
             stockTradeTemp.setZqdm(zqdm);

@@ -85,4 +85,17 @@ public interface FupanMapper {
             "</script>"})
     void updateFupan(Fupan fupan);
 
+    /**
+     * 新-我的股票-资产持仓-只有为空时才更新
+     * @param fupan
+     */
+    @Update({"<script>",
+            "update fupan",
+            "  <set>",
+            "    <if test='assetPosition != null'>assetPosition=#{assetPosition},</if>",
+            "  </set>",
+            "where CODE=#{code} AND fupan.period=#{period} AND fupan.TYPE=#{type} AND (fupan.assetPosition=''OR fupan.assetPosition IS NULL)",
+            "</script>"})
+    void updateMyStockAssetPosition(Fupan fupan);
+
 }

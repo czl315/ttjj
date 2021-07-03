@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dto.Kline;
+import ttjj.dto.TradeHisBack;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
@@ -21,12 +22,97 @@ public class KlineHistoryTest {
 
     public static void main(String[] args) {
         String zqdm = "159949";
-        String begDate = "20200101";//查询新增交易的开始时间
-        String endDate = "20210625";
+        String begDate = "20210625";//查询新增交易的开始时间
+        String endDate = "20210628";
         String klt = "101";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 100;
         List<Kline> klines = kline(zqdm, lmt, klt, begDate, endDate);
 
+//        // 上涨或下跌因子
+//        addOrSubFactor(klines);
+
+        //交易回测
+        TradeHisBack tradeHisBack = tradeHistoryTest(klines);
+        System.out.println(JSON.toJSONString(tradeHisBack));
+
+    }
+
+    /**
+     * 交易回测
+     *
+     * @param klines
+     */
+    private static TradeHisBack tradeHistoryTest(List<Kline> klines) {
+        if (klines == null || klines.size()==0) {
+            System.out.println("k线数据不能为空！");
+        }
+        System.out.println("klines.size():" + klines.size());
+        //初始化交易历史回测数据
+        TradeHisBack tradeHisBack = new TradeHisBack();
+        tradeHisBack.setLmtAmt(new BigDecimal(100000));
+        tradeHisBack.setEachNum(new BigDecimal(5000));
+        tradeHisBack.setCash(new BigDecimal(100000));
+        tradeHisBack.setDownFactor(new BigDecimal("-0.01"));
+        tradeHisBack.setUpFactor(new BigDecimal("0.01"));
+        tradeHisBack.setHoldAmt(new BigDecimal(0));
+        tradeHisBack.setHoldNum(new BigDecimal(0));
+        tradeHisBack.setKtime("");
+        tradeHisBack.setMaxPrice(new BigDecimal(0));
+        tradeHisBack.setMinPrice(new BigDecimal(0));
+        tradeHisBack.setNowPrice(new BigDecimal(0));
+        for (Kline kline : klines) {
+            System.out.println("kline:"+JSON.toJSONString(kline));
+            tradeHisBack.setKtime(kline.getKtime());
+
+            //当前价
+            tradeHisBack.setNowPrice(kline.getOpenAmt());
+            if (kline.getCloseLastAmt().compareTo(BigDecimal.ZERO)>0 ) {
+                tradeHisBack.setNowPrice(kline.getCloseLastAmt());
+            }
+            BigDecimal nowPrice = tradeHisBack.getNowPrice();
+            BigDecimal minAmt = kline.getMinAmt();
+            BigDecimal maxAmt = kline.getMaxAmt();
+            //比较当前价与最低价，如果最低价低于下跌因子价格，卖出一定份额
+            if (nowPrice.compareTo(minAmt) > 0) {
+                BigDecimal spread = nowPrice.subtract(minAmt);
+                BigDecimal downPct = spread.divide(nowPrice, 2, BigDecimal.ROUND_HALF_DOWN);//下跌百分比
+                BigDecimal sellMultiple = downPct.divide(tradeHisBack.getDownFactor(), 1, BigDecimal.ROUND_HALF_DOWN);//卖出系数
+                int sellMultipleInt = sellMultiple.intValue();
+                for (int i = 0; i < sellMultipleInt; i++) {
+                    //计算n份，循环卖出,如果持有份额足够才能卖出
+                    BigDecimal remainNum = tradeHisBack.getHoldNum().subtract(tradeHisBack.getEachNum());
+                    if (remainNum.compareTo(BigDecimal.ZERO) > 0) {
+                        tradeHisBack.setHoldNum(remainNum);
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            //比较当前价与最高价，如果最高价高于上涨因子价格，买出一定份额
+            if (nowPrice.compareTo(maxAmt) < 0) {
+                BigDecimal spread = maxAmt.subtract(nowPrice);
+                BigDecimal upPct = spread.divide(nowPrice, 2, BigDecimal.ROUND_HALF_DOWN);//下跌百分比
+                BigDecimal buyMultiple = upPct.divide(tradeHisBack.getUpFactor(), 1, BigDecimal.ROUND_HALF_DOWN);//买入系数
+                int buyMultipleInt = buyMultiple.intValue();
+                for (int i = 0; i < buyMultipleInt; i++) {
+                    //计算n份，循环买入,如果现金足够才能买入
+                    BigDecimal buyAmt = nowPrice.multiply(tradeHisBack.getUpFactor().add(new BigDecimal(1)).multiply(tradeHisBack.getEachNum()));
+                    BigDecimal remainCashAmt = tradeHisBack.getCash().subtract(buyAmt);
+                    if(remainCashAmt.compareTo(BigDecimal.ZERO)>0){
+                        tradeHisBack.setCash(remainCashAmt);
+                        tradeHisBack.setHoldNum(tradeHisBack.getHoldNum().add(tradeHisBack.getEachNum()));
+                    }else{
+                        System.out.println("现金不足！");
+                        break;
+                    }
+                }
+            }
+        }
+        return tradeHisBack;
+    }
+
+    private static void addOrSubFactor(List<Kline> klines) {
         String addFactor = "0.4";//因子-上涨加速
         int closeZdfComAddFactorCountYes = 0;//因子-上涨加速-收盘涨跌幅-成功个数
         int closeZdfComAddFactorCountNo = 0;//因子-上涨加速-收盘涨跌幅-失败个数
@@ -54,9 +140,9 @@ public class KlineHistoryTest {
                         System.out.println();
                         System.out.print("开盘涨跌:" + openZdf + ",");
                         System.out.print("收盘涨跌幅-上涨加速因子:" + closeZdfComAddFactor + ",");
-                        if(closeZdfComAddFactor.compareTo(new BigDecimal(0)) >= 0){
+                        if (closeZdfComAddFactor.compareTo(new BigDecimal(0)) >= 0) {
                             closeZdfComAddFactorCountYes++;
-                        }else {
+                        } else {
                             closeZdfComAddFactorCountNo++;
                         }
                     } else {
@@ -71,9 +157,9 @@ public class KlineHistoryTest {
                         System.out.println();
                         System.out.print("开盘涨跌:" + openZdf + ",");
                         System.out.print("收盘涨跌幅-下跌加速因子:" + closeZdfComSubFactor + ",");
-                        if(closeZdfComSubFactor.compareTo(new BigDecimal(0)) > 0){
+                        if (closeZdfComSubFactor.compareTo(new BigDecimal(0)) > 0) {
                             closeZdfComSubFactorCountYes++;
-                        }else {
+                        } else {
                             closeZdfComSubFactorCountNo++;
                         }
                     } else {
@@ -91,15 +177,13 @@ public class KlineHistoryTest {
                 System.out.println();
             }
             System.out.println();
-            System.out.println("上涨加速-收盘涨跌幅-成功个数:"+closeZdfComAddFactorCountYes+",成功率："+new BigDecimal(""+closeZdfComAddFactorCountYes).divide(new BigDecimal(closeZdfComAddFactorCountYes+closeZdfComAddFactorCountNo),4,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)));
-            System.out.println("上涨加速-收盘涨跌幅-失败个数:"+closeZdfComAddFactorCountNo+",成功率："+new BigDecimal(""+closeZdfComAddFactorCountNo).divide(new BigDecimal(closeZdfComAddFactorCountYes+closeZdfComAddFactorCountNo),4,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)));
+            System.out.println("上涨加速-收盘涨跌幅-成功个数:" + closeZdfComAddFactorCountYes + ",成功率：" + new BigDecimal("" + closeZdfComAddFactorCountYes).divide(new BigDecimal(closeZdfComAddFactorCountYes + closeZdfComAddFactorCountNo), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)));
+            System.out.println("上涨加速-收盘涨跌幅-失败个数:" + closeZdfComAddFactorCountNo + ",成功率：" + new BigDecimal("" + closeZdfComAddFactorCountNo).divide(new BigDecimal(closeZdfComAddFactorCountYes + closeZdfComAddFactorCountNo), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)));
             System.out.println();
-            System.out.println("下跌-收盘涨跌幅-成功个数:"+closeZdfComSubFactorCountYes+",成功率："+new BigDecimal(""+closeZdfComSubFactorCountYes).divide(new BigDecimal(closeZdfComSubFactorCountYes+closeZdfComSubFactorCountNo),4,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)));
-            System.out.println("下跌-收盘涨跌幅-失败个数:"+closeZdfComSubFactorCountNo+",成功率："+new BigDecimal(""+closeZdfComSubFactorCountNo).divide(new BigDecimal(closeZdfComSubFactorCountYes+closeZdfComSubFactorCountNo),4,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)));
+            System.out.println("下跌-收盘涨跌幅-成功个数:" + closeZdfComSubFactorCountYes + ",成功率：" + new BigDecimal("" + closeZdfComSubFactorCountYes).divide(new BigDecimal(closeZdfComSubFactorCountYes + closeZdfComSubFactorCountNo), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)));
+            System.out.println("下跌-收盘涨跌幅-失败个数:" + closeZdfComSubFactorCountNo + ",成功率：" + new BigDecimal("" + closeZdfComSubFactorCountNo).divide(new BigDecimal(closeZdfComSubFactorCountYes + closeZdfComSubFactorCountNo), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)));
 
         }
-
-
     }
 
     /**
