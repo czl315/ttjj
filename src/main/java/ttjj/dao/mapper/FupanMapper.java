@@ -17,6 +17,14 @@ public interface FupanMapper {
     @Select("select * from fupan where id= #{id}")
     public Fupan getUserByID(int id);
 
+    /**
+     *
+     * @param fupan
+     * @return
+     */
+    @Select("select * from fupan where CODE=#{code} AND fupan.period=#{period}")
+    public Fupan findDbByDate(Fupan fupan);
+
     @Update({"<script>",
             "update fupan",
             "  <set>",

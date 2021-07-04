@@ -6,9 +6,11 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.BeanUtils;
 import ttjj.dao.MyBatisUtils;
-import ttjj.db.FundRank;
+import ttjj.db.AssetPositionDb;
 import ttjj.db.Fupan;
+import ttjj.db.StockTradeDb;
 import ttjj.dto.Asset;
 import ttjj.dto.AssetPosition;
 import utils.HttpUtil;
@@ -42,28 +44,29 @@ public class FupanDemo {
     static final String SH_50_000016 = "1.000016";
     static final String BIZ_QUANSHANG = "0.399975";
     static final String BIZ_BANDAOTI_XINPIAN_990001 = "0.007300";
+    static final String COOKIE_DFCF = StockTradeDemo.COOKIE_DFCF;
 
     public static void main(String[] args) {
+        boolean findDbMyPositionByDate = true;//从数据库中根据日期查询我的持仓盈亏
 
-        boolean showDaPanKline = true;//显示-大盘指数
-//        boolean showDaPanKline = false;//不显示-大盘指数
+//        boolean updateDaPanKline = true;//显示-大盘指数
+        boolean updateDaPanKline = false;//不显示-大盘指数
 
-        boolean showMyStock = true;//显示-我的股票
-//        boolean showMyStock = false;//不显示-我的股票
+//        boolean updateMyStock = true;//显示-我的股票
+        boolean updateMyStock = false;//不显示-我的股票
 
-        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓
-//        boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
+//        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓
+        boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
 //
-//        boolean showMyTtjj = true;//显示-我的基金
-        boolean showMyTtjj = false;//不显示-我的基金
+//        boolean updateMyTtjj = true;//显示-我的基金
+        boolean updateMyTtjj = false;//不显示-我的基金
 
-        String cookieDfcf = StockTradeDemo.COOKIE_DFCF;
         String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
         String dateType = "1";//1：一天;7:周;30:月;
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-//            String date = "2021-05-21";
+//            String date = "2021-06-30";
 
-        if (showDaPanKline) {
+        if (updateDaPanKline) {
             String cookie = "";
             //k线
             int count = 1;
@@ -82,16 +85,26 @@ public class FupanDemo {
 
         }
 
-        if (showMyStock) {
+        if (updateMyStock) {
             //显示股票每日收益
-            Fupan FupanMyStock = queryAssetByDfcfStock(cookieDfcf, dateType);
+            Fupan FupanMyStock = queryAssetByDfcfStock(COOKIE_DFCF, dateType);
             updateDb(FupanMyStock);
         }
 
         if (updateMyStockAssetPosition) {
             //更新-我的股票-资产持仓
-            Fupan fupanMyStockAssetPosition = queryMyStockAssetPosition(cookieDfcf, dateType, date);
+            Fupan fupanMyStockAssetPosition = queryMyStockAssetPosition(COOKIE_DFCF, dateType, date);
             updateMyStockAssetPosition(fupanMyStockAssetPosition);
+        }
+
+        //  从数据库中根据日期查询我的持仓盈亏
+        if (findDbMyPositionByDate) {
+            String findDate = "2021-07-02";//查询日期
+            String period = "1";
+            List<AssetPositionDb>  assetPositionList = findDbMyPositionByDate(findDate, period);
+            for (AssetPositionDb assetPosition : assetPositionList) {
+                insertDbFupanPosition(assetPosition);
+            }
         }
 
 //        if (showMyTtjj) {
@@ -101,7 +114,7 @@ public class FupanDemo {
 //            queryAssetByTtjj(cookieTtjj);
 //        }
 
-        if (showMyTtjj) {
+        if (updateMyTtjj) {
             String amt = "";
             String amt_fund = "0";
             String amt_fund_last = "0";
@@ -140,6 +153,42 @@ public class FupanDemo {
         try {
             rs = session.update("ttjj.dao.mapper.FupanMapper.updateMyStockAssetPosition", fupan);
             session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * @param condition
+     * @return
+     */
+    private static Fupan findDbByDate(Fupan condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        Fupan fupan = null;
+        try {
+            fupan = session.selectOne("ttjj.dao.mapper.FupanMapper.findDbByDate", condition);
+            session.commit();
+        } finally {
+            session.close();
+        }
+        return fupan;
+    }
+
+    /**
+     * 插入-复盘我的持仓明细
+     *
+     * @param entity
+     * @return
+     */
+    private static int insertDbFupanPosition(AssetPositionDb entity) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.insert("ttjj.dao.mapper.FupanPositionMapper.insert", entity);
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             session.close();
         }
@@ -345,6 +394,98 @@ public class FupanDemo {
         //setValue
         fupanRs.setAssetPosition(assetPositionRs);
         return fupanRs;
+
+    }
+
+    /**
+     * 从数据库中根据日期查询我的持仓盈亏
+     *
+     * @param date
+     * @param period
+     * @return
+     */
+    private static List<AssetPositionDb>  findDbMyPositionByDate(String date, String period) {
+        Fupan condition = new Fupan();
+        condition.setCode(date);
+        condition.setPeriod(period);
+        Fupan fupanDb = findDbByDate(condition);
+        String assetPositionRs = fupanDb.getAssetPosition();
+        System.out.println("findDbMyPositionByDate:" + assetPositionRs);
+
+        JSONObject assetPositionRsJsonObject = JSON.parseObject(assetPositionRs);
+        JSONArray assetPositionDataArray = JSON.parseArray(assetPositionRsJsonObject.getString("Data"));
+        List<AssetPosition> assetPositionListSortDrykbl = new ArrayList<>();
+        List<AssetPosition> assetPositionListSortLjyk = new ArrayList<>();
+        List<AssetPosition> assetPositionListSortDryk = new ArrayList<>();
+        for (int i = 0; i < assetPositionDataArray.size(); i++) {
+            Asset asset = JSON.parseObject(assetPositionDataArray.getString(i), Asset.class);
+            List<AssetPosition> assetPositionList = asset.getPositions();
+            assetPositionListSortLjyk = assetPositionList.stream().filter(e -> e != null).sorted(Comparator.comparing(AssetPosition::getLjyk, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            assetPositionListSortDryk = assetPositionList.stream().filter(e -> e != null).sorted(Comparator.comparing(AssetPosition::getDryk, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            assetPositionListSortDrykbl = assetPositionList.stream().filter(e -> e != null).sorted(Comparator.comparing(AssetPosition::getDrykbl, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            System.out.println("排序-当日盈亏比例：");
+            for (AssetPosition assetPosition : assetPositionListSortDrykbl) {
+                BigDecimal drykbl = assetPosition.getDrykbl();
+                BigDecimal dryk = assetPosition.getDryk();
+                BigDecimal ykbl = assetPosition.getYkbl();
+                if (drykbl == null) {
+                    drykbl = new BigDecimal(0);
+                }
+                if (dryk == null) {
+                    dryk = new BigDecimal(0);
+                }
+                if (ykbl == null) {
+                    ykbl = new BigDecimal(0);
+                }
+                System.out.println(assetPosition.getZqmc() + "\t，当日盈亏:" + dryk + "\t，当日盈亏比例:" + drykbl.multiply(new BigDecimal("100")) + "%"
+                        + "\t，累计盈亏:" + assetPosition.getLjyk() + "\t，累计盈亏比例:" + ykbl.multiply(new BigDecimal("100")) + "%" + "\t，持款成本:" + assetPosition.getCkcb());
+            }
+            System.out.println("排序-当日盈亏：");
+            for (AssetPosition assetPosition : assetPositionListSortDryk) {
+                BigDecimal drykbl = assetPosition.getDrykbl();
+                BigDecimal dryk = assetPosition.getDryk();
+                BigDecimal ykbl = assetPosition.getYkbl();
+                if (drykbl == null) {
+                    drykbl = new BigDecimal(0);
+                }
+                if (dryk == null) {
+                    dryk = new BigDecimal(0);
+                }
+                if (ykbl == null) {
+                    ykbl = new BigDecimal(0);
+                }
+                System.out.println(assetPosition.getZqmc() + "\t，当日盈亏:" + dryk + "\t，当日盈亏比例:" + drykbl.multiply(new BigDecimal("100")) + "%"
+                        + "\t，累计盈亏:" + assetPosition.getLjyk() + "\t，累计盈亏比例:" + ykbl.multiply(new BigDecimal("100")) + "%" + "\t，持款成本:" + assetPosition.getCkcb());
+            }
+            System.out.println("排序-累计盈亏：");
+            for (AssetPosition assetPosition : assetPositionListSortLjyk) {
+                BigDecimal drykbl = assetPosition.getDrykbl();
+                BigDecimal dryk = assetPosition.getDryk();
+                if (drykbl == null) {
+                    drykbl = new BigDecimal(0);
+                }
+                if (dryk == null) {
+                    dryk = new BigDecimal(0);
+                }
+                BigDecimal ykbl = assetPosition.getYkbl();
+                if (ykbl == null) {
+                    ykbl = new BigDecimal(0);
+                }
+                System.out.println(assetPosition.getZqmc() + "\t，当日盈亏:" + dryk + "\t，当日盈亏比例:" + drykbl.multiply(new BigDecimal("100")) + "%"
+                        + "\t，累计盈亏:" + assetPosition.getLjyk() + "\t，累计盈亏比例:" + ykbl.multiply(new BigDecimal("100")) + "%" + "\t，持款成本:" + assetPosition.getCkcb());
+            }
+        }
+
+        List<AssetPositionDb> assetPositionDbListSortDrykbl = new ArrayList<>();
+        for (AssetPosition assetPosition : assetPositionListSortDrykbl) {
+            AssetPositionDb assetPositionDb = new AssetPositionDb();
+            BeanUtils.copyProperties(assetPosition,assetPositionDb);
+            assetPositionDb.setAssetPosition(JSON.toJSONString(assetPosition));
+            assetPositionDb.setDate(date);
+            assetPositionDb.setPeriod(period);
+            assetPositionDbListSortDrykbl.add(assetPositionDb);
+        }
+        return assetPositionDbListSortDrykbl;
 
     }
 
