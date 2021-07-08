@@ -47,16 +47,18 @@ public class FupanDemo {
     static final String COOKIE_DFCF = StockTradeDemo.COOKIE_DFCF;
 
     public static void main(String[] args) {
-        boolean findDbMyPositionByDate = true;//从数据库中根据日期查询我的持仓盈亏
 
-//        boolean updateDaPanKline = true;//显示-大盘指数
-        boolean updateDaPanKline = false;//不显示-大盘指数
+        boolean updateDaPanKline = true;//显示-大盘指数
+//        boolean updateDaPanKline = false;//不显示-大盘指数
 
-//        boolean updateMyStock = true;//显示-我的股票
-        boolean updateMyStock = false;//不显示-我的股票
+        boolean updateMyStock = true;//显示-我的股票
+//        boolean updateMyStock = false;//不显示-我的股票
 
 //        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓
         boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
+
+//        boolean findDbMyPositionByDate = true;//从数据库中根据日期查询我的持仓盈亏
+        boolean findDbMyPositionByDate = false;//从数据库中根据日期查询我的持仓盈亏
 //
 //        boolean updateMyTtjj = true;//显示-我的基金
         boolean updateMyTtjj = false;//不显示-我的基金
@@ -99,7 +101,7 @@ public class FupanDemo {
 
         //  从数据库中根据日期查询我的持仓盈亏
         if (findDbMyPositionByDate) {
-            String findDate = "2021-07-02";//查询日期
+            String findDate = date;//查询日期
             String period = "1";
             List<AssetPositionDb>  assetPositionList = findDbMyPositionByDate(findDate, period);
             for (AssetPositionDb assetPosition : assetPositionList) {
