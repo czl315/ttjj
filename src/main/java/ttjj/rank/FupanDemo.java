@@ -7,12 +7,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.BeanUtils;
+import ttjj.dao.FupanPositionDao;
 import ttjj.dao.MyBatisUtils;
 import ttjj.db.AssetPositionDb;
 import ttjj.db.Fupan;
 import ttjj.db.StockTradeDb;
 import ttjj.dto.Asset;
 import ttjj.dto.AssetPosition;
+import ttjj.dto.Kline;
+import ttjj.service.KlineService;
+import utils.DateUtil;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
@@ -48,24 +52,25 @@ public class FupanDemo {
 
     public static void main(String[] args) {
 
-        boolean updateDaPanKline = true;//显示-大盘指数
-//        boolean updateDaPanKline = false;//不显示-大盘指数
+//        boolean updateDaPanKline = true;//显示-大盘指数
+        boolean updateDaPanKline = false;//不显示-大盘指数
 //        boolean updateMyStock = true;//显示-我的股票
         boolean updateMyStock = false;//不显示-我的股票
 //        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓
         boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
-//        boolean findDbMyPositionByDate = true;//从数据库中根据日期查询我的持仓盈亏
-        boolean findDbMyPositionByDate = false;//从数据库中根据日期查询我的持仓盈亏
-//        boolean updateDbFupanPositionByDate = true;//更新我的持仓盈亏明细
-        boolean updateDbFupanPositionByDate = false;//更新我的持仓盈亏明细
+        boolean findDbMyPositionByDate = true;//从数据库中根据日期查询我的持仓盈亏
+//        boolean findDbMyPositionByDate = false;//从数据库中根据日期查询我的持仓盈亏
+        boolean updateDbFupanPositionByDate = true;//更新我的持仓盈亏明细
+//        boolean updateDbFupanPositionByDate = false;//更新我的持仓盈亏明细
 //
 //        boolean updateMyTtjj = true;//显示-我的基金
         boolean updateMyTtjj = false;//不显示-我的基金
 
         String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
         String dateType = "1";//1：一天;7:周;30:月;
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-//            String date = "2021-06-14";
+//        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            String date = "2021-07-23";
+            String dateKlineYyyymmdd = "20210723";
 
         if (updateDaPanKline) {
             String cookie = "";
@@ -109,7 +114,30 @@ public class FupanDemo {
         //  更新我的持仓盈亏明细
         if(updateDbFupanPositionByDate){
             for (AssetPositionDb assetPosition : assetPositionList) {
-                insertDbFupanPosition(assetPosition);
+//                insertDbFupanPosition(assetPosition);//
+
+                //更新当日k线参数
+                List<Kline> klineList = KlineService.kline(assetPosition.getZqdm(),1,klt,dateKlineYyyymmdd,dateKlineYyyymmdd);
+                if(klineList!=null && klineList.size()>0){
+                    AssetPositionDb entity = new AssetPositionDb();
+                    entity.setZqdm(assetPosition.getZqdm());
+                    entity.setDate(assetPosition.getDate());
+
+                    Kline kline = klineList.get(0);
+                    entity.setOpenAmt(kline.getOpenAmt());
+                    entity.setCloseAmt(kline.getCloseAmt());
+//                    entity.setCloseLastAmt();//TODO 查询上一个交易时期的收盘价
+                    entity.setMaxAmt(kline.getMaxAmt());
+                    entity.setMinAmt(kline.getMinAmt());
+                    entity.setCjl(kline.getCjl());
+                    entity.setCje(kline.getCje());
+                    entity.setZhenFu(kline.getZhenFu());
+                    entity.setZhangDieFu(kline.getZhangDieFu());
+                    entity.setZhangDieE(kline.getZhangDieE());
+                    entity.setHuanShouLv(kline.getHuanShouLv());
+
+                    FupanPositionDao.updateDbFupan(entity);
+                }
             }
         }
 
@@ -522,7 +550,7 @@ public class FupanDemo {
             BeanUtils.copyProperties(assetPosition,assetPositionDb);
             assetPositionDb.setAssetPosition(JSON.toJSONString(assetPosition));
             assetPositionDb.setDate(date);
-//            assetPositionDb.setWeek();
+            assetPositionDb.setWeek(DateUtil.getWeekByYyyyMmDd(date));
             assetPositionDb.setPeriod(period);
             assetPositionDbListSortDrykbl.add(assetPositionDb);
         }
