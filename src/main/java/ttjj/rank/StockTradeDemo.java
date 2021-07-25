@@ -34,22 +34,22 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=64768998157263; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210707224008329-11923323313501-6528074113; mobileimei=d7db4361-8f07-49e0-9670-13b3db2fa2a1; Uuid=33eb6836a6f243cfb0718f4c2b567137; monitor_count=21";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=57187992352156; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210723214651304-11923323313501-2038939949; mobileimei=93893b1e-442d-45b6-aefc-247573788987; Uuid=6ccc79f80170450988e3540f1a45991e; monitor_count=32";
 
     public static void main(String[] args) {
-//        boolean tradeEnd = false;//"盘中交易-未结束"
-        boolean tradeEnd = true;//"盘后交易结束"
+//        boolean tradIng = true;//"盘中交易中"
+        boolean tradIng = false;//"盘后交易结束"
 
         boolean showBuyOrSell = false;//新增赎回
         boolean sellDbFlag = false;//赎回
         int showTypeNet = 1;//最新一天
-        if (tradeEnd) {
+        if (!tradIng) {
             showBuyOrSell = true;//新增赎回
             sellDbFlag = true;//赎回
             showTypeNet = 365;//最新一年内
         }
 
-//            String startDate = "2021-03-19";//查询新增交易的开始时间
+//            String startDate = "2021-07-21";//查询新增交易的开始时间
         String startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String endDate = "2021-12-31";
 //            String endDate = "2021-03-19";
@@ -462,6 +462,9 @@ public class StockTradeDemo {
         typeListZhiShu.add("510880");//红利ETF
         typeListZhiShu.add("515790");//光伏ETF
         typeListZhiShu.add("159825");//农业ETF
+        typeListZhiShu.add("515220");//煤炭ETF
+        typeListZhiShu.add("159782");//双创50
+        typeListZhiShu.add("516780");//稀土ETF
 //        typeListZhiShu.add("160416");//石油基金
 //        typeListZhiShu.add("159915");//创业板
 //        typeListZhiShu.add("588090");//科创板

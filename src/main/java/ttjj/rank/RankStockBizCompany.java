@@ -31,7 +31,7 @@ public class RankStockBizCompany {
      * @param args
      */
     public static void main(String[] args) {
-        String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 //        String today = "20210507";
 
         Map<String, String> bizMap = new LinkedHashMap<>();

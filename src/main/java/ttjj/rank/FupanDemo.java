@@ -50,15 +50,14 @@ public class FupanDemo {
 
         boolean updateDaPanKline = true;//显示-大盘指数
 //        boolean updateDaPanKline = false;//不显示-大盘指数
-
-        boolean updateMyStock = true;//显示-我的股票
-//        boolean updateMyStock = false;//不显示-我的股票
-
+//        boolean updateMyStock = true;//显示-我的股票
+        boolean updateMyStock = false;//不显示-我的股票
 //        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓
         boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
-
 //        boolean findDbMyPositionByDate = true;//从数据库中根据日期查询我的持仓盈亏
         boolean findDbMyPositionByDate = false;//从数据库中根据日期查询我的持仓盈亏
+//        boolean updateDbFupanPositionByDate = true;//更新我的持仓盈亏明细
+        boolean updateDbFupanPositionByDate = false;//更新我的持仓盈亏明细
 //
 //        boolean updateMyTtjj = true;//显示-我的基金
         boolean updateMyTtjj = false;//不显示-我的基金
@@ -66,7 +65,7 @@ public class FupanDemo {
         String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
         String dateType = "1";//1：一天;7:周;30:月;
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-//            String date = "2021-06-30";
+//            String date = "2021-06-14";
 
         if (updateDaPanKline) {
             String cookie = "";
@@ -99,11 +98,16 @@ public class FupanDemo {
             updateMyStockAssetPosition(fupanMyStockAssetPosition);
         }
 
+        List<AssetPositionDb>  assetPositionList = new ArrayList<>();
         //  从数据库中根据日期查询我的持仓盈亏
         if (findDbMyPositionByDate) {
             String findDate = date;//查询日期
             String period = "1";
-            List<AssetPositionDb>  assetPositionList = findDbMyPositionByDate(findDate, period);
+            assetPositionList = findDbMyPositionByDate(findDate, period);
+        }
+
+        //  更新我的持仓盈亏明细
+        if(updateDbFupanPositionByDate){
             for (AssetPositionDb assetPosition : assetPositionList) {
                 insertDbFupanPosition(assetPosition);
             }
@@ -425,6 +429,8 @@ public class FupanDemo {
             assetPositionListSortLjyk = assetPositionList.stream().filter(e -> e != null).sorted(Comparator.comparing(AssetPosition::getLjyk, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
             assetPositionListSortDryk = assetPositionList.stream().filter(e -> e != null).sorted(Comparator.comparing(AssetPosition::getDryk, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
             assetPositionListSortDrykbl = assetPositionList.stream().filter(e -> e != null).sorted(Comparator.comparing(AssetPosition::getDrykbl, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            List<AssetPosition> assetPositionListSortDrykblDesc = assetPositionList.stream().filter(e -> e != null).sorted(Comparator.comparing(AssetPosition::getDrykbl, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+
             System.out.println("排序-当日盈亏比例：");
             for (AssetPosition assetPosition : assetPositionListSortDrykbl) {
                 BigDecimal drykbl = assetPosition.getDrykbl();
@@ -439,8 +445,40 @@ public class FupanDemo {
                 if (ykbl == null) {
                     ykbl = new BigDecimal(0);
                 }
-                System.out.println(assetPosition.getZqmc() + "\t，当日盈亏:" + dryk + "\t，当日盈亏比例:" + drykbl.multiply(new BigDecimal("100")) + "%"
-                        + "\t，累计盈亏:" + assetPosition.getLjyk() + "\t，累计盈亏比例:" + ykbl.multiply(new BigDecimal("100")) + "%" + "\t，持款成本:" + assetPosition.getCkcb());
+                System.out.print(assetPosition.getZqmc() + ":" + drykbl.multiply(new BigDecimal("100")).setScale(2,BigDecimal.ROUND_HALF_UP) + "%;");
+            }
+            System.out.println();
+            for (AssetPosition assetPosition : assetPositionListSortDrykblDesc) {
+                BigDecimal drykbl = assetPosition.getDrykbl();
+                BigDecimal dryk = assetPosition.getDryk();
+                BigDecimal ykbl = assetPosition.getYkbl();
+                if (drykbl == null) {
+                    drykbl = new BigDecimal(0);
+                }
+                if (dryk == null) {
+                    dryk = new BigDecimal(0);
+                }
+                if (ykbl == null) {
+                    ykbl = new BigDecimal(0);
+                }
+                System.out.print(assetPosition.getZqmc() + ":" + drykbl.multiply(new BigDecimal("100")).setScale(2,BigDecimal.ROUND_HALF_UP) + "%;");
+            }
+            System.out.println();
+            for (AssetPosition assetPosition : assetPositionListSortDrykbl) {
+                BigDecimal drykbl = assetPosition.getDrykbl();
+                BigDecimal dryk = assetPosition.getDryk();
+                BigDecimal ykbl = assetPosition.getYkbl();
+                if (drykbl == null) {
+                    drykbl = new BigDecimal(0);
+                }
+                if (dryk == null) {
+                    dryk = new BigDecimal(0);
+                }
+                if (ykbl == null) {
+                    ykbl = new BigDecimal(0);
+                }
+//                System.out.println(assetPosition.getZqmc() + "\t，当日盈亏:" + dryk + "\t，当日盈亏比例:" + drykbl.multiply(new BigDecimal("100")) + "%"
+//                        + "\t，累计盈亏:" + assetPosition.getLjyk() + "\t，累计盈亏比例:" + ykbl.multiply(new BigDecimal("100")) + "%" + "\t，持款成本:" + assetPosition.getCkcb());
             }
             System.out.println("排序-当日盈亏：");
             for (AssetPosition assetPosition : assetPositionListSortDryk) {
@@ -456,8 +494,8 @@ public class FupanDemo {
                 if (ykbl == null) {
                     ykbl = new BigDecimal(0);
                 }
-                System.out.println(assetPosition.getZqmc() + "\t，当日盈亏:" + dryk + "\t，当日盈亏比例:" + drykbl.multiply(new BigDecimal("100")) + "%"
-                        + "\t，累计盈亏:" + assetPosition.getLjyk() + "\t，累计盈亏比例:" + ykbl.multiply(new BigDecimal("100")) + "%" + "\t，持款成本:" + assetPosition.getCkcb());
+//                System.out.println(assetPosition.getZqmc() + "\t，当日盈亏:" + dryk + "\t，当日盈亏比例:" + drykbl.multiply(new BigDecimal("100")) + "%"
+//                        + "\t，累计盈亏:" + assetPosition.getLjyk() + "\t，累计盈亏比例:" + ykbl.multiply(new BigDecimal("100")) + "%" + "\t，持款成本:" + assetPosition.getCkcb());
             }
             System.out.println("排序-累计盈亏：");
             for (AssetPosition assetPosition : assetPositionListSortLjyk) {
@@ -473,8 +511,8 @@ public class FupanDemo {
                 if (ykbl == null) {
                     ykbl = new BigDecimal(0);
                 }
-                System.out.println(assetPosition.getZqmc() + "\t，当日盈亏:" + dryk + "\t，当日盈亏比例:" + drykbl.multiply(new BigDecimal("100")) + "%"
-                        + "\t，累计盈亏:" + assetPosition.getLjyk() + "\t，累计盈亏比例:" + ykbl.multiply(new BigDecimal("100")) + "%" + "\t，持款成本:" + assetPosition.getCkcb());
+//                System.out.println(assetPosition.getZqmc() + "\t，当日盈亏:" + dryk + "\t，当日盈亏比例:" + drykbl.multiply(new BigDecimal("100")) + "%"
+//                        + "\t，累计盈亏:" + assetPosition.getLjyk() + "\t，累计盈亏比例:" + ykbl.multiply(new BigDecimal("100")) + "%" + "\t，持款成本:" + assetPosition.getCkcb());
             }
         }
 
@@ -484,6 +522,7 @@ public class FupanDemo {
             BeanUtils.copyProperties(assetPosition,assetPositionDb);
             assetPositionDb.setAssetPosition(JSON.toJSONString(assetPosition));
             assetPositionDb.setDate(date);
+//            assetPositionDb.setWeek();
             assetPositionDb.setPeriod(period);
             assetPositionDbListSortDrykbl.add(assetPositionDb);
         }
@@ -597,7 +636,7 @@ public class FupanDemo {
         url.append("&klt=" + klt);
         url.append("&fqt=1");
         url.append("&end=20500101");
-        url.append("&lmt=10");
+        url.append("&lmt=365");
         url.append("&_=" + System.currentTimeMillis());
 //            System.out.println(url.toString());
 

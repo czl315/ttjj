@@ -59,13 +59,17 @@ public class AssetPositionDb {
      */
     String period;
     /**
+     * week
+     */
+    String week;
+    /**
      * assetPosition 资产持仓
      */
     String assetPosition;
     /**
      * ex 经验
      */
-    String ex;
+    String fupan;
 
     /**
      * Bz 币种
@@ -227,14 +231,6 @@ public class AssetPositionDb {
 
     public void setAssetPosition(String assetPosition) {
         this.assetPosition = assetPosition;
-    }
-
-    public String getEx() {
-        return ex;
-    }
-
-    public void setEx(String ex) {
-        this.ex = ex;
     }
 
     public String getBz() {
@@ -523,5 +519,21 @@ public class AssetPositionDb {
 
     public void setZxsz(BigDecimal zxsz) {
         Zxsz = zxsz;
+    }
+
+    public String getFupan() {
+        return fupan;
+    }
+
+    public void setFupan(String fupan) {
+        this.fupan = fupan;
+    }
+
+    public String getWeek() {
+        return week;
+    }
+
+    public void setWeek(String week) {
+        this.week = week;
     }
 }

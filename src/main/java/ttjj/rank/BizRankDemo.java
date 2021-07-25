@@ -36,7 +36,8 @@ public class BizRankDemo {
      * @param args args
      */
     public static void main(String[] args) {
-        String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
+//        String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 //        String date = "20210604";
 
         boolean insertDbTodayBiz = true;

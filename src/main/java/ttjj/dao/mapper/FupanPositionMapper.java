@@ -10,7 +10,7 @@ import ttjj.db.AssetPositionDb;
 public interface FupanPositionMapper {
     @Insert({"<script>",
             "INSERT INTO `bank19`.`fupan_position`(",
-            " `date`,`period`, `assetPosition`, `ex`, `Bz`, ",
+            " `date`,`period`, `assetPosition`, `fupan`, `Bz`, ",
             " `Cbjg`, `Cbjgex`, `Ckcb`, `Ckcbj`, `Ckyk`,",
             " `Cwbl`, `Djsl`, `Dqcb`, `Dryk`, `Drykbl`, ",
             " `Gddm`, `Gfmcdj`, `Gfmrjd`,`Gfssmmce`,  `Gfye`,",
@@ -20,7 +20,7 @@ public interface FupanPositionMapper {
             " `Zqsl`, `Ztmc`, `Ztmr`,`Zxjg`,  `Zxsz`,",
             " `CREATE_TIME`, `UPDATE_TIME`",
             ") VALUES (",
-            " #{date},#{period}, #{assetPosition}, #{ex}, #{Bz}, ",
+            " #{date},#{period}, #{assetPosition}, #{fupan}, #{Bz}, ",
             " #{Cbjg}, #{Cbjgex}, #{Ckcb}, #{Ckcbj}, #{Ckyk},",
             " #{Cwbl}, #{Djsl}, #{Dqcb}, #{Dryk}, #{Drykbl}, ",
             " #{Gddm}, #{Gfmcdj}, #{Gfmrjd},#{Gfssmmce},  #{Gfye},",
