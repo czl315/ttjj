@@ -18,10 +18,8 @@ public class LscsUtilDarkMoon {
         }
 
         String page = "";
-//        String cardSet = "scholomance-academy";//通灵学院
-//        String cardSet = "madness-at-the-darkmoon-faire";//暗月马戏团
-        String cardSet = "forged-in-the-barrens";//
-        String cardTye = "1贫瘠之地的锤炼";//
+        String cardSet = "united-in-stormwind";//forged-in-the-barrens madness-at-the-darkmoon-faire  scholomance-academy
+        String cardTye = "1暴风城";//1贫瘠之地的锤炼  暗月马戏团   通灵学院
 //        String cardClass = "neutral";
         String cardClass = "";
         for (int i = 0; i <= 0; i++) {
@@ -195,7 +193,7 @@ public class LscsUtilDarkMoon {
         //        System.out.println(rs);
 //        System.out.println("请求url:"+url+JSON.toJSONString(urlParam));
         String rs = HttpUtil.sendPost(url, urlParam.toString(), cookie);
-//        System.out.println("myTradeRs:"+rs);
+        System.out.println("findJsonCard:"+rs);
 //        System.out.println("fundTradeList:" + JSON.toJSONString(fundTradeList));
         return rs;
     }
