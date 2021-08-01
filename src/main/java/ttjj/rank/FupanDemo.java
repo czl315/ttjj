@@ -52,12 +52,12 @@ public class FupanDemo {
 
     public static void main(String[] args) {
 
-//        boolean updateDaPanKline = true;//显示-大盘指数
-        boolean updateDaPanKline = false;//不显示-大盘指数
-//        boolean updateMyStock = true;//显示-我的股票
-        boolean updateMyStock = false;//不显示-我的股票
-//        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓
-        boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
+        boolean updateDaPanKline = true;//显示-大盘指数
+//        boolean updateDaPanKline = false;//不显示-大盘指数
+        boolean updateMyStock = true;//显示-我的股票
+//        boolean updateMyStock = false;//不显示-我的股票
+        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓
+//        boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
         boolean findDbMyPositionByDate = true;//从数据库中根据日期查询我的持仓盈亏
 //        boolean findDbMyPositionByDate = false;//从数据库中根据日期查询我的持仓盈亏
         boolean updateDbFupanPositionByDate = true;//更新我的持仓盈亏明细
@@ -68,9 +68,10 @@ public class FupanDemo {
 
         String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
         String dateType = "1";//1：一天;7:周;30:月;
-//        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-            String date = "2021-07-23";
-            String dateKlineYyyymmdd = "20210723";
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String dateKlineYyyymmdd = new SimpleDateFormat("yyyyMMdd").format(new Date());
+//            String date = "2021-07-23";
+//            String dateKlineYyyymmdd = "20210723";
 
         if (updateDaPanKline) {
             String cookie = "";
@@ -103,7 +104,7 @@ public class FupanDemo {
             updateMyStockAssetPosition(fupanMyStockAssetPosition);
         }
 
-        List<AssetPositionDb>  assetPositionList = new ArrayList<>();
+        List<AssetPositionDb> assetPositionList = new ArrayList<>();
         //  从数据库中根据日期查询我的持仓盈亏
         if (findDbMyPositionByDate) {
             String findDate = date;//查询日期
@@ -112,13 +113,13 @@ public class FupanDemo {
         }
 
         //  更新我的持仓盈亏明细
-        if(updateDbFupanPositionByDate){
+        if (updateDbFupanPositionByDate) {
             for (AssetPositionDb assetPosition : assetPositionList) {
-//                insertDbFupanPosition(assetPosition);//
+                insertDbFupanPosition(assetPosition);//
 
                 //更新当日k线参数
-                List<Kline> klineList = KlineService.kline(assetPosition.getZqdm(),1,klt,dateKlineYyyymmdd,dateKlineYyyymmdd);
-                if(klineList!=null && klineList.size()>0){
+                List<Kline> klineList = KlineService.kline(assetPosition.getZqdm(), 1, klt, dateKlineYyyymmdd, dateKlineYyyymmdd);
+                if (klineList != null && klineList.size() > 0) {
                     AssetPositionDb entity = new AssetPositionDb();
                     entity.setZqdm(assetPosition.getZqdm());
                     entity.setDate(assetPosition.getDate());
@@ -126,7 +127,6 @@ public class FupanDemo {
                     Kline kline = klineList.get(0);
                     entity.setOpenAmt(kline.getOpenAmt());
                     entity.setCloseAmt(kline.getCloseAmt());
-//                    entity.setCloseLastAmt();//TODO 查询上一个交易时期的收盘价
                     entity.setMaxAmt(kline.getMaxAmt());
                     entity.setMinAmt(kline.getMinAmt());
                     entity.setCjl(kline.getCjl());
@@ -135,6 +135,55 @@ public class FupanDemo {
                     entity.setZhangDieFu(kline.getZhangDieFu());
                     entity.setZhangDieE(kline.getZhangDieE());
                     entity.setHuanShouLv(kline.getHuanShouLv());
+
+                    //计算昨日收盘价：今日收盘价-今日涨跌额
+                    BigDecimal closeLastAmt = entity.getCloseAmt().subtract(entity.getZhangDieE());
+                    entity.setCloseLastAmt(closeLastAmt);//上一个交易时期的收盘价
+//                    System.out.println(assetPosition.getZqmc() + "-昨日收盘价：" + entity.getCloseLastAmt());
+
+                    //查询净值
+                    StockTradeDb entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 1, klt, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
+                    entity.setLAST_NET(entityStockTradeDbLastNet.getLAST_NET());
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 1, klt, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
+                    entity.setNET_MIN_1(entityStockTradeDbLastNet.getNET_MIN_1());
+                    entity.setNET_MIN_CLOS_1(entityStockTradeDbLastNet.getNET_MIN_CLOS_1());
+                    entity.setNET_MAX_1(entityStockTradeDbLastNet.getNET_MAX_1());
+                    entity.setNET_MAX_CLOS_1(entityStockTradeDbLastNet.getNET_MAX_CLOS_1());
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 5, klt, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
+                    entity.setNET_MIN_7(entityStockTradeDbLastNet.getNET_MIN_7());
+                    entity.setNET_MIN_CLOS_7(entityStockTradeDbLastNet.getNET_MIN_CLOS_7());
+                    entity.setNET_MAX_7(entityStockTradeDbLastNet.getNET_MAX_7());
+                    entity.setNET_MAX_CLOS_7(entityStockTradeDbLastNet.getNET_MAX_CLOS_7());
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 10, klt, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
+                    entity.setNET_MIN_14(entityStockTradeDbLastNet.getNET_MIN_14());
+                    entity.setNET_MIN_CLOS_14(entityStockTradeDbLastNet.getNET_MIN_CLOS_14());
+                    entity.setNET_MAX_14(entityStockTradeDbLastNet.getNET_MAX_14());
+                    entity.setNET_MAX_CLOS_14(entityStockTradeDbLastNet.getNET_MAX_CLOS_14());
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 20, klt, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
+                    entity.setNET_MIN_30(entityStockTradeDbLastNet.getNET_MIN_30());
+                    entity.setNET_MIN_CLOS_30(entityStockTradeDbLastNet.getNET_MIN_CLOS_30());
+                    entity.setNET_MAX_30(entityStockTradeDbLastNet.getNET_MAX_30());
+                    entity.setNET_MAX_CLOS_30(entityStockTradeDbLastNet.getNET_MAX_CLOS_30());
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 60, klt, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
+                    entity.setNET_MIN_60(entityStockTradeDbLastNet.getNET_MIN_60());
+                    entity.setNET_MIN_CLOS_60(entityStockTradeDbLastNet.getNET_MIN_CLOS_60());
+                    entity.setNET_MAX_60(entityStockTradeDbLastNet.getNET_MAX_60());
+                    entity.setNET_MAX_CLOS_60(entityStockTradeDbLastNet.getNET_MAX_CLOS_60());
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 90, klt, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
+                    entity.setNET_MIN_90(entityStockTradeDbLastNet.getNET_MIN_90());
+                    entity.setNET_MIN_CLOS_90(entityStockTradeDbLastNet.getNET_MIN_CLOS_90());
+                    entity.setNET_MAX_90(entityStockTradeDbLastNet.getNET_MAX_90());
+                    entity.setNET_MAX_CLOS_90(entityStockTradeDbLastNet.getNET_MAX_CLOS_90());
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 180, klt, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
+                    entity.setNET_MIN_180(entityStockTradeDbLastNet.getNET_MIN_180());
+                    entity.setNET_MIN_CLOS_180(entityStockTradeDbLastNet.getNET_MIN_CLOS_180());
+                    entity.setNET_MAX_180(entityStockTradeDbLastNet.getNET_MAX_180());
+                    entity.setNET_MAX_CLOS_180(entityStockTradeDbLastNet.getNET_MAX_CLOS_180());
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 365, klt, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
+                    entity.setNET_MIN_360(entityStockTradeDbLastNet.getNET_MIN_360());
+                    entity.setNET_MIN_CLOS_360(entityStockTradeDbLastNet.getNET_MIN_CLOS_360());
+                    entity.setNET_MAX_360(entityStockTradeDbLastNet.getNET_MAX_360());
+                    entity.setNET_MAX_CLOS_360(entityStockTradeDbLastNet.getNET_MAX_CLOS_360());
 
                     FupanPositionDao.updateDbFupan(entity);
                 }
@@ -438,7 +487,7 @@ public class FupanDemo {
      * @param period
      * @return
      */
-    private static List<AssetPositionDb>  findDbMyPositionByDate(String date, String period) {
+    private static List<AssetPositionDb> findDbMyPositionByDate(String date, String period) {
         Fupan condition = new Fupan();
         condition.setCode(date);
         condition.setPeriod(period);
@@ -473,7 +522,7 @@ public class FupanDemo {
                 if (ykbl == null) {
                     ykbl = new BigDecimal(0);
                 }
-                System.out.print(assetPosition.getZqmc() + ":" + drykbl.multiply(new BigDecimal("100")).setScale(2,BigDecimal.ROUND_HALF_UP) + "%;");
+                System.out.print(assetPosition.getZqmc() + ":" + drykbl.multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP) + "%;");
             }
             System.out.println();
             for (AssetPosition assetPosition : assetPositionListSortDrykblDesc) {
@@ -489,7 +538,7 @@ public class FupanDemo {
                 if (ykbl == null) {
                     ykbl = new BigDecimal(0);
                 }
-                System.out.print(assetPosition.getZqmc() + ":" + drykbl.multiply(new BigDecimal("100")).setScale(2,BigDecimal.ROUND_HALF_UP) + "%;");
+                System.out.print(assetPosition.getZqmc() + ":" + drykbl.multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP) + "%;");
             }
             System.out.println();
             for (AssetPosition assetPosition : assetPositionListSortDrykbl) {
@@ -547,7 +596,7 @@ public class FupanDemo {
         List<AssetPositionDb> assetPositionDbListSortDrykbl = new ArrayList<>();
         for (AssetPosition assetPosition : assetPositionListSortDrykbl) {
             AssetPositionDb assetPositionDb = new AssetPositionDb();
-            BeanUtils.copyProperties(assetPosition,assetPositionDb);
+            BeanUtils.copyProperties(assetPosition, assetPositionDb);
             assetPositionDb.setAssetPosition(JSON.toJSONString(assetPosition));
             assetPositionDb.setDate(date);
             assetPositionDb.setWeek(DateUtil.getWeekByYyyyMmDd(date));

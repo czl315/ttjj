@@ -34,7 +34,7 @@ public class StockTradeDemo {
     static String keyRsMax = "rsMax";
     static String keyRsNetCloseMin = "keyRsNetCloseMin";
     static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=57187992352156; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210723214651304-11923323313501-2038939949; mobileimei=93893b1e-442d-45b6-aefc-247573788987; Uuid=6ccc79f80170450988e3540f1a45991e; monitor_count=32";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=34719414254782; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=3; st_psi=20210730221052991-11923323313501-3827484847; mobileimei=a30227a2-c303-4c4e-b7b0-e331c3019920; Uuid=de45f91c72324ce38b93f49f06ba8afa; monitor_count=32";
 
     public static void main(String[] args) {
 //        boolean tradIng = true;//"盘中交易中"
@@ -49,7 +49,7 @@ public class StockTradeDemo {
             showTypeNet = 365;//最新一年内
         }
 
-//            String startDate = "2021-07-21";//查询新增交易的开始时间
+//            String startDate = "2021-07-29";//查询新增交易的开始时间
         String startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String endDate = "2021-12-31";
 //            String endDate = "2021-03-19";
@@ -448,10 +448,7 @@ public class StockTradeDemo {
         typeListZhiShu.add("159982");//中证500
         typeListZhiShu.add("588080");//科创板50
         typeListZhiShu.add("159949");//创业板50
-        typeListZhiShu.add("513550");//港股通50
-        typeListZhiShu.add("513050");//中概互联
         typeListZhiShu.add("159929");//医药ETF
-        typeListZhiShu.add("515250");//智能汽车
         typeListZhiShu.add("512660");//军工ETF
         typeListZhiShu.add("512690");//酒ETF
         typeListZhiShu.add("510500");//500ETF
@@ -461,10 +458,14 @@ public class StockTradeDemo {
         typeListZhiShu.add("515030");//新汽车
         typeListZhiShu.add("510880");//红利ETF
         typeListZhiShu.add("515790");//光伏ETF
-        typeListZhiShu.add("159825");//农业ETF
         typeListZhiShu.add("515220");//煤炭ETF
         typeListZhiShu.add("159782");//双创50
         typeListZhiShu.add("516780");//稀土ETF
+        typeListZhiShu.add("515290");//银行
+//        typeListZhiShu.add("159825");//农业ETF
+//        typeListZhiShu.add("515250");//智能汽车
+//        typeListZhiShu.add("513050");//中概互联
+//        typeListZhiShu.add("513550");//港股通50
 //        typeListZhiShu.add("160416");//石油基金
 //        typeListZhiShu.add("159915");//创业板
 //        typeListZhiShu.add("588090");//科创板
@@ -977,19 +978,19 @@ public class StockTradeDemo {
             stockTradeDb.setNET_MAX_1(maxJz);
             stockTradeDb.setNET_MAX_CLOS_1(netCloseMax);
         }
-        if (days == 7) {
+        if (days == 7 ||days == 5 ) {
             stockTradeDb.setNET_MIN_7(minJz);
             stockTradeDb.setNET_MIN_CLOS_7(netCloseMin);
             stockTradeDb.setNET_MAX_7(maxJz);
             stockTradeDb.setNET_MAX_CLOS_7(netCloseMax);
         }
-        if (days == 14) {
+        if (days == 14||days == 10 ) {
             stockTradeDb.setNET_MIN_14(minJz);
             stockTradeDb.setNET_MIN_CLOS_14(netCloseMin);
             stockTradeDb.setNET_MAX_14(maxJz);
             stockTradeDb.setNET_MAX_CLOS_14(netCloseMax);
         }
-        if (days == 30) {
+        if (days == 30||days == 20 ) {
             stockTradeDb.setNET_MIN_30(minJz);
             stockTradeDb.setNET_MIN_CLOS_30(netCloseMin);
             stockTradeDb.setNET_MAX_30(maxJz);
