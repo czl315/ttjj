@@ -21,19 +21,20 @@ import java.util.stream.Collectors;
 public class KlineHistoryTest {
 
     public static void main(String[] args) {
-        String zqdm = "159949";
-        String begDate = "20210625";//查询新增交易的开始时间
-        String endDate = "20210628";
+        String zqdm = "515030";
+        String begDate = "20210805";//查询新增交易的开始时间
+        String endDate = "20210805";
         String klt = "101";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 100;
         List<Kline> klines = kline(zqdm, lmt, klt, begDate, endDate);
+        System.out.println(JSON.toJSONString(klines));
 
 //        // 上涨或下跌因子
 //        addOrSubFactor(klines);
 
         //交易回测
-        TradeHisBack tradeHisBack = tradeHistoryTest(klines);
-        System.out.println(JSON.toJSONString(tradeHisBack));
+//        TradeHisBack tradeHisBack = tradeHistoryTest(klines);
+//        System.out.println(JSON.toJSONString(tradeHisBack));
 
     }
 
@@ -43,7 +44,7 @@ public class KlineHistoryTest {
      * @param klines
      */
     private static TradeHisBack tradeHistoryTest(List<Kline> klines) {
-        if (klines == null || klines.size()==0) {
+        if (klines == null || klines.size() == 0) {
             System.out.println("k线数据不能为空！");
         }
         System.out.println("klines.size():" + klines.size());
@@ -61,12 +62,12 @@ public class KlineHistoryTest {
         tradeHisBack.setMinPrice(new BigDecimal(0));
         tradeHisBack.setNowPrice(new BigDecimal(0));
         for (Kline kline : klines) {
-            System.out.println("kline:"+JSON.toJSONString(kline));
+            System.out.println("kline:" + JSON.toJSONString(kline));
             tradeHisBack.setKtime(kline.getKtime());
 
             //当前价
             tradeHisBack.setNowPrice(kline.getOpenAmt());
-            if (kline.getCloseLastAmt().compareTo(BigDecimal.ZERO)>0 ) {
+            if (kline.getCloseLastAmt().compareTo(BigDecimal.ZERO) > 0) {
                 tradeHisBack.setNowPrice(kline.getCloseLastAmt());
             }
             BigDecimal nowPrice = tradeHisBack.getNowPrice();
@@ -99,10 +100,10 @@ public class KlineHistoryTest {
                     //计算n份，循环买入,如果现金足够才能买入
                     BigDecimal buyAmt = nowPrice.multiply(tradeHisBack.getUpFactor().add(new BigDecimal(1)).multiply(tradeHisBack.getEachNum()));
                     BigDecimal remainCashAmt = tradeHisBack.getCash().subtract(buyAmt);
-                    if(remainCashAmt.compareTo(BigDecimal.ZERO)>0){
+                    if (remainCashAmt.compareTo(BigDecimal.ZERO) > 0) {
                         tradeHisBack.setCash(remainCashAmt);
                         tradeHisBack.setHoldNum(tradeHisBack.getHoldNum().add(tradeHisBack.getEachNum()));
-                    }else{
+                    } else {
                         System.out.println("现金不足！");
                         break;
                     }
@@ -206,8 +207,32 @@ public class KlineHistoryTest {
         }
 
         url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-        url.append("&fields1=f1,f2,f3,f4,f5,f6");
-        url.append("&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61");
+//        url.append("&fields1=f1,f2,f3,f4,f5,f6");
+        url.append("&fields1=");
+        url.append("f1,f2,f3,f4,f5,f6,f7,f8,f9,");
+        url.append("f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,");
+        url.append("f20,f21,f22,f23,f24,f25,f26,f27,f28,f29,");
+        url.append("f30,f31,f32,f33,f34,f35,f36,f37,f38,f39,");
+        url.append("f40,f41,f42,f43,f44,f45,f46,f47,f48,f49,");
+        url.append("f50,f51,f52,f53,f54,f55,f56,f57,f58,f59,");
+        url.append("f60,f61,f62,f63,f64,f65,f66,f67,f68,f69,");
+        url.append("f70,f71,f72,f73,f74,f75,f76,f77,f78,f79,");
+        url.append("f80,f81,f82,f83,f84,f85,f86,f87,f88,f89,");
+        url.append("f90,f91,f92,f93,f94,f95,f96,f97,f98,f99");
+
+//        url.append("&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61");/**     f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61  日期，开盘，收盘,最高，最低，成交量，成交额，振幅，涨跌幅，涨跌额，换手率 **/
+        url.append("&fields2=");
+        url.append("f1,f2,f3,f4,f5,f6,f7,f8,f9,");
+        url.append("f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,");
+        url.append("f20,f21,f22,f23,f24,f25,f26,f27,f28,f29,");
+        url.append("f30,f31,f32,f33,f34,f35,f36,f37,f38,f39,");
+        url.append("f40,f41,f42,f43,f44,f45,f46,f47,f48,f49,");
+        url.append("f50,f51,f52,f53,f54,f55,f56,f57,f58,f59,");
+        url.append("f60,f61,f62,f63,f64,f65,f66,f67,f68,f69,");
+        url.append("f70,f71,f72,f73,f74,f75,f76,f77,f78,f79,");
+        url.append("f80,f81,f82,f83,f84,f85,f86,f87,f88,f89,");
+        url.append("f90,f91,f92,f93,f94,f95,f96,f97,f98,f99");
+
         url.append("&klt=" + klt);
         url.append("&fqt=1");
         url.append("&beg=" + begDate);
@@ -240,7 +265,7 @@ public class KlineHistoryTest {
 
         String rsJson = rs.substring(rs.indexOf("{"));
         rsJson = rsJson.replace(");", "");
-//        System.out.println("szKline:" + rsJson);
+        System.out.println("szKline:" + rsJson);
 
         List<String> klineList = new ArrayList<String>();
         JSONObject szzzMonthJson = JSON.parseObject(rsJson);

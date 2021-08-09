@@ -109,9 +109,6 @@ public class BizRankDemo {
         for (RankBizDataDiff rankBizDataDiff : rankEtf) {
             rankBizDataDiff.setDate(date);
             findTrends(rankBizDataDiff, "", "fupan", rankBizDataDiff.getF12(), 1, date, "pt_sh_time_min", "pt_sh_time_max");//查询指定指数的最大值时间、最小值时间
-            if (rankBizDataDiff.getDate().contains("-")) {
-                rankBizDataDiff.setDate(rankBizDataDiff.getDate().replace("-", ""));
-            }
             updateDbEtfNetMaxMinTimeByDate(rankBizDataDiff);
         }
     }
