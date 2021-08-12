@@ -7,9 +7,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import ttjj.dao.BizRankDao;
 import ttjj.dao.MyBatisUtils;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.StockTrade;
+import utils.Content;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
@@ -24,11 +26,6 @@ public class BizRankDemo {
      * sqlSessionFactory mybatis
      */
     static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
-
-    static String keyRsMin = "rsMin";
-    static String keyRsMax = "rsMax";
-    static String keyRsNetCloseMin = "keyRsNetCloseMin";
-    static String keyRsNetCloseMax = "keyRsNetCloseMax";
 
     /**
      * ttjj
@@ -54,22 +51,23 @@ public class BizRankDemo {
 //        int updateDbEtfNetDays = 0;
 
         if (insertDbTodayBiz) {
-            List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(999);//查询主题排名by时间类型、显示个数
+            List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(date, "hy", 999);//查询主题排名by时间类型、显示个数
             //db-插入
-            insertDbBiz(date, rankBizDataDiffListBiz, "hy");//hy-行业
+            BizRankDao.insertDbBiz(rankBizDataDiffListBiz);//hy-行业
 //            showBizSql(date, rankBizDataDiffListBiz, "hy");//显示sql-业务排行-插入
         }
 
         if (insertDbTodayConcept) {
-            List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(999);//查询主题排名by时间类型、显示个数
+            List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(date, "gn", 999);//查询主题排名by时间类型、显示个数
             //db-插入
-            insertDbBiz(date, rankBizDataDiffListConcept, "gn");//hy-行业
+            BizRankDao.insertDbBiz(rankBizDataDiffListConcept);//hy-行业
 //            showBizSql(date, rankBizDataDiffListConcept, "gn");//显示业务排行-插入sql
         }
 
-        List<RankBizDataDiff> rankEtf = listEtf(999);//2021-04-16:425;
+        List<RankBizDataDiff> rankEtf = listEtf(date, "etf", 999);//2021-04-16:425;
         if (insertDbTodayEtf) {
-            insertDbBiz(date, rankEtf, "etf");//hy-行业
+            BizRankDao.insertDbBiz(
+                    rankEtf);//hy-行业
 //            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
         }
 
@@ -93,7 +91,7 @@ public class BizRankDemo {
             showUpdateDbMaxMinNetByDays(date, rankEtf, table, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
             showUpdateDbMaxMinNetByDays(date, rankEtf, table, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
             for (RankBizDataDiff rankBizDataDiff : rankEtf) {
-                updateEtfNet(rankBizDataDiff);
+                BizRankDao.updateEtfNet(rankBizDataDiff);
             }
         }
 
@@ -109,64 +107,10 @@ public class BizRankDemo {
         for (RankBizDataDiff rankBizDataDiff : rankEtf) {
             rankBizDataDiff.setDate(date);
             findTrends(rankBizDataDiff, "", "fupan", rankBizDataDiff.getF12(), 1, date, "pt_sh_time_min", "pt_sh_time_max");//查询指定指数的最大值时间、最小值时间
-            updateDbEtfNetMaxMinTimeByDate(rankBizDataDiff);
+            BizRankDao.updateDbEtfNetMaxMinTimeByDate(rankBizDataDiff);
         }
     }
 
-    /**
-     * db-插入
-     *
-     * @param date
-     * @param rankBizDataDiffListBiz
-     * @param type
-     */
-    private static int insertDbBiz(String date, List<RankBizDataDiff> rankBizDataDiffListBiz, String type) {
-        SqlSession session = sqlSessionFactory.openSession();
-        int rs = 0;
-        long temp = 0;
-        try {
-            for (RankBizDataDiff rankBizDataDiff : rankBizDataDiffListBiz) {
-//                System.out.println(JSON.toJSONString(rankBizDataDiff));
-                rankBizDataDiff.setRs("");
-                rankBizDataDiff.setDate(date);
-                rankBizDataDiff.setType(type);
-                rankBizDataDiff.setOrderNum(++temp);
-                rs = session.insert("ttjj.dao.mapper.RandBizEtfMapper.insertRandBizEtf", rankBizDataDiff);
-                session.commit();
-            }
-        } finally {
-            session.close();
-        }
-        return rs;
-    }
-
-    /**
-     * @param rankBizDataDiffListBiz
-     * @return
-     */
-    private static int updateEtfNet(RankBizDataDiff rankBizDataDiffListBiz) {
-        SqlSession session = sqlSessionFactory.openSession();
-        int rs = 0;
-        try {
-            rs = session.update("ttjj.dao.mapper.RandBizEtfMapper.updateEtfNet", rankBizDataDiffListBiz);
-            session.commit();
-        } finally {
-            session.close();
-        }
-        return rs;
-    }
-
-    private static int updateDbEtfNetMaxMinTimeByDate(RankBizDataDiff rankBizDataDiffListBiz) {
-        SqlSession session = sqlSessionFactory.openSession();
-        int rs = 0;
-        try {
-            rs = session.update("ttjj.dao.mapper.RandBizEtfMapper.updateDbEtfNetMaxMinTimeByDate", rankBizDataDiffListBiz);
-            session.commit();
-        } finally {
-            session.close();
-        }
-        return rs;
-    }
 
     /**
      * 更新最新净值-限定时间段的最大最小净值
@@ -259,24 +203,24 @@ public class BizRankDemo {
         }
 
         Map<String, Double> netRs = handlerMaxJz(klineList);
-        Double minJz = netRs.get(keyRsMin);
-        Double maxJz = netRs.get(keyRsMax);
-        Double netCloseMin = netRs.get(keyRsNetCloseMin);
-        Double netCloseMax = netRs.get(keyRsNetCloseMax);
+        Double minJz = netRs.get(Content.keyRsMin);
+        Double maxJz = netRs.get(Content.keyRsMax);
+        Double netCloseMin = netRs.get(Content.keyRsNetCloseMin);
+        Double netCloseMax = netRs.get(Content.keyRsNetCloseMax);
 
-        StringBuffer sb = new StringBuffer();
-        sb.append("UPDATE `" + table + "` ");
-        sb.append("SET ");
-        sb.append(" `" + dbFieldLastNetMin + "`=" + minJz + ", ");
-        sb.append(" `" + dbFieldLastNetMinClose + "`=" + netCloseMin + ", ");
-        sb.append(" `" + dbFieldLastNetMax + "`=" + maxJz + ", ");
-        sb.append(" `" + dbFieldLastNetMaxClose + "`=" + netCloseMax + " ");
-//        sb.append(" WHERE `FD_CODE`='" + zhiShu + "'" + " AND TYPE = '证券买入'" + ";");
-        sb.append(" WHERE `f12`='" + zhiShu + "'" + "");
-        sb.append(" AND `date`='" + date + "'" + "");
-        sb.append(";");
-        sb.append("/**" + szzzMonthDataJson.getString("name") + "**/");
-        System.out.println(sb);
+//        StringBuffer sb = new StringBuffer();
+//        sb.append("UPDATE `" + table + "` ");
+//        sb.append("SET ");
+//        sb.append(" `" + dbFieldLastNetMin + "`=" + minJz + ", ");
+//        sb.append(" `" + dbFieldLastNetMinClose + "`=" + netCloseMin + ", ");
+//        sb.append(" `" + dbFieldLastNetMax + "`=" + maxJz + ", ");
+//        sb.append(" `" + dbFieldLastNetMaxClose + "`=" + netCloseMax + " ");
+////        sb.append(" WHERE `FD_CODE`='" + zhiShu + "'" + " AND TYPE = '证券买入'" + ";");
+//        sb.append(" WHERE `f12`='" + zhiShu + "'" + "");
+//        sb.append(" AND `date`='" + date + "'" + "");
+//        sb.append(";");
+//        sb.append("/**" + szzzMonthDataJson.getString("name") + "**/");
+//        System.out.println(sb);
 
         //insertDb
         rankEtf.setDate(date);
@@ -397,15 +341,15 @@ public class BizRankDemo {
                 rsNetCloseMin = dwjzLong;
             }
         }
-        rs.put(keyRsMax, rsMax);
-        rs.put(keyRsMin, rsMin);
-        rs.put(keyRsNetCloseMin, rsNetCloseMin);
-        rs.put(keyRsNetCloseMax, rsNetCloseMax);
+        rs.put(Content.keyRsMax, rsMax);
+        rs.put(Content.keyRsMin, rsMin);
+        rs.put(Content.keyRsNetCloseMin, rsNetCloseMin);
+        rs.put(Content.keyRsNetCloseMax, rsNetCloseMax);
         return rs;
     }
 
 
-    private static List<RankBizDataDiff> listEtf(int pageSize) {
+    private static List<RankBizDataDiff> listEtf(String date, String type, int pageSize) {
 //          http://32.push2.eastmoney.com/api/qt/clist/get?cb=jQuery11240476946102335426_1618637035810&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=b:MK0021,b:MK0022,b:MK0023,b:MK0024&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152&_=1618637035811
         String url = "http://32.push2.eastmoney.com/api/qt/clist/get";
         StringBuffer urlParam = new StringBuffer();
@@ -470,6 +414,8 @@ public class BizRankDemo {
         List<RankBizDataDiff> rankBizDataDiffList = JSON.parseArray(JSON.toJSONString(rsJsonDataDiff), RankBizDataDiff.class);
         for (RankBizDataDiff row : rankBizDataDiffList) {
 //            row.setRs(rs);
+            row.setDate(date);
+            row.setType(type);
 //            System.out.println(JSON.toJSON(row));//每个行业一行数据
         }
 
@@ -565,9 +511,11 @@ public class BizRankDemo {
     /**
      * 查询昨日主题排名
      *
+     * @param date
+     * @param type
      * @param endCount
      */
-    private static List<RankBizDataDiff> listBiz(int endCount) {
+    private static List<RankBizDataDiff> listBiz(String date, String type, int endCount) {
         //http://28.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408110589206747254_1616379873172&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=m:90+t:2+f:!50&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222&_=1616379873199
         long curTime = System.currentTimeMillis();
         StringBuffer urlParam = new StringBuffer();
@@ -627,18 +575,22 @@ public class BizRankDemo {
         JSONObject rsJsonData = rsJsonObj.getJSONObject("data");
         JSONArray rsJsonDataDiff = rsJsonData.getJSONArray("diff");
         List<RankBizDataDiff> rankBizDataDiffList = JSON.parseArray(JSON.toJSONString(rsJsonDataDiff), RankBizDataDiff.class);
-//        for (RankBizDataDiff row : rankBizDataDiffList) {
+        for (RankBizDataDiff row : rankBizDataDiffList) {
 //            System.out.println(JSON.toJSON(row));//每个行业一行数据
-//        }
+            row.setDate(date);
+            row.setType(type);
+        }
         return rankBizDataDiffList;
     }
 
     /**
      * 查询排名-概念板块
      *
+     * @param date
+     * @param type
      * @param endCount
      */
-    private static List<RankBizDataDiff> listConcept(int endCount) {
+    private static List<RankBizDataDiff> listConcept(String date, String type, int endCount) {
         long curTime = System.currentTimeMillis();
         //http://28.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408110589206747254_1616379873172&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=m:90+t:2+f:!50&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222&_=1616379873199
 //        http://70.push2.eastmoney.com/api/qt/clist/get?cb=jQuery1124026081630094811414_1617261240739&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=m:90+t:3+f:!50&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222&_=1617261240740
@@ -703,7 +655,9 @@ public class BizRankDemo {
         JSONArray rsJsonDataDiff = rsJsonData.getJSONArray("diff");
         List<RankBizDataDiff> rankBizDataDiffList = JSON.parseArray(JSON.toJSONString(rsJsonDataDiff), RankBizDataDiff.class);
         for (RankBizDataDiff row : rankBizDataDiffList) {
-            row.setRs(rs);
+//            row.setRs(rs);
+            row.setDate(date);
+            row.setType(type);
 //            System.out.println(JSON.toJSON(row));//每个行业一行数据
             JSONObject jsonObjectBiz = new JSONObject();
             jsonObjectBiz.put("name", row.getF14());
@@ -763,8 +717,8 @@ public class BizRankDemo {
                 break;
             }
         }
-        if(!rs.contains("{")){
-            System.out.println("返回数据异常："+JSON.toJSONString(rs));
+        if (!rs.contains("{")) {
+            System.out.println("返回数据异常：" + JSON.toJSONString(rs));
             return;
         }
         String rsJson = rs.substring(rs.indexOf("{"));

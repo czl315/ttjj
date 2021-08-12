@@ -13,6 +13,14 @@ public class Kline {
      */
     private String ktime;
     /**
+     * zqdm 证券代码
+     */
+    private String zqdm;
+    /**
+     * zqmc 证券名称
+     */
+    private String zqmc;
+    /**
      * 开盘价
      */
     private BigDecimal openAmt;
@@ -151,5 +159,21 @@ public class Kline {
 
     public void setHuanShouLv(BigDecimal huanShouLv) {
         this.huanShouLv = huanShouLv;
+    }
+
+    public String getZqdm() {
+        return zqdm;
+    }
+
+    public void setZqdm(String zqdm) {
+        this.zqdm = zqdm;
+    }
+
+    public String getZqmc() {
+        return zqmc;
+    }
+
+    public void setZqmc(String zqmc) {
+        this.zqmc = zqmc;
     }
 }

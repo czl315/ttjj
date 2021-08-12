@@ -13,6 +13,7 @@ import ttjj.db.StockTradeDb;
 import ttjj.dto.FundTrade;
 import ttjj.dto.LsjzDataLsjz;
 import ttjj.dto.StockTrade;
+import utils.Content;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
@@ -30,11 +31,7 @@ public class StockTradeDemo {
      */
     static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
     static String type_selling = "证券买入(卖出中)";
-    static String keyRsMin = "rsMin";
-    static String keyRsMax = "rsMax";
-    static String keyRsNetCloseMin = "keyRsNetCloseMin";
-    static String keyRsNetCloseMax = "keyRsNetCloseMax";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=08925805188923; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210809143939132-11923323313501-7100127171; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=d1fdde6f-0be2-4a14-90b7-6cc6a514c2a1; Uuid=f7075b9535df4b8aadb4f0240d4bb1cc; monitor_count=5";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=66054922531137; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210812161508633-11923323313501-1965684139; st_asi=delete; mobileimei=c9c4e9c5-f851-4f3c-998c-328d5d47eb54; Uuid=6b86ee2d58db4894a748ee996064cf07; monitor_count=29";
 
     public static void main(String[] args) {
 //        boolean tradIng = true;//"盘中交易中"
@@ -49,7 +46,7 @@ public class StockTradeDemo {
             showTypeNet = 365;//最新一年内
         }
 
-//            String startDate = "2021-07-29";//查询新增交易的开始时间
+//            String startDate = "2021-08-09";//查询新增交易的开始时间
         String startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String endDate = "2021-12-31";
 //            String endDate = "2021-03-19";
@@ -462,6 +459,7 @@ public class StockTradeDemo {
         typeListZhiShu.add("159782");//双创50
         typeListZhiShu.add("516780");//稀土ETF
         typeListZhiShu.add("515290");//银行
+        typeListZhiShu.add("159852");//软件ETF
 //        typeListZhiShu.add("159825");//农业ETF
 //        typeListZhiShu.add("515250");//智能汽车
 //        typeListZhiShu.add("513050");//中概互联
@@ -588,6 +586,7 @@ public class StockTradeDemo {
         List<String> typeListYiLiao = new ArrayList<>();
 //        typeListYiLiao.add("600085");//同仁堂
 //        typeListYiLiao.add("002773");//康弘药业
+        typeListYiLiao.add("000538");//云南白药
         for (String zqdm : typeListYiLiao) {
             StockTrade stockTradeTemp = new StockTrade();
             stockTradeTemp.setBizTy("医药制造");
@@ -952,10 +951,10 @@ public class StockTradeDemo {
         }
 
         Map<String, Double> netRs = handlerMaxJz(klineList);
-        Double minJz = netRs.get(keyRsMin);
-        Double maxJz = netRs.get(keyRsMax);
-        Double netCloseMin = netRs.get(keyRsNetCloseMin);
-        Double netCloseMax = netRs.get(keyRsNetCloseMax);
+        Double minJz = netRs.get(Content.keyRsMin);
+        Double maxJz = netRs.get(Content.keyRsMax);
+        Double netCloseMin = netRs.get(Content.keyRsNetCloseMin);
+        Double netCloseMax = netRs.get(Content.keyRsNetCloseMax);
 
         StringBuffer sb = new StringBuffer();
         sb.append("UPDATE `stock_trade` ");
@@ -1087,10 +1086,10 @@ public class StockTradeDemo {
                 rsNetCloseMin = dwjzLong;
             }
         }
-        rs.put(keyRsMax, rsMax);
-        rs.put(keyRsMin, rsMin);
-        rs.put(keyRsNetCloseMin, rsNetCloseMin);
-        rs.put(keyRsNetCloseMax, rsNetCloseMax);
+        rs.put(Content.keyRsMax, rsMax);
+        rs.put(Content.keyRsMin, rsMin);
+        rs.put(Content.keyRsNetCloseMin, rsNetCloseMin);
+        rs.put(Content.keyRsNetCloseMax, rsNetCloseMax);
         return rs;
     }
 

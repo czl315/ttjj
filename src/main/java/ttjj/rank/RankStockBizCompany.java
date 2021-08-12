@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import ttjj.dao.MyBatisUtils;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.RankBizDataDiff;
+import utils.Content;
 import utils.HttpUtil;
 
 import java.text.SimpleDateFormat;
@@ -22,10 +23,6 @@ public class RankStockBizCompany {
      * sqlSessionFactory mybatis
      */
     static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
-    static String keyRsMin = "rsMin";
-    static String keyRsMax = "rsMax";
-    static String keyRsNetCloseMin = "keyRsNetCloseMin";
-    static String keyRsNetCloseMax = "keyRsNetCloseMax";
 
     /**
      * @param args
@@ -345,10 +342,10 @@ public class RankStockBizCompany {
         }
 
         Map<String, Double> netRs = handlerMaxJz(klineList);
-        Double minJz = netRs.get(keyRsMin);
-        Double maxJz = netRs.get(keyRsMax);
-        Double netCloseMin = netRs.get(keyRsNetCloseMin);
-        Double netCloseMax = netRs.get(keyRsNetCloseMax);
+        Double minJz = netRs.get(Content.keyRsMin);
+        Double maxJz = netRs.get(Content.keyRsMax);
+        Double netCloseMin = netRs.get(Content.keyRsNetCloseMin);
+        Double netCloseMax = netRs.get(Content.keyRsNetCloseMax);
 
         StringBuffer sb = new StringBuffer();
         sb.append("UPDATE `rank_st_biz_com` ");
@@ -481,10 +478,10 @@ public class RankStockBizCompany {
                 rsNetCloseMin = dwjzLong;
             }
         }
-        rs.put(keyRsMax, rsMax);
-        rs.put(keyRsMin, rsMin);
-        rs.put(keyRsNetCloseMin, rsNetCloseMin);
-        rs.put(keyRsNetCloseMax, rsNetCloseMax);
+        rs.put(Content.keyRsMax, rsMax);
+        rs.put(Content.keyRsMin, rsMin);
+        rs.put(Content.keyRsNetCloseMin, rsNetCloseMin);
+        rs.put(Content.keyRsNetCloseMax, rsNetCloseMax);
         return rs;
     }
 

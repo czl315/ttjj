@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import ttjj.dao.BizRankDao;
 import ttjj.dto.Kline;
+import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.TradeHisBack;
 import utils.HttpUtil;
 
@@ -21,13 +23,43 @@ import java.util.stream.Collectors;
 public class KlineHistoryTest {
 
     public static void main(String[] args) {
-        String zqdm = "515030";
-        String begDate = "20210805";//查询新增交易的开始时间
-        String endDate = "20210805";
+        String zqdm = "515220";
+        String begDate = "20210101";//查询新增交易的开始时间
+        String endDate = "20210415";
         String klt = "101";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 100;
+        List<RankBizDataDiff> rankBizDataDiffList = new ArrayList<>();
         List<Kline> klines = kline(zqdm, lmt, klt, begDate, endDate);
         System.out.println(JSON.toJSONString(klines));
+        for (Kline kline : klines) {
+            RankBizDataDiff rankBizDataDiff = new RankBizDataDiff();
+            rankBizDataDiff.setDate(kline.getKtime());
+            rankBizDataDiff.setType("etf");
+            rankBizDataDiff.setF1(3L);
+            rankBizDataDiff.setF2(kline.getCloseAmt().doubleValue());
+            rankBizDataDiff.setF3(kline.getZhangDieFu().doubleValue());
+            rankBizDataDiff.setF4(kline.getZhangDieE().doubleValue());
+            rankBizDataDiff.setF5(kline.getCjl().longValue());
+            rankBizDataDiff.setF6(kline.getCje().longValue());
+            rankBizDataDiff.setF7(kline.getZhenFu().doubleValue());
+            rankBizDataDiff.setF8(kline.getHuanShouLv().doubleValue());
+//            rankBizDataDiff.setF9(kline.getsh);
+//            rankBizDataDiff.getF10(kline.get)
+//            rankBizDataDiff.getF11()
+            rankBizDataDiff.setF12(kline.getZqdm());
+            rankBizDataDiff.setF13(0L);
+            rankBizDataDiff.setF14(kline.getZqmc());
+            rankBizDataDiff.setF15(kline.getMaxAmt().doubleValue());
+            rankBizDataDiff.setF16(kline.getMinAmt().doubleValue());
+            rankBizDataDiff.setF17(kline.getOpenAmt().doubleValue());
+            rankBizDataDiff.setF18(kline.getCloseAmt().subtract(kline.getZhangDieE()).doubleValue());//计算昨日收盘价：今日收盘价-今日涨跌额
+
+            rankBizDataDiffList.add(rankBizDataDiff);
+        }
+        System.out.println(JSON.toJSONString(rankBizDataDiffList));
+
+        BizRankDao.insertDbBiz(rankBizDataDiffList);//hy-行业
+
 
 //        // 上涨或下跌因子
 //        addOrSubFactor(klines);
@@ -301,6 +333,9 @@ public class KlineHistoryTest {
                 kline.setHuanShouLv(new BigDecimal(klineArray[10]));
                 kline.setCloseLastAmt(lastCloseAmt);
                 lastCloseAmt = closeAmt;
+                kline.setZqdm(szzzMonthDataJson.getString("code"));
+                kline.setZqmc(szzzMonthDataJson.getString("name"));
+
                 klineRs.add(kline);
             }
         }

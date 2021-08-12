@@ -56,4 +56,9 @@ public class Content {
      * 编码
      */
     public static String FUND_CODE = "fundCode";
+
+    public static String keyRsMin = "rsMin";
+    public static String keyRsMax = "rsMax";
+    public static String keyRsNetCloseMin = "keyRsNetCloseMin";
+    public static String keyRsNetCloseMax = "keyRsNetCloseMax";
 }

@@ -78,6 +78,10 @@ public class KlineService {
 //        String name = szzzMonthDataJson.getString("name");
 //        System.out.println("指数名称："+name);
         List<Kline> klineRs = new ArrayList<>();
+        if(szzzMonthDataJson==null || !szzzMonthDataJson.containsKey("klines")){
+            System.out.println("error:!szzzMonthDataJson.containsKey(\"klines\")");
+            return klineRs;
+        }
         JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
         if (klines != null) {
             BigDecimal lastCloseAmt = new BigDecimal("0");//上一期收盘价
