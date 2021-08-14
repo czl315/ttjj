@@ -17,7 +17,7 @@ public class BizRankDao {
      */
     static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
     /**
-     * db-插入
+     * 业务排行-插入
      *
      * @param rankBizDataDiffListBiz
      */

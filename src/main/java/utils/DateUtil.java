@@ -24,6 +24,13 @@ public class DateUtil {
         System.out.println(week);
     }
 
+    /**
+     *
+     * @return
+     */
+    public static String getToday() {
+        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    }
 
     /**
      * 取得一年的第几周

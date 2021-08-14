@@ -36,8 +36,32 @@ public class KlineService {
         }
 
         url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
-        url.append("&fields1=f1,f2,f3,f4,f5,f6");
-        url.append("&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61");
+//        url.append("&fields1=f1,f2,f3,f4,f5,f6");
+        url.append("&fields1=");
+        url.append("f1,f2,f3,f4,f5,f6,f7,f8,f9,");
+        url.append("f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,");
+        url.append("f20,f21,f22,f23,f24,f25,f26,f27,f28,f29,");
+        url.append("f30,f31,f32,f33,f34,f35,f36,f37,f38,f39,");
+        url.append("f40,f41,f42,f43,f44,f45,f46,f47,f48,f49,");
+        url.append("f50,f51,f52,f53,f54,f55,f56,f57,f58,f59,");
+        url.append("f60,f61,f62,f63,f64,f65,f66,f67,f68,f69,");
+        url.append("f70,f71,f72,f73,f74,f75,f76,f77,f78,f79,");
+        url.append("f80,f81,f82,f83,f84,f85,f86,f87,f88,f89,");
+        url.append("f90,f91,f92,f93,f94,f95,f96,f97,f98,f99");
+
+//        url.append("&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61");/**     f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61  日期，开盘，收盘,最高，最低，成交量，成交额，振幅，涨跌幅，涨跌额，换手率 **/
+        url.append("&fields2=");
+        url.append("f1,f2,f3,f4,f5,f6,f7,f8,f9,");
+        url.append("f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,");
+        url.append("f20,f21,f22,f23,f24,f25,f26,f27,f28,f29,");
+        url.append("f30,f31,f32,f33,f34,f35,f36,f37,f38,f39,");
+        url.append("f40,f41,f42,f43,f44,f45,f46,f47,f48,f49,");
+        url.append("f50,f51,f52,f53,f54,f55,f56,f57,f58,f59,");
+        url.append("f60,f61,f62,f63,f64,f65,f66,f67,f68,f69,");
+        url.append("f70,f71,f72,f73,f74,f75,f76,f77,f78,f79,");
+        url.append("f80,f81,f82,f83,f84,f85,f86,f87,f88,f89,");
+        url.append("f90,f91,f92,f93,f94,f95,f96,f97,f98,f99");
+
         url.append("&klt=" + klt);
         url.append("&fqt=1");
         url.append("&beg=" + begDate);
@@ -70,7 +94,7 @@ public class KlineService {
 
         String rsJson = rs.substring(rs.indexOf("{"));
         rsJson = rsJson.replace(");", "");
-//        System.out.println("szKline:" + rsJson);
+        System.out.println("szKline:" + rsJson);
 
         List<String> klineList = new ArrayList<String>();
         JSONObject szzzMonthJson = JSON.parseObject(rsJson);
@@ -78,10 +102,6 @@ public class KlineService {
 //        String name = szzzMonthDataJson.getString("name");
 //        System.out.println("指数名称："+name);
         List<Kline> klineRs = new ArrayList<>();
-        if(szzzMonthDataJson==null || !szzzMonthDataJson.containsKey("klines")){
-            System.out.println("error:!szzzMonthDataJson.containsKey(\"klines\")");
-            return klineRs;
-        }
         JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
         if (klines != null) {
             BigDecimal lastCloseAmt = new BigDecimal("0");//上一期收盘价
@@ -110,9 +130,13 @@ public class KlineService {
                 kline.setHuanShouLv(new BigDecimal(klineArray[10]));
                 kline.setCloseLastAmt(lastCloseAmt);
                 lastCloseAmt = closeAmt;
+                kline.setZqdm(szzzMonthDataJson.getString("code"));
+                kline.setZqmc(szzzMonthDataJson.getString("name"));
+
                 klineRs.add(kline);
             }
         }
         return klineRs;
     }
+
 }

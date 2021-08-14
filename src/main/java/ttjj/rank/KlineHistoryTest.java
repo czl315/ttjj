@@ -4,10 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
-import ttjj.dao.BizRankDao;
 import ttjj.dto.Kline;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.TradeHisBack;
+import ttjj.service.KlineService;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
@@ -23,13 +23,13 @@ import java.util.stream.Collectors;
 public class KlineHistoryTest {
 
     public static void main(String[] args) {
-        String zqdm = "515220";
-        String begDate = "20210101";//查询新增交易的开始时间
-        String endDate = "20210415";
-        String klt = "101";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
-        int lmt = 100;
+        String zqdm = "159949";
+        String begDate = "20210813";//查询新增交易的开始时间
+        String endDate = "20210813";
+        String klt = "30";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+        int lmt = 9999;
         List<RankBizDataDiff> rankBizDataDiffList = new ArrayList<>();
-        List<Kline> klines = kline(zqdm, lmt, klt, begDate, endDate);
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, begDate, endDate);
         System.out.println(JSON.toJSONString(klines));
         for (Kline kline : klines) {
             RankBizDataDiff rankBizDataDiff = new RankBizDataDiff();
@@ -58,7 +58,7 @@ public class KlineHistoryTest {
         }
         System.out.println(JSON.toJSONString(rankBizDataDiffList));
 
-        BizRankDao.insertDbBiz(rankBizDataDiffList);//hy-行业
+//        BizRankDao.insertDbBiz(rankBizDataDiffList);//业务排行-插入
 
 
 //        // 上涨或下跌因子

@@ -4,15 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import ttjj.dao.MyBatisUtils;
+import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.RankBizDataDiff;
 import utils.Content;
+import utils.DateUtil;
 import utils.HttpUtil;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -20,15 +18,10 @@ import java.util.*;
  */
 public class RankStockBizCompany {
     /**
-     * sqlSessionFactory mybatis
-     */
-    static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
-
-    /**
      * @param args
      */
     public static void main(String[] args) {
-        String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String today = DateUtil.getToday();
 //        String today = "20210507";
 
         Map<String, String> bizMap = new LinkedHashMap<>();
@@ -86,7 +79,7 @@ public class RankStockBizCompany {
                     if (entity == null || StringUtils.isBlank(entity.getF12()) || StringUtils.isBlank(entity.getDate())) {
                         System.out.println("实体信息异常，不更新db：" + JSON.toJSONString(entity));
                     } else {
-                        updateByCode(entity);
+                        RankStockCommpanyDao.updateByCode(entity);
                     }
                 }
             }
@@ -241,7 +234,7 @@ public class RankStockBizCompany {
             entity.setF12(stockInfo.getF12());
             entity.setDate(today);
             entity.setConception(ydnr);//要点内容
-            updateByCode(entity);
+            RankStockCommpanyDao.updateByCode(entity);
         }
     }
 
@@ -602,7 +595,7 @@ public class RankStockBizCompany {
                 rankBizDataDiff.setOrder_num(Long.valueOf(orderNum));
 
                 //db-更新要点内容
-                rs = insertDb(rankBizDataDiff);
+                rs = RankStockCommpanyDao.insertDb(rankBizDataDiff);
 
 //                RankStockCommpanyDb entity = new RankStockCommpanyDb();
 //                entity.setRs("");
@@ -657,44 +650,7 @@ public class RankStockBizCompany {
         return rs;
     }
 
-    /**
-     * db-插入
-     *
-     * @param entity
-     */
-    private static int insertDb(RankStockCommpanyDb entity) {
-        SqlSession session = sqlSessionFactory.openSession();
-        int rs = 0;
-        try {
-//                System.out.println(JSON.toJSONString(entity));
-            rs = session.insert("ttjj.dao.mapper.RankStockCommpanyMapper.insert", entity);
-            session.commit();
-        } catch (Exception e) {
-//            e.printStackTrace();
-            System.out.println(e.getMessage());
-        } finally {
-            session.close();
-        }
-        return rs;
-    }
 
-    /**
-     * @param entity
-     * @return
-     */
-    private static int updateByCode(RankStockCommpanyDb entity) {
-        SqlSession session = sqlSessionFactory.openSession();
-        int rs = 0;
-        try {
-            rs = session.update("ttjj.dao.mapper.RankStockCommpanyMapper.update", entity);
-            session.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return rs;
-    }
 
     /**
      * 查询昨日主题排名

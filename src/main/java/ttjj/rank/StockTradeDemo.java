@@ -4,9 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import ttjj.dao.MyBatisUtils;
+import ttjj.dao.StockTradeDao;
 import ttjj.dao.TradeStockDao;
 import ttjj.dao.impl.TradeStockDaoImpl;
 import ttjj.db.StockTradeDb;
@@ -26,12 +24,8 @@ import java.util.*;
  * @date 2020/8/4
  */
 public class StockTradeDemo {
-    /**
-     * sqlSessionFactory mybatis
-     */
-    static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
-    static String type_selling = "证券买入(卖出中)";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=66054922531137; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210812161508633-11923323313501-1965684139; st_asi=delete; mobileimei=c9c4e9c5-f851-4f3c-998c-328d5d47eb54; Uuid=6b86ee2d58db4894a748ee996064cf07; monitor_count=29";
+//    static String type_selling = "证券买入(卖出中)";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=77274158291087; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210813225334901-11923323313501-3375832141; mobileimei=224bea43-38c4-4c14-ae6b-9264027fbfd1; Uuid=50522b4e5fa04c6796b0d8e182ccf00a; monitor_count=37";
 
     public static void main(String[] args) {
 //        boolean tradIng = true;//"盘中交易中"
@@ -167,7 +161,7 @@ public class StockTradeDemo {
             StockTradeDb entity = new StockTradeDb();
             entity.setFD_CODE(stCode);
             entity.setConception(ydnr);//要点内容
-            updateByCode(entity);
+            StockTradeDao.updateByCode(entity);
         }
     }
 
@@ -251,7 +245,7 @@ public class StockTradeDemo {
                 entity.setBIZ_TP(trade.getBizTy());
                 entity.setRK_ST_LOSS(trade.getRiskStLoss());
                 entity.setRK_ST_PROFIT(trade.getRiskStProfit());
-                insertDb(entity);
+                StockTradeDao.insertDb(entity);
 //                System.out.println("未执行插入数据库操作！！！");
             }
         }
@@ -825,63 +819,11 @@ public class StockTradeDemo {
             //k线
             String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
             StockTradeDb entity = kline(stockTradeTemp.getZqdm(), days, klt, dbFieldLastNetMin, dbFieldLastNetMax, dbFieldLastNetMinClose, dbFieldLastNetMaxClose);//沪深300
-            updateByCode(entity);
+            StockTradeDao.updateByCode(entity);
         }
     }
 
-    /**
-     * db-插入
-     *
-     * @param entity
-     */
-    private static int insertDb(StockTradeDb entity) {
-        SqlSession session = sqlSessionFactory.openSession();
-        int rs = 0;
-        try {
-//                System.out.println(JSON.toJSONString(entity));
-            rs = session.insert("ttjj.dao.mapper.StockTradeMapper.insert", entity);
-            session.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return rs;
-    }
 
-    /**
-     * @param entity
-     * @return
-     */
-    private static int updateByCode(StockTradeDb entity) {
-        SqlSession session = sqlSessionFactory.openSession();
-        int rs = 0;
-        try {
-            rs = session.update("ttjj.dao.mapper.StockTradeMapper.updateNet", entity);
-            session.commit();
-        } finally {
-            session.close();
-        }
-        return rs;
-    }
-
-    /**
-     * 更新-卖出
-     *
-     * @param entity
-     * @return
-     */
-    private static int updateSellOut(StockTradeDb entity) {
-        SqlSession session = sqlSessionFactory.openSession();
-        int rs = 0;
-        try {
-            rs = session.update("ttjj.dao.mapper.StockTradeMapper.updateSellOut", entity);
-            session.commit();
-        } finally {
-            session.close();
-        }
-        return rs;
-    }
 
     /**
      * 查询-ETF-指数
@@ -1193,7 +1135,7 @@ public class StockTradeDemo {
                 entity.setFD_CODE(stockTrade.getZqdm());
                 entity.setEARN_AMT(enrnAmtSubServerCharge);
                 entity.setCONFIRM_SHARE(Double.valueOf(stockTrade.getCjsl()));
-                updateSellOut(entity);//更新-卖出
+                StockTradeDao.updateSellOut(entity);//更新-卖出
             }
         }
     }
