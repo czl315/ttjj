@@ -70,8 +70,8 @@ public class FupanDemo {
         String dateType = "1";//1：一天;7:周;30:月;
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         String dateKlineYyyymmdd = new SimpleDateFormat("yyyyMMdd").format(new Date());
-//            String date = "2021-07-23";
-//            String dateKlineYyyymmdd = "20210723";
+//            String date = "2021-08-13";
+//            String dateKlineYyyymmdd = "20210813";
 
         if (updateDaPanKline) {
             String cookie = "";

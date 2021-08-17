@@ -25,26 +25,42 @@ public class TradeHisBack {
      */
     private BigDecimal holdNum;
     /**
-     * 持有-成本价
+     * 持有金额
      */
     private BigDecimal holdAmt;
+    /**
+     * totalAmt 总金额=持仓金额+现金
+     */
+    private BigDecimal totalAmt;
+    /**
+     * totalAmtOld 原有总资产
+     */
+    private BigDecimal totalAmtOld;
+    /**
+     * zdf 涨跌幅
+     */
+    private BigDecimal zdf;
+    /**
+     * zdfPoint 指数涨跌幅
+     */
+    private BigDecimal zdfPoint;
+
     /**
      * 当前价格
      */
     private BigDecimal nowPrice;
     /**
+     * oldPrice 原有价格
+     */
+    private BigDecimal oldPrice;
+    /**
      * 日期时间
      */
     private String ktime;
-
     /**
-     * minPrice 最低价
+     * stPrice 标准价
      */
-    private BigDecimal minPrice;
-    /**
-     * maxPrice 最高价
-     */
-    private BigDecimal maxPrice;
+    private BigDecimal stPrice;
     /**
      * upFactor 上涨因子
      */
@@ -53,6 +69,15 @@ public class TradeHisBack {
      * downFactor 下跌因子
      */
     private BigDecimal downFactor;
+    /**
+     * buyCount 买入次数
+     */
+    private BigDecimal buyCount;
+    /**
+     * sellCount 卖出次数
+     */
+    private BigDecimal sellCount;
+
 
     public BigDecimal getHoldNum() {
         return holdNum;
@@ -102,22 +127,6 @@ public class TradeHisBack {
         this.lmtAmt = lmtAmt;
     }
 
-    public BigDecimal getMinPrice() {
-        return minPrice;
-    }
-
-    public void setMinPrice(BigDecimal minPrice) {
-        this.minPrice = minPrice;
-    }
-
-    public BigDecimal getMaxPrice() {
-        return maxPrice;
-    }
-
-    public void setMaxPrice(BigDecimal maxPrice) {
-        this.maxPrice = maxPrice;
-    }
-
     public BigDecimal getUpFactor() {
         return upFactor;
     }
@@ -140,5 +149,69 @@ public class TradeHisBack {
 
     public void setEachNum(BigDecimal eachNum) {
         this.eachNum = eachNum;
+    }
+
+    public BigDecimal getBuyCount() {
+        return buyCount;
+    }
+
+    public void setBuyCount(BigDecimal buyCount) {
+        this.buyCount = buyCount;
+    }
+
+    public BigDecimal getSellCount() {
+        return sellCount;
+    }
+
+    public void setSellCount(BigDecimal sellCount) {
+        this.sellCount = sellCount;
+    }
+
+    public BigDecimal getStPrice() {
+        return stPrice;
+    }
+
+    public void setStPrice(BigDecimal stPrice) {
+        this.stPrice = stPrice;
+    }
+
+    public BigDecimal getTotalAmt() {
+        return totalAmt;
+    }
+
+    public void setTotalAmt(BigDecimal totalAmt) {
+        this.totalAmt = totalAmt;
+    }
+
+    public BigDecimal getTotalAmtOld() {
+        return totalAmtOld;
+    }
+
+    public void setTotalAmtOld(BigDecimal totalAmtOld) {
+        this.totalAmtOld = totalAmtOld;
+    }
+
+    public BigDecimal getZdf() {
+        return zdf;
+    }
+
+    public void setZdf(BigDecimal zdf) {
+        this.zdf = zdf;
+    }
+
+    public BigDecimal getOldPrice() {
+        return oldPrice;
+    }
+
+    public void setOldPrice(BigDecimal oldPrice) {
+        this.oldPrice = oldPrice;
+    }
+
+    public BigDecimal getZdfPoint() {
+        return zdfPoint;
+    }
+
+    public void setZdfPoint(BigDecimal zdfPoint) {
+        this.zdfPoint = zdfPoint;
     }
 }

@@ -106,6 +106,9 @@ public class RankBizDataDiff {
      */
     private Long f21;
     private Long f22;
+    /**
+     * f23 市净率
+     */
     private String f23;
     private Double f24;
     private Double f25;

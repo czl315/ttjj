@@ -72,7 +72,7 @@ public class KlineService {
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("&StartDate=").append(startDate);
 
-//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
+//        System.out.println("请求url:" + url + JSON.toJSONString(urlParam));
         String rs = "";
         try {
             rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
@@ -94,15 +94,20 @@ public class KlineService {
 
         String rsJson = rs.substring(rs.indexOf("{"));
         rsJson = rsJson.replace(");", "");
-        System.out.println("szKline:" + rsJson);
+//        System.out.println("szKline:" + rsJson);
 
         List<String> klineList = new ArrayList<String>();
         JSONObject szzzMonthJson = JSON.parseObject(rsJson);
         JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
 //        String name = szzzMonthDataJson.getString("name");
 //        System.out.println("指数名称："+name);
-        List<Kline> klineRs = new ArrayList<>();
+        if (szzzMonthDataJson == null || !szzzMonthDataJson.containsKey("klines")) {
+            System.out.println("klines数据异常：" + JSON.toJSONString(szzzMonthDataJson));
+            return null;
+        }
+
         JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
+        List<Kline> klineRs = new ArrayList<>();
         if (klines != null) {
             BigDecimal lastCloseAmt = new BigDecimal("0");//上一期收盘价
             for (Object klineObj : klines) {
@@ -128,8 +133,8 @@ public class KlineService {
                 kline.setZhangDieFu(new BigDecimal(klineArray[8]));
                 kline.setZhangDieE(new BigDecimal(klineArray[9]));
                 kline.setHuanShouLv(new BigDecimal(klineArray[10]));
+                lastCloseAmt = kline.getCloseAmt().subtract(kline.getZhangDieE());
                 kline.setCloseLastAmt(lastCloseAmt);
-                lastCloseAmt = closeAmt;
                 kline.setZqdm(szzzMonthDataJson.getString("code"));
                 kline.setZqmc(szzzMonthDataJson.getString("name"));
 

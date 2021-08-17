@@ -406,8 +406,9 @@ public class BizRankDemo {
         }
 //        System.out.println(rs);//返回结果
         JSONObject rsJsonObj = JSONObject.parseObject(rs);
-        if (!rsJsonObj.containsKey("data")) {
+        if (rsJsonObj == null || !rsJsonObj.containsKey("data")) {
             System.out.println("---------------data---error!!!!!");
+            return null;
         }
         JSONObject rsJsonData = rsJsonObj.getJSONObject("data");
         JSONArray rsJsonDataDiff = rsJsonData.getJSONArray("diff");
