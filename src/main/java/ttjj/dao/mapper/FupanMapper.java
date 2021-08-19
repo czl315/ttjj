@@ -36,6 +36,7 @@ public interface FupanMapper {
             "    <if test='rt_sh != null'>rt_sh=#{rt_sh},</if>",
             "    <if test='rt_zz500 != null'>rt_zz500=#{rt_zz500},</if>",
             "    <if test='rt_biz_qs != null'>rt_biz_qs=#{rt_biz_qs},</if>",
+            "    <if test='rt_kcb50 != null'>rt_kcb50=#{rt_kcb50},</if>",
 
             "    <if test='cje_hs300 != null'>cje_hs300=#{cje_hs300},</if>",
             "    <if test='cje_sh != null'>cje_sh=#{cje_sh},</if>",
@@ -45,6 +46,7 @@ public interface FupanMapper {
             "    <if test='cje_sh50 != null'>cje_sh50=#{cje_sh50},</if>",
             "    <if test='cje_zz500 != null'>cje_zz500=#{cje_zz500},</if>",
             "    <if test='cje_biz_qs != null'>cje_biz_qs=#{cje_biz_qs},</if>",
+            "    <if test='cje_kcb50 != null'>cje_kcb50=#{cje_kcb50},</if>",
 
             "    <if test='pt_hs300 != null'>pt_hs300=#{pt_hs300},</if>",
             "    <if test='pt_cyb50 != null'>pt_cyb50=#{pt_cyb50},</if>",
@@ -53,6 +55,7 @@ public interface FupanMapper {
             "    <if test='pt_sh != null'>pt_sh=#{pt_sh},</if>",
             "    <if test='pt_sz != null'>pt_sz=#{pt_sz},</if>",
             "    <if test='pt_zz500 != null'>pt_zz500=#{pt_zz500},</if>",
+            "    <if test='pt_kcb50 != null'>pt_kcb50=#{pt_kcb50},</if>",
             "    <if test='pt_biz_qs != null'>pt_biz_qs=#{pt_biz_qs},</if>",
 
             "    <if test='pt_hs300_last != null'>pt_hs300_last=#{pt_hs300_last},</if>",
@@ -63,6 +66,7 @@ public interface FupanMapper {
             "    <if test='pt_sz_last != null'>pt_sz_last=#{pt_sz_last},</if>",
             "    <if test='pt_zz500_last != null'>pt_zz500_last=#{pt_zz500_last},</if>",
             "    <if test='pt_biz_qs_last != null'>pt_biz_qs_last=#{pt_biz_qs_last},</if>",
+            "    <if test='pt_kcb50_last != null'>pt_kcb50_last=#{pt_kcb50_last},</if>",
 
             "    <if test='pt_sh_min != null'>pt_sh_min=#{pt_sh_min},</if>",
             "    <if test='pt_sh_max != null'>pt_sh_max=#{pt_sh_max},</if>",
@@ -78,6 +82,8 @@ public interface FupanMapper {
             "    <if test='pt_cyb_max != null'>pt_cyb_max=#{pt_cyb_max},</if>",
             "    <if test='pt_cyb50_min != null'>pt_cyb50_min=#{pt_cyb50_min},</if>",
             "    <if test='pt_cyb50_max != null'>pt_cyb50_max=#{pt_cyb50_max},</if>",
+            "    <if test='pt_kcb50_min != null'>pt_kcb50_min=#{pt_kcb50_min},</if>",
+            "    <if test='pt_kcb50_max != null'>pt_kcb50_max=#{pt_kcb50_max},</if>",
 
             "    <if test='amt_dfcf != null'>amt_dfcf=#{amt_dfcf},</if>",
             "    <if test='hold_st != null'>hold_st=#{hold_st},</if>",

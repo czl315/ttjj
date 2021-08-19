@@ -10,6 +10,8 @@ import java.util.Date;
  * @date 2021/7/1
  */
 public class DateUtil {
+    public static String YYYY_MM_dd = "yyyy-MM-dd";
+
     public static void main(String[] args) {
 //        //  取得一年的第几周    27
 //        int weekOfYear = getWeekOfYear(new Date());
@@ -19,17 +21,34 @@ public class DateUtil {
 //        long timeInMillis = getTimeInMillis(new Date());
 //        System.out.println(timeInMillis);
 
-        String dateStr ="2021-07-23";
-        String week = getWeekByYyyyMmDd(dateStr);
-        System.out.println(week);
+        //  根据日期取得星期几
+//        String dateStr ="2021-07-23";
+//        String week = getWeekByYyyyMmDd(dateStr);
+//        System.out.println(week);
+
+        //  获取当前日期增加或减少天数的日期格式
+        String dayStr = getCurDateStrAddDaysByFormat(YYYY_MM_dd, -10);
+        System.out.println(dayStr);
     }
 
     /**
-     *
      * @return
      */
     public static String getToday() {
-        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        return new SimpleDateFormat(YYYY_MM_dd).format(new Date());
+    }
+
+    /**
+     * 获取当前日期增加或减少天数的日期格式
+     *
+     * @param format
+     * @param days
+     * @return
+     */
+    public static String getCurDateStrAddDaysByFormat(String format, int days) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, days);
+        return new SimpleDateFormat(format).format(calendar.getTime());
     }
 
     /**
@@ -57,6 +76,7 @@ public class DateUtil {
 
     /**
      * 根据日期取得星期几
+     *
      * @param date
      * @return
      */
@@ -73,6 +93,7 @@ public class DateUtil {
 
     /**
      * 根据日期取得星期几
+     *
      * @return
      */
     public static String getWeekByYyyyMmDd(String dateStr) {

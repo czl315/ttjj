@@ -46,6 +46,7 @@ public class FupanDemo {
     static final String CYB_50_399673 = "0.399673";
     static final String ZZ_500_000905 = "1.000905";
     static final String SH_50_000016 = "1.000016";
+    static final String KCB_50 = "1.000688";
     static final String BIZ_QUANSHANG = "0.399975";
     static final String BIZ_BANDAOTI_XINPIAN_990001 = "0.007300";
     static final String COOKIE_DFCF = StockTradeDemo.COOKIE_DFCF;
@@ -54,21 +55,21 @@ public class FupanDemo {
 
         boolean updateDaPanKline = true;//显示-大盘指数
 //        boolean updateDaPanKline = false;//不显示-大盘指数
-        boolean updateMyStock = true;//显示-我的股票
-//        boolean updateMyStock = false;//不显示-我的股票
-        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓
-//        boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
-        boolean findDbMyPositionByDate = true;//从数据库中根据日期查询我的持仓盈亏
-//        boolean findDbMyPositionByDate = false;//从数据库中根据日期查询我的持仓盈亏
-        boolean updateDbFupanPositionByDate = true;//更新我的持仓盈亏明细
-//        boolean updateDbFupanPositionByDate = false;//更新我的持仓盈亏明细
+//        boolean updateMyStock = true;//显示-我的股票
+        boolean updateMyStock = false;//不显示-我的股票
+//        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓
+        boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
+//        boolean findDbMyPositionByDate = true;//从数据库中根据日期查询我的持仓盈亏
+        boolean findDbMyPositionByDate = false;//从数据库中根据日期查询我的持仓盈亏
+//        boolean updateDbFupanPositionByDate = true;//更新我的持仓盈亏明细
+        boolean updateDbFupanPositionByDate = false;//更新我的持仓盈亏明细
 //
 //        boolean updateMyTtjj = true;//显示-我的基金
         boolean updateMyTtjj = false;//不显示-我的基金
 
         String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
         String dateType = "1";//1：一天;7:周;30:月;
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String date = DateUtil.getToday();
         String dateKlineYyyymmdd = new SimpleDateFormat("yyyyMMdd").format(new Date());
 //            String date = "2021-08-13";
 //            String dateKlineYyyymmdd = "20210813";
@@ -85,10 +86,16 @@ public class FupanDemo {
             updateDb(findFupanPointByKline(cookie, SHANG_HAI, count, klt, dateType, date));//上证
             updateDb(findFupanPointByKline(cookie, SHEN_ZHEN, count, klt, dateType, date));//深证成指
             updateDb(findFupanPointByKline(cookie, CYB, count, klt, dateType, date));//创业板
+            updateDb(findFupanPointByKline(cookie, KCB_50, count, klt, dateType, date));
             System.out.println();
 
+//            for (int i = 0; i < 100; i++) {
+//                date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_dd, -i);
+//                updateDb(findFupanPointByKline(cookie, KCB_50, count, klt, dateType, date));
+//            }
+
             //k线-日线-行业指数
-            updateDb(findFupanPointByKline(cookie, BIZ_QUANSHANG, count, klt, dateType, date));
+//            updateDb(findFupanPointByKline(cookie, BIZ_QUANSHANG, count, klt, dateType, date));
 
         }
 
@@ -672,13 +679,10 @@ public class FupanDemo {
         String dbFieldRt = "";
         String dbFieldNet = "";
         String dbFieldCje = "";
-        if (HS_300_000300.equals(zhiShu) || SH_50_000016.equals(zhiShu) || SHANG_HAI.equals(zhiShu) || SHEN_ZHEN.equals(zhiShu) || CYB.equals(zhiShu) || BIZ_QUANSHANG.equals(zhiShu) || ZZ_500_000905.equals(zhiShu)) {
+        if (HS_300_000300.equals(zhiShu) || SH_50_000016.equals(zhiShu) || SHANG_HAI.equals(zhiShu) || SHEN_ZHEN.equals(zhiShu) || CYB.equals(zhiShu) || BIZ_QUANSHANG.equals(zhiShu) || ZZ_500_000905.equals(zhiShu) || KCB_50.equals(zhiShu)) {
             url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
         } else if (CYB_50_399673.equals(zhiShu)) {
             url.append("http://50.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33107544000725313278_1602691226567");
-            //http://50.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33107544000725313278_1602691226567&secid=0.399673&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&end=20500101&lmt=120&_=160269122657
-//            http://50.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33107544000725313278_1602691226567&secid=0.399673&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&end=20500101&lmt=120&_=1602691226576
-//            http://50.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33107544000725313278_1602691226567&secid=0.399673&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&end=20500101&lmt=120&_=1602691226576
         } else if ("".equals(zhiShu)) {
             System.out.println("指数不能为空！");
         }
@@ -694,26 +698,12 @@ public class FupanDemo {
                 "f50,f51,f52,f53,f54,f55,f56,f57,f58,f59," +
                 "f60,f61,f62,f63,f64,f65,f66,f67,f68,f69" +
 //                "f70,f71,f72,f73,f74,f75,f76,f77,f78,f79," +
-//                "f80,f81,f82,f83,f84,f85,f86,f87,f88,f89," +
-//                "f90,f91,f92,f93,f94,f95,f96,f97,f98,f99," +
-//                "f100,f101,f102,f103,f104,f105,f106,f107,f108,f109" + "," +
-//                "f110,f111,f112,f113,f114,f115,f116,f117,f118,f119" + "," +
-//                "f120,f121,f122,f123,f124,f125,f126,f127,f128,f129" + "," +
-//                "f130,f131,f132,f133,f134,f135,f136,f137,f138,f139" + "," +
-//                "f140,f141,f142,f143,f144,f145,f146,f147,f148,f149" + "," +
-//                "f150,f151,f152,f153,f154,f155,f156,f157,f158,f159" + "," +
-//                "f160,f161,f162,f163,f164,f165,f166,f167,f168,f169" + "," +
-//                "f170,f171,f172,f173,f174,f175,f176,f177,f178,f179" + "," +
-//                "f180,f181,f182,f183,f184,f185,f186,f187,f188,f189" + "," +
-//                "f190,f191,f192,f193,f194,f195,f196,f197,f198,f199" + "," +
-//                "f200,f201,f202,f203,f204,f205,f206,f207,f208,f209" + "," +
-//                "f210,f211,f212,f213,f214,f215,f216,f217,f218,f219" + "," +
-//                "f220,f221,f222,f223,f224,f225,f226,f227,f228,f229" +
                 "");/**     f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61  日期，开盘，收盘,最高，最低，成交量，成交额，振幅，涨跌幅，涨跌额，换手率 **/
         url.append("&klt=" + klt);
         url.append("&fqt=1");
+        url.append("&beg=" + date.replace("-", ""));
         url.append("&end=20500101");
-        url.append("&lmt=365");
+        url.append("&lmt=" + count);
         url.append("&_=" + System.currentTimeMillis());
 //            System.out.println(url.toString());
 
@@ -826,6 +816,17 @@ public class FupanDemo {
                 dbFieldRt = "rt_sh50";
                 dbFieldNet = "pt_sh50";
                 dbFieldCje = "cje_sh50";
+            }
+            if (KCB_50.equals(zhiShu)) {
+                fupanRs.setRt_kcb50(zhangDie);
+                fupanRs.setPt_kcb50(shouPan);
+                fupanRs.setCje_kcb50(chengJiaoE);
+                fupanRs.setPt_kcb50_last(closePointLast);
+                fupanRs.setPt_kcb50_max(max);
+                fupanRs.setPt_kcb50_min(min);
+                dbFieldRt = "rt_kcb50";
+                dbFieldNet = "pt_kcb50";
+                dbFieldCje = "cje_kcb50";
             }
             if (BIZ_QUANSHANG.equals(zhiShu)) {
                 fupanRs.setRt_biz_qs(zhangDie);

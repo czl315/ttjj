@@ -21,6 +21,7 @@ public class Fupan {
     String rt_cyb;
     String rt_sh;
     String rt_zz500;
+    String rt_kcb50;
     String rt_biz_qs;
 
     /**
@@ -34,6 +35,7 @@ public class Fupan {
     String pt_sz;
     String pt_zz500;
     String pt_biz_qs;
+    String pt_kcb50;
 
     /**
      * 指数-上一时段
@@ -45,6 +47,7 @@ public class Fupan {
     String pt_sh_last;
     String pt_sz_last;
     String pt_zz500_last;
+    String pt_kcb50_last;
     String pt_biz_qs_last;
 
     /**
@@ -64,6 +67,8 @@ public class Fupan {
     String pt_cyb_max;
     String pt_cyb50_min;
     String pt_cyb50_max;
+    String pt_kcb50_min;
+    String pt_kcb50_max;
 
     /**
      * cjeHs300 成交额-沪深300
@@ -75,6 +80,7 @@ public class Fupan {
     String cje_cyb50;
     String cje_sh50;
     String cje_zz500;
+    String cje_kcb50;
     String cje_biz_qs;
 
     String amt_dfcf;
@@ -571,5 +577,53 @@ public class Fupan {
 
     public void setAssetPosition(String assetPosition) {
         this.assetPosition = assetPosition;
+    }
+
+    public String getRt_kcb50() {
+        return rt_kcb50;
+    }
+
+    public void setRt_kcb50(String rt_kcb50) {
+        this.rt_kcb50 = rt_kcb50;
+    }
+
+    public String getPt_kcb50() {
+        return pt_kcb50;
+    }
+
+    public void setPt_kcb50(String pt_kcb50) {
+        this.pt_kcb50 = pt_kcb50;
+    }
+
+    public String getPt_kcb50_last() {
+        return pt_kcb50_last;
+    }
+
+    public void setPt_kcb50_last(String pt_kcb50_last) {
+        this.pt_kcb50_last = pt_kcb50_last;
+    }
+
+    public String getPt_kcb50_min() {
+        return pt_kcb50_min;
+    }
+
+    public void setPt_kcb50_min(String pt_kcb50_min) {
+        this.pt_kcb50_min = pt_kcb50_min;
+    }
+
+    public String getPt_kcb50_max() {
+        return pt_kcb50_max;
+    }
+
+    public void setPt_kcb50_max(String pt_kcb50_max) {
+        this.pt_kcb50_max = pt_kcb50_max;
+    }
+
+    public String getCje_kcb50() {
+        return cje_kcb50;
+    }
+
+    public void setCje_kcb50(String cje_kcb50) {
+        this.cje_kcb50 = cje_kcb50;
     }
 }
