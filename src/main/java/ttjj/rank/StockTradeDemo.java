@@ -12,6 +12,7 @@ import ttjj.dto.FundTrade;
 import ttjj.dto.LsjzDataLsjz;
 import ttjj.dto.StockTrade;
 import utils.Content;
+import utils.DateUtil;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
@@ -25,7 +26,7 @@ import java.util.*;
  */
 public class StockTradeDemo {
 //    static String type_selling = "证券买入(卖出中)";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=81827774513335; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210819172456775-11923323313501-8457927606; st_asi=delete; mobileimei=76a73ce9-aad7-4f1c-82a2-d8628e6f2b6d; Uuid=0a44efc0f3e84d0baddb6db6cdf99a8b; monitor_count=19";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=23726456181895; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=3; st_psi=20210820214825524-11923323313501-5549200570; mobileimei=3c533d93-92bf-4e82-bda2-c99d8b9f13e0; Uuid=2567bd25865e4d249746dd08eb1833cf; monitor_count=26";
 
     public static void main(String[] args) {
 //        boolean tradIng = true;//"盘中交易中"
@@ -40,9 +41,9 @@ public class StockTradeDemo {
             showTypeNet = 365;//最新一年内
         }
 
-//            String startDate = "2021-08-09";//查询新增交易的开始时间
-        String startDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String endDate = "2021-12-31";
+//            String startDate = "2021-08-19";//查询新增交易的开始时间
+        String startDate = DateUtil.getToday();
+        String endDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD,10);
 //            String endDate = "2021-03-19";
         if (showBuyOrSell) {
             //显示插入数据库语句
@@ -447,13 +448,14 @@ public class StockTradeDemo {
         typeListZhiShu.add("512000");//券商ETF
         typeListZhiShu.add("512170");//医疗ETF
         typeListZhiShu.add("515030");//新汽车
-        typeListZhiShu.add("510880");//红利ETF
         typeListZhiShu.add("515790");//光伏ETF
         typeListZhiShu.add("515220");//煤炭ETF
         typeListZhiShu.add("159782");//双创50
         typeListZhiShu.add("516780");//稀土ETF
         typeListZhiShu.add("515290");//银行
         typeListZhiShu.add("159852");//软件ETF
+        typeListZhiShu.add("516110");//汽车ETF
+//        typeListZhiShu.add("510880");//红利ETF
 //        typeListZhiShu.add("159825");//农业ETF
 //        typeListZhiShu.add("515250");//智能汽车
 //        typeListZhiShu.add("513050");//中概互联
@@ -477,6 +479,19 @@ public class StockTradeDemo {
         for (String zqdm : typeListSpyl) {
             StockTrade stockTradeTemp = new StockTrade();
             stockTradeTemp.setBizTy("食品饮料");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
+        //材料
+        List<String> typeListCl = new ArrayList<>();
+        typeListSpyl.add("601012");//隆基股份
+        typeListSpyl.add("002129");//中环股份
+        for (String zqdm : typeListCl) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("材料");
             stockTradeTemp.setRiskStLoss(baseRiskStLoss);
             stockTradeTemp.setRiskStProfit(baseRiskStProfit);
             stockTradeTemp.setZqdm(zqdm);

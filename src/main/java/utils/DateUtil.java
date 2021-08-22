@@ -10,9 +10,15 @@ import java.util.Date;
  * @date 2021/7/1
  */
 public class DateUtil {
-    public static String YYYY_MM_dd = "yyyy-MM-dd";
+    public static String YYYY_MM_DD = "yyyy-MM-dd";
+    public static String YYYYMMDD = "yyyyMMdd";
 
     public static void main(String[] args) {
+
+        //获取格式化日期
+        String date = getDateStrAddDaysByFormat(YYYY_MM_DD, 2021, 2, 28, -1);
+        System.out.println(date);
+
 //        //  取得一年的第几周    27
 //        int weekOfYear = getWeekOfYear(new Date());
 //        System.out.println(weekOfYear);
@@ -26,16 +32,18 @@ public class DateUtil {
 //        String week = getWeekByYyyyMmDd(dateStr);
 //        System.out.println(week);
 
-        //  获取当前日期增加或减少天数的日期格式
-        String dayStr = getCurDateStrAddDaysByFormat(YYYY_MM_dd, -10);
-        System.out.println(dayStr);
+//        //  获取当前日期增加或减少天数的日期格式
+//        String dayStr = getCurDateStrAddDaysByFormat(YYYY_MM_DD, -10);
+//        System.out.println(dayStr);
+
+
     }
 
     /**
      * @return
      */
     public static String getToday() {
-        return new SimpleDateFormat(YYYY_MM_dd).format(new Date());
+        return new SimpleDateFormat(YYYY_MM_DD).format(new Date());
     }
 
     /**
@@ -47,6 +55,25 @@ public class DateUtil {
      */
     public static String getCurDateStrAddDaysByFormat(String format, int days) {
         Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, days);
+        return new SimpleDateFormat(format).format(calendar.getTime());
+    }
+
+    /**
+     * 获取格式化日期
+     *
+     * @param format
+     * @param year
+     * @param month
+     * @param day
+     * @param days
+     * @return
+     */
+    public static String getDateStrAddDaysByFormat(String format, int year, int month, int day, int days) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month - 1);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
         calendar.add(Calendar.DAY_OF_YEAR, days);
         return new SimpleDateFormat(format).format(calendar.getTime());
     }

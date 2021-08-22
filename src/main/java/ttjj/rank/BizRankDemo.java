@@ -12,6 +12,7 @@ import ttjj.dao.MyBatisUtils;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.StockTrade;
 import utils.Content;
+import utils.DateUtil;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
@@ -34,7 +35,7 @@ public class BizRankDemo {
      */
     public static void main(String[] args) {
 //        String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String date = DateUtil.getToday();
 //        String date = "20210604";
 
         boolean insertDbTodayBiz = true;

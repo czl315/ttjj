@@ -21,6 +21,14 @@ public class Kline {
      */
     private String zqmc;
     /**
+     * klt 周期
+     */
+    private String klt;
+    /**
+     * rs 返回结果
+     */
+    private String rs;
+    /**
      * 开盘价
      */
     private BigDecimal openAmt;
@@ -175,5 +183,21 @@ public class Kline {
 
     public void setZqmc(String zqmc) {
         this.zqmc = zqmc;
+    }
+
+    public String getRs() {
+        return rs;
+    }
+
+    public void setRs(String rs) {
+        this.rs = rs;
+    }
+
+    public String getKlt() {
+        return klt;
+    }
+
+    public void setKlt(String klt) {
+        this.klt = klt;
     }
 }

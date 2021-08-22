@@ -21,11 +21,11 @@ public class KlineHistoryTest {
     public static void main(String[] args) {
         /**    创业板50-159949 HS300ETF-510310 50ETF-510050	新汽车-515030	芯片ETF-159995	酒ETF-512690	医疗ETF-512170 	光伏ETF-515790	稀土ETF-516780	有色50-159880	煤炭ETF-515220 军工ETF-512660		**/
 //        String zqdm = "159949";
-        String zqdm = "512660";
-        String begDate = "20210801";//查询新增交易的开始时间
-        String endDate = "20210810";
-        String klt = "5";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
-        int lmt = 9999;
+        String zqdm = "000300";
+        String begDate = "20210701";//查询新增交易的开始时间
+        String endDate = "20210731";
+        String klt = "1";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+        int lmt = 1000000;
         List<RankBizDataDiff> rankBizDataDiffList = new ArrayList<>();
         List<Kline> klines = KlineService.kline(zqdm, lmt, klt, begDate, endDate);
         System.out.println("开始日期:" + begDate + "，结束日期:" + endDate + "，周期:" + klt + "，klines.size():" + klines.size());
@@ -69,8 +69,8 @@ public class KlineHistoryTest {
             boolean upFactorFlag = true;
 //            boolean upFactorFlag = false;
 
-            BigDecimal downFactorTemp = new BigDecimal("-0.5");
-            BigDecimal upFactorTemp = new BigDecimal("0.2");
+            BigDecimal downFactorTemp = new BigDecimal("-0.3");
+            BigDecimal upFactorTemp = new BigDecimal("0.3");
 
             BigDecimal downFactorTempStep = new BigDecimal("0.1");
 //            BigDecimal downFactorTemp = downFactorTempStep.multiply(new BigDecimal(i)).multiply(new BigDecimal("-1"));
@@ -140,7 +140,7 @@ public class KlineHistoryTest {
                 //初始化交易历史回测数据
                 TradeHisBack tradeHisBack = new TradeHisBack();
                 tradeHisBack.setLmtAmt(new BigDecimal("100000"));
-                tradeHisBack.setEachNum(new BigDecimal("5000"));
+                tradeHisBack.setEachNum(new BigDecimal("1"));
                 tradeHisBack.setCash(new BigDecimal("100000"));
 //                tradeHisBack.setCash(new BigDecimal("19205"));
                 tradeHisBack.setHoldAmt(new BigDecimal("0"));

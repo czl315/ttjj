@@ -28,12 +28,12 @@ public class RankStockBizCompany {
 
         List<RankBizDataDiff> bizList = listBiz(100);//查询主题排名by时间类型、显示个数
 
-        boolean flagInsertDb = true;//标识：是否插入数据库
-//        boolean flagInsertDb = false;//标识：是否插入数据库
-//        boolean flagUpdateConception = true;//标识：是否更新概念题材
-        boolean flagUpdateConception = false;//标识：是否更新概念题材
-//        boolean flagUpdateNet = true;//标识：是否更新净值
-        boolean flagUpdateNet = false;//标识：是否更新净值
+//        boolean flagInsertDb = true;//标识：是否插入数据库
+        boolean flagInsertDb = false;//标识：是否插入数据库
+        boolean flagUpdateConception = true;//标识：是否更新概念题材
+//        boolean flagUpdateConception = false;//标识：是否更新概念题材
+        boolean flagUpdateNet = true;//标识：是否更新净值
+//        boolean flagUpdateNet = false;//标识：是否更新净值
 
         int startNum = 0;
         int bizCountLimit = 999;

@@ -55,14 +55,14 @@ public class FupanDemo {
 
         boolean updateDaPanKline = true;//显示-大盘指数
 //        boolean updateDaPanKline = false;//不显示-大盘指数
-//        boolean updateMyStock = true;//显示-我的股票
-        boolean updateMyStock = false;//不显示-我的股票
-//        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓
-        boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
-//        boolean findDbMyPositionByDate = true;//从数据库中根据日期查询我的持仓盈亏
-        boolean findDbMyPositionByDate = false;//从数据库中根据日期查询我的持仓盈亏
-//        boolean updateDbFupanPositionByDate = true;//更新我的持仓盈亏明细
-        boolean updateDbFupanPositionByDate = false;//更新我的持仓盈亏明细
+        boolean updateMyStock = true;//显示-我的股票
+//        boolean updateMyStock = false;//不显示-我的股票
+        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓
+//        boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
+        boolean findDbMyPositionByDate = true;//从数据库中根据日期查询我的持仓盈亏
+//        boolean findDbMyPositionByDate = false;//从数据库中根据日期查询我的持仓盈亏
+        boolean updateDbFupanPositionByDate = true;//更新我的持仓盈亏明细
+//        boolean updateDbFupanPositionByDate = false;//更新我的持仓盈亏明细
 //
 //        boolean updateMyTtjj = true;//显示-我的基金
         boolean updateMyTtjj = false;//不显示-我的基金
@@ -90,7 +90,7 @@ public class FupanDemo {
             System.out.println();
 
 //            for (int i = 0; i < 100; i++) {
-//                date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_dd, -i);
+//                date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
 //                updateDb(findFupanPointByKline(cookie, KCB_50, count, klt, dateType, date));
 //            }
 
