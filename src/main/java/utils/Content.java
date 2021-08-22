@@ -1,10 +1,38 @@
 package utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author chenzhilong
  * @date
  */
 public class Content {
+    /**常用指数
+     * 000001	上证指数
+     */
+    private static Map<String, String> zhishuMap = new HashMap<>();
+    static {
+        zhishuMap.put("000001","上证指数");
+        zhishuMap.put("000300","沪深300");
+        zhishuMap.put("000016","上证50");
+        zhishuMap.put("000903","中证100");
+        zhishuMap.put("000905","中证500");
+        zhishuMap.put("000852","中证1000");
+        zhishuMap.put("000688","科创50");
+        zhishuMap.put("399001","深证成指");
+        zhishuMap.put("399006","创业板指");
+        zhishuMap.put("399673","创业板50");
+    }
+
+    /**
+     * 常用指数
+     * @return
+     */
+    public static Map<String, String> getZhishuMap() {
+        return zhishuMap;
+    }
+
     public static String jjName = "jjName";
     public static String jjCode = "jjCode";
     public static String canShare = "canShare";

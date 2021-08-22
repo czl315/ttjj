@@ -139,7 +139,7 @@ public class KlineService {
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("&StartDate=").append(startDate);
 
-//        System.out.println("请求url:" + url + JSON.toJSONString(urlParam));
+        System.out.println("请求url:" + url + JSON.toJSONString(urlParam));
         String rs = "";
         try {
             rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
@@ -163,7 +163,7 @@ public class KlineService {
         rs = rs.substring(rs.indexOf("({"));
         rs = rs.replace("({", "{");
         rs = rs.replace("});", "}");
-//        System.out.println("szKline:" + rs);
+        System.out.println("szKline:" + rs);
 
         return rs;
     }
