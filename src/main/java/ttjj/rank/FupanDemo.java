@@ -70,8 +70,8 @@ public class FupanDemo {
         String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
         String dateType = "1";//1：一天;7:周;30:月;
         String date = DateUtil.getToday();
-        String dateKlineYyyymmdd = new SimpleDateFormat("yyyyMMdd").format(new Date());
-//            String date = "2021-08-13";
+//            String date = "2021-08-20";
+        String dateKlineYyyymmdd = date.replace("-","");
 //            String dateKlineYyyymmdd = "20210813";
 
         if (updateDaPanKline) {
@@ -675,10 +675,11 @@ public class FupanDemo {
         fupanRs.setCode(date);
         fupanRs.setPeriod(dayTpye);
         fupanRs.setType("1");//实际
-        StringBuffer url = new StringBuffer();
         String dbFieldRt = "";
         String dbFieldNet = "";
         String dbFieldCje = "";
+
+        StringBuffer url = new StringBuffer();
         if (HS_300_000300.equals(zhiShu) || SH_50_000016.equals(zhiShu) || SHANG_HAI.equals(zhiShu) || SHEN_ZHEN.equals(zhiShu) || CYB.equals(zhiShu) || BIZ_QUANSHANG.equals(zhiShu) || ZZ_500_000905.equals(zhiShu) || KCB_50.equals(zhiShu)) {
             url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
         } else if (CYB_50_399673.equals(zhiShu)) {
@@ -710,11 +711,11 @@ public class FupanDemo {
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("&StartDate=").append(startDate);
 
-//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
+        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
         String rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), cookie);
         String rsJson = rs.substring(rs.indexOf("{"));
         rsJson = rsJson.replace(");", "");
-//        System.out.println("szKline:" + rsJson);
+        System.out.println("szKline:" + rsJson);
 
         List<String> klineList = new ArrayList<String>();
         JSONObject szzzMonthJson = JSON.parseObject(rsJson);
