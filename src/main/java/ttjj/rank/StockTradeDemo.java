@@ -26,7 +26,7 @@ import java.util.*;
  */
 public class StockTradeDemo {
 //    static String type_selling = "证券买入(卖出中)";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=23726456181895; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=3; st_psi=20210820214825524-11923323313501-5549200570; mobileimei=3c533d93-92bf-4e82-bda2-c99d8b9f13e0; Uuid=2567bd25865e4d249746dd08eb1833cf; monitor_count=26";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=25652453441241; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210823160405283-11923323313501-4897455014; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=91aa39e6-fd30-4b00-974f-1f7993ef9a6a; Uuid=ebeceecec4894e9a8a8019b81d86d96e; monitor_count=3";
 
     public static void main(String[] args) {
 //        boolean tradIng = true;//"盘中交易中"
@@ -852,7 +852,8 @@ public class StockTradeDemo {
     public static StockTradeDb kline(String zhiShu, int days, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
         StringBuffer url = new StringBuffer();
         url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-        if (zhiShu.startsWith("5") || zhiShu.startsWith("6")) {
+        if (zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("000")|| zhiShu.startsWith("11")|| zhiShu.startsWith("12")) {
+            //  110、120开头是可转债
             url.append("&secid=" + "1." + zhiShu);
         } else {
             url.append("&secid=" + "0." + zhiShu);

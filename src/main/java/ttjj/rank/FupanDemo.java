@@ -53,12 +53,12 @@ public class FupanDemo {
 
     public static void main(String[] args) {
 
-        boolean updateDaPanKline = true;//显示-大盘指数
-//        boolean updateDaPanKline = false;//不显示-大盘指数
-        boolean updateMyStock = true;//显示-我的股票
-//        boolean updateMyStock = false;//不显示-我的股票
-        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓
-//        boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
+//        boolean updateDaPanKline = true;//显示-大盘指数
+        boolean updateDaPanKline = false;//不显示-大盘指数
+//        boolean updateMyStock = true;//显示-我的股票
+        boolean updateMyStock = false;//不显示-我的股票
+//        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓
+        boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
         boolean findDbMyPositionByDate = true;//从数据库中根据日期查询我的持仓盈亏
 //        boolean findDbMyPositionByDate = false;//从数据库中根据日期查询我的持仓盈亏
         boolean updateDbFupanPositionByDate = true;//更新我的持仓盈亏明细

@@ -24,17 +24,11 @@ import java.util.*;
  */
 public class BizRankDemo {
     /**
-     * sqlSessionFactory mybatis
-     */
-    static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
-
-    /**
      * ttjj
      *
      * @param args args
      */
     public static void main(String[] args) {
-//        String date = new SimpleDateFormat("yyyyMMdd").format(new Date());
         String date = DateUtil.getToday();
 //        String date = "20210604";
 
@@ -67,8 +61,7 @@ public class BizRankDemo {
 
         List<RankBizDataDiff> rankEtf = listEtf(date, "etf", 999);//2021-04-16:425;
         if (insertDbTodayEtf) {
-            BizRankDao.insertDbBiz(
-                    rankEtf);//hy-行业
+            BizRankDao.insertDbBiz(rankEtf);//hy-行业
 //            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
         }
 
