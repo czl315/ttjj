@@ -69,7 +69,7 @@ public class RankBizDataDiff {
      */
     private String f12;
     /**
-     * f13 ？1-沪市；0-深市；其他固定90
+     * f13 ？1-沪市；0-深市：159开头基金；其他固定90
      */
     private Long f13;
     /**

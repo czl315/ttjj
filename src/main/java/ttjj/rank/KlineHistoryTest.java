@@ -46,7 +46,7 @@ public class KlineHistoryTest {
 //            rankBizDataDiff.getF10(kline.get)
 //            rankBizDataDiff.getF11()
             rankBizDataDiff.setF12(kline.getZqdm());
-            rankBizDataDiff.setF13(0L);
+            rankBizDataDiff.setF13(1L);
             rankBizDataDiff.setF14(kline.getZqmc());
             rankBizDataDiff.setF15(kline.getMaxAmt().doubleValue());
             rankBizDataDiff.setF16(kline.getMinAmt().doubleValue());

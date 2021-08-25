@@ -42,8 +42,8 @@ public class DateUtil {
     /**
      * @return
      */
-    public static String getToday() {
-        return new SimpleDateFormat(YYYY_MM_DD).format(new Date());
+    public static String getToday(String format) {
+        return new SimpleDateFormat(format).format(new Date());
     }
 
     /**

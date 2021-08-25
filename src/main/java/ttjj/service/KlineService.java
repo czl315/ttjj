@@ -96,12 +96,27 @@ public class KlineService {
         StringBuffer url = new StringBuffer();
 //        url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
         url.append("http://" + random + ".push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33103254362175743777_" + curTime);
-        if (zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("000")|| zhiShu.startsWith("11")|| zhiShu.startsWith("12")) {
-            //  110、120开头是可转债
-            url.append("&secid=" + "1." + zhiShu);
-        } else {
+        if (zhiShu.startsWith("159")) {
             //159开头
             url.append("&secid=" + "0." + zhiShu);
+            //  110、120开头是可转债
+            //  上海证券交易所决定为交易型货币市场基金、债券ETF等上市交易的固定收益类基金产品分配511000-511999专用证券代码段。
+            //沪市A股票代码是以60开头 沪市主板股票代码:600、601、603、605。
+            //深市A股票代码是以00开头 深市主板股票代码:000开头。深市中小板股票代码:002开头。
+            //  创业板股票代码:300开头。科创板股票代码:688开头。
+            //    B股代码是以900开头
+            //    新股申购的代码是以730开头
+            //    配股代码以700开头
+            //    B股代码是以200开头
+            //    新股申购的代码是以00开头
+            //    配股代码以080开头
+            //S开头表示未进行股改，
+            //ST开头表示连续两年股东收益为负等原因，
+            //*ST开头表示有退市风险
+            //XD表示分红等
+        } else {
+            //zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("000")|| zhiShu.startsWith("11")|| zhiShu.startsWith("12")
+            url.append("&secid=" + "1." + zhiShu);
         }
 
         url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
