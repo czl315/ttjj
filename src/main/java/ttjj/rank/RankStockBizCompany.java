@@ -22,7 +22,7 @@ public class RankStockBizCompany {
      */
     public static void main(String[] args) {
         String today = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String today = "20210824";
+//        String today = "2021-08-25";
 
         Map<String, String> bizMap = new LinkedHashMap<>();
 

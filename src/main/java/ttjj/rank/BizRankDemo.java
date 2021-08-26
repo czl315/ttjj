@@ -30,7 +30,7 @@ public class BizRankDemo {
      */
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "20210604";
+//        String date = "2021-08-25";
 
         boolean insertDbTodayBiz = true;
 //        boolean insertDbTodayBiz = false;

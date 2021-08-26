@@ -70,6 +70,7 @@ public class KlineService {
                 kline.setCloseLastAmt(lastCloseAmt);
                 kline.setZqdm(szzzMonthDataJson.getString("code"));
                 kline.setZqmc(szzzMonthDataJson.getString("name"));
+                kline.setRs(rs);
 
                 klineRs.add(kline);
             }
@@ -96,7 +97,8 @@ public class KlineService {
         StringBuffer url = new StringBuffer();
 //        url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
         url.append("http://" + random + ".push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33103254362175743777_" + curTime);
-        if (zhiShu.startsWith("159")) {
+        if (zhiShu.startsWith("159") || zhiShu.startsWith("399") || zhiShu.startsWith("30") || zhiShu.startsWith("20")) {
+            //|| zhiShu.startsWith("00")
             //159开头
             url.append("&secid=" + "0." + zhiShu);
             //  110、120开头是可转债
@@ -114,6 +116,9 @@ public class KlineService {
             //ST开头表示连续两年股东收益为负等原因，
             //*ST开头表示有退市风险
             //XD表示分红等
+        } else if (zhiShu.startsWith("93")) {
+            //2.931643
+            url.append("&secid=" + "2." + zhiShu);
         } else {
             //zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("000")|| zhiShu.startsWith("11")|| zhiShu.startsWith("12")
             url.append("&secid=" + "1." + zhiShu);

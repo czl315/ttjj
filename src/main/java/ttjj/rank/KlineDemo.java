@@ -10,6 +10,7 @@ import ttjj.service.KlineService;
 import utils.Content;
 import utils.DateUtil;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,20 +20,28 @@ import java.util.Set;
  */
 public class KlineDemo {
     public static void main(String[] args) {
-//        //  插入常用指数k线
-//        addZhishuKline();
-
-        // 查询k线
-        String zqdm = "110081";
+        //  插入常用指数k线
         String klt = "101";//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
-        String begDate = "20210820";//查询新增交易的开始时间
-        String endDate = "20500101";
-        findKlineByZqdm(zqdm, klt, begDate, endDate);
+        int lmt = 1000000;
+        int addDaysMax = 25;//最多增加的天数
+        int year = 2021;
+        int month = 8;
+        int day = 1;
+        Map<String, String> zhishuMap = Content.getZhishuMap();
+        addZhishuKline(zhishuMap,klt,lmt,year,month,day,addDaysMax);
+
+//        // 查询k线
+//        String zqdm = "110081";
+//        String klt = "101";//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+//        String begDate = "20210820";//查询新增交易的开始时间
+//        String endDate = "20500101";
+//        findKlineByZqdm(zqdm, klt, begDate, endDate);
     }
 
     /**
      * 查询k线
-     *  @param zqdm
+     *
+     * @param zqdm
      * @param klt
      * @param begDate
      * @param endDate
@@ -46,26 +55,27 @@ public class KlineDemo {
 
     /**
      * 插入常用指数k线
+     * @param zhishuMap
+     * @param klt
+     * @param lmt
+     * @param year
+     * @param month
+     * @param day
+     * @param addDaysMax
      */
-    private static void addZhishuKline() {
-        String klt = "1";//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
-        int lmt = 1000000;
-        int addDaysMax = 66;//最多增加的天数
-        int year = 2021;
-        int month = 7;
-        int day = 1;
-        Map<String, String> zhishuMap = Content.getZhishuMap();
+    private static void addZhishuKline(Map<String, String> zhishuMap, String klt, int lmt, int year, int month, int day, int addDaysMax) {
         Set<String> zhishuList = zhishuMap.keySet();
-        for (String zhishu : zhishuList) {
+        for (String zqdm : zhishuList) {
+            for (int i = 0; i < addDaysMax; i++) {
+                String begDate = DateUtil.getDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, year, month, day, i);//查询新增交易的开始时间
+                String endDate = begDate;
 //            //按照日期的分钟线（5分钟；15分钟；30分钟；60分钟；120分钟），插入k线
 //            addKlineByDay(zhishu, klt);
 
 //            //  增加大周期k线
-            addKlineDaZhouQi(zhishu, klt);
-
+                addKlineDaZhouQi(zqdm, lmt, klt, begDate, endDate);
+            }
         }
-
-
     }
 
     /**
@@ -125,16 +135,37 @@ public class KlineDemo {
     /**
      * 增加大周期k线
      *
+     * @param zqdm
+     * @param lmt
+     * @param klt
+     * @param begDate
+     * @param endDate
+     */
+    private static void addKlineDaZhouQi(String zqdm, int lmt, String klt, String begDate, String endDate) {
+        //  插入数据库-K线-大周期
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, begDate, endDate);
+        for (Kline kline : klines) {
+            /**
+             * 插入数据库-K线
+             */
+            KlineDao.insert(kline);
+        }
+    }
+
+    /**
+     * 增加大周期k线-只插入http返回结果
+     *
      * @param zhishu
      * @param klt
      */
-    private static void addKlineDaZhouQi(String zhishu, String klt) {
+    private static void addKlineDaZhouQiOnlyHttpRs(String zhishu, String klt) {
         int lmt = 1000000;
         String begDate = "";//查询新增交易的开始时间
         String endDate = "";
         begDate = "0";
         endDate = "20500101";
         String zqdm = zhishu;
+//  只插入http返回结果
         String klineRs = KlineService.klineRsStrHttpDfcf(zqdm, lmt, klt, begDate, endDate);
         System.out.println("开始日期:" + begDate + "，结束日期:" + endDate + "，周期:" + klt + "，klines.size():" + klineRs);
 //        System.out.println("klines:"+JSON.toJSONString(klines));
@@ -166,5 +197,7 @@ public class KlineDemo {
          * 插入数据库-K线
          */
         KlineDao.insert(kline);
+
+
     }
 }

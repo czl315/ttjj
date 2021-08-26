@@ -23,6 +23,7 @@ public class Content {
         zhishuMap.put("399001","深证成指");
         zhishuMap.put("399006","创业板指");
         zhishuMap.put("399673","创业板50");
+        zhishuMap.put("931643","科创创业50");
     }
 
     /**

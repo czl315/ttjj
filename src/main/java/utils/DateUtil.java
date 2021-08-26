@@ -72,7 +72,7 @@ public class DateUtil {
     public static String getDateStrAddDaysByFormat(String format, int year, int month, int day, int days) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month - 1);
+        calendar.set(Calendar.MONTH, (month - 1));
         calendar.set(Calendar.DAY_OF_MONTH, day);
         calendar.add(Calendar.DAY_OF_YEAR, days);
         return new SimpleDateFormat(format).format(calendar.getTime());
