@@ -97,7 +97,7 @@ public class KlineService {
         StringBuffer url = new StringBuffer();
 //        url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
         url.append("http://" + random + ".push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33103254362175743777_" + curTime);
-        if (zhiShu.startsWith("159") || zhiShu.startsWith("399") || zhiShu.startsWith("30") || zhiShu.startsWith("20")) {
+        if (zhiShu.startsWith("159") || zhiShu.startsWith("399") || zhiShu.startsWith("30") || zhiShu.startsWith("20") || zhiShu.startsWith("00")) {
             //|| zhiShu.startsWith("00")
             //159开头
             url.append("&secid=" + "0." + zhiShu);

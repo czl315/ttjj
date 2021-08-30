@@ -16,6 +16,18 @@ public class RankBizDataDiff {
      */
     private String date;
     /**
+     * month
+     */
+    private String month;
+    /**
+     * weekYear
+     */
+    private String weekYear;
+    /**
+     * week
+     */
+    private String week;
+    /**
      * type 类型：hy-行业；gn-概念；etf；
      */
     private String type;
@@ -1842,5 +1854,29 @@ public class RankBizDataDiff {
 
     public void setF59(String f59) {
         this.f59 = f59;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getWeekYear() {
+        return weekYear;
+    }
+
+    public void setWeekYear(String weekYear) {
+        this.weekYear = weekYear;
+    }
+
+    public String getWeek() {
+        return week;
+    }
+
+    public void setWeek(String week) {
+        this.week = week;
     }
 }

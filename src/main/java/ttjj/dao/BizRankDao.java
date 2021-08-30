@@ -65,4 +65,16 @@ public class BizRankDao {
         }
         return rs;
     }
+
+    public static int updateDate(RankBizDataDiff entity) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.update("ttjj.dao.mapper.RandBizEtfMapper.updateDate", entity);
+            session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
 }

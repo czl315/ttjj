@@ -26,22 +26,22 @@ import java.util.*;
  */
 public class StockTradeDemo {
 //    static String type_selling = "证券买入(卖出中)";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=43740960850934; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=202108251713433-11923323313501-4007253415; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=4b356903-f73c-4512-813d-e4a947661f98; Uuid=b626dff800414ca0afd96ee963a7a967; monitor_count=3";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=28157650573003; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210827172813757-11923323313501-1977766967; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=ac4c9435-5561-46ee-8e43-531e1f71c25f; Uuid=355d133a8be74f8c8e314636993d9a4e; monitor_count=3";
 
     public static void main(String[] args) {
-//        boolean tradIng = true;//"盘中交易中"
-        boolean tradIng = false;//"盘后交易结束"
+        boolean tradIng = true;//"盘中交易中"
+//        boolean tradIng = false;//"盘后交易结束"
 
         boolean showBuyOrSell = false;//新增赎回
         boolean sellDbFlag = false;//赎回
-        int showTypeNet = 1;//最新一天
+        int showTypeNet = 365;//最新一天
         if (!tradIng) {
             showBuyOrSell = true;//新增赎回
             sellDbFlag = true;//赎回
             showTypeNet = 365;//最新一年内
         }
 
-//            String startDate = "2021-08-19";//查询新增交易的开始时间
+//            String startDate = "2021-08-21";//查询新增交易的开始时间
         String startDate = DateUtil.getToday(DateUtil.YYYY_MM_DD);
         String endDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD,10);
 //            String endDate = "2021-03-19";
@@ -852,7 +852,8 @@ public class StockTradeDemo {
     public static StockTradeDb kline(String zhiShu, int days, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
         StringBuffer url = new StringBuffer();
         url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-        if (zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("000")|| zhiShu.startsWith("11")|| zhiShu.startsWith("12")) {
+        if (zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("11")|| zhiShu.startsWith("12")) {
+            //|| zhiShu.startsWith("000")
             //  110、120开头是可转债
             url.append("&secid=" + "1." + zhiShu);
         } else {
@@ -871,7 +872,7 @@ public class StockTradeDemo {
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("&StartDate=").append(startDate);
 
-//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
+        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
         String rs = "";
         try {
             rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
@@ -893,13 +894,13 @@ public class StockTradeDemo {
 
         String rsJson = rs.substring(rs.indexOf("{"));
         rsJson = rsJson.replace(");", "");
-//        System.out.println("szKline:" + rsJson);
+        System.out.println("szKline:" + rsJson);
 
         List<String> klineList = new ArrayList<String>();
         JSONObject szzzMonthJson = JSON.parseObject(rsJson);
         JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
-//        String name = szzzMonthDataJson.getString("name");
-//        System.out.println("指数名称："+name);
+        String name = szzzMonthDataJson.getString("name");
+        System.out.println("指数名称："+name);
         JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
         if (klines != null) {
             for (Object kline : klines) {

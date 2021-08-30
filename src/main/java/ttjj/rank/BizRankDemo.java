@@ -40,6 +40,8 @@ public class BizRankDemo {
 //        boolean insertDbTodayEtf = false;
         boolean updateDbTodayEtfNetMaxMinTimeFlag = true;
 //        boolean updateDbTodayEtfNetMaxMinTimeFlag = false;
+//        boolean updateDateBizFlag = true;
+        boolean updateDateBizFlag = false;
 
         int updateDbEtfNetDays = 365;
 //        int updateDbEtfNetDays = 1;
@@ -95,11 +97,18 @@ public class BizRankDemo {
             updateDbTodayEtfNetMaxMinTime(curdate, rankEtf);
         }
 
+        if (updateDateBizFlag) {
+            updateDateBiz();
+        }
+
     }
 
     private static void updateDbTodayEtfNetMaxMinTime(String date, List<RankBizDataDiff> rankEtf) {
         for (RankBizDataDiff rankBizDataDiff : rankEtf) {
             rankBizDataDiff.setDate(date);
+            rankBizDataDiff.setMonth(DateUtil.getYearMonth(date, DateUtil.YYYY_MM_DD));
+            rankBizDataDiff.setWeekYear(DateUtil.getYearWeek(date, DateUtil.YYYY_MM_DD));
+            rankBizDataDiff.setWeek(DateUtil.getWeekByYyyyMmDd(date, DateUtil.YYYY_MM_DD));
             findTrends(rankBizDataDiff, "", "fupan", rankBizDataDiff.getF12(), 1, date, "pt_sh_time_min", "pt_sh_time_max");//查询指定指数的最大值时间、最小值时间
             BizRankDao.updateDbEtfNetMaxMinTimeByDate(rankBizDataDiff);
         }
@@ -122,6 +131,23 @@ public class BizRankDemo {
             //k线
             String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
             kline(entity, date, entity.getF12(), table, days, klt, dbFieldLastNetMin, dbFieldLastNetMax, dbFieldLastNetMinClose, dbFieldLastNetMaxClose);//沪深300
+        }
+    }
+
+
+    /**
+     * 更新日期
+     *
+     */
+    private static void updateDateBiz() {
+        for (int i = 0; i < 1; i++) {
+            String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
+            RankBizDataDiff entity = new RankBizDataDiff();
+            entity.setDate(date);
+            entity.setMonth(DateUtil.getYearMonth(date, DateUtil.YYYY_MM_DD));
+            entity.setWeekYear(DateUtil.getYearWeek(date, DateUtil.YYYY_MM_DD));
+            entity.setWeek(DateUtil.getWeekByYyyyMmDd(date, DateUtil.YYYY_MM_DD));
+            BizRankDao.updateDate(entity);
         }
     }
 
@@ -218,6 +244,9 @@ public class BizRankDemo {
 
         //insertDb
         rankEtf.setDate(date);
+        rankEtf.setMonth(DateUtil.getYearMonth(date, DateUtil.YYYY_MM_DD));
+        rankEtf.setWeekYear(DateUtil.getYearWeek(date, DateUtil.YYYY_MM_DD));
+        rankEtf.setWeek(DateUtil.getWeekByYyyyMmDd(date, DateUtil.YYYY_MM_DD));
         if (days == 1) {
             rankEtf.setLAST_NET(netCloseMin);
             rankEtf.setNET_MIN_1(minJz);
@@ -410,6 +439,9 @@ public class BizRankDemo {
         for (RankBizDataDiff row : rankBizDataDiffList) {
 //            row.setRs(rs);
             row.setDate(date);
+            row.setMonth(DateUtil.getYearMonth(date, DateUtil.YYYY_MM_DD));
+            row.setWeekYear(DateUtil.getYearWeek(date, DateUtil.YYYY_MM_DD));
+            row.setWeek(DateUtil.getWeekByYyyyMmDd(date, DateUtil.YYYY_MM_DD));
             row.setType(type);
 //            System.out.println(JSON.toJSON(row));//每个行业一行数据
         }
@@ -573,6 +605,9 @@ public class BizRankDemo {
         for (RankBizDataDiff row : rankBizDataDiffList) {
 //            System.out.println(JSON.toJSON(row));//每个行业一行数据
             row.setDate(date);
+            row.setMonth(DateUtil.getYearMonth(date, DateUtil.YYYY_MM_DD));
+            row.setWeekYear(DateUtil.getYearWeek(date, DateUtil.YYYY_MM_DD));
+            row.setWeek(DateUtil.getWeekByYyyyMmDd(date, DateUtil.YYYY_MM_DD));
             row.setType(type);
         }
         return rankBizDataDiffList;
@@ -652,6 +687,9 @@ public class BizRankDemo {
         for (RankBizDataDiff row : rankBizDataDiffList) {
 //            row.setRs(rs);
             row.setDate(date);
+            row.setMonth(DateUtil.getYearMonth(date, DateUtil.YYYY_MM_DD));
+            row.setWeekYear(DateUtil.getYearWeek(date, DateUtil.YYYY_MM_DD));
+            row.setWeek(DateUtil.getWeekByYyyyMmDd(date, DateUtil.YYYY_MM_DD));
             row.setType(type);
 //            System.out.println(JSON.toJSON(row));//每个行业一行数据
             JSONObject jsonObjectBiz = new JSONObject();

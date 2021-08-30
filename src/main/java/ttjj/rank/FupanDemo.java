@@ -606,7 +606,7 @@ public class FupanDemo {
             BeanUtils.copyProperties(assetPosition, assetPositionDb);
             assetPositionDb.setAssetPosition(JSON.toJSONString(assetPosition));
             assetPositionDb.setDate(date);
-            assetPositionDb.setWeek(DateUtil.getWeekByYyyyMmDd(date));
+            assetPositionDb.setWeek(DateUtil.getWeekByYyyyMmDd(date,DateUtil.YYYY_MM_DD));
             assetPositionDb.setPeriod(period);
             assetPositionDbListSortDrykbl.add(assetPositionDb);
         }

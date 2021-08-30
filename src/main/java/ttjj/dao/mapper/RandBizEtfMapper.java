@@ -19,6 +19,7 @@ public interface RandBizEtfMapper {
     @Insert({"<script>",
             "INSERT INTO `bank19`.`rank_st_biz`(",
             "`rs`,`date`,`type`,`order_num`",
+            ",`month`,`weekYear`,`week`",
             ",`f1`,`f2`,`f3`,`f4`",
             ",`f5`,`f6`,`f7`,`f8`,`f9`",
             ",`f10`,`f11`,`f12`,`f13`,`f14`",
@@ -52,6 +53,7 @@ public interface RandBizEtfMapper {
             ",`f222`,`f223`",
             ") VALUES (",
             "#{rs},#{date},#{type},#{orderNum}",
+            "#{month},#{weekYear},#{week}",
             ",#{f1},#{f2},#{f3},#{f4}",
             ",#{f5},#{f6},#{f7},#{f8},#{f9}",
             ",#{f10},#{f11},#{f12},#{f13},#{f14}",
@@ -137,5 +139,16 @@ public interface RandBizEtfMapper {
             "where date=#{date} AND f12=#{f12}",
             "</script>"})
     void updateDbEtfNetMaxMinTimeByDate(RankBizDataDiff entity);
+
+    @Update({"<script>",
+            "update rank_st_biz",
+            "  <set>",
+            "    <if test='month != null'>month=#{month},</if>",
+            "    <if test='weekYear != null'>weekYear=#{weekYear},</if>",
+            "    <if test='week != null'>week=#{week},</if>",
+            "  </set>",
+            "where date=#{date} ",
+            "</script>"})
+    void updateDate(RankBizDataDiff entity);
 
 }

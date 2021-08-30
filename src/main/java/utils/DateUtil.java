@@ -15,9 +15,20 @@ public class DateUtil {
 
     public static void main(String[] args) {
 
-        //获取格式化日期
-        String date = getDateStrAddDaysByFormat(YYYY_MM_DD, 2021, 2, 28, -1);
-        System.out.println(date);
+//        //获取年月日
+//        System.out.println(getCurYear());
+//        System.out.println(getCurMonth());
+//        System.out.println(getCurDay());
+//        System.out.println(getCurYearMonth());
+//        System.out.println(getCurYearWeek());
+//        System.out.println(getWeek(new Date()));
+//        System.out.println(getWeekByYyyyMmDd("2021-08-29",DateUtil.YYYY_MM_DD));
+        System.out.println(getYearWeek("2021-08-29", DateUtil.YYYY_MM_DD));
+
+
+//        //获取格式化日期
+//        String date = getDateStrAddDaysByFormat(YYYY_MM_DD, 2021, 2, 28, -1);
+//        System.out.println(date);
 
 //        //  取得一年的第几周    27
 //        int weekOfYear = getWeekOfYear(new Date());
@@ -44,6 +55,87 @@ public class DateUtil {
      */
     public static String getToday(String format) {
         return new SimpleDateFormat(format).format(new Date());
+    }
+
+    /**
+     * 获取年
+     *
+     * @return
+     */
+    public static int getCurYear() {
+        return Calendar.getInstance().get(Calendar.YEAR);
+    }
+
+    /**
+     * @return
+     */
+    public static int getCurMonth() {
+        return Calendar.getInstance().get(Calendar.MONTH) + 1;
+    }
+
+    /**
+     * @return
+     */
+    public static String getCurYearMonth() {
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        String yearMonth = year + "" + month;
+        if (month < 10) {
+            yearMonth = year + "0" + month;
+        }
+        return yearMonth;
+    }
+
+
+    /**
+     * @return
+     */
+    public static String getYearWeek(String dateStr, String format) {
+        Date date = new Date();
+        try {
+            date = new SimpleDateFormat(format).parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int year = cal.get(Calendar.YEAR);
+        int week = cal.get(Calendar.WEEK_OF_YEAR);
+        String yearMonth = year + "" + week;
+        if (week < 10) {
+            yearMonth = year + "0" + week;
+        }
+        return yearMonth;
+    }
+
+    /**
+     * @param dateStr
+     * @param format
+     * @return
+     */
+    public static String getYearMonth(String dateStr, String format) {
+        Date date = new Date();
+        try {
+            date = new SimpleDateFormat(format).parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH) + 1;
+        String yearMonth = year + "" + month;
+        if (month < 10) {
+            yearMonth = year + "0" + month;
+        }
+        return yearMonth;
+    }
+
+    /**
+     * @return
+     */
+    public static int getCurDay() {
+        return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
     }
 
     /**
@@ -123,10 +215,10 @@ public class DateUtil {
      *
      * @return
      */
-    public static String getWeekByYyyyMmDd(String dateStr) {
+    public static String getWeekByYyyyMmDd(String dateStr, String format) {
         Date date = new Date();
         try {
-            date = new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+            date = new SimpleDateFormat(format).parse(dateStr);
         } catch (ParseException e) {
             e.printStackTrace();
         }

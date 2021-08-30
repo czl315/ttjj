@@ -1,11 +1,13 @@
 package ttjj.rank;
 
 import com.alibaba.fastjson.JSON;
+import ttjj.dao.BizRankDao;
 import ttjj.dto.AssetPosition;
 import ttjj.dto.Kline;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.TradeHisBack;
 import ttjj.service.KlineService;
+import utils.DateUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -21,10 +23,10 @@ public class KlineHistoryTest {
     public static void main(String[] args) {
         /**    创业板50-159949 HS300ETF-510310 50ETF-510050	新汽车-515030	芯片ETF-159995	酒ETF-512690	医疗ETF-512170 	光伏ETF-515790	稀土ETF-516780	有色50-159880	煤炭ETF-515220 军工ETF-512660		**/
 //        String zqdm = "159949";
-        String zqdm = "000300";
-        String begDate = "20210701";//查询新增交易的开始时间
-        String endDate = "20210731";
-        String klt = "1";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+        String zqdm = "159863";
+        String begDate = "20210101";//查询新增交易的开始时间
+        String endDate = "20210415";
+        String klt = "101";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
         List<RankBizDataDiff> rankBizDataDiffList = new ArrayList<>();
         List<Kline> klines = KlineService.kline(zqdm, lmt, klt, begDate, endDate);
@@ -33,6 +35,10 @@ public class KlineHistoryTest {
         for (Kline kline : klines) {
             RankBizDataDiff rankBizDataDiff = new RankBizDataDiff();
             rankBizDataDiff.setDate(kline.getKtime());
+            rankBizDataDiff.setMonth(DateUtil.getYearMonth(kline.getKtime(), DateUtil.YYYY_MM_DD));
+            rankBizDataDiff.setWeekYear(DateUtil.getYearWeek(kline.getKtime(),DateUtil.YYYY_MM_DD));
+            rankBizDataDiff.setWeek(DateUtil.getWeekByYyyyMmDd(kline.getKtime(),DateUtil.YYYY_MM_DD));
+//            rankBizDataDiff.setMonth(DateUtil.getCurMonth());
             rankBizDataDiff.setType("etf");
             rankBizDataDiff.setF1(3L);
             rankBizDataDiff.setF2(kline.getCloseAmt().doubleValue());
@@ -57,12 +63,19 @@ public class KlineHistoryTest {
         }
 //        System.out.println("rankBizDataDiffList:"+JSON.toJSONString(rankBizDataDiffList));
 
-//        BizRankDao.insertDbBiz(rankBizDataDiffList);//业务排行-插入
+        BizRankDao.insertDbBiz(rankBizDataDiffList);//业务排行-插入
 
 
 //        // 上涨或下跌因子
 //        addOrSubFactor(klines);
 
+        //   计算买卖
+//        handlerBuySell(klines);
+
+
+    }
+
+    private static void handlerBuySell(List<Kline> klines) {
         for (int i = 1; i <= 10; i++) {
             boolean downFactorFlag = true;
 //            boolean downFactorFlag = false;
@@ -205,7 +218,6 @@ public class KlineHistoryTest {
 
             System.out.println("下跌因子[" + tjjgDownFactor + "],上涨因子：[" + tjjgUpFactor + "]" + ",涨幅：[" + tjjgZdf + "]");
         }
-
     }
 
     /**

@@ -23,10 +23,12 @@ public class KlineDemo {
         //  插入常用指数k线
         String klt = "101";//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
-        int addDaysMax = 25;//最多增加的天数
-        int year = 2021;
-        int month = 8;
-        int day = 1;
+        int addDaysMax = 1;//最多增加的天数
+        int year = DateUtil.getCurYear();
+//        int month = 8;
+        int month = DateUtil.getCurMonth();
+//        int day = 26;
+        int day = DateUtil.getCurDay();
         Map<String, String> zhishuMap = Content.getZhishuMap();
         addZhishuKline(zhishuMap,klt,lmt,year,month,day,addDaysMax);
 
