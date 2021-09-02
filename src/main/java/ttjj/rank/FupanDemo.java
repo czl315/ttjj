@@ -71,7 +71,7 @@ public class FupanDemo {
         String dateType = "1";//1：一天;7:周;30:月;
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //            String date = "2021-08-20";
-        String dateKlineYyyymmdd = date.replace("-","");
+        String dateKlineYyyymmdd = date.replace("-", "");
 //            String dateKlineYyyymmdd = "20210813";
 
         if (updateDaPanKline) {
@@ -365,7 +365,8 @@ public class FupanDemo {
      */
     private static Fupan queryAssetByDfcfStock(String cookie, String dateType) {
 //        String url = "https://jywg.18.cn/Com/queryAssetAndPositionV1?validatekey=" + validatekey;
-        String url = "https://jywg.18.cn/AccountAnalyze/Asset/GetHold?v=1617202981877";
+        long curTime = System.currentTimeMillis();
+        String url = "https://jywg.18.cn/AccountAnalyze/Asset/GetHold?v=" + curTime;
 
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("moneyType=").append("RMB");
@@ -606,7 +607,7 @@ public class FupanDemo {
             BeanUtils.copyProperties(assetPosition, assetPositionDb);
             assetPositionDb.setAssetPosition(JSON.toJSONString(assetPosition));
             assetPositionDb.setDate(date);
-            assetPositionDb.setWeek(DateUtil.getWeekByYyyyMmDd(date,DateUtil.YYYY_MM_DD));
+            assetPositionDb.setWeek(DateUtil.getWeekByYyyyMmDd(date, DateUtil.YYYY_MM_DD));
             assetPositionDb.setPeriod(period);
             assetPositionDbListSortDrykbl.add(assetPositionDb);
         }
@@ -711,7 +712,7 @@ public class FupanDemo {
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("&StartDate=").append(startDate);
 
-        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
+        System.out.println("请求url:" + url + JSON.toJSONString(urlParam));
         String rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), cookie);
         String rsJson = rs.substring(rs.indexOf("{"));
         rsJson = rsJson.replace(");", "");

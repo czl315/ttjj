@@ -26,11 +26,11 @@ import java.util.*;
  */
 public class StockTradeDemo {
 //    static String type_selling = "证券买入(卖出中)";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=28157650573003; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20210827172813757-11923323313501-1977766967; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=ac4c9435-5561-46ee-8e43-531e1f71c25f; Uuid=355d133a8be74f8c8e314636993d9a4e; monitor_count=3";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=96264032723305; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20210901162431760-11923323313501-4572613332; mobileimei=4957ff55-944c-4c11-9550-18ca2c1b85e0; Uuid=458ab2ec24354a3abbdbbfc39ed6151d; monitor_count=22";
 
     public static void main(String[] args) {
-        boolean tradIng = true;//"盘中交易中"
-//        boolean tradIng = false;//"盘后交易结束"
+//        boolean tradIng = true;//"盘中交易中"
+        boolean tradIng = false;//"盘后交易结束"
 
         boolean showBuyOrSell = false;//新增赎回
         boolean sellDbFlag = false;//赎回
@@ -41,8 +41,8 @@ public class StockTradeDemo {
             showTypeNet = 365;//最新一年内
         }
 
-//            String startDate = "2021-08-21";//查询新增交易的开始时间
-        String startDate = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+            String startDate = "2021-08-28";//查询新增交易的开始时间
+//        String startDate = DateUtil.getToday(DateUtil.YYYY_MM_DD);
         String endDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD,10);
 //            String endDate = "2021-03-19";
         if (showBuyOrSell) {
@@ -486,12 +486,12 @@ public class StockTradeDemo {
         }
 
         //材料
-        List<String> typeListCl = new ArrayList<>();
-        typeListSpyl.add("601012");//隆基股份
-        typeListSpyl.add("002129");//中环股份
-        for (String zqdm : typeListCl) {
+        List<String> typeListClhy = new ArrayList<>();
+        typeListClhy.add("601012");//隆基股份
+        typeListClhy.add("002129");//中环股份
+        for (String zqdm : typeListClhy) {
             StockTrade stockTradeTemp = new StockTrade();
-            stockTradeTemp.setBizTy("材料");
+            stockTradeTemp.setBizTy("材料行业");
             stockTradeTemp.setRiskStLoss(baseRiskStLoss);
             stockTradeTemp.setRiskStProfit(baseRiskStProfit);
             stockTradeTemp.setZqdm(zqdm);
@@ -514,7 +514,7 @@ public class StockTradeDemo {
         }
 
         List<String> typeListDzyj = new ArrayList<>();
-        typeListDzyj.add("000725");//京东方Ａ
+//        typeListDzyj.add("000725");//京东方Ａ
         typeListDzyj.add("600703");//三安光电
 //        typeListDzyj.add("002475");//立讯精密
         for (String zqdm : typeListDzyj) {
@@ -539,7 +539,7 @@ public class StockTradeDemo {
 
         //电子信息
         List<String> typeListDzxx = new ArrayList<>();
-        typeListDzxx.add("003040");//楚天龙
+//        typeListDzxx.add("003040");//楚天龙
 //        typeListDzxx.add("000997");//新 大 陆
 //        typeListDzxx.add("002177");//御银股份
 //        typeListDzxx.add("002152");//广电运通
@@ -580,8 +580,8 @@ public class StockTradeDemo {
 
         //家电行业
         List<String> typeListJdhy = new ArrayList<>();
-        typeListJdhy.add("000651");//格力电器
-        typeListJdhy.add("600690");//海尔智家
+//        typeListJdhy.add("000651");//格力电器
+//        typeListJdhy.add("600690");//海尔智家
         for (String zqdm : typeListJdhy) {
             StockTrade stockTradeTemp = new StockTrade();
             stockTradeTemp.setBizTy("家电行业");
@@ -595,7 +595,7 @@ public class StockTradeDemo {
         List<String> typeListYiLiao = new ArrayList<>();
 //        typeListYiLiao.add("600085");//同仁堂
 //        typeListYiLiao.add("002773");//康弘药业
-        typeListYiLiao.add("000538");//云南白药
+//        typeListYiLiao.add("000538");//云南白药
         for (String zqdm : typeListYiLiao) {
             StockTrade stockTradeTemp = new StockTrade();
             stockTradeTemp.setBizTy("医药制造");
@@ -682,7 +682,7 @@ public class StockTradeDemo {
 
         //民航机场
         List<String> typeListMhjc = new ArrayList<>();
-        typeListMhjc.add("600009");//上海机场
+//        typeListMhjc.add("600009");//上海机场
 //        typeListMhjc.add("600115");//东方航空
 //        typeListMhjc.add("601021");//春秋航空
         for (String zqdm : typeListMhjc) {
@@ -731,10 +731,22 @@ public class StockTradeDemo {
             rs.add(stockTradeTemp);
         }
 
+        //环保工程
+        List<String> typeListHbgc = new ArrayList<>();
+        typeListHbgc.add("003035");//南网能源
+        for (String zqdm : typeListHbgc) {
+            StockTrade stockTradeTemp = new StockTrade();
+            stockTradeTemp.setBizTy("环保工程");
+            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+            stockTradeTemp.setZqdm(zqdm);
+            rs.add(stockTradeTemp);
+        }
+
         List<String> typeListJinRong = new ArrayList<>();
 //        typeListJinRong.add("601555");//东吴证券
 //        typeListJinRong.add("501025");//香港银行
-//        typeListJinRong.add("000776");//广发证券
+        typeListJinRong.add("000776");//广发证券
         for (String zqdm : typeListJinRong) {
             StockTrade stockTradeTemp = new StockTrade();
             stockTradeTemp.setBizTy("金融");
@@ -745,7 +757,7 @@ public class StockTradeDemo {
         }
 
         List<String> typeListYinHang = new ArrayList<>();
-        typeListYinHang.add("601398");//工商银行
+//        typeListYinHang.add("601398");//工商银行
         typeListYinHang.add("600036");//招商银行
         for (String zqdm : typeListYinHang) {
             StockTrade stockTradeTemp = new StockTrade();
@@ -757,7 +769,7 @@ public class StockTradeDemo {
         }
 
         List<String> typeListGyzp = new ArrayList<>();
-        typeListGyzp.add("603398");//邦宝益智
+//        typeListGyzp.add("603398");//邦宝益智
         for (String zqdm : typeListGyzp) {
             StockTrade stockTradeTemp = new StockTrade();
             stockTradeTemp.setBizTy("工艺商品");
@@ -805,17 +817,17 @@ public class StockTradeDemo {
 //            rs.add(stockTradeTemp);
 //        }
 
-        //机械行业
-        List<String> typeListJxhy = new ArrayList<>();
-        typeListJxhy.add("605259");//绿田机械
-        for (String zqdm : typeListJxhy) {
-            StockTrade stockTradeTemp = new StockTrade();
-            stockTradeTemp.setBizTy("机械行业");
-            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
-            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
-            stockTradeTemp.setZqdm(zqdm);
-            rs.add(stockTradeTemp);
-        }
+//        //机械行业
+//        List<String> typeListJxhy = new ArrayList<>();
+//        typeListJxhy.add("605259");//绿田机械
+//        for (String zqdm : typeListJxhy) {
+//            StockTrade stockTradeTemp = new StockTrade();
+//            stockTradeTemp.setBizTy("机械行业");
+//            stockTradeTemp.setRiskStLoss(baseRiskStLoss);
+//            stockTradeTemp.setRiskStProfit(baseRiskStProfit);
+//            stockTradeTemp.setZqdm(zqdm);
+//            rs.add(stockTradeTemp);
+//        }
 
         return rs;
     }

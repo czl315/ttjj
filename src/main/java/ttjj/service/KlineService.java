@@ -6,11 +6,13 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dto.Kline;
+import utils.Content;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chenzhilong
@@ -98,9 +100,14 @@ public class KlineService {
 //        url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
         url.append("http://" + random + ".push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33103254362175743777_" + curTime);
         if (zhiShu.startsWith("159") || zhiShu.startsWith("399") || zhiShu.startsWith("30") || zhiShu.startsWith("20") || zhiShu.startsWith("00")) {
-            //|| zhiShu.startsWith("00")
+            //指数
+            Map<String, String> zhishuMap = Content.getZhishuMap();
+            if (zhishuMap.keySet().contains(zhiShu) && !zhiShu.startsWith("399")) {
+                url.append("&secid=" + "1." + zhiShu);
+            } else {
+                url.append("&secid=" + "0." + zhiShu);
+            }
             //159开头
-            url.append("&secid=" + "0." + zhiShu);
             //  110、120开头是可转债
             //  上海证券交易所决定为交易型货币市场基金、债券ETF等上市交易的固定收益类基金产品分配511000-511999专用证券代码段。
             //沪市A股票代码是以60开头 沪市主板股票代码:600、601、603、605。

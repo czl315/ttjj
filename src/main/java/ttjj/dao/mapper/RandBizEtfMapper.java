@@ -53,7 +53,7 @@ public interface RandBizEtfMapper {
             ",`f222`,`f223`",
             ") VALUES (",
             "#{rs},#{date},#{type},#{orderNum}",
-            "#{month},#{weekYear},#{week}",
+            ",#{month},#{weekYear},#{week}",
             ",#{f1},#{f2},#{f3},#{f4}",
             ",#{f5},#{f6},#{f7},#{f8},#{f9}",
             ",#{f10},#{f11},#{f12},#{f13},#{f14}",

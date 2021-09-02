@@ -51,6 +51,21 @@ public class Content {
      */
     public static String FD_TYPE = "FD_TYPE";
 
+    /**
+     * klt_1 klt=1:1分钟;5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+     */
+    public static String KLT_1 = "1";
+    public static String KLT_5 = "5";
+    public static String KLT_15 = "15";
+    public static String KLT_30 = "30";
+    public static String KLT_60 = "60";
+    public static String KLT_120 = "120";
+    public static String KLT_101 = "101";
+    public static String KLT_102 = "102";
+    public static String KLT_103 = "103";
+    public static String KLT_104 = "104";
+    public static String KLT_105 = "105";
+    public static String KLT_106 = "106";
 
     /**
      * 渠道：京东
