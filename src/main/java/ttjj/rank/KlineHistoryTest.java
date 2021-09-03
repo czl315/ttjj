@@ -21,56 +21,25 @@ import java.util.stream.Collectors;
  */
 public class KlineHistoryTest {
     public static void main(String[] args) {
-        /**    创业板50-159949 HS300ETF-510310 50ETF-510050	新汽车-515030	芯片ETF-159995	酒ETF-512690	医疗ETF-512170 	光伏ETF-515790	稀土ETF-516780	有色50-159880	煤炭ETF-515220 军工ETF-512660		**/
-//        String zqdm = "159949";
-        String zqdm = "159863";
-        String begDate = "20210101";//查询新增交易的开始时间
-        String endDate = "20210415";
-        String klt = "101";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+        /**	创业板50-159949	50ETF-510050(低跌1.5：7 13	86	15.1163)	HS300ETF-510310	500ETF-510500
+         新汽车-515030	芯片ETF-159995	酒ETF-512690	医疗ETF-512170 	光伏ETF-515790	稀土ETF-516780	有色50-159880	煤炭ETF-515220 军工ETF-512660		券商ETF	512000	中概互联-513050
+         招商银行	600036	**/
+        //        String zqdm = "159949";
+        String zqdm = "159949";
+        String begDate = "20210902";//查询新增交易的开始时间
+        String endDate = "20210902";
+        String klt = "15";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
         List<RankBizDataDiff> rankBizDataDiffList = new ArrayList<>();
         List<Kline> klines = KlineService.kline(zqdm, lmt, klt, begDate, endDate);
         System.out.println("开始日期:" + begDate + "，结束日期:" + endDate + "，周期:" + klt + "，klines.size():" + klines.size());
 //        System.out.println("klines:"+JSON.toJSONString(klines));
-        for (Kline kline : klines) {
-            RankBizDataDiff rankBizDataDiff = new RankBizDataDiff();
-            rankBizDataDiff.setDate(kline.getKtime());
-            rankBizDataDiff.setMonth(DateUtil.getYearMonth(kline.getKtime(), DateUtil.YYYY_MM_DD));
-            rankBizDataDiff.setWeekYear(DateUtil.getYearWeek(kline.getKtime(),DateUtil.YYYY_MM_DD));
-            rankBizDataDiff.setWeek(DateUtil.getWeekByYyyyMmDd(kline.getKtime(),DateUtil.YYYY_MM_DD));
-//            rankBizDataDiff.setMonth(DateUtil.getCurMonth());
-            rankBizDataDiff.setType("etf");
-            rankBizDataDiff.setF1(3L);
-            rankBizDataDiff.setF2(kline.getCloseAmt().doubleValue());
-            rankBizDataDiff.setF3(kline.getZhangDieFu().doubleValue());
-            rankBizDataDiff.setF4(kline.getZhangDieE().doubleValue());
-            rankBizDataDiff.setF5(kline.getCjl().longValue());
-            rankBizDataDiff.setF6(kline.getCje().longValue());
-            rankBizDataDiff.setF7(kline.getZhenFu().doubleValue());
-            rankBizDataDiff.setF8(kline.getHuanShouLv().doubleValue());
-//            rankBizDataDiff.setF9(kline.getsh);
-//            rankBizDataDiff.getF10(kline.get)
-//            rankBizDataDiff.getF11()
-            rankBizDataDiff.setF12(kline.getZqdm());
-            rankBizDataDiff.setF13(1L);
-            rankBizDataDiff.setF14(kline.getZqmc());
-            rankBizDataDiff.setF15(kline.getMaxAmt().doubleValue());
-            rankBizDataDiff.setF16(kline.getMinAmt().doubleValue());
-            rankBizDataDiff.setF17(kline.getOpenAmt().doubleValue());
-            rankBizDataDiff.setF18(kline.getCloseAmt().subtract(kline.getZhangDieE()).doubleValue());//计算昨日收盘价：今日收盘价-今日涨跌额
-
-            rankBizDataDiffList.add(rankBizDataDiff);
-        }
-//        System.out.println("rankBizDataDiffList:"+JSON.toJSONString(rankBizDataDiffList));
-
-        BizRankDao.insertDbBiz(rankBizDataDiffList);//业务排行-插入
-
 
 //        // 上涨或下跌因子
 //        addOrSubFactor(klines);
 
         //   计算买卖
-//        handlerBuySell(klines);
+        handlerBuySell(klines);
 
 
     }
@@ -82,8 +51,8 @@ public class KlineHistoryTest {
             boolean upFactorFlag = true;
 //            boolean upFactorFlag = false;
 
-            BigDecimal downFactorTemp = new BigDecimal("-0.3");
-            BigDecimal upFactorTemp = new BigDecimal("0.3");
+            BigDecimal downFactorTemp = new BigDecimal("-0.7");
+            BigDecimal upFactorTemp = new BigDecimal("0.5");
 
             BigDecimal downFactorTempStep = new BigDecimal("0.1");
 //            BigDecimal downFactorTemp = downFactorTempStep.multiply(new BigDecimal(i)).multiply(new BigDecimal("-1"));
@@ -153,13 +122,13 @@ public class KlineHistoryTest {
                 //初始化交易历史回测数据
                 TradeHisBack tradeHisBack = new TradeHisBack();
                 tradeHisBack.setLmtAmt(new BigDecimal("100000"));
-                tradeHisBack.setEachNum(new BigDecimal("1"));
-                tradeHisBack.setCash(new BigDecimal("100000"));
-//                tradeHisBack.setCash(new BigDecimal("19205"));
-                tradeHisBack.setHoldAmt(new BigDecimal("0"));
-//                tradeHisBack.setHoldAmt(new BigDecimal("80795"));
-                tradeHisBack.setHoldNum(new BigDecimal("0"));
-//                tradeHisBack.setHoldNum(new BigDecimal("55000"));
+                tradeHisBack.setEachNum(new BigDecimal("5000"));
+                tradeHisBack.setCash(new BigDecimal("65525"));
+//                tradeHisBack.setCash(new BigDecimal("100000"));
+                tradeHisBack.setHoldAmt(new BigDecimal("34475.00"));
+//                tradeHisBack.setHoldAmt(new BigDecimal("0"));
+                tradeHisBack.setHoldNum(new BigDecimal("25000"));
+//                tradeHisBack.setHoldNum(new BigDecimal("0"));
                 tradeHisBack.setTotalAmt(new BigDecimal("100000"));
                 tradeHisBack.setTotalAmtOld(new BigDecimal("100000"));
                 tradeHisBack.setDownFactor(downFactor);

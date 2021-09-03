@@ -21,12 +21,12 @@ import java.util.Set;
 public class KlineDemo {
     public static void main(String[] args) {
         //  插入常用指数k线
-        String klt = "101";//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+        String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
         int addDaysMax = 1;//最多增加的天数
         int year = DateUtil.getCurYear();//2021
-        int month = 1;//DateUtil.getCurMonth()
-        int day = 1;//DateUtil.getCurDay()
+        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()
+        int day = DateUtil.getCurDay();//DateUtil.getCurDay()
         Map<String, String> zhishuMap = Content.getZhishuMap();//        Map<String, String>  zhishuMap = new HashMap<>();zhishuMap.put("000001","上证指数");//特定测试
         //插入常用指数k线-大周期：日、周、月、年
         addZhishuKline(zhishuMap,klt,lmt,year,month,day,addDaysMax);
@@ -76,7 +76,7 @@ public class KlineDemo {
                 addKlineDaZhouQi(zqdm, lmt, klt, begDate, endDate);
 
 //            //按照日期的分钟线（5分钟；15分钟；30分钟；60分钟；120分钟），插入k线
-                addKlineByDay(zqdm, lmt, Content.KLT_1, begDate);
+//                addKlineByDay(zqdm, lmt, Content.KLT_1, begDate);
                 addKlineByDay(zqdm, lmt, Content.KLT_5, begDate);
                 addKlineByDay(zqdm, lmt, Content.KLT_15, begDate);
                 addKlineByDay(zqdm, lmt, Content.KLT_30, begDate);
