@@ -52,6 +52,10 @@ public class Content {
     public static String FD_TYPE = "FD_TYPE";
 
     /**
+     * ZQDM_ETF_CYB50_159949 证券代码-创业板50
+     */
+    public static String ZQDM_ETF_CYB50_159949 = "159949";
+    /**
      * klt_1 klt=1:1分钟;5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
      */
     public static String KLT_1 = "1";
@@ -114,6 +118,35 @@ public class Content {
     public static String DAYS_30 = "30";
 
     /**
+     * MA_5 均线
+     */
+    public static int MA_5 = 5;
+    /**
+     * MA_10
+     */
+    public static int MA_10 = 10;
+    /**
+     * MA_20
+     */
+    public static int MA_20 = 20;
+    /**
+     * MA_30
+     */
+    public static int MA_30 = 30;
+    /**
+     * MA_60
+     */
+    public static int MA_60 = 60;
+    /**
+     * MA_120
+     */
+    public static int MA_120 = 120;
+    /**
+     * MA_250
+     */
+    public static int MA_250 = 250;
+
+    /**
      * 渠道：京东
      */
     public static String SOURCE_JD = "1";
@@ -151,4 +184,12 @@ public class Content {
     public static String keyRsMax = "rsMax";
     public static String keyRsNetCloseMin = "keyRsNetCloseMin";
     public static String keyRsNetCloseMax = "keyRsNetCloseMax";
+    /**
+     * keyRsNetCloseAvg 收盘均值
+     */
+    public static String keyRsNetCloseAvg = "netCloseAvg";
+    /**
+     * keyRsKlineCount k线个数
+     */
+    public static String keyRsKlineCount = "klineCount";
 }

@@ -11,6 +11,7 @@ import utils.HttpUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,17 +20,46 @@ import java.util.Map;
  * @date 2021/7/26
  */
 public class KlineService {
+
+    public static void main(String[] args) {
+        // 查询最小净值、最大净值、均值
+        findNetMinMaxAvgDemo();
+    }
+
+    /**
+     * 测试样例：查询最小净值、最大净值、均值
+     *
+     */
+    private static void findNetMinMaxAvgDemo() {
+        String zqdm = Content.ZQDM_ETF_CYB50_159949;
+        String begDate = "";//查询新增交易的开始时间
+        String endDate = "20500101";
+        String klt = Content.KLT_101;//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+        int lmt = Content.MA_250;
+        Map<String, BigDecimal> minMaxJzMap = KlineService.findNetMinMaxAvg(zqdm, lmt, klt, false, begDate, endDate);
+        System.out.println("key:" + Content.keyRsMin + ",value:" + minMaxJzMap.get(Content.keyRsMin));
+        System.out.println("key:" + Content.keyRsMax + ",value:" + minMaxJzMap.get(Content.keyRsMax));
+        System.out.println("key:" + Content.keyRsNetCloseMin + ",value:" + minMaxJzMap.get(Content.keyRsNetCloseMin));
+        System.out.println("key:" + Content.keyRsNetCloseMax + ",value:" + minMaxJzMap.get(Content.keyRsNetCloseMax));
+        System.out.println("key:" + Content.keyRsNetCloseAvg + ",value:" + minMaxJzMap.get(Content.keyRsNetCloseAvg));
+        System.out.println("key:" + Content.keyRsKlineCount + ",value:" + minMaxJzMap.get(Content.keyRsKlineCount));
+//        for (String key : minMaxJzMap.keySet()) {
+//            System.out.println("key:" + key + ",value:" + minMaxJzMap.get(key));
+//        }
+    }
+
     /**
      * 查询-ETF-指数
      *
-     * @param zhiShu  指数
-     * @param lmt     数量
-     * @param klt     K线周期类型
+     * @param zhiShu       指数
+     * @param lmt          数量
+     * @param klt          K线周期类型
+     * @param isHasBegDate
      * @param begDate
      * @param endDate
      */
-    public static List<Kline> kline(String zhiShu, int lmt, String klt, String begDate, String endDate) {
-        String rs = klineRsStrHttpDfcf(zhiShu, lmt, klt, begDate, endDate);
+    public static List<Kline> kline(String zhiShu, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate) {
+        String rs = klineRsStrHttpDfcf(zhiShu, lmt, klt, isHasBegDate, begDate, endDate);//k线结果
 
         JSONObject szzzMonthJson = JSON.parseObject(rs);
         JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
@@ -86,11 +116,12 @@ public class KlineService {
      * @param zhiShu
      * @param lmt
      * @param klt
+     * @param isHasBegDate
      * @param begDate
      * @param endDate
      * @return
      */
-    public static String klineRsStrHttpDfcf(String zhiShu, int lmt, String klt, String begDate, String endDate) {
+    public static String klineRsStrHttpDfcf(String zhiShu, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate) {
         begDate = begDate.replace("-", "");
         endDate = endDate.replace("-", "");
         long curTime = System.currentTimeMillis();
@@ -160,7 +191,11 @@ public class KlineService {
 
         url.append("&klt=" + klt);
         url.append("&fqt=1");
-        url.append("&beg=" + begDate);
+        if (isHasBegDate) {
+            //是否有开始时间
+            url.append("&beg=" + begDate);
+
+        }
         url.append("&end=" + endDate);
         url.append("&lmt=" + lmt);
         url.append("&_=" + curTime);
@@ -194,6 +229,99 @@ public class KlineService {
         rs = rs.replace("});", "}");
         System.out.println("szKline:" + rs);
 
+        return rs;
+    }
+
+    /**
+     * 查询最小净值、最大净值
+     *
+     * @return
+     */
+    private static Map<String, BigDecimal> findNetMinMax(String zqdm, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate) {
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, isHasBegDate, begDate, endDate);
+        Map<String, BigDecimal> rs = new HashMap<>();
+        BigDecimal rsMax = new BigDecimal("0.0");
+        BigDecimal rsMin = new BigDecimal("0.0");
+        BigDecimal rsNetCloseMin = new BigDecimal("0.0");
+        BigDecimal rsNetCloseMax = new BigDecimal("0.0");
+        for (Kline kline : klines) {
+            BigDecimal dwjzLong = kline.getCloseAmt();
+            BigDecimal netMinDou = kline.getMinAmt();
+            BigDecimal netMaxDou = kline.getMaxAmt();
+            if (netMaxDou.compareTo(rsMax) > 0) {
+                rsMax = netMaxDou;
+            }
+            if (netMinDou.compareTo(rsMin) <= 0 || rsMin.compareTo(new BigDecimal("0.0")) == 0) {
+                rsMin = netMinDou;
+            }
+
+            //
+            if (dwjzLong.compareTo(rsNetCloseMax) > 0) {
+                rsNetCloseMax = dwjzLong;
+            }
+            if (dwjzLong.compareTo(rsNetCloseMin) <= 0 || rsNetCloseMin.compareTo(new BigDecimal("0.0")) == 0) {
+                rsNetCloseMin = dwjzLong;
+            }
+        }
+        rs.put(Content.keyRsMin, rsMin);
+        rs.put(Content.keyRsMax, rsMax);
+        rs.put(Content.keyRsNetCloseMin, rsNetCloseMin);
+        rs.put(Content.keyRsNetCloseMax, rsNetCloseMax);
+        return rs;
+    }
+
+    /**
+     * 查询最小净值、最大净值、均值
+     *
+     * @param zqdm
+     * @param lmt
+     * @param klt
+     * @param isHasBegDate
+     * @param begDate
+     * @param endDate
+     * @return
+     */
+    private static Map<String, BigDecimal> findNetMinMaxAvg(String zqdm, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate) {
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, isHasBegDate, begDate, endDate);
+        Map<String, BigDecimal> rs = new HashMap<>();
+        BigDecimal rsMax = new BigDecimal("0.0");
+        BigDecimal rsMin = new BigDecimal("0.0");
+        BigDecimal rsNetCloseMin = new BigDecimal("0.0");
+        BigDecimal rsNetCloseMax = new BigDecimal("0.0");
+        BigDecimal rsNetCloseAvg = new BigDecimal("0");//均值
+        BigDecimal rsNetCloseSum = new BigDecimal("0");//和值
+
+        for (Kline kline : klines) {
+            BigDecimal dwjzLong = kline.getCloseAmt();
+            BigDecimal netMinDou = kline.getMinAmt();
+            BigDecimal netMaxDou = kline.getMaxAmt();
+            rsNetCloseSum = rsNetCloseSum.add(dwjzLong);
+            if (netMaxDou.compareTo(rsMax) > 0) {
+                rsMax = netMaxDou;
+            }
+            if (netMinDou.compareTo(rsMin) <= 0 || rsMin.compareTo(new BigDecimal("0.0")) == 0) {
+                rsMin = netMinDou;
+            }
+
+            //
+            if (dwjzLong.compareTo(rsNetCloseMax) > 0) {
+                rsNetCloseMax = dwjzLong;
+            }
+            if (dwjzLong.compareTo(rsNetCloseMin) <= 0 || rsNetCloseMin.compareTo(new BigDecimal("0.0")) == 0) {
+                rsNetCloseMin = dwjzLong;
+            }
+        }
+
+        //计算均值
+        BigDecimal count = new BigDecimal(klines.size());//个数
+        rsNetCloseAvg = rsNetCloseSum.divide(count, 3, BigDecimal.ROUND_HALF_UP);
+
+        rs.put(Content.keyRsMin, rsMin);
+        rs.put(Content.keyRsMax, rsMax);
+        rs.put(Content.keyRsNetCloseMin, rsNetCloseMin);
+        rs.put(Content.keyRsNetCloseMax, rsNetCloseMax);
+        rs.put(Content.keyRsNetCloseAvg, rsNetCloseAvg);
+        rs.put(Content.keyRsKlineCount, count);
         return rs;
     }
 

@@ -1,13 +1,9 @@
 package ttjj.rank;
 
-import com.alibaba.fastjson.JSON;
-import ttjj.dao.BizRankDao;
-import ttjj.dto.AssetPosition;
 import ttjj.dto.Kline;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.TradeHisBack;
 import ttjj.service.KlineService;
-import utils.DateUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -31,7 +27,7 @@ public class KlineHistoryTest {
         String klt = "15";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
         List<RankBizDataDiff> rankBizDataDiffList = new ArrayList<>();
-        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, begDate, endDate);
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate);
         System.out.println("开始日期:" + begDate + "，结束日期:" + endDate + "，周期:" + klt + "，klines.size():" + klines.size());
 //        System.out.println("klines:"+JSON.toJSONString(klines));
 
