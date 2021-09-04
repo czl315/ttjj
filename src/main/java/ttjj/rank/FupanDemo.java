@@ -16,6 +16,7 @@ import ttjj.dto.Asset;
 import ttjj.dto.AssetPosition;
 import ttjj.dto.Kline;
 import ttjj.service.KlineService;
+import utils.Content;
 import utils.DateUtil;
 import utils.HttpUtil;
 
@@ -67,10 +68,10 @@ public class FupanDemo {
 //        boolean updateMyTtjj = true;//显示-我的基金
         boolean updateMyTtjj = false;//不显示-我的基金
 
-        String klt = "101";//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-        String dateType = "1";//1：一天;7:周;30:月;
+        String klt = Content.KLT_101;//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
+        String dateType = Content.DAYS_1;//1：一天;7:周;30:月;
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//            String date = "2021-08-20";
+//            String date = "2021-08-31";
         String dateKlineYyyymmdd = date.replace("-", "");
 //            String dateKlineYyyymmdd = "20210813";
 

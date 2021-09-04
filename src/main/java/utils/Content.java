@@ -101,6 +101,19 @@ public class Content {
     public static String KLT_106 = "106";
 
     /**
+     * DAYS_1 天数-1
+     */
+    public static String DAYS_1 = "1";
+    /**
+     * DAYS_1 天数-7
+     */
+    public static String DAYS_7 = "7";
+    /**
+     * DAYS_1 天数-30
+     */
+    public static String DAYS_30 = "30";
+
+    /**
      * 渠道：京东
      */
     public static String SOURCE_JD = "1";

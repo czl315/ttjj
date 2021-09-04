@@ -106,7 +106,7 @@ public class RankBizDataDiff {
     private Double f18;
 
     /**
-     * f19 ？2、3、9、10
+     * f19 ？9-沪市；10-深市：
      */
     private Long f19;
     /**
@@ -125,6 +125,9 @@ public class RankBizDataDiff {
     private Double f24;
     private Double f25;
     private String f26;
+    /**
+     * f27 ？1-沪市；0-深市：
+     */
     private Long f27;
     private Double f28;
     private Long f29;
