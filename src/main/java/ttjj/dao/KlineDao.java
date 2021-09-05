@@ -30,4 +30,21 @@ public class KlineDao {
         }
         return rs;
     }
+
+    /**
+     * 更新净值
+     * @param entity
+     * @return
+     */
+    public static int updateNet(Kline entity) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.insert("ttjj.dao.mapper.KlineMapper.updateNet", entity);
+            session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
 }

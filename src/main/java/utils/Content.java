@@ -24,6 +24,9 @@ public class Content {
         zhishuMap.put("399006","创业板指");
         zhishuMap.put("399673","创业板50");
         zhishuMap.put("931643","科创创业50");
+        zhishuMap.put("399005","中小100");
+        zhishuMap.put("000010","上证180");
+        zhishuMap.put("000009","上证380");
     }
 
     /**
@@ -180,10 +183,22 @@ public class Content {
      */
     public static String FUND_CODE = "fundCode";
 
-    public static String keyRsMin = "rsMin";
-    public static String keyRsMax = "rsMax";
-    public static String keyRsNetCloseMin = "keyRsNetCloseMin";
-    public static String keyRsNetCloseMax = "keyRsNetCloseMax";
+    /**
+     * keyRsMin
+     */
+    public static String keyRsMin = "netMin";
+    /**
+     * keyRsMax
+     */
+    public static String keyRsMax = "netMax";
+    /**
+     * keyRsNetCloseMin
+     */
+    public static String keyRsNetCloseMin = "netCloseMin";
+    /**
+     * keyRsNetCloseMax
+     */
+    public static String keyRsNetCloseMax = "netCloseMax";
     /**
      * keyRsNetCloseAvg 收盘均值
      */

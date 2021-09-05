@@ -10,6 +10,8 @@ import ttjj.service.KlineService;
 import utils.Content;
 import utils.DateUtil;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,13 +25,13 @@ public class KlineDemo {
         //  插入常用指数k线
         String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
-        int addDaysMax = 1;//最多增加的天数
+        int addDaysMax = 2;//最多增加的天数
         int year = DateUtil.getCurYear();//2021
         int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()
         int day = DateUtil.getCurDay();//DateUtil.getCurDay()
         Map<String, String> zhishuMap = Content.getZhishuMap();//        Map<String, String>  zhishuMap = new HashMap<>();zhishuMap.put("000001","上证指数");//特定测试
         //插入常用指数k线-大周期：日、周、月、年
-        addZhishuKline(zhishuMap,klt,lmt,year,month,day,addDaysMax);
+        addZhishuKline(zhishuMap, klt, lmt, year, month, day, addDaysMax);
 
 //        // 查询k线
 //        String zqdm = "110081";
@@ -56,6 +58,7 @@ public class KlineDemo {
 
     /**
      * 插入常用指数k线-大周期：日、周、月、年
+     *
      * @param zhishuMap
      * @param klt
      * @param lmt
@@ -76,59 +79,105 @@ public class KlineDemo {
                 addKlineDaZhouQi(zqdm, lmt, klt, begDate, endDate);
 
 //            //按照日期的分钟线（5分钟；15分钟；30分钟；60分钟；120分钟），插入k线
-                addKlineByDay(zqdm, lmt, Content.KLT_1, begDate);
-                addKlineByDay(zqdm, lmt, Content.KLT_5, begDate);
-                addKlineByDay(zqdm, lmt, Content.KLT_15, begDate);
-                addKlineByDay(zqdm, lmt, Content.KLT_30, begDate);
-                addKlineByDay(zqdm, lmt, Content.KLT_60, begDate);
-                addKlineByDay(zqdm, lmt, Content.KLT_120, begDate);
+//                addKlineByDay(zqdm, lmt, Content.KLT_1, begDate);
+//                addKlineByDay(zqdm, lmt, Content.KLT_5, begDate);
+//                addKlineByDay(zqdm, lmt, Content.KLT_15, begDate);
+//                addKlineByDay(zqdm, lmt, Content.KLT_30, begDate);
+//                addKlineByDay(zqdm, lmt, Content.KLT_60, begDate);
+//                addKlineByDay(zqdm, lmt, Content.KLT_120, begDate);
             }
         }
     }
 
     /**
      * 按照日期的分钟线（5分钟；15分钟；30分钟；60分钟；120分钟），插入k线
-     *  @param zqdm
+     *
+     * @param zqdm
      * @param lmt
      * @param klt
      * @param date
      */
     private static void addKlineByDay(String zqdm, int lmt, String klt, String date) {
-            /**    创业板50-159949 HS300ETF-510310 50ETF-510050	新汽车-515030	芯片ETF-159995	酒ETF-512690	医疗ETF-512170 	光伏ETF-515790	稀土ETF-516780	有色50-159880	煤炭ETF-515220 军工ETF-512660		**/
-            String klineRs = KlineService.klineRsStrHttpDfcf(zqdm, lmt, klt, true, date, date);
-            System.out.println("开始日期:" + date + "，结束日期:" + date + "，周期:" + klt + "，klineRs:" + klineRs);
+        /**    创业板50-159949 HS300ETF-510310 50ETF-510050	新汽车-515030	芯片ETF-159995	酒ETF-512690	医疗ETF-512170 	光伏ETF-515790	稀土ETF-516780	有色50-159880	煤炭ETF-515220 军工ETF-512660		**/
+        String klineRs = KlineService.klineRsStrHttpDfcf(zqdm, lmt, klt, true, date, date);
+        System.out.println("开始日期:" + date + "，结束日期:" + date + "，周期:" + klt + "，klineRs:" + klineRs);
 //        System.out.println("klines:"+JSON.toJSONString(klines));
 
-            if (StringUtils.isBlank(klineRs)) {
-                System.out.println("k线查询结果为空！");
-                return;
-            }
+        if (StringUtils.isBlank(klineRs)) {
+            System.out.println("k线查询结果为空！");
+            return;
+        }
 
-            JSONObject szzzMonthJson = JSON.parseObject(klineRs);
-            JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
-            String zqmc = szzzMonthDataJson.getString("name");
-            System.out.println("证券名称：" + zqmc);
-            if (szzzMonthDataJson == null || !szzzMonthDataJson.containsKey("klines")) {
-                System.out.println("klines数据异常：" + JSON.toJSONString(szzzMonthDataJson));
-                return;
-            }
+        JSONObject szzzMonthJson = JSON.parseObject(klineRs);
+        JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
+        String zqmc = szzzMonthDataJson.getString("name");
+        System.out.println("证券名称：" + zqmc);
+        if (szzzMonthDataJson == null || !szzzMonthDataJson.containsKey("klines")) {
+            System.out.println("klines数据异常：" + JSON.toJSONString(szzzMonthDataJson));
+            return;
+        }
 
-            JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
-            if (klines == null || klines.size() <= 0) {
-                System.out.println("k线数据为空！");
-                return;
-            }
+        JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
+        if (klines == null || klines.size() <= 0) {
+            System.out.println("k线数据为空！");
+            return;
+        }
 
-            Kline kline = new Kline();
-            kline.setKlt(klt);
-            kline.setRs(klineRs);
-            kline.setZqmc(zqmc);
-            kline.setZqdm(zqdm);
-            kline.setKtime(date);
-            /**
-             * 插入数据库-K线
-             */
-            KlineDao.insert(kline);
+        Kline kline = new Kline();
+        kline.setKlt(klt);
+        kline.setRs(klineRs);
+        kline.setZqmc(zqmc);
+        kline.setZqdm(zqdm);
+        kline.setKtime(date);
+        /**
+         * 插入数据库-K线
+         */
+        KlineDao.insert(kline);
+
+        //计算净值
+        Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, "", date);
+        kline.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
+        kline.setNET_MIN_5(netMap5.get(Content.keyRsMin));
+        kline.setNET_MAX_5(netMap5.get(Content.keyRsMax));
+        kline.setNET_MIN_CLOS_5(netMap5.get(Content.keyRsNetCloseMin));
+        kline.setNET_MAX_CLOS_5(netMap5.get(Content.keyRsNetCloseMax));
+        Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, "", date);
+        kline.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
+        kline.setNET_MIN_10(netMap10.get(Content.keyRsMin));
+        kline.setNET_MAX_10(netMap10.get(Content.keyRsMax));
+        kline.setNET_MIN_CLOS_10(netMap10.get(Content.keyRsNetCloseMin));
+        kline.setNET_MAX_CLOS_10(netMap10.get(Content.keyRsNetCloseMax));
+        Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, "", date);
+        kline.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
+        kline.setNET_MIN_20(netMap20.get(Content.keyRsMin));
+        kline.setNET_MAX_20(netMap20.get(Content.keyRsMax));
+        kline.setNET_MIN_CLOS_20(netMap20.get(Content.keyRsNetCloseMin));
+        kline.setNET_MAX_CLOS_20(netMap20.get(Content.keyRsNetCloseMax));
+        Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, "", date);
+        kline.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
+        kline.setNET_MIN_30(netMap30.get(Content.keyRsMin));
+        kline.setNET_MAX_30(netMap30.get(Content.keyRsMax));
+        kline.setNET_MIN_CLOS_30(netMap30.get(Content.keyRsNetCloseMin));
+        kline.setNET_MAX_CLOS_30(netMap30.get(Content.keyRsNetCloseMax));
+        Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, "", date);
+        kline.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
+        kline.setNET_MIN_60(netMap60.get(Content.keyRsMin));
+        kline.setNET_MAX_60(netMap60.get(Content.keyRsMax));
+        kline.setNET_MIN_CLOS_60(netMap60.get(Content.keyRsNetCloseMin));
+        kline.setNET_MAX_CLOS_60(netMap60.get(Content.keyRsNetCloseMax));
+        Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, "", date);
+        kline.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
+        kline.setNET_MIN_120(netMap120.get(Content.keyRsMin));
+        kline.setNET_MAX_120(netMap120.get(Content.keyRsMax));
+        kline.setNET_MIN_CLOS_120(netMap120.get(Content.keyRsNetCloseMin));
+        kline.setNET_MAX_CLOS_120(netMap120.get(Content.keyRsNetCloseMax));
+        Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, "", date);
+        kline.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
+        kline.setNET_MIN_250(netMap250.get(Content.keyRsMin));
+        kline.setNET_MAX_250(netMap250.get(Content.keyRsMax));
+        kline.setNET_MIN_CLOS_250(netMap250.get(Content.keyRsNetCloseMin));
+        kline.setNET_MAX_CLOS_250(netMap250.get(Content.keyRsNetCloseMax));
+        KlineDao.updateNet(kline);
     }
 
     /**
@@ -148,6 +197,51 @@ public class KlineDemo {
              * 插入数据库-K线
              */
             KlineDao.insert(kline);
+
+//            //计算净值
+//            Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, begDate, endDate);
+//            kline.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
+//            kline.setNET_MIN_5(netMap5.get(Content.keyRsMin));
+//            kline.setNET_MAX_5(netMap5.get(Content.keyRsMax));
+//            kline.setNET_MIN_CLOS_5(netMap5.get(Content.keyRsNetCloseMin));
+//            kline.setNET_MAX_CLOS_5(netMap5.get(Content.keyRsNetCloseMax));
+//            Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, begDate, endDate);
+//            kline.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
+//            kline.setNET_MIN_10(netMap10.get(Content.keyRsMin));
+//            kline.setNET_MAX_10(netMap10.get(Content.keyRsMax));
+//            kline.setNET_MIN_CLOS_10(netMap10.get(Content.keyRsNetCloseMin));
+//            kline.setNET_MAX_CLOS_10(netMap10.get(Content.keyRsNetCloseMax));
+//            Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, begDate, endDate);
+//            kline.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
+//            kline.setNET_MIN_20(netMap20.get(Content.keyRsMin));
+//            kline.setNET_MAX_20(netMap20.get(Content.keyRsMax));
+//            kline.setNET_MIN_CLOS_20(netMap20.get(Content.keyRsNetCloseMin));
+//            kline.setNET_MAX_CLOS_20(netMap20.get(Content.keyRsNetCloseMax));
+//            Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, begDate, endDate);
+//            kline.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
+//            kline.setNET_MIN_30(netMap30.get(Content.keyRsMin));
+//            kline.setNET_MAX_30(netMap30.get(Content.keyRsMax));
+//            kline.setNET_MIN_CLOS_30(netMap30.get(Content.keyRsNetCloseMin));
+//            kline.setNET_MAX_CLOS_30(netMap30.get(Content.keyRsNetCloseMax));
+//            Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, begDate, endDate);
+//            kline.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
+//            kline.setNET_MIN_60(netMap60.get(Content.keyRsMin));
+//            kline.setNET_MAX_60(netMap60.get(Content.keyRsMax));
+//            kline.setNET_MIN_CLOS_60(netMap60.get(Content.keyRsNetCloseMin));
+//            kline.setNET_MAX_CLOS_60(netMap60.get(Content.keyRsNetCloseMax));
+//            Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, begDate, endDate);
+//            kline.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
+//            kline.setNET_MIN_120(netMap120.get(Content.keyRsMin));
+//            kline.setNET_MAX_120(netMap120.get(Content.keyRsMax));
+//            kline.setNET_MIN_CLOS_120(netMap120.get(Content.keyRsNetCloseMin));
+//            kline.setNET_MAX_CLOS_120(netMap120.get(Content.keyRsNetCloseMax));
+//            Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, begDate, endDate);
+//            kline.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
+//            kline.setNET_MIN_250(netMap250.get(Content.keyRsMin));
+//            kline.setNET_MAX_250(netMap250.get(Content.keyRsMax));
+//            kline.setNET_MIN_CLOS_250(netMap250.get(Content.keyRsNetCloseMin));
+//            kline.setNET_MAX_CLOS_250(netMap250.get(Content.keyRsNetCloseMax));
+//            KlineDao.updateNet(kline);
         }
     }
 

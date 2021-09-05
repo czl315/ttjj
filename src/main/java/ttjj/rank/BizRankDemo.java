@@ -123,7 +123,6 @@ public class BizRankDemo {
             rankBizDataDiff.setMonth(DateUtil.getYearMonth(kline.getKtime(), DateUtil.YYYY_MM_DD));
             rankBizDataDiff.setWeekYear(DateUtil.getYearWeek(kline.getKtime(),DateUtil.YYYY_MM_DD));
             rankBizDataDiff.setWeek(DateUtil.getWeekByYyyyMmDd(kline.getKtime(),DateUtil.YYYY_MM_DD));
-//            rankBizDataDiff.setMonth(DateUtil.getCurMonth());
             rankBizDataDiff.setType("etf");
             rankBizDataDiff.setF1(3L);
             rankBizDataDiff.setF2(kline.getCloseAmt().doubleValue());

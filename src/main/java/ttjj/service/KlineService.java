@@ -281,7 +281,7 @@ public class KlineService {
      * @param endDate
      * @return
      */
-    private static Map<String, BigDecimal> findNetMinMaxAvg(String zqdm, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate) {
+    public static Map<String, BigDecimal> findNetMinMaxAvg(String zqdm, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate) {
         List<Kline> klines = KlineService.kline(zqdm, lmt, klt, isHasBegDate, begDate, endDate);
         Map<String, BigDecimal> rs = new HashMap<>();
         BigDecimal rsMax = new BigDecimal("0.0");

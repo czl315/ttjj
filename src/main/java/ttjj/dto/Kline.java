@@ -73,6 +73,58 @@ public class Kline {
      */
     private BigDecimal huanShouLv;
 
+    /**
+     * NET_MIN_5 净值-最小-n个
+     */
+    private BigDecimal NET_MIN_5;
+    private BigDecimal NET_MIN_10;
+    private BigDecimal NET_MIN_20;
+    private BigDecimal NET_MIN_30;
+    private BigDecimal NET_MIN_60;
+    private BigDecimal NET_MIN_120;
+    private BigDecimal NET_MIN_250;
+    /**
+     * NET_MAX_5 净值-最大-n个
+     */
+    private BigDecimal NET_MAX_5;
+    private BigDecimal NET_MAX_10;
+    private BigDecimal NET_MAX_20;
+    private BigDecimal NET_MAX_30;
+    private BigDecimal NET_MAX_60;
+    private BigDecimal NET_MAX_120;
+    private BigDecimal NET_MAX_250;
+    /**
+     * NET_MIN_CLOS_5 净值-最小收盘-n个
+     */
+    private BigDecimal NET_MIN_CLOS_5;
+    private BigDecimal NET_MIN_CLOS_10;
+    private BigDecimal NET_MIN_CLOS_20;
+    private BigDecimal NET_MIN_CLOS_30;
+    private BigDecimal NET_MIN_CLOS_60;
+    private BigDecimal NET_MIN_CLOS_120;
+    private BigDecimal NET_MIN_CLOS_250;
+    /**
+     * NET_MAX_CLOS_5 NET_MAX_5 净值-最大收盘-n个
+     */
+    private BigDecimal NET_MAX_CLOS_5;
+    private BigDecimal NET_MAX_CLOS_10;
+    private BigDecimal NET_MAX_CLOS_20;
+    private BigDecimal NET_MAX_CLOS_30;
+    private BigDecimal NET_MAX_CLOS_60;
+    private BigDecimal NET_MAX_CLOS_120;
+    private BigDecimal NET_MAX_CLOS_250;
+
+    /**
+     * NET_MA_5 净值-均线-n个
+     */
+    private BigDecimal NET_MA_5;
+    private BigDecimal NET_MA_10;
+    private BigDecimal NET_MA_20;
+    private BigDecimal NET_MA_30;
+    private BigDecimal NET_MA_60;
+    private BigDecimal NET_MA_120;
+    private BigDecimal NET_MA_250;
+
     public String getKtime() {
         return ktime;
     }
@@ -199,5 +251,285 @@ public class Kline {
 
     public void setKlt(String klt) {
         this.klt = klt;
+    }
+
+    public BigDecimal getNET_MIN_5() {
+        return NET_MIN_5;
+    }
+
+    public void setNET_MIN_5(BigDecimal NET_MIN_5) {
+        this.NET_MIN_5 = NET_MIN_5;
+    }
+
+    public BigDecimal getNET_MIN_10() {
+        return NET_MIN_10;
+    }
+
+    public void setNET_MIN_10(BigDecimal NET_MIN_10) {
+        this.NET_MIN_10 = NET_MIN_10;
+    }
+
+    public BigDecimal getNET_MIN_20() {
+        return NET_MIN_20;
+    }
+
+    public void setNET_MIN_20(BigDecimal NET_MIN_20) {
+        this.NET_MIN_20 = NET_MIN_20;
+    }
+
+    public BigDecimal getNET_MIN_30() {
+        return NET_MIN_30;
+    }
+
+    public void setNET_MIN_30(BigDecimal NET_MIN_30) {
+        this.NET_MIN_30 = NET_MIN_30;
+    }
+
+    public BigDecimal getNET_MIN_60() {
+        return NET_MIN_60;
+    }
+
+    public void setNET_MIN_60(BigDecimal NET_MIN_60) {
+        this.NET_MIN_60 = NET_MIN_60;
+    }
+
+    public BigDecimal getNET_MIN_120() {
+        return NET_MIN_120;
+    }
+
+    public void setNET_MIN_120(BigDecimal NET_MIN_120) {
+        this.NET_MIN_120 = NET_MIN_120;
+    }
+
+    public BigDecimal getNET_MIN_250() {
+        return NET_MIN_250;
+    }
+
+    public void setNET_MIN_250(BigDecimal NET_MIN_250) {
+        this.NET_MIN_250 = NET_MIN_250;
+    }
+
+    public BigDecimal getNET_MAX_5() {
+        return NET_MAX_5;
+    }
+
+    public void setNET_MAX_5(BigDecimal NET_MAX_5) {
+        this.NET_MAX_5 = NET_MAX_5;
+    }
+
+    public BigDecimal getNET_MAX_10() {
+        return NET_MAX_10;
+    }
+
+    public void setNET_MAX_10(BigDecimal NET_MAX_10) {
+        this.NET_MAX_10 = NET_MAX_10;
+    }
+
+    public BigDecimal getNET_MAX_20() {
+        return NET_MAX_20;
+    }
+
+    public void setNET_MAX_20(BigDecimal NET_MAX_20) {
+        this.NET_MAX_20 = NET_MAX_20;
+    }
+
+    public BigDecimal getNET_MAX_30() {
+        return NET_MAX_30;
+    }
+
+    public void setNET_MAX_30(BigDecimal NET_MAX_30) {
+        this.NET_MAX_30 = NET_MAX_30;
+    }
+
+    public BigDecimal getNET_MAX_60() {
+        return NET_MAX_60;
+    }
+
+    public void setNET_MAX_60(BigDecimal NET_MAX_60) {
+        this.NET_MAX_60 = NET_MAX_60;
+    }
+
+    public BigDecimal getNET_MAX_120() {
+        return NET_MAX_120;
+    }
+
+    public void setNET_MAX_120(BigDecimal NET_MAX_120) {
+        this.NET_MAX_120 = NET_MAX_120;
+    }
+
+    public BigDecimal getNET_MAX_250() {
+        return NET_MAX_250;
+    }
+
+    public void setNET_MAX_250(BigDecimal NET_MAX_250) {
+        this.NET_MAX_250 = NET_MAX_250;
+    }
+
+    public BigDecimal getNET_MIN_CLOS_5() {
+        return NET_MIN_CLOS_5;
+    }
+
+    public void setNET_MIN_CLOS_5(BigDecimal NET_MIN_CLOS_5) {
+        this.NET_MIN_CLOS_5 = NET_MIN_CLOS_5;
+    }
+
+    public BigDecimal getNET_MIN_CLOS_10() {
+        return NET_MIN_CLOS_10;
+    }
+
+    public void setNET_MIN_CLOS_10(BigDecimal NET_MIN_CLOS_10) {
+        this.NET_MIN_CLOS_10 = NET_MIN_CLOS_10;
+    }
+
+    public BigDecimal getNET_MIN_CLOS_20() {
+        return NET_MIN_CLOS_20;
+    }
+
+    public void setNET_MIN_CLOS_20(BigDecimal NET_MIN_CLOS_20) {
+        this.NET_MIN_CLOS_20 = NET_MIN_CLOS_20;
+    }
+
+    public BigDecimal getNET_MIN_CLOS_30() {
+        return NET_MIN_CLOS_30;
+    }
+
+    public void setNET_MIN_CLOS_30(BigDecimal NET_MIN_CLOS_30) {
+        this.NET_MIN_CLOS_30 = NET_MIN_CLOS_30;
+    }
+
+    public BigDecimal getNET_MIN_CLOS_60() {
+        return NET_MIN_CLOS_60;
+    }
+
+    public void setNET_MIN_CLOS_60(BigDecimal NET_MIN_CLOS_60) {
+        this.NET_MIN_CLOS_60 = NET_MIN_CLOS_60;
+    }
+
+    public BigDecimal getNET_MIN_CLOS_120() {
+        return NET_MIN_CLOS_120;
+    }
+
+    public void setNET_MIN_CLOS_120(BigDecimal NET_MIN_CLOS_120) {
+        this.NET_MIN_CLOS_120 = NET_MIN_CLOS_120;
+    }
+
+    public BigDecimal getNET_MIN_CLOS_250() {
+        return NET_MIN_CLOS_250;
+    }
+
+    public void setNET_MIN_CLOS_250(BigDecimal NET_MIN_CLOS_250) {
+        this.NET_MIN_CLOS_250 = NET_MIN_CLOS_250;
+    }
+
+    public BigDecimal getNET_MAX_CLOS_5() {
+        return NET_MAX_CLOS_5;
+    }
+
+    public void setNET_MAX_CLOS_5(BigDecimal NET_MAX_CLOS_5) {
+        this.NET_MAX_CLOS_5 = NET_MAX_CLOS_5;
+    }
+
+    public BigDecimal getNET_MAX_CLOS_10() {
+        return NET_MAX_CLOS_10;
+    }
+
+    public void setNET_MAX_CLOS_10(BigDecimal NET_MAX_CLOS_10) {
+        this.NET_MAX_CLOS_10 = NET_MAX_CLOS_10;
+    }
+
+    public BigDecimal getNET_MAX_CLOS_20() {
+        return NET_MAX_CLOS_20;
+    }
+
+    public void setNET_MAX_CLOS_20(BigDecimal NET_MAX_CLOS_20) {
+        this.NET_MAX_CLOS_20 = NET_MAX_CLOS_20;
+    }
+
+    public BigDecimal getNET_MAX_CLOS_30() {
+        return NET_MAX_CLOS_30;
+    }
+
+    public void setNET_MAX_CLOS_30(BigDecimal NET_MAX_CLOS_30) {
+        this.NET_MAX_CLOS_30 = NET_MAX_CLOS_30;
+    }
+
+    public BigDecimal getNET_MAX_CLOS_60() {
+        return NET_MAX_CLOS_60;
+    }
+
+    public void setNET_MAX_CLOS_60(BigDecimal NET_MAX_CLOS_60) {
+        this.NET_MAX_CLOS_60 = NET_MAX_CLOS_60;
+    }
+
+    public BigDecimal getNET_MAX_CLOS_120() {
+        return NET_MAX_CLOS_120;
+    }
+
+    public void setNET_MAX_CLOS_120(BigDecimal NET_MAX_CLOS_120) {
+        this.NET_MAX_CLOS_120 = NET_MAX_CLOS_120;
+    }
+
+    public BigDecimal getNET_MAX_CLOS_250() {
+        return NET_MAX_CLOS_250;
+    }
+
+    public void setNET_MAX_CLOS_250(BigDecimal NET_MAX_CLOS_250) {
+        this.NET_MAX_CLOS_250 = NET_MAX_CLOS_250;
+    }
+
+    public BigDecimal getNET_MA_5() {
+        return NET_MA_5;
+    }
+
+    public void setNET_MA_5(BigDecimal NET_MA_5) {
+        this.NET_MA_5 = NET_MA_5;
+    }
+
+    public BigDecimal getNET_MA_10() {
+        return NET_MA_10;
+    }
+
+    public void setNET_MA_10(BigDecimal NET_MA_10) {
+        this.NET_MA_10 = NET_MA_10;
+    }
+
+    public BigDecimal getNET_MA_20() {
+        return NET_MA_20;
+    }
+
+    public void setNET_MA_20(BigDecimal NET_MA_20) {
+        this.NET_MA_20 = NET_MA_20;
+    }
+
+    public BigDecimal getNET_MA_30() {
+        return NET_MA_30;
+    }
+
+    public void setNET_MA_30(BigDecimal NET_MA_30) {
+        this.NET_MA_30 = NET_MA_30;
+    }
+
+    public BigDecimal getNET_MA_60() {
+        return NET_MA_60;
+    }
+
+    public void setNET_MA_60(BigDecimal NET_MA_60) {
+        this.NET_MA_60 = NET_MA_60;
+    }
+
+    public BigDecimal getNET_MA_120() {
+        return NET_MA_120;
+    }
+
+    public void setNET_MA_120(BigDecimal NET_MA_120) {
+        this.NET_MA_120 = NET_MA_120;
+    }
+
+    public BigDecimal getNET_MA_250() {
+        return NET_MA_250;
+    }
+
+    public void setNET_MA_250(BigDecimal NET_MA_250) {
+        this.NET_MA_250 = NET_MA_250;
     }
 }
