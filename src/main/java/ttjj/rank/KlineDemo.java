@@ -31,7 +31,8 @@ public class KlineDemo {
         int day = DateUtil.getCurDay();//DateUtil.getCurDay()
         Map<String, String> zhishuMap = Content.getZhishuMap();//        Map<String, String>  zhishuMap = new HashMap<>();zhishuMap.put("000001","上证指数");//特定测试
         //插入常用指数k线-大周期：日、周、月、年
-        addZhishuKline(zhishuMap, klt, lmt, year, month, day, addDaysMax);
+        boolean isAddMinuteKline = false;
+        addZhishuKline(zhishuMap, klt, lmt, year, month, day, addDaysMax, isAddMinuteKline);
 
 //        // 查询k线
 //        String zqdm = "110081";
@@ -66,25 +67,26 @@ public class KlineDemo {
      * @param month
      * @param day
      * @param addDaysMax
+     * @param isAddMinuteKline 是否添加分钟级别K线
      */
-    private static void addZhishuKline(Map<String, String> zhishuMap, String klt, int lmt, int year, int month, int day, int addDaysMax) {
+    private static void addZhishuKline(Map<String, String> zhishuMap, String klt, int lmt, int year, int month, int day, int addDaysMax, boolean isAddMinuteKline) {
         Set<String> zhishuList = zhishuMap.keySet();
         for (String zqdm : zhishuList) {
             for (int i = 0; i < addDaysMax; i++) {
                 String begDate = DateUtil.getDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, year, month, day, i);//查询新增交易的开始时间
                 String endDate = begDate;
-
-
 //            //  增加大周期k线
                 addKlineDaZhouQi(zqdm, lmt, klt, begDate, endDate);
 
-            //按照日期的分钟线（5分钟；15分钟；30分钟；60分钟；120分钟），插入k线
-                addKlineByDay(zqdm, lmt, Content.KLT_1, begDate);
-                addKlineByDay(zqdm, lmt, Content.KLT_5, begDate);
-                addKlineByDay(zqdm, lmt, Content.KLT_15, begDate);
-                addKlineByDay(zqdm, lmt, Content.KLT_30, begDate);
-                addKlineByDay(zqdm, lmt, Content.KLT_60, begDate);
-                addKlineByDay(zqdm, lmt, Content.KLT_120, begDate);
+                if (isAddMinuteKline) {
+                    //按照日期的分钟线（5分钟；15分钟；30分钟；60分钟；120分钟），插入k线
+                    addKlineByDay(zqdm, lmt, Content.KLT_1, begDate);
+                    addKlineByDay(zqdm, lmt, Content.KLT_5, begDate);
+                    addKlineByDay(zqdm, lmt, Content.KLT_15, begDate);
+                    addKlineByDay(zqdm, lmt, Content.KLT_30, begDate);
+                    addKlineByDay(zqdm, lmt, Content.KLT_60, begDate);
+                    addKlineByDay(zqdm, lmt, Content.KLT_120, begDate);
+                }
             }
         }
     }
