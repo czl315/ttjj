@@ -100,15 +100,22 @@ public class BizRankDemo {
 
     }
 
+//    public static void main(String[] args) {
+//        String date = "2021-09-03";
+//        List<RankBizDataDiff> rankEtf = listEtf(date, "etf", 999);//2021-04-16:425;
+//        for (RankBizDataDiff rankBizDataDiff : rankEtf) {
+//            insertBiz(rankBizDataDiff.getF12());
+//        }
+//    }
+
     /**
      * 新增-业务
      *
      */
-    private static void insertBiz() {
+    private static void insertBiz(String zqdm) {
 
         /**    创业板50-159949 HS300ETF-510310 50ETF-510050	新汽车-515030	芯片ETF-159995	酒ETF-512690	医疗ETF-512170 	光伏ETF-515790	稀土ETF-516780	有色50-159880	煤炭ETF-515220 军工ETF-512660		**/
 //        String zqdm = "159949";
-        String zqdm = "159863";
         String begDate = "20210101";//查询新增交易的开始时间
         String endDate = "20210415";
         String klt = "101";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月

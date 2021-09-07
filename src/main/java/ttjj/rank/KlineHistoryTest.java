@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
 public class KlineHistoryTest {
     public static void main(String[] args) {
         /**	创业板50-159949	50ETF-510050(低跌1.5：7 13	86	15.1163)	HS300ETF-510310	500ETF-510500
-         新汽车-515030	芯片ETF-159995	酒ETF-512690	医疗ETF-512170 	光伏ETF-515790	稀土ETF-516780	有色50-159880	煤炭ETF-515220 军工ETF-512660		券商ETF	512000	中概互联-513050
+         新汽车-515030	芯片ETF-159995	酒ETF-512690	医疗ETF-512170 	光伏ETF-515790	稀土ETF-516780	有色50-159880	煤炭ETF-515220 军工ETF-512660		券商ETF	512000	中概互联-513050 基建50ETF-516970
          招商银行	600036	**/
         //        String zqdm = "159949";
         String zqdm = "159949";
-        String begDate = "20210902";//查询新增交易的开始时间
-        String endDate = "20210902";
-        String klt = "15";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+        String begDate = "20210823";//查询新增交易的开始时间
+        String endDate = "20210903";
+        String klt = "5";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
         List<RankBizDataDiff> rankBizDataDiffList = new ArrayList<>();
         List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate);
@@ -41,14 +41,14 @@ public class KlineHistoryTest {
     }
 
     private static void handlerBuySell(List<Kline> klines) {
-        for (int i = 1; i <= 10; i++) {
-            boolean downFactorFlag = true;
-//            boolean downFactorFlag = false;
-            boolean upFactorFlag = true;
-//            boolean upFactorFlag = false;
+        for (int i = 1; i <= 20; i++) {
+//            boolean downFactorFlag = true;//固定因子
+            boolean downFactorFlag = false;
+//            boolean upFactorFlag = true;
+            boolean upFactorFlag = false;
 
-            BigDecimal downFactorTemp = new BigDecimal("-0.7");
-            BigDecimal upFactorTemp = new BigDecimal("0.5");
+            BigDecimal downFactorTemp = new BigDecimal("-0.9");
+            BigDecimal upFactorTemp = new BigDecimal("0.3");
 
             BigDecimal downFactorTempStep = new BigDecimal("0.1");
 //            BigDecimal downFactorTemp = downFactorTempStep.multiply(new BigDecimal(i)).multiply(new BigDecimal("-1"));
@@ -64,46 +64,9 @@ public class KlineHistoryTest {
                     downFactor = downFactorTemp;
                 } else {
                     BigDecimal step = new BigDecimal("0.1");
-                    downFactor = step.multiply(new BigDecimal(j)).multiply(new BigDecimal("-1"));
+                    downFactor = step.multiply(new BigDecimal(i)).multiply(new BigDecimal("-1"));
                 }
 //            BigDecimal downFactor = new BigDecimal("-0.5");
-                //下跌数据统计：15m,20210701-20210813
-                //      下跌因子[-0.1,-0.1,-0.1,],上涨因子：[0.9,1.0,1.2,],涨幅：[0.93,0.89,0.85,]
-                //      下跌因子[-0.2,-0.2,-0.2,],上涨因子：[0.9,1.0,1.1,],涨幅：[0.65,0.54,0.52,]
-                //      下跌因子[-0.3,-0.3,-0.3,],上涨因子：[1.3,0.9,1.2,],涨幅：[1.00,0.98,0.95,]
-                //      下跌因子[-0.4,-0.4,-0.4,],上涨因子：[1.3,1.4,1.5,],涨幅：[1.53,1.42,1.30,]
-                //      下跌因子[-0.5,-0.5,-0.5,],上涨因子：[1.5,1.3,1.4,],涨幅：[1.60,1.55,1.51,];
-                //      下跌因子[-0.6,-0.6,-0.6,],上涨因子：[1.5,1.4,1.2,],涨幅：[0.90,0.83,0.62,]
-                //      下跌因子[-0.7,-0.7,-0.7,],上涨因子：[1.5,1.4,1.2,],涨幅：[0.39,0.16,0.08,]
-                //      下跌因子[-0.8,-0.8,-0.8,],上涨因子：[1.5,1.3,1.4,],涨幅：[-0.62,-0.88,-0.92,]
-                //      下跌因子[-0.9,-0.9,-0.9,],上涨因子：[0.4,0.3,1.5,],涨幅：[-1.29,-1.37,-1.43,]
-                //      下跌因子[-1.0,-1.0,-1.0,],上涨因子：[0.4,0.5,0.6,],涨幅：[-0.65,-0.69,-0.99,]
-                //      下跌因子[-1.2,-1.2,-1.2,],上涨因子：[0.7,0.9,0.8,],涨幅：[-1.07,-1.07,-1.08,]
-                //      下跌因子[-1.4,-1.4,-1.4,],上涨因子：[1.5,1.4,1.2,],涨幅：[-1.64,-1.76,-1.77,]
-                //      下跌因子[-1.6,-1.6,-1.6,],上涨因子：[0.9,1.0,0.2,],涨幅：[-2.02,-2.05,-2.06,]
-                //      下跌因子[-1.8,-1.8,-1.8,],上涨因子：[1.5,0.3,0.4,],涨幅：[-1.92,-2.09,-2.09,]
-                //      下跌因子[-2.0,-2.0,-2.0,],上涨因子：[0.7,0.8,1.2,],涨幅：[-2.15,-2.18,-2.21,]
-                //上涨数据统计：15m,
-                //      下跌因子[-0.4,-0.3,-0.2,],上涨因子：[0.1,0.1,0.1,],涨幅：[-1.13,-1.23,-1.64,]
-                //      下跌因子[-0.1,-0.3,-0.4,],上涨因子：[0.2,0.2,0.2,],涨幅：[-0.96,-1.51,-1.53,]
-                //      下跌因子[-0.1,-0.8,-0.9,],上涨因子：[0.3,0.3,0.3,],涨幅：[-0.70,-1.33,-1.37,]
-                //      下跌因子[-0.1,-0.2,-1.0,],上涨因子：[0.4,0.4,0.4,],涨幅：[-0.07,-0.29,-0.65,]
-                //      下跌因子[-0.1,-0.2,-0.3,],上涨因子：[0.5,0.5,0.5,],涨幅：[0.73,0.48,-0.30,]
-                //      下跌因子[-0.1,-0.3,-0.2,],上涨因子：[0.6,0.6,0.6,],涨幅：[0.78,0.09,-0.07,]
-                //      下跌因子[-0.1,-0.3,-0.2,],上涨因子：[0.7,0.7,0.7,],涨幅：[0.79,0.52,0.17,]
-                //      下跌因子[-0.1,-0.3,-0.2,],上涨因子：[0.8,0.8,0.8,],涨幅：[0.77,0.55,0.28,]
-                //      下跌因子[-0.3,-0.1,-0.4,],上涨因子：[0.9,0.9,0.9,],涨幅：[0.98,0.93,0.75,]
-                //      下跌因子[-0.5,-0.4,-0.1,],上涨因子：[1.0,1.0,1.0,],涨幅：[1.42,0.98,0.89,]
-                //      下跌因子[-0.5,-0.4,-0.1,],上涨因子：[1.1,1.1,1.1,],涨幅：[1.10,0.76,0.68,]
-                //      下跌因子[-0.5,-0.4,-0.3,],上涨因子：[1.2,1.2,1.2,],涨幅：[1.16,1.15,0.95,]
-                //      下跌因子[-0.5,-0.4,-0.3,],上涨因子：[1.3,1.3,1.3,],涨幅：[1.55,1.53,1.00,]
-                //      下跌因子[-0.5,-0.4,-0.6,],上涨因子：[1.4,1.4,1.4,],涨幅：[1.51,1.42,0.83,]
-                //      下跌因子[-0.5,-0.4,-0.6,],上涨因子：[1.5,1.5,1.5,],涨幅：[1.60,1.30,0.90,]
-                //      下跌因子[-0.5,-0.4,-0.1,],上涨因子：[1.6,1.6,1.6,],涨幅：[1.85,1.51,0.74,]
-                //      下跌因子[-0.5,-0.4,-0.1,],上涨因子：[1.7,1.7,1.7,],涨幅：[1.84,1.29,0.74,]
-                //      下跌因子[-0.5,-0.4,-0.6,],上涨因子：[1.8,1.8,1.8,],涨幅：[2.01,1.88,1.76,]
-                //      下跌因子[-0.4,-0.5,-0.6,],上涨因子：[1.9,1.9,1.9,],涨幅：[2.00,1.76,1.59,]
-                //      下跌因子[-0.4,-0.5,-0.6,],上涨因子：[2.0,2.0,2.0,],涨幅：[2.26,1.80,1.67,]
 
                 BigDecimal upFactor = new BigDecimal("0");
                 if (upFactorFlag) {
@@ -113,6 +76,9 @@ public class KlineHistoryTest {
                     upFactor = step.multiply(new BigDecimal(j)).multiply(new BigDecimal("1"));
                 }
 //                BigDecimal upFactor = new BigDecimal("1.0");//上涨[0.1-1.0]:0.5；
+
+                //下跌数据统计：15m,20210701-20210813
+                //      下跌因子[-0.4,-0.5,-0.6,],上涨因子：[2.0,2.0,2.0,],涨幅：[2.26,1.80,1.67,]
 
                 //交易回测
                 //初始化交易历史回测数据
@@ -158,18 +124,34 @@ public class KlineHistoryTest {
             int count = 3;
             rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(TradeHisBack::getZdf, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
             for (TradeHisBack tradeHisBack : rs) {
-                System.out.print("涨跌幅：" + tradeHisBack.getZdf() + "%");
-                System.out.print("，上涨因子：" + tradeHisBack.getUpFactor());
-                System.out.print("，下跌因子：" + tradeHisBack.getDownFactor());
-                System.out.print("，买入次数：" + tradeHisBack.getBuyCount());
-                System.out.print("，卖出次数：" + tradeHisBack.getSellCount());
-                System.out.print("，现金：" + tradeHisBack.getCash());
-                System.out.print("，持仓：" + tradeHisBack.getHoldAmt());
-                System.out.print("，总资产：" + tradeHisBack.getTotalAmt());
-                System.out.print("，原有价格：" + tradeHisBack.getOldPrice());
-                System.out.print("，最新价格：" + tradeHisBack.getNowPrice());
-                System.out.print("，指数涨跌：" + tradeHisBack.getZdfPoint() + "%");
-                System.out.println();
+                BigDecimal upFactor = tradeHisBack.getUpFactor();
+                BigDecimal downFactor = tradeHisBack.getDownFactor();
+                List<BigDecimal> showUpFactors = new ArrayList<>();
+                showUpFactors.add(new BigDecimal("0.1"));
+                showUpFactors.add(new BigDecimal("0.2"));
+                showUpFactors.add(new BigDecimal("0.3"));
+                showUpFactors.add(new BigDecimal("0.4"));
+                showUpFactors.add(new BigDecimal("0.5"));
+                showUpFactors.add(new BigDecimal("0.6"));
+                showUpFactors.add(new BigDecimal("0.7"));
+                showUpFactors.add(new BigDecimal("0.8"));
+                showUpFactors.add(new BigDecimal("0.9"));
+                showUpFactors.add(new BigDecimal("1.0"));
+                if(showUpFactors.contains(upFactor)){
+//                if(downFactor.compareTo(new BigDecimal("-0.8"))==0){
+                    System.out.print("涨跌幅：" + tradeHisBack.getZdf() + "%");
+                    System.out.print("，上涨因子：" + upFactor);
+                    System.out.print("，下跌因子：" + downFactor);
+                    System.out.print("，买入次数：" + tradeHisBack.getBuyCount());
+                    System.out.print("，卖出次数：" + tradeHisBack.getSellCount());
+                    System.out.print("，现金：" + tradeHisBack.getCash());
+                    System.out.print("，持仓：" + tradeHisBack.getHoldAmt());
+                    System.out.print("，总资产：" + tradeHisBack.getTotalAmt());
+                    System.out.print("，原有价格：" + tradeHisBack.getOldPrice());
+                    System.out.print("，最新价格：" + tradeHisBack.getNowPrice());
+                    System.out.print("，指数涨跌：" + tradeHisBack.getZdfPoint() + "%");
+                    System.out.println();
+                }
 
                 if (count > 0) {
                     //统计前三的下跌因子和上涨因子数据

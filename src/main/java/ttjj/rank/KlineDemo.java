@@ -78,13 +78,13 @@ public class KlineDemo {
 //            //  增加大周期k线
                 addKlineDaZhouQi(zqdm, lmt, klt, begDate, endDate);
 
-//            //按照日期的分钟线（5分钟；15分钟；30分钟；60分钟；120分钟），插入k线
-//                addKlineByDay(zqdm, lmt, Content.KLT_1, begDate);
-//                addKlineByDay(zqdm, lmt, Content.KLT_5, begDate);
-//                addKlineByDay(zqdm, lmt, Content.KLT_15, begDate);
-//                addKlineByDay(zqdm, lmt, Content.KLT_30, begDate);
-//                addKlineByDay(zqdm, lmt, Content.KLT_60, begDate);
-//                addKlineByDay(zqdm, lmt, Content.KLT_120, begDate);
+            //按照日期的分钟线（5分钟；15分钟；30分钟；60分钟；120分钟），插入k线
+                addKlineByDay(zqdm, lmt, Content.KLT_1, begDate);
+                addKlineByDay(zqdm, lmt, Content.KLT_5, begDate);
+                addKlineByDay(zqdm, lmt, Content.KLT_15, begDate);
+                addKlineByDay(zqdm, lmt, Content.KLT_30, begDate);
+                addKlineByDay(zqdm, lmt, Content.KLT_60, begDate);
+                addKlineByDay(zqdm, lmt, Content.KLT_120, begDate);
             }
         }
     }

@@ -72,7 +72,7 @@ public class FupanDemo {
         String dateType = Content.DAYS_1;//1：一天;7:周;30:月;
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //            String date = "2021-08-31";
-        String dateKlineYyyymmdd = date.replace("-", "");
+//        String dateKlineYyyymmdd = date.replace("-", "");
 //            String dateKlineYyyymmdd = "20210813";
 
         if (updateDaPanKline) {
@@ -126,7 +126,7 @@ public class FupanDemo {
                 insertDbFupanPosition(assetPosition);//
 
                 //更新当日k线参数
-                List<Kline> klineList = KlineService.kline(assetPosition.getZqdm(), 1, klt, true, dateKlineYyyymmdd, dateKlineYyyymmdd);
+                List<Kline> klineList = KlineService.kline(assetPosition.getZqdm(), 1, klt, true, date, date);
                 if (klineList != null && klineList.size() > 0) {
                     AssetPositionDb entity = new AssetPositionDb();
                     entity.setZqdm(assetPosition.getZqdm());
