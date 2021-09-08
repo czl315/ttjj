@@ -129,6 +129,10 @@ public class Content {
      */
     public static int MA_10 = 10;
     /**
+     * MA_15
+     */
+    public static int MA_15 = 15;
+    /**
      * MA_20
      */
     public static int MA_20 = 20;
@@ -203,6 +207,10 @@ public class Content {
      * keyRsNetCloseAvg 收盘均值
      */
     public static String keyRsNetCloseAvg = "netCloseAvg";
+    /**
+     * keyRsJyeAvg 交易额均量
+     */
+    public static String keyRsCjeAvg = "cjeAvg";
     /**
      * keyRsKlineCount k线个数
      */

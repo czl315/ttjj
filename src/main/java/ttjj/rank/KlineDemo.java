@@ -5,16 +5,15 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.KlineDao;
+import ttjj.dto.AssetPosition;
 import ttjj.dto.Kline;
 import ttjj.service.KlineService;
 import utils.Content;
 import utils.DateUtil;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -23,56 +22,114 @@ import java.util.Set;
 public class KlineDemo {
     public static void main(String[] args) {
         //  插入常用指数k线
-        String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+        addZhishuKline();
+
+////        // 查询k线
+//        findKline();
+
+    }
+
+    private static void findKline() {
+        String zqdm = "000001";
+        String klt = Content.KLT_5;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
-        int addDaysMax = 2;//最多增加的天数
+        int addDaysMax = -1;//最多增加的天数
         int year = DateUtil.getCurYear();//2021
         int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()
         int day = DateUtil.getCurDay();//DateUtil.getCurDay()
-        Map<String, String> zhishuMap = Content.getZhishuMap();//        Map<String, String>  zhishuMap = new HashMap<>();zhishuMap.put("000001","上证指数");//特定测试
-        //插入常用指数k线-大周期：日、周、月、年
-        boolean isAddMinuteKline = false;
-        addZhishuKline(zhishuMap, klt, lmt, year, month, day, addDaysMax, isAddMinuteKline);
+        String begDate = DateUtil.getDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, year, month, day, addDaysMax);//查询新增交易的开始时间
+        String endDate = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        //查询K线-昨天到今天
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate);
+        klines = klines.stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getKtime, Comparator.nullsFirst(String::compareTo)).reversed()).collect(Collectors.toList());
+        int fromIndex = 0;//需要计算开始位置
+        int cjeCountAdd = 0;//成交额增量次数
+        int cjeCountSub = 0;//成交额减量次数
+        for (Kline kline : klines) {
+            fromIndex++;
+            //遍历k线
+            //如果k线时间大于当前时间，不比较
+            long klineTime = DateUtil.getTimeInMillisByDateStr(DateUtil.YYYY_MM_DD_HH_MM_SS, kline.getKtime());
+            long curTime = Calendar.getInstance().getTimeInMillis();
+            if (klineTime > curTime) {
+                System.out.println("如果k线时间大于当前时间，不比较.klineRs:" + JSON.toJSONString(kline));
+                continue;
+            }
+            //如果非今天，退出比较
+            long todayTime = DateUtil.getTimeInMillisByDateStr(DateUtil.YYYY_MM_DD_HH_MM_SS, DateUtil.getToday(DateUtil.YYYY_MM_DD_HH_MM_SS).substring(0,10)+" 00:00:00");
+            if (klineTime < todayTime) {
+                System.out.println("如果k线时间小于今日时间，退出比较.");
+                break;
+            }
+//            System.out.println("klineRs:" + JSON.toJSONString(kline));
 
-//        // 查询k线
-//        String zqdm = "110081";
-//        String klt = "101";//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
-//        String begDate = "20210820";//查询新增交易的开始时间
-//        String endDate = "20500101";
-//        findKlineByZqdm(zqdm, klt, begDate, endDate);
-    }
+            //查询最小净值、最大净值、均值,k线时间必须小于比较时间
+            List<Kline> maKlines = klines.subList(fromIndex, klines.size());
+            Map<String, BigDecimal> netMap5 = KlineService.handlerNetMinMaxAvg(Content.MA_15, maKlines);
 
-    /**
-     * 查询k线
-     *
-     * @param zqdm
-     * @param klt
-     * @param begDate
-     * @param endDate
-     */
-    private static void findKlineByZqdm(String zqdm, String klt, String begDate, String endDate) {
-        int lmt = 1000000;
-        String klineRs = KlineService.klineRsStrHttpDfcf(zqdm, lmt, klt, true, begDate, endDate);
-        System.out.println("开始日期:" + begDate + "，结束日期:" + endDate + "，周期:" + klt + "，klines.size():" + klineRs);
-        System.out.println("klines:" + klineRs);
+            //比较均量
+            BigDecimal cjeAvg = netMap5.get(Content.keyRsCjeAvg);
+            BigDecimal cjeCur = kline.getCje();
+            if (cjeCur.compareTo(cjeAvg) > 0) {
+                cjeCountAdd++;
+                System.out.print("放量("+cjeCountAdd+"),");
+//                System.out.print("当前成交额：" + cjeCur + ",");
+//                System.out.print("平均成交额：" + cjeAvg + "。");
+            }
+            if (cjeCur.compareTo(cjeAvg) == 0) {
+                System.out.print("平量,");
+//                System.out.print("当前成交额：" + cjeCur + ",");
+//                System.out.println("平均成交额：" + cjeAvg + "。");
+            }
+            if (cjeCur.compareTo(cjeAvg) < 0) {
+                cjeCountSub++;
+                System.out.print("缩量("+cjeCountSub+"),");
+//                System.out.print("当前成交额：" + cjeCur + ",");
+//                System.out.print("平均成交额：" + cjeAvg + "。");
+            }
+
+            //比较均价
+            BigDecimal netAvg = netMap5.get(Content.keyRsNetCloseAvg);
+            BigDecimal netCur = kline.getCloseAmt();
+            if (netCur.compareTo(netAvg) > 0) {
+                System.out.print("上涨,");
+                System.out.print("当前价格：" + netCur + ",");
+                System.out.print("平均价格：" + netAvg + "。");
+            }
+            if (netCur.compareTo(netAvg) == 0) {
+                System.out.print("平价,");
+                System.out.print("当前价格：" + netCur + ",");
+                System.out.print("平均价格：" + netAvg + "。");
+            }
+            if (netCur.compareTo(netAvg) < 0) {
+                System.out.print("下跌,");
+                System.out.print("当前价格：" + netCur + ",");
+                System.out.print("平均价格：" + netAvg + "。");
+            }
+            System.out.println(kline.getKtime());
+
+        }
     }
 
     /**
      * 插入常用指数k线-大周期：日、周、月、年
      *
-     * @param zhishuMap
-     * @param klt
-     * @param lmt
-     * @param year
-     * @param month
-     * @param day
-     * @param addDaysMax
-     * @param isAddMinuteKline 是否添加分钟级别K线
      */
-    private static void addZhishuKline(Map<String, String> zhishuMap, String klt, int lmt, int year, int month, int day, int addDaysMax, boolean isAddMinuteKline) {
+    private static void addZhishuKline() {
+        String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+        int lmt = 1000000;
+        int addDaysMax = 0;//最多增加的天数
+        int year = DateUtil.getCurYear();//2021
+        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()
+        int day = DateUtil.getCurDay();//DateUtil.getCurDay()
+
+        //插入常用指数k线-大周期：日、周、月、年
+        Map<String, String> zhishuMap = Content.getZhishuMap();//        Map<String, String>  zhishuMap = new HashMap<>();zhishuMap.put("000001","上证指数");//特定测试
+        boolean isAddMinuteKline = true;//是否添加分钟级别K线
+//        boolean isAddMinuteKline = false;
         Set<String> zhishuList = zhishuMap.keySet();
         for (String zqdm : zhishuList) {
-            for (int i = 0; i < addDaysMax; i++) {
+            for (int i = 0; i <= addDaysMax; i++) {
                 String begDate = DateUtil.getDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, year, month, day, i);//查询新增交易的开始时间
                 String endDate = begDate;
 //            //  增加大周期k线

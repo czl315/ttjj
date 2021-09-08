@@ -203,7 +203,7 @@ public class KlineService {
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("&StartDate=").append(startDate);
 
-        System.out.println("请求url:" + url + JSON.toJSONString(urlParam));
+//        System.out.println("请求url:" + url + JSON.toJSONString(urlParam));
         String rs = "";
         try {
             rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
@@ -227,7 +227,7 @@ public class KlineService {
         rs = rs.substring(rs.indexOf("({"));
         rs = rs.replace("({", "{");
         rs = rs.replace("});", "}");
-        System.out.println("szKline:" + rs);
+//        System.out.println("szKline:" + rs);
 
         return rs;
     }
@@ -322,6 +322,64 @@ public class KlineService {
         rs.put(Content.keyRsNetCloseMax, rsNetCloseMax);
         rs.put(Content.keyRsNetCloseAvg, rsNetCloseAvg);
         rs.put(Content.keyRsKlineCount, count);
+        return rs;
+    }
+
+    /**
+     * 计算最小净值、最大净值、均值、均量
+     * @param maType 均线类型
+     * @return
+     */
+    public static Map<String, BigDecimal> handlerNetMinMaxAvg(int maType, List<Kline> klines) {
+        Map<String, BigDecimal> rs = new HashMap<>();
+        BigDecimal rsMax = new BigDecimal("0.0");
+        BigDecimal rsMin = new BigDecimal("0.0");
+        BigDecimal rsNetCloseMin = new BigDecimal("0.0");
+        BigDecimal rsNetCloseMax = new BigDecimal("0.0");
+        BigDecimal rsNetCloseAvg = new BigDecimal("0");//均值
+        BigDecimal rsNetCloseSum = new BigDecimal("0");//和值
+        BigDecimal rsCjeSum = new BigDecimal("0");//和值-交易额
+        BigDecimal rsCjegAvg = new BigDecimal("0");//均量-交易额
+        int count = maType;
+        for (Kline kline : klines) {
+            count--;
+            if(count<0){
+                break;//限定计算
+            }
+            BigDecimal dwjzLong = kline.getCloseAmt();
+            BigDecimal netMinDou = kline.getMinAmt();
+            BigDecimal netMaxDou = kline.getMaxAmt();
+            BigDecimal cje = kline.getCje();
+            rsNetCloseSum = rsNetCloseSum.add(dwjzLong);
+            rsCjeSum = rsCjeSum.add(cje);
+            if (netMaxDou.compareTo(rsMax) > 0) {
+                rsMax = netMaxDou;
+            }
+            if (netMinDou.compareTo(rsMin) <= 0 || rsMin.compareTo(new BigDecimal("0.0")) == 0) {
+                rsMin = netMinDou;
+            }
+
+            //
+            if (dwjzLong.compareTo(rsNetCloseMax) > 0) {
+                rsNetCloseMax = dwjzLong;
+            }
+            if (dwjzLong.compareTo(rsNetCloseMin) <= 0 || rsNetCloseMin.compareTo(new BigDecimal("0.0")) == 0) {
+                rsNetCloseMin = dwjzLong;
+            }
+        }
+
+        //计算均值
+        BigDecimal klineCount = new BigDecimal(klines.size());//个数
+        rsNetCloseAvg = rsNetCloseSum.divide(new BigDecimal(maType), 2, BigDecimal.ROUND_HALF_UP);
+        rsCjegAvg = rsCjeSum.divide(new BigDecimal(maType), 2, BigDecimal.ROUND_HALF_UP);
+
+        rs.put(Content.keyRsMin, rsMin);
+        rs.put(Content.keyRsMax, rsMax);
+        rs.put(Content.keyRsNetCloseMin, rsNetCloseMin);
+        rs.put(Content.keyRsNetCloseMax, rsNetCloseMax);
+        rs.put(Content.keyRsNetCloseAvg, rsNetCloseAvg);
+        rs.put(Content.keyRsCjeAvg, rsCjegAvg);
+        rs.put(Content.keyRsKlineCount, new BigDecimal(maType));
         return rs;
     }
 
