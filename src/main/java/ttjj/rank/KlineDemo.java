@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.KlineDao;
-import ttjj.dto.AssetPosition;
 import ttjj.dto.Kline;
 import ttjj.service.KlineService;
 import utils.Content;
