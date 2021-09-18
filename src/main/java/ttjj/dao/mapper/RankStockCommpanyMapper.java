@@ -46,6 +46,7 @@ public interface RankStockCommpanyMapper {
             ",`f208`",
             ",`f209`",
             ",`f222`,`f223`",
+            ", `CREATE_TIME`, `UPDATE_TIME`",
             ") VALUES (",
             "#{rs},#{date},#{type},#{type_name},#{order_num}",
             ",#{f1},#{f2},#{f3},#{f4}",
@@ -79,6 +80,7 @@ public interface RankStockCommpanyMapper {
             ",#{f208}",
             ",#{f209}",
             ",#{f222},#{f223}",
+            ",#{CREATE_TIME},#{UPDATE_TIME}",
             ");",
             "</script>"})
     void insert(RankStockCommpanyDb entity);

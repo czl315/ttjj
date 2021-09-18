@@ -1,5 +1,7 @@
 package ttjj.db;
 
+import java.util.Date;
+
 /**
  * 行业排行
  *
@@ -103,7 +105,7 @@ public class RankStockCommpanyDb {
     private Double f18;
 
     /**
-     * f19 ？2-上证(600XXX)；3-B股(900XXX)；6-上证(00XXXX)；7-B股(200XXX)；10-etf(159XXX)；23-科创板(688XXX)；80-创业板(300XXX)；
+     * f19 ？2-上证(600XXX)；3-B股(900XXX)；6-深证(00XXXX)；7-B股(200XXX)；10-etf(159XXX)；23-科创板(688XXX)；80-创业板(300XXX)；
      */
     private Long f19;
     /**
@@ -353,6 +355,9 @@ public class RankStockCommpanyDb {
     private Double NET_MAX_CLOS_90;
     private Double NET_MAX_CLOS_180;
     private Double NET_MAX_CLOS_360;
+
+    private Date CREATE_TIME;
+    private Date UPDATE_TIME;
 
     public String getRs() {
         return rs;
@@ -1848,5 +1853,21 @@ public class RankStockCommpanyDb {
 
     public void setF59(String f59) {
         this.f59 = f59;
+    }
+
+    public Date getCREATE_TIME() {
+        return CREATE_TIME;
+    }
+
+    public void setCREATE_TIME(Date CREATE_TIME) {
+        this.CREATE_TIME = CREATE_TIME;
+    }
+
+    public Date getUPDATE_TIME() {
+        return UPDATE_TIME;
+    }
+
+    public void setUPDATE_TIME(Date UPDATE_TIME) {
+        this.UPDATE_TIME = UPDATE_TIME;
     }
 }

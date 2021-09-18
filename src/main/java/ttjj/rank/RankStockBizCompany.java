@@ -21,8 +21,8 @@ public class RankStockBizCompany {
      * @param args
      */
     public static void main(String[] args) {
-        String today = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String today = "2021-08-25";
+//        String today = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        String today = "2021-09-17";
 
         Map<String, String> bizMap = new LinkedHashMap<>();
 
@@ -589,10 +589,13 @@ public class RankStockBizCompany {
             }
 
             {
+                Date curDate = new Date();
                 rankBizDataDiff.setDate(today);
                 rankBizDataDiff.setType(queryType);
                 rankBizDataDiff.setType_name(typeName);
                 rankBizDataDiff.setOrder_num(Long.valueOf(orderNum));
+                rankBizDataDiff.setCREATE_TIME(curDate);
+                rankBizDataDiff.setUPDATE_TIME(curDate);
 
                 //db-更新要点内容
                 rs = RankStockCommpanyDao.insertDb(rankBizDataDiff);
