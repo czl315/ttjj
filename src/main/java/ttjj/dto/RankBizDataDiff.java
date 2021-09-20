@@ -265,7 +265,7 @@ public class RankBizDataDiff {
     private Double f144;
     private Double f145;
     /**
-     * f148 ?状态：2-退市或停牌
+     * f148 ?状态：2-退市或停牌;16-未上市;
      */
     private Long f148;
     private Double f149;

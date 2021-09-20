@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import ttjj.db.AssetPositionDb;
 import ttjj.db.RankStockCommpanyDb;
+import ttjj.dto.RankBizDataDiff;
 
 /**
  * @author chenzhilong
@@ -47,6 +48,18 @@ public class RankStockCommpanyDao {
             session.commit();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    public static int updateDate(RankStockCommpanyDb entity) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.update("ttjj.dao.mapper.RankStockCommpanyMapper.updateDate", entity);
+            session.commit();
         } finally {
             session.close();
         }

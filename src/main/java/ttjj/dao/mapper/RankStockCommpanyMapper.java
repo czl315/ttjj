@@ -15,6 +15,7 @@ public interface RankStockCommpanyMapper {
     @Insert({"<script>",
             "INSERT INTO `bank19`.`rank_st_biz_com`(",
             "`rs`,`date`,`type`,`type_name`,`order_num`",
+            ",`month`,`weekYear`,`week`",
             ",`f1`,`f2`,`f3`,`f4`",
             ",`f5`,`f6`,`f7`,`f8`,`f9`",
             ",`f10`,`f11`,`f12`,`f13`,`f14`",
@@ -49,6 +50,7 @@ public interface RankStockCommpanyMapper {
             ", `CREATE_TIME`, `UPDATE_TIME`",
             ") VALUES (",
             "#{rs},#{date},#{type},#{type_name},#{order_num}",
+            ",#{month},#{weekYear},#{week}",
             ",#{f1},#{f2},#{f3},#{f4}",
             ",#{f5},#{f6},#{f7},#{f8},#{f9}",
             ",#{f10},#{f11},#{f12},#{f13},#{f14}",
@@ -125,5 +127,16 @@ public interface RankStockCommpanyMapper {
             "where date=#{date} AND f12=#{f12}",
             "</script>"})
     void update(RankStockCommpanyDb entity);
+
+    @Update({"<script>",
+            "update rank_st_biz_com",
+            "  <set>",
+            "    <if test='month != null'>month=#{month},</if>",
+            "    <if test='weekYear != null'>weekYear=#{weekYear},</if>",
+            "    <if test='week != null'>week=#{week},</if>",
+            "  </set>",
+            "where date=#{date} ",
+            "</script>"})
+    void updateDate(RankBizDataDiff entity);
 
 }

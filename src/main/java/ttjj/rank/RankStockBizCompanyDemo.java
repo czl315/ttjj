@@ -6,28 +6,144 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
+import ttjj.dto.Kline;
 import ttjj.dto.RankBizDataDiff;
+import ttjj.service.KlineService;
 import utils.Content;
 import utils.DateUtil;
 import utils.HttpUtil;
 
 import java.util.*;
 
+import static utils.Content.endDate;
+
 /**
  * 排行-行业股票-公司-每日明细
  */
-public class RankStockBizCompany {
+public class RankStockBizCompanyDemo {
     /**
      * @param args
      */
     public static void main(String[] args) {
+//        addTodayStCom();//添加股票-最新日期
+
+//        addHistroyStCom();//添加股票-历史日期
+
+        updateDateBiz(365);//更新日期
+    }
+
+    /**
+     * 添加股票-历史日期
+     *
+     */
+    private static void addHistroyStCom() {
+        int addDaysMax = 0;//开始日期增加天数
+        int year = 2020;//2021
+        int month = 12;//DateUtil.getCurMonth()
+        int day = 1;//DateUtil.getCurDay()
+        String begDate = DateUtil.getDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, year, month, day, addDaysMax);//查询新增交易的开始时间
+        int days = 0;//最多增加的天数
+        String endDate = DateUtil.getDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, year, month, day, days);//查询新增交易的开始时间
+        int startMapNum = 0;//map的开始，中断后使用，默认可设置为0
+
+        // 查询所有行业map
+        Map<String, String> bizMap = new LinkedHashMap<>();
+        List<RankBizDataDiff> bizList = listBiz(100);//查询主题排名by时间类型、显示个数
+        for (RankBizDataDiff biz : bizList) {
+//            System.out.println("/**" + JSON.toJSONString(biz) + "**/");
+            bizMap.put(biz.getF12(), biz.getF14());
+        }
+
+        // 遍历行业map，插入行业内的股票
+
+        int stBizCountTemp = 0;
+        for (String bizCode : bizMap.keySet()) {
+            stBizCountTemp++;
+            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + JSON.toJSONString(bizMap));
+            if (stBizCountTemp < startMapNum) {
+                System.out.println("已完成:" + bizMap.get(bizCode));
+                continue;//已完成
+            }
+            List<RankStockCommpanyDb> rankBizDataDiffListBiz = listRankStockByBiz(500, bizCode);
+
+            addRankStockCommpanyDbByList(rankBizDataDiffListBiz,begDate,endDate,days,bizCode,bizMap.get(bizCode));//插入行业内的股票,根据开始日期，截止天数
+        }
+    }
+
+    /**
+     * 更新日期
+     *
+     * @param count
+     */
+    private static void updateDateBiz(int count) {
+        for (int i = 0; i < count; i++) {
+            String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
+            RankStockCommpanyDb entity = new RankStockCommpanyDb();
+            entity.setDate(date);
+            entity.setMonth(DateUtil.getYearMonth(date, DateUtil.YYYY_MM_DD));
+            entity.setWeekYear(DateUtil.getYearWeek(date, DateUtil.YYYY_MM_DD));
+            entity.setWeek(DateUtil.getWeekByYyyyMmDd(date, DateUtil.YYYY_MM_DD));
+            RankStockCommpanyDao.updateDate(entity);
+        }
+    }
+
+    /**
+     * 插入行业内的股票,根据开始日期，截止天数
+     * @param rankBizDataDiffListBiz
+     * @param startDate
+     * @param endDate
+     * @param count
+     * @param bizCode
+     * @param bizName
+     */
+    private static void addRankStockCommpanyDbByList(List<RankStockCommpanyDb> rankBizDataDiffListBiz, String startDate, String endDate, int count, String bizCode, String bizName) {
+        for (RankStockCommpanyDb rankStockCommpanyDbBiz : rankBizDataDiffListBiz) {
+            String zqdm = rankStockCommpanyDbBiz.getF12();
+            List<Kline> klines = KlineService.kline(zqdm, count, Content.KLT_101, true, startDate, endDate);
+            if(klines==null || klines.size()==0){
+                System.out.println("查询k线为空，证券代码："+zqdm);
+                continue;
+            }
+            for (Kline kline : klines) {
+                RankStockCommpanyDb rankStockCommpanyDb = new RankStockCommpanyDb();
+                rankStockCommpanyDb.setDate(kline.getKtime());
+                rankStockCommpanyDb.setType(bizCode);
+                rankStockCommpanyDb.setType_name(bizName);
+                rankStockCommpanyDb.setF1(2L);
+                if(zqdm.startsWith("900")){//B股
+                    rankStockCommpanyDb.setF1(3L);
+                }
+                rankStockCommpanyDb.setF2(kline.getCloseAmt().doubleValue());
+                rankStockCommpanyDb.setF3(kline.getZhangDieFu().doubleValue());
+                rankStockCommpanyDb.setF4(kline.getZhangDieE().doubleValue());
+                rankStockCommpanyDb.setF5(kline.getCjl().longValue());
+                rankStockCommpanyDb.setF6(kline.getCje().longValue());
+                rankStockCommpanyDb.setF7(kline.getZhenFu().doubleValue());
+                rankStockCommpanyDb.setF8(kline.getHuanShouLv().doubleValue());
+                rankStockCommpanyDb.setF12(kline.getZqdm());
+                rankStockCommpanyDb.setF14(kline.getZqmc());
+                rankStockCommpanyDb.setF15(kline.getMaxAmt().doubleValue());
+                rankStockCommpanyDb.setF16(kline.getMinAmt().doubleValue());
+                rankStockCommpanyDb.setF17(kline.getOpenAmt().doubleValue());
+                rankStockCommpanyDb.setF18(kline.getCloseAmt().subtract(kline.getZhangDieE()).doubleValue());
+
+                List<RankStockCommpanyDb> rankBizDataDiffListDb = new ArrayList<>();
+                rankBizDataDiffListDb.add(rankStockCommpanyDb);
+                int insertRs = showBizSql(rankBizDataDiffListDb, bizCode, bizName, kline.getKtime());//显示业务排行-插入sql
+            }
+        }
+    }
+
+    /**
+     * 插入db：添加股票-最新日期
+     *
+     */
+    private static void addTodayStCom() {
 //        String today = DateUtil.getToday(DateUtil.YYYY_MM_DD);
         String today = "2021-09-17";
 
         Map<String, String> bizMap = new LinkedHashMap<>();
-
         List<RankBizDataDiff> bizList = listBiz(100);//查询主题排名by时间类型、显示个数
-
         boolean flagInsertDb = true;//标识：是否插入数据库
 //        boolean flagInsertDb = false;//标识：是否插入数据库
 //        boolean flagUpdateConception = true;//标识：是否更新概念题材
@@ -492,105 +608,108 @@ public class RankStockBizCompany {
         for (RankStockCommpanyDb rankBizDataDiff : rankBizDataDiffList) {
             orderNum++;
             //显示插入数据库语句
-            {
-                System.out.println("INSERT INTO `bank19`.`rank_st_biz_com`(" +
-                        "`rs`" +
-                        ",`date`" +
-                        ",`type`" +
-                        ",`type_name`" +
-                        ",`order_num`" +
-                        ",`f2`" +
-                        ",`f3`" +
-                        ",`f4`" +
-                        ",`f5`" +
-                        ",`f6`" +
-                        ",`f7`" +
-                        ",`f8`" +
-                        ",`f9`" +
-                        ",`f10`" +
-                        ",`f11`" +
-                        ",`f12`" +
-                        ",`f13`" +
-                        ",`f14`" +
-                        ",`f15`" +
-                        ",`f16`" +
-                        ",`f17`" +
-                        ",`f18`" +
-                        ",`f20`" +
-                        ",`f21`" +
-                        ",`f22`" +
-                        ",`f23`" +
-                        ",`f24`" +
-                        ",`f25`" +
-                        ",`f26`" +
-                        ",`f33`" +
-                        ",`f62`" +
-                        ",`f104`" +
-                        ",`f105`" +
-                        ",`f107`" +
-                        ",`f115`" +
-                        ",`f124`" +
-                        ",`f128`" +
-                        ",`f140`" +
-                        ",`f141`" +
-                        ",`f136`" +
-                        ",`f152`" +
-                        ",`f207`" +
-                        ",`f208`" +
-                        ",`f209`" +
-                        ",`f222`" +
-                        ") VALUES (" +
-                        " '" + JSON.toJSONString(rankBizDataDiff) + "'" +
-                        " ,'" + today + "'" +
-                        " ,'" + queryType + "'" +
-                        " ,'" + typeName + "'" +
-                        " ," + orderNum + "" +
-                        " ," + rankBizDataDiff.getF2() + "" +
-                        " ," + rankBizDataDiff.getF3() + "" +
-                        " ," + rankBizDataDiff.getF4() + "" +
-                        " ," + rankBizDataDiff.getF5() + "" +
-                        " ," + rankBizDataDiff.getF6() + "" +
-                        " ," + rankBizDataDiff.getF7() + "" +
-                        " ," + rankBizDataDiff.getF8() + "" +
-                        " ," + rankBizDataDiff.getF9() + "" +
-                        " ," + rankBizDataDiff.getF10() + "" +
-                        " ," + rankBizDataDiff.getF11() + "" +
-                        " ,'" + rankBizDataDiff.getF12() + "'" +
-                        " ," + rankBizDataDiff.getF13() + "" +
-                        " ,'" + rankBizDataDiff.getF14() + "'" +
-                        " ," + rankBizDataDiff.getF15() + "" +
-                        " ," + rankBizDataDiff.getF16() + "" +
-                        " ," + rankBizDataDiff.getF17() + "" +
-                        " ," + rankBizDataDiff.getF18() + "" +
-                        " ," + rankBizDataDiff.getF20() + "" +
-                        " ," + rankBizDataDiff.getF21() + "" +
-                        " ," + rankBizDataDiff.getF22() + "" +
-                        " ,'" + rankBizDataDiff.getF23() + "'" +
-                        " ," + rankBizDataDiff.getF24() + "" +
-                        " ," + rankBizDataDiff.getF25() + "" +
-                        " ,'" + rankBizDataDiff.getF26() + "'" +
-                        " ," + rankBizDataDiff.getF33() + "" +
-                        " ," + rankBizDataDiff.getF62() + "" +
-                        " ," + rankBizDataDiff.getF104() + "" +
-                        " ," + rankBizDataDiff.getF105() + "" +
-                        " ," + rankBizDataDiff.getF107() + "" +
-                        " ,'" + rankBizDataDiff.getF115() + "'" +
-                        " ," + rankBizDataDiff.getF124() + "" +
-                        " ,'" + rankBizDataDiff.getF128() + "'" +
-                        " ,'" + rankBizDataDiff.getF140() + "'" +
-                        " ," + rankBizDataDiff.getF141() + "" +
-                        " ," + rankBizDataDiff.getF136() + "" +
-                        " ," + rankBizDataDiff.getF152() + "" +
-                        " ,'" + rankBizDataDiff.getF207() + "'" +
-                        " ,'" + rankBizDataDiff.getF208() + "'" +
-                        " ," + rankBizDataDiff.getF209() + "" +
-                        " ," + rankBizDataDiff.getF222() + "" +
-                        ");");
-            }
+//            {
+//                System.out.println("INSERT INTO `bank19`.`rank_st_biz_com`(" +
+//                        "`rs`" +
+//                        ",`date`" +
+//                        ",`type`" +
+//                        ",`type_name`" +
+//                        ",`order_num`" +
+//                        ",`f2`" +
+//                        ",`f3`" +
+//                        ",`f4`" +
+//                        ",`f5`" +
+//                        ",`f6`" +
+//                        ",`f7`" +
+//                        ",`f8`" +
+//                        ",`f9`" +
+//                        ",`f10`" +
+//                        ",`f11`" +
+//                        ",`f12`" +
+//                        ",`f13`" +
+//                        ",`f14`" +
+//                        ",`f15`" +
+//                        ",`f16`" +
+//                        ",`f17`" +
+//                        ",`f18`" +
+//                        ",`f20`" +
+//                        ",`f21`" +
+//                        ",`f22`" +
+//                        ",`f23`" +
+//                        ",`f24`" +
+//                        ",`f25`" +
+//                        ",`f26`" +
+//                        ",`f33`" +
+//                        ",`f62`" +
+//                        ",`f104`" +
+//                        ",`f105`" +
+//                        ",`f107`" +
+//                        ",`f115`" +
+//                        ",`f124`" +
+//                        ",`f128`" +
+//                        ",`f140`" +
+//                        ",`f141`" +
+//                        ",`f136`" +
+//                        ",`f152`" +
+//                        ",`f207`" +
+//                        ",`f208`" +
+//                        ",`f209`" +
+//                        ",`f222`" +
+//                        ") VALUES (" +
+//                        " '" + JSON.toJSONString(rankBizDataDiff) + "'" +
+//                        " ,'" + today + "'" +
+//                        " ,'" + queryType + "'" +
+//                        " ,'" + typeName + "'" +
+//                        " ," + orderNum + "" +
+//                        " ," + rankBizDataDiff.getF2() + "" +
+//                        " ," + rankBizDataDiff.getF3() + "" +
+//                        " ," + rankBizDataDiff.getF4() + "" +
+//                        " ," + rankBizDataDiff.getF5() + "" +
+//                        " ," + rankBizDataDiff.getF6() + "" +
+//                        " ," + rankBizDataDiff.getF7() + "" +
+//                        " ," + rankBizDataDiff.getF8() + "" +
+//                        " ," + rankBizDataDiff.getF9() + "" +
+//                        " ," + rankBizDataDiff.getF10() + "" +
+//                        " ," + rankBizDataDiff.getF11() + "" +
+//                        " ,'" + rankBizDataDiff.getF12() + "'" +
+//                        " ," + rankBizDataDiff.getF13() + "" +
+//                        " ,'" + rankBizDataDiff.getF14() + "'" +
+//                        " ," + rankBizDataDiff.getF15() + "" +
+//                        " ," + rankBizDataDiff.getF16() + "" +
+//                        " ," + rankBizDataDiff.getF17() + "" +
+//                        " ," + rankBizDataDiff.getF18() + "" +
+//                        " ," + rankBizDataDiff.getF20() + "" +
+//                        " ," + rankBizDataDiff.getF21() + "" +
+//                        " ," + rankBizDataDiff.getF22() + "" +
+//                        " ,'" + rankBizDataDiff.getF23() + "'" +
+//                        " ," + rankBizDataDiff.getF24() + "" +
+//                        " ," + rankBizDataDiff.getF25() + "" +
+//                        " ,'" + rankBizDataDiff.getF26() + "'" +
+//                        " ," + rankBizDataDiff.getF33() + "" +
+//                        " ," + rankBizDataDiff.getF62() + "" +
+//                        " ," + rankBizDataDiff.getF104() + "" +
+//                        " ," + rankBizDataDiff.getF105() + "" +
+//                        " ," + rankBizDataDiff.getF107() + "" +
+//                        " ,'" + rankBizDataDiff.getF115() + "'" +
+//                        " ," + rankBizDataDiff.getF124() + "" +
+//                        " ,'" + rankBizDataDiff.getF128() + "'" +
+//                        " ,'" + rankBizDataDiff.getF140() + "'" +
+//                        " ," + rankBizDataDiff.getF141() + "" +
+//                        " ," + rankBizDataDiff.getF136() + "" +
+//                        " ," + rankBizDataDiff.getF152() + "" +
+//                        " ,'" + rankBizDataDiff.getF207() + "'" +
+//                        " ,'" + rankBizDataDiff.getF208() + "'" +
+//                        " ," + rankBizDataDiff.getF209() + "" +
+//                        " ," + rankBizDataDiff.getF222() + "" +
+//                        ");");
+//            }
 
             {
                 Date curDate = new Date();
                 rankBizDataDiff.setDate(today);
+                rankBizDataDiff.setMonth(DateUtil.getYearMonth(today, DateUtil.YYYY_MM_DD));
+                rankBizDataDiff.setWeekYear(DateUtil.getYearWeek(today,DateUtil.YYYY_MM_DD));
+                rankBizDataDiff.setWeek(DateUtil.getWeekByYyyyMmDd(today,DateUtil.YYYY_MM_DD));
                 rankBizDataDiff.setType(queryType);
                 rankBizDataDiff.setType_name(typeName);
                 rankBizDataDiff.setOrder_num(Long.valueOf(orderNum));
@@ -598,7 +717,7 @@ public class RankStockBizCompany {
                 rankBizDataDiff.setUPDATE_TIME(curDate);
 
                 //db-更新要点内容
-                rs = RankStockCommpanyDao.insertDb(rankBizDataDiff);
+                rs = RankStockCommpanyDao.insertDb(rankBizDataDiff);//
 
 //                RankStockCommpanyDb entity = new RankStockCommpanyDb();
 //                entity.setRs("");
