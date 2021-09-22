@@ -15,6 +15,7 @@ import utils.Content;
 import utils.DateUtil;
 import utils.HttpUtil;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import static utils.Content.endDate;
@@ -27,30 +28,50 @@ public class RankStockBizCompanyDemo {
      * @param args
      */
     public static void main(String[] args) {
-        addTodayStCom();//添加股票-最新日期
+//        addTodayStCom();//添加股票-最新日期
 
 //        addHistroyStCom();//添加股票-历史日期
 
 //        updateDateBiz(365);//更新日期
 
-//        findListTongJj();//查询-统计数据
+        findListTongJj();//查询-统计数据
     }
 
     /**
-     *  查询-统计数据
+     * 查询-统计数据-股票分组
      */
     private static void findListTongJj() {
+        BigDecimal limitPe = new BigDecimal("50");//提醒信息：限定市盈率
+        boolean isShowPeHighInfo = false;//是否显示市盈率高的记录
+
         RankStComTjCond condition = new RankStComTjCond();
-        condition.setBegDate(DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -30));
-        condition.setEndDate(DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0));
+        condition.setBegDate(DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -6));//n天
+        condition.setEndDate(DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -5));
+        condition.setPlate(Content.ST_PLATE_F139_AG);//只查询主板的
+//        condition.setMarketValueMin(new BigDecimal("200"));//市值限定
+//        condition.setMarketValueMax(new BigDecimal("9999"));//市值限定
         condition.setType_name("电力行业");/**    业务板块：	电力行业-BK0428	券商信托-BK0473	银行-BK0475	医疗行业-BK0727	医药制造-BK0465	化工行业-BK0538	酿酒行业-BK0477	化肥行业-BK0731	民航机场-BK0420	环保工程	**/
+        System.out.println("查询条件：" + JSON.toJSONString(condition));
         List<RankStComTjRs> rs = RankStockCommpanyDao.findListTongji(condition);
         if (rs == null) {
             System.out.println("返回结果为空！");
             return;
         }
+        int orderNum = 0;
         for (RankStComTjRs rankStComTjRs : rs) {
-            System.out.println(JSON.toJSONString(rankStComTjRs));
+            if(!isShowPeHighInfo){
+                if (rankStComTjRs.getLastPe() != null && rankStComTjRs.getLastPe().compareTo(limitPe) >= 0) {
+//                    System.out.println("!!!市盈率过高不显示:" + rankStComTjRs.getLastPe());
+                    continue;
+                }
+            }
+            orderNum++;
+            System.out.print(orderNum + "," + JSON.toJSONString(rankStComTjRs));
+            //市盈率过高提醒
+            if (rankStComTjRs.getLastPe() != null && rankStComTjRs.getLastPe().compareTo(limitPe) >= 0) {
+                System.out.print("!!!市盈率过高:" + rankStComTjRs.getLastPe());
+            }
+            System.out.println();
         }
     }
 
@@ -132,6 +153,7 @@ public class RankStockBizCompanyDemo {
                 rankStockCommpanyDb.setType(bizCode);
                 rankStockCommpanyDb.setType_name(bizName);
                 rankStockCommpanyDb.setF1(2L);
+                //f139 2-A股主板(00XXXX/60XXXX);3-B股(200XXX/900XXX);5-创业板(30XXXX);32-科创板(688XXX)
                 if (zqdm.startsWith("900")) {//B股
                     rankStockCommpanyDb.setF1(3L);
                 }

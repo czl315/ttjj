@@ -121,6 +121,27 @@ public class Content {
     public static String DAYS_30 = "30";
 
     /**
+     * st_plate_f139_AG f139 2-A股主板(00XXXX/60XXXX);
+     */
+    public static String ST_PLATE_F139_AG = "2";
+    /**
+     * ST_PLATE_F139_BG 3-B股(200XXX/900XXX);
+     */
+    public static String ST_PLATE_F139_BG = "3";
+    /**
+     * ST_PLATE_F139_CYB 5-创业板(30XXXX);
+     */
+    public static String ST_PLATE_F139_CYB = "5";
+    /**
+     * ST_PLATE_F139_KCB 32-科创板(688XXX);
+     */
+    public static String ST_PLATE_F139_KCB = "32";
+    /**
+     * ST_PLATE_F139_CTPZ 33-存托凭证(689XXX,689是科创板专门为CDR存托凭证公司)
+     */
+    public static String ST_PLATE_F139_CTPZ = "33";
+
+    /**
      * MA_5 均线
      */
     public static int MA_5 = 5;

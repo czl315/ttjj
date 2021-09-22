@@ -266,7 +266,7 @@ public class RankStockCommpanyDb {
      */
     private Double f136;
     /**
-     * f139 2-A股(00XXXX/60XXXX);3-B股(200XXX/900XXX);5-创业板(30XXXX);32-科创板板(688XXX)
+     * f139 2-A股主板(00XXXX/60XXXX);3-B股(200XXX/900XXX);5-创业板(30XXXX);32-科创板(688XXX);33-存托凭证(689XXX,689是科创板专门为CDR存托凭证公司)
      */
     private Long f139;
     /**
@@ -284,6 +284,9 @@ public class RankStockCommpanyDb {
      */
     private Double f144;
     private Double f145;
+    /**
+     * f148 ?状态：2-退市或停牌;16-未上市;
+     */
     private Long f148;
     /**
      * f149 6日涨跌
