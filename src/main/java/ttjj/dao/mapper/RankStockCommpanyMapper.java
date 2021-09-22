@@ -3,15 +3,54 @@ package ttjj.dao.mapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import ttjj.db.Fupan;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.RankBizDataDiff;
+import ttjj.dto.RankStComTjCond;
+import ttjj.dto.RankStComTjRs;
+
+import java.util.List;
 
 /**
  * @author chenzhilong
  * @date 2021/4/7
  */
 public interface RankStockCommpanyMapper {
+    /**
+     * 查询-统计数据-股票分组
+     *
+     * @param condition
+     * @return
+     */
+    @Select({"<script>",
+            "   SELECT ",
+            "       rank_st_biz_com.f12    code ",
+            "       ,rank_st_biz_com.f14     name ",
+            "       ,ROUND(SUM(rank_st_biz_com.f3),2) zhangfuSum   ",
+            "       ,COUNT(1)   count ",
+            "       ,(SELECT ROUND(t2.f20/100000000,2) FROM rank_st_biz_com t2 WHERE t2.f12=rank_st_biz_com.f12 ORDER BY t2.date desc LIMIT 1) lastMarketValue ",
+            "       ,(SELECT t2.f9 FROM rank_st_biz_com t2 WHERE t2.f12=rank_st_biz_com.f12 ORDER BY t2.date desc LIMIT 1) lastPe ",
+            "       <if test='begDate != null'> ",
+            "       ,#{begDate} begDate ",
+            "       </if> ",
+            "       <if test='endDate != null'> ",
+            "       ,#{endDate} endDate ",
+            "       </if> ",
+            "   FROM rank_st_biz_com ",
+            "   WHERE 1=1  ",
+            "       <if test='type_name != null'> ",
+            "       AND rank_st_biz_com.type_name=#{type_name} ",
+            "       </if> ",
+            "       <if test='begDate != null'> ",
+            "       <![CDATA[ AND rank_st_biz_com.date >= #{begDate} ]]> ",
+            "       </if> ",
+            "       <if test='endDate != null'> ",
+            "       <![CDATA[ AND rank_st_biz_com.date <= #{endDate} ]]> ",
+            "       </if> ",
+            "   GROUP BY rank_st_biz_com.f12 ",
+            "   ORDER BY SUM(rank_st_biz_com.f3) DESC ",
+            "</script>"})
+    List<RankStComTjRs> findListTongji(RankStComTjCond condition);
+
     @Insert({"<script>",
             "INSERT INTO `bank19`.`rank_st_biz_com`(",
             "`rs`,`date`,`type`,`type_name`,`order_num`",

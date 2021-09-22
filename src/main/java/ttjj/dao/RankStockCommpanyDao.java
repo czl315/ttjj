@@ -2,9 +2,11 @@ package ttjj.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import ttjj.db.AssetPositionDb;
 import ttjj.db.RankStockCommpanyDb;
-import ttjj.dto.RankBizDataDiff;
+import ttjj.dto.RankStComTjCond;
+import ttjj.dto.RankStComTjRs;
+
+import java.util.List;
 
 /**
  * @author chenzhilong
@@ -15,6 +17,23 @@ public class RankStockCommpanyDao {
      * sqlSessionFactory mybatis
      */
     static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
+
+    public static List<RankStComTjRs> findListTongji(RankStComTjCond condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<RankStComTjRs> rs = null;
+        try {
+//                System.out.println(JSON.toJSONString(entity));
+            rs = session.selectList("ttjj.dao.mapper.RankStockCommpanyMapper.findListTongji", condition);
+            session.commit();
+        } catch (Exception e) {
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
     /**
      * db-插入
      *

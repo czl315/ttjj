@@ -8,6 +8,8 @@ import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.Kline;
 import ttjj.dto.RankBizDataDiff;
+import ttjj.dto.RankStComTjCond;
+import ttjj.dto.RankStComTjRs;
 import ttjj.service.KlineService;
 import utils.Content;
 import utils.DateUtil;
@@ -25,16 +27,35 @@ public class RankStockBizCompanyDemo {
      * @param args
      */
     public static void main(String[] args) {
-//        addTodayStCom();//添加股票-最新日期
+        addTodayStCom();//添加股票-最新日期
 
 //        addHistroyStCom();//添加股票-历史日期
 
-        updateDateBiz(365);//更新日期
+//        updateDateBiz(365);//更新日期
+
+//        findListTongJj();//查询-统计数据
+    }
+
+    /**
+     *  查询-统计数据
+     */
+    private static void findListTongJj() {
+        RankStComTjCond condition = new RankStComTjCond();
+        condition.setBegDate(DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -30));
+        condition.setEndDate(DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0));
+        condition.setType_name("电力行业");/**    业务板块：	电力行业-BK0428	券商信托-BK0473	银行-BK0475	医疗行业-BK0727	医药制造-BK0465	化工行业-BK0538	酿酒行业-BK0477	化肥行业-BK0731	民航机场-BK0420	环保工程	**/
+        List<RankStComTjRs> rs = RankStockCommpanyDao.findListTongji(condition);
+        if (rs == null) {
+            System.out.println("返回结果为空！");
+            return;
+        }
+        for (RankStComTjRs rankStComTjRs : rs) {
+            System.out.println(JSON.toJSONString(rankStComTjRs));
+        }
     }
 
     /**
      * 添加股票-历史日期
-     *
      */
     private static void addHistroyStCom() {
         int addDaysMax = 0;//开始日期增加天数
@@ -66,7 +87,7 @@ public class RankStockBizCompanyDemo {
             }
             List<RankStockCommpanyDb> rankBizDataDiffListBiz = listRankStockByBiz(500, bizCode);
 
-            addRankStockCommpanyDbByList(rankBizDataDiffListBiz,begDate,endDate,days,bizCode,bizMap.get(bizCode));//插入行业内的股票,根据开始日期，截止天数
+            addRankStockCommpanyDbByList(rankBizDataDiffListBiz, begDate, endDate, days, bizCode, bizMap.get(bizCode));//插入行业内的股票,根据开始日期，截止天数
         }
     }
 
@@ -89,6 +110,7 @@ public class RankStockBizCompanyDemo {
 
     /**
      * 插入行业内的股票,根据开始日期，截止天数
+     *
      * @param rankBizDataDiffListBiz
      * @param startDate
      * @param endDate
@@ -100,8 +122,8 @@ public class RankStockBizCompanyDemo {
         for (RankStockCommpanyDb rankStockCommpanyDbBiz : rankBizDataDiffListBiz) {
             String zqdm = rankStockCommpanyDbBiz.getF12();
             List<Kline> klines = KlineService.kline(zqdm, count, Content.KLT_101, true, startDate, endDate);
-            if(klines==null || klines.size()==0){
-                System.out.println("查询k线为空，证券代码："+zqdm);
+            if (klines == null || klines.size() == 0) {
+                System.out.println("查询k线为空，证券代码：" + zqdm);
                 continue;
             }
             for (Kline kline : klines) {
@@ -110,7 +132,7 @@ public class RankStockBizCompanyDemo {
                 rankStockCommpanyDb.setType(bizCode);
                 rankStockCommpanyDb.setType_name(bizName);
                 rankStockCommpanyDb.setF1(2L);
-                if(zqdm.startsWith("900")){//B股
+                if (zqdm.startsWith("900")) {//B股
                     rankStockCommpanyDb.setF1(3L);
                 }
                 rankStockCommpanyDb.setF2(kline.getCloseAmt().doubleValue());
@@ -136,11 +158,10 @@ public class RankStockBizCompanyDemo {
 
     /**
      * 插入db：添加股票-最新日期
-     *
      */
     private static void addTodayStCom() {
-//        String today = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-        String today = "2021-09-17";
+        String today = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String today = "2021-09-17";
 
         Map<String, String> bizMap = new LinkedHashMap<>();
         List<RankBizDataDiff> bizList = listBiz(100);//查询主题排名by时间类型、显示个数
@@ -708,8 +729,8 @@ public class RankStockBizCompanyDemo {
                 Date curDate = new Date();
                 rankBizDataDiff.setDate(today);
                 rankBizDataDiff.setMonth(DateUtil.getYearMonth(today, DateUtil.YYYY_MM_DD));
-                rankBizDataDiff.setWeekYear(DateUtil.getYearWeek(today,DateUtil.YYYY_MM_DD));
-                rankBizDataDiff.setWeek(DateUtil.getWeekByYyyyMmDd(today,DateUtil.YYYY_MM_DD));
+                rankBizDataDiff.setWeekYear(DateUtil.getYearWeek(today, DateUtil.YYYY_MM_DD));
+                rankBizDataDiff.setWeek(DateUtil.getWeekByYyyyMmDd(today, DateUtil.YYYY_MM_DD));
                 rankBizDataDiff.setType(queryType);
                 rankBizDataDiff.setType_name(typeName);
                 rankBizDataDiff.setOrder_num(Long.valueOf(orderNum));
@@ -771,7 +792,6 @@ public class RankStockBizCompanyDemo {
         }
         return rs;
     }
-
 
 
     /**

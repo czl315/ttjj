@@ -266,7 +266,7 @@ public class RankStockCommpanyDb {
      */
     private Double f136;
     /**
-     * f139 ？固定3
+     * f139 2-A股(00XXXX/60XXXX);3-B股(200XXX/900XXX);5-创业板(30XXXX);32-科创板板(688XXX)
      */
     private Long f139;
     /**

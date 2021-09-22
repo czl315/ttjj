@@ -35,8 +35,8 @@ public class BizRankDemo {
 //        boolean insertDbTodayConcept = false;
         boolean insertDbTodayEtf = true;
 //        boolean insertDbTodayEtf = false;
-        boolean updateDbTodayEtfNetMaxMinTimeFlag = true;
-//        boolean updateDbTodayEtfNetMaxMinTimeFlag = false;
+//        boolean updateDbTodayEtfNetMaxMinTimeFlag = true;
+        boolean updateDbTodayEtfNetMaxMinTimeFlag = false;
 //        boolean updateDateBizFlag = true;
         boolean updateDateBizFlag = false;
 
