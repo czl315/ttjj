@@ -55,6 +55,7 @@ public interface RankStockCommpanyMapper {
             "       <if test='plate != null'> ",
             "       AND rank_st_biz_com.f139=#{plate} ",
             "       </if> ",
+            "       AND rank_st_biz_com.f148 NOT IN('2') ",//状态限定：f148 ?状态：2-退市或停牌;16-未上市;
             "   GROUP BY rank_st_biz_com.f12 ",
             "   ORDER BY SUM(rank_st_biz_com.f3) DESC ",
             "</script>"})
