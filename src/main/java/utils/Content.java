@@ -142,6 +142,11 @@ public class Content {
     public static String ST_PLATE_F139_CTPZ = "33";
 
     /**
+     * ST_BIZ_TYPE_ZAOZHIYINSHUA 造纸印刷-BK0470
+     */
+    public static String ST_BIZ_TYPE_ZAOZHIYINSHUA = "造纸印刷";
+
+    /**
      * MA_5 均线
      */
     public static int MA_5 = 5;

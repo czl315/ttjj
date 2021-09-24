@@ -5,7 +5,7 @@
         <setting name="cacheEnabled" value="true" />
         <setting name="useGeneratedKeys" value="true" />
         <setting name="defaultExecutorType" value="REUSE" />
-        <setting name="logImpl" value="SLF4J" /><!-- SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING  有效值   -->
+        <setting name="logImpl" value="NO_LOGGING" /><!-- SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING  有效值   -->
     </settings>
     <environments default="development">
         <environment id="development">
