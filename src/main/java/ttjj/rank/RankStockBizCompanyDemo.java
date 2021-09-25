@@ -18,8 +18,7 @@ import utils.HttpUtil;
 import java.math.BigDecimal;
 import java.util.*;
 
-import static utils.Content.ST_BIZ_TYPE_ZAOZHIYINSHUA;
-import static utils.Content.endDate;
+import static utils.Content.*;
 
 /**
  * 排行-行业股票-公司-每日明细
@@ -31,25 +30,34 @@ public class RankStockBizCompanyDemo {
     public static void main(String[] args) {
         addTodayStCom();//添加股票-最新日期
 
-//        addHistroyStCom();//添加股票-历史日期
-
-//        findListTongJj();//查询-统计数据
+//        String begDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -30);
+//        String endDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0);
+//        findListTongJj(begDate,endDate);//查询-统计数据
+//        findListTongJj("2021-01-01","2021-01-31");//查询-统计数据
+//        findListTongJj("2021-02-01","2021-02-29");//查询-统计数据
+//        findListTongJj("2021-03-01","2021-03-31");//查询-统计数据
+//        findListTongJj("2021-04-01","2021-04-31");//查询-统计数据
+//        findListTongJj("2021-05-01","2021-05-31");//查询-统计数据
+//        findListTongJj("2021-06-01","2021-06-31");//查询-统计数据
+//        findListTongJj("2021-07-01","2021-07-31");//查询-统计数据
+//        findListTongJj("2021-08-01","2021-08-31");//查询-统计数据
+//        findListTongJj("2021-09-01","2021-09-31");//查询-统计数据
     }
 
     /**
      * 查询-统计数据-股票分组
      */
-    private static void findListTongJj() {
-        BigDecimal limitPe = new BigDecimal("30");//提醒信息：限定市盈率
+    private static void findListTongJj(String begDate,String endDate) {
+        BigDecimal limitPe = new BigDecimal("50");//提醒信息：限定市盈率
         boolean isShowPeHighInfo = true;//是否显示市盈率高的记录
 
         RankStComTjCond condition = new RankStComTjCond();
-        condition.setBegDate(DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -1));//n天
-        condition.setEndDate(DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0));
+        condition.setBegDate(begDate);//n天
+        condition.setEndDate(endDate);
         condition.setPlate(Content.ST_PLATE_F139_AG);//只查询主板的
 //        condition.setMarketValueMin(new BigDecimal("200"));//市值限定
 //        condition.setMarketValueMax(new BigDecimal("9999"));//市值限定
-        condition.setType_name(ST_BIZ_TYPE_ZAOZHIYINSHUA);/**    业务板块：	电力行业-BK0428	券商信托-BK0473	银行-BK0475	医疗行业-BK0727	医药制造-BK0465	化工行业-BK0538	酿酒行业-BK0477	化肥行业-BK0731	民航机场-BK0420	环保工程	**/
+        condition.setType_name(ST_BIZ_TYPE_NIANGJIUHANGYE);/**    业务板块：	电力行业-BK0428	券商信托-BK0473	银行-BK0475	医疗行业-BK0727	医药制造-BK0465	化工行业-BK0538	酿酒行业-BK0477	化肥行业-BK0731	民航机场-BK0420	环保工程	**/
         System.out.println("查询条件：" + JSON.toJSONString(condition));
         List<RankStComTjRs> rs = RankStockCommpanyDao.findListTongji(condition);
         if (rs == null) {
@@ -72,10 +80,11 @@ public class RankStockBizCompanyDemo {
 //            System.out.print(rankStComTjRs.getName());
 //            System.out.print("\t");
 //            System.out.print(rankStComTjRs.getZhangfuSum());
-            System.out.print(rankStComTjRs.getLastPe());
+//            System.out.print(rankStComTjRs.getLastPe());
+//            System.out.print(rankStComTjRs.getLastMarketValue());
             //市盈率过高提醒
             if (rankStComTjRs.getLastPe() != null && rankStComTjRs.getLastPe().compareTo(limitPe) >= 0) {
-//                System.out.print("!!!市盈率过高:" + rankStComTjRs.getLastPe());
+                System.out.print("!!!市盈率过高:" + rankStComTjRs.getLastPe());
             }
             System.out.println();
         }
@@ -179,7 +188,7 @@ public class RankStockBizCompanyDemo {
 
                 List<RankStockCommpanyDb> rankBizDataDiffListDb = new ArrayList<>();
                 rankBizDataDiffListDb.add(rankStockCommpanyDb);
-                int insertRs = showBizSql(rankBizDataDiffListDb, bizCode, bizName, kline.getKtime());//显示业务排行-插入sql
+                showBizSql(rankBizDataDiffListDb, bizCode, bizName, kline.getKtime());//显示业务排行-插入sql
             }
         }
     }
@@ -215,10 +224,10 @@ public class RankStockBizCompanyDemo {
 //            System.out.println("/**" + JSON.toJSONString(biz) + "**/");
             bizMap.put(biz.getF12(), biz.getF14());
         }
-        int stBizCountTemp = 0;
+        int stBizCountTemp = startNum;
         for (String biz : bizMap.keySet()) {
             stBizCountTemp++;
-            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + JSON.toJSONString(bizMap));
+            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + bizMap.get(biz));
             List<RankStockCommpanyDb> rankBizDataDiffListBiz = listRankStockByBiz(500, biz);
 
             if (flagInsertDb) {

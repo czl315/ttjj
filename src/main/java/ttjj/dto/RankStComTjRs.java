@@ -58,6 +58,18 @@ public class RankStComTjRs {
      * lastPe 最新pe市盈率
      */
     private BigDecimal lastPe;
+    /**
+     * lastRoe 最新Roe
+     */
+    private BigDecimal lastRoe;
+
+    public BigDecimal getLastRoe() {
+        return lastRoe;
+    }
+
+    public void setLastRoe(BigDecimal lastRoe) {
+        this.lastRoe = lastRoe;
+    }
 
     public BigDecimal getLastMarketValue() {
         return lastMarketValue;

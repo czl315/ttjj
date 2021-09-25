@@ -29,6 +29,7 @@ public interface RankStockCommpanyMapper {
             "       ,COUNT(1)   count ",
             "       ,(SELECT ROUND(t2.f20/100000000,2) FROM rank_st_biz_com t2 WHERE t2.f12=rank_st_biz_com.f12 ORDER BY t2.date desc LIMIT 1) lastMarketValue ",
             "       ,(SELECT t2.f9 FROM rank_st_biz_com t2 WHERE t2.f12=rank_st_biz_com.f12 ORDER BY t2.date desc LIMIT 1) lastPe ",
+            "       ,(SELECT t2.f37 FROM rank_st_biz_com t2 WHERE t2.f12=rank_st_biz_com.f12 ORDER BY t2.date desc LIMIT 1) lastRoe ",
             "       <if test='begDate != null'> ",
             "       ,#{begDate} begDate ",
             "       </if> ",
@@ -59,6 +60,7 @@ public interface RankStockCommpanyMapper {
             "   GROUP BY rank_st_biz_com.f12 ",
             "   ORDER BY SUM(rank_st_biz_com.f3) DESC ",
 //            "   ORDER BY code  ",
+//            "   ORDER BY lastRoe DESC ",
             "</script>"})
     List<RankStComTjRs> findListTongji(RankStComTjCond condition);
 

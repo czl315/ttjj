@@ -149,6 +149,9 @@ public class RankStockCommpanyDb {
     private Long f34;
     private Long f35;
     private Double f36;
+    /**
+     * f37 ROE 利润资产比
+     */
     private Double f37;
     private Double f38;
     private Double f39;

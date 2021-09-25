@@ -145,6 +145,10 @@ public class Content {
      * ST_BIZ_TYPE_ZAOZHIYINSHUA 造纸印刷-BK0470
      */
     public static String ST_BIZ_TYPE_ZAOZHIYINSHUA = "造纸印刷";
+    /**
+     * ST_BIZ_TYPE_NIANGJIUHANGYE 酿酒行业-BK0477
+     */
+    public static String ST_BIZ_TYPE_NIANGJIUHANGYE = "酿酒行业";
 
     /**
      * MA_5 均线
