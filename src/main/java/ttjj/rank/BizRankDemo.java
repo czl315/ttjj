@@ -22,26 +22,22 @@ import static utils.Content.*;
  * 主题排行
  */
 public class BizRankDemo {
-    /**
-     * ttjj
-     *
-     * @param args args
-     */
     public static void main(String[] args) {
-//        insertTodayBizDb();//新增今日数据
+        insertTodayBizDb();//新增今日数据
 
-        String begDate = "2018-01-01";//查询新增交易的开始时间
-        String endDate = "2018-12-31";
-        insertHisBizDb(begDate, endDate);//新增历史数据
+//        //新增历史数据
+//        String begDate = "2018-01-01";//查询新增交易的开始时间
+//        String endDate = "2018-12-31";
+//        insertHisDbBanKuai(begDate, endDate);//新增历史数据
     }
 
     /**
-     * 新增历史数据
+     * 新增历史数据-板块
      *
      * @param begDate
      * @param endDate
      */
-    private static void insertHisBizDb(String begDate, String endDate) {
+    private static void insertHisDbBanKuai(String begDate, String endDate) {
         List<RankBizDataDiff> hangYeList = listBiz(endDate, DB_RANK_BIZ_TYPE_HANG_YE, 999);//查询所有行业列表
         //遍历所有行业，根据行业查询历史k线，插入行业的数据
         for (RankBizDataDiff hangYe : hangYeList) {

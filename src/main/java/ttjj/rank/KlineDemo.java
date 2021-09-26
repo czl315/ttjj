@@ -21,7 +21,14 @@ import java.util.stream.Collectors;
 public class KlineDemo {
     public static void main(String[] args) {
         //  插入常用指数k线
-        addZhishuKline();
+        boolean isAddMinuteKline = false;//是否添加分钟级别K线
+        String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+        int lmt = 1000000;
+        int addDaysMax = 0;//最多增加的天数
+        int year = DateUtil.getCurYear();//2021
+        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()
+        int day = 16;//DateUtil.getCurDay()
+        addZhishuKline(isAddMinuteKline,klt,lmt,addDaysMax,year,month,day);
 
 ////        // 查询k线
 //        findKline();
@@ -114,18 +121,9 @@ public class KlineDemo {
      * 插入常用指数k线-大周期：日、周、月、年
      *
      */
-    private static void addZhishuKline() {
-        String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
-        int lmt = 1000000;
-        int addDaysMax = 0;//最多增加的天数
-        int year = DateUtil.getCurYear();//2021
-        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()
-        int day = DateUtil.getCurDay();//DateUtil.getCurDay()
-
+    private static void addZhishuKline(boolean isAddMinuteKline, String klt, int lmt, int addDaysMax, int year, int month, int day) {
         //插入常用指数k线-大周期：日、周、月、年
         Map<String, String> zhishuMap = Content.getZhishuMap();//        Map<String, String>  zhishuMap = new HashMap<>();zhishuMap.put("000001","上证指数");//特定测试
-        boolean isAddMinuteKline = true;//是否添加分钟级别K线
-//        boolean isAddMinuteKline = false;
         Set<String> zhishuList = zhishuMap.keySet();
         for (String zqdm : zhishuList) {
             for (int i = 0; i <= addDaysMax; i++) {
@@ -256,50 +254,50 @@ public class KlineDemo {
              */
             KlineDao.insert(kline);
 
-//            //计算净值
-//            Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, begDate, endDate);
-//            kline.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
-//            kline.setNET_MIN_5(netMap5.get(Content.keyRsMin));
-//            kline.setNET_MAX_5(netMap5.get(Content.keyRsMax));
-//            kline.setNET_MIN_CLOS_5(netMap5.get(Content.keyRsNetCloseMin));
-//            kline.setNET_MAX_CLOS_5(netMap5.get(Content.keyRsNetCloseMax));
-//            Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, begDate, endDate);
-//            kline.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
-//            kline.setNET_MIN_10(netMap10.get(Content.keyRsMin));
-//            kline.setNET_MAX_10(netMap10.get(Content.keyRsMax));
-//            kline.setNET_MIN_CLOS_10(netMap10.get(Content.keyRsNetCloseMin));
-//            kline.setNET_MAX_CLOS_10(netMap10.get(Content.keyRsNetCloseMax));
-//            Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, begDate, endDate);
-//            kline.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
-//            kline.setNET_MIN_20(netMap20.get(Content.keyRsMin));
-//            kline.setNET_MAX_20(netMap20.get(Content.keyRsMax));
-//            kline.setNET_MIN_CLOS_20(netMap20.get(Content.keyRsNetCloseMin));
-//            kline.setNET_MAX_CLOS_20(netMap20.get(Content.keyRsNetCloseMax));
-//            Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, begDate, endDate);
-//            kline.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
-//            kline.setNET_MIN_30(netMap30.get(Content.keyRsMin));
-//            kline.setNET_MAX_30(netMap30.get(Content.keyRsMax));
-//            kline.setNET_MIN_CLOS_30(netMap30.get(Content.keyRsNetCloseMin));
-//            kline.setNET_MAX_CLOS_30(netMap30.get(Content.keyRsNetCloseMax));
-//            Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, begDate, endDate);
-//            kline.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
-//            kline.setNET_MIN_60(netMap60.get(Content.keyRsMin));
-//            kline.setNET_MAX_60(netMap60.get(Content.keyRsMax));
-//            kline.setNET_MIN_CLOS_60(netMap60.get(Content.keyRsNetCloseMin));
-//            kline.setNET_MAX_CLOS_60(netMap60.get(Content.keyRsNetCloseMax));
-//            Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, begDate, endDate);
-//            kline.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
-//            kline.setNET_MIN_120(netMap120.get(Content.keyRsMin));
-//            kline.setNET_MAX_120(netMap120.get(Content.keyRsMax));
-//            kline.setNET_MIN_CLOS_120(netMap120.get(Content.keyRsNetCloseMin));
-//            kline.setNET_MAX_CLOS_120(netMap120.get(Content.keyRsNetCloseMax));
-//            Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, begDate, endDate);
-//            kline.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
-//            kline.setNET_MIN_250(netMap250.get(Content.keyRsMin));
-//            kline.setNET_MAX_250(netMap250.get(Content.keyRsMax));
-//            kline.setNET_MIN_CLOS_250(netMap250.get(Content.keyRsNetCloseMin));
-//            kline.setNET_MAX_CLOS_250(netMap250.get(Content.keyRsNetCloseMax));
-//            KlineDao.updateNet(kline);
+            //计算净值
+            Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, begDate, endDate);
+            kline.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
+            kline.setNET_MIN_5(netMap5.get(Content.keyRsMin));
+            kline.setNET_MAX_5(netMap5.get(Content.keyRsMax));
+            kline.setNET_MIN_CLOS_5(netMap5.get(Content.keyRsNetCloseMin));
+            kline.setNET_MAX_CLOS_5(netMap5.get(Content.keyRsNetCloseMax));
+            Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, begDate, endDate);
+            kline.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
+            kline.setNET_MIN_10(netMap10.get(Content.keyRsMin));
+            kline.setNET_MAX_10(netMap10.get(Content.keyRsMax));
+            kline.setNET_MIN_CLOS_10(netMap10.get(Content.keyRsNetCloseMin));
+            kline.setNET_MAX_CLOS_10(netMap10.get(Content.keyRsNetCloseMax));
+            Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, begDate, endDate);
+            kline.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
+            kline.setNET_MIN_20(netMap20.get(Content.keyRsMin));
+            kline.setNET_MAX_20(netMap20.get(Content.keyRsMax));
+            kline.setNET_MIN_CLOS_20(netMap20.get(Content.keyRsNetCloseMin));
+            kline.setNET_MAX_CLOS_20(netMap20.get(Content.keyRsNetCloseMax));
+            Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, begDate, endDate);
+            kline.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
+            kline.setNET_MIN_30(netMap30.get(Content.keyRsMin));
+            kline.setNET_MAX_30(netMap30.get(Content.keyRsMax));
+            kline.setNET_MIN_CLOS_30(netMap30.get(Content.keyRsNetCloseMin));
+            kline.setNET_MAX_CLOS_30(netMap30.get(Content.keyRsNetCloseMax));
+            Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, begDate, endDate);
+            kline.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
+            kline.setNET_MIN_60(netMap60.get(Content.keyRsMin));
+            kline.setNET_MAX_60(netMap60.get(Content.keyRsMax));
+            kline.setNET_MIN_CLOS_60(netMap60.get(Content.keyRsNetCloseMin));
+            kline.setNET_MAX_CLOS_60(netMap60.get(Content.keyRsNetCloseMax));
+            Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, begDate, endDate);
+            kline.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
+            kline.setNET_MIN_120(netMap120.get(Content.keyRsMin));
+            kline.setNET_MAX_120(netMap120.get(Content.keyRsMax));
+            kline.setNET_MIN_CLOS_120(netMap120.get(Content.keyRsNetCloseMin));
+            kline.setNET_MAX_CLOS_120(netMap120.get(Content.keyRsNetCloseMax));
+            Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, begDate, endDate);
+            kline.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
+            kline.setNET_MIN_250(netMap250.get(Content.keyRsMin));
+            kline.setNET_MAX_250(netMap250.get(Content.keyRsMax));
+            kline.setNET_MIN_CLOS_250(netMap250.get(Content.keyRsNetCloseMin));
+            kline.setNET_MAX_CLOS_250(netMap250.get(Content.keyRsNetCloseMax));
+            KlineDao.updateNet(kline);
         }
     }
 
