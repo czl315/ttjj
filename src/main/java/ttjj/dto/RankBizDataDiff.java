@@ -1,5 +1,7 @@
 package ttjj.dto;
 
+import java.math.BigDecimal;
+
 /**
  * 行业排行
  *
@@ -350,6 +352,17 @@ public class RankBizDataDiff {
     private Double NET_MAX_CLOS_360;
 
     /**
+     * NET_MA_5 净值-均线-n个
+     */
+    private BigDecimal NET_MA_5;
+    private BigDecimal NET_MA_10;
+    private BigDecimal NET_MA_20;
+    private BigDecimal NET_MA_30;
+    private BigDecimal NET_MA_60;
+    private BigDecimal NET_MA_120;
+    private BigDecimal NET_MA_250;
+
+    /**
      * pt_time_min 指数时间点-最小值
      */
     private String pt_time_min;
@@ -357,6 +370,62 @@ public class RankBizDataDiff {
      * pt_time_max 指数时间点-最大值
      */
     private String pt_time_max;
+
+    public BigDecimal getNET_MA_5() {
+        return NET_MA_5;
+    }
+
+    public void setNET_MA_5(BigDecimal NET_MA_5) {
+        this.NET_MA_5 = NET_MA_5;
+    }
+
+    public BigDecimal getNET_MA_10() {
+        return NET_MA_10;
+    }
+
+    public void setNET_MA_10(BigDecimal NET_MA_10) {
+        this.NET_MA_10 = NET_MA_10;
+    }
+
+    public BigDecimal getNET_MA_20() {
+        return NET_MA_20;
+    }
+
+    public void setNET_MA_20(BigDecimal NET_MA_20) {
+        this.NET_MA_20 = NET_MA_20;
+    }
+
+    public BigDecimal getNET_MA_30() {
+        return NET_MA_30;
+    }
+
+    public void setNET_MA_30(BigDecimal NET_MA_30) {
+        this.NET_MA_30 = NET_MA_30;
+    }
+
+    public BigDecimal getNET_MA_60() {
+        return NET_MA_60;
+    }
+
+    public void setNET_MA_60(BigDecimal NET_MA_60) {
+        this.NET_MA_60 = NET_MA_60;
+    }
+
+    public BigDecimal getNET_MA_120() {
+        return NET_MA_120;
+    }
+
+    public void setNET_MA_120(BigDecimal NET_MA_120) {
+        this.NET_MA_120 = NET_MA_120;
+    }
+
+    public BigDecimal getNET_MA_250() {
+        return NET_MA_250;
+    }
+
+    public void setNET_MA_250(BigDecimal NET_MA_250) {
+        this.NET_MA_250 = NET_MA_250;
+    }
 
     public String getPt_time_min() {
         return pt_time_min;

@@ -41,7 +41,8 @@ public class BizRankDemo {
         List<RankBizDataDiff> hangYeList = listBiz(endDate, DB_RANK_BIZ_TYPE_HANG_YE, 999);//查询所有行业列表
         //遍历所有行业，根据行业查询历史k线，插入行业的数据
         for (RankBizDataDiff hangYe : hangYeList) {
-            insertHisDbBanKuai(HTTP_KLINE_SECID_PREFIX_BANKUAI + hangYe.getF12(), begDate, endDate);
+            String banKuaiZqdm = HTTP_KLINE_SECID_PREFIX_BANKUAI + hangYe.getF12();
+            insertHisDbBanKuai(banKuaiZqdm, begDate, endDate);
         }
     }
 
@@ -50,7 +51,7 @@ public class BizRankDemo {
      */
     private static void insertTodayBizDb() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2021-08-25";
+//        String date = "2021-09-24";
 
         boolean insertDbTodayBiz = true;
 //        boolean insertDbTodayBiz = false;
@@ -58,6 +59,9 @@ public class BizRankDemo {
 //        boolean insertDbTodayConcept = false;
         boolean insertDbTodayEtf = true;
 //        boolean insertDbTodayEtf = false;
+
+        boolean updateDbTodayEtfMa = true;//更新均线
+
 //        boolean updateDbTodayEtfNetMaxMinTimeFlag = true;
         boolean updateDbTodayEtfNetMaxMinTimeFlag = false;
 //        boolean updateDateBizFlag = true;
@@ -85,6 +89,30 @@ public class BizRankDemo {
         if (insertDbTodayEtf) {
             BizRankDao.insertDbBiz(rankEtf);
 //            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
+        }
+        if (updateDbTodayEtfMa) {
+            for (RankBizDataDiff rankBizDataDiff : rankEtf) {
+                String klt = KLT_101;
+                RankBizDataDiff banKuai = new RankBizDataDiff();
+                String zqdm = rankBizDataDiff.getF12();
+                banKuai.setF12(zqdm);
+                banKuai.setDate(date);
+                Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, "", date);
+                banKuai.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
+                Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, "", date);
+                banKuai.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
+                Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, "", date);
+                banKuai.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
+                Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, "", date);
+                banKuai.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
+                Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, "", date);
+                banKuai.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
+                Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, "", date);
+                banKuai.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
+                Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, "", date);
+                banKuai.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
+                BizRankDao.updateEtfNet(banKuai);
+            }
         }
 
         if (updateDbEtfNetDays == 1) {

@@ -125,6 +125,13 @@ public interface RandBizEtfMapper {
             "    <if test='NET_MIN_CLOS_360 != null'>NET_MIN_CLOS_360=#{NET_MIN_CLOS_360},</if>",
             "    <if test='NET_MAX_360 != null'>NET_MAX_360=#{NET_MAX_360},</if>",
             "    <if test='NET_MAX_CLOS_360 != null'>NET_MAX_CLOS_360=#{NET_MAX_CLOS_360},</if>",
+            "    <if test='NET_MA_5 != null'>NET_MA_5=#{NET_MA_5},</if>",
+            "    <if test='NET_MA_10 != null'>NET_MA_10=#{NET_MA_10},</if>",
+            "    <if test='NET_MA_20 != null'>NET_MA_20=#{NET_MA_20},</if>",
+            "    <if test='NET_MA_30 != null'>NET_MA_30=#{NET_MA_30},</if>",
+            "    <if test='NET_MA_60 != null'>NET_MA_60=#{NET_MA_60},</if>",
+            "    <if test='NET_MA_120 != null'>NET_MA_120=#{NET_MA_120},</if>",
+            "    <if test='NET_MA_250 != null'>NET_MA_250=#{NET_MA_250},</if>",
             "  </set>",
             "where date=#{date} AND f12=#{f12}",
             "</script>"})
