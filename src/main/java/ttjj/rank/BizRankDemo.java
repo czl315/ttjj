@@ -93,25 +93,25 @@ public class BizRankDemo {
         if (updateDbTodayEtfMa) {
             for (RankBizDataDiff rankBizDataDiff : rankEtf) {
                 String klt = KLT_101;
-                RankBizDataDiff banKuai = new RankBizDataDiff();
+                RankBizDataDiff entity = new RankBizDataDiff();
                 String zqdm = rankBizDataDiff.getF12();
-                banKuai.setF12(zqdm);
-                banKuai.setDate(date);
+                entity.setF12(zqdm);
+                entity.setDate(date);
                 Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, "", date);
-                banKuai.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
+                entity.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
                 Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, "", date);
-                banKuai.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
+                entity.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
                 Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, "", date);
-                banKuai.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
+                entity.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
                 Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, "", date);
-                banKuai.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
+                entity.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
                 Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, "", date);
-                banKuai.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
+                entity.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
                 Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, "", date);
-                banKuai.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
+                entity.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
                 Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, "", date);
-                banKuai.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
-                BizRankDao.updateEtfNet(banKuai);
+                entity.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
+                BizRankDao.updateEtfNet(entity);
             }
         }
 

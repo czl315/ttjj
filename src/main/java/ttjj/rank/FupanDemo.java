@@ -22,10 +22,7 @@ import utils.HttpUtil;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -71,9 +68,7 @@ public class FupanDemo {
         String klt = Content.KLT_101;//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
         String dateType = Content.DAYS_1;//1：一天;7:周;30:月;
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//            String date = "2021-08-31";
-//        String dateKlineYyyymmdd = date.replace("-", "");
-//            String dateKlineYyyymmdd = "20210813";
+//            String date = "2021-09-24";
 
         if (updateDaPanKline) {
             String cookie = "";
@@ -149,49 +144,66 @@ public class FupanDemo {
                     entity.setCloseLastAmt(closeLastAmt);//上一个交易时期的收盘价
 //                    System.out.println(assetPosition.getZqmc() + "-昨日收盘价：" + entity.getCloseLastAmt());
 
+                    String zqdm = entity.getZqdm();
                     //查询净值
-                    StockTradeDb entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 1, klt, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
+                    StockTradeDb entityStockTradeDbLastNet = StockTradeDemo.kline(zqdm, 1, klt, "LAST_NET", "LAST_NET", "LAST_NET", "LAST_NET");
                     entity.setLAST_NET(entityStockTradeDbLastNet.getLAST_NET());
-                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 1, klt, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(zqdm, 1, klt, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
                     entity.setNET_MIN_1(entityStockTradeDbLastNet.getNET_MIN_1());
                     entity.setNET_MIN_CLOS_1(entityStockTradeDbLastNet.getNET_MIN_CLOS_1());
                     entity.setNET_MAX_1(entityStockTradeDbLastNet.getNET_MAX_1());
                     entity.setNET_MAX_CLOS_1(entityStockTradeDbLastNet.getNET_MAX_CLOS_1());
-                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 5, klt, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(zqdm, 5, klt, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
                     entity.setNET_MIN_7(entityStockTradeDbLastNet.getNET_MIN_7());
                     entity.setNET_MIN_CLOS_7(entityStockTradeDbLastNet.getNET_MIN_CLOS_7());
                     entity.setNET_MAX_7(entityStockTradeDbLastNet.getNET_MAX_7());
                     entity.setNET_MAX_CLOS_7(entityStockTradeDbLastNet.getNET_MAX_CLOS_7());
-                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 10, klt, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(zqdm, 10, klt, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
                     entity.setNET_MIN_14(entityStockTradeDbLastNet.getNET_MIN_14());
                     entity.setNET_MIN_CLOS_14(entityStockTradeDbLastNet.getNET_MIN_CLOS_14());
                     entity.setNET_MAX_14(entityStockTradeDbLastNet.getNET_MAX_14());
                     entity.setNET_MAX_CLOS_14(entityStockTradeDbLastNet.getNET_MAX_CLOS_14());
-                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 20, klt, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(zqdm, 20, klt, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
                     entity.setNET_MIN_30(entityStockTradeDbLastNet.getNET_MIN_30());
                     entity.setNET_MIN_CLOS_30(entityStockTradeDbLastNet.getNET_MIN_CLOS_30());
                     entity.setNET_MAX_30(entityStockTradeDbLastNet.getNET_MAX_30());
                     entity.setNET_MAX_CLOS_30(entityStockTradeDbLastNet.getNET_MAX_CLOS_30());
-                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 60, klt, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(zqdm, 60, klt, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
                     entity.setNET_MIN_60(entityStockTradeDbLastNet.getNET_MIN_60());
                     entity.setNET_MIN_CLOS_60(entityStockTradeDbLastNet.getNET_MIN_CLOS_60());
                     entity.setNET_MAX_60(entityStockTradeDbLastNet.getNET_MAX_60());
                     entity.setNET_MAX_CLOS_60(entityStockTradeDbLastNet.getNET_MAX_CLOS_60());
-                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 90, klt, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(zqdm, 90, klt, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
                     entity.setNET_MIN_90(entityStockTradeDbLastNet.getNET_MIN_90());
                     entity.setNET_MIN_CLOS_90(entityStockTradeDbLastNet.getNET_MIN_CLOS_90());
                     entity.setNET_MAX_90(entityStockTradeDbLastNet.getNET_MAX_90());
                     entity.setNET_MAX_CLOS_90(entityStockTradeDbLastNet.getNET_MAX_CLOS_90());
-                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 180, klt, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(zqdm, 180, klt, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
                     entity.setNET_MIN_180(entityStockTradeDbLastNet.getNET_MIN_180());
                     entity.setNET_MIN_CLOS_180(entityStockTradeDbLastNet.getNET_MIN_CLOS_180());
                     entity.setNET_MAX_180(entityStockTradeDbLastNet.getNET_MAX_180());
                     entity.setNET_MAX_CLOS_180(entityStockTradeDbLastNet.getNET_MAX_CLOS_180());
-                    entityStockTradeDbLastNet = StockTradeDemo.kline(entity.getZqdm(), 365, klt, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
+                    entityStockTradeDbLastNet = StockTradeDemo.kline(zqdm, 365, klt, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
                     entity.setNET_MIN_360(entityStockTradeDbLastNet.getNET_MIN_360());
                     entity.setNET_MIN_CLOS_360(entityStockTradeDbLastNet.getNET_MIN_CLOS_360());
                     entity.setNET_MAX_360(entityStockTradeDbLastNet.getNET_MAX_360());
                     entity.setNET_MAX_CLOS_360(entityStockTradeDbLastNet.getNET_MAX_CLOS_360());
+
+
+                    Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, "", date);
+                    entity.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
+                    Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, "", date);
+                    entity.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
+                    Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, "", date);
+                    entity.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
+                    Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, "", date);
+                    entity.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
+                    Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, "", date);
+                    entity.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
+                    Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, "", date);
+                    entity.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
+                    Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, "", date);
+                    entity.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
 
                     FupanPositionDao.updateDbFupan(entity);
                 }
