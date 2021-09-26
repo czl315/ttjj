@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static utils.Content.HTTP_KLINE_SECID_PREFIX_BANKUAI;
+
 /**
  * @author chenzhilong
  * @date 2021/7/26
@@ -28,7 +30,6 @@ public class KlineService {
 
     /**
      * 测试样例：查询最小净值、最大净值、均值
-     *
      */
     private static void findNetMinMaxAvgDemo() {
         String zqdm = Content.ZQDM_ETF_CYB50_159949;
@@ -60,7 +61,7 @@ public class KlineService {
      */
     public static List<Kline> kline(String zhiShu, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate) {
         String rs = klineRsStrHttpDfcf(zhiShu, lmt, klt, isHasBegDate, begDate, endDate);//k线结果
-
+//        System.out.println(rs);
         JSONObject szzzMonthJson = JSON.parseObject(rs);
         JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
 //        String name = szzzMonthDataJson.getString("name");
@@ -130,13 +131,14 @@ public class KlineService {
         StringBuffer url = new StringBuffer();
 //        url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
         url.append("http://" + random + ".push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33103254362175743777_" + curTime);
+        url.append("&secid=");
         if (zhiShu.startsWith("159") || zhiShu.startsWith("399") || zhiShu.startsWith("30") || zhiShu.startsWith("20") || zhiShu.startsWith("00")) {
             //指数
             Map<String, String> zhishuMap = Content.getZhishuMap();
             if (zhishuMap.keySet().contains(zhiShu) && !zhiShu.startsWith("399")) {
-                url.append("&secid=" + "1." + zhiShu);
+                url.append("1." + zhiShu);
             } else {
-                url.append("&secid=" + "0." + zhiShu);
+                url.append("0." + zhiShu);
             }
             //159开头
             //  110、120开头是可转债
@@ -156,10 +158,12 @@ public class KlineService {
             //XD表示分红等
         } else if (zhiShu.startsWith("93")) {
             //2.931643
-            url.append("&secid=" + "2." + zhiShu);
+            url.append("2." + zhiShu);
+        } else if (zhiShu.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI)) {//板块
+            url.append(zhiShu);//secid: 90.BK0438
         } else {
             //zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("000")|| zhiShu.startsWith("11")|| zhiShu.startsWith("12")
-            url.append("&secid=" + "1." + zhiShu);
+            url.append("1." + zhiShu);
         }
 
         url.append("&ut=fa5fd1943c7b386f172d6893dbfba10b");
@@ -187,7 +191,21 @@ public class KlineService {
 //        url.append("f60,f61,f62,f63,f64,f65,f66,f67,f68,f69,");
 //        url.append("f70,f71,f72,f73,f74,f75,f76,f77,f78,f79,");
 //        url.append("f80,f81,f82,f83,f84,f85,f86,f87,f88,f89,");
-//        url.append("f90,f91,f92,f93,f94,f95,f96,f97,f98,f99");
+//        url.append("f90,f91,f92,f93,f94,f95,f96,f97,f98,f99,");
+//        url.append("f100,f101,f102,f103,f104,f105,f106,f107,f108,f109,");
+//        url.append("f110,f111,f112,f113,f114,f115,f116,f117,f118,f119,");
+//        url.append("f120,f121,f122,f123,f124,f125,f126,f127,f128,f129,");
+//        url.append("f130,f131,f132,f133,f134,f135,f136,f137,f138,f139,");
+//        url.append("f140,f141,f142,f143,f144,f145,f146,f147,f148,f149,");
+//        url.append("f150,f151,f152,f153,f154,f155,f156,f157,f158,f159,");
+//        url.append("f160,f161,f162,f163,f164,f165,f166,f167,f168,f169,");
+//        url.append("f170,f171,f172,f173,f174,f175,f176,f177,f178,f179,");
+//        url.append("f180,f181,f182,f183,f184,f185,f186,f187,f188,f189,");
+//        url.append("f190,f191,f192,f193,f194,f195,f196,f197,f198,f199,");
+//        url.append("f200,f201,f202,f203,f204,f205,f206,f207,f208,f209,");
+//        url.append("f210,f211,f212,f213,f214,f215,f216,f217,f218,f219,");
+//        url.append("f220,f221,f222,f223,f224,f225,f226,f227,f228,f229");
+//        url.append("f230,f231,f232,f233,f234,f235,f236,f237,f238,f239");
 
         url.append("&klt=" + klt);
         url.append("&fqt=1");
@@ -327,6 +345,7 @@ public class KlineService {
 
     /**
      * 计算最小净值、最大净值、均值、均量
+     *
      * @param maType 均线类型
      * @return
      */
@@ -343,7 +362,7 @@ public class KlineService {
         int count = maType;
         for (Kline kline : klines) {
             count--;
-            if(count<0){
+            if (count < 0) {
                 break;//限定计算
             }
             BigDecimal dwjzLong = kline.getCloseAmt();

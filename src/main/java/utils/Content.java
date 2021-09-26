@@ -151,6 +151,28 @@ public class Content {
     public static String ST_BIZ_TYPE_NIANGJIUHANGYE = "酿酒行业";
 
     /**
+     * DB_RANK_BIZ_TYPE_HANG_YE 数据库字段-排行榜-业务-类型-板块
+     */
+    public static String DB_RANK_BIZ_TYPE_HANG_YE = "bk";
+    /**
+     * DB_RANK_BIZ_F12_BAN_KUAI f13类型-板块
+     */
+    public static long DB_RANK_BIZ_F12_BAN_KUAI = 90;
+    /**
+     * DB_RANK_BIZ_F19_BAN_KUAI f19类型-板块
+     */
+    public static long DB_RANK_BIZ_F19_BAN_KUAI = 2;
+    /**
+     * DB_RANK_BIZ_F139_BAN_KUAI f19类型-板块
+     */
+    public static long DB_RANK_BIZ_F139_BAN_KUAI = 2;
+
+    /**
+     * HTTP_KLINE_SECID_PREFIX_BANKUAI 请求前缀-板块
+     */
+    public static String HTTP_KLINE_SECID_PREFIX_BANKUAI = "90.";
+
+    /**
      * MA_5 均线
      */
     public static int MA_5 = 5;

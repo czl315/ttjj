@@ -28,7 +28,7 @@ public class RankBizDataDiff {
      */
     private String week;
     /**
-     * type 类型：hy-行业；gn-概念；etf；
+     * type 类型：bk-板块；gn-概念；etf；
      */
     private String type;
     /**
@@ -36,7 +36,7 @@ public class RankBizDataDiff {
      */
     private Long orderNum;
     /**
-     * f1 类别：3-etf；
+     * f1 类别：2-板块；3-etf；
      */
     private Long f1;
     /**
@@ -106,7 +106,7 @@ public class RankBizDataDiff {
     private Double f18;
 
     /**
-     * f19 ？9-沪市；10-深市：
+     * f19 ？2-板块；9-沪市；10-深市：
      */
     private Long f19;
     /**
@@ -246,7 +246,7 @@ public class RankBizDataDiff {
      */
     private Double f136;
     /**
-     * f139 ？固定3
+     * f139 ？2-板块
      */
     private Long f139;
     /**

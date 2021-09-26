@@ -15,7 +15,7 @@ public class RankStComTjCond {
      */
     private String date;
     /**
-     * type 类型：hy-行业；gn-概念；etf；
+     * type 类型：bk-板块；gn-概念；etf；
      */
     private String type;
     /**

@@ -16,6 +16,8 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static utils.Content.*;
+
 /**
  * 主题排行
  */
@@ -26,6 +28,31 @@ public class BizRankDemo {
      * @param args args
      */
     public static void main(String[] args) {
+//        insertTodayBizDb();//新增今日数据
+
+        String begDate = "2018-01-01";//查询新增交易的开始时间
+        String endDate = "2018-12-31";
+        insertHisBizDb(begDate, endDate);//新增历史数据
+    }
+
+    /**
+     * 新增历史数据
+     *
+     * @param begDate
+     * @param endDate
+     */
+    private static void insertHisBizDb(String begDate, String endDate) {
+        List<RankBizDataDiff> hangYeList = listBiz(endDate, DB_RANK_BIZ_TYPE_HANG_YE, 999);//查询所有行业列表
+        //遍历所有行业，根据行业查询历史k线，插入行业的数据
+        for (RankBizDataDiff hangYe : hangYeList) {
+            insertHisDbBanKuai(HTTP_KLINE_SECID_PREFIX_BANKUAI + hangYe.getF12(), begDate, endDate);
+        }
+    }
+
+    /**
+     * 新增今日数据
+     */
+    private static void insertTodayBizDb() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2021-08-25";
 
@@ -45,22 +72,22 @@ public class BizRankDemo {
 //        int updateDbEtfNetDays = 0;
 
         if (insertDbTodayBiz) {
-            List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(date, "hy", 999);//查询主题排名by时间类型、显示个数
+            List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, 999);//查询主题排名by时间类型、显示个数
             //db-插入
-            BizRankDao.insertDbBiz(rankBizDataDiffListBiz);//hy-行业
-//            showBizSql(date, rankBizDataDiffListBiz, "hy");//显示sql-业务排行-插入
+            BizRankDao.insertDbBiz(rankBizDataDiffListBiz);//bk-板块
+//            showBizSql(date, rankBizDataDiffListBiz, "bk");//显示sql-业务排行-插入
         }
 
         if (insertDbTodayConcept) {
             List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(date, "gn", 999);//查询主题排名by时间类型、显示个数
             //db-插入
-            BizRankDao.insertDbBiz(rankBizDataDiffListConcept);//hy-行业
+            BizRankDao.insertDbBiz(rankBizDataDiffListConcept);//bk-板块
 //            showBizSql(date, rankBizDataDiffListConcept, "gn");//显示业务排行-插入sql
         }
 
         List<RankBizDataDiff> rankEtf = listEtf(date, "etf", 999);//2021-04-16:425;
         if (insertDbTodayEtf) {
-            BizRankDao.insertDbBiz(rankEtf);//hy-行业
+            BizRankDao.insertDbBiz(rankEtf);
 //            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
         }
 
@@ -110,7 +137,6 @@ public class BizRankDemo {
 
     /**
      * 新增-业务
-     *
      */
     private static void insertBiz(String zqdm) {
 
@@ -128,8 +154,8 @@ public class BizRankDemo {
             RankBizDataDiff rankBizDataDiff = new RankBizDataDiff();
             rankBizDataDiff.setDate(kline.getKtime());
             rankBizDataDiff.setMonth(DateUtil.getYearMonth(kline.getKtime(), DateUtil.YYYY_MM_DD));
-            rankBizDataDiff.setWeekYear(DateUtil.getYearWeek(kline.getKtime(),DateUtil.YYYY_MM_DD));
-            rankBizDataDiff.setWeek(DateUtil.getWeekByYyyyMmDd(kline.getKtime(),DateUtil.YYYY_MM_DD));
+            rankBizDataDiff.setWeekYear(DateUtil.getYearWeek(kline.getKtime(), DateUtil.YYYY_MM_DD));
+            rankBizDataDiff.setWeek(DateUtil.getWeekByYyyyMmDd(kline.getKtime(), DateUtil.YYYY_MM_DD));
             rankBizDataDiff.setType("etf");
             rankBizDataDiff.setF1(3L);
             rankBizDataDiff.setF2(kline.getCloseAmt().doubleValue());
@@ -149,6 +175,54 @@ public class BizRankDemo {
             rankBizDataDiff.setF16(kline.getMinAmt().doubleValue());
             rankBizDataDiff.setF17(kline.getOpenAmt().doubleValue());
             rankBizDataDiff.setF18(kline.getCloseAmt().subtract(kline.getZhangDieE()).doubleValue());//计算昨日收盘价：今日收盘价-今日涨跌额
+
+            rankBizDataDiffList.add(rankBizDataDiff);
+        }
+//        System.out.println("rankBizDataDiffList:"+JSON.toJSONString(rankBizDataDiffList));
+
+        BizRankDao.insertDbBiz(rankBizDataDiffList);//业务排行-插入
+    }
+
+    private static void insertHisDbBanKuai(String zqdm, String begDate, String endDate) {
+        String klt = KLT_101;//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+        int lmt = 1000000;
+        List<RankBizDataDiff> rankBizDataDiffList = new ArrayList<>();
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate);
+        System.out.println(",开始日期:" + begDate + "，结束日期:" + endDate + "，周期:" + klt + "，klines.size():" + klines.size()+",zqdm:"+zqdm );
+//        System.out.println("klines:"+JSON.toJSONString(klines));
+        for (Kline kline : klines) {
+            RankBizDataDiff rankBizDataDiff = new RankBizDataDiff();
+            rankBizDataDiff.setDate(kline.getKtime());
+            rankBizDataDiff.setMonth(DateUtil.getYearMonth(kline.getKtime(), DateUtil.YYYY_MM_DD));
+            rankBizDataDiff.setWeekYear(DateUtil.getYearWeek(kline.getKtime(), DateUtil.YYYY_MM_DD));
+            rankBizDataDiff.setWeek(DateUtil.getWeekByYyyyMmDd(kline.getKtime(), DateUtil.YYYY_MM_DD));
+            rankBizDataDiff.setType(DB_RANK_BIZ_TYPE_HANG_YE);
+            rankBizDataDiff.setF1(2L);
+            rankBizDataDiff.setF2(kline.getCloseAmt().doubleValue());
+            rankBizDataDiff.setF3(kline.getZhangDieFu().doubleValue());
+            rankBizDataDiff.setF4(kline.getZhangDieE().doubleValue());
+            rankBizDataDiff.setF5(kline.getCjl().longValue());
+            rankBizDataDiff.setF6(kline.getCje().longValue());
+            rankBizDataDiff.setF7(kline.getZhenFu().doubleValue());
+            rankBizDataDiff.setF8(kline.getHuanShouLv().doubleValue());
+//            rankBizDataDiff.setF9(kline.getsh);
+//            rankBizDataDiff.getF10(kline.get)
+//            rankBizDataDiff.getF11()
+            rankBizDataDiff.setF12(kline.getZqdm());
+            rankBizDataDiff.setF13(DB_RANK_BIZ_F12_BAN_KUAI);
+            rankBizDataDiff.setF14(kline.getZqmc());
+            rankBizDataDiff.setF15(kline.getMaxAmt().doubleValue());
+            rankBizDataDiff.setF16(kline.getMinAmt().doubleValue());
+            rankBizDataDiff.setF17(kline.getOpenAmt().doubleValue());
+            rankBizDataDiff.setF18(kline.getCloseAmt().subtract(kline.getZhangDieE()).doubleValue());//计算昨日收盘价：今日收盘价-今日涨跌额
+            rankBizDataDiff.setF19(DB_RANK_BIZ_F19_BAN_KUAI);
+            rankBizDataDiff.setF27(DB_RANK_BIZ_F12_BAN_KUAI);
+            rankBizDataDiff.setF29(DB_RANK_BIZ_F139_BAN_KUAI);
+            rankBizDataDiff.setF33(0.0);
+            rankBizDataDiff.setF107(5L);
+            rankBizDataDiff.setF111(0L);
+            rankBizDataDiff.setF139(DB_RANK_BIZ_F139_BAN_KUAI);
+            rankBizDataDiff.setF152(DB_RANK_BIZ_F139_BAN_KUAI);
 
             rankBizDataDiffList.add(rankBizDataDiff);
         }
@@ -191,7 +265,6 @@ public class BizRankDemo {
 
     /**
      * 更新日期
-     *
      */
     private static void updateDateBiz() {
         for (int i = 0; i < 1; i++) {
