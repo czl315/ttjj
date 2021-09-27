@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class KlineDemo {
     public static void main(String[] args) {
         //  插入常用指数k线
-        boolean isAddMinuteKline = false;//是否添加分钟级别K线
+        boolean isAddMinuteKline = true;//是否添加分钟级别K线
         String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
         int addDaysMax = 0;//最多增加的天数
