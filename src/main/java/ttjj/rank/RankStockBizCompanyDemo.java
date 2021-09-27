@@ -30,9 +30,10 @@ public class RankStockBizCompanyDemo {
     public static void main(String[] args) {
         addTodayStCom();//添加股票-最新日期
 
-//        String begDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -30);
+        String begDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -15);
 //        String endDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0);
-//        findListTongJj(begDate,endDate);//查询-统计数据
+//        String typeName = ST_BIZ_TYPE_NIANGJIUHANGYE;/**    业务板块：	电力行业-BK0428	券商信托-BK0473	银行-BK0475	医疗行业-BK0727	医药制造-BK0465	化工行业-BK0538	酿酒行业-BK0477	化肥行业-BK0731	民航机场-BK0420	环保工程	**/
+//        findListTongJj(typeName,begDate,endDate);//查询-统计数据
 //        findListTongJj("2021-01-01","2021-01-31");//查询-统计数据
 //        findListTongJj("2021-02-01","2021-02-29");//查询-统计数据
 //        findListTongJj("2021-03-01","2021-03-31");//查询-统计数据
@@ -46,8 +47,11 @@ public class RankStockBizCompanyDemo {
 
     /**
      * 查询-统计数据-股票分组
+     * @param typeName
+     * @param begDate
+     * @param endDate
      */
-    private static void findListTongJj(String begDate,String endDate) {
+    private static void findListTongJj(String typeName, String begDate, String endDate) {
         BigDecimal limitPe = new BigDecimal("50");//提醒信息：限定市盈率
         boolean isShowPeHighInfo = true;//是否显示市盈率高的记录
 
@@ -57,7 +61,7 @@ public class RankStockBizCompanyDemo {
         condition.setPlate(Content.ST_PLATE_F139_AG);//只查询主板的
 //        condition.setMarketValueMin(new BigDecimal("200"));//市值限定
 //        condition.setMarketValueMax(new BigDecimal("9999"));//市值限定
-        condition.setType_name(ST_BIZ_TYPE_NIANGJIUHANGYE);/**    业务板块：	电力行业-BK0428	券商信托-BK0473	银行-BK0475	医疗行业-BK0727	医药制造-BK0465	化工行业-BK0538	酿酒行业-BK0477	化肥行业-BK0731	民航机场-BK0420	环保工程	**/
+        condition.setType_name(typeName);/**    业务板块：	电力行业-BK0428	券商信托-BK0473	银行-BK0475	医疗行业-BK0727	医药制造-BK0465	化工行业-BK0538	酿酒行业-BK0477	化肥行业-BK0731	民航机场-BK0420	环保工程	**/
         System.out.println("查询条件：" + JSON.toJSONString(condition));
         List<RankStComTjRs> rs = RankStockCommpanyDao.findListTongji(condition);
         if (rs == null) {

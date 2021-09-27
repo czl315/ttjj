@@ -102,7 +102,7 @@ public class FupanDemo {
         }
 
         if (updateMyStockAssetPosition) {
-            //更新-我的股票-资产持仓
+            //更新-我的股票-资产持仓：只有为空时才更新
             Fupan fupanMyStockAssetPosition = queryMyStockAssetPosition(COOKIE_DFCF, dateType, date);
             updateMyStockAssetPosition(fupanMyStockAssetPosition);
         }

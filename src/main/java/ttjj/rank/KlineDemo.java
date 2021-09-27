@@ -27,7 +27,7 @@ public class KlineDemo {
         int addDaysMax = 0;//最多增加的天数
         int year = DateUtil.getCurYear();//2021
         int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()
-        int day = 16;//DateUtil.getCurDay()
+        int day = DateUtil.getCurDay();//DateUtil.getCurDay()
         addZhishuKline(isAddMinuteKline,klt,lmt,addDaysMax,year,month,day);
 
 ////        // 查询k线
