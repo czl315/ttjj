@@ -18,12 +18,12 @@ public class RankStockCommpanyDao {
      */
     static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
 
-    public static List<RankStComTjRs> findListTongji(RankStComTjCond condition) {
+    public static List<RankStComTjRs> findListTongjiGroup(RankStComTjCond condition) {
         SqlSession session = sqlSessionFactory.openSession();
         List<RankStComTjRs> rs = null;
         try {
 //                System.out.println(JSON.toJSONString(entity));
-            rs = session.selectList("ttjj.dao.mapper.RankStockCommpanyMapper.findListTongji", condition);
+            rs = session.selectList("ttjj.dao.mapper.RankStockCommpanyMapper.findListTongjiGroup", condition);
             session.commit();
         } catch (Exception e) {
 //            e.printStackTrace();

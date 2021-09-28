@@ -149,6 +149,10 @@ public class Content {
      * ST_BIZ_TYPE_NIANGJIUHANGYE 酿酒行业-BK0477
      */
     public static String ST_BIZ_TYPE_NIANGJIUHANGYE = "酿酒行业";
+    /**
+     * ST_BIZ_TYPE_YOU_SE_JIN_SHU 有色金属-BK0478
+     */
+    public static String ST_BIZ_TYPE_YOU_SE_JIN_SHU = "有色金属";
 
     /**
      * DB_RANK_BIZ_TYPE_HANG_YE 数据库字段-排行榜-业务-类型-板块

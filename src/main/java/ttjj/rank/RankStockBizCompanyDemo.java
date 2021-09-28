@@ -30,9 +30,9 @@ public class RankStockBizCompanyDemo {
     public static void main(String[] args) {
         addTodayStCom();//添加股票-最新日期
 
-        String begDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -15);
+//        String begDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -365);
 //        String endDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0);
-//        String typeName = ST_BIZ_TYPE_NIANGJIUHANGYE;/**    业务板块：	电力行业-BK0428	券商信托-BK0473	银行-BK0475	医疗行业-BK0727	医药制造-BK0465	化工行业-BK0538	酿酒行业-BK0477	化肥行业-BK0731	民航机场-BK0420	环保工程	**/
+//        String typeName = ST_BIZ_TYPE_YOU_SE_JIN_SHU;//业务板块
 //        findListTongJj(typeName,begDate,endDate);//查询-统计数据
 //        findListTongJj("2021-01-01","2021-01-31");//查询-统计数据
 //        findListTongJj("2021-02-01","2021-02-29");//查询-统计数据
@@ -62,8 +62,9 @@ public class RankStockBizCompanyDemo {
 //        condition.setMarketValueMin(new BigDecimal("200"));//市值限定
 //        condition.setMarketValueMax(new BigDecimal("9999"));//市值限定
         condition.setType_name(typeName);/**    业务板块：	电力行业-BK0428	券商信托-BK0473	银行-BK0475	医疗行业-BK0727	医药制造-BK0465	化工行业-BK0538	酿酒行业-BK0477	化肥行业-BK0731	民航机场-BK0420	环保工程	**/
+        condition.setOrderBy(" code ");
         System.out.println("查询条件：" + JSON.toJSONString(condition));
-        List<RankStComTjRs> rs = RankStockCommpanyDao.findListTongji(condition);
+        List<RankStComTjRs> rs = RankStockCommpanyDao.findListTongjiGroup(condition);
         if (rs == null) {
             System.out.println("返回结果为空！");
             return;

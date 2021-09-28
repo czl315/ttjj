@@ -47,6 +47,19 @@ public class RankStComTjCond {
      */
     private String plate;
 
+    /**
+     * orderBy 排序
+     */
+    private String orderBy;
+
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
+    }
+
     public String getPlate() {
         return plate;
     }

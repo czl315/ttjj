@@ -58,11 +58,14 @@ public interface RankStockCommpanyMapper {
             "       </if> ",
 //            "       AND rank_st_biz_com.f148 NOT IN('2') ",//状态限定：f148 ?状态：2-退市或停牌;16-未上市;
             "   GROUP BY rank_st_biz_com.f12 ",
+//            "       <if test='orderBy != null'> ",
+//            "        ORDER BY  #{orderBy}  ",
+//            "       </if> ",
             "   ORDER BY SUM(rank_st_biz_com.f3) DESC ",
 //            "   ORDER BY code  ",
 //            "   ORDER BY lastRoe DESC ",
             "</script>"})
-    List<RankStComTjRs> findListTongji(RankStComTjCond condition);
+    List<RankStComTjRs> findListTongjiGroup(RankStComTjCond condition);
 
     @Insert({"<script>",
             "INSERT INTO `bank19`.`rank_st_biz_com`(",
