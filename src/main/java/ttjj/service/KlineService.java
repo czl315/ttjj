@@ -38,7 +38,7 @@ public class KlineService {
         String endDate = "20500101";
         String klt = Content.KLT_101;//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = Content.MA_250;
-        Map<String, BigDecimal> minMaxJzMap = KlineService.findNetMinMaxAvg(zqdm, lmt, klt, false, begDate, endDate);
+        Map<String, BigDecimal> minMaxJzMap = KlineService.findNetMinMaxAvg(zqdm, lmt, klt, false, begDate, endDate, KLINE_TYPE_STOCK);
         System.out.println("key:" + Content.keyRsMin + ",value:" + minMaxJzMap.get(Content.keyRsMin));
         System.out.println("key:" + Content.keyRsMax + ",value:" + minMaxJzMap.get(Content.keyRsMax));
         System.out.println("key:" + Content.keyRsNetCloseMin + ",value:" + minMaxJzMap.get(Content.keyRsNetCloseMin));
@@ -302,8 +302,8 @@ public class KlineService {
      * @param endDate
      * @return
      */
-    public static Map<String, BigDecimal> findNetMinMaxAvg(String zqdm, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate) {
-        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, isHasBegDate, begDate, endDate, KLINE_TYPE_STOCK);
+    public static Map<String, BigDecimal> findNetMinMaxAvg(String zqdm, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate, String klineType) {
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, isHasBegDate, begDate, endDate, klineType);
         Map<String, BigDecimal> rs = new HashMap<>();
         BigDecimal rsMax = new BigDecimal("0.0");
         BigDecimal rsMin = new BigDecimal("0.0");
