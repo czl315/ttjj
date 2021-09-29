@@ -279,4 +279,12 @@ public class Content {
      * KLINE_TYPE_INDEX k线类型-指数
      */
     public static String KLINE_TYPE_INDEX = "index";
+    /**
+     * KLINE_TYPE_BAN_KUAI k线类型-板块
+     */
+    public static String KLINE_TYPE_BAN_KUAI = "banKuai";
+    /**
+     * KLINE_TYPE_ETF k线类型-etf
+     */
+    public static String KLINE_TYPE_ETF = "etf";
 }

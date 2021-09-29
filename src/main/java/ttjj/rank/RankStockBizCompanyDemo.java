@@ -28,15 +28,14 @@ public class RankStockBizCompanyDemo {
      * @param args
      */
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String today = "2021-09-17";
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);// String today = "2021-09-17";
 
 //        boolean flagInsertDb = true;//标识：是否插入数据库
         boolean flagInsertDb = false;
-        boolean flagUpdateNet = true;//标识：是否更新净值
-//        boolean flagUpdateNet = false;
-//        boolean flagUpdateConception = true;//标识：是否更新概念题材
-        boolean flagUpdateConception = false;
+//        boolean flagUpdateNet = true;//标识：是否更新净值
+        boolean flagUpdateNet = false;
+        boolean flagUpdateConception = true;//标识：是否更新概念题材
+//        boolean flagUpdateConception = false;
 
         int startNum = 0;//开始位置，默认0
         /**

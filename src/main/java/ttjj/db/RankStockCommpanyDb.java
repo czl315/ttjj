@@ -93,7 +93,7 @@ public class RankStockCommpanyDb {
      */
     private String f12;
     /**
-     * f13 ？1-沪市；0-深市；其他固定90
+     * f13 ？1-沪市；0-深市
      */
     private Long f13;
     /**

@@ -23,7 +23,9 @@ import static utils.Content.*;
  */
 public class BizRankDemo {
     public static void main(String[] args) {
-        insertTodayBizDb();//新增今日数据
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2021-09-24";
+        insertTodayBizDb(date);//新增今日数据
 
 //        //新增历史数据
 //        String begDate = "2018-01-01";//查询新增交易的开始时间
@@ -48,11 +50,9 @@ public class BizRankDemo {
 
     /**
      * 新增今日数据
+     * @param date
      */
-    private static void insertTodayBizDb() {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2021-09-24";
-
+    private static void insertTodayBizDb(String date) {
         boolean insertDbTodayBiz = true;
 //        boolean insertDbTodayBiz = false;
         boolean insertDbTodayConcept = true;
@@ -97,19 +97,19 @@ public class BizRankDemo {
                 String zqdm = rankBizDataDiff.getF12();
                 entity.setF12(zqdm);
                 entity.setDate(date);
-                Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, "", date, KLINE_TYPE_STOCK);
+                Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, "", date, KLINE_TYPE_ETF);
                 entity.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
-                Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, "", date, KLINE_TYPE_STOCK);
+                Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, "", date, KLINE_TYPE_ETF);
                 entity.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
-                Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, "", date, KLINE_TYPE_STOCK);
+                Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, "", date, KLINE_TYPE_ETF);
                 entity.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
-                Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, "", date, KLINE_TYPE_STOCK);
+                Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, "", date, KLINE_TYPE_ETF);
                 entity.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
-                Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, "", date, KLINE_TYPE_STOCK);
+                Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, "", date, KLINE_TYPE_ETF);
                 entity.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
-                Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, "", date, KLINE_TYPE_STOCK);
+                Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, "", date, KLINE_TYPE_ETF);
                 entity.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
-                Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, "", date, KLINE_TYPE_STOCK);
+                Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, "", date, KLINE_TYPE_ETF);
                 entity.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
                 BizRankDao.updateEtfNet(entity);
             }
@@ -171,7 +171,7 @@ public class BizRankDemo {
         String klt = "101";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
         List<RankBizDataDiff> rankBizDataDiffList = new ArrayList<>();
-        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate, KLINE_TYPE_STOCK);
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate, KLINE_TYPE_ETF);
         System.out.println("开始日期:" + begDate + "，结束日期:" + endDate + "，周期:" + klt + "，klines.size():" + klines.size());
 //        System.out.println("klines:"+JSON.toJSONString(klines));
         for (Kline kline : klines) {
@@ -211,7 +211,7 @@ public class BizRankDemo {
         String klt = KLT_101;//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
         List<RankBizDataDiff> rankBizDataDiffList = new ArrayList<>();
-        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate, KLINE_TYPE_STOCK);
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate, KLINE_TYPE_BAN_KUAI);
         System.out.println(",开始日期:" + begDate + "，结束日期:" + endDate + "，周期:" + klt + "，klines.size():" + klines.size() + ",zqdm:" + zqdm);
 //        System.out.println("klines:"+JSON.toJSONString(klines));
         for (Kline kline : klines) {
