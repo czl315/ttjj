@@ -167,7 +167,7 @@ public class Content {
      */
     public static long DB_RANK_BIZ_F19_BAN_KUAI = 2;
     /**
-     * DB_RANK_BIZ_F139_BAN_KUAI f19类型-板块
+     * DB_RANK_BIZ_F139_BAN_KUAI f19类型-板块:主板板块
      */
     public static long DB_RANK_BIZ_F139_BAN_KUAI = 2;
 
