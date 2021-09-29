@@ -171,7 +171,7 @@ public class BizRankDemo {
         String klt = "101";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
         List<RankBizDataDiff> rankBizDataDiffList = new ArrayList<>();
-        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate);
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate,KLINE_TYPE_STOCK);
         System.out.println("开始日期:" + begDate + "，结束日期:" + endDate + "，周期:" + klt + "，klines.size():" + klines.size());
 //        System.out.println("klines:"+JSON.toJSONString(klines));
         for (Kline kline : klines) {
@@ -211,7 +211,7 @@ public class BizRankDemo {
         String klt = KLT_101;//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
         List<RankBizDataDiff> rankBizDataDiffList = new ArrayList<>();
-        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate);
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate, KLINE_TYPE_STOCK);
         System.out.println(",开始日期:" + begDate + "，结束日期:" + endDate + "，周期:" + klt + "，klines.size():" + klines.size()+",zqdm:"+zqdm );
 //        System.out.println("klines:"+JSON.toJSONString(klines));
         for (Kline kline : klines) {

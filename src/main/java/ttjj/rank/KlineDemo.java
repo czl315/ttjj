@@ -14,6 +14,8 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static utils.Content.KLINE_TYPE_STOCK;
+
 
 /**
  * k线
@@ -46,7 +48,7 @@ public class KlineDemo {
         String begDate = DateUtil.getDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, year, month, day, addDaysMax);//查询新增交易的开始时间
         String endDate = DateUtil.getToday(DateUtil.YYYY_MM_DD);
         //查询K线-昨天到今天
-        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate);
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate, KLINE_TYPE_STOCK);
         klines = klines.stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getKtime, Comparator.nullsFirst(String::compareTo)).reversed()).collect(Collectors.toList());
         int fromIndex = 0;//需要计算开始位置
         int cjeCountAdd = 0;//成交额增量次数
@@ -155,7 +157,7 @@ public class KlineDemo {
      */
     private static void addKlineByDay(String zqdm, int lmt, String klt, String date) {
         /**    创业板50-159949 HS300ETF-510310 50ETF-510050	新汽车-515030	芯片ETF-159995	酒ETF-512690	医疗ETF-512170 	光伏ETF-515790	稀土ETF-516780	有色50-159880	煤炭ETF-515220 军工ETF-512660		**/
-        String klineRs = KlineService.klineRsStrHttpDfcf(zqdm, lmt, klt, true, date, date);
+        String klineRs = KlineService.klineRsStrHttpDfcf(zqdm, lmt, klt, true, date, date, KLINE_TYPE_STOCK);
         System.out.println("开始日期:" + date + "，结束日期:" + date + "，周期:" + klt + "，klineRs:" + klineRs);
 //        System.out.println("klines:"+JSON.toJSONString(klines));
 
@@ -247,7 +249,7 @@ public class KlineDemo {
      */
     private static void addKlineDaZhouQi(String zqdm, int lmt, String klt, String begDate, String endDate) {
         //  插入数据库-K线-大周期
-        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate);
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate, KLINE_TYPE_STOCK);
         for (Kline kline : klines) {
             /**
              * 插入数据库-K线
@@ -315,7 +317,7 @@ public class KlineDemo {
         endDate = "20500101";
         String zqdm = zhishu;
 //  只插入http返回结果
-        String klineRs = KlineService.klineRsStrHttpDfcf(zqdm, lmt, klt, true, begDate, endDate);
+        String klineRs = KlineService.klineRsStrHttpDfcf(zqdm, lmt, klt, true, begDate, endDate, KLINE_TYPE_STOCK);
         System.out.println("开始日期:" + begDate + "，结束日期:" + endDate + "，周期:" + klt + "，klines.size():" + klineRs);
 //        System.out.println("klines:"+JSON.toJSONString(klines));
 

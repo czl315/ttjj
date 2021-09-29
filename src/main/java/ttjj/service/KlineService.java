@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import static utils.Content.HTTP_KLINE_SECID_PREFIX_BANKUAI;
+import static utils.Content.KLINE_TYPE_STOCK;
 
 /**
  * @author chenzhilong
@@ -58,9 +59,11 @@ public class KlineService {
      * @param isHasBegDate
      * @param begDate
      * @param endDate
+     * @param klineType
+     * @return
      */
-    public static List<Kline> kline(String zhiShu, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate) {
-        String rs = klineRsStrHttpDfcf(zhiShu, lmt, klt, isHasBegDate, begDate, endDate);//k线结果
+    public static List<Kline> kline(String zhiShu, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate, String klineType) {
+        String rs = klineRsStrHttpDfcf(zhiShu, lmt, klt, isHasBegDate, begDate, endDate, klineType);//k线结果
 //        System.out.println(rs);
         JSONObject szzzMonthJson = JSON.parseObject(rs);
         JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
@@ -122,7 +125,7 @@ public class KlineService {
      * @param endDate
      * @return
      */
-    public static String klineRsStrHttpDfcf(String zhiShu, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate) {
+    public static String klineRsStrHttpDfcf(String zhiShu, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate, String klineType) {
         begDate = begDate.replace("-", "");
         endDate = endDate.replace("-", "");
         long curTime = System.currentTimeMillis();
@@ -256,7 +259,7 @@ public class KlineService {
      * @return
      */
     private static Map<String, BigDecimal> findNetMinMax(String zqdm, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate) {
-        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, isHasBegDate, begDate, endDate);
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, isHasBegDate, begDate, endDate, KLINE_TYPE_STOCK);
         Map<String, BigDecimal> rs = new HashMap<>();
         BigDecimal rsMax = new BigDecimal("0.0");
         BigDecimal rsMin = new BigDecimal("0.0");
@@ -300,7 +303,7 @@ public class KlineService {
      * @return
      */
     public static Map<String, BigDecimal> findNetMinMaxAvg(String zqdm, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate) {
-        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, isHasBegDate, begDate, endDate);
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, isHasBegDate, begDate, endDate, KLINE_TYPE_STOCK);
         Map<String, BigDecimal> rs = new HashMap<>();
         BigDecimal rsMax = new BigDecimal("0.0");
         BigDecimal rsMin = new BigDecimal("0.0");
@@ -332,7 +335,11 @@ public class KlineService {
 
         //计算均值
         BigDecimal count = new BigDecimal(klines.size());//个数
-        rsNetCloseAvg = rsNetCloseSum.divide(count, 3, BigDecimal.ROUND_HALF_UP);
+        if (count.compareTo(new BigDecimal("0")) <= 0) {
+            rsNetCloseAvg = new BigDecimal("0");
+        } else {
+            rsNetCloseAvg = rsNetCloseSum.divide(count, 3, BigDecimal.ROUND_HALF_UP);
+        }
 
         rs.put(Content.keyRsMin, rsMin);
         rs.put(Content.keyRsMax, rsMax);

@@ -11,6 +11,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static utils.Content.KLINE_TYPE_STOCK;
+
 /**
  * @author chenzhilong
  * @date 2021/6/27
@@ -27,7 +29,7 @@ public class KlineHistoryTest {
         String klt = "5";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
         List<RankBizDataDiff> rankBizDataDiffList = new ArrayList<>();
-        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate);
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate, KLINE_TYPE_STOCK);
         System.out.println("开始日期:" + begDate + "，结束日期:" + endDate + "，周期:" + klt + "，klines.size():" + klines.size());
 //        System.out.println("klines:"+JSON.toJSONString(klines));
 

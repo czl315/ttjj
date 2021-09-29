@@ -30,13 +30,19 @@ public class RankStockBizCompanyDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String today = "2021-09-17";
-        boolean flagInsertDb = true;//标识：是否插入数据库
-//        boolean flagInsertDb = false;//标识：是否插入数据库
+
+//        boolean flagInsertDb = true;//标识：是否插入数据库
+        boolean flagInsertDb = false;
+        boolean flagUpdateNet = true;//标识：是否更新净值
+//        boolean flagUpdateNet = false;
 //        boolean flagUpdateConception = true;//标识：是否更新概念题材
-        boolean flagUpdateConception = false;//标识：是否更新概念题材
-//        boolean flagUpdateNet = true;//标识：是否更新净值
-        boolean flagUpdateNet = false;//标识：是否更新净值
-        addTodayStCom(date, flagInsertDb,flagUpdateConception,flagUpdateNet);//添加股票-最新日期
+        boolean flagUpdateConception = false;
+
+        int startNum = 0;//开始位置，默认0
+        /**
+         * 添加股票-最新日期
+         */
+        addTodayStCom(date, flagInsertDb, flagUpdateConception, flagUpdateNet, startNum);
 
 //        String begDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -365);
 //        String endDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0);
@@ -55,6 +61,7 @@ public class RankStockBizCompanyDemo {
 
     /**
      * 查询-统计数据-股票分组
+     *
      * @param typeName
      * @param begDate
      * @param endDate
@@ -79,7 +86,7 @@ public class RankStockBizCompanyDemo {
         }
         int orderNum = 0;
         for (RankStComTjRs rankStComTjRs : rs) {
-            if(!isShowPeHighInfo){
+            if (!isShowPeHighInfo) {
                 if (rankStComTjRs.getLastPe() != null && rankStComTjRs.getLastPe().compareTo(limitPe) >= 0) {
 //                    System.out.println("!!!市盈率过高不显示:" + rankStComTjRs.getLastPe());
                     continue;
@@ -141,23 +148,6 @@ public class RankStockBizCompanyDemo {
     }
 
     /**
-     * 更新日期
-     *
-     * @param count
-     */
-    private static void updateDateBiz(int count) {
-        for (int i = 0; i < count; i++) {
-            String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
-            RankStockCommpanyDb entity = new RankStockCommpanyDb();
-            entity.setDate(date);
-            entity.setMonth(DateUtil.getYearMonth(date, DateUtil.YYYY_MM_DD));
-            entity.setWeekYear(DateUtil.getYearWeek(date, DateUtil.YYYY_MM_DD));
-            entity.setWeek(DateUtil.getWeekByYyyyMmDd(date, DateUtil.YYYY_MM_DD));
-            RankStockCommpanyDao.updateDate(entity);
-        }
-    }
-
-    /**
      * 插入行业内的股票,根据开始日期，截止天数
      *
      * @param rankBizDataDiffListBiz
@@ -170,7 +160,7 @@ public class RankStockBizCompanyDemo {
     private static void addRankStockCommpanyDbByList(List<RankStockCommpanyDb> rankBizDataDiffListBiz, String startDate, String endDate, int count, String bizCode, String bizName) {
         for (RankStockCommpanyDb rankStockCommpanyDbBiz : rankBizDataDiffListBiz) {
             String zqdm = rankStockCommpanyDbBiz.getF12();
-            List<Kline> klines = KlineService.kline(zqdm, count, Content.KLT_101, true, startDate, endDate);
+            List<Kline> klines = KlineService.kline(zqdm, count, Content.KLT_101, true, startDate, endDate, KLINE_TYPE_STOCK);
             if (klines == null || klines.size() == 0) {
                 System.out.println("查询k线为空，证券代码：" + zqdm);
                 continue;
@@ -208,16 +198,16 @@ public class RankStockBizCompanyDemo {
 
     /**
      * 插入db：添加股票-最新日期
+     *
      * @param date
      * @param flagInsertDb
      * @param flagUpdateConception
      * @param flagUpdateNet
      */
-    private static void addTodayStCom(String date, boolean flagInsertDb, boolean flagUpdateConception, boolean flagUpdateNet) {
+    private static void addTodayStCom(String date, boolean flagInsertDb, boolean flagUpdateConception, boolean flagUpdateNet, int startNum) {
         Map<String, String> bizMap = new LinkedHashMap<>();
         List<RankBizDataDiff> bizList = listBiz(100);//查询主题排名by时间类型、显示个数
 
-        int startNum = 0;
         int bizCountLimit = 999;
         int bizCountTemp = 0;
         for (RankBizDataDiff biz : bizList) {
@@ -258,7 +248,7 @@ public class RankStockBizCompanyDemo {
 //                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
 //                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
                 for (RankStockCommpanyDb entity : rankBizDataDiffListBiz) {
-                    if (entity == null){
+                    if (entity == null) {
                         System.out.println("实体信息为null，不更新db：");
                         continue;
                     }
@@ -269,7 +259,7 @@ public class RankStockBizCompanyDemo {
                     }
 
                     //只更新主板板块的价格
-                    if(entity.getF139()==DB_RANK_BIZ_F139_BAN_KUAI){
+                    if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
                         // 周期价格:均线、最低、最高、收盘最低、收盘最高
                         String zqdm = entity.getF12();
                         Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, KLT_101, false, "", date);
@@ -315,7 +305,7 @@ public class RankStockBizCompanyDemo {
                         entity.setNET_MIN_CLOS_360(netMap250.get(Content.keyRsNetCloseMin).doubleValue());
                         entity.setNET_MAX_CLOS_360(netMap250.get(Content.keyRsNetCloseMax).doubleValue());
                         RankStockCommpanyDao.updateByCode(entity);
-                    }else{
+                    } else {
                         System.out.println("非主板板块的均线价格暂不更新！" + JSON.toJSONString(entity));
                     }
                 }

@@ -271,4 +271,12 @@ public class Content {
      * keyRsKlineCount k线个数
      */
     public static String keyRsKlineCount = "klineCount";
+    /**
+     * KLINE_TYPE_STOCK k线类型-股票
+     */
+    public static String KLINE_TYPE_STOCK = "stock";
+    /**
+     * KLINE_TYPE_INDEX k线类型-指数
+     */
+    public static String KLINE_TYPE_INDEX = "index";
 }

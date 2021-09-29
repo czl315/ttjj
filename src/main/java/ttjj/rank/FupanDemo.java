@@ -25,6 +25,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static utils.Content.KLINE_TYPE_INDEX;
+import static utils.Content.KLINE_TYPE_STOCK;
+
 /**
  * 上证指数
  *
@@ -121,7 +124,7 @@ public class FupanDemo {
                 insertDbFupanPosition(assetPosition);//
 
                 //更新当日k线参数
-                List<Kline> klineList = KlineService.kline(assetPosition.getZqdm(), 1, klt, true, date, date);
+                List<Kline> klineList = KlineService.kline(assetPosition.getZqdm(), 1, klt, true, date, date, KLINE_TYPE_INDEX);
                 if (klineList != null && klineList.size() > 0) {
                     AssetPositionDb entity = new AssetPositionDb();
                     entity.setZqdm(assetPosition.getZqdm());
