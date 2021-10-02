@@ -28,14 +28,15 @@ public class RankStockBizCompanyDemo {
      * @param args
      */
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);// String today = "2021-09-17";
+//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);// String today = "2021-09-17";DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0);// String today = "2021-09-17";
 
 //        boolean flagInsertDb = true;//标识：是否插入数据库
         boolean flagInsertDb = false;
-//        boolean flagUpdateNet = true;//标识：是否更新净值
-        boolean flagUpdateNet = false;
-        boolean flagUpdateConception = true;//标识：是否更新概念题材
-//        boolean flagUpdateConception = false;
+        boolean flagUpdateNet = true;//标识：是否更新净值
+//        boolean flagUpdateNet = false;
+//        boolean flagUpdateConception = true;//标识：是否更新概念题材
+        boolean flagUpdateConception = false;
 
         int startNum = 0;//开始位置，默认0
         /**
@@ -258,6 +259,14 @@ public class RankStockBizCompanyDemo {
                     }
 
                     //只更新主板板块的价格
+                    if (entity.getF148() == 2){
+                        System.out.println("均线价格暂不更新（退市）！" + JSON.toJSONString(entity));
+                        continue;
+                    }
+                    if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI){
+                        System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
+                        continue;
+                    }
                     if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
                         // 周期价格:均线、最低、最高、收盘最低、收盘最高
                         String zqdm = entity.getF12();
@@ -304,8 +313,8 @@ public class RankStockBizCompanyDemo {
                         entity.setNET_MIN_CLOS_360(netMap250.get(Content.keyRsNetCloseMin).doubleValue());
                         entity.setNET_MAX_CLOS_360(netMap250.get(Content.keyRsNetCloseMax).doubleValue());
                         RankStockCommpanyDao.updateByCode(entity);
-                    } else {
-                        System.out.println("非主板板块的均线价格暂不更新！" + JSON.toJSONString(entity));
+                        System.out.println("主板板块的均线价格更新---------------------" + entity.getF14() + ":"
+                                + entity.getF3() + JSON.toJSONString(entity));
                     }
                 }
             }

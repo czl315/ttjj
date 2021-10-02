@@ -88,7 +88,7 @@ public class DateUtil {
     }
 
     /**
-     * 返回时间戳-日期格式
+     * 返回时间戳
      *
      * @param dateStr
      * @param format
