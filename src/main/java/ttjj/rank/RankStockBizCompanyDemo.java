@@ -43,7 +43,12 @@ public class RankStockBizCompanyDemo {
 
 
         //突破均线
-        maBreakUp();
+        String curDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -6);
+        List<String> dateListBefore = RankStockCommpanyDao.findListDateBefore(new DateCond(curDate, 30));
+//        System.out.println(JSON.toJSONString(dateListBefore));
+        for (String date : dateListBefore) {
+            maBreakUp(date, "五");
+        }
 
 
 //        String begDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -365);
@@ -63,23 +68,41 @@ public class RankStockBizCompanyDemo {
 
     /**
      * 均线突破
+     *
+     * @param curDate   日期
+     * @param weekFiter 星期几过滤
      */
-    private static void maBreakUp() {
+    private static void maBreakUp(String curDate, String weekFiter) {
+        //过滤器：星期n
+        String curDateWeek = DateUtil.getWeekByYyyyMmDd(curDate, DateUtil.YYYY_MM_DD);
+        if (StringUtils.isNotBlank(weekFiter) && !curDateWeek.equals(weekFiter)) {
+            System.out.println("过滤器：星期[" + curDateWeek + "]不查询");
+            return;
+        }
         MaBreakUpCond condition = new MaBreakUpCond();
-        condition.setCurDaySub1("2021-09-24");
-        condition.setCurDay(DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -7));
-        condition.setCurDayAdd1("2021-09-28");
-        condition.setCurDayAdd2("2021-09-29");
-        condition.setCurDayAdd3("2021-09-30");
+        List<String> dateListBefore = RankStockCommpanyDao.findListDateBefore(new DateCond(curDate, 10));
+//        System.out.println(JSON.toJSONString(dateListBefore));
+        List<String> dateListAfter = RankStockCommpanyDao.findListDateAfter(new DateCond(curDate, 10));
+//        System.out.println(JSON.toJSONString(dateListAfter));
+        String curDaySub1 = dateListBefore.get(0);
+        String curDayAdd1 = dateListAfter.get(0);
+        String curDayAdd2 = dateListAfter.get(1);
+        String curDayAdd3 = dateListAfter.get(2);
+        condition.setCurDaySub1(curDaySub1);
+        condition.setCurDay(curDate);
+        condition.setCurDayAdd1(curDayAdd1);
+        condition.setCurDayAdd2(curDayAdd2);
+        condition.setCurDayAdd3(curDayAdd3);
         condition.setF139(DB_RANK_BIZ_F139_BAN_KUAI);
 //        condition.setType_name(ST_BIZ_TYPE_YOU_SE_JIN_SHU);
-        condition.setF20(10000000000l);//市值
-        condition.setGoodRateCurDay(new BigDecimal("0"));
+        condition.setF20(200 * 00000000l);//市值
+        condition.setGoodRateCurDayLimitDown(new BigDecimal("0"));//当日涨幅下限
+        condition.setGoodRateCurDayLimitUp(new BigDecimal("0.03"));//当日涨幅上限
         condition.setGoodRateDaySub1(new BigDecimal("0"));
-        System.out.println("查询条件：" + JSON.toJSONString(condition));
+//        System.out.println("查询条件：" + JSON.toJSONString(condition));
         List<MaBreakUpRs> rs = RankStockCommpanyDao.findListMaBreakUpCond(condition);
         if (rs == null || rs.size() == 0) {
-            System.out.println("返回结果为空！");
+            System.out.println("返回结果为空！"+JSON.toJSONString(condition));
             return;
         }
         int countUp1 = 0;//上涨个数
@@ -89,8 +112,11 @@ public class RankStockBizCompanyDemo {
         int countDown2 = 0;//下跌个数
         int countDown3 = 0;//下跌个数
         for (MaBreakUpRs maBreakUp : rs) {
-            System.out.println(JSON.toJSONString(maBreakUp));
+//            System.out.println(JSON.toJSONString(maBreakUp));
             //统计个数：当前日期的后n天涨跌
+            if (maBreakUp.getAdrDaySum1() == null) {
+                continue;
+            }
             if (maBreakUp.getAdrDaySum1().compareTo(new BigDecimal("0")) >= 0) {
                 countUp1++;
             } else {
@@ -107,15 +133,10 @@ public class RankStockBizCompanyDemo {
                 countDown3++;
             }
         }
-        System.out.println("后1日上涨个数:" + countUp1);
-        System.out.println("后1日下跌个数:" + countDown1);
-        System.out.println("后1日合计个数:" + (countUp1 + countDown1));
-        System.out.println("后2日上涨个数:" + countUp2);
-        System.out.println("后2日下跌个数:" + countDown2);
-        System.out.println("后2日合计个数:" + (countUp2 + countDown2));
-        System.out.println("后3日上涨个数:" + countUp3);
-        System.out.println("后3日下跌个数:" + countDown3);
-        System.out.println("后3日合计个数:" + (countUp3 + countDown3));
+        System.out.println("当前日期:" + curDate + ":" + DateUtil.getWeekByYyyyMmDd(curDate, DateUtil.YYYY_MM_DD));
+        System.out.println("后1日" + curDayAdd1 + DateUtil.getWeekByYyyyMmDd(curDayAdd1, DateUtil.YYYY_MM_DD) + "涨跌比:" + countUp1 + ":" + countDown1 + ",上涨率：" + new BigDecimal(countUp1).divide(new BigDecimal(rs.size()), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100")));
+        System.out.println("后2日" + curDayAdd2 + DateUtil.getWeekByYyyyMmDd(curDayAdd2, DateUtil.YYYY_MM_DD) + "涨跌比:" + countUp2 + ":" + countDown2 + ",上涨率：" + new BigDecimal(countUp2).divide(new BigDecimal(rs.size()), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100")));
+        System.out.println("后3日" + curDayAdd3 + DateUtil.getWeekByYyyyMmDd(curDayAdd3, DateUtil.YYYY_MM_DD) + "涨跌比:" + countUp3 + ":" + countDown3 + ",上涨率：" + new BigDecimal(countUp3).divide(new BigDecimal(rs.size()), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100")));
     }
 
     /**

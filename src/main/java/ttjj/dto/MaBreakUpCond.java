@@ -62,9 +62,13 @@ public class MaBreakUpCond {
      */
     private long f139;
     /**
-     * goodRateCurDay 乖离率-当前日
+     * goodRateCurDayLimitDown 乖离率-当前日-下限
      */
-    private BigDecimal goodRateCurDay;
+    private BigDecimal goodRateCurDayLimitDown;
+    /**
+     * goodRateCurDayLimitUp 乖离率-当前日-上限
+     */
+    private BigDecimal goodRateCurDayLimitUp;
     /**
      * goodRateDaySub1 乖离率-当前日减1
      */
@@ -180,14 +184,6 @@ public class MaBreakUpCond {
         this.f139 = f139;
     }
 
-    public BigDecimal getGoodRateCurDay() {
-        return goodRateCurDay;
-    }
-
-    public void setGoodRateCurDay(BigDecimal goodRateCurDay) {
-        this.goodRateCurDay = goodRateCurDay;
-    }
-
     public BigDecimal getGoodRateDaySub1() {
         return goodRateDaySub1;
     }
@@ -226,5 +222,21 @@ public class MaBreakUpCond {
 
     public void setCurDaySub1(String curDaySub1) {
         this.curDaySub1 = curDaySub1;
+    }
+
+    public BigDecimal getGoodRateCurDayLimitDown() {
+        return goodRateCurDayLimitDown;
+    }
+
+    public void setGoodRateCurDayLimitDown(BigDecimal goodRateCurDayLimitDown) {
+        this.goodRateCurDayLimitDown = goodRateCurDayLimitDown;
+    }
+
+    public BigDecimal getGoodRateCurDayLimitUp() {
+        return goodRateCurDayLimitUp;
+    }
+
+    public void setGoodRateCurDayLimitUp(BigDecimal goodRateCurDayLimitUp) {
+        this.goodRateCurDayLimitUp = goodRateCurDayLimitUp;
     }
 }

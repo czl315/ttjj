@@ -98,11 +98,14 @@ public interface RankStockCommpanyMapper {
             "   AND rank_st_biz_com.type_name in (#{type_name}) ",//-- 业务板块
             "   </if> ",
             "   AND rank_st_biz_com.f139=#{f139} ",// -- A股主板
-            "   AND rank_st_biz_com.f20 >#{f20} ",//-- 市值
-            "   <if test='goodRateCurDay != null'> ",
-            "   AND (rank_st_biz_com.f2-rank_st_biz_com.NET_MA_5)/rank_st_biz_com.NET_MA_5 >= #{goodRateCurDay} ",//-- 乖离率
+//            "   AND rank_st_biz_com.f20 >#{f20} ",//-- 市值
+            "   <if test='goodRateCurDayLimitDown != null'> ",
+            "   <![CDATA[ AND (rank_st_biz_com.f2-rank_st_biz_com.NET_MA_5)/rank_st_biz_com.NET_MA_5 >= #{goodRateCurDayLimitDown} ]]>",//-- 乖离率
             "   </if> ",
-            "   <if test='goodRateCurDay != null'> ",
+            "   <if test='goodRateCurDayLimitUp != null'> ",
+            "   <![CDATA[ AND (rank_st_biz_com.f2-rank_st_biz_com.NET_MA_5)/rank_st_biz_com.NET_MA_5 <= #{goodRateCurDayLimitUp} ]]>",//-- 乖离率
+            "   </if> ",
+            "   <if test='goodRateDaySub1 != null'> ",
             "   <![CDATA[ AND (SELECT ROUND((t.f2-t.NET_MA_5)/t.NET_MA_5*100,2) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = #{curDaySub1}) <= #{goodRateDaySub1} ]]>",//-- 昨日乖离率
             "   </if> ",
             " ORDER BY ",
@@ -113,6 +116,28 @@ public interface RankStockCommpanyMapper {
 ////            ";",
             "</script>"})
     List<MaBreakUpRs> findListMaBreakUpCond(MaBreakUpCond condition);
+
+    /**
+     * 查询某日之前的交易日期列表
+     *
+     * @param condition
+     * @return
+     */
+    @Select({"<script>",
+            " <![CDATA[  SELECT t.date FROM rank_st_biz_com t WHERE t.date < #{curDate} GROUP BY t.date ORDER BY t.date desc limit #{count} ]]> ",
+            "</script>"})
+    List<String> findListDateBefore(DateCond condition);
+
+    /**
+     * 查询某日之后的交易日期列表
+     *
+     * @param condition
+     * @return
+     */
+    @Select({"<script>",
+            " <![CDATA[  SELECT t.date FROM rank_st_biz_com t WHERE t.date > #{curDate} GROUP BY t.date ORDER BY t.date ASC limit #{count} ]]> ",
+            "</script>"})
+    List<String> findListDateAfter(DateCond condition);
 
     @Insert({"<script>",
             "INSERT INTO `bank19`.`rank_st_biz_com`(",

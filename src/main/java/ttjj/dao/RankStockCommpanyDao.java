@@ -3,10 +3,7 @@ package ttjj.dao;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import ttjj.db.RankStockCommpanyDb;
-import ttjj.dto.MaBreakUpCond;
-import ttjj.dto.MaBreakUpRs;
-import ttjj.dto.RankStComTjCond;
-import ttjj.dto.RankStComTjRs;
+import ttjj.dto.*;
 
 import java.util.List;
 
@@ -101,6 +98,44 @@ public class RankStockCommpanyDao {
             session.commit();
         } catch (Exception e) {
 //            e.printStackTrace();
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * 查询指定日期之前交易日期列表
+     * @param dateCond
+     * @return
+     */
+    public static List<String> findListDateBefore(DateCond dateCond) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<String> rs = null;
+        try {
+            rs = session.selectList("ttjj.dao.mapper.RankStockCommpanyMapper.findListDateBefore", dateCond);
+            session.commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * 查询指定日期之后交易日期列表
+     * @param dateCond
+     * @return
+     */
+    public static List<String> findListDateAfter(DateCond dateCond) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<String> rs = null;
+        try {
+            rs = session.selectList("ttjj.dao.mapper.RankStockCommpanyMapper.findListDateAfter", dateCond);
+            session.commit();
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
             session.close();
