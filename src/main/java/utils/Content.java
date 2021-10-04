@@ -172,6 +172,23 @@ public class Content {
     public static long DB_RANK_BIZ_F139_BAN_KUAI = 2;
 
     /**
+     * DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED f148 状态：2-退市或停牌;
+     */
+    public static long DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED = 2;
+    /**
+     * DB_RANK_BIZ_F148_STOCK_STATUS_ST f148 状态：4-ST股；
+     */
+    public static long DB_RANK_BIZ_F148_STOCK_STATUS_ST = 4;
+    /**
+     * DB_RANK_BIZ_F148_STOCK_STATUS_UNLISTED 16-未上市;
+     */
+    public static long DB_RANK_BIZ_F148_STOCK_STATUS_UNLISTED = 16;
+    /**
+     * DB_RANK_BIZ_F148_STOCK_STATUS_SUSPENSION 32-暂停上市；
+     */
+    public static long DB_RANK_BIZ_F148_STOCK_STATUS_SUSPENSION = 32;
+
+    /**
      * HTTP_KLINE_SECID_PREFIX_BANKUAI 请求前缀-板块
      */
     public static String HTTP_KLINE_SECID_PREFIX_BANKUAI = "90.";
