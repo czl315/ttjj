@@ -22,6 +22,14 @@ public class MaBreakUpRs extends  MaBreakUpCond{
      */
     private BigDecimal adrDaySum3;
     /**
+     * adrDaySum2
+     */
+    private BigDecimal adrDaySum2;
+    /**
+     * adrDaySum1
+     */
+    private BigDecimal adrDaySum1;
+    /**
      * curDayAdd1 当前日加1
      */
     private String curDayAdd1;
@@ -146,5 +154,21 @@ public class MaBreakUpRs extends  MaBreakUpCond{
 
     public void setAdrCurDayAdd3(BigDecimal adrCurDayAdd3) {
         this.adrCurDayAdd3 = adrCurDayAdd3;
+    }
+
+    public BigDecimal getAdrDaySum2() {
+        return adrDaySum2;
+    }
+
+    public void setAdrDaySum2(BigDecimal adrDaySum2) {
+        this.adrDaySum2 = adrDaySum2;
+    }
+
+    public BigDecimal getAdrDaySum1() {
+        return adrDaySum1;
+    }
+
+    public void setAdrDaySum1(BigDecimal adrDaySum1) {
+        this.adrDaySum1 = adrDaySum1;
     }
 }

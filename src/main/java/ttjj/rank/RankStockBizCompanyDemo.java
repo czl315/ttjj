@@ -28,22 +28,22 @@ public class RankStockBizCompanyDemo {
         /**
          * 添加或更新股票-根据日期
          */
-        for (int i = 32; i < 100; i++) {
-            String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
-            //        boolean flagInsertDb = true;//标识：是否插入数据库
-            boolean flagInsertDb = false;
-            boolean flagUpdateNet = true;//标识：是否更新净值
-//        boolean flagUpdateNet = false;
-//        boolean flagUpdateConception = true;//标识：是否更新概念题材
-            boolean flagUpdateConception = false;
-            int startNum = 0;//开始位置，默认0
-            //
-            addTodayStCom(date, flagInsertDb, flagUpdateConception, flagUpdateNet, startNum);
-        }
+//        for (int i = 34; i < 100; i++) {
+//            String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
+//            //        boolean flagInsertDb = true;//标识：是否插入数据库
+//            boolean flagInsertDb = false;
+//            boolean flagUpdateNet = true;//标识：是否更新净值
+////        boolean flagUpdateNet = false;
+////        boolean flagUpdateConception = true;//标识：是否更新概念题材
+//            boolean flagUpdateConception = false;
+//            int startNum = 0;//开始位置，默认0
+//            //
+//            addTodayStCom(date, flagInsertDb, flagUpdateConception, flagUpdateNet, startNum);
+//        }
 
 
         //突破均线
-//        maBreakUp();
+        maBreakUp();
 
 
 //        String begDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -365);
@@ -67,7 +67,7 @@ public class RankStockBizCompanyDemo {
     private static void maBreakUp() {
         MaBreakUpCond condition = new MaBreakUpCond();
         condition.setCurDaySub1("2021-09-24");
-        condition.setCurDay("2021-09-27");
+        condition.setCurDay(DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -7));
         condition.setCurDayAdd1("2021-09-28");
         condition.setCurDayAdd2("2021-09-29");
         condition.setCurDayAdd3("2021-09-30");
@@ -82,9 +82,40 @@ public class RankStockBizCompanyDemo {
             System.out.println("返回结果为空！");
             return;
         }
+        int countUp1 = 0;//上涨个数
+        int countUp2 = 0;//上涨个数
+        int countUp3 = 0;//上涨个数
+        int countDown1 = 0;//下跌个数
+        int countDown2 = 0;//下跌个数
+        int countDown3 = 0;//下跌个数
         for (MaBreakUpRs maBreakUp : rs) {
             System.out.println(JSON.toJSONString(maBreakUp));
+            //统计个数：当前日期的后n天涨跌
+            if (maBreakUp.getAdrDaySum1().compareTo(new BigDecimal("0")) >= 0) {
+                countUp1++;
+            } else {
+                countDown1++;
+            }
+            if (maBreakUp.getAdrDaySum2().compareTo(new BigDecimal("0")) >= 0) {
+                countUp2++;
+            } else {
+                countDown2++;
+            }
+            if (maBreakUp.getAdrDaySum3().compareTo(new BigDecimal("0")) >= 0) {
+                countUp3++;
+            } else {
+                countDown3++;
+            }
         }
+        System.out.println("后1日上涨个数:" + countUp1);
+        System.out.println("后1日下跌个数:" + countDown1);
+        System.out.println("后1日合计个数:" + (countUp1 + countDown1));
+        System.out.println("后2日上涨个数:" + countUp2);
+        System.out.println("后2日下跌个数:" + countDown2);
+        System.out.println("后2日合计个数:" + (countUp2 + countDown2));
+        System.out.println("后3日上涨个数:" + countUp3);
+        System.out.println("后3日下跌个数:" + countDown3);
+        System.out.println("后3日合计个数:" + (countUp3 + countDown3));
     }
 
     /**

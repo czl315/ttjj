@@ -77,6 +77,8 @@ public interface RankStockCommpanyMapper {
             "   rank_st_biz_com.f12 code ",
             "   ,rank_st_biz_com.f14 name ",
             "   ,(SELECT t.f3 FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date=#{curDayAdd1}) adrCurDayAdd1 ",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=#{curDayAdd1} AND t.date<=#{curDayAdd1}),2) adrDaySum1 ]]>",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=#{curDayAdd1} AND t.date<=#{curDayAdd2}),2) adrDaySum2 ]]>",
             "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=#{curDayAdd1} AND t.date<=#{curDayAdd3}),2) adrDaySum3 ]]>",
             "   ,rank_st_biz_com.f3 adrCurDay",
 //            "   ,ROUND((rank_st_biz_com.f2-rank_st_biz_com.NET_MA_5)/rank_st_biz_com.NET_MA_5*100,2) goodRate5 ",
