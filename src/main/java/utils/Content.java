@@ -146,9 +146,9 @@ public class Content {
      */
     public static String ST_BIZ_TYPE_ZAOZHIYINSHUA = "造纸印刷";
     /**
-     * ST_BIZ_TYPE_NIANGJIUHANGYE 酿酒行业-BK0477
+     *  酿酒行业-BK0477
      */
-    public static String ST_BIZ_TYPE_NIANGJIUHANGYE = "酿酒行业";
+    public static String ST_BIZ_TYPE_NIANG_JIU_HANG_YE = "酿酒行业";
     /**
      * ST_BIZ_TYPE_YOU_SE_JIN_SHU 有色金属-BK0478
      */

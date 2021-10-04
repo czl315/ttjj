@@ -4,9 +4,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import ttjj.db.RankStockCommpanyDb;
-import ttjj.dto.RankBizDataDiff;
-import ttjj.dto.RankStComTjCond;
-import ttjj.dto.RankStComTjRs;
+import ttjj.dto.*;
 
 import java.util.List;
 
@@ -66,6 +64,53 @@ public interface RankStockCommpanyMapper {
 //            "   ORDER BY lastRoe DESC ",
             "</script>"})
     List<RankStComTjRs> findListTongjiGroup(RankStComTjCond condition);
+
+    /**
+     * 查询-均线突破
+     *
+     * @param condition
+     * @return
+     */
+    @Select({"<script>",
+            /**突破5日均线：前一日5日均线为负、当前日5日均线为正**/
+            "SELECT",
+            "   rank_st_biz_com.f12 code ",
+            "   ,rank_st_biz_com.f14 name ",
+            "   ,(SELECT t.f3 FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date=#{curDayAdd1}) adrCurDayAdd1 ",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=#{curDayAdd1} AND t.date<=#{curDayAdd3}),2) adrDaySum3 ]]>",
+            "   ,rank_st_biz_com.f3 adrCurDay",
+//            "   ,ROUND((rank_st_biz_com.f2-rank_st_biz_com.NET_MA_5)/rank_st_biz_com.NET_MA_5*100,2) goodRate5 ",
+            "   ,(SELECT ROUND((t.f2-t.NET_MA_5)/t.NET_MA_5*100,2) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = #{curDaySub1}) goodRate5DaySub1 ",
+////            ",ROUND((rank_st_biz_com.f2-rank_st_biz_com.NET_MA_10)/rank_st_biz_com.NET_MA_10*100,2) 乖离10,ROUND((rank_st_biz_com.f2-rank_st_biz_com.NET_MA_20)/rank_st_biz_com.NET_MA_20*100,2) 乖离20,ROUND((rank_st_biz_com.f2-rank_st_biz_com.NET_MA_30)/rank_st_biz_com.NET_MA_30*100,2) 乖离30,ROUND((rank_st_biz_com.f2-rank_st_biz_com.NET_MA_60)/rank_st_biz_com.NET_MA_60*100,2) 乖离60,ROUND((rank_st_biz_com.f2-rank_st_biz_com.NET_MA_120)/rank_st_biz_com.NET_MA_120*100,2) 乖离120,ROUND((rank_st_biz_com.f2-rank_st_biz_com.NET_MA_250)/rank_st_biz_com.NET_MA_250*100,2) 乖离250",
+////            ",rank_st_biz_com.date",
+////            ",ROUND(rank_st_biz_com.f20/100000000,2) 总市值亿",
+////            ",rank_st_biz_com.type_name 板块",
+////            "-- ROUND(rank_st_biz_com.f62/100000000,2) 主力净流入亿,ROUND(rank_st_biz_com.f6/100000000,2) 成交额亿,rank_st_biz_com.f9 市盈率",
+////            ",rank_st_biz_com.f2 现价",
+////            ",rank_st_biz_com.*",
+            " FROM ",
+            "   `rank_st_biz_com` rank_st_biz_com ",
+            " WHERE 1=1 ",
+            "   AND rank_st_biz_com.date = #{curDay} ",
+            "   <if test='type_name != null'> ",
+            "   AND rank_st_biz_com.type_name in (#{type_name}) ",//-- 业务板块
+            "   </if> ",
+            "   AND rank_st_biz_com.f139=#{f139} ",// -- A股主板
+            "   AND rank_st_biz_com.f20 >#{f20} ",//-- 市值
+            "   <if test='goodRateCurDay != null'> ",
+            "   AND (rank_st_biz_com.f2-rank_st_biz_com.NET_MA_5)/rank_st_biz_com.NET_MA_5 >= #{goodRateCurDay} ",//-- 乖离率
+            "   </if> ",
+            "   <if test='goodRateCurDay != null'> ",
+            "   <![CDATA[ AND (SELECT ROUND((t.f2-t.NET_MA_5)/t.NET_MA_5*100,2) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = #{curDaySub1}) <= #{goodRateDaySub1} ]]>",//-- 昨日乖离率
+            "   </if> ",
+            " ORDER BY ",
+            "   (SELECT ROUND((t.f2-t.NET_MA_5)/t.NET_MA_5*100,2) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = #{curDaySub1})",/**昨日乖离率**/
+//            "-- (SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=@curDayAdd1 AND t.date<=@curDayAdd3) ",
+////            "-- 日加1涨幅",
+////            "-- (SELECT ROUND((t.f2-t.NET_MA_5)/t.NET_MA_5*100,2) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = @curDaySub1)/**rank_st_biz_com.date desc, f3  DESCROUND(rank_st_biz_com.f20,0) desc 乖离5**/",
+////            ";",
+            "</script>"})
+    List<MaBreakUpRs> findListMaBreakUpCond(MaBreakUpCond condition);
 
     @Insert({"<script>",
             "INSERT INTO `bank19`.`rank_st_biz_com`(",

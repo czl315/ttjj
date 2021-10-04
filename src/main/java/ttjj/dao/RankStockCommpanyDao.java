@@ -3,6 +3,8 @@ package ttjj.dao;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import ttjj.db.RankStockCommpanyDb;
+import ttjj.dto.MaBreakUpCond;
+import ttjj.dto.MaBreakUpRs;
 import ttjj.dto.RankStComTjCond;
 import ttjj.dto.RankStComTjRs;
 
@@ -79,6 +81,27 @@ public class RankStockCommpanyDao {
         try {
             rs = session.update("ttjj.dao.mapper.RankStockCommpanyMapper.updateDate", entity);
             session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * 均线突破
+     * @param condition
+     * @return
+     */
+    public static List<MaBreakUpRs> findListMaBreakUpCond(MaBreakUpCond condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<MaBreakUpRs> rs = null;
+        try {
+//                System.out.println(JSON.toJSONString(entity));
+            rs = session.selectList("ttjj.dao.mapper.RankStockCommpanyMapper.findListMaBreakUpCond", condition);
+            session.commit();
+        } catch (Exception e) {
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
         } finally {
             session.close();
         }
