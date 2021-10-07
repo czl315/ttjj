@@ -23,14 +23,68 @@ import static utils.Content.*;
  */
 public class BizRankDemo {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2021-09-24";
-        insertTodayBizDb(date);//新增今日数据
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);// String date = "2021-09-24";
+
+//        //新增今日数据
+//        insertTodayBizDb(date);
+
+        /**
+         * 更新均值
+         */
+        List<RankBizDataDiff> bizList = listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_99);//查询主题排名by时间类型、显示个数
+        for (int i = 0; i < 365; i++) {
+            date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
+//            updateNetMa(date, Content.MA_5, bizList);
+            updateNetMa(date, Content.MA_10, bizList);
+//            updateNetMa(date, Content.MA_20, bizList);
+//            updateNetMa(date, Content.MA_30, bizList);
+//            updateNetMa(date, Content.MA_60, bizList);
+//            updateNetMa(date, Content.MA_120, bizList);
+//            updateNetMa(date, Content.MA_250, bizList);
+        }
 
 //        //新增历史数据
 //        String begDate = "2018-01-01";//查询新增交易的开始时间
 //        String endDate = "2018-12-31";
 //        insertHisDbBanKuai(begDate, endDate);//新增历史数据
+    }
+
+    private static void updateNetMa(String date, int ma5, List<RankBizDataDiff> bizList) {
+        for (RankBizDataDiff rankBizDataDiff : bizList) {
+            String klt = KLT_101;
+            RankBizDataDiff entity = new RankBizDataDiff();
+            String zqdm = rankBizDataDiff.getF12();
+            entity.setF12(zqdm);
+            entity.setDate(date);
+            Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, ma5, klt, false, "", date, KLINE_TYPE_BAN_KUAI);
+            if (ma5 == MA_5) {
+                entity.setNET_MA_5(netMap.get(Content.keyRsNetCloseAvg));
+            }
+            if (ma5 == MA_10) {
+                entity.setNET_MA_10(netMap.get(Content.keyRsNetCloseAvg));
+            }
+            if (ma5 == MA_20) {
+                entity.setNET_MA_20(netMap.get(Content.keyRsNetCloseAvg));
+            }
+            if (ma5 == MA_30) {
+                entity.setNET_MA_30(netMap.get(Content.keyRsNetCloseAvg));
+            }
+            if (ma5 == MA_60) {
+                entity.setNET_MA_60(netMap.get(Content.keyRsNetCloseAvg));
+            }
+            if (ma5 == MA_120) {
+                entity.setNET_MA_120(netMap.get(Content.keyRsNetCloseAvg));
+            }
+            if (ma5 == MA_250) {
+                entity.setNET_MA_250(netMap.get(Content.keyRsNetCloseAvg));
+            }
+            int rs = BizRankDao.updateEtfNet(entity);
+            if(rs==1){
+                System.out.println("更新净值成功："+JSON.toJSONString(entity));
+            }else{
+                System.out.println("更新净值失败！！！！！！："+JSON.toJSONString(entity));
+            }
+        }
     }
 
     /**
@@ -50,6 +104,7 @@ public class BizRankDemo {
 
     /**
      * 新增今日数据
+     *
      * @param date
      */
     private static void insertTodayBizDb(String date) {

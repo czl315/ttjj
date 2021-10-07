@@ -197,6 +197,7 @@ public class Content {
      */
     public static String HTTP_KLINE_SECID_PREFIX_BANKUAI = "90.";
 
+
     /**
      * MA_5 均线
      */
@@ -308,4 +309,9 @@ public class Content {
      * KLINE_TYPE_ETF k线类型-etf
      */
     public static String KLINE_TYPE_ETF = "etf";
+
+    /**
+     * NUM_MAX_99 数量上限-99
+     */
+    public static int NUM_MAX_99 = 99;
 }

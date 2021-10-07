@@ -28,7 +28,7 @@ public class RankStockBizCompanyDemo {
         /**
          * 添加或更新股票-根据日期
          */
-        for (int i = 219; i < 365; i++) {
+        for (int i = 0; i < 365; i++) {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
             //        boolean flagInsertDb = true;//标识：是否插入数据库
             boolean flagInsertDb = false;
@@ -37,7 +37,7 @@ public class RankStockBizCompanyDemo {
 //        boolean flagUpdateConception = true;//标识：是否更新概念题材
             boolean flagUpdateConception = false;
             int startNum = 0;//开始位置，默认0
-            //
+            //  添加或更新股票-根据日期
             addTodayStCom(date, flagInsertDb, flagUpdateConception, flagUpdateNet, startNum);
         }
 
@@ -472,14 +472,6 @@ public class RankStockBizCompanyDemo {
 
             if (flagUpdateNet) {
                 // 最新周期价格
-//                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 1, "NET_MIN_1", "NET_MAX_1", "NET_MIN_CLOS_1", "NET_MAX_CLOS_1");
-//                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 7, "NET_MIN_7", "NET_MAX_7", "NET_MIN_CLOS_7", "NET_MAX_CLOS_7");
-//                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 14, "NET_MIN_14", "NET_MAX_14", "NET_MIN_CLOS_14", "NET_MAX_CLOS_14");
-//                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 30, "NET_MIN_30", "NET_MAX_30", "NET_MIN_CLOS_30", "NET_MAX_CLOS_30");
-//                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 60, "NET_MIN_60", "NET_MAX_60", "NET_MIN_CLOS_60", "NET_MAX_CLOS_60");
-//                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 90, "NET_MIN_90", "NET_MAX_90", "NET_MIN_CLOS_90", "NET_MAX_CLOS_90");
-//                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 180, "NET_MIN_180", "NET_MAX_180", "NET_MIN_CLOS_180", "NET_MAX_CLOS_180");
-//                showUpdateDbMaxMinNetByDays(today, rankBizDataDiffListBiz, 365, "NET_MIN_360", "NET_MAX_360", "NET_MIN_CLOS_360", "NET_MAX_CLOS_360");
                 for (RankStockCommpanyDb entity : rankBizDataDiffListBiz) {
                     if (entity == null) {
                         System.out.println("实体信息为null，不更新db：");
