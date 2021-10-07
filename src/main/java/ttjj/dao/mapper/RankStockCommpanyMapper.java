@@ -108,8 +108,8 @@ public interface RankStockCommpanyMapper {
             "   <if test='goodRateDaySub1 != null'> ",
             "   <![CDATA[ AND (SELECT ROUND((t.f2-t.NET_MA_5)/t.NET_MA_5*100,2) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = #{curDaySub1}) <= #{goodRateDaySub1} ]]>",//-- 昨日乖离率
             "   </if> ",
-            " ORDER BY ",
-            "   (SELECT ROUND((t.f2-t.NET_MA_5)/t.NET_MA_5*100,2) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = #{curDaySub1})",/**昨日乖离率**/
+//            " ORDER BY ",
+//            "   (SELECT ROUND((t.f2-t.NET_MA_5)/t.NET_MA_5*100,2) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = #{curDaySub1})",/**昨日乖离率**/
 //            "-- (SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=@curDayAdd1 AND t.date<=@curDayAdd3) ",
 ////            "-- 日加1涨幅",
 ////            "-- (SELECT ROUND((t.f2-t.NET_MA_5)/t.NET_MA_5*100,2) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = @curDaySub1)/**rank_st_biz_com.date desc, f3  DESCROUND(rank_st_biz_com.f20,0) desc 乖离5**/",

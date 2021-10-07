@@ -62,6 +62,79 @@ public class MaBreakUpRs extends  MaBreakUpCond{
      */
     private BigDecimal adrCurDayAdd3;
 
+    /**
+     * curDayAdd1UpCount (统计数据使用)后一日上涨次数
+     */
+    private int curDayAdd1UpCount;
+    /**
+     * curDayAdd2UpCount
+     */
+    private int curDayAdd2UpCount;
+    /**
+     * curDayAdd3UpCount
+     */
+    private int curDayAdd3UpCount;
+    /**
+     * curDayAdd1DownCount (统计数据使用)后一日下跌次数
+     */
+    private int curDayAdd1DownCount;
+    /**
+     * curDayAdd2DownCount
+     */
+    private int curDayAdd2DownCount;
+    /**
+     * curDayAdd3DownCount
+     */
+    private int curDayAdd3DownCount;
+
+    public int getCurDayAdd1UpCount() {
+        return curDayAdd1UpCount;
+    }
+
+    public void setCurDayAdd1UpCount(int curDayAdd1UpCount) {
+        this.curDayAdd1UpCount = curDayAdd1UpCount;
+    }
+
+    public int getCurDayAdd2UpCount() {
+        return curDayAdd2UpCount;
+    }
+
+    public void setCurDayAdd2UpCount(int curDayAdd2UpCount) {
+        this.curDayAdd2UpCount = curDayAdd2UpCount;
+    }
+
+    public int getCurDayAdd3UpCount() {
+        return curDayAdd3UpCount;
+    }
+
+    public void setCurDayAdd3UpCount(int curDayAdd3UpCount) {
+        this.curDayAdd3UpCount = curDayAdd3UpCount;
+    }
+
+    public int getCurDayAdd1DownCount() {
+        return curDayAdd1DownCount;
+    }
+
+    public void setCurDayAdd1DownCount(int curDayAdd1DownCount) {
+        this.curDayAdd1DownCount = curDayAdd1DownCount;
+    }
+
+    public int getCurDayAdd2DownCount() {
+        return curDayAdd2DownCount;
+    }
+
+    public void setCurDayAdd2DownCount(int curDayAdd2DownCount) {
+        this.curDayAdd2DownCount = curDayAdd2DownCount;
+    }
+
+    public int getCurDayAdd3DownCount() {
+        return curDayAdd3DownCount;
+    }
+
+    public void setCurDayAdd3DownCount(int curDayAdd3DownCount) {
+        this.curDayAdd3DownCount = curDayAdd3DownCount;
+    }
+
     public String getCode() {
         return code;
     }
