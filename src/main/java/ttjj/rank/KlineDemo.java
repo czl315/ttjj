@@ -159,7 +159,7 @@ public class KlineDemo {
     private static void addKlineByDay(String zqdm, int lmt, String klt, String date, String klineType) {
         /**    创业板50-159949 HS300ETF-510310 50ETF-510050	新汽车-515030	芯片ETF-159995	酒ETF-512690	医疗ETF-512170 	光伏ETF-515790	稀土ETF-516780	有色50-159880	煤炭ETF-515220 军工ETF-512660		**/
         String klineRs = KlineService.klineRsStrHttpDfcf(zqdm, lmt, klt, true, date, date, klineType);
-        System.out.println("开始日期:" + date + "，结束日期:" + date + "，周期:" + klt + "，klineRs:" + klineRs);
+//        System.out.println("开始日期:" + date + "，结束日期:" + date + "，周期:" + klt + "，klineRs:" + klineRs);
 //        System.out.println("klines:"+JSON.toJSONString(klines));
 
         if (StringUtils.isBlank(klineRs)) {
@@ -170,7 +170,7 @@ public class KlineDemo {
         JSONObject szzzMonthJson = JSON.parseObject(klineRs);
         JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
         String zqmc = szzzMonthDataJson.getString("name");
-        System.out.println("证券名称：" + zqmc);
+//        System.out.println("证券名称：" + zqmc);
         if (szzzMonthDataJson == null || !szzzMonthDataJson.containsKey("klines")) {
             System.out.println("klines数据异常：" + JSON.toJSONString(szzzMonthDataJson));
             return;

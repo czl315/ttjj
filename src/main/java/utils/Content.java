@@ -311,7 +311,7 @@ public class Content {
     public static String KLINE_TYPE_ETF = "etf";
 
     /**
-     * NUM_MAX_99 数量上限-99
+     * NUM_MAX_999 数量上限-99
      */
-    public static int NUM_MAX_99 = 99;
+    public static int NUM_MAX_999 = 999;
 }

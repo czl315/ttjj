@@ -28,12 +28,12 @@ public class RankStockBizCompanyDemo {
         /**
          * 添加或更新股票-根据日期
          */
-        for (int i = 0; i < 365; i++) {
+        for (int i = 0; i < 1; i++) {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
-            //        boolean flagInsertDb = true;//标识：是否插入数据库
+//            boolean flagInsertDb = true;//标识：是否插入数据库
             boolean flagInsertDb = false;
             boolean flagUpdateNet = true;//标识：是否更新净值
-//        boolean flagUpdateNet = false;
+//            boolean flagUpdateNet = false;
 //        boolean flagUpdateConception = true;//标识：是否更新概念题材
             boolean flagUpdateConception = false;
             int startNum = 0;//开始位置，默认0
@@ -439,9 +439,9 @@ public class RankStockBizCompanyDemo {
      */
     private static void addTodayStCom(String date, boolean flagInsertDb, boolean flagUpdateConception, boolean flagUpdateNet, int startNum) {
         Map<String, String> bizMap = new LinkedHashMap<>();
-        List<RankBizDataDiff> bizList = listBiz(100);//查询主题排名by时间类型、显示个数
+        List<RankBizDataDiff> bizList = listBiz(NUM_MAX_999);//查询主题排名by时间类型、显示个数
 
-        int bizCountLimit = 999;
+        int bizCountLimit = NUM_MAX_999;
         int bizCountTemp = 0;
         for (RankBizDataDiff biz : bizList) {
             bizCountTemp++;
@@ -456,23 +456,27 @@ public class RankStockBizCompanyDemo {
             bizMap.put(biz.getF12(), biz.getF14());
         }
         int stBizCountTemp = startNum;
-        for (String biz : bizMap.keySet()) {
+        for (RankBizDataDiff banKuai : bizList) {
+            String banKuaiCode = banKuai.getF12();
+            String banKuaiName = banKuai.getF14();
             stBizCountTemp++;
-            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + bizMap.get(biz));
-            List<RankStockCommpanyDb> rankBizDataDiffListBiz = listRankStockByBiz(500, biz);
+            List<RankStockCommpanyDb> stockList = listRankStockByBiz(NUM_MAX_999, banKuaiCode);
+            System.out.println();
+            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName+ "---[" + banKuai.getF3()+ "]---" + stockList.size());
+            System.out.println();
 
             if (flagInsertDb) {
-                int insertRs = showBizSql(rankBizDataDiffListBiz, biz, bizMap.get(biz), date);//显示业务排行-插入sql
+                int insertRs = showBizSql(stockList, banKuaiCode, banKuaiName, date);//显示业务排行-插入sql
             }
 
             if (flagUpdateConception) {
                 //更新题材概念
-                updateConception(date, biz, rankBizDataDiffListBiz);
+                updateConception(date, banKuaiCode, stockList);
             }
 
             if (flagUpdateNet) {
                 // 最新周期价格
-                for (RankStockCommpanyDb entity : rankBizDataDiffListBiz) {
+                for (RankStockCommpanyDb entity : stockList) {
                     if (entity == null) {
                         System.out.println("实体信息为null，不更新db：");
                         continue;
@@ -520,47 +524,47 @@ public class RankStockBizCompanyDemo {
                         entity.setNET_MIN_CLOS_7(netMap5.get(Content.keyRsNetCloseMin).doubleValue());
                         entity.setNET_MAX_CLOS_7(netMap5.get(Content.keyRsNetCloseMax).doubleValue());
 
-//                        Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK);
-//                        entity.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
-//                        entity.setNET_MIN_14(netMap10.get(Content.keyRsMin).doubleValue());
-//                        entity.setNET_MAX_14(netMap10.get(Content.keyRsMax).doubleValue());
-//                        entity.setNET_MIN_CLOS_14(netMap10.get(Content.keyRsNetCloseMin).doubleValue());
-//                        entity.setNET_MAX_CLOS_14(netMap10.get(Content.keyRsNetCloseMax).doubleValue());
+                        Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK);
+                        entity.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
+                        entity.setNET_MIN_14(netMap10.get(Content.keyRsMin).doubleValue());
+                        entity.setNET_MAX_14(netMap10.get(Content.keyRsMax).doubleValue());
+                        entity.setNET_MIN_CLOS_14(netMap10.get(Content.keyRsNetCloseMin).doubleValue());
+                        entity.setNET_MAX_CLOS_14(netMap10.get(Content.keyRsNetCloseMax).doubleValue());
 
-//                        Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK);
-//                        entity.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
-//                        entity.setNET_MIN_30(netMap20.get(Content.keyRsMin).doubleValue());
-//                        entity.setNET_MAX_30(netMap20.get(Content.keyRsMax).doubleValue());
-//                        entity.setNET_MIN_CLOS_30(netMap20.get(Content.keyRsNetCloseMin).doubleValue());
-//                        entity.setNET_MAX_CLOS_30(netMap20.get(Content.keyRsNetCloseMax).doubleValue());
+                        Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK);
+                        entity.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
+                        entity.setNET_MIN_30(netMap20.get(Content.keyRsMin).doubleValue());
+                        entity.setNET_MAX_30(netMap20.get(Content.keyRsMax).doubleValue());
+                        entity.setNET_MIN_CLOS_30(netMap20.get(Content.keyRsNetCloseMin).doubleValue());
+                        entity.setNET_MAX_CLOS_30(netMap20.get(Content.keyRsNetCloseMax).doubleValue());
 
-//                        Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, KLT_101, false, "", date, KLINE_TYPE_STOCK);
-//                        entity.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
-//                        entity.setNET_MIN_60(netMap30.get(Content.keyRsMin).doubleValue());
-//                        entity.setNET_MAX_60(netMap30.get(Content.keyRsMax).doubleValue());
-//                        entity.setNET_MIN_CLOS_60(netMap30.get(Content.keyRsNetCloseMin).doubleValue());
-//                        entity.setNET_MAX_CLOS_60(netMap30.get(Content.keyRsNetCloseMax).doubleValue());
+                        Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, KLT_101, false, "", date, KLINE_TYPE_STOCK);
+                        entity.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
+                        entity.setNET_MIN_60(netMap30.get(Content.keyRsMin).doubleValue());
+                        entity.setNET_MAX_60(netMap30.get(Content.keyRsMax).doubleValue());
+                        entity.setNET_MIN_CLOS_60(netMap30.get(Content.keyRsNetCloseMin).doubleValue());
+                        entity.setNET_MAX_CLOS_60(netMap30.get(Content.keyRsNetCloseMax).doubleValue());
 
-//                        Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK);
-//                        entity.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
-//                        entity.setNET_MIN_90(netMap60.get(Content.keyRsMin).doubleValue());
-//                        entity.setNET_MAX_90(netMap60.get(Content.keyRsMax).doubleValue());
-//                        entity.setNET_MIN_CLOS_90(netMap60.get(Content.keyRsNetCloseMin).doubleValue());
-//                        entity.setNET_MAX_CLOS_90(netMap60.get(Content.keyRsNetCloseMax).doubleValue());
+                        Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK);
+                        entity.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
+                        entity.setNET_MIN_90(netMap60.get(Content.keyRsMin).doubleValue());
+                        entity.setNET_MAX_90(netMap60.get(Content.keyRsMax).doubleValue());
+                        entity.setNET_MIN_CLOS_90(netMap60.get(Content.keyRsNetCloseMin).doubleValue());
+                        entity.setNET_MAX_CLOS_90(netMap60.get(Content.keyRsNetCloseMax).doubleValue());
 
-//                        Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, KLT_101, false, "", date, KLINE_TYPE_STOCK);
-//                        entity.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
-//                        entity.setNET_MIN_180(netMap120.get(Content.keyRsMin).doubleValue());
-//                        entity.setNET_MAX_180(netMap120.get(Content.keyRsMax).doubleValue());
-//                        entity.setNET_MIN_CLOS_180(netMap120.get(Content.keyRsNetCloseMin).doubleValue());
-//                        entity.setNET_MAX_CLOS_180(netMap120.get(Content.keyRsNetCloseMax).doubleValue());
+                        Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, KLT_101, false, "", date, KLINE_TYPE_STOCK);
+                        entity.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
+                        entity.setNET_MIN_180(netMap120.get(Content.keyRsMin).doubleValue());
+                        entity.setNET_MAX_180(netMap120.get(Content.keyRsMax).doubleValue());
+                        entity.setNET_MIN_CLOS_180(netMap120.get(Content.keyRsNetCloseMin).doubleValue());
+                        entity.setNET_MAX_CLOS_180(netMap120.get(Content.keyRsNetCloseMax).doubleValue());
 
-//                        Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, KLT_101, false, "", date, KLINE_TYPE_STOCK);
-//                        entity.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
-//                        entity.setNET_MIN_360(netMap250.get(Content.keyRsMin).doubleValue());
-//                        entity.setNET_MAX_360(netMap250.get(Content.keyRsMax).doubleValue());
-//                        entity.setNET_MIN_CLOS_360(netMap250.get(Content.keyRsNetCloseMin).doubleValue());
-//                        entity.setNET_MAX_CLOS_360(netMap250.get(Content.keyRsNetCloseMax).doubleValue());
+                        Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, KLT_101, false, "", date, KLINE_TYPE_STOCK);
+                        entity.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
+                        entity.setNET_MIN_360(netMap250.get(Content.keyRsMin).doubleValue());
+                        entity.setNET_MAX_360(netMap250.get(Content.keyRsMax).doubleValue());
+                        entity.setNET_MIN_CLOS_360(netMap250.get(Content.keyRsNetCloseMin).doubleValue());
+                        entity.setNET_MAX_CLOS_360(netMap250.get(Content.keyRsNetCloseMax).doubleValue());
 
                         RankStockCommpanyDao.updateByCode(entity);
                         System.out.println("主板板块的均线价格更新---------------------" + entity.getF14() + ":"

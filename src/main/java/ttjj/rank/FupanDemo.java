@@ -728,11 +728,11 @@ public class FupanDemo {
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("&StartDate=").append(startDate);
 
-        System.out.println("请求url:" + url + JSON.toJSONString(urlParam));
+//        System.out.println("请求url:" + url + JSON.toJSONString(urlParam));
         String rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), cookie);
         String rsJson = rs.substring(rs.indexOf("{"));
         rsJson = rsJson.replace(");", "");
-        System.out.println("szKline:" + rsJson);
+//        System.out.println("szKline:" + rsJson);
 
         List<String> klineList = new ArrayList<String>();
         JSONObject szzzMonthJson = JSON.parseObject(rsJson);

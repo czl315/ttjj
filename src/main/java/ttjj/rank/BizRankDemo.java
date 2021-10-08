@@ -26,22 +26,22 @@ public class BizRankDemo {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);// String date = "2021-09-24";
 
 //        //新增今日数据
-//        insertTodayBizDb(date);
+        insertTodayBizDb(date);
 
-        /**
-         * 更新均值
-         */
-        List<RankBizDataDiff> bizList = listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_99);//查询主题排名by时间类型、显示个数
-        for (int i = 0; i < 365; i++) {
-            date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
+//        /**
+//         * 更新均值
+//         */
+//        List<RankBizDataDiff> bizList = listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询主题排名by时间类型、显示个数
+//        for (int i = 0; i < 365; i++) {
+//            date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
 //            updateNetMa(date, Content.MA_5, bizList);
-            updateNetMa(date, Content.MA_10, bizList);
-//            updateNetMa(date, Content.MA_20, bizList);
-//            updateNetMa(date, Content.MA_30, bizList);
-//            updateNetMa(date, Content.MA_60, bizList);
-//            updateNetMa(date, Content.MA_120, bizList);
-//            updateNetMa(date, Content.MA_250, bizList);
-        }
+//            updateNetMa(date, Content.MA_10, bizList);
+////            updateNetMa(date, Content.MA_20, bizList);
+////            updateNetMa(date, Content.MA_30, bizList);
+////            updateNetMa(date, Content.MA_60, bizList);
+////            updateNetMa(date, Content.MA_120, bizList);
+////            updateNetMa(date, Content.MA_250, bizList);
+//        }
 
 //        //新增历史数据
 //        String begDate = "2018-01-01";//查询新增交易的开始时间
@@ -108,14 +108,15 @@ public class BizRankDemo {
      * @param date
      */
     private static void insertTodayBizDb(String date) {
-        boolean insertDbTodayBiz = true;
-//        boolean insertDbTodayBiz = false;
-        boolean insertDbTodayConcept = true;
-//        boolean insertDbTodayConcept = false;
-        boolean insertDbTodayEtf = true;
-//        boolean insertDbTodayEtf = false;
+//        boolean insertDbTodayBiz = true;
+        boolean insertDbTodayBiz = false;
+//        boolean insertDbTodayConcept = true;
+        boolean insertDbTodayConcept = false;
+//        boolean insertDbTodayEtf = true;
+        boolean insertDbTodayEtf = false;
 
-        boolean updateDbTodayEtfMa = true;//更新均线
+//        boolean updateDbTodayEtfMa = true;//更新均线
+        boolean updateDbTodayEtfMa = false;//更新均线
 
 //        boolean updateDbTodayEtfNetMaxMinTimeFlag = true;
         boolean updateDbTodayEtfNetMaxMinTimeFlag = false;
@@ -154,6 +155,7 @@ public class BizRankDemo {
                 entity.setDate(date);
                 Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, "", date, KLINE_TYPE_ETF);
                 entity.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
+//                entity.setNET_MIN_7(netMap5.get(keyRsMin));
                 Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, "", date, KLINE_TYPE_ETF);
                 entity.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
                 Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, "", date, KLINE_TYPE_ETF);
