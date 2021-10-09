@@ -28,7 +28,8 @@ public class RankStockBizCompanyDemo {
         /**
          * 添加或更新股票-根据日期
          */
-        for (int i = 0; i < 1; i++) {
+//        for (int i = 0; i < 1; i++) {
+        for (int i = 66; i < 100; i++) {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
 //            boolean flagInsertDb = true;//标识：是否插入数据库
             boolean flagInsertDb = false;
@@ -462,7 +463,7 @@ public class RankStockBizCompanyDemo {
             stBizCountTemp++;
             List<RankStockCommpanyDb> stockList = listRankStockByBiz(NUM_MAX_999, banKuaiCode);
             System.out.println();
-            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName+ "---[" + banKuai.getF3()+ "]---" + stockList.size());
+            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName + "---[" + banKuai.getF3() + "]---" + stockList.size());
             System.out.println();
 
             if (flagInsertDb) {
@@ -566,9 +567,9 @@ public class RankStockBizCompanyDemo {
                         entity.setNET_MIN_CLOS_360(netMap250.get(Content.keyRsNetCloseMin).doubleValue());
                         entity.setNET_MAX_CLOS_360(netMap250.get(Content.keyRsNetCloseMax).doubleValue());
 
-                        RankStockCommpanyDao.updateByCode(entity);
+                        int rs = RankStockCommpanyDao.updateByCode(entity);
                         System.out.println("主板板块的均线价格更新---------------------" + entity.getF14() + ":"
-                                + entity.getF3() + JSON.toJSONString(entity));
+                                + entity.getF3() + ",rs:" + rs + JSON.toJSONString(entity));
                     }
                 }
             }
