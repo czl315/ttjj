@@ -22,6 +22,7 @@ import static utils.Content.*;
  * @date 2021/7/26
  */
 public class KlineService {
+    static String KLINE_HTTP_HEAD = ".push2his.eastmoney.com/api/qt/stock/kline/get?cb=";
 
     public static void main(String[] args) {
         // 查询最小净值、最大净值、均值
@@ -128,15 +129,10 @@ public class KlineService {
         begDate = begDate.replace("-", "");
         endDate = endDate.replace("-", "");
         long curTime = System.currentTimeMillis();
-        int random = RandomUtils.nextInt(40, 99);
         //http://76.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33106379847099350968_1624766355746&secid=0.399673&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61&klt=101&fqt=1&beg=0&end=20500101&smplmt=1390.59&lmt=1000000&_=1624766355750
+
         StringBuffer url = new StringBuffer();
-//        url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-//        http://32.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery112407539208236899613_1633162329750&secid=1.600900&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&beg=0&end=20500101&smplmt=460&lmt=1000000&_=1633162329778
-//        http://59.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery112407992655839121356_1633162556067&secid=1.600900&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&beg=0&end=20500101&smplmt=460&lmt=1000000&_=1633162556089
-//        http://29.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery1124024914966884869072_1633162507065&secid=1.600719&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&beg=0&end=20500101&smplmt=460&lmt=1000000&_=1633162507087
-        String jqueryHead = "jQuery112407539208236899613_";
-        url.append("http://" + random + ".push2his.eastmoney.com/api/qt/stock/kline/get?cb=" + jqueryHead + curTime);
+//        url.append(jqueryHttpHead);
         url.append("&secid=");
 
         if (klineType.equals(KLINE_TYPE_STOCK)) {
@@ -287,10 +283,10 @@ public class KlineService {
 //        System.out.println("请求url:" + url + JSON.toJSONString(urlParam));
         String rs = "";
         try {
-            rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
+            rs = HttpUtil.sendGet(randomHttpHead(KLINE_HTTP_HEAD) + url.toString(), urlParam.toString(), "");
         } catch (Exception e) {
             System.out.println("/** http重试 **/");
-            rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
+            rs = HttpUtil.sendGet(randomHttpHead(KLINE_HTTP_HEAD) + url.toString(), urlParam.toString(), "");
         }
 
         /**
@@ -298,7 +294,7 @@ public class KlineService {
          */
         for (int i = 0; i < 20; i++) {
             if (StringUtils.isBlank(rs)) {
-                rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
+                rs = HttpUtil.sendGet(randomHttpHead(KLINE_HTTP_HEAD) + url.toString(), urlParam.toString(), "");
             } else {
                 break;
             }
@@ -311,6 +307,24 @@ public class KlineService {
 //        System.out.println("szKline:" + rs);
 
         return rs;
+    }
+
+    /**
+     * 获取请求头地址
+     * @param requestUrl
+     */
+    private static String randomHttpHead(String requestUrl) {
+        //        url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
+//        http://32.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery112407539208236899613_1633162329750&secid=1.600900&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&beg=0&end=20500101&smplmt=460&lmt=1000000&_=1633162329778
+//        http://59.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery112407992655839121356_1633162556067&secid=1.600900&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&beg=0&end=20500101&smplmt=460&lmt=1000000&_=1633162556089
+//        http://29.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery1124024914966884869072_1633162507065&secid=1.600719&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&beg=0&end=20500101&smplmt=460&lmt=1000000&_=1633162507087
+        int random = RandomUtils.nextInt(40, 99);
+        String jqueryHead = "jQuery112407539208236899613_";
+        if(random>80){
+            jqueryHead = "jQuery112407992655839121356_";
+        }
+        StringBuffer rs = new StringBuffer("http://").append(random).append(requestUrl).append(jqueryHead).append(System.currentTimeMillis());
+        return rs.toString();
     }
 
     /**
