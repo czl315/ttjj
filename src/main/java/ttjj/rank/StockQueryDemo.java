@@ -25,40 +25,67 @@ public class StockQueryDemo {
      * @param args
      */
     public static void main(String[] args) {
-
-
-        //突破均线
+        //  超跌反弹
         {
-                BigDecimal goodRateCurDayLimitUp = new BigDecimal("0.01");
-            String curDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -8);
-            List<String> dateListBefore = RankStockCommpanyDao.findListDateBefore(new DateCond(curDate, 120));
-//        System.out.println(JSON.toJSONString(dateListBefore));
-            int countUp1 = 0, countUp2 = 0, countUp3 = 0;//上涨个数
-            int countDown1 = 0, countDown2 = 0, countDown3 = 0;//下跌个数
-//            String weekFiter = "一";
-//            String weekFiter = "二";
-//            String weekFiter = "三";
-//            String weekFiter = "四";
-            String weekFiter = "五";
-            for (String date : dateListBefore) {
-                // 均线突破
-                MaBreakUpRs rs = maBreakUp(date, weekFiter,goodRateCurDayLimitUp);
-                if (rs == null) {
-                    continue;
-                }
-                countUp1 = countUp1 + rs.getCurDayAdd1UpCount();
-                countUp2 = countUp2 + rs.getCurDayAdd2UpCount();
-                countUp3 = countUp3 + rs.getCurDayAdd3UpCount();
-                countDown1 = countDown1 + rs.getCurDayAdd1DownCount();
-                countDown2 = countDown2 + rs.getCurDayAdd1DownCount();
-                countDown3 = countDown3 + rs.getCurDayAdd1DownCount();
+
+            SuperDropBounceStat statistics = new SuperDropBounceStat(), statisticsDay2 = new SuperDropBounceStat(), statisticsDay3 = new SuperDropBounceStat(), statisticsDay5 = new SuperDropBounceStat();
+            SuperDropBounceStat statisticsDay10 = new SuperDropBounceStat(), statisticsDay20 = new SuperDropBounceStat(), statisticsDay30 = new SuperDropBounceStat(), statisticsDay60 = new SuperDropBounceStat();
+            for (int i = 15; i <= 60; i++) {
+                String curDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
+                //  超跌反弹
+                superDropBounce(curDate, statistics);
             }
-            System.out.println("后1日合计涨跌比:" + countUp1 + ":" + countDown1 + ",上涨率：" + new BigDecimal(countUp1).divide(new BigDecimal(countUp1 + countDown1), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100")));
-            System.out.println(countUp1 + "\t" + countDown1 + "\t" + new BigDecimal(countUp1).divide(new BigDecimal(countUp1 + countDown1), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100")));
+            System.out.println("统计:" + JSON.toJSONString(statistics));
+            System.out.println("统计日加1 :" +"涨："+ statistics.getAdrUpCountDay1()+"，跌："+ statistics.getAdrDownCountDay1()+"，共："+ statistics.getRsCountDay1());
+            System.out.println("统计日加2 :" +"涨："+ statistics.getAdrUpCountDay2()+"，跌："+ statistics.getAdrDownCountDay2()+"，共："+ statistics.getRsCountDay2());
+            System.out.println("统计日加3 :" +"涨："+ statistics.getAdrUpCountDay3()+"，跌："+ statistics.getAdrDownCountDay3()+"，共："+ statistics.getRsCountDay3());
+            System.out.println("统计日加5 :" +"涨："+ statistics.getAdrUpCountDay5()+"，跌："+ statistics.getAdrDownCountDay5()+"，共："+ statistics.getRsCountDay5());
+            System.out.println("统计日加10:" +"涨："+ statistics.getAdrUpCountDay10()+"，跌："+ statistics.getAdrDownCountDay10()+"，共："+ statistics.getRsCountDay10());
+            System.out.println("统计日加20:" +"涨："+ statistics.getAdrUpCountDay20()+"，跌："+ statistics.getAdrDownCountDay20()+"，共："+ statistics.getRsCountDay20());
+            System.out.println("统计日加30:" +"涨："+ statistics.getAdrUpCountDay30()+"，跌："+ statistics.getAdrDownCountDay30()+"，共："+ statistics.getRsCountDay30());
+            System.out.println("统计日加60:" +"涨："+ statistics.getAdrUpCountDay60()+"，跌："+ statistics.getAdrDownCountDay60()+"，共："+ statistics.getRsCountDay60());
+//            System.out.println("日加2:" + JSON.toJSONString(statisticsDay2));
+//            System.out.println("日加3:" + JSON.toJSONString(statisticsDay3));
+//            System.out.println("日加5:" + JSON.toJSONString(statisticsDay5));
+//            System.out.println("日加10:" + JSON.toJSONString(statisticsDay10));
+//            System.out.println("日加20:" + JSON.toJSONString(statisticsDay20));
+//            System.out.println("日加30:" + JSON.toJSONString(statisticsDay30));
+//            System.out.println("日加60:" + JSON.toJSONString(statisticsDay60));
 
         }
 
-        //查询-统计数据-股票分组
+        //突破均线
+//        {
+//            BigDecimal goodRateCurDayLimitUp = new BigDecimal("0.01");
+//            String curDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -8);
+//            List<String> dateListBefore = RankStockCommpanyDao.findListDateBefore(new DateCond(curDate, 120));
+////        System.out.println(JSON.toJSONString(dateListBefore));
+//            int countUp1 = 0, countUp2 = 0, countUp3 = 0;//上涨个数
+//            int countDown1 = 0, countDown2 = 0, countDown3 = 0;//下跌个数
+////            String weekFiter = "一";
+////            String weekFiter = "二";
+////            String weekFiter = "三";
+////            String weekFiter = "四";
+//            String weekFiter = "五";
+//            for (String date : dateListBefore) {
+//                // 均线突破
+//                MaBreakUpRs rs = maBreakUp(date, weekFiter, goodRateCurDayLimitUp);
+//                if (rs == null) {
+//                    continue;
+//                }
+//                countUp1 = countUp1 + rs.getCurDayAdd1UpCount();
+//                countUp2 = countUp2 + rs.getCurDayAdd2UpCount();
+//                countUp3 = countUp3 + rs.getCurDayAdd3UpCount();
+//                countDown1 = countDown1 + rs.getCurDayAdd1DownCount();
+//                countDown2 = countDown2 + rs.getCurDayAdd1DownCount();
+//                countDown3 = countDown3 + rs.getCurDayAdd1DownCount();
+//            }
+//            System.out.println("后1日合计涨跌比:" + countUp1 + ":" + countDown1 + ",上涨率：" + new BigDecimal(countUp1).divide(new BigDecimal(countUp1 + countDown1), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100")));
+//            System.out.println(countUp1 + "\t" + countDown1 + "\t" + new BigDecimal(countUp1).divide(new BigDecimal(countUp1 + countDown1), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100")));
+//
+//        }
+
+        /**查询-统计数据-股票分组**/
 //        String begDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -365);
 //        String endDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0);
 //        String typeName = ST_BIZ_TYPE_YOU_SE_JIN_SHU;//业务板块
@@ -75,9 +102,241 @@ public class StockQueryDemo {
     }
 
     /**
+     * 超跌反弹
+     */
+    private static List<SuperDropBounceRs> superDropBounce(String curDate, SuperDropBounceStat statisticsDay1) {
+        SuperDropBounceCond condition = new SuperDropBounceCond();
+        List<String> dateListBefore = RankStockCommpanyDao.findListDateBefore(new DateCond(curDate, 60));
+//        System.out.println(JSON.toJSONString(dateListBefore));
+        List<String> dateListAfter = RankStockCommpanyDao.findListDateAfter(new DateCond(curDate, 60));
+//        System.out.println(JSON.toJSONString(dateListAfter));
+        String curDayAdd1 = dateListAfter.get(0);
+        String curDayAdd2 = dateListAfter.get(1);
+        condition.setCurDay(curDate);
+        condition.setCurDayAdd1(curDayAdd1);
+        condition.setCurDayAdd2(curDayAdd2);
+        if (dateListAfter.size() >= 3) {
+            condition.setCurDayAdd3(dateListAfter.get(2));
+        }
+        if (dateListAfter.size() >= 5) {
+            condition.setCurDayAdd5(dateListAfter.get(4));
+        }
+        if (dateListAfter.size() >= 10) {
+            condition.setCurDayAdd10(dateListAfter.get(9));
+        }
+        if (dateListAfter.size() >= 20) {
+            condition.setCurDayAdd20(dateListAfter.get(19));
+        }
+        if (dateListAfter.size() >= 30) {
+            condition.setCurDayAdd30(dateListAfter.get(29));
+        }
+        if (dateListAfter.size() >= 60) {
+            condition.setCurDayAdd60(dateListAfter.get(59));
+        }
+        if (dateListBefore.size() >= 1) {
+            condition.setCurDaySub1(dateListBefore.get(0));
+        }
+        if (dateListBefore.size() >= 2) {
+            condition.setCurDaySub2(dateListBefore.get(1));
+        }
+        if (dateListBefore.size() >= 3) {
+            condition.setCurDaySub3(dateListBefore.get(2));
+        }
+        if (dateListBefore.size() >= 4) {
+            condition.setCurDaySub4(dateListBefore.get(3));
+        }
+        if (dateListBefore.size() >= 5) {
+            condition.setCurDaySub5(dateListBefore.get(4));
+        }
+        if (dateListBefore.size() >= 6) {
+            condition.setCurDaySub6(dateListBefore.get(5));
+        }
+        condition.setF139(DB_RANK_BIZ_F139_BAN_KUAI);
+//        condition.setType_name(ST_BIZ_TYPE_YOU_SE_JIN_SHU);
+        condition.setMarketValueMin(new BigDecimal("20000000000"));//市值
+        //量比最高
+        condition.setQrrMaxDaySub1(new BigDecimal("0.8"));
+        condition.setQrrMaxDaySub2(new BigDecimal("0.8"));
+        condition.setQrrMaxDaySub3(new BigDecimal("0.8"));
+        condition.setQrrMaxDaySub4(new BigDecimal("0.8"));
+//        condition.setQrrMaxDaySub5(new BigDecimal("0"));
+        condition.setAdrMinDay0(new BigDecimal("0"));//涨跌限定-最低-日加n
+        condition.setAdrMaxDaySub1(new BigDecimal("0"));//涨跌限定-最高-日减1
+        condition.setAdrMaxDaySub2(new BigDecimal("0"));//涨跌限定-最高-日减2
+        condition.setAdrMaxDaySub3(new BigDecimal("0"));//涨跌限定-最高-日减3
+        condition.setAdrMaxDaySub4(new BigDecimal("0"));//涨跌限定-最高-日减4
+//        condition.setAdrMaxDaySub5(new BigDecimal("0"));
+        System.out.println("查询条件：" + JSON.toJSONString(condition));
+        List<SuperDropBounceRs> rs = RankStockCommpanyDao.findListSuperDropBounce(condition);
+        if (rs == null || rs.size() == 0) {
+            System.out.println("返回结果为空！");
+            return null;
+        }
+
+        if (statisticsDay1.getRsCountDay1() == null) {
+            statisticsDay1.setRsCountDay1(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrUpCountDay1() == null) {
+            statisticsDay1.setAdrUpCountDay1(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrDownCountDay1() == null) {
+            statisticsDay1.setAdrDownCountDay1(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getRsCountDay2() == null) {
+            statisticsDay1.setRsCountDay2(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrUpCountDay2() == null) {
+            statisticsDay1.setAdrUpCountDay2(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrDownCountDay2() == null) {
+            statisticsDay1.setAdrDownCountDay2(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getRsCountDay3() == null) {
+            statisticsDay1.setRsCountDay3(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrUpCountDay3() == null) {
+            statisticsDay1.setAdrUpCountDay3(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrDownCountDay3() == null) {
+            statisticsDay1.setAdrDownCountDay3(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getRsCountDay5() == null) {
+            statisticsDay1.setRsCountDay5(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrUpCountDay5() == null) {
+            statisticsDay1.setAdrUpCountDay5(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrDownCountDay5() == null) {
+            statisticsDay1.setAdrDownCountDay5(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getRsCountDay10() == null) {
+            statisticsDay1.setRsCountDay10(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrUpCountDay10() == null) {
+            statisticsDay1.setAdrUpCountDay10(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrDownCountDay10() == null) {
+            statisticsDay1.setAdrDownCountDay10(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getRsCountDay20() == null) {
+            statisticsDay1.setRsCountDay20(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrUpCountDay20() == null) {
+            statisticsDay1.setAdrUpCountDay20(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrDownCountDay20() == null) {
+            statisticsDay1.setAdrDownCountDay20(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getRsCountDay30() == null) {
+            statisticsDay1.setRsCountDay30(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrUpCountDay30() == null) {
+            statisticsDay1.setAdrUpCountDay30(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrDownCountDay30() == null) {
+            statisticsDay1.setAdrDownCountDay30(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getRsCountDay60() == null) {
+            statisticsDay1.setRsCountDay60(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrUpCountDay60() == null) {
+            statisticsDay1.setAdrUpCountDay60(new BigDecimal("0"));
+        }
+        if (statisticsDay1.getAdrDownCountDay60() == null) {
+            statisticsDay1.setAdrDownCountDay60(new BigDecimal("0"));
+        }
+
+
+        //是否超过当前价格
+        boolean isOverCurPriceDay1 = false,isOverCurPriceDay2 = false,isOverCurPriceDay3 = false,isOverCurPriceDay5 = false;
+        boolean isOverCurPriceDay10 = false,isOverCurPriceDay20 = false,isOverCurPriceDay30 = false,isOverCurPriceDay60 = false;
+        for (SuperDropBounceRs superDropBounceRs : rs) {
+            System.out.println("返回结果:" + JSON.toJSONString(superDropBounceRs));
+            if (superDropBounceRs.getAdrSum1() != null) {
+                statisticsDay1.setRsCountDay1(statisticsDay1.getRsCountDay1().add(new BigDecimal("1")));
+                if (superDropBounceRs.getAdrSum1().compareTo(new BigDecimal("0")) > 0) {
+                    statisticsDay1.setAdrUpCountDay1(statisticsDay1.getAdrUpCountDay1().add(new BigDecimal("1")));
+                    isOverCurPriceDay1 = true;
+                } else {
+                    statisticsDay1.setAdrDownCountDay1(statisticsDay1.getAdrDownCountDay1().add(new BigDecimal("1")));
+                }
+            }
+            if (superDropBounceRs.getAdrSum2() != null) {
+                statisticsDay1.setRsCountDay2(statisticsDay1.getRsCountDay2().add(new BigDecimal("1")));
+                if (superDropBounceRs.getAdrSum2().compareTo(new BigDecimal("0")) > 0) {
+                    statisticsDay1.setAdrUpCountDay2(statisticsDay1.getAdrUpCountDay2().add(new BigDecimal("1")));
+                    isOverCurPriceDay2 = true;
+                } else {
+                    statisticsDay1.setAdrDownCountDay2(statisticsDay1.getAdrDownCountDay2().add(new BigDecimal("1")));
+                }
+            }
+            if (superDropBounceRs.getAdrSum3() != null) {
+                statisticsDay1.setRsCountDay3(statisticsDay1.getRsCountDay3().add(new BigDecimal("1")));
+                if (superDropBounceRs.getAdrSum3().compareTo(new BigDecimal("0")) > 0) {
+                    statisticsDay1.setAdrUpCountDay3(statisticsDay1.getAdrUpCountDay3().add(new BigDecimal("1")));
+                    isOverCurPriceDay3 = true;
+                } else {
+                    statisticsDay1.setAdrDownCountDay3(statisticsDay1.getAdrDownCountDay3().add(new BigDecimal("1")));
+                }
+            }
+            if (superDropBounceRs.getAdrSum5() != null) {
+                statisticsDay1.setRsCountDay5(statisticsDay1.getRsCountDay5().add(new BigDecimal("1")));
+                if (superDropBounceRs.getAdrSum5().compareTo(new BigDecimal("0")) > 0) {
+                    statisticsDay1.setAdrUpCountDay5(statisticsDay1.getAdrUpCountDay5().add(new BigDecimal("1")));
+                    isOverCurPriceDay5 = true;
+                } else {
+                    statisticsDay1.setAdrDownCountDay5(statisticsDay1.getAdrDownCountDay5().add(new BigDecimal("1")));
+                }
+            }
+            if (superDropBounceRs.getAdrSum10() != null) {
+                statisticsDay1.setRsCountDay10(statisticsDay1.getRsCountDay10().add(new BigDecimal("1")));
+                if (superDropBounceRs.getAdrSum10().compareTo(new BigDecimal("0")) > 0) {
+                    statisticsDay1.setAdrUpCountDay10(statisticsDay1.getAdrUpCountDay10().add(new BigDecimal("1")));
+                    isOverCurPriceDay10 = true;
+                } else {
+                    statisticsDay1.setAdrDownCountDay10(statisticsDay1.getAdrDownCountDay10().add(new BigDecimal("1")));
+                }
+            }
+            if (superDropBounceRs.getAdrSum20() != null) {
+                statisticsDay1.setRsCountDay20(statisticsDay1.getRsCountDay20().add(new BigDecimal("1")));
+                if (superDropBounceRs.getAdrSum20().compareTo(new BigDecimal("0")) > 0) {
+                    statisticsDay1.setAdrUpCountDay20(statisticsDay1.getAdrUpCountDay20().add(new BigDecimal("1")));
+                    isOverCurPriceDay20 = true;
+                } else {
+                    statisticsDay1.setAdrDownCountDay20(statisticsDay1.getAdrDownCountDay20().add(new BigDecimal("1")));
+                }
+            }
+            if (superDropBounceRs.getAdrSum30() != null) {
+                statisticsDay1.setRsCountDay30(statisticsDay1.getRsCountDay30().add(new BigDecimal("1")));
+                if (superDropBounceRs.getAdrSum30().compareTo(new BigDecimal("0")) > 0) {
+                    statisticsDay1.setAdrUpCountDay30(statisticsDay1.getAdrUpCountDay30().add(new BigDecimal("1")));
+                    isOverCurPriceDay30 = true;
+                } else {
+                    statisticsDay1.setAdrDownCountDay30(statisticsDay1.getAdrDownCountDay30().add(new BigDecimal("1")));
+                }
+            }
+            if (superDropBounceRs.getAdrSum60() != null) {
+                statisticsDay1.setRsCountDay60(statisticsDay1.getRsCountDay60().add(new BigDecimal("1")));
+                if (superDropBounceRs.getAdrSum60().compareTo(new BigDecimal("0")) > 0) {
+                    statisticsDay1.setAdrUpCountDay60(statisticsDay1.getAdrUpCountDay60().add(new BigDecimal("1")));
+                    isOverCurPriceDay60 = true;
+                } else {
+                    statisticsDay1.setAdrDownCountDay60(statisticsDay1.getAdrDownCountDay60().add(new BigDecimal("1")));
+                }
+            }
+        }
+        if(isOverCurPriceDay1){
+            
+        }
+
+        return rs;
+    }
+
+    /**
      * 均线突破
-     *  @param curDate   日期
-     * @param weekFiter 星期几过滤
+     *
+     * @param curDate               日期
+     * @param weekFiter             星期几过滤
      * @param goodRateCurDayLimitUp
      */
     private static MaBreakUpRs maBreakUp(String curDate, String weekFiter, BigDecimal goodRateCurDayLimitUp) {

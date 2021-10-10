@@ -106,6 +106,27 @@ public class RankStockCommpanyDao {
     }
 
     /**
+     * 超跌反弹
+     * @param condition
+     * @return
+     */
+    public static List<SuperDropBounceRs> findListSuperDropBounce(SuperDropBounceCond condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<SuperDropBounceRs> rs = null;
+        try {
+//                System.out.println(JSON.toJSONString(entity));
+            rs = session.selectList("ttjj.dao.mapper.RankStockCommpanyMapper.findListSuperDropBounce", condition);
+            session.commit();
+        } catch (Exception e) {
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
      * 查询指定日期之前交易日期列表
      * @param dateCond
      * @return

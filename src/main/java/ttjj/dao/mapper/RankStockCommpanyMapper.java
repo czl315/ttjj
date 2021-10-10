@@ -118,6 +118,118 @@ public interface RankStockCommpanyMapper {
     List<MaBreakUpRs> findListMaBreakUpCond(MaBreakUpCond condition);
 
     /**
+     * 查询-超跌反弹
+     *
+     * @param condition
+     * @return
+     */
+    @Select({"<script>",
+            " SELECT",
+            "   rank_st_biz_com.f12 code ",
+            "   ,rank_st_biz_com.f14 name ",
+            "   ,rank_st_biz_com.type_name type_name ",
+            "   ,rank_st_biz_com.f3 adrSum ",
+            "   <if test='curDayAdd1 != null'> ",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=#{curDayAdd1} AND t.date<=#{curDayAdd1}),2) adrSum1  ]]>",
+            "   </if> ",
+            "   <if test='curDayAdd2 != null'> ",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=#{curDayAdd1} AND t.date<=#{curDayAdd2}),2) adrSum2 ]]>",
+            "   </if> ",
+            "   <if test='curDayAdd3 != null'> ",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=#{curDayAdd1} AND t.date<=#{curDayAdd3}),2) adrSum3 ]]>",
+            "   </if> ",
+            "   <if test='curDayAdd5 != null'> ",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=#{curDayAdd1} AND t.date<=#{curDayAdd5}),2) adrSum5 ]]>",
+            "   </if> ",
+            "   <if test='curDayAdd10 != null'> ",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=#{curDayAdd1} AND t.date<=#{curDayAdd10}),2) adrSum10 ]]>",
+            "   </if> ",
+            "   <if test='curDayAdd20 != null'> ",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=#{curDayAdd1} AND t.date<=#{curDayAdd20}),2) adrSum20 ]]>",
+            "   </if> ",
+            "   <if test='curDayAdd30 != null'> ",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=#{curDayAdd1} AND t.date<=#{curDayAdd30}),2) adrSum30 ]]>",
+            "   </if> ",
+            "   <if test='curDayAdd60 != null'> ",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=#{curDayAdd1} AND t.date<=#{curDayAdd60}),2) adrSum60 ]]>",
+            "   </if> ",
+            "   <if test='curDaySub1 != null'> ",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = #{curDaySub1}),2) adrDaySub1 ]]>",
+            "   </if> ",
+            "   <if test='curDaySub2 != null'> ",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = #{curDaySub2}),2) adrDaySub2 ]]>",
+            "   </if> ",
+            "   <if test='curDaySub3 != null'> ",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = #{curDaySub3}),2) adrDaySub3 ]]>",
+            "   </if> ",
+            "   <if test='curDaySub4 != null'> ",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = #{curDaySub4}),2) adrDaySub4 ]]>",
+            "   </if> ",
+            "   <if test='curDaySub5 != null'> ",
+            "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = #{curDaySub5}),2) adrDaySub5 ]]>",
+            "   </if> ",
+//            "   ,rank_st_biz_com.f3 adrCurDay",
+//            "   ,ROUND((rank_st_biz_com.f2-rank_st_biz_com.NET_MA_5)/rank_st_biz_com.NET_MA_5*100,2) goodRate5 ",
+//            "   ,(SELECT ROUND((t.f2-t.NET_MA_5)/t.NET_MA_5*100,2) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = #{curDaySub1}) goodRate5DaySub1 ",
+////            ",ROUND((rank_st_biz_com.f2-rank_st_biz_com.NET_MA_10)/rank_st_biz_com.NET_MA_10*100,2) 乖离10,ROUND((rank_st_biz_com.f2-rank_st_biz_com.NET_MA_20)/rank_st_biz_com.NET_MA_20*100,2) 乖离20,ROUND((rank_st_biz_com.f2-rank_st_biz_com.NET_MA_30)/rank_st_biz_com.NET_MA_30*100,2) 乖离30,ROUND((rank_st_biz_com.f2-rank_st_biz_com.NET_MA_60)/rank_st_biz_com.NET_MA_60*100,2) 乖离60,ROUND((rank_st_biz_com.f2-rank_st_biz_com.NET_MA_120)/rank_st_biz_com.NET_MA_120*100,2) 乖离120,ROUND((rank_st_biz_com.f2-rank_st_biz_com.NET_MA_250)/rank_st_biz_com.NET_MA_250*100,2) 乖离250",
+////            ",rank_st_biz_com.date",
+////            ",ROUND(rank_st_biz_com.f20/100000000,2) 总市值亿",
+////            ",rank_st_biz_com.type_name 板块",
+////            "-- ROUND(rank_st_biz_com.f62/100000000,2) 主力净流入亿,ROUND(rank_st_biz_com.f6/100000000,2) 成交额亿,rank_st_biz_com.f9 市盈率",
+////            ",rank_st_biz_com.f2 现价",
+////            ",rank_st_biz_com.*",
+            " FROM ",
+            "   `rank_st_biz_com` rank_st_biz_com ",
+            " WHERE 1=1 ",
+            "   AND rank_st_biz_com.date = #{curDay} ",
+            "   <if test='type_name != null'> ",
+            "   AND rank_st_biz_com.type_name in (#{type_name}) ",//-- 业务板块
+            "   </if> ",
+            "   AND rank_st_biz_com.f139=#{f139} ",// -- A股主板
+            "   AND rank_st_biz_com.f20 >#{marketValueMin} ",//-- 市值
+            "   <if test='qrrMaxDaySub1 != null and curDaySub1 != null '> ",
+            "   <![CDATA[ AND IFNULL((SELECT t2.f10 FROM rank_st_biz_com t2 WHERE t2.f12 = rank_st_biz_com.f12 AND t2.date = #{curDaySub1}),0)<=#{qrrMaxDaySub1} ]]>",//-- 量比
+            "   </if> ",
+            "   <if test='qrrMaxDaySub2 != null and curDaySub2 != null'> ",
+            "   <![CDATA[ AND IFNULL((SELECT t2.f10 FROM rank_st_biz_com t2 WHERE t2.f12 = rank_st_biz_com.f12 AND t2.date = #{curDaySub2}),0)<=#{qrrMaxDaySub2} ]]>",//-- 量比
+            "   </if> ",
+            "   <if test='qrrMaxDaySub3 != null and curDaySub3 != null'> ",
+            "   <![CDATA[ AND IFNULL((SELECT t2.f10 FROM rank_st_biz_com t2 WHERE t2.f12 = rank_st_biz_com.f12 AND t2.date = #{curDaySub3}),0)<=#{qrrMaxDaySub3} ]]>",//-- 量比
+            "   </if> ",
+            "   <if test='qrrMaxDaySub4 != null and curDaySub4 != null'> ",
+            "   <![CDATA[ AND IFNULL((SELECT t2.f10 FROM rank_st_biz_com t2 WHERE t2.f12 = rank_st_biz_com.f12 AND t2.date = #{curDaySub4}),0)<=#{qrrMaxDaySub4} ]]>",//-- 量比
+            "   </if> ",
+            "   <if test='qrrMaxDaySub5 != null and curDaySub5 != null'> ",
+            "   <![CDATA[ AND IFNULL((SELECT t2.f10 FROM rank_st_biz_com t2 WHERE t2.f12 = rank_st_biz_com.f12 AND t2.date = #{curDaySub5}),0)<=#{qrrMaxDaySub5} ]]>",//-- 量比
+            "   </if> ",
+            "   <if test='adrMinDay0 != null'> ",
+            "   <![CDATA[ AND rank_st_biz_com.f3 >= #{adrMinDay0} ]]>",//涨跌限定-最低
+            "   </if> ",
+            "   <if test='adrMaxDaySub1 != null'> ",
+            "   <![CDATA[ AND IFNULL((SELECT t2.f3 FROM rank_st_biz_com t2 WHERE t2.f12 = rank_st_biz_com.f12 AND t2.date = #{curDaySub1}),0) <= #{adrMaxDaySub1} ]]>",
+            "   </if> ",
+            "   <if test='adrMaxDaySub2 != null'> ",
+            "   <![CDATA[ AND IFNULL((SELECT t2.f3 FROM rank_st_biz_com t2 WHERE t2.f12 = rank_st_biz_com.f12 AND t2.date = #{curDaySub2}),0) <= #{adrMaxDaySub2} ]]>",
+            "   </if> ",
+            "   <if test='adrMaxDaySub3 != null'> ",
+            "   <![CDATA[ AND IFNULL((SELECT t2.f3 FROM rank_st_biz_com t2 WHERE t2.f12 = rank_st_biz_com.f12 AND t2.date = #{curDaySub3}),0) <= #{adrMaxDaySub3} ]]>",
+            "   </if> ",
+            "   <if test='adrMaxDaySub4 != null'> ",
+            "   <![CDATA[ AND IFNULL((SELECT t2.f3 FROM rank_st_biz_com t2 WHERE t2.f12 = rank_st_biz_com.f12 AND t2.date = #{curDaySub4}),0) <= #{adrMaxDaySub4} ]]>",
+            "   </if> ",
+            "   <if test='adrMaxDaySub5 != null'> ",
+            "   <![CDATA[ AND IFNULL((SELECT t2.f3 FROM rank_st_biz_com t2 WHERE t2.f12 = rank_st_biz_com.f12 AND t2.date = #{curDaySub5}),0) <= #{adrMaxDaySub5} ]]>",
+            "   </if> ",
+            " ORDER BY ",
+            "   f3  DESC",
+//            "   (SELECT ROUND((t.f2-t.NET_MA_5)/t.NET_MA_5*100,2) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = #{curDaySub1})",/**昨日乖离率**/
+//            "-- (SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=@curDayAdd1 AND t.date<=@curDayAdd3) ",
+////            "-- (SELECT ROUND((t.f2-t.NET_MA_5)/t.NET_MA_5*100,2) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date = @curDaySub1)/**rank_st_biz_com.date desc, f3  DESCROUND(rank_st_biz_com.f20,0) desc 乖离5**/",
+////            ";",
+            "</script>"})
+    List<SuperDropBounceRs> findListSuperDropBounce(SuperDropBounceCond condition);
+
+    /**
      * 查询某日之前的交易日期列表
      *
      * @param condition

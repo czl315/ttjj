@@ -29,7 +29,7 @@ public class RankStockBizCompanyDemo {
          * 添加或更新股票-根据日期
          */
 //        for (int i = 0; i < 1; i++) {
-        for (int i = 66; i < 100; i++) {
+        for (int i = 69; i < 100; i++) {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
 //            boolean flagInsertDb = true;//标识：是否插入数据库
             boolean flagInsertDb = false;
@@ -518,12 +518,13 @@ public class RankStockBizCompanyDemo {
                     if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
                         // 周期价格:均线、最低、最高、收盘最低、收盘最高
                         String zqdm = entity.getF12();
-                        Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK);
-                        entity.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
-                        entity.setNET_MIN_7(netMap5.get(Content.keyRsMin).doubleValue());
-                        entity.setNET_MAX_7(netMap5.get(Content.keyRsMax).doubleValue());
-                        entity.setNET_MIN_CLOS_7(netMap5.get(Content.keyRsNetCloseMin).doubleValue());
-                        entity.setNET_MAX_CLOS_7(netMap5.get(Content.keyRsNetCloseMax).doubleValue());
+
+//                        Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK);
+//                        entity.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
+//                        entity.setNET_MIN_7(netMap5.get(Content.keyRsMin).doubleValue());
+//                        entity.setNET_MAX_7(netMap5.get(Content.keyRsMax).doubleValue());
+//                        entity.setNET_MIN_CLOS_7(netMap5.get(Content.keyRsNetCloseMin).doubleValue());
+//                        entity.setNET_MAX_CLOS_7(netMap5.get(Content.keyRsNetCloseMax).doubleValue());
 
                         Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK);
                         entity.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
