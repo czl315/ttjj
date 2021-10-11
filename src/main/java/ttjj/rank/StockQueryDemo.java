@@ -27,31 +27,29 @@ public class StockQueryDemo {
     public static void main(String[] args) {
         //  超跌反弹
         {
-
-            SuperDropBounceStat statistics = new SuperDropBounceStat(), statisticsDay2 = new SuperDropBounceStat(), statisticsDay3 = new SuperDropBounceStat(), statisticsDay5 = new SuperDropBounceStat();
-            SuperDropBounceStat statisticsDay10 = new SuperDropBounceStat(), statisticsDay20 = new SuperDropBounceStat(), statisticsDay30 = new SuperDropBounceStat(), statisticsDay60 = new SuperDropBounceStat();
+            SuperDropBounceStat statistics = new SuperDropBounceStat();
             for (int i = 15; i <= 60; i++) {
                 String curDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
                 //  超跌反弹
                 superDropBounce(curDate, statistics);
             }
             System.out.println("统计:" + JSON.toJSONString(statistics));
-            System.out.println("统计日加1 :" +"涨："+ statistics.getAdrUpCountDay1()+"，跌："+ statistics.getAdrDownCountDay1()+"，共："+ statistics.getRsCountDay1());
-            System.out.println("统计日加2 :" +"涨："+ statistics.getAdrUpCountDay2()+"，跌："+ statistics.getAdrDownCountDay2()+"，共："+ statistics.getRsCountDay2());
-            System.out.println("统计日加3 :" +"涨："+ statistics.getAdrUpCountDay3()+"，跌："+ statistics.getAdrDownCountDay3()+"，共："+ statistics.getRsCountDay3());
-            System.out.println("统计日加5 :" +"涨："+ statistics.getAdrUpCountDay5()+"，跌："+ statistics.getAdrDownCountDay5()+"，共："+ statistics.getRsCountDay5());
-            System.out.println("统计日加10:" +"涨："+ statistics.getAdrUpCountDay10()+"，跌："+ statistics.getAdrDownCountDay10()+"，共："+ statistics.getRsCountDay10());
-            System.out.println("统计日加20:" +"涨："+ statistics.getAdrUpCountDay20()+"，跌："+ statistics.getAdrDownCountDay20()+"，共："+ statistics.getRsCountDay20());
-            System.out.println("统计日加30:" +"涨："+ statistics.getAdrUpCountDay30()+"，跌："+ statistics.getAdrDownCountDay30()+"，共："+ statistics.getRsCountDay30());
-            System.out.println("统计日加60:" +"涨："+ statistics.getAdrUpCountDay60()+"，跌："+ statistics.getAdrDownCountDay60()+"，共："+ statistics.getRsCountDay60());
-//            System.out.println("日加2:" + JSON.toJSONString(statisticsDay2));
-//            System.out.println("日加3:" + JSON.toJSONString(statisticsDay3));
-//            System.out.println("日加5:" + JSON.toJSONString(statisticsDay5));
-//            System.out.println("日加10:" + JSON.toJSONString(statisticsDay10));
-//            System.out.println("日加20:" + JSON.toJSONString(statisticsDay20));
-//            System.out.println("日加30:" + JSON.toJSONString(statisticsDay30));
-//            System.out.println("日加60:" + JSON.toJSONString(statisticsDay60));
-
+            System.out.print("统计日加1 :" + "涨：" + statistics.getAdrUpCountDay1() + "，跌：" + statistics.getAdrDownCountDay1() + "，共：" + statistics.getRsCountDay1());
+            System.out.println(",统计日加1（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay1() + "，跌：" + statistics.getAdrDownCountTotalDay1());
+            System.out.print("统计日加2 :" + "涨：" + statistics.getAdrUpCountDay2() + "，跌：" + statistics.getAdrDownCountDay2() + "，共：" + statistics.getRsCountDay2());
+            System.out.println(",统计日加2（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay2() + "，跌：" + statistics.getAdrDownCountTotalDay2());
+            System.out.print("统计日加3 :" + "涨：" + statistics.getAdrUpCountDay3() + "，跌：" + statistics.getAdrDownCountDay3() + "，共：" + statistics.getRsCountDay3());
+            System.out.println(",统计日加3（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay3() + "，跌：" + statistics.getAdrDownCountTotalDay3());
+            System.out.print("统计日加5 :" + "涨：" + statistics.getAdrUpCountDay5() + "，跌：" + statistics.getAdrDownCountDay5() + "，共：" + statistics.getRsCountDay5());
+            System.out.println(",统计日加5（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay5() + "，跌：" + statistics.getAdrDownCountTotalDay5());
+            System.out.print("统计日加10:" + "涨：" + statistics.getAdrUpCountDay10() + "，跌：" + statistics.getAdrDownCountDay10() + "，共：" + statistics.getRsCountDay10());
+            System.out.println(",统计日10（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay10() + "，跌：" + statistics.getAdrDownCountTotalDay10());
+            System.out.print("统计日加20:" + "涨：" + statistics.getAdrUpCountDay20() + "，跌：" + statistics.getAdrDownCountDay20() + "，共：" + statistics.getRsCountDay20());
+            System.out.println(",统计日20（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay20() + "，跌：" + statistics.getAdrDownCountTotalDay20());
+            System.out.print("统计日加30:" + "涨：" + statistics.getAdrUpCountDay30() + "，跌：" + statistics.getAdrDownCountDay30() + "，共：" + statistics.getRsCountDay30());
+            System.out.println(",统计日30（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay30() + "，跌：" + statistics.getAdrDownCountTotalDay30());
+            System.out.print("统计日加60:" + "涨：" + statistics.getAdrUpCountDay60() + "，跌：" + statistics.getAdrDownCountDay60() + "，共：" + statistics.getRsCountDay60());
+            System.out.println(",统计日60（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay60() + "，跌：" + statistics.getAdrDownCountTotalDay60());
         }
 
         //突破均线
@@ -104,7 +102,7 @@ public class StockQueryDemo {
     /**
      * 超跌反弹
      */
-    private static List<SuperDropBounceRs> superDropBounce(String curDate, SuperDropBounceStat statisticsDay1) {
+    private static List<SuperDropBounceRs> superDropBounce(String curDate, SuperDropBounceStat stat) {
         SuperDropBounceCond condition = new SuperDropBounceCond();
         List<String> dateListBefore = RankStockCommpanyDao.findListDateBefore(new DateCond(curDate, 60));
 //        System.out.println(JSON.toJSONString(dateListBefore));
@@ -166,168 +164,137 @@ public class StockQueryDemo {
         condition.setAdrMaxDaySub3(new BigDecimal("0"));//涨跌限定-最高-日减3
         condition.setAdrMaxDaySub4(new BigDecimal("0"));//涨跌限定-最高-日减4
 //        condition.setAdrMaxDaySub5(new BigDecimal("0"));
-        System.out.println("查询条件：" + JSON.toJSONString(condition));
+//        System.out.println("查询条件：" + JSON.toJSONString(condition));
         List<SuperDropBounceRs> rs = RankStockCommpanyDao.findListSuperDropBounce(condition);
         if (rs == null || rs.size() == 0) {
             System.out.println("返回结果为空！");
             return null;
         }
 
-        if (statisticsDay1.getRsCountDay1() == null) {
-            statisticsDay1.setRsCountDay1(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrUpCountDay1() == null) {
-            statisticsDay1.setAdrUpCountDay1(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrDownCountDay1() == null) {
-            statisticsDay1.setAdrDownCountDay1(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getRsCountDay2() == null) {
-            statisticsDay1.setRsCountDay2(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrUpCountDay2() == null) {
-            statisticsDay1.setAdrUpCountDay2(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrDownCountDay2() == null) {
-            statisticsDay1.setAdrDownCountDay2(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getRsCountDay3() == null) {
-            statisticsDay1.setRsCountDay3(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrUpCountDay3() == null) {
-            statisticsDay1.setAdrUpCountDay3(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrDownCountDay3() == null) {
-            statisticsDay1.setAdrDownCountDay3(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getRsCountDay5() == null) {
-            statisticsDay1.setRsCountDay5(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrUpCountDay5() == null) {
-            statisticsDay1.setAdrUpCountDay5(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrDownCountDay5() == null) {
-            statisticsDay1.setAdrDownCountDay5(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getRsCountDay10() == null) {
-            statisticsDay1.setRsCountDay10(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrUpCountDay10() == null) {
-            statisticsDay1.setAdrUpCountDay10(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrDownCountDay10() == null) {
-            statisticsDay1.setAdrDownCountDay10(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getRsCountDay20() == null) {
-            statisticsDay1.setRsCountDay20(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrUpCountDay20() == null) {
-            statisticsDay1.setAdrUpCountDay20(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrDownCountDay20() == null) {
-            statisticsDay1.setAdrDownCountDay20(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getRsCountDay30() == null) {
-            statisticsDay1.setRsCountDay30(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrUpCountDay30() == null) {
-            statisticsDay1.setAdrUpCountDay30(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrDownCountDay30() == null) {
-            statisticsDay1.setAdrDownCountDay30(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getRsCountDay60() == null) {
-            statisticsDay1.setRsCountDay60(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrUpCountDay60() == null) {
-            statisticsDay1.setAdrUpCountDay60(new BigDecimal("0"));
-        }
-        if (statisticsDay1.getAdrDownCountDay60() == null) {
-            statisticsDay1.setAdrDownCountDay60(new BigDecimal("0"));
-        }
-
-
         //是否超过当前价格
-        boolean isOverCurPriceDay1 = false,isOverCurPriceDay2 = false,isOverCurPriceDay3 = false,isOverCurPriceDay5 = false;
-        boolean isOverCurPriceDay10 = false,isOverCurPriceDay20 = false,isOverCurPriceDay30 = false,isOverCurPriceDay60 = false;
         for (SuperDropBounceRs superDropBounceRs : rs) {
-            System.out.println("返回结果:" + JSON.toJSONString(superDropBounceRs));
+            boolean isOverCurPriceDay1 = false, isOverCurPriceDay2 = false, isOverCurPriceDay3 = false, isOverCurPriceDay5 = false, isOverCurPriceDay10 = false, isOverCurPriceDay20 = false, isOverCurPriceDay30 = false, isOverCurPriceDay60 = false;
+//            System.out.println("返回结果:" + JSON.toJSONString(superDropBounceRs));
             if (superDropBounceRs.getAdrSum1() != null) {
-                statisticsDay1.setRsCountDay1(statisticsDay1.getRsCountDay1().add(new BigDecimal("1")));
+                stat.setRsCountDay1(stat.getRsCountDay1().add(new BigDecimal("1")));
                 if (superDropBounceRs.getAdrSum1().compareTo(new BigDecimal("0")) > 0) {
-                    statisticsDay1.setAdrUpCountDay1(statisticsDay1.getAdrUpCountDay1().add(new BigDecimal("1")));
+                    stat.setAdrUpCountDay1(stat.getAdrUpCountDay1().add(new BigDecimal("1")));
                     isOverCurPriceDay1 = true;
                 } else {
-                    statisticsDay1.setAdrDownCountDay1(statisticsDay1.getAdrDownCountDay1().add(new BigDecimal("1")));
+                    stat.setAdrDownCountDay1(stat.getAdrDownCountDay1().add(new BigDecimal("1")));
                 }
             }
             if (superDropBounceRs.getAdrSum2() != null) {
-                statisticsDay1.setRsCountDay2(statisticsDay1.getRsCountDay2().add(new BigDecimal("1")));
+                stat.setRsCountDay2(stat.getRsCountDay2().add(new BigDecimal("1")));
                 if (superDropBounceRs.getAdrSum2().compareTo(new BigDecimal("0")) > 0) {
-                    statisticsDay1.setAdrUpCountDay2(statisticsDay1.getAdrUpCountDay2().add(new BigDecimal("1")));
+                    stat.setAdrUpCountDay2(stat.getAdrUpCountDay2().add(new BigDecimal("1")));
                     isOverCurPriceDay2 = true;
                 } else {
-                    statisticsDay1.setAdrDownCountDay2(statisticsDay1.getAdrDownCountDay2().add(new BigDecimal("1")));
+                    stat.setAdrDownCountDay2(stat.getAdrDownCountDay2().add(new BigDecimal("1")));
                 }
             }
             if (superDropBounceRs.getAdrSum3() != null) {
-                statisticsDay1.setRsCountDay3(statisticsDay1.getRsCountDay3().add(new BigDecimal("1")));
+                stat.setRsCountDay3(stat.getRsCountDay3().add(new BigDecimal("1")));
                 if (superDropBounceRs.getAdrSum3().compareTo(new BigDecimal("0")) > 0) {
-                    statisticsDay1.setAdrUpCountDay3(statisticsDay1.getAdrUpCountDay3().add(new BigDecimal("1")));
+                    stat.setAdrUpCountDay3(stat.getAdrUpCountDay3().add(new BigDecimal("1")));
                     isOverCurPriceDay3 = true;
                 } else {
-                    statisticsDay1.setAdrDownCountDay3(statisticsDay1.getAdrDownCountDay3().add(new BigDecimal("1")));
+                    stat.setAdrDownCountDay3(stat.getAdrDownCountDay3().add(new BigDecimal("1")));
                 }
             }
             if (superDropBounceRs.getAdrSum5() != null) {
-                statisticsDay1.setRsCountDay5(statisticsDay1.getRsCountDay5().add(new BigDecimal("1")));
+                stat.setRsCountDay5(stat.getRsCountDay5().add(new BigDecimal("1")));
                 if (superDropBounceRs.getAdrSum5().compareTo(new BigDecimal("0")) > 0) {
-                    statisticsDay1.setAdrUpCountDay5(statisticsDay1.getAdrUpCountDay5().add(new BigDecimal("1")));
+                    stat.setAdrUpCountDay5(stat.getAdrUpCountDay5().add(new BigDecimal("1")));
                     isOverCurPriceDay5 = true;
                 } else {
-                    statisticsDay1.setAdrDownCountDay5(statisticsDay1.getAdrDownCountDay5().add(new BigDecimal("1")));
+                    stat.setAdrDownCountDay5(stat.getAdrDownCountDay5().add(new BigDecimal("1")));
                 }
             }
             if (superDropBounceRs.getAdrSum10() != null) {
-                statisticsDay1.setRsCountDay10(statisticsDay1.getRsCountDay10().add(new BigDecimal("1")));
+                stat.setRsCountDay10(stat.getRsCountDay10().add(new BigDecimal("1")));
                 if (superDropBounceRs.getAdrSum10().compareTo(new BigDecimal("0")) > 0) {
-                    statisticsDay1.setAdrUpCountDay10(statisticsDay1.getAdrUpCountDay10().add(new BigDecimal("1")));
+                    stat.setAdrUpCountDay10(stat.getAdrUpCountDay10().add(new BigDecimal("1")));
                     isOverCurPriceDay10 = true;
                 } else {
-                    statisticsDay1.setAdrDownCountDay10(statisticsDay1.getAdrDownCountDay10().add(new BigDecimal("1")));
+                    stat.setAdrDownCountDay10(stat.getAdrDownCountDay10().add(new BigDecimal("1")));
                 }
             }
             if (superDropBounceRs.getAdrSum20() != null) {
-                statisticsDay1.setRsCountDay20(statisticsDay1.getRsCountDay20().add(new BigDecimal("1")));
+                stat.setRsCountDay20(stat.getRsCountDay20().add(new BigDecimal("1")));
                 if (superDropBounceRs.getAdrSum20().compareTo(new BigDecimal("0")) > 0) {
-                    statisticsDay1.setAdrUpCountDay20(statisticsDay1.getAdrUpCountDay20().add(new BigDecimal("1")));
+                    stat.setAdrUpCountDay20(stat.getAdrUpCountDay20().add(new BigDecimal("1")));
                     isOverCurPriceDay20 = true;
                 } else {
-                    statisticsDay1.setAdrDownCountDay20(statisticsDay1.getAdrDownCountDay20().add(new BigDecimal("1")));
+                    stat.setAdrDownCountDay20(stat.getAdrDownCountDay20().add(new BigDecimal("1")));
                 }
             }
             if (superDropBounceRs.getAdrSum30() != null) {
-                statisticsDay1.setRsCountDay30(statisticsDay1.getRsCountDay30().add(new BigDecimal("1")));
+                stat.setRsCountDay30(stat.getRsCountDay30().add(new BigDecimal("1")));
                 if (superDropBounceRs.getAdrSum30().compareTo(new BigDecimal("0")) > 0) {
-                    statisticsDay1.setAdrUpCountDay30(statisticsDay1.getAdrUpCountDay30().add(new BigDecimal("1")));
+                    stat.setAdrUpCountDay30(stat.getAdrUpCountDay30().add(new BigDecimal("1")));
                     isOverCurPriceDay30 = true;
                 } else {
-                    statisticsDay1.setAdrDownCountDay30(statisticsDay1.getAdrDownCountDay30().add(new BigDecimal("1")));
+                    stat.setAdrDownCountDay30(stat.getAdrDownCountDay30().add(new BigDecimal("1")));
                 }
             }
             if (superDropBounceRs.getAdrSum60() != null) {
-                statisticsDay1.setRsCountDay60(statisticsDay1.getRsCountDay60().add(new BigDecimal("1")));
+                stat.setRsCountDay60(stat.getRsCountDay60().add(new BigDecimal("1")));
                 if (superDropBounceRs.getAdrSum60().compareTo(new BigDecimal("0")) > 0) {
-                    statisticsDay1.setAdrUpCountDay60(statisticsDay1.getAdrUpCountDay60().add(new BigDecimal("1")));
+                    stat.setAdrUpCountDay60(stat.getAdrUpCountDay60().add(new BigDecimal("1")));
                     isOverCurPriceDay60 = true;
                 } else {
-                    statisticsDay1.setAdrDownCountDay60(statisticsDay1.getAdrDownCountDay60().add(new BigDecimal("1")));
+                    stat.setAdrDownCountDay60(stat.getAdrDownCountDay60().add(new BigDecimal("1")));
                 }
             }
+            if (!isOverCurPriceDay1 && !isOverCurPriceDay2 && !isOverCurPriceDay3 && !isOverCurPriceDay5 && !isOverCurPriceDay10 && !isOverCurPriceDay20 && !isOverCurPriceDay30 && !isOverCurPriceDay60) {
+                stat.setAdrDownCountTotalDay60(stat.getAdrDownCountTotalDay60().add(new BigDecimal("1")));
+                System.out.println("返回结果(60都下跌):" + JSON.toJSONString(superDropBounceRs));
+            }
+            if (isOverCurPriceDay1) {
+                stat.setAdrUpCountTotalDay1(stat.getAdrUpCountTotalDay1().add(new BigDecimal("1")));
+            }
+            if (!isOverCurPriceDay2 && !isOverCurPriceDay3 && !isOverCurPriceDay5 && !isOverCurPriceDay10 && !isOverCurPriceDay20 && !isOverCurPriceDay30 && !isOverCurPriceDay60) {
+                stat.setAdrDownCountTotalDay2(stat.getAdrDownCountTotalDay2().add(new BigDecimal("1")));
+            }
+            if (isOverCurPriceDay1 || isOverCurPriceDay2) {
+                stat.setAdrUpCountTotalDay2(stat.getAdrUpCountTotalDay2().add(new BigDecimal("1")));
+            }
+            if (!isOverCurPriceDay3 && !isOverCurPriceDay5 && !isOverCurPriceDay10 && !isOverCurPriceDay20 && !isOverCurPriceDay30 && !isOverCurPriceDay60) {
+                stat.setAdrDownCountTotalDay3(stat.getAdrDownCountTotalDay3().add(new BigDecimal("1")));
+            }
+            if (isOverCurPriceDay1 || isOverCurPriceDay2 || isOverCurPriceDay3) {
+                stat.setAdrUpCountTotalDay3(stat.getAdrUpCountTotalDay3().add(new BigDecimal("1")));
+            }
+            if (!isOverCurPriceDay5 && !isOverCurPriceDay10 && !isOverCurPriceDay20 && !isOverCurPriceDay30 && !isOverCurPriceDay60) {
+                stat.setAdrDownCountTotalDay5(stat.getAdrDownCountTotalDay5().add(new BigDecimal("1")));
+            }
+            if (isOverCurPriceDay1 || isOverCurPriceDay2 || isOverCurPriceDay3 || isOverCurPriceDay5) {
+                stat.setAdrUpCountTotalDay5(stat.getAdrUpCountTotalDay5().add(new BigDecimal("1")));
+            }
+            if (!isOverCurPriceDay10 && !isOverCurPriceDay20 && !isOverCurPriceDay30 && !isOverCurPriceDay60) {
+                stat.setAdrDownCountTotalDay10(stat.getAdrDownCountTotalDay10().add(new BigDecimal("1")));
+            }
+            if (isOverCurPriceDay1 || isOverCurPriceDay2 || isOverCurPriceDay3 || isOverCurPriceDay5 || isOverCurPriceDay10) {
+                stat.setAdrUpCountTotalDay10(stat.getAdrUpCountTotalDay10().add(new BigDecimal("1")));
+            }
+            if ( !isOverCurPriceDay20 && !isOverCurPriceDay30 && !isOverCurPriceDay60) {
+                stat.setAdrDownCountTotalDay20(stat.getAdrDownCountTotalDay20().add(new BigDecimal("1")));
+            }
+            if (isOverCurPriceDay1 || isOverCurPriceDay2 || isOverCurPriceDay3 || isOverCurPriceDay5 || isOverCurPriceDay10 || isOverCurPriceDay20) {
+                stat.setAdrUpCountTotalDay20(stat.getAdrUpCountTotalDay20().add(new BigDecimal("1")));
+            }
+            if (isOverCurPriceDay1 || isOverCurPriceDay2 || isOverCurPriceDay3 || isOverCurPriceDay5 || isOverCurPriceDay10 || isOverCurPriceDay20 || isOverCurPriceDay30) {
+                stat.setAdrUpCountTotalDay30(stat.getAdrUpCountTotalDay30().add(new BigDecimal("1")));
+            }
+            if (!isOverCurPriceDay30 && !isOverCurPriceDay60) {
+                stat.setAdrDownCountTotalDay30(stat.getAdrDownCountTotalDay30().add(new BigDecimal("1")));
+            }
+            if (isOverCurPriceDay1 || isOverCurPriceDay2 || isOverCurPriceDay3 || isOverCurPriceDay5 || isOverCurPriceDay10 || isOverCurPriceDay20 || isOverCurPriceDay30 || isOverCurPriceDay60) {
+                stat.setAdrUpCountTotalDay60(stat.getAdrUpCountTotalDay60().add(new BigDecimal("1")));
+            }
         }
-        if(isOverCurPriceDay1){
-            
-        }
+
 
         return rs;
     }

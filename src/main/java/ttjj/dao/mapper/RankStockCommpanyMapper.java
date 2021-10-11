@@ -129,6 +129,7 @@ public interface RankStockCommpanyMapper {
             "   ,rank_st_biz_com.f14 name ",
             "   ,rank_st_biz_com.type_name type_name ",
             "   ,rank_st_biz_com.f3 adrSum ",
+            "   ,rank_st_biz_com.date curDay ",
             "   <if test='curDayAdd1 != null'> ",
             "   <![CDATA[ ,ROUND((SELECT SUM(t.f3) FROM rank_st_biz_com t WHERE t.f12 = rank_st_biz_com.f12 AND t.date>=#{curDayAdd1} AND t.date<=#{curDayAdd1}),2) adrSum1  ]]>",
             "   </if> ",

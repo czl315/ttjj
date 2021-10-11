@@ -139,6 +139,9 @@ public class RankStockCommpanyDb {
     private String f23;
     private Double f24;
     private Double f25;
+    /**
+     * f26 上市时间
+     */
     private String f26;
     private Long f27;
     private Double f28;
@@ -146,25 +149,55 @@ public class RankStockCommpanyDb {
     private Long f30;
     private Double f31;
     private Double f32;
+    /**
+     * f33 委比
+     */
     private Double f33;
+    /**
+     * f34 外盘
+     */
     private Long f34;
+    /**
+     * f35 内盘
+     */
     private Long f35;
     private Double f36;
     /**
      * f37 ROE 利润资产比
      */
     private Double f37;
+    /**
+     * f38 总股本
+     */
     private Double f38;
+    /**
+     * f39 流通股
+     */
     private Double f39;
+    /**
+     * f40 总营收
+     */
     private String f40;
     private String f41;
     private String f42;
     private String f43;
     private String f44;
+    /**
+     * f45 净利润
+     */
     private String f45;
+    /**
+     * f46 公司核心数据-同比
+     */
     private String f46;
     private String f47;
+    /**
+     * f48 每股未分配利润
+     */
     private String f48;
+    /**
+     * f49 毛利率
+     */
     private String f49;
     private Long f50;
     private Double f51;
@@ -173,6 +206,9 @@ public class RankStockCommpanyDb {
     private String f54;
     private String f55;
     private String f56;
+    /**
+     * f57 负债率
+     */
     private String f57;
     private String f58;
     private String f59;

@@ -12,99 +12,250 @@ public class SuperDropBounceStat {
     /**
      * rsCount 查询结果个数
      */
-    private BigDecimal rsCountDay1;
+    private BigDecimal rsCountDay1 = new BigDecimal("0");
     /**
      * adrUpCount 上涨个数
      */
-    private BigDecimal adrUpCountDay1;
+    private BigDecimal adrUpCountDay1 = new BigDecimal("0");
     /**
      * adrDownCount 下跌个数
      */
-    private BigDecimal adrDownCountDay1;
+    private BigDecimal adrDownCountDay1 = new BigDecimal("0");
     /**
      * rsCount 查询结果个数
      */
-    private BigDecimal rsCountDay2;
+    private BigDecimal rsCountDay2 = new BigDecimal("0");
     /**
      * adrUpCount 上涨个数
      */
-    private BigDecimal adrUpCountDay2;
+    private BigDecimal adrUpCountDay2 = new BigDecimal("0");
     /**
      * adrDownCount 下跌个数
      */
-    private BigDecimal adrDownCountDay2;
+    private BigDecimal adrDownCountDay2 = new BigDecimal("0");
     /**
      * rsCount 查询结果个数
      */
-    private BigDecimal rsCountDay3;
+    private BigDecimal rsCountDay3 = new BigDecimal("0");
     /**
      * adrUpCount 上涨个数
      */
-    private BigDecimal adrUpCountDay3;
+    private BigDecimal adrUpCountDay3 = new BigDecimal("0");
     /**
      * adrDownCount 下跌个数
      */
-    private BigDecimal adrDownCountDay3;
+    private BigDecimal adrDownCountDay3 = new BigDecimal("0");
     /**
      * rsCount 查询结果个数
      */
-    private BigDecimal rsCountDay5;
+    private BigDecimal rsCountDay5 = new BigDecimal("0");
     /**
      * adrUpCount 上涨个数
      */
-    private BigDecimal adrUpCountDay5;
+    private BigDecimal adrUpCountDay5 = new BigDecimal("0");
     /**
      * adrDownCount 下跌个数
      */
-    private BigDecimal adrDownCountDay5;
+    private BigDecimal adrDownCountDay5 = new BigDecimal("0");
     /**
      * rsCount 查询结果个数
      */
-    private BigDecimal rsCountDay10;
+    private BigDecimal rsCountDay10 = new BigDecimal("0");
     /**
      * adrUpCount 上涨个数
      */
-    private BigDecimal adrUpCountDay10;
+    private BigDecimal adrUpCountDay10 = new BigDecimal("0");
     /**
      * adrDownCount 下跌个数
      */
-    private BigDecimal adrDownCountDay10;
+    private BigDecimal adrDownCountDay10 = new BigDecimal("0");
     /**
      * rsCount 查询结果个数
      */
-    private BigDecimal rsCountDay20;
+    private BigDecimal rsCountDay20 = new BigDecimal("0");
     /**
      * adrUpCount 上涨个数
      */
-    private BigDecimal adrUpCountDay20;
+    private BigDecimal adrUpCountDay20 = new BigDecimal("0");
     /**
      * adrDownCount 下跌个数
      */
-    private BigDecimal adrDownCountDay20;
+    private BigDecimal adrDownCountDay20 = new BigDecimal("0");
     /**
      * rsCount 查询结果个数
      */
-    private BigDecimal rsCountDay30;
+    private BigDecimal rsCountDay30 = new BigDecimal("0");
     /**
      * adrUpCount 上涨个数
      */
-    private BigDecimal adrUpCountDay30;
+    private BigDecimal adrUpCountDay30 = new BigDecimal("0");
     /**
      * adrDownCount 下跌个数
      */
-    private BigDecimal adrDownCountDay30;
+    private BigDecimal adrDownCountDay30 = new BigDecimal("0");
     /**
      * rsCount 查询结果个数
      */
-    private BigDecimal rsCountDay60;
+    private BigDecimal rsCountDay60 = new BigDecimal("0");
     /**
      * adrUpCount 上涨个数
      */
-    private BigDecimal adrUpCountDay60;
+    private BigDecimal adrUpCountDay60 = new BigDecimal("0");
     /**
      * adrDownCount 下跌个数
      */
-    private BigDecimal adrDownCountDay60;
+    private BigDecimal adrDownCountDay60 = new BigDecimal("0");
+
+    /**
+     * adrUpCount 上涨个数-合计(只要有阶段价格超过就合格)
+     */
+    private BigDecimal adrUpCountTotalDay1 = new BigDecimal("0");
+    private BigDecimal adrUpCountTotalDay2 = new BigDecimal("0");
+    private BigDecimal adrUpCountTotalDay3 = new BigDecimal("0");
+    private BigDecimal adrUpCountTotalDay5 = new BigDecimal("0");
+    private BigDecimal adrUpCountTotalDay10 = new BigDecimal("0");
+    private BigDecimal adrUpCountTotalDay20 = new BigDecimal("0");
+    private BigDecimal adrUpCountTotalDay30 = new BigDecimal("0");
+    private BigDecimal adrUpCountTotalDay60 = new BigDecimal("0");
+    /**
+     * adrCount 下跌个数-合计(只要有阶段价格超过就合格)
+     */
+    private BigDecimal adrDownCountTotalDay1 = new BigDecimal("0");
+    private BigDecimal adrDownCountTotalDay2 = new BigDecimal("0");
+    private BigDecimal adrDownCountTotalDay3 = new BigDecimal("0");
+    private BigDecimal adrDownCountTotalDay5 = new BigDecimal("0");
+    private BigDecimal adrDownCountTotalDay10 = new BigDecimal("0");
+    private BigDecimal adrDownCountTotalDay20 = new BigDecimal("0");
+    private BigDecimal adrDownCountTotalDay30 = new BigDecimal("0");
+    private BigDecimal adrDownCountTotalDay60 = new BigDecimal("0");
+
+    public BigDecimal getAdrDownCountTotalDay1() {
+        return adrDownCountTotalDay1;
+    }
+
+    public void setAdrDownCountTotalDay1(BigDecimal adrDownCountTotalDay1) {
+        this.adrDownCountTotalDay1 = adrDownCountTotalDay1;
+    }
+
+    public BigDecimal getAdrDownCountTotalDay2() {
+        return adrDownCountTotalDay2;
+    }
+
+    public void setAdrDownCountTotalDay2(BigDecimal adrDownCountTotalDay2) {
+        this.adrDownCountTotalDay2 = adrDownCountTotalDay2;
+    }
+
+    public BigDecimal getAdrDownCountTotalDay3() {
+        return adrDownCountTotalDay3;
+    }
+
+    public void setAdrDownCountTotalDay3(BigDecimal adrDownCountTotalDay3) {
+        this.adrDownCountTotalDay3 = adrDownCountTotalDay3;
+    }
+
+    public BigDecimal getAdrDownCountTotalDay5() {
+        return adrDownCountTotalDay5;
+    }
+
+    public void setAdrDownCountTotalDay5(BigDecimal adrDownCountTotalDay5) {
+        this.adrDownCountTotalDay5 = adrDownCountTotalDay5;
+    }
+
+    public BigDecimal getAdrDownCountTotalDay10() {
+        return adrDownCountTotalDay10;
+    }
+
+    public void setAdrDownCountTotalDay10(BigDecimal adrDownCountTotalDay10) {
+        this.adrDownCountTotalDay10 = adrDownCountTotalDay10;
+    }
+
+    public BigDecimal getAdrDownCountTotalDay20() {
+        return adrDownCountTotalDay20;
+    }
+
+    public void setAdrDownCountTotalDay20(BigDecimal adrDownCountTotalDay20) {
+        this.adrDownCountTotalDay20 = adrDownCountTotalDay20;
+    }
+
+    public BigDecimal getAdrDownCountTotalDay30() {
+        return adrDownCountTotalDay30;
+    }
+
+    public void setAdrDownCountTotalDay30(BigDecimal adrDownCountTotalDay30) {
+        this.adrDownCountTotalDay30 = adrDownCountTotalDay30;
+    }
+
+    public BigDecimal getAdrDownCountTotalDay60() {
+        return adrDownCountTotalDay60;
+    }
+
+    public void setAdrDownCountTotalDay60(BigDecimal adrDownCountTotalDay60) {
+        this.adrDownCountTotalDay60 = adrDownCountTotalDay60;
+    }
+
+    public BigDecimal getAdrUpCountTotalDay1() {
+        return adrUpCountTotalDay1;
+    }
+
+    public void setAdrUpCountTotalDay1(BigDecimal adrUpCountTotalDay1) {
+        this.adrUpCountTotalDay1 = adrUpCountTotalDay1;
+    }
+
+    public BigDecimal getAdrUpCountTotalDay2() {
+        return adrUpCountTotalDay2;
+    }
+
+    public void setAdrUpCountTotalDay2(BigDecimal adrUpCountTotalDay2) {
+        this.adrUpCountTotalDay2 = adrUpCountTotalDay2;
+    }
+
+    public BigDecimal getAdrUpCountTotalDay3() {
+        return adrUpCountTotalDay3;
+    }
+
+    public void setAdrUpCountTotalDay3(BigDecimal adrUpCountTotalDay3) {
+        this.adrUpCountTotalDay3 = adrUpCountTotalDay3;
+    }
+
+    public BigDecimal getAdrUpCountTotalDay5() {
+        return adrUpCountTotalDay5;
+    }
+
+    public void setAdrUpCountTotalDay5(BigDecimal adrUpCountTotalDay5) {
+        this.adrUpCountTotalDay5 = adrUpCountTotalDay5;
+    }
+
+    public BigDecimal getAdrUpCountTotalDay10() {
+        return adrUpCountTotalDay10;
+    }
+
+    public void setAdrUpCountTotalDay10(BigDecimal adrUpCountTotalDay10) {
+        this.adrUpCountTotalDay10 = adrUpCountTotalDay10;
+    }
+
+    public BigDecimal getAdrUpCountTotalDay20() {
+        return adrUpCountTotalDay20;
+    }
+
+    public void setAdrUpCountTotalDay20(BigDecimal adrUpCountTotalDay20) {
+        this.adrUpCountTotalDay20 = adrUpCountTotalDay20;
+    }
+
+    public BigDecimal getAdrUpCountTotalDay30() {
+        return adrUpCountTotalDay30;
+    }
+
+    public void setAdrUpCountTotalDay30(BigDecimal adrUpCountTotalDay30) {
+        this.adrUpCountTotalDay30 = adrUpCountTotalDay30;
+    }
+
+    public BigDecimal getAdrUpCountTotalDay60() {
+        return adrUpCountTotalDay60;
+    }
+
+    public void setAdrUpCountTotalDay60(BigDecimal adrUpCountTotalDay60) {
+        this.adrUpCountTotalDay60 = adrUpCountTotalDay60;
+    }
 
     public BigDecimal getRsCountDay1() {
         return rsCountDay1;
