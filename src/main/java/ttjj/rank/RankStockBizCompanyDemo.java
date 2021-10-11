@@ -28,18 +28,14 @@ public class RankStockBizCompanyDemo {
         /**
          * 添加或更新股票-根据日期
          */
-//        for (int i = 0; i < 1; i++) {
-        for (int i = 69; i < 100; i++) {
+        for (int i = 0; i < 1; i++) {
+//        for (int i = 131; i < 365; i++) {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
-//            boolean flagInsertDb = true;//标识：是否插入数据库
-            boolean flagInsertDb = false;
-            boolean flagUpdateNet = true;//标识：是否更新净值
-//            boolean flagUpdateNet = false;
-//        boolean flagUpdateConception = true;//标识：是否更新概念题材
-            boolean flagUpdateConception = false;
             int startNum = 0;//开始位置，默认0
             //  添加或更新股票-根据日期
-            addTodayStCom(date, flagInsertDb, flagUpdateConception, flagUpdateNet, startNum);
+//            addTodayStCom(date, startNum);
+            updateNetToday(date, startNum, true, true, true, true, true, true, true);//  更新净值
+//            updateNetToday(date, startNum, false, true, false, false, false, false, false);//  更新净值
         }
 
 
@@ -434,17 +430,14 @@ public class RankStockBizCompanyDemo {
      * 添加或更新股票-根据日期
      *
      * @param date
-     * @param flagInsertDb
-     * @param flagUpdateConception
-     * @param flagUpdateNet
      */
-    private static void addTodayStCom(String date, boolean flagInsertDb, boolean flagUpdateConception, boolean flagUpdateNet, int startNum) {
+    private static void addTodayStCom(String date, int startNum) {
         Map<String, String> bizMap = new LinkedHashMap<>();
-        List<RankBizDataDiff> bizList = listBiz(NUM_MAX_999);//查询主题排名by时间类型、显示个数
+        List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题排名by时间类型、显示个数
 
         int bizCountLimit = NUM_MAX_999;
         int bizCountTemp = 0;
-        for (RankBizDataDiff biz : bizList) {
+        for (RankBizDataDiff biz : bkList) {
             bizCountTemp++;
             if (bizCountTemp < startNum) {
                 System.out.println("已完成:" + biz.getF14() + "," + biz.getF12());
@@ -457,7 +450,7 @@ public class RankStockBizCompanyDemo {
             bizMap.put(biz.getF12(), biz.getF14());
         }
         int stBizCountTemp = startNum;
-        for (RankBizDataDiff banKuai : bizList) {
+        for (RankBizDataDiff banKuai : bkList) {
             String banKuaiCode = banKuai.getF12();
             String banKuaiName = banKuai.getF14();
             stBizCountTemp++;
@@ -466,112 +459,147 @@ public class RankStockBizCompanyDemo {
             System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName + "---[" + banKuai.getF3() + "]---" + stockList.size());
             System.out.println();
 
-            if (flagInsertDb) {
-                int insertRs = showBizSql(stockList, banKuaiCode, banKuaiName, date);//显示业务排行-插入sql
+            showBizSql(stockList, banKuaiCode, banKuaiName, date);//显示业务排行-插入sql
+        }
+    }
+
+    /**
+     * 更新净值
+     *
+     * @param date
+     * @param startNum
+     */
+    private static void updateNetToday(String date, int startNum, boolean isMa5, boolean isMa10, boolean isMa20, boolean isMa30, boolean isMa60, boolean isMa120, boolean isMa250) {
+        Map<String, String> bizMap = new LinkedHashMap<>();
+        List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题排名by时间类型、显示个数
+
+        int bizCountLimit = NUM_MAX_999;
+        int bizCountTemp = 0;
+        for (RankBizDataDiff biz : bkList) {
+            bizCountTemp++;
+            if (bizCountTemp < startNum) {
+                System.out.println("已完成:" + biz.getF14() + "," + biz.getF12());
+                continue;//已完成
             }
-
-            if (flagUpdateConception) {
-                //更新题材概念
-                updateConception(date, banKuaiCode, stockList);
+            if (bizCountTemp > bizCountLimit) {
+                break;//限定个数中断
             }
+//            System.out.println("/**" + JSON.toJSONString(biz) + "**/");
+            bizMap.put(biz.getF12(), biz.getF14());
+        }
+        int stBizCountTemp = startNum;
+        for (RankBizDataDiff banKuai : bkList) {
+            String banKuaiCode = banKuai.getF12();
+            String banKuaiName = banKuai.getF14();
+            stBizCountTemp++;
+            List<RankStockCommpanyDb> stockList = listRankStockByBiz(NUM_MAX_999, banKuaiCode);
+            System.out.println();
+            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName + "---[" + banKuai.getF3() + "]---" + stockList.size());
+            System.out.println();
 
-            if (flagUpdateNet) {
-                // 最新周期价格
-                for (RankStockCommpanyDb entity : stockList) {
-                    if (entity == null) {
-                        System.out.println("实体信息为null，不更新db：");
-                        continue;
-                    }
-                    entity.setDate(date);
-                    if (StringUtils.isBlank(entity.getF12())) {
-                        System.out.println("实体信息异常，不更新db：" + JSON.toJSONString(entity));
-                        continue;
-                    }
+            // 最新周期价格
+            for (RankStockCommpanyDb entity : stockList) {
+                if (entity == null) {
+                    System.out.println("实体信息为null，不更新db：");
+                    continue;
+                }
+                entity.setDate(date);
+                if (StringUtils.isBlank(entity.getF12())) {
+                    System.out.println("实体信息异常，不更新db：" + JSON.toJSONString(entity));
+                    continue;
+                }
 
-                    // 股票状态
-                    if (DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED == entity.getF148()) {
-                        System.out.println("均线价格暂不更新（退市）！" + JSON.toJSONString(entity));
-                        continue;
-                    }
-                    if (DB_RANK_BIZ_F148_STOCK_STATUS_UNLISTED == entity.getF148()) {
-                        System.out.println("均线价格暂不更新（未上市）！" + JSON.toJSONString(entity));
-                        continue;
-                    }
-                    if (DB_RANK_BIZ_F148_STOCK_STATUS_SUSPENSION == entity.getF148()) {
-                        System.out.println("均线价格暂不更新（暂停上市）！" + JSON.toJSONString(entity));
-                        continue;
-                    }
-                    if (DB_RANK_BIZ_F148_STOCK_STATUS_ST == entity.getF148()) {
-                        System.out.println("均线价格暂不更新（ST股）！" + JSON.toJSONString(entity));
-                        continue;
-                    }
-                    //只更新主板板块的价格
-                    if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI) {
-                        System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
-                        continue;
-                    }
-                    //  市值限定,100亿以下不更新
-                    if (entity.getF20() != null && entity.getF20().compareTo(new BigDecimal("10000000000")) < 0) {
-                        System.out.println("均线价格暂不更新（100亿以下）！" + JSON.toJSONString(entity));
-                        continue;
-                    }
-                    if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
-                        // 周期价格:均线、最低、最高、收盘最低、收盘最高
-                        String zqdm = entity.getF12();
+                // 股票状态
+                if (DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED == entity.getF148()) {
+                    System.out.println("均线价格暂不更新（退市）！" + JSON.toJSONString(entity));
+                    continue;
+                }
+                if (DB_RANK_BIZ_F148_STOCK_STATUS_UNLISTED == entity.getF148()) {
+                    System.out.println("均线价格暂不更新（未上市）！" + JSON.toJSONString(entity));
+                    continue;
+                }
+                if (DB_RANK_BIZ_F148_STOCK_STATUS_SUSPENSION == entity.getF148()) {
+                    System.out.println("均线价格暂不更新（暂停上市）！" + JSON.toJSONString(entity));
+                    continue;
+                }
+                if (DB_RANK_BIZ_F148_STOCK_STATUS_ST == entity.getF148()) {
+                    System.out.println("均线价格暂不更新（ST股）！" + JSON.toJSONString(entity));
+                    continue;
+                }
+                //只更新主板板块的价格
+                if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI) {
+                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
+                    continue;
+                }
+                //  市值限定,100亿以下不更新
+                if (entity.getF20() != null && entity.getF20().compareTo(new BigDecimal("10000000000")) < 0) {
+                    System.out.println("均线价格暂不更新（100亿以下）！" + JSON.toJSONString(entity));
+                    continue;
+                }
+                if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
+                    // 周期价格:均线、最低、最高、收盘最低、收盘最高
+                    String zqdm = entity.getF12();
 
-//                        Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK);
-//                        entity.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
-//                        entity.setNET_MIN_7(netMap5.get(Content.keyRsMin).doubleValue());
-//                        entity.setNET_MAX_7(netMap5.get(Content.keyRsMax).doubleValue());
-//                        entity.setNET_MIN_CLOS_7(netMap5.get(Content.keyRsNetCloseMin).doubleValue());
-//                        entity.setNET_MAX_CLOS_7(netMap5.get(Content.keyRsNetCloseMax).doubleValue());
-
+                    if (isMa5) {
+                        Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK);
+                        entity.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
+                        entity.setNET_MIN_7(netMap5.get(Content.keyRsMin).doubleValue());
+                        entity.setNET_MAX_7(netMap5.get(Content.keyRsMax).doubleValue());
+                        entity.setNET_MIN_CLOS_7(netMap5.get(Content.keyRsNetCloseMin).doubleValue());
+                        entity.setNET_MAX_CLOS_7(netMap5.get(Content.keyRsNetCloseMax).doubleValue());
+                    }
+                    if (isMa10) {
                         Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK);
                         entity.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
                         entity.setNET_MIN_14(netMap10.get(Content.keyRsMin).doubleValue());
                         entity.setNET_MAX_14(netMap10.get(Content.keyRsMax).doubleValue());
                         entity.setNET_MIN_CLOS_14(netMap10.get(Content.keyRsNetCloseMin).doubleValue());
                         entity.setNET_MAX_CLOS_14(netMap10.get(Content.keyRsNetCloseMax).doubleValue());
-
+                    }
+                    if (isMa20) {
                         Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK);
                         entity.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
                         entity.setNET_MIN_30(netMap20.get(Content.keyRsMin).doubleValue());
                         entity.setNET_MAX_30(netMap20.get(Content.keyRsMax).doubleValue());
                         entity.setNET_MIN_CLOS_30(netMap20.get(Content.keyRsNetCloseMin).doubleValue());
                         entity.setNET_MAX_CLOS_30(netMap20.get(Content.keyRsNetCloseMax).doubleValue());
-
+                    }
+                    if (isMa30) {
                         Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, KLT_101, false, "", date, KLINE_TYPE_STOCK);
                         entity.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
                         entity.setNET_MIN_60(netMap30.get(Content.keyRsMin).doubleValue());
                         entity.setNET_MAX_60(netMap30.get(Content.keyRsMax).doubleValue());
                         entity.setNET_MIN_CLOS_60(netMap30.get(Content.keyRsNetCloseMin).doubleValue());
                         entity.setNET_MAX_CLOS_60(netMap30.get(Content.keyRsNetCloseMax).doubleValue());
-
+                    }
+                    if (isMa60) {
                         Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK);
                         entity.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
                         entity.setNET_MIN_90(netMap60.get(Content.keyRsMin).doubleValue());
                         entity.setNET_MAX_90(netMap60.get(Content.keyRsMax).doubleValue());
                         entity.setNET_MIN_CLOS_90(netMap60.get(Content.keyRsNetCloseMin).doubleValue());
                         entity.setNET_MAX_CLOS_90(netMap60.get(Content.keyRsNetCloseMax).doubleValue());
-
+                    }
+                    if (isMa120) {
                         Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, KLT_101, false, "", date, KLINE_TYPE_STOCK);
                         entity.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
                         entity.setNET_MIN_180(netMap120.get(Content.keyRsMin).doubleValue());
                         entity.setNET_MAX_180(netMap120.get(Content.keyRsMax).doubleValue());
                         entity.setNET_MIN_CLOS_180(netMap120.get(Content.keyRsNetCloseMin).doubleValue());
                         entity.setNET_MAX_CLOS_180(netMap120.get(Content.keyRsNetCloseMax).doubleValue());
-
+                    }
+                    if (isMa250) {
                         Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, KLT_101, false, "", date, KLINE_TYPE_STOCK);
                         entity.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
                         entity.setNET_MIN_360(netMap250.get(Content.keyRsMin).doubleValue());
                         entity.setNET_MAX_360(netMap250.get(Content.keyRsMax).doubleValue());
                         entity.setNET_MIN_CLOS_360(netMap250.get(Content.keyRsNetCloseMin).doubleValue());
                         entity.setNET_MAX_CLOS_360(netMap250.get(Content.keyRsNetCloseMax).doubleValue());
-
-                        int rs = RankStockCommpanyDao.updateByCode(entity);
-                        System.out.println("主板板块的均线价格更新---------------------" + entity.getF14() + ":"
-                                + entity.getF3() + ",rs:" + rs + JSON.toJSONString(entity));
                     }
+
+                    int rs = RankStockCommpanyDao.updateByCode(entity);
+                    System.out.println("主板板块的均线价格更新---------------------" + entity.getF14() + ":"
+                            + entity.getF3() + ",rs:" + rs + JSON.toJSONString(entity));
                 }
             }
         }

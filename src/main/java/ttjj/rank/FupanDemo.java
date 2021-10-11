@@ -124,7 +124,7 @@ public class FupanDemo {
                 insertDbFupanPosition(assetPosition);//
 
                 //更新当日k线参数
-                List<Kline> klineList = KlineService.kline(assetPosition.getZqdm(), 1, klt, true, date, date, KLINE_TYPE_INDEX);
+                List<Kline> klineList = KlineService.kline(assetPosition.getZqdm(), 1, klt, true, date, date, KLINE_TYPE_STOCK);
                 if (klineList != null && klineList.size() > 0) {
                     AssetPositionDb entity = new AssetPositionDb();
                     entity.setZqdm(assetPosition.getZqdm());

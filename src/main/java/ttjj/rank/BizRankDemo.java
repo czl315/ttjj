@@ -108,15 +108,15 @@ public class BizRankDemo {
      * @param date
      */
     private static void insertTodayBizDb(String date) {
-//        boolean insertDbTodayBiz = true;
-        boolean insertDbTodayBiz = false;
-//        boolean insertDbTodayConcept = true;
-        boolean insertDbTodayConcept = false;
-//        boolean insertDbTodayEtf = true;
-        boolean insertDbTodayEtf = false;
+        boolean insertDbTodayBiz = true;
+//        boolean insertDbTodayBiz = false;
+        boolean insertDbTodayConcept = true;
+//        boolean insertDbTodayConcept = false;
+        boolean insertDbTodayEtf = true;
+//        boolean insertDbTodayEtf = false;
 
-//        boolean updateDbTodayEtfMa = true;//更新均线
-        boolean updateDbTodayEtfMa = false;//更新均线
+        boolean updateDbTodayEtfMa = true;//更新均线
+//        boolean updateDbTodayEtfMa = false;//更新均线
 
 //        boolean updateDbTodayEtfNetMaxMinTimeFlag = true;
         boolean updateDbTodayEtfNetMaxMinTimeFlag = false;
