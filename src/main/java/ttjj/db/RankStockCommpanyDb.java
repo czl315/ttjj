@@ -215,47 +215,68 @@ public class RankStockCommpanyDb {
     private Double f60;
     private Double f61;
     /**
-     * f62 今日主力净流入
+     * f62 主力-净流入
      */
     private Long f62;
     private Double f63;
+    /**
+     * f64 超大单-流入
+     */
     private Double f64;
     /**
-     * f65 超大单
+     * f65 超大单-流出
      */
     private Double f65;
     /**
-     * f66 今日超大单净流入
+     * f66 超大单-净流入
      */
     private Double f66;
     private Double f67;
     private Double f68;
     /**
-     * f69 超大单净比
+     * f69 超大单-净占比
      */
     private Double f69;
+    /**
+     * f70 大单-流入
+     */
     private Double f70;
+    /**
+     * f71 大单-流出
+     */
     private Double f71;
     /**
-     * f72 今日大单净流入
+     * f72 大单-净流入
      */
     private Double f72;
     private Double f73;
     private Double f74;
     private Double f75;
+    /**
+     * f76 中单-流入
+     */
     private Double f76;
+    /**
+     * f77 中单-流出
+     */
     private Double f77;
     /**
-     * f78 今日中单净流入
+     * f78 中单-净流入
      */
     private Double f78;
     private Double f79;
     private Double f80;
     private Long f81;
+    /**
+     * f82 小单-流入
+     */
     private Long f82;
+    /**
+     * f83 小单-流出
+     */
     private Long f83;
     /**
-     * f84 今日小单净流入
+     * f84 小单-净流入
      */
     private Long f84;
     private Double f85;

@@ -314,4 +314,8 @@ public class Content {
      * NUM_MAX_999 数量上限-99
      */
     public static int NUM_MAX_999 = 999;
+    /**
+     * NUM_MAX_99 数量上限-99
+     */
+    public static int NUM_MAX_99 = 99;
 }

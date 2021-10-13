@@ -29,13 +29,13 @@ public class RankStockBizCompanyDemo {
          * 添加或更新股票-根据日期
          */
         for (int i = 0; i < 1; i++) {
-//        for (int i = 131; i < 365; i++) {
+//        for (int i = 180; i < 365; i++) {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
             int startNum = 0;//开始位置，默认0
             //  添加或更新股票-根据日期
-//            addTodayStCom(date, startNum);
-            updateNetToday(date, startNum, true, true, true, true, true, true, true);//  更新净值
+            addTodayStCom(date, startNum);
 //            updateNetToday(date, startNum, false, true, false, false, false, false, false);//  更新净值
+//            updateNetToday(date, startNum, true, true, true, true, true, true, true);//  更新净值
         }
 
 
@@ -432,9 +432,7 @@ public class RankStockBizCompanyDemo {
      * @param date
      */
     private static void addTodayStCom(String date, int startNum) {
-        Map<String, String> bizMap = new LinkedHashMap<>();
-        List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题排名by时间类型、显示个数
-
+        List<RankBizDataDiff> bkList = listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
         int bizCountLimit = NUM_MAX_999;
         int bizCountTemp = 0;
         for (RankBizDataDiff biz : bkList) {
@@ -446,8 +444,6 @@ public class RankStockBizCompanyDemo {
             if (bizCountTemp > bizCountLimit) {
                 break;//限定个数中断
             }
-//            System.out.println("/**" + JSON.toJSONString(biz) + "**/");
-            bizMap.put(biz.getF12(), biz.getF14());
         }
         int stBizCountTemp = startNum;
         for (RankBizDataDiff banKuai : bkList) {
