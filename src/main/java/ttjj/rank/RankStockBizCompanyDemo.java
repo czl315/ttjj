@@ -34,8 +34,8 @@ public class RankStockBizCompanyDemo {
             int startNum = 0;//开始位置，默认0
             //  添加或更新股票-根据日期
             addTodayStCom(date, startNum);
-//            updateNetToday(date, startNum, false, true, false, false, false, false, false);//  更新净值
-//            updateNetToday(date, startNum, true, true, true, true, true, true, true);//  更新净值
+//            updateNetToday(date, startNum, true, false, false, false, false, false, false);//  更新净值
+            updateNetToday(date, startNum, true, true, true, true, true, true, true);//  更新净值
         }
 
 

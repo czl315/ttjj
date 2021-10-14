@@ -251,6 +251,9 @@ public class RankStockCommpanyDb {
     private Double f72;
     private Double f73;
     private Double f74;
+    /**
+     * f75 大单-净占比
+     */
     private Double f75;
     /**
      * f76 中单-流入
@@ -266,7 +269,10 @@ public class RankStockCommpanyDb {
     private Double f78;
     private Double f79;
     private Double f80;
-    private Long f81;
+    /**
+     * f81 中单-净占比
+     */
+    private Double f81;
     /**
      * f82 小单-流入
      */
@@ -985,11 +991,11 @@ public class RankStockCommpanyDb {
         this.f80 = f80;
     }
 
-    public Long getF81() {
+    public Double getF81() {
         return f81;
     }
 
-    public void setF81(Long f81) {
+    public void setF81(Double f81) {
         this.f81 = f81;
     }
 
