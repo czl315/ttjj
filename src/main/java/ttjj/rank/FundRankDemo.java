@@ -3,11 +3,8 @@ package ttjj.rank;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import ttjj.dao.MyBatisUtils;
+import ttjj.dao.FundRankDao;
 import ttjj.db.FundRank;
-import ttjj.db.RankStockCommpanyDb;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
@@ -31,11 +28,6 @@ import java.util.stream.Collectors;
  * @date 2021-02-26 10:08
  */
 public class FundRankDemo {
-    /**
-     * sqlSessionFactory mybatis
-     */
-    static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
-
     public static void main(String[] args) {
         /**
          * 列表查询-排行榜
@@ -206,30 +198,11 @@ public class FundRankDemo {
 //            System.out.println();
 
             showInsertDb(fundRank);
-            insertDb(fundRank);
+            FundRankDao.insertDb(fundRank);
         });
     }
 
-    /**
-     * db-插入
-     *
-     * @param entity
-     */
-    private static int insertDb(FundRank entity) {
-        SqlSession session = sqlSessionFactory.openSession();
-        int rs = 0;
-        try {
-//                System.out.println(JSON.toJSONString(entity));
-            rs = session.insert("ttjj.dao.mapper.RankFundMapper.insert", entity);
-            session.commit();
-        } catch (Exception e) {
-//            e.printStackTrace();
-            System.out.println(e.getMessage());
-        } finally {
-            session.close();
-        }
-        return rs;
-    }
+
 
     private static void showInsertDb(FundRank fundRank) {
         //显示插入数据库语句

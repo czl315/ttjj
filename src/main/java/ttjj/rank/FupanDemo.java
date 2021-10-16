@@ -4,11 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.BeanUtils;
+import ttjj.dao.FuPanDao;
 import ttjj.dao.FupanPositionDao;
-import ttjj.dao.MyBatisUtils;
 import ttjj.db.AssetPositionDb;
 import ttjj.db.Fupan;
 import ttjj.db.StockTradeDb;
@@ -25,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static utils.Content.KLINE_TYPE_INDEX;
+import static ttjj.dao.FupanPositionDao.insertDbFupanPosition;
 import static utils.Content.KLINE_TYPE_STOCK;
 
 /**
@@ -35,10 +33,7 @@ import static utils.Content.KLINE_TYPE_STOCK;
  * @date 2020/10/7
  */
 public class FupanDemo {
-    /**
-     * sqlSessionFactory mybatis
-     */
-    static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
+
 
     static final String SHANG_HAI = "1.000001";
     static final String SHEN_ZHEN = "0.399001";
@@ -71,21 +66,21 @@ public class FupanDemo {
         String klt = Content.KLT_101;//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
         String dateType = Content.DAYS_1;//1：一天;7:周;30:月;
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//            String date = "2021-09-24";
+//            String date = "2021-10-15";
 
         if (updateDaPanKline) {
             String cookie = "";
             //k线
             int count = 1;
 
-            updateDb(findFupanPointByKline(cookie, HS_300_000300, count, klt, dateType, date));//沪深300
-            updateDb(findFupanPointByKline(cookie, CYB_50_399673, count, klt, dateType, date));//创业板50
-            updateDb(findFupanPointByKline(cookie, ZZ_500_000905, count, klt, dateType, date));//中证500
-            updateDb(findFupanPointByKline(cookie, SH_50_000016, count, klt, dateType, date));//上证50
-            updateDb(findFupanPointByKline(cookie, SHANG_HAI, count, klt, dateType, date));//上证
-            updateDb(findFupanPointByKline(cookie, SHEN_ZHEN, count, klt, dateType, date));//深证成指
-            updateDb(findFupanPointByKline(cookie, CYB, count, klt, dateType, date));//创业板
-            updateDb(findFupanPointByKline(cookie, KCB_50, count, klt, dateType, date));
+            FuPanDao.updateDb(findFupanPointByKline(cookie, HS_300_000300, count, klt, dateType, date));//沪深300
+            FuPanDao.updateDb(findFupanPointByKline(cookie, CYB_50_399673, count, klt, dateType, date));//创业板50
+            FuPanDao.updateDb(findFupanPointByKline(cookie, ZZ_500_000905, count, klt, dateType, date));//中证500
+            FuPanDao.updateDb(findFupanPointByKline(cookie, SH_50_000016, count, klt, dateType, date));//上证50
+            FuPanDao.updateDb(findFupanPointByKline(cookie, SHANG_HAI, count, klt, dateType, date));//上证
+            FuPanDao.updateDb(findFupanPointByKline(cookie, SHEN_ZHEN, count, klt, dateType, date));//深证成指
+            FuPanDao.updateDb(findFupanPointByKline(cookie, CYB, count, klt, dateType, date));//创业板
+            FuPanDao.updateDb(findFupanPointByKline(cookie, KCB_50, count, klt, dateType, date));
             System.out.println();
 
 //            for (int i = 0; i < 100; i++) {
@@ -101,13 +96,13 @@ public class FupanDemo {
         if (updateMyStock) {
             //显示股票每日收益
             Fupan FupanMyStock = queryAssetByDfcfStock(COOKIE_DFCF, dateType);
-            updateDb(FupanMyStock);
+            FuPanDao.updateDb(FupanMyStock);
         }
 
         if (updateMyStockAssetPosition) {
             //更新-我的股票-资产持仓：只有为空时才更新
             Fupan fupanMyStockAssetPosition = queryMyStockAssetPosition(COOKIE_DFCF, dateType, date);
-            updateMyStockAssetPosition(fupanMyStockAssetPosition);
+            FuPanDao.updateMyStockAssetPosition(fupanMyStockAssetPosition);
         }
 
         List<AssetPositionDb> assetPositionList = new ArrayList<>();
@@ -226,80 +221,14 @@ public class FupanDemo {
             String amt_fund_last = "0";
             String earn_fund = "0";
             Fupan FupanMyFund = handlerFundByTtjj(amt, amt_fund, amt_fund_last, earn_fund, date, dateType);
-            updateDb(FupanMyFund);
+            FuPanDao.updateDb(FupanMyFund);
         }
 
     }
 
-    /**
-     * 更新数据库
-     *
-     * @param fupan
-     */
-    private static int updateDb(Fupan fupan) {
-        SqlSession session = sqlSessionFactory.openSession();
-        int rs = 0;
-        try {
-            rs = session.update("ttjj.dao.mapper.FupanMapper.updateFupan", fupan);
-            session.commit();
-        } finally {
-            session.close();
-        }
-        return rs;
-    }
 
-    /**
-     * 更新-我的股票-资产持仓
-     *
-     * @param fupan
-     */
-    private static int updateMyStockAssetPosition(Fupan fupan) {
-        SqlSession session = sqlSessionFactory.openSession();
-        int rs = 0;
-        try {
-            rs = session.update("ttjj.dao.mapper.FupanMapper.updateMyStockAssetPosition", fupan);
-            session.commit();
-        } finally {
-            session.close();
-        }
-        return rs;
-    }
 
-    /**
-     * @param condition
-     * @return
-     */
-    private static Fupan findDbByDate(Fupan condition) {
-        SqlSession session = sqlSessionFactory.openSession();
-        Fupan fupan = null;
-        try {
-            fupan = session.selectOne("ttjj.dao.mapper.FupanMapper.findDbByDate", condition);
-            session.commit();
-        } finally {
-            session.close();
-        }
-        return fupan;
-    }
 
-    /**
-     * 插入-复盘我的持仓明细
-     *
-     * @param entity
-     * @return
-     */
-    private static int insertDbFupanPosition(AssetPositionDb entity) {
-        SqlSession session = sqlSessionFactory.openSession();
-        int rs = 0;
-        try {
-            rs = session.insert("ttjj.dao.mapper.FupanPositionMapper.insert", entity);
-            session.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return rs;
-    }
 
     /**
      * 计算我的天天基金收益
@@ -515,7 +444,7 @@ public class FupanDemo {
         Fupan condition = new Fupan();
         condition.setCode(date);
         condition.setPeriod(period);
-        Fupan fupanDb = findDbByDate(condition);
+        Fupan fupanDb = FuPanDao.findDbByDate(condition);
         String assetPositionRs = fupanDb.getAssetPosition();
         System.out.println("findDbMyPositionByDate:" + assetPositionRs);
 
