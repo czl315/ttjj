@@ -20,7 +20,7 @@ import static utils.Content.*;
 /**
  * 排行-行业股票-公司-每日明细
  */
-public class RankStockBizCompanyDemo {
+public class StockDemo {
     /**
      * @param args
      */
@@ -33,7 +33,7 @@ public class RankStockBizCompanyDemo {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
             int startNum = 0;//开始位置，默认0
             //  添加或更新股票-根据日期
-            addTodayStCom(date, startNum);
+//            addTodayStCom(date, startNum);
 //            updateNetToday(date, startNum, true, false, false, false, false, false, false);//  更新净值
             updateNetToday(date, startNum, true, true, true, true, true, true, true);//  更新净值
         }
@@ -451,9 +451,9 @@ public class RankStockBizCompanyDemo {
             String banKuaiName = banKuai.getF14();
             stBizCountTemp++;
             List<RankStockCommpanyDb> stockList = listRankStockByBiz(NUM_MAX_999, banKuaiCode);
-            System.out.println();
+//            System.out.println();
             System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName + "---[" + banKuai.getF3() + "]---" + stockList.size());
-            System.out.println();
+//            System.out.println();
 
             showBizSql(stockList, banKuaiCode, banKuaiName, date);//显示业务排行-插入sql
         }
