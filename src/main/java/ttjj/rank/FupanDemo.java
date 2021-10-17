@@ -24,6 +24,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static ttjj.dao.FupanPositionDao.insertDbFupanPosition;
+import static ttjj.dao.FupanPositionDao.listMyPositionByDate;
 import static utils.Content.KLINE_TYPE_STOCK;
 
 /**
@@ -33,8 +34,6 @@ import static utils.Content.KLINE_TYPE_STOCK;
  * @date 2020/10/7
  */
 public class FupanDemo {
-
-
     static final String SHANG_HAI = "1.000001";
     static final String SHEN_ZHEN = "0.399001";
     static final String CYB = "0.399006";
@@ -48,7 +47,25 @@ public class FupanDemo {
     static final String COOKIE_DFCF = StockTradeDemo.COOKIE_DFCF;
 
     public static void main(String[] args) {
+//        insertOrUpdate();//保存复盘和仓位
 
+//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+            String date = "2021-10-15";
+        listMyPosition(date);//查询我的仓位
+    }
+
+    /**
+     * 查询我的仓位
+     * @param date
+     */
+    private static void listMyPosition(String date) {
+        List<AssetPositionDb> rs = listMyPositionByDate(date);
+        for (AssetPositionDb myPosition : rs) {
+            System.out.println(JSON.toJSONString(myPosition));
+        }
+    }
+
+    private static void insertOrUpdate() {
         boolean updateDaPanKline = true;//显示-大盘指数
 //        boolean updateDaPanKline = false;//不显示-大盘指数
         boolean updateMyStock = true;//显示-我的股票
@@ -225,9 +242,6 @@ public class FupanDemo {
         }
 
     }
-
-
-
 
 
     /**
@@ -602,7 +616,7 @@ public class FupanDemo {
     }
 
 
-    static String closePointLast = "";//上一时段-收盘点位
+
 
     /**
      * 查询-ETF-指数
@@ -616,7 +630,7 @@ public class FupanDemo {
      */
     public static Fupan findFupanPointByKline(String cookie, String zhiShu, int count, String klt, String dayTpye, String date) {
         Fupan fupanRs = new Fupan();
-
+        String closePointLast = "";//上一时段-收盘点位
         //where
         fupanRs.setCode(date);
         fupanRs.setPeriod(dayTpye);

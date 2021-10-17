@@ -3,6 +3,9 @@ package ttjj.dao;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import ttjj.db.AssetPositionDb;
+import ttjj.dto.DateCond;
+
+import java.util.List;
 
 /**
  * @author chenzhilong
@@ -46,6 +49,25 @@ public class FupanPositionDao {
             session.commit();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * 列表查询-我的持仓
+     * @param date
+     * @return
+     */
+    public static List<AssetPositionDb> listMyPositionByDate(String date) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<AssetPositionDb> rs = null;
+        try {
+            rs = session.selectList("ttjj.dao.mapper.FupanPositionMapper.listMyPositionByDate", date);
+            session.commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         } finally {
             session.close();
         }

@@ -5,8 +5,11 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import ttjj.db.AssetPositionDb;
 import ttjj.dto.RankBizDataDiff;
+import ttjj.dto.RankStComTjCond;
+import ttjj.dto.RankStComTjRs;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 复盘-我的持仓明细
@@ -105,4 +108,12 @@ public interface FupanPositionMapper {
 //            "where date=#{date} AND Zqdm=#{Zqdm} limit 1",
             "</script>"})
     void updateEntity(AssetPositionDb entity);
+
+    @Select({"<script>",
+            "   SELECT * ",
+            "   FROM fupan_position ",
+            "   WHERE 1=1  ",
+            "       AND fupan_position.date=#{date} ",
+            "</script>"})
+    List<AssetPositionDb> listMyPositionByDate(String date);
 }
