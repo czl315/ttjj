@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 import static ttjj.dao.FupanPositionDao.insertDbFupanPosition;
 import static ttjj.dao.FupanPositionDao.listMyPositionByDate;
-import static utils.Content.KLINE_TYPE_STOCK;
+import static utils.Content.*;
 
 /**
  * 上证指数
@@ -50,18 +50,142 @@ public class FupanDemo {
 //        insertOrUpdate();//保存复盘和仓位
 
 //        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-            String date = "2021-10-15";
-        listMyPosition(date);//查询我的仓位
+        String date = "2021-10-15";
+        String checkKltType = KLT_101;//检查周期类型
+//        String checkKltType = KLT_102;//检查周期类型
+        listMyPosition(date, checkKltType);//查询我的仓位
     }
 
     /**
      * 查询我的仓位
+     *
      * @param date
      */
-    private static void listMyPosition(String date) {
+    private static void listMyPosition(String date, String klt) {
         List<AssetPositionDb> rs = listMyPositionByDate(date);
         for (AssetPositionDb myPosition : rs) {
-            System.out.println(JSON.toJSONString(myPosition));
+//            System.out.println(JSON.toJSONString(myPosition));
+            BigDecimal zxsz = myPosition.getZxsz();
+            System.out.println(myPosition.getZqmc() + ",数量：" + myPosition.getZqsl() + ",最新市值：" + zxsz);
+            //如果最新市值为0，不检查
+            if (zxsz.compareTo(new BigDecimal("0")) == 0) {
+                continue;
+            }
+            String zqdm = myPosition.getZqdm();
+            BigDecimal openPrice = new BigDecimal("0");
+            List<Kline> klines = KlineService.kline(zqdm, 1, Content.KLT_101, true, date, date, KLINE_TYPE_STOCK);//查询今日价格k线
+            if (klines != null && klines.size() > 0) {
+                Kline kline = klines.get(0);
+                openPrice = kline.getOpenAmt();
+            }
+            BigDecimal zxjg = myPosition.getZxjg();
+            switch (klt) {
+                case "5":
+                    System.out.println("\t检查类型：5分钟；");
+                    break;
+                case "15":
+                    System.out.println("\t检查类型：15分钟；");
+                    break;
+                case "30":
+                    System.out.println("\t检查类型：30分钟；");
+                    break;
+                case "60":
+                    System.out.println("\t检查类型：60分钟；");
+                    break;
+                case "101":
+                    System.out.println("\t检查类型：日线；");
+                    break;
+                case "102":
+                    System.out.println("\t检查类型：周线；");
+                    break;
+                default:
+                    System.out.println("未知均线类型");
+            }
+            Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, MA_5, klt, false, "", date, KLINE_TYPE_STOCK);
+            BigDecimal maPrice5 = netMap5.get(keyRsNetCloseAvg);
+            System.out.print("\t检查周期：5周期均线：" + maPrice5);
+            if (zxjg.compareTo(maPrice5) >= 0) {
+                System.out.print(",最新价格在周期均线价格之上：" + zxjg + ">=" + maPrice5);
+                if (openPrice.compareTo(maPrice5) < 0) {//开盘价检查
+                    System.out.print(",开盘价：" + openPrice + ",突破均线，建议买入");
+                }
+            } else {
+//                System.out.print(",最新价格低于周期均线价格：" + zxjg + "<" + maPrice5);
+            }
+            System.out.println();
+            Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, MA_10, klt, false, "", date, KLINE_TYPE_STOCK);
+            BigDecimal maPrice10 = netMap10.get(keyRsNetCloseAvg);
+            System.out.print("\t检查周期：10周期均线：" + maPrice10);
+            if (zxjg.compareTo(maPrice10) >= 0) {
+                System.out.print(",最新价格在周期均线价格之上：" + zxjg + ">=" + maPrice10);
+                if (openPrice.compareTo(maPrice10) < 0) {//开盘价检查
+                    System.out.print(",开盘价：" + openPrice + ",突破均线，建议买入");
+                }
+            } else {
+//                System.out.print(",最新价格低于周期均线价格：" + zxjg + "<" + maPrice10);
+            }
+            System.out.println();
+            Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, MA_20, klt, false, "", date, KLINE_TYPE_STOCK);
+            BigDecimal maPrice20 = netMap20.get(keyRsNetCloseAvg);
+            System.out.print("\t检查周期：20周期均线：" + maPrice20);
+            if (zxjg.compareTo(maPrice20) >= 0) {
+                System.out.print(",最新价格在周期均线价格之上：" + zxjg + ">=" + maPrice20);
+                if (openPrice.compareTo(maPrice20) < 0) {//开盘价检查
+                    System.out.print(",开盘价：" + openPrice + ",突破均线，建议买入");
+                }
+            } else {
+//                System.out.print(",最新价格低于周期均线价格：" + zxjg + "<" + maPrice20);
+            }
+            System.out.println();
+            Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, MA_30, klt, false, "", date, KLINE_TYPE_STOCK);
+            BigDecimal maPrice30 = netMap30.get(keyRsNetCloseAvg);
+            System.out.print("\t检查周期：30周期均线：" + maPrice30);
+            if (zxjg.compareTo(maPrice30) >= 0) {
+                System.out.print(",最新价格在周期均线价格之上：" + zxjg + ">=" + maPrice30);
+                if (openPrice.compareTo(maPrice30) < 0) {//开盘价检查
+                    System.out.print(",开盘价：" + openPrice + ",突破均线，建议买入");
+                }
+            } else {
+//                System.out.print(",最新价格低于周期均线价格：" + zxjg + "<" + maPrice30);
+            }
+            System.out.println();
+            Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, MA_60, klt, false, "", date, KLINE_TYPE_STOCK);
+            BigDecimal maPrice60 = netMap60.get(keyRsNetCloseAvg);
+            System.out.print("\t检查周期：60周期均线：" + maPrice60);
+            if (zxjg.compareTo(maPrice60) >= 0) {
+                System.out.print(",最新价格在周期均线价格之上：" + zxjg + ">=" + maPrice60);
+                if (openPrice.compareTo(maPrice60) < 0) {//开盘价检查
+                    System.out.print(",开盘价：" + openPrice + ",突破均线，建议买入");
+                }
+            } else {
+//                System.out.print(",最新价格低于周期均线价格：" + zxjg + "<" + maPrice60);
+            }
+            System.out.println();
+            Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, MA_120, klt, false, "", date, KLINE_TYPE_STOCK);
+            BigDecimal maPrice120 = netMap120.get(keyRsNetCloseAvg);
+            System.out.print("\t检查周期：120周期均线：" + maPrice120);
+            if (zxjg.compareTo(maPrice120) >= 0) {
+                System.out.print(",最新价格在周期均线价格之上：" + zxjg + ">=" + maPrice120);
+                if (openPrice.compareTo(maPrice120) < 0) {//开盘价检查
+                    System.out.print(",开盘价：" + openPrice + ",突破均线，建议买入");
+                }
+            } else {
+//                System.out.print(",最新价格低于周期均线价格：" + zxjg + "<" + maPrice120);
+            }
+            System.out.println();
+            Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, MA_250, klt, false, "", date, KLINE_TYPE_STOCK);
+            BigDecimal maPrice250 = netMap250.get(keyRsNetCloseAvg);
+            System.out.print("\t检查周期：250周期均线：" + maPrice250);
+            if (zxjg.compareTo(maPrice250) >= 0) {
+                System.out.print(",最新价格在周期均线价格之上：" + zxjg + ">=" + maPrice250);
+                if (openPrice.compareTo(maPrice250) < 0) {//开盘价检查
+                    System.out.print(",开盘价：" + openPrice + ",突破均线，建议买入");
+                }
+            } else {
+//                System.out.print(",最新价格低于周期均线价格：" + zxjg + "<" + maPrice250);
+            }
+            System.out.println();
+            System.out.println();
         }
     }
 
@@ -80,7 +204,7 @@ public class FupanDemo {
 //        boolean updateMyTtjj = true;//显示-我的基金
         boolean updateMyTtjj = false;//不显示-我的基金
 
-        String klt = Content.KLT_101;//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
+        String klt = KLT_101;//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
         String dateType = Content.DAYS_1;//1：一天;7:周;30:月;
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //            String date = "2021-10-15";
@@ -614,8 +738,6 @@ public class FupanDemo {
             System.out.println();
         }
     }
-
-
 
 
     /**
