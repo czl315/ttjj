@@ -47,13 +47,13 @@ public class FupanDemo {
     static final String COOKIE_DFCF = StockTradeDemo.COOKIE_DFCF;
 
     public static void main(String[] args) {
-//        insertOrUpdate();//保存复盘和仓位
+        insertOrUpdate();//保存复盘和仓位
 
 //        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-        String date = "2021-10-15";
-        String checkKltType = KLT_101;//检查周期类型
-//        String checkKltType = KLT_102;//检查周期类型
-        listMyPosition(date, checkKltType);//查询我的仓位
+////        String date = "2021-10-15";
+//        String checkKltType = KLT_101;//检查周期类型
+////        String checkKltType = KLT_102;//检查周期类型
+//        listMyPosition(date, checkKltType);//查询我的仓位
     }
 
     /**

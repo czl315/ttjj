@@ -33,7 +33,7 @@ public class StockDemo {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
             int startNum = 0;//开始位置，默认0
             //  添加或更新股票-根据日期
-//            addTodayStCom(date, startNum);
+            addTodayStCom(date, startNum);
 //            updateNetToday(date, startNum, true, false, false, false, false, false, false);//  更新净值
             updateNetToday(date, startNum, true, true, true, true, true, true, true);//  更新净值
         }
@@ -507,11 +507,11 @@ public class StockDemo {
 
                 // 股票状态
                 if (DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED == entity.getF148()) {
-                    System.out.println("均线价格暂不更新（退市）！" + JSON.toJSONString(entity));
+//                    System.out.println("均线价格暂不更新（退市）！" + JSON.toJSONString(entity));
                     continue;
                 }
                 if (DB_RANK_BIZ_F148_STOCK_STATUS_UNLISTED == entity.getF148()) {
-                    System.out.println("均线价格暂不更新（未上市）！" + JSON.toJSONString(entity));
+//                    System.out.println("均线价格暂不更新（未上市）！" + JSON.toJSONString(entity));
                     continue;
                 }
                 if (DB_RANK_BIZ_F148_STOCK_STATUS_SUSPENSION == entity.getF148()) {
@@ -519,17 +519,17 @@ public class StockDemo {
                     continue;
                 }
                 if (DB_RANK_BIZ_F148_STOCK_STATUS_ST == entity.getF148()) {
-                    System.out.println("均线价格暂不更新（ST股）！" + JSON.toJSONString(entity));
+//                    System.out.println("均线价格暂不更新（ST股）！" + JSON.toJSONString(entity));
                     continue;
                 }
                 //只更新主板板块的价格
                 if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI) {
-                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
+//                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
                     continue;
                 }
                 //  市值限定,100亿以下不更新
                 if (entity.getF20() != null && entity.getF20().compareTo(new BigDecimal("10000000000")) < 0) {
-                    System.out.println("均线价格暂不更新（100亿以下）！" + JSON.toJSONString(entity));
+//                    System.out.println("均线价格暂不更新（100亿以下）！" + JSON.toJSONString(entity));
                     continue;
                 }
                 if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {

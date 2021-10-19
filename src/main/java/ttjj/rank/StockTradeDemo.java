@@ -26,7 +26,7 @@ import java.util.*;
  */
 public class StockTradeDemo {
 //    static String type_selling = "证券买入(卖出中)";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=92185393369356; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20211015160205709-11923323313501-7474992584; mobileimei=006d84e7-adfa-4db0-8f29-8b0ef3cb7aab; Uuid=ff6857a4192e4243b94c74fb7b253350; monitor_count=7";
+    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=16269019621629; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20211018134246538-11923323313501-5527705292; mobileimei=e477f6c4-fb24-4854-9216-8681a7e78c3d; Uuid=b7a78a384bb94231b72d9cbd9339c56d; monitor_count=8";
 
     public static void main(String[] args) {
 //        boolean tradIng = true;//"盘中交易中"
@@ -41,7 +41,7 @@ public class StockTradeDemo {
             showTypeNet = 365;//最新一年内
         }
 
-            String startDate = "2021-10-01";//查询新增交易的开始时间
+            String startDate = "2021-10-13";//查询新增交易的开始时间
 //        String startDate = DateUtil.getToday(DateUtil.YYYY_MM_DD);
         String endDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD,10);
 //            String endDate = "2021-03-19";
