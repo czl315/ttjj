@@ -39,7 +39,7 @@ public class HttpUtil {
 //            connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             connection.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36");
             connection.setRequestProperty("Cookie", cookie);
-            connection.setConnectTimeout(100);
+            connection.setConnectTimeout(3000);
             // 建立实际的连接
             connection.connect();
 
@@ -94,6 +94,7 @@ public class HttpUtil {
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            conn.setConnectTimeout(3000);
             // 建立实际的连接
             // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
@@ -150,6 +151,7 @@ public class HttpUtil {
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            conn.setConnectTimeout(3000);
             conn.setRequestProperty("Cookie", cookie);
             // 建立实际的连接
             // 发送POST请求必须设置如下两行
@@ -211,6 +213,7 @@ public class HttpUtil {
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            conn.setConnectTimeout(3000);
             // 建立实际的连接
             // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
@@ -283,6 +286,7 @@ public class HttpUtil {
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            conn.setConnectTimeout(3000);
             // 建立实际的连接
             // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
@@ -397,6 +401,7 @@ public class HttpUtil {
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            conn.setConnectTimeout(3000);
             // 建立实际的连接
             // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
@@ -472,6 +477,7 @@ public class HttpUtil {
             connection.setRequestProperty("connection", "Keep-Alive");
             connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             connection.setRequestProperty("Cookie", cookie);
+            connection.setConnectTimeout(3000);
             // 建立实际的连接
             connection.connect();
 

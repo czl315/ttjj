@@ -34,7 +34,7 @@ public class StockDemo {
             int startNum = 0;//开始位置，默认0
             //  添加或更新股票-根据日期
             addTodayStCom(date, startNum);
-//            updateNetToday(date, startNum, true, false, false, false, false, false, false);//  更新净值
+//            updateNetToday(date, startNum, true, false, false, false, false, false, true);//  更新净值
             updateNetToday(date, startNum, true, true, true, true, true, true, true);//  更新净值
         }
 
@@ -515,7 +515,7 @@ public class StockDemo {
                     continue;
                 }
                 if (DB_RANK_BIZ_F148_STOCK_STATUS_SUSPENSION == entity.getF148()) {
-                    System.out.println("均线价格暂不更新（暂停上市）！" + JSON.toJSONString(entity));
+//                    System.out.println("均线价格暂不更新（暂停上市）！" + JSON.toJSONString(entity));
                     continue;
                 }
                 if (DB_RANK_BIZ_F148_STOCK_STATUS_ST == entity.getF148()) {
