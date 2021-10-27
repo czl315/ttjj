@@ -8,6 +8,7 @@ import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.*;
 import ttjj.service.KlineService;
+import ttjj.service.ReportService;
 import utils.Content;
 import utils.DateUtil;
 import utils.HttpUtil;
@@ -25,6 +26,7 @@ public class StockDemo {
      * @param args
      */
     public static void main(String[] args) {
+        boolean isReport = true;//是否查询业绩报表
         /**
          * 添加或更新股票-根据日期
          */
@@ -33,9 +35,16 @@ public class StockDemo {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
             int startNum = 0;//开始位置，默认0
             //  添加或更新股票-根据日期
-            addTodayStCom(date, startNum);
-//            updateNetToday(date, startNum, true, false, false, false, false, false, true);//  更新净值
-            updateNetToday(date, startNum, true, true, true, true, true, true, true);//  更新净值
+//            addTodayStCom(date, startNum);
+//            updateNetToday(date, startNum, false, false, false, false, false, false, false, isReport);//  更新净值
+//            updateNetToday(date, startNum, true, true, true, false, false, false, true, isReport);//  更新净值
+//            updateNetToday(date, startNum, true, true, true, true, true, true, true, isReport);//  更新净值
+
+            //查询业绩报表
+            String begDate = "20210701";
+            String endDate = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+            List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题-排名by时间类型、显示个数
+            listReport(bkList, "2021Q3", begDate, endDate);
         }
 
 
@@ -85,6 +94,158 @@ public class StockDemo {
 //        findListTongJj("2021-07-01","2021-07-31");//查询-统计数据
 //        findListTongJj("2021-08-01","2021-08-31");//查询-统计数据
 //        findListTongJj("2021-09-01","2021-09-31");//查询-统计数据
+    }
+
+    /**
+     * 查询业绩报表
+     *
+     * @param bkList  板块列表
+     * @param quarter 季度
+     * @param begDate
+     * @param endDate
+     */
+    private static void listReport(List<RankBizDataDiff> bkList, String quarter, String begDate, String endDate) {
+        for (RankBizDataDiff banKuai : bkList) {
+            String banKuaiCode = banKuai.getF12();
+            String banKuaiName = banKuai.getF14();
+            List<RankStockCommpanyDb> stockList = listRankStockByBiz(NUM_MAX_999, banKuaiCode);
+            System.out.println();
+            System.out.println("-------------------------当前板块：" + "---" + banKuaiName + "---[" + banKuai.getF3() + "]---" + stockList.size());
+            System.out.println();
+
+            // 最新周期价格
+            for (RankStockCommpanyDb entity : stockList) {
+                String stCode = entity.getF12();
+                if (entity == null) {
+                    System.out.println("实体信息为null，不更新db：");
+                    continue;
+                }
+                if (StringUtils.isBlank(stCode)) {
+                    System.out.println("实体信息异常，不更新db：" + JSON.toJSONString(entity));
+                    continue;
+                }
+
+                // 股票状态
+                if (DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED == entity.getF148()) {
+//                    System.out.println("均线价格暂不更新（退市）！" + JSON.toJSONString(entity));
+                    continue;
+                }
+                if (DB_RANK_BIZ_F148_STOCK_STATUS_UNLISTED == entity.getF148()) {
+//                    System.out.println("均线价格暂不更新（未上市）！" + JSON.toJSONString(entity));
+                    continue;
+                }
+                if (DB_RANK_BIZ_F148_STOCK_STATUS_SUSPENSION == entity.getF148()) {
+//                    System.out.println("均线价格暂不更新（暂停上市）！" + JSON.toJSONString(entity));
+                    continue;
+                }
+                if (DB_RANK_BIZ_F148_STOCK_STATUS_ST == entity.getF148()) {
+//                    System.out.println("均线价格暂不更新（ST股）！" + JSON.toJSONString(entity));
+                    continue;
+                }
+                //只更新主板板块的价格
+                if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI) {
+//                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
+                    continue;
+                }
+                //  市值限定,100亿以下不更新
+                if (entity.getF20() != null && entity.getF20().compareTo(new BigDecimal("10000000000")) < 0) {
+//                    System.out.println("均线价格暂不更新（100亿以下）！" + JSON.toJSONString(entity));
+                    continue;
+                }
+                if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
+//                    System.out.println("股票---------------------" + entity.getF14() + ":"+ entity.getF3() + JSON.toJSONString(entity));
+                    List<Report> rsReport = ReportService.httpReport(stCode);
+                    for (Report report : rsReport) {
+                        //是否有2021三季报
+                        if (report.getQDATE().equals(quarter)) {
+                            BigDecimal tbzzYyzsr = report.getYSTZ();
+                            BigDecimal tbzzJlr = report.getSJLTZ();
+                            BigDecimal hbzzYyzsr = report.getYSHZ();
+                            BigDecimal hbzzJlr = report.getSJLHZ();
+//                                System.out.println(JSON.toJSONString(report));
+                            String stName = report.getSECURITY_NAME_ABBR();
+//                            if (stName.equals("维远股份")) {
+//                                System.out.println();
+//                            }
+
+                            //查询区间价格涨跌-最近4个月
+                            BigDecimal totalAdr = new BigDecimal("0");
+                            List<Kline> klines = KlineService.kline(stCode, 4, Content.KLT_103, true, begDate, endDate, KLINE_TYPE_STOCK);
+                            for (Kline kline : klines) {
+                                totalAdr = totalAdr.add(kline.getZhangDieFu()).setScale(2, BigDecimal.ROUND_HALF_UP);
+                            }
+
+                            boolean tbzzYyzsrFlag = false;
+                            boolean tbzzJlrFlag = false;
+                            boolean hbzzYyzsrFlag = false;
+                            boolean hbzzJlrFlag = false;
+                            int yeAddCount = 0;//业绩增长个数，统计4项
+                            if (tbzzYyzsr != null && tbzzYyzsr.compareTo(totalAdr) > 0 && tbzzYyzsr.compareTo(new BigDecimal("0")) > 0 && report.getTOTAL_OPERATE_INCOME().compareTo(new BigDecimal("0")) > 0) {
+                                tbzzYyzsrFlag = true;
+                            }
+                            if (tbzzJlr != null && tbzzJlr.compareTo(totalAdr) > 0 && tbzzJlr.compareTo(new BigDecimal("0")) > 0 && report.getPARENT_NETPROFIT().compareTo(new BigDecimal("0")) > 0) {
+                                tbzzJlrFlag = true;
+                            }
+                            if (hbzzYyzsr != null && hbzzYyzsr.compareTo(totalAdr) > 0 && hbzzYyzsr.compareTo(new BigDecimal("0")) > 0 && report.getTOTAL_OPERATE_INCOME().compareTo(new BigDecimal("0")) > 0) {
+                                hbzzYyzsrFlag = true;
+                            }
+                            if (hbzzJlr != null && hbzzJlr.compareTo(totalAdr) > 0 && hbzzJlr.compareTo(new BigDecimal("0")) > 0 && report.getPARENT_NETPROFIT().compareTo(new BigDecimal("0")) > 0) {
+                                hbzzJlrFlag = true;
+                            }
+                            if (tbzzYyzsrFlag) {
+                                yeAddCount++;
+                            }
+                            if (tbzzJlrFlag) {
+                                yeAddCount++;
+                            }
+                            if (hbzzYyzsrFlag) {
+                                yeAddCount++;
+                            }
+                            if (hbzzJlrFlag) {
+                                yeAddCount++;
+                            }
+
+                            if (yeAddCount == 4) {
+                                System.out.print(stName);
+                                System.out.print("；季度涨跌幅:" + totalAdr);
+                                System.out.print("；今日涨跌幅:" + entity.getF3());
+                                System.out.print("；PE:" + entity.getF9());
+                                System.out.print("；ROE:" + entity.getF37());
+                                System.out.print("；主力-净流入:" + entity.getF62().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP));
+                                if (tbzzYyzsr != null) {
+                                    System.out.print("；营业总收入-同比增长:" + tbzzYyzsr.setScale(2, BigDecimal.ROUND_HALF_UP));
+                                }
+                                if (tbzzJlr != null) {
+                                    System.out.print("；净利润-同比增长:" + tbzzJlr.setScale(2, BigDecimal.ROUND_HALF_UP));
+                                }
+                                if (hbzzYyzsr != null) {
+                                    System.out.print("；营业总收入-环比增长:" + hbzzYyzsr.setScale(2, BigDecimal.ROUND_HALF_UP));
+                                }
+                                if (hbzzJlr != null) {
+                                    System.out.print("；净利润-环比增长:" + hbzzJlr.setScale(2, BigDecimal.ROUND_HALF_UP));
+                                }
+                                if (tbzzYyzsrFlag) {
+                                    System.out.print(",营收同比增长！");
+                                }
+                                if (tbzzJlrFlag) {
+                                    System.out.print(",净利润同比增长！");
+                                }
+                                if (hbzzYyzsrFlag) {
+                                    System.out.print(",营收环比增长！");
+                                }
+                                if (hbzzJlrFlag) {
+                                    System.out.print(",净利润环比增长！");
+                                }
+                                System.out.println();
+                            }
+                            break;
+                        }
+//                            System.out.println(qDate + "没有查询到！");
+                        break;//只查询第一个
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -464,8 +625,9 @@ public class StockDemo {
      *
      * @param date
      * @param startNum
+     * @param isReport
      */
-    private static void updateNetToday(String date, int startNum, boolean isMa5, boolean isMa10, boolean isMa20, boolean isMa30, boolean isMa60, boolean isMa120, boolean isMa250) {
+    private static void updateNetToday(String date, int startNum, boolean isMa5, boolean isMa10, boolean isMa20, boolean isMa30, boolean isMa60, boolean isMa120, boolean isMa250, boolean isReport) {
         Map<String, String> bizMap = new LinkedHashMap<>();
         List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题排名by时间类型、显示个数
 
@@ -495,12 +657,13 @@ public class StockDemo {
 
             // 最新周期价格
             for (RankStockCommpanyDb entity : stockList) {
+                String stCode = entity.getF12();
                 if (entity == null) {
                     System.out.println("实体信息为null，不更新db：");
                     continue;
                 }
                 entity.setDate(date);
-                if (StringUtils.isBlank(entity.getF12())) {
+                if (StringUtils.isBlank(stCode)) {
                     System.out.println("实体信息异常，不更新db：" + JSON.toJSONString(entity));
                     continue;
                 }
@@ -596,6 +759,44 @@ public class StockDemo {
                     int rs = RankStockCommpanyDao.updateByCode(entity);
                     System.out.println("主板板块的均线价格更新---------------------" + entity.getF14() + ":"
                             + entity.getF3() + ",rs:" + rs + JSON.toJSONString(entity));
+
+                    if (isReport) {
+                        List<Report> rsReport = ReportService.httpReport(stCode);
+                        String startDate = "20210701";
+                        String qDate = "2021Q3";
+                        for (Report report : rsReport) {
+                            //是否有2021三季报
+                            if (report.getQDATE().equals(qDate)) {
+                                BigDecimal hbzzYyzsr = report.getYSHZ();
+                                BigDecimal hbzzJlr = report.getSJLHZ();
+//                                System.out.println(JSON.toJSONString(report));
+                                System.out.print(report.getSECURITY_NAME_ABBR());
+//                                System.out.print("；营业总收入-同比增长:" + report.getYSTZ());
+                                System.out.print("；营收-环比增长:" + hbzzYyzsr);
+                                System.out.print("；净利润-环比增长:" + hbzzJlr);
+                                //查询区间价格涨跌-最近4个月
+                                BigDecimal totalAdr = new BigDecimal("0");
+                                List<Kline> klines = KlineService.kline(stCode, 4, Content.KLT_103, true, startDate, date, KLINE_TYPE_STOCK);
+                                for (Kline kline : klines) {
+                                    totalAdr = totalAdr.add(kline.getZhangDieFu());
+                                }
+                                System.out.print("；季度涨跌幅:" + totalAdr);
+                                System.out.print("；PE:" + entity.getF9());
+                                System.out.print("；ROE:" + entity.getF37());
+                                System.out.print("；主力-净流入:" + entity.getF62().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP));
+                                if (totalAdr.compareTo(hbzzJlr) < 0 && hbzzJlr.compareTo(new BigDecimal("0")) > 0) {
+                                    System.out.print(",季度涨跌小于净利润环比增长！！！");
+                                }
+                                if (totalAdr.compareTo(hbzzYyzsr) < 0 && hbzzYyzsr.compareTo(new BigDecimal("0")) > 0) {
+                                    System.out.print(",季度涨跌小于营业总收入环比增长！！！");
+                                }
+                                System.out.println();
+                                break;
+                            }
+//                            System.out.println(qDate + "没有查询到！");
+                            break;//只查询第一个
+                        }
+                    }
                 }
             }
         }
@@ -1004,7 +1205,7 @@ public class StockDemo {
         int rs = 0;
         int orderNum = 0;//序号
 
-        for (RankStockCommpanyDb rankBizDataDiff : rankBizDataDiffList) {
+        for (RankStockCommpanyDb entity : rankBizDataDiffList) {
             orderNum++;
             //显示插入数据库语句
 //            {
@@ -1105,18 +1306,19 @@ public class StockDemo {
 
             {
                 Date curDate = new Date();
-                rankBizDataDiff.setDate(today);
-                rankBizDataDiff.setMonth(DateUtil.getYearMonth(today, DateUtil.YYYY_MM_DD));
-                rankBizDataDiff.setWeekYear(DateUtil.getYearWeek(today, DateUtil.YYYY_MM_DD));
-                rankBizDataDiff.setWeek(DateUtil.getWeekByYyyyMmDd(today, DateUtil.YYYY_MM_DD));
-                rankBizDataDiff.setType(queryType);
-                rankBizDataDiff.setType_name(typeName);
-                rankBizDataDiff.setOrder_num(Long.valueOf(orderNum));
-                rankBizDataDiff.setCREATE_TIME(curDate);
-                rankBizDataDiff.setUPDATE_TIME(curDate);
+                entity.setDate(today);
+                entity.setMonth(DateUtil.getYearMonth(today, DateUtil.YYYY_MM_DD));
+                entity.setWeekYear(DateUtil.getYearWeek(today, DateUtil.YYYY_MM_DD));
+                entity.setWeek(DateUtil.getWeekByYyyyMmDd(today, DateUtil.YYYY_MM_DD));
+                entity.setType(queryType);
+                entity.setType_name(typeName);
+                entity.setOrder_num(Long.valueOf(orderNum));
+                entity.setCREATE_TIME(curDate);
+                entity.setUPDATE_TIME(curDate);
+                entity.setF14(entity.getF14().replace(" ", ""));
 
                 //db-更新要点内容
-                rs = RankStockCommpanyDao.insertDb(rankBizDataDiff);//
+                rs = RankStockCommpanyDao.insertDb(entity);//
 
 //                RankStockCommpanyDb entity = new RankStockCommpanyDb();
 //                entity.setRs("");

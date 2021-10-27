@@ -217,7 +217,7 @@ public class RankStockCommpanyDb {
     /**
      * f62 主力-净流入
      */
-    private Long f62;
+    private BigDecimal f62;
     private Double f63;
     /**
      * f64 超大单-流入
@@ -842,11 +842,11 @@ public class RankStockCommpanyDb {
         this.f61 = f61;
     }
 
-    public Long getF62() {
+    public BigDecimal getF62() {
         return f62;
     }
 
-    public void setF62(Long f62) {
+    public void setF62(BigDecimal f62) {
         this.f62 = f62;
     }
 
