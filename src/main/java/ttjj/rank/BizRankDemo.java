@@ -580,7 +580,7 @@ public class BizRankDemo {
     }
 
 
-    private static List<RankBizDataDiff> listEtf(String date, String type, int pageSize) {
+    public static List<RankBizDataDiff> listEtf(String date, String type, int pageSize) {
 //          http://32.push2.eastmoney.com/api/qt/clist/get?cb=jQuery11240476946102335426_1618637035810&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=b:MK0021,b:MK0022,b:MK0023,b:MK0024&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152&_=1618637035811
         String url = "http://32.push2.eastmoney.com/api/qt/clist/get";
         StringBuffer urlParam = new StringBuffer();

@@ -114,7 +114,7 @@ public class RankBizDataDiff {
     /**
      * f20 总市值
      */
-    private Long f20;
+    private BigDecimal f20;
     /**
      * f21 流通市值
      */
@@ -611,11 +611,11 @@ public class RankBizDataDiff {
         this.f19 = f19;
     }
 
-    public Long getF20() {
+    public BigDecimal getF20() {
         return f20;
     }
 
-    public void setF20(Long f20) {
+    public void setF20(BigDecimal f20) {
         this.f20 = f20;
     }
 

@@ -13,6 +13,8 @@ import ttjj.db.StockTradeDb;
 import ttjj.dto.Asset;
 import ttjj.dto.AssetPosition;
 import ttjj.dto.Kline;
+import ttjj.dto.RankBizDataDiff;
+import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
 import utils.Content;
 import utils.DateUtil;
@@ -47,13 +49,41 @@ public class FupanDemo {
     static final String COOKIE_DFCF = StockTradeDemo.COOKIE_DFCF;
 
     public static void main(String[] args) {
-        insertOrUpdate();//保存复盘和仓位
+//        insertOrUpdate();//保存复盘和仓位
 
-//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-////        String date = "2021-10-15";
-//        String checkKltType = KLT_101;//检查周期类型
-////        String checkKltType = KLT_102;//检查周期类型
-//        listMyPosition(date, checkKltType);//查询我的仓位
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2021-10-27";
+
+//        listMyPosition(date, KLT_101);//查询我的仓位 KLT_102;//检查周期类型
+
+        //检查资金流向-我的仓位
+        checkFundFlowByMyPosition(date);
+
+//        //检查资金流向-etf
+//        checkFundFlowByEtf(date);
+
+    }
+
+    private static void checkFundFlowByEtf(String date) {
+        List<RankBizDataDiff> etfList = BizRankDemo.listEtf(date, KLINE_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
+        for (RankBizDataDiff etf : etfList) {
+            //限定总市值10亿
+            if (etf.getF20().compareTo(new BigDecimal("1000000000")) > 0) {
+                FundFlowService.httpFundFlow(etf.getF12());
+            }
+        }
+    }
+
+    /**
+     * 查询资金流向，判断买卖信号
+     *
+     * @param date
+     */
+    private static void checkFundFlowByMyPosition(String date) {
+        List<AssetPositionDb> rs = listMyPositionByDate(date);
+        for (AssetPositionDb myPosition : rs) {
+            FundFlowService.httpFundFlow(myPosition.getZqdm());
+        }
     }
 
     /**

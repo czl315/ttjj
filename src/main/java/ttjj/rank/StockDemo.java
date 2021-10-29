@@ -26,7 +26,7 @@ public class StockDemo {
      * @param args
      */
     public static void main(String[] args) {
-        boolean isReport = true;//是否查询业绩报表
+        boolean isReport = false;//是否查询业绩报表
         /**
          * 添加或更新股票-根据日期
          */
@@ -35,16 +35,16 @@ public class StockDemo {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
             int startNum = 0;//开始位置，默认0
             //  添加或更新股票-根据日期
-//            addTodayStCom(date, startNum);
+            addTodayStCom(date, startNum);
 //            updateNetToday(date, startNum, false, false, false, false, false, false, false, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, false, false, false, true, isReport);//  更新净值
-//            updateNetToday(date, startNum, true, true, true, true, true, true, true, isReport);//  更新净值
+            updateNetToday(date, startNum, true, true, true, true, true, true, true, isReport);//  更新净值
 
-            //查询业绩报表
-            String begDate = "20210701";
-            String endDate = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-            List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题-排名by时间类型、显示个数
-            listReport(bkList, "2021Q3", begDate, endDate);
+//            //查询业绩报表
+//            String begDate = "20210701";
+//            String endDate = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//            List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题-排名by时间类型、显示个数
+//            listReport(bkList, "2021Q3", begDate, endDate);
         }
 
 
