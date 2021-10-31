@@ -94,7 +94,7 @@ public class BizRankDemo {
      * @param endDate
      */
     private static void insertHisDbBanKuai(String begDate, String endDate) {
-        List<RankBizDataDiff> hangYeList = listBiz(endDate, DB_RANK_BIZ_TYPE_HANG_YE, 999);//查询所有行业列表
+        List<RankBizDataDiff> hangYeList = listBiz(endDate, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询所有行业列表
         //遍历所有行业，根据行业查询历史k线，插入行业的数据
         for (RankBizDataDiff hangYe : hangYeList) {
             String banKuaiZqdm = HTTP_KLINE_SECID_PREFIX_BANKUAI + hangYe.getF12();
@@ -128,14 +128,14 @@ public class BizRankDemo {
 //        int updateDbEtfNetDays = 0;
 
         if (insertDbTodayBiz) {
-            List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, 999);//查询主题排名by时间类型、显示个数
+            List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询板块行业列表
             //db-插入
             BizRankDao.insertDbBiz(rankBizDataDiffListBiz);//bk-板块
 //            showBizSql(date, rankBizDataDiffListBiz, "bk");//显示sql-业务排行-插入
         }
 
         if (insertDbTodayConcept) {
-            List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(date, "gn", 999);//查询主题排名by时间类型、显示个数
+            List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(date, "gn", NUM_MAX_999);//查询主题排名by时间类型、显示个数
             //db-插入
             BizRankDao.insertDbBiz(rankBizDataDiffListConcept);//bk-板块
 //            showBizSql(date, rankBizDataDiffListConcept, "gn");//显示业务排行-插入sql
@@ -750,7 +750,7 @@ public class BizRankDemo {
      * @param type
      * @param endCount
      */
-    private static List<RankBizDataDiff> listBiz(String date, String type, int endCount) {
+    public static List<RankBizDataDiff> listBiz(String date, String type, int endCount) {
         //http://28.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408110589206747254_1616379873172&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=m:90+t:2+f:!50&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222&_=1616379873199
         long curTime = System.currentTimeMillis();
         StringBuffer urlParam = new StringBuffer();

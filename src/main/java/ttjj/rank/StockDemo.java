@@ -154,7 +154,7 @@ public class StockDemo {
                 }
                 if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
 //                    System.out.println("股票---------------------" + entity.getF14() + ":"+ entity.getF3() + JSON.toJSONString(entity));
-                    List<Report> rsReport = ReportService.httpReport(stCode);
+                    List<Report> rsReport = ReportService.listHttpReportByStCode(stCode);
                     for (Report report : rsReport) {
                         //是否有2021三季报
                         if (report.getQDATE().equals(quarter)) {
@@ -761,7 +761,7 @@ public class StockDemo {
                             + entity.getF3() + ",rs:" + rs + JSON.toJSONString(entity));
 
                     if (isReport) {
-                        List<Report> rsReport = ReportService.httpReport(stCode);
+                        List<Report> rsReport = ReportService.listHttpReportByStCode(stCode);
                         String startDate = "20210701";
                         String qDate = "2021Q3";
                         for (Report report : rsReport) {
@@ -1377,7 +1377,7 @@ public class StockDemo {
     /**
      * 查询昨日主题排名
      */
-    private static List<RankStockCommpanyDb> listRankStockByBiz(int pageSize, String biz) {
+    public static List<RankStockCommpanyDb> listRankStockByBiz(int pageSize, String biz) {
         //http://push2.eastmoney.com/api/qt/clist/get?cb=jQuery112307730222083783287_1617467610779&fid=f62&po=1&pz=50&pn=1&np=1&fltt=2&invt=2&ut=b2884a393a59ad64002292a3e90d46a5&fs=b%3ABK0891&fields=f12%2Cf14%2Cf2%2Cf3%2Cf62%2Cf184%2Cf66%2Cf69%2Cf72%2Cf75%2Cf78%2Cf81%2Cf84%2Cf87%2Cf204%2Cf205%2Cf124
         StringBuffer urlParam = new StringBuffer();
         long curTime = System.currentTimeMillis();

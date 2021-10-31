@@ -4,106 +4,218 @@ import java.math.BigDecimal;
 
 /**
  * Report简介-业绩报表返回数据
- * {
- * "SECURITY_CODE": "603099",
- * "SECURITY_NAME_ABBR": "长白山",
- * "TRADE_MARKET_CODE": "069001001001",
- * "TRADE_MARKET": "上交所主板",
- * "SECURITY_TYPE_CODE": "058001001",
- * "SECURITY_TYPE": "A股",
- * "UPDATE_DATE": "2021-10-27 00:00:00",
- * "REPORTDATE": "2021-09-30 00:00:00",
- * "BASIC_EPS": -0.1,
- * "DEDUCT_BASIC_EPS": null,
- * "TOTAL_OPERATE_INCOME": 158307299.38,
- * "PARENT_NETPROFIT": -26709715.48,
- * "WEIGHTAVG_ROE": -2.66,
- * "YSTZ": 60.7175416514,
- * "SJLTZ": 32.7231883326,
- * "BPS": 3.715953885814,
- * "MGJYXJJE": 0.067942447932,
- * "XSMLL": 5.3449198004,
- * "YSHZ": 183.9646,
- * "SJLHZ": 242.2486,
- * "ASSIGNDSCRPT": null,
- * "PAYYEAR": null,
- * "PUBLISHNAME": "旅游酒店",
- * "ZXGXL": null,
- * "NOTICE_DATE": "2021-10-27 00:00:00",
- * "ORG_CODE": "10181860",
- * "TRADE_MARKET_ZJG": "0101",
- * "ISNEW": "1",
- * "QDATE": "2021Q3",
- * "DATATYPE": "2021年 三季报",
- * "DATAYEAR": "2021",
- * "DATEMMDD": "三季报",
- * "EITIME": "2021-10-26 15:41:04",
- * "SECUCODE": "603099.SH"
- * }
- *
+ * http://datacenter-web.eastmoney.com/api/data/get?callback=jQuery112309508918124001358_1635304406473&st=REPORTDATE&sr=-1&ps=50&p=1&sty=ALL&filter=(SECURITY_CODE=%22002624%22)&token=894050c76af8597a853f5b408b759f5d&type=RPT_LICO_FN_CPD
+ {
+ "SECURITY_CODE": "002624",
+ "SECURITY_NAME_ABBR": "完美世界",
+ "TRADE_MARKET_CODE": "069001002001",
+ "TRADE_MARKET": "深交所主板",
+ "SECURITY_TYPE_CODE": "058001001",
+ "SECURITY_TYPE": "A股",
+ "UPDATE_DATE": "2021-10-27 00:00:00",
+ "REPORTDATE": "2021-09-30 00:00:00",
+ "BASIC_EPS": 0.41,
+ "DEDUCT_BASIC_EPS": null,
+ "TOTAL_OPERATE_INCOME": 6739494487.57,
+ "PARENT_NETPROFIT": 799916206.12,
+ "WEIGHTAVG_ROE": 7.37,
+ "YSTZ": -16.4047817808,
+ "SJLTZ": -55.72,
+ "BPS": 5.585338538859,
+ "MGJYXJJE": 0.261280616914,
+ "XSMLL": 59.4427228492,
+ "YSHZ": 28.2079,
+ "SJLHZ": 362.4657,
+ "ASSIGNDSCRPT": null,
+ "PAYYEAR": null,
+ "PUBLISHNAME": "文化传媒",
+ "ZXGXL": null,
+ "NOTICE_DATE": "2021-10-27 00:00:00",
+ "ORG_CODE": "10175652",
+ "TRADE_MARKET_ZJG": "0201",
+ "ISNEW": "1",
+ "QDATE": "2021Q3",
+ "DATATYPE": "2021年 三季报",
+ "DATAYEAR": "2021",
+ "DATEMMDD": "三季报",
+ "EITIME": "2021-10-26 17:36:23",
+ "SECUCODE": "002624.SZ"
+ }
  * @author Administrator
  * @date 2021-10-27 11:56
  */
 public class Report {
+    /**
+     * SECURITY_CODE 证券编码
+     *  *         "SECURITY_CODE": "002624",
+     */
     private String SECURITY_CODE;
+    /**
+     * SECURITY_NAME_ABBR 证券名称
+     *  *         "SECURITY_NAME_ABBR": "完美世界",
+     */
     private String SECURITY_NAME_ABBR;
+    /**
+     * TRADE_MARKET_CODE 所属市场编码
+     *  *         "TRADE_MARKET_CODE": "069001002001",
+     */
     private String TRADE_MARKET_CODE;
+    /**
+     * TRADE_MARKET 所属市场
+     *  *         "TRADE_MARKET": "深交所主板",
+     */
     private String TRADE_MARKET;
+    /**
+     * SECURITY_TYPE_CODE 证券类型编码
+     *  *         "SECURITY_TYPE_CODE": "058001001",
+     */
     private String SECURITY_TYPE_CODE;
+    /**
+     * SECURITY_TYPE 证券类型
+     *  *         "SECURITY_TYPE": "A股",
+     */
     private String SECURITY_TYPE;
+    /**
+     * UPDATE_DATE 最新公告日期
+     *  *         "UPDATE_DATE": "2021-10-27 00:00:00",
+     */
     private String UPDATE_DATE;
+    /**
+     * REPORTDATE 报告日期
+     *  *         "REPORTDATE": "2021-09-30 00:00:00",
+     */
     private String REPORTDATE;
     /**
-     * BASIC_EPS 每股收益
+     * BASIC_EPS 每股收益(元)
+     *  *         "BASIC_EPS": 0.41,
      */
     private BigDecimal BASIC_EPS;
+    /**
+     * DEDUCT_BASIC_EPS 每股收益(扣除)(元)
+     *  *         "DEDUCT_BASIC_EPS": null,
+     */
     private String DEDUCT_BASIC_EPS;
     /**
-     * TOTAL_OPERATE_INCOME 营业总收入-金额
+     * TOTAL_OPERATE_INCOME 营业总收入-营业总收入(元)
+     *  *         "TOTAL_OPERATE_INCOME": 6739494487.57,
      */
     private BigDecimal TOTAL_OPERATE_INCOME;
     /**
-     * YSTZ 营业总收入-同比增长
+     * YSTZ 营业总收入-同比增长(%)
+     *  *         "YSTZ": -16.4047817808,
      */
     private BigDecimal YSTZ;
     /**
-     * YSHZ 营业总收入-环比增长
+     * YSHZ 营业总收入-季度环比增长(%)
+     *  *         "YSHZ": 28.2079,
      */
     private BigDecimal YSHZ;
 
     /**
-     * PARENT_NETPROFIT 净利润-金额
+     * PARENT_NETPROFIT 净利润-净利润(元)
+     *  *         "PARENT_NETPROFIT": 799916206.12,
      */
     private BigDecimal PARENT_NETPROFIT;
+    /**
+     * WEIGHTAVG_ROE 净资产收益率(%)
+     *  *         "WEIGHTAVG_ROE": 7.37,
+     */
     private BigDecimal WEIGHTAVG_ROE;
     /**
-     * SJLTZ 净利润-同比增长
+     * SJLTZ 净利润-同比增长(%)
+     *  *         "SJLTZ": -55.72,
      */
     private BigDecimal SJLTZ;
     /**
      * BPS 每股净资产(元)
+     *         "BPS": 5.585338538859,
      */
     private BigDecimal BPS;
+    /**
+     * MGJYXJJE 每股经营现金流量(元)
+     *  *         "MGJYXJJE": 0.261280616914,
+     */
     private BigDecimal MGJYXJJE;
+    /**
+     * XSMLL 销售毛利率(%)
+     *  *         "XSMLL": 59.4427228492,
+     */
     private BigDecimal XSMLL;
 
     /**
-     * SJLHZ SJLTZ 净利润-环比增长
+     * SJLHZ 净利润-季度环比增长(%)
+     *  *         "SJLHZ": 362.4657,
      */
     private BigDecimal SJLHZ;
+    /**
+     * ASSIGNDSCRPT 分配转增描述
+     * 不分配不转增
+     */
     private String ASSIGNDSCRPT;
+    /**
+     * PAYYEAR
+     *  *         "PAYYEAR": null,
+     */
     private String PAYYEAR;
+    /**
+     * PUBLISHNAME 行业
+     *  *         "PUBLISHNAME": "文化传媒",
+     */
     private String PUBLISHNAME;
+    /**
+     * ZXGXL
+     *  *         "ZXGXL": null,
+     */
     private String ZXGXL;
+    /**
+     * NOTICE_DATE 首次公告日期
+     *  *         "NOTICE_DATE": "2021-10-27 00:00:00",
+     */
     private String NOTICE_DATE;
+    /**
+     * ORG_CODE
+     *  *         "ORG_CODE": "10175652",
+     */
     private String ORG_CODE;
+    /**
+     * TRADE_MARKET_ZJG
+     *        "TRADE_MARKET_ZJG": "0201",
+     */
     private String TRADE_MARKET_ZJG;
+    /**
+     * ISNEW 是否最新
+     *  *         "ISNEW": "1",
+     */
     private String ISNEW;
+    /**
+     * QDATE 季度类型
+     *  *         "QDATE": "2021Q3",
+     */
     private String QDATE;
+    /**
+     * DATATYPE 报告期类型
+     *  *         "DATATYPE": "2021年 三季报",
+     */
     private String DATATYPE;
+    /**
+     * DATAYEAR 数据年份
+     *  *         "DATAYEAR": "2021",
+     */
     private String DATAYEAR;
+    /**
+     * DATEMMDD 数据季度
+     *  *         "DATEMMDD": "三季报",
+     */
     private String DATEMMDD;
+    /**
+     * EITIME
+     *  *         "EITIME": "2021-10-26 17:36:23",
+     */
     private String EITIME;
+    /**
+     * SECUCODE
+     *  *         "SECUCODE": "002624.SZ"
+     */
     private String SECUCODE;
 
     public void setSECURITY_CODE(String SECURITY_CODE) {
