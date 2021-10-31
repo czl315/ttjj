@@ -371,6 +371,11 @@ public class RankBizDataDiff {
      */
     private String pt_time_max;
 
+    /**
+     * fundFlow 资金流向-当日每分钟
+     */
+    private String fundFlow;
+
     public BigDecimal getNET_MA_5() {
         return NET_MA_5;
     }
@@ -1953,5 +1958,13 @@ public class RankBizDataDiff {
 
     public void setWeek(String week) {
         this.week = week;
+    }
+
+    public String getFundFlow() {
+        return fundFlow;
+    }
+
+    public void setFundFlow(String fundFlow) {
+        this.fundFlow = fundFlow;
     }
 }

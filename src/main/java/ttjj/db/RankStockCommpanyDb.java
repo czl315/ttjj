@@ -458,6 +458,11 @@ public class RankStockCommpanyDb {
     private Date CREATE_TIME;
     private Date UPDATE_TIME;
 
+    /**
+     * fundFlow 资金流向-当日每分钟
+     */
+    private String fundFlow;
+
     public BigDecimal getNET_MA_5() {
         return NET_MA_5;
     }
@@ -2048,5 +2053,13 @@ public class RankStockCommpanyDb {
 
     public void setWeek(String week) {
         this.week = week;
+    }
+
+    public String getFundFlow() {
+        return fundFlow;
+    }
+
+    public void setFundFlow(String fundFlow) {
+        this.fundFlow = fundFlow;
     }
 }

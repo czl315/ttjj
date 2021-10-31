@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.*;
+import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
 import ttjj.service.ReportService;
 import utils.Content;
@@ -32,17 +33,19 @@ public class StockDemo {
          */
         for (int i = 0; i < 1; i++) {
 //            String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
-             String date = "2021-10-29";
+            String date = "2021-10-29";
 
             int startNum = 0;//开始位置，默认0
 
             //  添加或更新股票-根据日期
-            addTodayStCom(date, startNum);
-            updateNetToday(date, startNum, false, false, false, false, false, false, false, isReport);//  更新净值
+//            addTodayStCom(date, startNum);
+//            updateNetToday(date, startNum, false, false, false, false, false, false, false, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, false, false, false, true, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, true, true, true, true, isReport);//  更新净值
 
 //            updateConception(date,0);//更新题材概念
+
+            updateFundFlow(date, startNum);//更新当日资金流信息
 
 //            //查询业绩报表
 //            String begDate = "20210701";
@@ -98,6 +101,94 @@ public class StockDemo {
 //        findListTongJj("2021-07-01","2021-07-31");//查询-统计数据
 //        findListTongJj("2021-08-01","2021-08-31");//查询-统计数据
 //        findListTongJj("2021-09-01","2021-09-31");//查询-统计数据
+    }
+
+    /**
+     * 更新当日资金流信息
+     *
+     * @param date
+     */
+    private static void updateFundFlow(String date, int startNum) {
+        List<RankBizDataDiff> bkList = listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
+        int bizCountLimit = NUM_MAX_999;
+        int bizCountTemp = 0;
+        for (RankBizDataDiff biz : bkList) {
+            bizCountTemp++;
+            if (bizCountTemp < startNum) {
+                System.out.println("已完成:" + biz.getF14() + "," + biz.getF12());
+                continue;//已完成
+            }
+            if (bizCountTemp > bizCountLimit) {
+                break;//限定个数中断
+            }
+        }
+        int stBizCountTemp = startNum;
+        List<RankStockCommpanyDb> stockList = new ArrayList<>();
+        for (RankBizDataDiff banKuai : bkList) {
+            String banKuaiCode = banKuai.getF12();
+            String banKuaiName = banKuai.getF14();
+            stBizCountTemp++;
+            stockList.addAll(listRankStockByBiz(NUM_MAX_999, banKuaiCode));
+//            System.out.println();
+            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName + "---[" + banKuai.getF3() + "]---" + stockList.size());
+//            System.out.println();
+        }
+
+        for (RankStockCommpanyDb entity : stockList) {
+            String stCode = entity.getF12();
+            if (entity == null) {
+                System.out.println("实体信息为null，不更新db：");
+                continue;
+            }
+            entity.setDate(date);
+            if (StringUtils.isBlank(stCode)) {
+                System.out.println("实体信息异常，不更新db：" + JSON.toJSONString(entity));
+                continue;
+            }
+
+            // 股票状态
+            if (DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED == entity.getF148()) {
+//                    System.out.println("均线价格暂不更新（退市）！" + JSON.toJSONString(entity));
+                continue;
+            }
+            if (DB_RANK_BIZ_F148_STOCK_STATUS_UNLISTED == entity.getF148()) {
+//                    System.out.println("均线价格暂不更新（未上市）！" + JSON.toJSONString(entity));
+                continue;
+            }
+            if (DB_RANK_BIZ_F148_STOCK_STATUS_SUSPENSION == entity.getF148()) {
+//                    System.out.println("均线价格暂不更新（暂停上市）！" + JSON.toJSONString(entity));
+                continue;
+            }
+            if (DB_RANK_BIZ_F148_STOCK_STATUS_ST == entity.getF148()) {
+//                    System.out.println("均线价格暂不更新（ST股）！" + JSON.toJSONString(entity));
+                continue;
+            }
+            //只更新主板板块的价格
+            if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI) {
+//                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
+                continue;
+            }
+            //  市值限定,100亿以下不更新
+            if (entity.getF20() != null && entity.getF20().compareTo(new BigDecimal("10000000000")) < 0) {
+//                    System.out.println("均线价格暂不更新（100亿以下）！" + JSON.toJSONString(entity));
+                continue;
+            }
+
+            if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
+                String rsFundFlow = FundFlowService.httpFundFlowRs(stCode);
+
+                RankStockCommpanyDb entityDb = new RankStockCommpanyDb();
+                entityDb.setF12(stCode);
+                entityDb.setDate(date);
+
+                entityDb.setFundFlow(rsFundFlow);
+                int updateRs = RankStockCommpanyDao.updateByCode(entityDb);
+                System.out.println("更新结果：" + updateRs + "," + entity.getF14());
+            } else {
+                System.out.println("非主板不更新！");
+            }
+
+        }
     }
 
     /**
