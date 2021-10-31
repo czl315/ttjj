@@ -5,17 +5,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
-import ttjj.dto.Kline;
-import ttjj.dto.Report;
-import utils.Content;
-import utils.DateUtil;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
-import static utils.Content.KLINE_TYPE_STOCK;
 
 /**
  * FundFlowService简介 资金流向
@@ -27,7 +19,7 @@ public class FundFlowService {
     public static void main(String[] args) {
         // 查询业绩报表
         String stCode = "600036";//002624   002027  600760-中航沈飞 广宇发展-000537 广发证券-000776
-        httpFundFlow(stCode);//查询资金流向，判断买卖信号
+        fundFlowHandler(stCode);//查询资金流向，判断买卖信号
     }
 
     /**
@@ -35,60 +27,8 @@ public class FundFlowService {
      *
      * @param zqdm
      */
-    public static String httpFundFlow(String zqdm) {
-        long curTime = System.currentTimeMillis();
-        //http://push2.eastmoney.com/api/qt/stock/fflow/kline/get?cb=jQuery112301410828211613766_1635351266119&lmt=0&klt=1&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&ut=b2884a393a59ad64002292a3e90d46a5&secid=0.002027&_=1635351266120
-        //http://push2.eastmoney.com/api/qt/stock/fflow/kline/get?cb=jQuery112301410828211612843_1635354618747&lmt=0&klt=1&fields1=f1,f2,f3,f7&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64,f65                                  &ut=b2884a393a59ad64002292a3e90d46a5&secid=002027&_=1635354618748
-        // &ut=b2884a393a59ad64002292a3e90d46a5&secid=0.002027&_=1635351266120
-        StringBuffer url = new StringBuffer();
-//        url.append(jqueryHttpHead);
-//        url.append("jQuery112309508918124001358_");
-        url.append("http://push2.eastmoney.com/api/qt/stock/fflow/kline/get");
-        StringBuffer urlParam = new StringBuffer();
-        urlParam.append("cb=jQuery11230141082821161" + RandomUtils.nextInt(1000, 9999) + "_");
-        urlParam.append(curTime);
-        urlParam.append("&lmt=0");//
-        urlParam.append("&klt=1");//
-        urlParam.append("&fields1=f1,f2,f3,f7");//
-        urlParam.append("&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64,f65");//
-        urlParam.append("&ut=b2884a393a59ad64002292a3e90d46a5");//
-//        urlParam.append("&secid=" + zqdm + "");//股票代码
-        urlParam.append("&secid=");
-
-        if (zqdm.startsWith("00") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
-            urlParam.append("0." + zqdm);
-        } else if (zqdm.startsWith("93")) {
-            //2.931643
-            urlParam.append("2." + zqdm);
-        } else {
-            //zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("000")|| zhiShu.startsWith("11")|| zhiShu.startsWith("12")
-            urlParam.append("1." + zqdm);
-        }
-        urlParam.append("&_=" + (curTime + 1));//
-//        System.out.println("请求url:");
-//        System.out.println(url + "?" + JSON.toJSONString(urlParam));
-        String rs = "";
-        try {
-            rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
-        } catch (Exception e) {
-            System.out.println("/** http重试 **/");
-            rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
-        }
-
-        /**
-         * 如果返回异常，n次重试
-         */
-        for (int i = 0; i < 10; i++) {
-            if (StringUtils.isBlank(rs)) {
-                rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
-            } else {
-                break;
-            }
-        }
-//        System.out.println("rs:" + rs);
-        rs = rs.substring(rs.indexOf("({"));
-        rs = rs.replace("({", "{");
-        rs = rs.replace("});", "}");
+    public static String fundFlowHandler(String zqdm) {
+        String rs = httpFundFlowRs(zqdm);
 //        System.out.println("rs:" + rs);
         JSONObject szzzMonthJson = JSON.parseObject(rs);
         JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
@@ -161,5 +101,67 @@ public class FundFlowService {
 //            System.out.print(",主力净流入-合计:" + flowMoneyTotal);
         }
         return null;
+    }
+
+    /**
+     * 查询资金流向，返回结果字符串json格式
+     * @param zqdm
+     * @return
+     */
+    public static String httpFundFlowRs(String zqdm) {
+        long curTime = System.currentTimeMillis();
+        //http://push2.eastmoney.com/api/qt/stock/fflow/kline/get?cb=jQuery112301410828211613766_1635351266119&lmt=0&klt=1&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&ut=b2884a393a59ad64002292a3e90d46a5&secid=0.002027&_=1635351266120
+        StringBuffer url = new StringBuffer();
+//        url.append(jqueryHttpHead);
+//        url.append("jQuery112309508918124001358_");
+        url.append("http://push2.eastmoney.com/api/qt/stock/fflow/kline/get");
+        StringBuffer urlParam = new StringBuffer();
+        urlParam.append("cb=jQuery11230141082821161" + RandomUtils.nextInt(1000, 9999) + "_");
+        urlParam.append(curTime);
+        urlParam.append("&lmt=0");//
+        urlParam.append("&klt=1");//
+        urlParam.append("&fields1=f1,f2,f3,f7");//
+        urlParam.append("&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64,f65");//
+        urlParam.append("&ut=b2884a393a59ad64002292a3e90d46a5");//
+//        urlParam.append("&secid=" + zqdm + "");//股票代码
+        urlParam.append("&secid=");
+
+        if (zqdm.startsWith("00") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
+            urlParam.append("0." + zqdm);
+        } else if (zqdm.startsWith("93")) {
+            //2.931643
+            urlParam.append("2." + zqdm);
+        } else {
+            //zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("000")|| zhiShu.startsWith("11")|| zhiShu.startsWith("12")
+            urlParam.append("1." + zqdm);
+        }
+        urlParam.append("&_=" + (curTime + 1));//
+//        System.out.println("请求url:");
+//        System.out.println(url + "?" + JSON.toJSONString(urlParam));
+        String rs = "";
+        try {
+            rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
+        } catch (Exception e) {
+            System.out.println("/** http重试 **/");
+            rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
+        }
+
+        /**
+         * 如果返回异常，n次重试
+         */
+        for (int i = 0; i < 10; i++) {
+            if (StringUtils.isBlank(rs)) {
+                rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
+            } else {
+                break;
+            }
+        }
+//        System.out.println("rs:" + rs);
+        rs = rs.substring(rs.indexOf("({"));
+        rs = rs.replace("({", "{");
+        rs = rs.replace("});", "}");
+//        System.out.println("rs:" + rs);
+
+        return rs;
     }
 }

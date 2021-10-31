@@ -68,7 +68,7 @@ public class FupanDemo {
         for (RankBizDataDiff etf : etfList) {
             //限定总市值10亿
             if (etf.getF20().compareTo(new BigDecimal("1000000000")) > 0) {
-                FundFlowService.httpFundFlow(etf.getF12());
+                FundFlowService.fundFlowHandler(etf.getF12());
             }
         }
     }
@@ -81,7 +81,7 @@ public class FupanDemo {
     private static void checkFundFlowByMyPosition(String date) {
         List<AssetPositionDb> rs = listMyPositionByDate(date);
         for (AssetPositionDb myPosition : rs) {
-            FundFlowService.httpFundFlow(myPosition.getZqdm());
+            FundFlowService.fundFlowHandler(myPosition.getZqdm());
         }
     }
 
