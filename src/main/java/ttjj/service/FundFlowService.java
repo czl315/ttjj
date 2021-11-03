@@ -5,9 +5,15 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
+import ttjj.dto.Kline;
+import utils.DateUtil;
 import utils.HttpUtil;
+import utils.ToBuyMap;
 
 import java.math.BigDecimal;
+import java.util.*;
+
+import static utils.Content.*;
 
 /**
  * FundFlowService简介 资金流向
@@ -18,8 +24,15 @@ import java.math.BigDecimal;
 public class FundFlowService {
     public static void main(String[] args) {
         // 查询业绩报表
-        String stCode = "600036";//002624   002027  600760-中航沈飞 广宇发展-000537 广发证券-000776
-        fundFlowHandler(stCode);//查询资金流向，判断买卖信号
+//        String stCode = "600036";//002624    中航沈飞:600760 广宇发展-000537 广发证券-000776 片仔癀：600436  分众传媒:002027  招商银行:600036
+//            //上证50ETF:510050
+//        fundFlowHandler(stCode);//查询资金流向，判断买卖信号
+
+//        Set<String> toBuySet = ToBuyMap.stockMap.keySet();
+        Set<String> toBuySet = ToBuyMap.banks.keySet();
+        for (String code : toBuySet) {
+            fundFlowHandler(code);//查询资金流向，判断买卖信号
+        }
     }
 
     /**
@@ -29,15 +42,28 @@ public class FundFlowService {
      */
     public static String fundFlowHandler(String zqdm) {
         String rs = httpFundFlowRs(zqdm);
-//        System.out.println("rs:" + rs);
+//        System.out.println("zqdm:" + zqdm + ",rs:" + rs);
         JSONObject szzzMonthJson = JSON.parseObject(rs);
         JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
-        String name = szzzMonthDataJson.getString("name");
-//        System.out.println("指数名称："+name);
+
         if (szzzMonthDataJson == null || !szzzMonthDataJson.containsKey("klines")) {
-            System.out.println("klines数据异常：" + JSON.toJSONString(szzzMonthDataJson));
+            System.out.println("klines数据异常：" + rs + ",zqdm:" + zqdm);
             return null;
         }
+        String name = "";
+        if (szzzMonthDataJson.containsKey("name")) {
+            name = szzzMonthDataJson.getString("name").replace(" ","");
+        }
+//        System.out.println("指数名称："+name);
+
+        //查询今日分钟级别K线
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        List<Kline> klineTodayList = KlineService.kline(zqdm, NUM_MAX_999, KLT_1, true, date, date, KLINE_TYPE_STOCK);
+        Map<String, Kline> klineTodayMap = new HashMap<>();
+        for (Kline kline : klineTodayList) {
+            klineTodayMap.put(kline.getKtime(), kline);
+        }
+        BigDecimal yesterdayCloseAmt = null;//昨日收盘价
 
         JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
         if (klines != null) {
@@ -50,11 +76,20 @@ public class FundFlowService {
                 //  日期时间，主力净流入,小单净流入,中单净流入,大单净流入,超大单净流入
                 //"2021-10-27 09:31,-3737368.0,3689243.0,48125.0,-3680116.0,-57252.0",
                 String dateTime = klineArray[0];
-//                if (klineArray[0].contains(":") && klineArray[0].length() == 16) {
-//                    dateTime = klineArray[0] + ":00";
-//                }
-                System.out.print(name);
+                if (klineArray[0].contains(":") && klineArray[0].length() == 16) {
+                    dateTime = klineArray[0] + ":00";
+                }
+                System.out.print(name + ":" + zqdm);
                 System.out.print("," + dateTime);
+                //今日分钟级别K线-当前时间涨跌
+                if (klineTodayMap.containsKey(dateTime)) {
+                    Kline kline = klineTodayMap.get(dateTime);
+                    if (yesterdayCloseAmt == null) {
+                        yesterdayCloseAmt = kline.getCloseLastAmt();
+                    }
+                    System.out.print("，\t分钟涨跌：" + kline.getZhangDieFu() + "");
+                    System.out.print("，\t累计涨跌：" + kline.getCloseAmt().subtract(yesterdayCloseAmt).divide(yesterdayCloseAmt, 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(-2, BigDecimal.ROUND_HALF_UP)) + "\t");
+                }
 
                 BigDecimal flowMoneyCur = new BigDecimal(klineArray[1]);//流入金额-当前
                 if (flowMoneyLast != null) {
@@ -105,6 +140,7 @@ public class FundFlowService {
 
     /**
      * 查询资金流向，返回结果字符串json格式
+     *
      * @param zqdm
      * @return
      */

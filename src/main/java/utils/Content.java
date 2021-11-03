@@ -163,6 +163,10 @@ public class Content {
      */
     public static String DB_RANK_BIZ_TYPE_HANG_YE = "bk";
     /**
+     * DB_RANK_BIZ_TYPE_GAI_NIAN 排行榜-类型-概念
+     */
+    public static String DB_RANK_BIZ_TYPE_GAI_NIAN = "gn";
+    /**
      * DB_RANK_BIZ_F12_BAN_KUAI f13类型-板块
      */
     public static long DB_RANK_BIZ_F12_BAN_KUAI = 90;

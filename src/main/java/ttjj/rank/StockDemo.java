@@ -1,5 +1,4 @@
 package ttjj.rank;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -23,23 +22,20 @@ import static utils.Content.*;
  * 排行-行业股票-公司-每日明细
  */
 public class StockDemo {
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
         boolean isReport = false;//是否查询业绩报表
         /**
          * 添加或更新股票-根据日期
          */
         for (int i = 0; i < 1; i++) {
-//            String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
-            String date = "2021-10-29";
+            String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
+//            String date = "2021-10-29";
 
             int startNum = 0;//开始位置，默认0
 
             //  添加或更新股票-根据日期
 //            addTodayStCom(date, startNum);
-//            updateNetToday(date, startNum, false, false, false, false, false, false, false, isReport);//  更新净值
+//            updateNetToday(date, startNum, true, false, false, false, false, false, false, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, false, false, false, true, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, true, true, true, true, isReport);//  更新净值
 

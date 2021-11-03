@@ -132,6 +132,7 @@ public interface RandBizEtfMapper {
             "    <if test='NET_MA_60 != null'>NET_MA_60=#{NET_MA_60},</if>",
             "    <if test='NET_MA_120 != null'>NET_MA_120=#{NET_MA_120},</if>",
             "    <if test='NET_MA_250 != null'>NET_MA_250=#{NET_MA_250},</if>",
+            "    <if test='fundFlow != null'>fundFlow=#{fundFlow},</if>",
             "  </set>",
             "where date=#{date} AND f12=#{f12}",
             "</script>"})

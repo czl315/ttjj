@@ -108,7 +108,8 @@ public interface FupanMapper {
             "  <set>",
             "    <if test='assetPosition != null'>assetPosition=#{assetPosition},</if>",
             "  </set>",
-            "where CODE=#{code} AND fupan.period=#{period} AND fupan.TYPE=#{type} AND (fupan.assetPosition=''OR fupan.assetPosition IS NULL)",
+//            "where CODE=#{code} AND fupan.period=#{period} AND fupan.TYPE=#{type} AND (fupan.assetPosition=''OR fupan.assetPosition IS NULL)",
+            "where CODE=#{code} AND fupan.period=#{period} AND fupan.TYPE=#{type}",
             "</script>"})
     void updateMyStockAssetPosition(Fupan fupan);
 

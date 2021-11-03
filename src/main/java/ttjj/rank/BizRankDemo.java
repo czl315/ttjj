@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.BizRankDao;
 import ttjj.dto.Kline;
 import ttjj.dto.RankBizDataDiff;
+import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
 import utils.Content;
 import utils.DateUtil;
@@ -23,10 +24,17 @@ import static utils.Content.*;
  */
 public class BizRankDemo {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);// String date = "2021-09-24";
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//         String date = "2021-10-29";
+        insertTodayBizDb(date);//新增今日数据
 
-//        //新增今日数据
-        insertTodayBizDb(date);
+        //        //检查资金流向-etf
+//        checkFundFlowByEtf(date);
+
+//        //更新当日资金流信息
+//        updateEtfFundFlow(date);//更新当日资金流信息-etf
+//        updateFundFlowBk(date);//更新当日资金流信息-板块
+//        updateFundFlowGn(date);//更新当日资金流信息-概念
 
 //        /**
 //         * 更新均值
@@ -47,6 +55,80 @@ public class BizRankDemo {
 //        String begDate = "2018-01-01";//查询新增交易的开始时间
 //        String endDate = "2018-12-31";
 //        insertHisDbBanKuai(begDate, endDate);//新增历史数据
+    }
+
+    /**
+     * 检查资金流向-etf
+     * @param date
+     */
+    private static void checkFundFlowByEtf(String date) {
+        List<RankBizDataDiff> etfList = BizRankDemo.listEtf(date, KLINE_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
+        for (RankBizDataDiff etf : etfList) {
+            //限定总市值10亿
+            if (etf.getF20().compareTo(new BigDecimal("1000000000")) > 0) {
+                FundFlowService.fundFlowHandler(etf.getF12());
+            }
+        }
+    }
+
+    /**
+     * 更新当日资金流信息-概念
+     * @param date
+     */
+    private static void updateFundFlowGn(String date) {
+        List<RankBizDataDiff> rankList = listConcept(date, DB_RANK_BIZ_TYPE_GAI_NIAN, NUM_MAX_999);//查询主题排名by时间类型、显示个数
+        for (RankBizDataDiff etf : rankList) {
+            String stCode = etf.getF12();
+            String rsFundFlow = FundFlowService.httpFundFlowRs(stCode);
+
+            RankBizDataDiff entityDb = new RankBizDataDiff();
+            entityDb.setF12(stCode);
+            entityDb.setDate(date);
+
+            entityDb.setFundFlow(rsFundFlow);
+            int updateRs = BizRankDao.updateEtfNet(entityDb);
+            System.out.println("更新结果：" + updateRs + "," + etf.getF14());
+        }
+    }
+
+    /**
+     * 更新当日资金流信息-板块
+     * @param date
+     */
+    private static void updateFundFlowBk(String date) {
+        List<RankBizDataDiff> rankList = listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询板块行业列表
+        for (RankBizDataDiff etf : rankList) {
+            String stCode = etf.getF12();
+            String rsFundFlow = FundFlowService.httpFundFlowRs(stCode);
+
+            RankBizDataDiff entityDb = new RankBizDataDiff();
+            entityDb.setF12(stCode);
+            entityDb.setDate(date);
+
+            entityDb.setFundFlow(rsFundFlow);
+            int updateRs = BizRankDao.updateEtfNet(entityDb);
+            System.out.println("更新结果：" + updateRs + "," + etf.getF14());
+        }
+    }
+
+    /**
+     * 更新当日资金流信息-etf
+     * @param date
+     */
+    private static void updateEtfFundFlow(String date) {
+        List<RankBizDataDiff> rankEtf = listEtf(date, "etf", 999);//2021-04-16:425;
+        for (RankBizDataDiff etf : rankEtf) {
+            String stCode = etf.getF12();
+            String rsFundFlow = FundFlowService.httpFundFlowRs(stCode);
+
+            RankBizDataDiff entityDb = new RankBizDataDiff();
+            entityDb.setF12(stCode);
+            entityDb.setDate(date);
+
+            entityDb.setFundFlow(rsFundFlow);
+            int updateRs = BizRankDao.updateEtfNet(entityDb);
+            System.out.println("更新结果：" + updateRs + "," + etf.getF14());
+        }
     }
 
     private static void updateNetMa(String date, int ma5, List<RankBizDataDiff> bizList) {
@@ -118,6 +200,8 @@ public class BizRankDemo {
         boolean updateDbTodayEtfMa = true;//更新均线
 //        boolean updateDbTodayEtfMa = false;//更新均线
 
+        boolean updateDbFundFlow = true;//更新资金流向
+
 //        boolean updateDbTodayEtfNetMaxMinTimeFlag = true;
         boolean updateDbTodayEtfNetMaxMinTimeFlag = false;
 //        boolean updateDateBizFlag = true;
@@ -135,7 +219,7 @@ public class BizRankDemo {
         }
 
         if (insertDbTodayConcept) {
-            List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(date, "gn", NUM_MAX_999);//查询主题排名by时间类型、显示个数
+            List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(date, DB_RANK_BIZ_TYPE_GAI_NIAN, NUM_MAX_999);//查询主题排名by时间类型、显示个数
             //db-插入
             BizRankDao.insertDbBiz(rankBizDataDiffListConcept);//bk-板块
 //            showBizSql(date, rankBizDataDiffListConcept, "gn");//显示业务排行-插入sql
@@ -204,6 +288,15 @@ public class BizRankDemo {
 
         if (updateDateBizFlag) {
             updateDateBiz();
+        }
+
+        if (updateDbFundFlow) {
+            for (RankBizDataDiff rankBizDataDiff : rankEtf) {
+                RankBizDataDiff entity = new RankBizDataDiff();
+                entity.setF12(rankBizDataDiff.getF12());
+                entity.setDate(date);
+                BizRankDao.updateEtfNet(rankBizDataDiff);
+            }
         }
 
     }
