@@ -5,7 +5,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
+import ttjj.dao.BizRankDao;
+import ttjj.dao.RankStockCommpanyDao;
+import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.Kline;
+import ttjj.dto.RankBizDataDiff;
 import utils.DateUtil;
 import utils.HttpUtil;
 import utils.ToBuyMap;
@@ -24,15 +28,15 @@ import static utils.Content.*;
 public class FundFlowService {
     public static void main(String[] args) {
         // 查询业绩报表
-//        String stCode = "600036";//002624    中航沈飞:600760 广宇发展-000537 广发证券-000776 片仔癀：600436  分众传媒:002027  招商银行:600036
-//            //上证50ETF:510050
-//        fundFlowHandler(stCode);//查询资金流向，判断买卖信号
+        String stCode = "000776";//002624    中航沈飞:600760 广宇发展-000537 广发证券-000776 片仔癀：600436  分众传媒:002027  招商银行:600036
+        //上证50ETF:510050
+        fundFlowHandler(stCode);//查询资金流向，判断买卖信号
 
-//        Set<String> toBuySet = ToBuyMap.stockMap.keySet();
-        Set<String> toBuySet = ToBuyMap.banks.keySet();
-        for (String code : toBuySet) {
-            fundFlowHandler(code);//查询资金流向，判断买卖信号
-        }
+////        Set<String> toBuySet = ToBuyMap.stockMap.keySet();
+//        Set<String> toBuySet = ToBuyMap.banks.keySet();
+//        for (String code : toBuySet) {
+//            fundFlowHandler(code);//查询资金流向，判断买卖信号
+//        }
     }
 
     /**
@@ -52,9 +56,16 @@ public class FundFlowService {
         }
         String name = "";
         if (szzzMonthDataJson.containsKey("name")) {
-            name = szzzMonthDataJson.getString("name").replace(" ","");
+            name = szzzMonthDataJson.getString("name").replace(" ", "");
         }
 //        System.out.println("指数名称："+name);
+
+        //  查询证券的市值-从数据库中(股票或etf)-最新的
+        BigDecimal marketValue = null;
+        RankStockCommpanyDb stock = findMarketValue(zqdm);
+        if (stock != null) {
+            marketValue = stock.getF20();
+        }
 
         //查询今日分钟级别K线
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
@@ -70,6 +81,7 @@ public class FundFlowService {
 //            BigDecimal flowMoneyTotal = new BigDecimal("0");//主力净流入-合计
             BigDecimal flowMoneyLast = null;//流入金额-上一个
             BigDecimal flowMoneyCe = new BigDecimal("0");//流入金额-两个时段的差额
+            BigDecimal flowMoneyTotal = new BigDecimal("0");//累计流入金额
             for (Object klineObj : klines) {
                 String klineString = (String) klineObj;
                 String[] klineArray = klineString.split(",");
@@ -80,18 +92,19 @@ public class FundFlowService {
                     dateTime = klineArray[0] + ":00";
                 }
                 System.out.print(name + ":" + zqdm);
-                System.out.print("," + dateTime);
+                System.out.print("," + dateTime.substring(5, 16));
                 //今日分钟级别K线-当前时间涨跌
                 if (klineTodayMap.containsKey(dateTime)) {
                     Kline kline = klineTodayMap.get(dateTime);
                     if (yesterdayCloseAmt == null) {
                         yesterdayCloseAmt = kline.getCloseLastAmt();
                     }
-                    System.out.print("，\t分钟涨跌：" + kline.getZhangDieFu() + "");
-                    System.out.print("，\t累计涨跌：" + kline.getCloseAmt().subtract(yesterdayCloseAmt).divide(yesterdayCloseAmt, 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(-2, BigDecimal.ROUND_HALF_UP)) + "\t");
+                    System.out.print("，\t分涨：" + kline.getZhangDieFu());
+                    System.out.print("，\t累涨：" + kline.getCloseAmt().subtract(yesterdayCloseAmt).divide(yesterdayCloseAmt, 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(-2, BigDecimal.ROUND_HALF_UP)) + "\t");
                 }
 
                 BigDecimal flowMoneyCur = new BigDecimal(klineArray[1]);//流入金额-当前
+                flowMoneyTotal = flowMoneyCur;//累计流入金额
                 if (flowMoneyLast != null) {
                     flowMoneyCe = flowMoneyCur.subtract(flowMoneyLast);
                 }
@@ -123,19 +136,60 @@ public class FundFlowService {
 //                }
 
                 //判断两个时段的差额
-                if (flowMoneyCe.compareTo(new BigDecimal("1000000")) > 0) {
-                    System.out.print(",大额买入：" + flowMoneyCe.divide(new BigDecimal("10000"), 0, BigDecimal.ROUND_HALF_UP));//万);
-                }
-                if (flowMoneyCe.compareTo(new BigDecimal("-1000000")) < 0) {
-                    System.out.print(",大额卖出：" + flowMoneyCe.divide(new BigDecimal("10000"), 0, BigDecimal.ROUND_HALF_UP));//万);
+                if (marketValue != null) {
+                    //市值比-百万分比
+                    BigDecimal szb = flowMoneyCe.divide(marketValue, 8, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("1000000")).setScale(2, BigDecimal.ROUND_HALF_UP);
+//                    System.out.print(",市值比:" + szb);
+                    if (szb.compareTo(new BigDecimal("50")) > 0 || flowMoneyCe.compareTo(new BigDecimal("5000000")) > 0) {
+                        System.out.print(",大额买入：" + flowMoneyCe.divide(new BigDecimal("10000"), 0, BigDecimal.ROUND_HALF_UP) + ",市值比:" + szb);//万);
+                    }
+                    if (szb.compareTo(new BigDecimal("-50")) < 0 || flowMoneyCe.compareTo(new BigDecimal("-5000000")) < 0) {
+                        System.out.print(",大额卖出：" + flowMoneyCe.divide(new BigDecimal("10000"), 0, BigDecimal.ROUND_HALF_UP) + ",市值比:" + szb);//万);
+                    }
+                } else {
+                    if (flowMoneyCe.compareTo(new BigDecimal("1000000")) > 0) {
+                        System.out.print(",大额买入：" + flowMoneyCe.divide(new BigDecimal("10000"), 0, BigDecimal.ROUND_HALF_UP));//万);
+                    }
+                    if (flowMoneyCe.compareTo(new BigDecimal("-1000000")) < 0) {
+                        System.out.print(",大额卖出：" + flowMoneyCe.divide(new BigDecimal("10000"), 0, BigDecimal.ROUND_HALF_UP));//万);
+                    }
                 }
 
                 System.out.println();
             }
+            BigDecimal flowMarketValueRate = flowMoneyTotal.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000")).setScale(2,BigDecimal.ROUND_HALF_UP);
+            System.out.println("--------------------------------------------------------市值：" + marketValue.divide(new BigDecimal("10000"), 4, BigDecimal.ROUND_HALF_UP) + ",主力净流入total:" + flowMoneyTotal.divide(new BigDecimal("10000"), 0, BigDecimal.ROUND_HALF_UP) + ",十万分比例:" + flowMarketValueRate);
             System.out.println();
 //            System.out.print(",主力净流入-合计:" + flowMoneyTotal);
         }
         return null;
+    }
+
+    /**
+     * 查询证券的市值-从数据库中(股票或etf)-最新的
+     *
+     * @param zqdm
+     */
+    private static RankStockCommpanyDb findMarketValue(String zqdm) {
+        //判断证券代码前缀
+        RankStockCommpanyDb stockCondition = new RankStockCommpanyDb();
+        stockCondition.setF12(zqdm);
+        RankStockCommpanyDb stock = RankStockCommpanyDao.findStockLast(stockCondition);
+        System.out.println("首先查询股票，:" + zqdm + ",rs：" + JSON.toJSONString(stock));
+
+        //如果非股票，查询etf
+        if (stock == null) {
+            RankBizDataDiff condition = new RankBizDataDiff();
+            condition.setF12(zqdm);
+            RankBizDataDiff rs = BizRankDao.findEtfLast(condition);
+            stock = new RankStockCommpanyDb();
+            stock.setF12(rs.getF12());
+            stock.setF14(rs.getF14());
+            stock.setF20(rs.getF20());
+            System.out.println("如果非股票，查询etf:" + zqdm + ",rs：" + JSON.toJSONString(stock));
+        }
+
+        return stock;
     }
 
     /**

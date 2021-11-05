@@ -38,10 +38,10 @@ public class StockDemo {
 //            updateNetToday(date, startNum, true, false, false, false, false, false, false, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, false, false, false, true, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, true, true, true, true, isReport);//  更新净值
+            updateFundFlow(date, startNum);//更新当日资金流信息
 
 //            updateConception(date,0);//更新题材概念
 
-            updateFundFlow(date, startNum);//更新当日资金流信息
 
 //            //查询业绩报表
 //            String begDate = "20210701";
@@ -848,9 +848,10 @@ public class StockDemo {
                     }
 
                     int rs = RankStockCommpanyDao.updateByCode(entity);
-                    System.out.println("主板板块的均线价格更新---------------------" + entity.getF14() + ":"
+                    System.out.println("主板板块的均线价格更新---------------------" + entity.getF12() + ":" + entity.getF14() + ":"
                             + entity.getF3() + ",rs:" + rs + JSON.toJSONString(entity));
 
+                    //  季报
                     if (isReport) {
                         List<Report> rsReport = ReportService.listHttpReportByStCode(stCode);
                         String startDate = "20210701";

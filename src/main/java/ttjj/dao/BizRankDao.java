@@ -2,7 +2,6 @@ package ttjj.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import ttjj.db.AssetPositionDb;
 import ttjj.dto.RankBizDataDiff;
 
 import java.util.List;
@@ -72,6 +71,26 @@ public class BizRankDao {
         try {
             rs = session.update("ttjj.dao.mapper.RandBizEtfMapper.updateDate", entity);
             session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * 查询etf-从数据库中-最新的一条
+     *
+     * @param condition
+     * @return
+     */
+    public static RankBizDataDiff findEtfLast(RankBizDataDiff condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        RankBizDataDiff rs = null;
+        try {
+            rs = session.selectOne("ttjj.dao.mapper.RandBizEtfMapper.findEtfLast", condition);
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             session.close();
         }

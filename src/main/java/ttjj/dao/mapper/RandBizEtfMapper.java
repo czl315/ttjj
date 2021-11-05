@@ -6,8 +6,6 @@ import org.apache.ibatis.annotations.Update;
 import ttjj.db.Fupan;
 import ttjj.dto.RankBizDataDiff;
 
-import java.util.List;
-
 /**
  * @author chenzhilong
  * @date 2021/4/7
@@ -15,6 +13,22 @@ import java.util.List;
 public interface RandBizEtfMapper {
     @Select("select * from fupan where id= #{id}")
     public Fupan getUserByID(int id);
+
+    /**
+     *
+     * @param condition
+     * @return
+     */
+    @Select({"<script>",
+            "   SELECT ",
+            "       * ",
+            "   FROM rank_st_biz ",
+            "   WHERE 1=1  ",
+            "       AND rank_st_biz.f12=#{f12} ",
+            "   ORDER BY rank_st_biz.date DESC ",
+            "   LIMIT 1 ",
+            "</script>"})
+    RankBizDataDiff findEtfLast(RankBizDataDiff condition);
 
     @Insert({"<script>",
             "INSERT INTO `bank19`.`rank_st_biz`(",

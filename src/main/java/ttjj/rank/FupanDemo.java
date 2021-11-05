@@ -52,28 +52,11 @@ public class FupanDemo {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2021-11-01";
 
-//        insertOrUpdate(date);//保存复盘和仓位
-        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
+        insertOrUpdate(date);//保存复盘和仓位
+//        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 
 //        listMyPosition(date, KLT_101);//查询我的仓位 KLT_102;//检查周期类型
 
-//        //检查资金流向-etf
-//        checkFundFlowByEtf(date);
-
-    }
-
-    /**
-     * 检查资金流向
-     * @param date
-     */
-    private static void checkFundFlowByEtf(String date) {
-        List<RankBizDataDiff> etfList = BizRankDemo.listEtf(date, KLINE_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
-        for (RankBizDataDiff etf : etfList) {
-            //限定总市值10亿
-            if (etf.getF20().compareTo(new BigDecimal("1000000000")) > 0) {
-                FundFlowService.fundFlowHandler(etf.getF12());
-            }
-        }
     }
 
     /**

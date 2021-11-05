@@ -27,14 +27,14 @@ public class BizRankDemo {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //         String date = "2021-10-29";
         insertTodayBizDb(date);//新增今日数据
+        updateFundFlowBk(date);//更新当日资金流信息-板块
+        updateFundFlowGn(date);//更新当日资金流信息-概念     //更新当日资金流信息
+        updateEtfFundFlow(date);//更新当日
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
 
-//        //更新当日资金流信息
-//        updateEtfFundFlow(date);//更新当日资金流信息-etf
-//        updateFundFlowBk(date);//更新当日资金流信息-板块
-//        updateFundFlowGn(date);//更新当日资金流信息-概念
+
 
 //        /**
 //         * 更新均值

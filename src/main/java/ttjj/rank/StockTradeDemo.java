@@ -26,7 +26,7 @@ import java.util.*;
  */
 public class StockTradeDemo {
 //    static String type_selling = "证券买入(卖出中)";
-    public static String COOKIE_DFCF = "__guid=260925462.4161440383634452500.1615302736826.6602; eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=76032024700190; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20211103092939915-11923323313501-1951223221; st_asi=delete; mobileimei=77531e16-964f-4fc6-88f1-f5be9a77be9d; Uuid=c4dec209f18444ceb0f13159c7427651; monitor_count=14";
+    public static String COOKIE_DFCF = "eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=63875989417375; st_asi=delete; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20211105152350888-11923323313501-6713100408; mobileimei=d52dcdba-04f1-4248-a2d3-0cf8e7d97ac1; Uuid=5bfece7da7104b7eb82a9d0a8ad36ec9";
 
     public static void main(String[] args) {
 //        boolean tradIng = true;//"盘中交易中"
@@ -884,7 +884,7 @@ public class StockTradeDemo {
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("&StartDate=").append(startDate);
 
-        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
+//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
         String rs = "";
         try {
             rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
@@ -906,13 +906,13 @@ public class StockTradeDemo {
 
         String rsJson = rs.substring(rs.indexOf("{"));
         rsJson = rsJson.replace(");", "");
-        System.out.println("szKline:" + rsJson);
+//        System.out.println("szKline:" + rsJson);
 
         List<String> klineList = new ArrayList<String>();
         JSONObject szzzMonthJson = JSON.parseObject(rsJson);
         JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
         String name = szzzMonthDataJson.getString("name");
-        System.out.println("指数名称："+name);
+//        System.out.println("指数名称："+name);
         JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
         if (klines != null) {
             for (Object kline : klines) {

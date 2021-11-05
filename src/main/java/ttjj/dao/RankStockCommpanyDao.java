@@ -17,6 +17,32 @@ public class RankStockCommpanyDao {
      */
     static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
 
+    /**
+     * 查询股票-从数据库中-最新的一条
+     *
+     * @param condition
+     * @return
+     */
+    public static RankStockCommpanyDb findStockLast(RankStockCommpanyDb condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        RankStockCommpanyDb rs = null;
+        try {
+            rs = session.selectOne("ttjj.dao.mapper.RankStockCommpanyMapper.findStockLast", condition);
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * 查询-统计数据-股票分组
+     *
+     * @param condition
+     * @return
+     */
     public static List<RankStComTjRs> findListTongjiGroup(RankStComTjCond condition) {
         SqlSession session = sqlSessionFactory.openSession();
         List<RankStComTjRs> rs = null;
@@ -86,6 +112,7 @@ public class RankStockCommpanyDao {
 
     /**
      * 均线突破
+     *
      * @param condition
      * @return
      */
@@ -107,6 +134,7 @@ public class RankStockCommpanyDao {
 
     /**
      * 超跌反弹
+     *
      * @param condition
      * @return
      */
@@ -128,6 +156,7 @@ public class RankStockCommpanyDao {
 
     /**
      * 查询指定日期之前交易日期列表
+     *
      * @param dateCond
      * @return
      */
@@ -147,6 +176,7 @@ public class RankStockCommpanyDao {
 
     /**
      * 查询指定日期之后交易日期列表
+     *
      * @param dateCond
      * @return
      */

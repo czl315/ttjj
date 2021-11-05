@@ -14,6 +14,21 @@ import java.util.List;
  */
 public interface RankStockCommpanyMapper {
     /**
+     * @param condition
+     * @return
+     */
+    @Select({"<script>",
+            "   SELECT ",
+            "       * ",
+            "   FROM rank_st_biz_com ",
+            "   WHERE 1=1  ",
+            "       AND rank_st_biz_com.f12=#{f12} ",
+            "   ORDER BY rank_st_biz_com.date DESC ",
+            "   LIMIT 1 ",
+            "</script>"})
+    RankStockCommpanyDb findStockLast(RankStockCommpanyDb condition);
+
+    /**
      * 查询-统计数据-股票分组
      *
      * @param condition
