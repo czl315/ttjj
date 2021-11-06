@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Update;
 import ttjj.db.Fupan;
 import ttjj.dto.RankBizDataDiff;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author chenzhilong
  * @date 2021/4/7
@@ -15,7 +18,6 @@ public interface RandBizEtfMapper {
     public Fupan getUserByID(int id);
 
     /**
-     *
      * @param condition
      * @return
      */
@@ -29,6 +31,28 @@ public interface RandBizEtfMapper {
             "   LIMIT 1 ",
             "</script>"})
     RankBizDataDiff findEtfLast(RankBizDataDiff condition);
+
+    /**
+     * 列表查询-行业etf-排序：涨跌幅
+     * @param condition
+     * @return
+     */
+    @Select({"<script>",
+            "   SELECT ",
+            "       * ",
+            "   FROM rank_st_biz ",
+            "   WHERE 1=1  ",
+            "       AND rank_st_biz.type = 'etf'  ",
+//            "       AND rank_st_biz.date = '2021-11-05'  ",
+            "       AND rank_st_biz.date = #{date}  ",
+            "       AND rank_st_biz.f12 IN  ",
+            "       <foreach collection='list' item='item' open='(' separator=',' close=')'>  ",
+            "           #{item} ",
+            "       </foreach> ",
+            "   ORDER BY rank_st_biz.f3 DESC ",
+            "   LIMIT 100 ",
+            "</script>"})
+    List<RankBizDataDiff> listEtfBiz(Map<String,Object> condition);
 
     @Insert({"<script>",
             "INSERT INTO `bank19`.`rank_st_biz`(",

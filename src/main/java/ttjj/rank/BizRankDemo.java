@@ -10,12 +10,14 @@ import ttjj.dto.RankBizDataDiff;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
 import utils.Content;
+import utils.ContentEtf;
 import utils.DateUtil;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static utils.Content.*;
 
@@ -24,16 +26,17 @@ import static utils.Content.*;
  */
 public class BizRankDemo {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//         String date = "2021-10-29";
-        insertTodayBizDb(date);//新增今日数据
-        updateFundFlowBk(date);//更新当日资金流信息-板块
-        updateFundFlowGn(date);//更新当日资金流信息-概念     //更新当日资金流信息
-        updateEtfFundFlow(date);//更新当日
+//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        String date = "2021-11-05";
+//        insertTodayBizDb(date);//新增今日数据
+//        updateFundFlowBk(date);//更新当日资金流信息-板块
+//        updateFundFlowGn(date);//更新当日资金流信息-概念     //更新当日资金流信息
+//        updateEtfFundFlow(date);//更新当日
+
+        listEtfBizDb(date);//列表查询-行业etf-排序：涨跌幅
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
-
 
 
 //        /**
@@ -58,7 +61,93 @@ public class BizRankDemo {
     }
 
     /**
+     * 列表查询-行业etf-排序：涨跌幅
+     *
+     * @param date
+     */
+    private static void listEtfBizDb(String date) {
+        Map<String, Object> condition = new HashMap<>();
+        Set<String> etfBizSet = ContentEtf.mapEtfBiz.keySet();
+        condition.put("list", etfBizSet);
+        condition.put("date", date);
+        List<RankBizDataDiff> upRankList = BizRankDao.listEtfBiz(condition);
+        List<RankBizDataDiff> downRankList = upRankList.stream().filter(e -> e != null).sorted(Comparator.comparing(RankBizDataDiff::getF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());//倒序
+        String upList = handlerUpList(upRankList, 10);//处理上涨
+        System.out.println(upList);
+        String downList = handlerDownList(downRankList, 10);//处理下跌
+        System.out.println(downList);
+    }
+
+    /**
+     * 处理下跌
+     *
+     * @param downList
+     * @param limit
+     * @return
+     */
+    private static String handlerDownList(List<RankBizDataDiff> downList, int limit) {
+        StringBuffer sb = new StringBuffer();
+        if (downList == null) {
+            return null;
+        }
+        int temp = 0;
+        for (RankBizDataDiff r : downList) {
+            temp++;
+            if (temp > limit) {
+                break;
+            }
+            String name = r.getF14();
+            name = name.replace("ETF", "");
+            //如果涨幅小于0，中断
+            if (r.getF3().compareTo(new BigDecimal("0")) >= 0) {
+                break;
+            }
+            if (temp == 1) {
+                sb.append(name);
+            } else {
+                sb.append("," + name);
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 处理上涨列表
+     *
+     * @param upRankList
+     * @return
+     */
+    private static String handlerUpList(List<RankBizDataDiff> upRankList, int limit) {
+        StringBuffer sb = new StringBuffer();
+        if (upRankList == null) {
+            return null;
+        }
+        int temp = 0;
+        for (RankBizDataDiff r : upRankList) {
+            temp++;
+            if (temp > limit) {
+                break;
+            }
+            String name = r.getF14();
+            name = name.replace("ETF", "");
+            //如果涨幅小于0，中断
+            if (r.getF3().compareTo(new BigDecimal("0")) <= 0) {
+                break;
+            }
+            if (temp == 1) {
+                sb.append(name);
+//                System.out.print("\"" + name + "\"");
+            } else {
+                sb.append("," + name);
+//                System.out.print(",\"" + name + "\"");
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
      * 检查资金流向-etf
+     *
      * @param date
      */
     private static void checkFundFlowByEtf(String date) {
@@ -73,6 +162,7 @@ public class BizRankDemo {
 
     /**
      * 更新当日资金流信息-概念
+     *
      * @param date
      */
     private static void updateFundFlowGn(String date) {
@@ -93,6 +183,7 @@ public class BizRankDemo {
 
     /**
      * 更新当日资金流信息-板块
+     *
      * @param date
      */
     private static void updateFundFlowBk(String date) {
@@ -113,6 +204,7 @@ public class BizRankDemo {
 
     /**
      * 更新当日资金流信息-etf
+     *
      * @param date
      */
     private static void updateEtfFundFlow(String date) {
@@ -161,10 +253,10 @@ public class BizRankDemo {
                 entity.setNET_MA_250(netMap.get(Content.keyRsNetCloseAvg));
             }
             int rs = BizRankDao.updateEtfNet(entity);
-            if(rs==1){
-                System.out.println("更新净值成功："+JSON.toJSONString(entity));
-            }else{
-                System.out.println("更新净值失败！！！！！！："+JSON.toJSONString(entity));
+            if (rs == 1) {
+                System.out.println("更新净值成功：" + JSON.toJSONString(entity));
+            } else {
+                System.out.println("更新净值失败！！！！！！：" + JSON.toJSONString(entity));
             }
         }
     }
@@ -333,7 +425,7 @@ public class BizRankDemo {
             rankBizDataDiff.setType("etf");
             rankBizDataDiff.setF1(3L);
             rankBizDataDiff.setF2(kline.getCloseAmt().doubleValue());
-            rankBizDataDiff.setF3(kline.getZhangDieFu().doubleValue());
+            rankBizDataDiff.setF3(kline.getZhangDieFu());
             rankBizDataDiff.setF4(kline.getZhangDieE().doubleValue());
             rankBizDataDiff.setF5(kline.getCjl().longValue());
             rankBizDataDiff.setF6(kline.getCje().longValue());
@@ -373,7 +465,7 @@ public class BizRankDemo {
             rankBizDataDiff.setType(DB_RANK_BIZ_TYPE_HANG_YE);
             rankBizDataDiff.setF1(2L);
             rankBizDataDiff.setF2(kline.getCloseAmt().doubleValue());
-            rankBizDataDiff.setF3(kline.getZhangDieFu().doubleValue());
+            rankBizDataDiff.setF3(kline.getZhangDieFu());
             rankBizDataDiff.setF4(kline.getZhangDieE().doubleValue());
             rankBizDataDiff.setF5(kline.getCjl().longValue());
             rankBizDataDiff.setF6(kline.getCje().longValue());

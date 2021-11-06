@@ -94,6 +94,31 @@ public class Fupan {
     String earn_fund;
     String rt_zh;
 
+    public String getBiz_up() {
+        return biz_up;
+    }
+
+    public void setBiz_up(String biz_up) {
+        this.biz_up = biz_up;
+    }
+
+    public String getBiz_down() {
+        return biz_down;
+    }
+
+    public void setBiz_down(String biz_down) {
+        this.biz_down = biz_down;
+    }
+
+    /**
+     * biz_up
+     */
+    String biz_up;//topic_good;
+    /**
+     * biz_down
+     */
+    String biz_down;//topic_kong;
+
     /**
      * assetPosition 资产持仓
      */

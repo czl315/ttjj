@@ -48,7 +48,7 @@ public class RankBizDataDiff {
     /**
      * f3 涨跌幅
      */
-    private Double f3;
+    private BigDecimal f3;
     /**
      * f4 涨跌数值
      */
@@ -480,11 +480,11 @@ public class RankBizDataDiff {
         this.f2 = f2;
     }
 
-    public Double getF3() {
+    public BigDecimal getF3() {
         return f3;
     }
 
-    public void setF3(Double f3) {
+    public void setF3(BigDecimal f3) {
         this.f3 = f3;
     }
 

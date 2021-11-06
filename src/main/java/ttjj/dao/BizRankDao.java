@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import ttjj.dto.RankBizDataDiff;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chenzhilong
@@ -88,6 +89,25 @@ public class BizRankDao {
         RankBizDataDiff rs = null;
         try {
             rs = session.selectOne("ttjj.dao.mapper.RandBizEtfMapper.findEtfLast", condition);
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * 列表查询-行业etf-排序：涨跌幅
+     * @param condition
+     * @return
+     */
+    public static List<RankBizDataDiff> listEtfBiz(Map<String, Object> condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<RankBizDataDiff> rs = null;
+        try {
+            rs = session.selectList("ttjj.dao.mapper.RandBizEtfMapper.listEtfBiz", condition);
             session.commit();
         } catch (Exception e) {
             e.printStackTrace();
