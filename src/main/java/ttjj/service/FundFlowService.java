@@ -28,9 +28,12 @@ import static utils.Content.*;
 public class FundFlowService {
     public static void main(String[] args) {
         // 查询业绩报表
-        String stCode = "000776";//002624    中航沈飞:600760 广宇发展-000537 广发证券-000776 片仔癀：600436  分众传媒:002027  招商银行:600036
-        //上证50ETF:510050
-        fundFlowHandler(stCode);//查询资金流向，判断买卖信号
+        String stCode = "000002";//万科Ａ:000002  中航沈飞:600760  广发证券-000776 片仔癀：600436  分众传媒:002027  招商银行:600036 通威股份-600438
+        //上证50ETF:510050    券商ETF：512000
+        String limitStartTime = null;
+//        String limitStartTime = "2021-11-12 10:00";
+//        String limitStartTime = "2021-11-12 10:50";
+        fundFlowHandler(stCode, limitStartTime);//查询资金流向，判断买卖信号
 
 ////        Set<String> toBuySet = ToBuyMap.stockMap.keySet();
 //        Set<String> toBuySet = ToBuyMap.banks.keySet();
@@ -44,7 +47,7 @@ public class FundFlowService {
      *
      * @param zqdm
      */
-    public static String fundFlowHandler(String zqdm) {
+    public static String fundFlowHandler(String zqdm, String limitStartTime) {
         String rs = httpFundFlowRs(zqdm);
 //        System.out.println("zqdm:" + zqdm + ",rs:" + rs);
         JSONObject szzzMonthJson = JSON.parseObject(rs);
@@ -74,9 +77,16 @@ public class FundFlowService {
         for (Kline kline : klineTodayList) {
             klineTodayMap.put(kline.getKtime(), kline);
         }
+
         BigDecimal yesterdayCloseAmt = null;//昨日收盘价
+        List<Kline> klineDayList = KlineService.kline(zqdm, 2, KLT_101, false, "", date, KLINE_TYPE_STOCK);
+        if (klineDayList != null && klineDayList.size() >= 2) {
+            yesterdayCloseAmt = klineDayList.get(0).getCloseAmt();
+            System.out.println("昨日收盘价：" + yesterdayCloseAmt);
+        }
 
         JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
+        boolean isLimitStartTime = true;
         if (klines != null) {
 //            BigDecimal flowMoneyTotal = new BigDecimal("0");//主力净流入-合计
             BigDecimal flowMoneyLast = null;//流入金额-上一个
@@ -88,6 +98,23 @@ public class FundFlowService {
                 //  日期时间，主力净流入,小单净流入,中单净流入,大单净流入,超大单净流入
                 //"2021-10-27 09:31,-3737368.0,3689243.0,48125.0,-3680116.0,-57252.0",
                 String dateTime = klineArray[0];
+
+                //  开始时间判断
+                if (isLimitStartTime) {
+                    if (StringUtils.isNotBlank(limitStartTime)) {
+                        if (!dateTime.equals(limitStartTime)) {
+//                            System.out.println("未到开始时间");
+                            continue;
+                        } else {
+                            isLimitStartTime = false;
+                        }
+                    } else {
+                        isLimitStartTime = false;
+                        continue;
+                    }
+                }
+
+
                 if (klineArray[0].contains(":") && klineArray[0].length() == 16) {
                     dateTime = klineArray[0] + ":00";
                 }
@@ -96,9 +123,7 @@ public class FundFlowService {
                 //今日分钟级别K线-当前时间涨跌
                 if (klineTodayMap.containsKey(dateTime)) {
                     Kline kline = klineTodayMap.get(dateTime);
-                    if (yesterdayCloseAmt == null) {
-                        yesterdayCloseAmt = kline.getCloseLastAmt();
-                    }
+
                     System.out.print("，\t分涨：" + kline.getZhangDieFu());
                     System.out.print("，\t累涨：" + kline.getCloseAmt().subtract(yesterdayCloseAmt).divide(yesterdayCloseAmt, 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(-2, BigDecimal.ROUND_HALF_UP)) + "\t");
                 }
@@ -157,7 +182,7 @@ public class FundFlowService {
 
                 System.out.println();
             }
-            BigDecimal flowMarketValueRate = flowMoneyTotal.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000")).setScale(2,BigDecimal.ROUND_HALF_UP);
+            BigDecimal flowMarketValueRate = flowMoneyTotal.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000")).setScale(2, BigDecimal.ROUND_HALF_UP);
             System.out.println("--------------------------------------------------------市值：" + marketValue.divide(new BigDecimal("10000"), 4, BigDecimal.ROUND_HALF_UP) + ",主力净流入total:" + flowMoneyTotal.divide(new BigDecimal("10000"), 0, BigDecimal.ROUND_HALF_UP) + ",十万分比例:" + flowMarketValueRate);
             System.out.println();
 //            System.out.print(",主力净流入-合计:" + flowMoneyTotal);
@@ -175,7 +200,7 @@ public class FundFlowService {
         RankStockCommpanyDb stockCondition = new RankStockCommpanyDb();
         stockCondition.setF12(zqdm);
         RankStockCommpanyDb stock = RankStockCommpanyDao.findStockLast(stockCondition);
-        System.out.println("首先查询股票，:" + zqdm + ",rs：" + JSON.toJSONString(stock));
+//        System.out.println("首先查询股票，:" + zqdm + ",rs：" + JSON.toJSONString(stock));
 
         //如果非股票，查询etf
         if (stock == null) {

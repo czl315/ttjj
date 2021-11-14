@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.BizRankDao;
 import ttjj.dto.Kline;
 import ttjj.dto.RankBizDataDiff;
+import ttjj.dto.StatEtfUpDown;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
 import utils.Content;
@@ -26,14 +27,14 @@ import static utils.Content.*;
  */
 public class BizRankDemo {
     public static void main(String[] args) {
-//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-        String date = "2021-11-05";
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2021-11-05";
+
 //        insertTodayBizDb(date);//新增今日数据
 //        updateFundFlowBk(date);//更新当日资金流信息-板块
 //        updateFundFlowGn(date);//更新当日资金流信息-概念     //更新当日资金流信息
 //        updateEtfFundFlow(date);//更新当日
 
-        listEtfBizDb(date);//列表查询-行业etf-排序：涨跌幅
+        listEtfBizDb(0);//列表查询-行业etf-排序：涨跌幅
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
@@ -63,52 +64,77 @@ public class BizRankDemo {
     /**
      * 列表查询-行业etf-排序：涨跌幅
      *
-     * @param date
+     * @param days
      */
-    private static void listEtfBizDb(String date) {
-        Map<String, Object> condition = new HashMap<>();
-        Set<String> etfBizSet = ContentEtf.mapEtfBiz.keySet();
-        condition.put("list", etfBizSet);
-        condition.put("date", date);
-        List<RankBizDataDiff> upRankList = BizRankDao.listEtfBiz(condition);
-        List<RankBizDataDiff> downRankList = upRankList.stream().filter(e -> e != null).sorted(Comparator.comparing(RankBizDataDiff::getF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());//倒序
-        String upList = handlerUpList(upRankList, 10);//处理上涨
-        System.out.println(upList);
-        String downList = handlerDownList(downRankList, 10);//处理下跌
-        System.out.println(downList);
-    }
+    private static Map<String, StatEtfUpDown> listEtfBizDb(int days) {
+        Map<String, StatEtfUpDown> statRs = new HashMap<>();
+        List<StatEtfUpDown> statEtfUpDownList = new ArrayList<>();
+        //按照日期，倒序查询
+        for (int i = days; i >= 0; i--) {
+            String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
+            Map<String, Object> condition = new HashMap<>();
+            Set<String> etfBizSet = ContentEtf.mapEtfBiz.keySet();
+            condition.put("list", etfBizSet);
+            condition.put("date", date);
+            List<RankBizDataDiff> rankListUp = BizRankDao.listEtfBiz(condition);
+            if (rankListUp == null) {
+                continue;
+            }
+            List<RankBizDataDiff> rankListDown = rankListUp.stream().filter(e -> e != null).sorted(Comparator.comparing(RankBizDataDiff::getF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());//倒序
+            System.out.println(date + "上涨:");
+            String upListStr = handlerUpOrDownList(rankListUp, 100, true);//处理上涨
+            System.out.println(upListStr);//显示
+            System.out.println(date + "下跌:");
+            String downListStr = handlerUpOrDownList(rankListDown, 100, false);
+            System.out.println(downListStr);//显示
 
-    /**
-     * 处理下跌
-     *
-     * @param downList
-     * @param limit
-     * @return
-     */
-    private static String handlerDownList(List<RankBizDataDiff> downList, int limit) {
-        StringBuffer sb = new StringBuffer();
-        if (downList == null) {
-            return null;
+//            for (RankBizDataDiff biz : rankListUp) {
+//                if (rankListUp == null) {
+//                    return null;
+//                }
+//                String code = biz.getF12();
+//                StatEtfUpDown statEtfUpDown = new StatEtfUpDown();
+//                if (statRs.containsKey(code)) {
+//                    statEtfUpDown = statRs.get(code);
+//                }
+//                statEtfUpDown.setCode(biz.getF12());
+//                statEtfUpDown.setName(handlerEtfName(biz.getF14()));
+//                int oldCountCurContinueUp = statEtfUpDown.getCountCurContinueUp();
+//                int oldCountCurContinueDown = statEtfUpDown.getCountCurContinueDown();
+//                int oldCountTotalUp = statEtfUpDown.getCountTotalUp();
+//                int oldCountTotalDown = statEtfUpDown.getCountTotalDown();
+//                //  当前连续次数合计-上涨:如果上涨，次数加，否则次数重置为0；下跌次数反之
+//                if (biz.getF3().compareTo(new BigDecimal("0")) > 0) {
+//                    statEtfUpDown.setCountCurContinueUp(oldCountCurContinueUp + 1);
+//                    statEtfUpDown.setCountCurContinueDown(0);
+//                    statEtfUpDown.setCountTotalUp(oldCountTotalUp + 1);
+//                } else {
+//                    statEtfUpDown.setCountCurContinueDown(oldCountCurContinueDown + 1);
+//                    statEtfUpDown.setCountCurContinueUp(0);
+//                    statEtfUpDown.setCountTotalDown(oldCountTotalDown + 1);
+//                }
+//                statRs.put(code, statEtfUpDown);
+//            }
         }
-        int temp = 0;
-        for (RankBizDataDiff r : downList) {
-            temp++;
-            if (temp > limit) {
-                break;
-            }
-            String name = r.getF14();
-            name = name.replace("ETF", "");
-            //如果涨幅小于0，中断
-            if (r.getF3().compareTo(new BigDecimal("0")) >= 0) {
-                break;
-            }
-            if (temp == 1) {
-                sb.append(name);
+
+        statEtfUpDownList.addAll(statRs.values());
+        //排序
+        statEtfUpDownList = statEtfUpDownList.stream().filter(e -> e != null).sorted(Comparator.comparing(StatEtfUpDown::getCountTotalUp, Comparator.nullsFirst(Integer::compareTo)).reversed()).collect(Collectors.toList());
+        System.out.println();
+        for (StatEtfUpDown dto : statEtfUpDownList) {
+            String name = dto.getName();
+            System.out.print(dto.getCode());
+            System.out.print("\t累计-涨跌比:" + dto.getCountTotalUp() + ":" + dto.getCountTotalDown());
+            System.out.print(" \t当前连续次数合计-涨跌比:" + dto.getCountCurContinueUp() + ":" + dto.getCountCurContinueDown());
+            System.out.print("\t");
+            if (name.length() < 4) {
+                System.out.print(dto.getName());
             } else {
-                sb.append("," + name);
+                System.out.print(dto.getName());
             }
+            System.out.println();
         }
-        return sb.toString();
+        return statRs;
     }
 
     /**
@@ -117,7 +143,7 @@ public class BizRankDemo {
      * @param upRankList
      * @return
      */
-    private static String handlerUpList(List<RankBizDataDiff> upRankList, int limit) {
+    private static String handlerUpOrDownList(List<RankBizDataDiff> upRankList, int limit, boolean upDownFlag) {
         StringBuffer sb = new StringBuffer();
         if (upRankList == null) {
             return null;
@@ -128,21 +154,39 @@ public class BizRankDemo {
             if (temp > limit) {
                 break;
             }
-            String name = r.getF14();
-            name = name.replace("ETF", "");
-            //如果涨幅小于0，中断
-            if (r.getF3().compareTo(new BigDecimal("0")) <= 0) {
+            String name = handlerEtfName(r.getF14());
+            //如果上涨标志，涨幅小于0，中断
+            if (upDownFlag && r.getF3().compareTo(new BigDecimal("0")) <= 0) {
                 break;
             }
-            if (temp == 1) {
-                sb.append(name);
-//                System.out.print("\"" + name + "\"");
-            } else {
-                sb.append("," + name);
-//                System.out.print(",\"" + name + "\"");
+            //如果下跌标志，涨幅小于0，中断
+            if (!upDownFlag && r.getF3().compareTo(new BigDecimal("0")) >= 0) {
+                break;
             }
+            sb.append("," + name);
+//            sb.append("," + name + "：" + r.getF3());
+
         }
-        return sb.toString();
+        String rs = "";
+        if (sb.length() > 0) {
+            rs = sb.substring(1);
+        }
+        return rs;
+    }
+
+    /**
+     * 处理etf名称
+     *
+     * @param name
+     */
+    private static String handlerEtfName(String name) {
+        name = name.replace("ETF", "");
+        name = name.replace("基金", "");
+        name = name.replace("有色金属", "有色");
+        name = name.replace("基建50", "基建");
+        name = name.replace("能源化工", "能源");
+        name = name.replace("中概互联网", "中概");
+        return name;
     }
 
     /**
@@ -155,7 +199,7 @@ public class BizRankDemo {
         for (RankBizDataDiff etf : etfList) {
             //限定总市值10亿
             if (etf.getF20().compareTo(new BigDecimal("1000000000")) > 0) {
-                FundFlowService.fundFlowHandler(etf.getF12());
+                FundFlowService.fundFlowHandler(etf.getF12(), null);
             }
         }
     }
@@ -198,7 +242,7 @@ public class BizRankDemo {
 
             entityDb.setFundFlow(rsFundFlow);
             int updateRs = BizRankDao.updateEtfNet(entityDb);
-            System.out.println("更新结果：" + updateRs + "," + etf.getF14());
+            System.out.println("更新资金流向-结果：" + updateRs + "," + etf.getF14());
         }
     }
 
@@ -307,19 +351,22 @@ public class BizRankDemo {
             List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询板块行业列表
             //db-插入
             BizRankDao.insertDbBiz(rankBizDataDiffListBiz);//bk-板块
+            System.out.println("bk-板块-保存完成：" + rankBizDataDiffListBiz.size());
 //            showBizSql(date, rankBizDataDiffListBiz, "bk");//显示sql-业务排行-插入
         }
 
         if (insertDbTodayConcept) {
             List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(date, DB_RANK_BIZ_TYPE_GAI_NIAN, NUM_MAX_999);//查询主题排名by时间类型、显示个数
             //db-插入
-            BizRankDao.insertDbBiz(rankBizDataDiffListConcept);//bk-板块
+            BizRankDao.insertDbBiz(rankBizDataDiffListConcept);
+            System.out.println("rank-概念-保存完成：" + rankBizDataDiffListConcept.size());
 //            showBizSql(date, rankBizDataDiffListConcept, "gn");//显示业务排行-插入sql
         }
 
         List<RankBizDataDiff> rankEtf = listEtf(date, "etf", 999);//2021-04-16:425;
         if (insertDbTodayEtf) {
             BizRankDao.insertDbBiz(rankEtf);
+            System.out.println("etf-保存完成：" + rankEtf.size());
 //            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
         }
         if (updateDbTodayEtfMa) {
@@ -345,6 +392,7 @@ public class BizRankDemo {
                 Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, "", date, KLINE_TYPE_ETF);
                 entity.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
                 BizRankDao.updateEtfNet(entity);
+                System.out.println("更新-etf净值：" + JSON.toJSONString(entity));
             }
         }
 

@@ -29,7 +29,7 @@ public class StockDemo {
          */
         for (int i = 0; i < 1; i++) {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
-//            String date = "2021-10-29";
+//            String date = "2021-11-09";
 
             int startNum = 0;//开始位置，默认0
 
@@ -38,9 +38,8 @@ public class StockDemo {
 //            updateNetToday(date, startNum, true, false, false, false, false, false, false, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, false, false, false, true, isReport);//  更新净值
             updateNetToday(date, startNum, true, true, true, true, true, true, true, isReport);//  更新净值
-//            updateFundFlow(date, startNum);//更新当日资金流信息
-
-//            updateConception(date,0);//更新题材概念
+            updateFundFlow(date, startNum);//更新当日资金流信息
+            updateConception(date,0);//更新题材概念
 
 
 //            //查询业绩报表

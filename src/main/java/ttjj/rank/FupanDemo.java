@@ -67,7 +67,7 @@ public class FupanDemo {
     private static void checkFundFlowByMyPosition(String date) {
         List<AssetPositionDb> rs = listMyPositionByDate(date);
         for (AssetPositionDb myPosition : rs) {
-            FundFlowService.fundFlowHandler(myPosition.getZqdm());
+            FundFlowService.fundFlowHandler(myPosition.getZqdm(),null);
         }
     }
 
@@ -490,7 +490,11 @@ public class FupanDemo {
             BigDecimal totalAmtBig = new BigDecimal(fundMktVal).add(new BigDecimal(fundAvl));
             totalAmt = totalAmtBig.toString();
             dayProfit = myStock.getString("DayProfit");
-            dayProfitRt = new BigDecimal(dayProfit).divide(new BigDecimal(fundMktVal), 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).divide(new BigDecimal("1"), 4, BigDecimal.ROUND_HALF_UP).toString();//当日盈亏收益率
+            if(fundMktVal==null || new BigDecimal(fundMktVal).compareTo(new BigDecimal("0"))==0 || dayProfit==null){
+                dayProfitRt = "0";
+            }else{
+                dayProfitRt = new BigDecimal(dayProfit).divide(new BigDecimal(fundMktVal), 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).divide(new BigDecimal("1"), 4, BigDecimal.ROUND_HALF_UP).toString();//当日盈亏收益率
+            }
         }
 
         String curDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
