@@ -34,7 +34,10 @@ public class BizRankDemo {
 //        updateFundFlowGn(date);//更新当日资金流信息-概念     //更新当日资金流信息
 //        updateEtfFundFlow(date);//更新当日
 
-        listEtfBizDb(0);//列表查询-行业etf-排序：涨跌幅
+//        Set<String> etfBizSet = ContentEtf.mapEtfBiz.keySet();//板块行业
+        Set<String> etfBizSet = ContentEtf.mapEtfIndex.keySet();//指数
+//        Set<String> etfBizSet = ContentEtf.mapEtfAll.keySet();//全部场内etf：板块、指数
+        listEtfBizDb(etfBizSet, 70, true, false);//列表查询-行业etf-排序：涨跌幅
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
@@ -64,16 +67,19 @@ public class BizRankDemo {
     /**
      * 列表查询-行业etf-排序：涨跌幅
      *
+     * @param etfBizSet etf集合
      * @param days
+     * @param showUp    是否显示上涨
+     * @param showDown  是否显示下跌
+     * @return
      */
-    private static Map<String, StatEtfUpDown> listEtfBizDb(int days) {
+    private static Map<String, StatEtfUpDown> listEtfBizDb(Set<String> etfBizSet, int days, boolean showUp, boolean showDown) {
         Map<String, StatEtfUpDown> statRs = new HashMap<>();
         List<StatEtfUpDown> statEtfUpDownList = new ArrayList<>();
         //按照日期，倒序查询
-        for (int i = days; i >= 0; i--) {
+        for (int i = 0; i <= days; i++) {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
             Map<String, Object> condition = new HashMap<>();
-            Set<String> etfBizSet = ContentEtf.mapEtfBiz.keySet();
             condition.put("list", etfBizSet);
             condition.put("date", date);
             List<RankBizDataDiff> rankListUp = BizRankDao.listEtfBiz(condition);
@@ -81,12 +87,21 @@ public class BizRankDemo {
                 continue;
             }
             List<RankBizDataDiff> rankListDown = rankListUp.stream().filter(e -> e != null).sorted(Comparator.comparing(RankBizDataDiff::getF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());//倒序
-            System.out.println(date + "上涨:");
-            String upListStr = handlerUpOrDownList(rankListUp, 100, true);//处理上涨
-            System.out.println(upListStr);//显示
-            System.out.println(date + "下跌:");
-            String downListStr = handlerUpOrDownList(rankListDown, 100, false);
-            System.out.println(downListStr);//显示
+            String curWeekNo = DateUtil.getWeekByYyyyMmDd(date, DateUtil.YYYY_MM_DD);
+            if (showUp) {
+                if (curWeekNo.equals(DATE_WEEK_5)) {
+                    System.out.println(date + "上涨:");
+                }
+                String upListStr = handlerUpOrDownList(rankListUp, 100, true);//处理上涨
+                System.out.println(upListStr);//显示
+            }
+            if (showDown) {
+                if (curWeekNo.equals(DATE_WEEK_5)) {
+                    System.out.println(date + "下跌:");
+                }
+                String downListStr = handlerUpOrDownList(rankListDown, 100, false);
+                System.out.println(downListStr);//显示
+            }
 
 //            for (RankBizDataDiff biz : rankListUp) {
 //                if (rankListUp == null) {

@@ -17,7 +17,6 @@ public class ContentEtf {
      * 常用-etf-行业
      */
     public static Map<String, String> mapEtfBiz = new HashMap<>();
-
     static {
         mapEtfBiz.put("159869", "游戏ETF");//159869	游戏ETF	4.21
         mapEtfBiz.put("512980", "传媒ETF");//512980	传媒ETF	52.66
@@ -72,9 +71,18 @@ public class ContentEtf {
         mapEtfIndex.put("510500", "中证500ETF");//  510500	中证500ETF	445.48      510510	中证500ETF基金	28.15
         mapEtfIndex.put("512100", "中证1000ETF");//512100	中证1000ETF	12.77
         mapEtfIndex.put("159949", "创业板50ETF");//159949	创业板50ETF	97.37
-        mapEtfIndex.put("159967", "创成长ETF");//创成长ETF	159967	33.83
+//        mapEtfIndex.put("159967", "创成长ETF");//创成长ETF	159967	33.83
         mapEtfIndex.put("588000", "科创板50ETF");//588000	科创50ETF	226.26      588080	科创板50ETF	112.41      588090	科创板ETF	31.32
         mapEtfIndex.put("159781", "双创50ETF");// 159781	双创50ETF	81.55 588400	双创50ETF	22.27
+    }
+
+    /**
+     * mapEtfAll -包含行业、指数
+     */
+    public static Map<String, String> mapEtfAll = new HashMap<>();
+    static {
+        mapEtfAll.putAll(mapEtfBiz);
+        mapEtfAll.putAll(mapEtfIndex);
     }
 
     public static void main(String[] args) {
@@ -83,13 +91,5 @@ public class ContentEtf {
             System.out.print(",'"+bizCode+"'");
         }
         System.out.println();
-    }
-    /**
-     * mapEtfAll -包含行业、指数
-     */
-    public static Map<String, String> mapEtfAll = new HashMap<>();
-    static {
-        mapEtfAll.putAll(mapEtfBiz);
-        mapEtfAll.putAll(mapEtfIndex);
     }
 }

@@ -322,4 +322,8 @@ public class Content {
      * NUM_MAX_99 数量上限-99
      */
     public static int NUM_MAX_99 = 99;
+    /**
+     * DATE_WEEK_5
+     */
+    public static String DATE_WEEK_5 = "五";
 }
