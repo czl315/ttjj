@@ -34,10 +34,10 @@ public class BizRankDemo {
 //        updateFundFlowGn(date);//更新当日资金流信息-概念     //更新当日资金流信息
 //        updateEtfFundFlow(date);//更新当日
 
-//        Set<String> etfBizSet = ContentEtf.mapEtfBiz.keySet();//板块行业
-        Set<String> etfBizSet = ContentEtf.mapEtfIndex.keySet();//指数
 //        Set<String> etfBizSet = ContentEtf.mapEtfAll.keySet();//全部场内etf：板块、指数
-        listEtfBizDb(etfBizSet, 70, true, false);//列表查询-行业etf-排序：涨跌幅
+//        Set<String> etfBizSet = ContentEtf.mapEtfIndex.keySet();//指数
+        Set<String> etfBizSet = ContentEtf.mapEtfBiz.keySet();//板块行业
+        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
@@ -90,15 +90,15 @@ public class BizRankDemo {
             String curWeekNo = DateUtil.getWeekByYyyyMmDd(date, DateUtil.YYYY_MM_DD);
             if (showUp) {
                 if (curWeekNo.equals(DATE_WEEK_5)) {
-                    System.out.println(date + "上涨:");
                 }
+                System.out.println(date + "上涨:");
                 String upListStr = handlerUpOrDownList(rankListUp, 100, true);//处理上涨
                 System.out.println(upListStr);//显示
             }
             if (showDown) {
                 if (curWeekNo.equals(DATE_WEEK_5)) {
-                    System.out.println(date + "下跌:");
                 }
+                System.out.println(date + "下跌:");
                 String downListStr = handlerUpOrDownList(rankListDown, 100, false);
                 System.out.println(downListStr);//显示
             }

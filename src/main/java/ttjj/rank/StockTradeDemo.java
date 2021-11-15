@@ -26,7 +26,7 @@ import java.util.*;
  */
 public class StockTradeDemo {
 //    static String type_selling = "证券买入(卖出中)";
-    public static String COOKIE_DFCF = "eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_si=69291520201887; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20211112100331428-11923323313501-1576591784; st_asi=delete; mobileimei=cd38bc30-ac3c-457c-b145-19fc23d50db4; Uuid=b2906924c9a74958ad874c46151af96e";
+    public static String COOKIE_DFCF = "eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=59721413872083; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20211115160352949-11923323313501-8952825321; mobileimei=bcc05705-8473-4e6b-9e40-9f61c6089378; Uuid=f9b67855553145f6ba2983933305f1ca";
 
     public static void main(String[] args) {
 //        boolean tradIng = true;//"盘中交易中"

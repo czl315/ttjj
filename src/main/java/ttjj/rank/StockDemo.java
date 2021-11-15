@@ -38,8 +38,8 @@ public class StockDemo {
 //            updateNetToday(date, startNum, true, false, false, false, false, false, false, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, false, false, false, true, isReport);//  更新净值
             updateNetToday(date, startNum, true, true, true, true, true, true, true, isReport);//  更新净值
-            updateFundFlow(date, startNum);//更新当日资金流信息
-            updateConception(date,0);//更新题材概念
+//            updateFundFlow(date, startNum);//更新当日资金流信息
+//            updateConception(date,0);//更新题材概念
 
 
 //            //查询业绩报表
@@ -718,25 +718,20 @@ public class StockDemo {
      * @param isReport
      */
     private static void updateNetToday(String date, int startNum, boolean isMa5, boolean isMa10, boolean isMa20, boolean isMa30, boolean isMa60, boolean isMa120, boolean isMa250, boolean isReport) {
-        Map<String, String> bizMap = new LinkedHashMap<>();
         List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题排名by时间类型、显示个数
-
         int bizCountLimit = NUM_MAX_999;
         int bizCountTemp = 0;
-        for (RankBizDataDiff biz : bkList) {
+        int stBizCountTemp = startNum;
+        for (RankBizDataDiff banKuai : bkList) {
             bizCountTemp++;
             if (bizCountTemp < startNum) {
-                System.out.println("已完成:" + biz.getF14() + "," + biz.getF12());
+                System.out.println("已完成:" + banKuai.getF14() + "," + banKuai.getF12());
                 continue;//已完成
             }
             if (bizCountTemp > bizCountLimit) {
                 break;//限定个数中断
             }
-//            System.out.println("/**" + JSON.toJSONString(biz) + "**/");
-            bizMap.put(biz.getF12(), biz.getF14());
-        }
-        int stBizCountTemp = startNum;
-        for (RankBizDataDiff banKuai : bkList) {
+
             String banKuaiCode = banKuai.getF12();
             String banKuaiName = banKuai.getF14();
             stBizCountTemp++;
