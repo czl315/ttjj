@@ -21,6 +21,7 @@ import utils.DateUtil;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -52,8 +53,8 @@ public class FupanDemo {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2021-11-01";
 
-        insertOrUpdate(date);//保存复盘和仓位
-//        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
+//        insertOrUpdate(date);//保存复盘和仓位
+        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 
 //        listMyPosition(date, KLT_101);//查询我的仓位 KLT_102;//检查周期类型
 
@@ -67,8 +68,40 @@ public class FupanDemo {
     private static void checkFundFlowByMyPosition(String date) {
         List<AssetPositionDb> rs = listMyPositionByDate(date);
         for (AssetPositionDb myPosition : rs) {
-            FundFlowService.fundFlowHandler(myPosition.getZqdm(),null);
+            String zqdm = myPosition.getZqdm();
+            if (zqdm.equals("754212")) {
+                System.out.println("特定zqdm：" + zqdm);
+            }
+            FundFlowService.fundFlowHandler(zqdm, null);
+            //净值
+            System.out.println(handlerAvgLine("5日均线", KlineService.findNetMinMaxAvg(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+            System.out.println(handlerAvgLine("10日均线", KlineService.findNetMinMaxAvg(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+            System.out.println(handlerAvgLine("20日均线", KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+            System.out.println(handlerAvgLine("60日均线", KlineService.findNetMinMaxAvg(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+            System.out.println();
         }
+    }
+
+    /**
+     * 获取均线数据
+     *
+     * @param strHead
+     * @param netMap
+     * @return
+     */
+    private static String handlerAvgLine(String strHead, Map<String, BigDecimal> netMap) {
+        BigDecimal curPrice = netMap.get(keyRsNetClose);
+        BigDecimal minPrice = netMap.get(keyRsMin);
+        BigDecimal maxPrice = netMap.get(keyRsMax);
+        StringBuffer sb = new StringBuffer();
+        if (curPrice != null && minPrice != null && maxPrice != null) {
+            BigDecimal curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
+            sb.append(strHead).append("区间：").append(curPriceArea).append("%");
+        }
+        sb.append(",").append(strHead).append("：").append(netMap.get(keyRsNetCloseAvg)).append(",最低：").append(minPrice).append(",最高：").append(maxPrice);
+        sb.append(",当前价：").append(curPrice);
+
+        return sb.toString();
     }
 
     /**
@@ -205,7 +238,6 @@ public class FupanDemo {
     }
 
     /**
-     *
      * @param date
      */
     private static void insertOrUpdate(String date) {
@@ -258,7 +290,7 @@ public class FupanDemo {
         }
 
         if (updateMyStockAssetPosition) {
-            //更新-我的股票-资产持仓：只有为空时才更新
+            //更新-我的股票-资产持仓
             Fupan fupanMyStockAssetPosition = queryMyStockAssetPosition(COOKIE_DFCF, dateType, date);
             FuPanDao.updateMyStockAssetPosition(fupanMyStockAssetPosition);
         }
@@ -490,9 +522,9 @@ public class FupanDemo {
             BigDecimal totalAmtBig = new BigDecimal(fundMktVal).add(new BigDecimal(fundAvl));
             totalAmt = totalAmtBig.toString();
             dayProfit = myStock.getString("DayProfit");
-            if(fundMktVal==null || new BigDecimal(fundMktVal).compareTo(new BigDecimal("0"))==0 || dayProfit==null){
+            if (fundMktVal == null || new BigDecimal(fundMktVal).compareTo(new BigDecimal("0")) == 0 || dayProfit == null) {
                 dayProfitRt = "0";
-            }else{
+            } else {
                 dayProfitRt = new BigDecimal(dayProfit).divide(new BigDecimal(fundMktVal), 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).divide(new BigDecimal("1"), 4, BigDecimal.ROUND_HALF_UP).toString();//当日盈亏收益率
             }
         }

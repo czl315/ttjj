@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -23,12 +24,15 @@ public class ToBuyMap {
 
     }
 
-    public static Map<String, String> banks = new HashMap<>();
+    public static Map<String, String> banks = new LinkedHashMap<>();
 
     static {
         banks.put("600036", "招商银行");
+        banks.put("002142", "宁波银行");
         banks.put("000776", "广发证券");
         banks.put("000002", "万科A");
+        banks.put("000537", "广宇发展");
+        banks.put("600048", "保利发展");
     }
 
     /**

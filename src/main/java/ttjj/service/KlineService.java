@@ -33,7 +33,7 @@ public class KlineService {
      * 测试样例：查询最小净值、最大净值、均值
      */
     private static void findNetMinMaxAvgDemo() {
-        String zqdm = Content.ZQDM_ETF_CYB50_159949;
+        String zqdm = "123127";//Content.ZQDM_ETF_CYB50_159949
         String begDate = "";//查询新增交易的开始时间
         String endDate = "20500101";
         String klt = Content.KLT_101;//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
@@ -136,7 +136,7 @@ public class KlineService {
         url.append("&secid=");
 
         if (klineType.equals(KLINE_TYPE_STOCK)) {
-            if (zqdm.startsWith("00") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
+            if (zqdm.startsWith("00") || zqdm.startsWith("11")|| zqdm.startsWith("12")|| zqdm.startsWith("13")|| zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
                 url.append("0." + zqdm);
 
                 //指数 zqdm.startsWith("159") || zqdm.startsWith("399") ||
@@ -147,7 +147,7 @@ public class KlineService {
 //                    url.append("0." + zqdm);
 //                }
                 //159开头
-                //  110、120开头是可转债
+                //  11XXXX：债券；12XXXX：可转换债券；13XXXX：国债回购
                 //  上海证券交易所决定为交易型货币市场基金、债券ETF等上市交易的固定收益类基金产品分配511000-511999专用证券代码段。
                 //沪市A股票代码是以60开头 沪市主板股票代码:600、601、603、605。
                 //深市A股票代码是以00开头 深市主板股票代码:000开头。深市中小板股票代码:002开头。
@@ -183,6 +183,7 @@ public class KlineService {
 //                }
                 //159开头
                 //  110、120开头是可转债
+                //001×××国债现货;110×××120×××企业债券;129×××100×××可转换债券;201×××国债回购;310×××国债期货;500×××550×××基金;600×××A股;700×××配股;710×××转配股;701×××转配股再配股;711×××转配股再转配股;720×××红利;730×××新股申购;735×××新基金申购;737×××新股配售;900×××B股。
                 //  上海证券交易所决定为交易型货币市场基金、债券ETF等上市交易的固定收益类基金产品分配511000-511999专用证券代码段。
                 //沪市A股票代码是以60开头 沪市主板股票代码:600、601、603、605。
                 //深市A股票代码是以00开头 深市主板股票代码:000开头。深市中小板股票代码:002开头。
@@ -280,7 +281,7 @@ public class KlineService {
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("&StartDate=").append(startDate);
 
-//        System.out.println("请求url:" + url + JSON.toJSONString(urlParam));
+//        System.out.println("请求url:" + randomHttpHead(KLINE_HTTP_HEAD) + url.toString());
         String rs = "";
         try {
             rs = HttpUtil.sendGet(randomHttpHead(KLINE_HTTP_HEAD) + url.toString(), urlParam.toString(), "");
@@ -385,6 +386,11 @@ public class KlineService {
         BigDecimal rsNetCloseMax = new BigDecimal("0.0");
         BigDecimal rsNetCloseAvg = new BigDecimal("0");//均值
         BigDecimal rsNetCloseSum = new BigDecimal("0");//和值
+        BigDecimal rsNetClose = new BigDecimal("0");//收盘价
+        if(klines==null){
+            System.out.println("k线为空！");
+            return rs;
+        }
 
         for (Kline kline : klines) {
             BigDecimal dwjzLong = kline.getCloseAmt();
@@ -405,6 +411,7 @@ public class KlineService {
             if (dwjzLong.compareTo(rsNetCloseMin) <= 0 || rsNetCloseMin.compareTo(new BigDecimal("0.0")) == 0) {
                 rsNetCloseMin = dwjzLong;
             }
+            rsNetClose = dwjzLong;
         }
 
         //计算均值
@@ -420,6 +427,7 @@ public class KlineService {
         rs.put(Content.keyRsNetCloseMin, rsNetCloseMin);
         rs.put(Content.keyRsNetCloseMax, rsNetCloseMax);
         rs.put(Content.keyRsNetCloseAvg, rsNetCloseAvg);
+        rs.put(Content.keyRsNetClose, rsNetClose);
         rs.put(Content.keyRsKlineCount, count);
         return rs;
     }

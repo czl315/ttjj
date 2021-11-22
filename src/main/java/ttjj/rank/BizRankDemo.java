@@ -29,15 +29,19 @@ public class BizRankDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2021-11-05";
 
-//        insertTodayBizDb(date);//新增今日数据
+        insertTodayBizDb(date);//新增今日数据
 //        updateFundFlowBk(date);//更新当日资金流信息-板块
 //        updateFundFlowGn(date);//更新当日资金流信息-概念     //更新当日资金流信息
 //        updateEtfFundFlow(date);//更新当日
 
+        Set<String> etfBizSet = ContentEtf.mapEtfBiz.keySet();//板块行业
 //        Set<String> etfBizSet = ContentEtf.mapEtfAll.keySet();//全部场内etf：板块、指数
 //        Set<String> etfBizSet = ContentEtf.mapEtfIndex.keySet();//指数
-        Set<String> etfBizSet = ContentEtf.mapEtfBiz.keySet();//板块行业
-        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
+//        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
+        int year = 2021;//2021
+        int month = DateUtil.getCurMonth();//
+        int day = 12;//DateUtil.getCurDay()
+//        statEtfAdrDb(etfBizSet, year,month,day,7);
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
@@ -130,6 +134,74 @@ public class BizRankDemo {
 //                }
 //                statRs.put(code, statEtfUpDown);
 //            }
+        }
+
+        statEtfUpDownList.addAll(statRs.values());
+        //排序
+        statEtfUpDownList = statEtfUpDownList.stream().filter(e -> e != null).sorted(Comparator.comparing(StatEtfUpDown::getCountTotalUp, Comparator.nullsFirst(Integer::compareTo)).reversed()).collect(Collectors.toList());
+        System.out.println();
+        for (StatEtfUpDown dto : statEtfUpDownList) {
+            String name = dto.getName();
+            System.out.print(dto.getCode());
+            System.out.print("\t累计-涨跌比:" + dto.getCountTotalUp() + ":" + dto.getCountTotalDown());
+            System.out.print(" \t当前连续次数合计-涨跌比:" + dto.getCountCurContinueUp() + ":" + dto.getCountCurContinueDown());
+            System.out.print("\t");
+            if (name.length() < 4) {
+                System.out.print(dto.getName());
+            } else {
+                System.out.print(dto.getName());
+            }
+            System.out.println();
+        }
+        return statRs;
+    }
+
+    /**
+     * 统计涨跌幅
+     * @param etfBizSet
+     * @param days
+     * @return
+     */
+    private static Map<String, StatEtfUpDown> statEtfAdrDb(Set<String> etfBizSet, int year, int month, int day, int days) {
+        Map<String, StatEtfUpDown> statRs = new HashMap<>();
+        List<StatEtfUpDown> statEtfUpDownList = new ArrayList<>();
+        //按照日期，倒序查询
+        for (int i = 0; i <= days; i++) {
+            String date = DateUtil.getDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, year, month, day, i);//查询新增交易的开始时间
+            Map<String, Object> condition = new HashMap<>();
+            condition.put("list", etfBizSet);
+            condition.put("date", date);
+            List<RankBizDataDiff> rankListUp = BizRankDao.listEtfBiz(condition);
+            if (rankListUp == null) {
+                continue;
+            }
+            for (RankBizDataDiff biz : rankListUp) {
+                if (rankListUp == null) {
+                    return null;
+                }
+                String code = biz.getF12();
+                StatEtfUpDown statEtfUpDown = new StatEtfUpDown();
+                if (statRs.containsKey(code)) {
+                    statEtfUpDown = statRs.get(code);
+                }
+                statEtfUpDown.setCode(biz.getF12());
+                statEtfUpDown.setName(handlerEtfName(biz.getF14()));
+                int oldCountCurContinueUp = statEtfUpDown.getCountCurContinueUp();
+                int oldCountCurContinueDown = statEtfUpDown.getCountCurContinueDown();
+                int oldCountTotalUp = statEtfUpDown.getCountTotalUp();
+                int oldCountTotalDown = statEtfUpDown.getCountTotalDown();
+                //  当前连续次数合计-上涨:如果上涨，次数加，否则次数重置为0；下跌次数反之
+                if (biz.getF3().compareTo(new BigDecimal("0")) > 0) {
+                    statEtfUpDown.setCountCurContinueUp(oldCountCurContinueUp + 1);
+                    statEtfUpDown.setCountCurContinueDown(0);
+                    statEtfUpDown.setCountTotalUp(oldCountTotalUp + 1);
+                } else {
+                    statEtfUpDown.setCountCurContinueDown(oldCountCurContinueDown + 1);
+                    statEtfUpDown.setCountCurContinueUp(0);
+                    statEtfUpDown.setCountTotalDown(oldCountTotalDown + 1);
+                }
+                statRs.put(code, statEtfUpDown);
+            }
         }
 
         statEtfUpDownList.addAll(statRs.values());
@@ -284,12 +356,11 @@ public class BizRankDemo {
 
     private static void updateNetMa(String date, int ma5, List<RankBizDataDiff> bizList) {
         for (RankBizDataDiff rankBizDataDiff : bizList) {
-            String klt = KLT_101;
             RankBizDataDiff entity = new RankBizDataDiff();
             String zqdm = rankBizDataDiff.getF12();
             entity.setF12(zqdm);
             entity.setDate(date);
-            Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, ma5, klt, false, "", date, KLINE_TYPE_BAN_KUAI);
+            Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, ma5, KLT_101, false, "", date, KLINE_TYPE_BAN_KUAI);
             if (ma5 == MA_5) {
                 entity.setNET_MA_5(netMap.get(Content.keyRsNetCloseAvg));
             }

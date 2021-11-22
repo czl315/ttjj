@@ -33,8 +33,9 @@ public class NoticeService {
     public static void main(String[] args) {
         String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0);
         List<String> filterList = new ArrayList<>();
-        filterList.add("提价");
-        filterList.add("产品价格调整");
+//        filterList.add("提价");
+//        filterList.add("产品价格调整");
+        filterList.add("发行股份");
 //        filterList.add("价格调整");
 //        findStockNotice("002507", filterStr);
 

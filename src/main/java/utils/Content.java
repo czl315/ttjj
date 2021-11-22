@@ -290,6 +290,10 @@ public class Content {
      */
     public static String keyRsNetCloseAvg = "netCloseAvg";
     /**
+     * keyRsNetClose 收盘价
+     */
+    public static String keyRsNetClose = "netClose";
+    /**
      * keyRsJyeAvg 交易额均量
      */
     public static String keyRsCjeAvg = "cjeAvg";

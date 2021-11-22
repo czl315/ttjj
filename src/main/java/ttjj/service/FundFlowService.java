@@ -28,7 +28,7 @@ import static utils.Content.*;
 public class FundFlowService {
     public static void main(String[] args) {
         String limitStartTime = null;
-        String stCode = "000776";//万科Ａ:000002  中航沈飞:600760  广发证券-000776 片仔癀：600436  分众传媒:002027  招商银行:600036 通威股份-600438
+        String stCode = "754212";//万科Ａ:000002  中航沈飞:600760  广发证券-000776 片仔癀：600436  分众传媒:002027  招商银行:600036 通威股份-600438
         //上证50ETF:510050    券商ETF：512000 159995:芯片
 //        String limitStartTime = "2021-11-12 10:00";
 //        String limitStartTime = "2021-11-12 10:50";
@@ -54,7 +54,7 @@ public class FundFlowService {
         JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
 
         if (szzzMonthDataJson == null || !szzzMonthDataJson.containsKey("klines")) {
-            System.out.println("klines数据异常：" + rs + ",zqdm:" + zqdm);
+            System.out.println("数据异常[资金流向]：" + rs + ",zqdm:" + zqdm);
             return null;
         }
         String name = "";
@@ -82,7 +82,7 @@ public class FundFlowService {
         List<Kline> klineDayList = KlineService.kline(zqdm, 2, KLT_101, false, "", date, KLINE_TYPE_STOCK);
         if (klineDayList != null && klineDayList.size() >= 2) {
             yesterdayCloseAmt = klineDayList.get(0).getCloseAmt();
-            System.out.println("昨日收盘价：" + yesterdayCloseAmt);
+//            System.out.println("昨日收盘价：" + yesterdayCloseAmt);
         }
 
         JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
@@ -184,7 +184,6 @@ public class FundFlowService {
             }
             BigDecimal flowMarketValueRate = flowMoneyTotal.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000")).setScale(2, BigDecimal.ROUND_HALF_UP);
             System.out.println("--------------------------------------------------------市值：" + marketValue.divide(new BigDecimal("10000"), 4, BigDecimal.ROUND_HALF_UP) + ",主力净流入total:" + flowMoneyTotal.divide(new BigDecimal("10000"), 0, BigDecimal.ROUND_HALF_UP) + ",十万分比例:" + flowMarketValueRate);
-            System.out.println();
 //            System.out.print(",主力净流入-合计:" + flowMoneyTotal);
         }
         return null;
@@ -252,7 +251,7 @@ public class FundFlowService {
         }
         urlParam.append("&_=" + (curTime + 1));//
 //        System.out.println("请求url:");
-//        System.out.println(url + "?" + JSON.toJSONString(urlParam));
+//        System.out.println(url + "?" + urlParam);
         String rs = "";
         try {
             rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");

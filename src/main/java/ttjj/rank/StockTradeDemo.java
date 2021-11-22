@@ -25,8 +25,8 @@ import java.util.*;
  * @date 2020/8/4
  */
 public class StockTradeDemo {
-//    static String type_selling = "证券买入(卖出中)";
-    public static String COOKIE_DFCF = "eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=59721413872083; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=2; st_psi=20211115160352949-11923323313501-8952825321; mobileimei=bcc05705-8473-4e6b-9e40-9f61c6089378; Uuid=f9b67855553145f6ba2983933305f1ca";
+    //    static String type_selling = "证券买入(卖出中)";
+    public static String COOKIE_DFCF = "eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=65573246667118; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20211122093354159-11923323313501-5451928262; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=36d8feb5-52b3-490c-a1f9-9ae1b6b16423; Uuid=fa63b066777b47dca6b757b7ebf529d7";
 
     public static void main(String[] args) {
 //        boolean tradIng = true;//"盘中交易中"
@@ -41,9 +41,9 @@ public class StockTradeDemo {
             showTypeNet = 365;//最新一年内
         }
 
-            String startDate = "2021-10-16";//查询新增交易的开始时间
+        String startDate = "2021-10-16";//查询新增交易的开始时间
 //        String startDate = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-        String endDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD,10);
+        String endDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 10);
 //            String endDate = "2021-03-19";
         if (showBuyOrSell) {
             //显示插入数据库语句
@@ -851,7 +851,6 @@ public class StockTradeDemo {
     }
 
 
-
     /**
      * 查询-ETF-指数
      *
@@ -864,7 +863,7 @@ public class StockTradeDemo {
     public static StockTradeDb kline(String zhiShu, int days, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
         StringBuffer url = new StringBuffer();
         url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-        if (zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("11")|| zhiShu.startsWith("12")) {
+        if (zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("11") || zhiShu.startsWith("12")) {
             //|| zhiShu.startsWith("000")
             //  110、120开头是可转债
             url.append("&secid=" + "1." + zhiShu);
@@ -911,13 +910,15 @@ public class StockTradeDemo {
         List<String> klineList = new ArrayList<String>();
         JSONObject szzzMonthJson = JSON.parseObject(rsJson);
         JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
-        String name = szzzMonthDataJson.getString("name");
+//        String name = szzzMonthDataJson.getString("name");
 //        System.out.println("指数名称："+name);
-        JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
-        if (klines != null) {
-            for (Object kline : klines) {
-                String klineStr = (String) kline;
-                klineList.add(klineStr);
+        if (szzzMonthDataJson != null) {
+            JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
+            if (klines != null) {
+                for (Object kline : klines) {
+                    String klineStr = (String) kline;
+                    klineList.add(klineStr);
+                }
             }
         }
 
@@ -948,19 +949,19 @@ public class StockTradeDemo {
             stockTradeDb.setNET_MAX_1(maxJz);
             stockTradeDb.setNET_MAX_CLOS_1(netCloseMax);
         }
-        if (days == 7 ||days == 5 ) {
+        if (days == 7 || days == 5) {
             stockTradeDb.setNET_MIN_7(minJz);
             stockTradeDb.setNET_MIN_CLOS_7(netCloseMin);
             stockTradeDb.setNET_MAX_7(maxJz);
             stockTradeDb.setNET_MAX_CLOS_7(netCloseMax);
         }
-        if (days == 14||days == 10 ) {
+        if (days == 14 || days == 10) {
             stockTradeDb.setNET_MIN_14(minJz);
             stockTradeDb.setNET_MIN_CLOS_14(netCloseMin);
             stockTradeDb.setNET_MAX_14(maxJz);
             stockTradeDb.setNET_MAX_CLOS_14(netCloseMax);
         }
-        if (days == 30||days == 20 ) {
+        if (days == 30 || days == 20) {
             stockTradeDb.setNET_MIN_30(minJz);
             stockTradeDb.setNET_MIN_CLOS_30(netCloseMin);
             stockTradeDb.setNET_MAX_30(maxJz);
@@ -1006,6 +1007,9 @@ public class StockTradeDemo {
         Double rsNetCloseMin = 0.0;
         Double rsNetCloseMax = 0.0;
         int curTempInt = 0;
+//        if (klineList == null) {
+//            return rs;
+//        }
         for (String klineStr : klineList) {
             //  日期，开盘，收盘,最高，最低，成交量，成交额，振幅，涨跌幅，涨跌额，换手率
             //"2020-09-30,3389.74,3218.05,3425.63,3202.34,4906229054,6193724911616.00,6.58,-5.23,-177.63,13.40"
