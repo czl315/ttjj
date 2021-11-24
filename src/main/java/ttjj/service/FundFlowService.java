@@ -68,6 +68,8 @@ public class FundFlowService {
         RankStockCommpanyDb stock = findMarketValue(zqdm);
         if (stock != null) {
             marketValue = stock.getF20();
+        }else{
+            return null;
         }
 
         //查询今日分钟级别K线
@@ -183,7 +185,7 @@ public class FundFlowService {
                 System.out.println();
             }
             BigDecimal flowMarketValueRate = flowMoneyTotal.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000")).setScale(2, BigDecimal.ROUND_HALF_UP);
-            System.out.println("--------------------------------------------------------市值：" + marketValue.divide(new BigDecimal("10000"), 4, BigDecimal.ROUND_HALF_UP) + ",主力净流入total:" + flowMoneyTotal.divide(new BigDecimal("10000"), 0, BigDecimal.ROUND_HALF_UP) + ",十万分比例:" + flowMarketValueRate);
+            System.out.println("--------------------------------------------------------市值：" + marketValue.divide(new BigDecimal("10000"), 4, BigDecimal.ROUND_HALF_UP) + ",主力净流入total:" + flowMoneyTotal.divide(new BigDecimal("10000"), 0, BigDecimal.ROUND_HALF_UP) + ",万分比例:" + flowMarketValueRate);
 //            System.out.print(",主力净流入-合计:" + flowMoneyTotal);
         }
         return null;
@@ -206,11 +208,15 @@ public class FundFlowService {
             RankBizDataDiff condition = new RankBizDataDiff();
             condition.setF12(zqdm);
             RankBizDataDiff rs = BizRankDao.findEtfLast(condition);
-            stock = new RankStockCommpanyDb();
-            stock.setF12(rs.getF12());
-            stock.setF14(rs.getF14());
-            stock.setF20(rs.getF20());
-            System.out.println("如果非股票，查询etf:" + zqdm + ",rs：" + JSON.toJSONString(stock));
+            if (rs != null) {
+                stock = new RankStockCommpanyDb();
+                stock.setF12(rs.getF12());
+                stock.setF14(rs.getF14());
+                stock.setF20(rs.getF20());
+                System.out.println("如果非股票，查询etf:" + zqdm + ",rs：" + JSON.toJSONString(stock));
+            } else {
+                System.out.println("非股票；非etf；zqdm：" + zqdm);
+            }
         }
 
         return stock;

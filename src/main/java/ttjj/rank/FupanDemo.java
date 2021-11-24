@@ -17,6 +17,7 @@ import ttjj.dto.RankBizDataDiff;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
 import utils.Content;
+import utils.ContentCookie;
 import utils.DateUtil;
 import utils.HttpUtil;
 
@@ -47,14 +48,14 @@ public class FupanDemo {
     static final String KCB_50 = "1.000688";
     static final String BIZ_QUANSHANG = "0.399975";
     static final String BIZ_BANDAOTI_XINPIAN_990001 = "0.007300";
-    static final String COOKIE_DFCF = StockTradeDemo.COOKIE_DFCF;
+    static final String COOKIE_DFCF = ContentCookie.COOKIE_DFCF;
 
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2021-11-01";
 
-//        insertOrUpdate(date);//保存复盘和仓位
-        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
+        insertOrUpdate(date);//保存复盘和仓位
+//        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 
 //        listMyPosition(date, KLT_101);//查询我的仓位 KLT_102;//检查周期类型
 

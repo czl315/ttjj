@@ -12,6 +12,7 @@ import ttjj.dto.FundTrade;
 import ttjj.dto.LsjzDataLsjz;
 import ttjj.dto.StockTrade;
 import utils.Content;
+import utils.ContentCookie;
 import utils.DateUtil;
 import utils.HttpUtil;
 
@@ -26,7 +27,7 @@ import java.util.*;
  */
 public class StockTradeDemo {
     //    static String type_selling = "证券买入(卖出中)";
-    public static String COOKIE_DFCF = "eastmoney_txzq_zjzh=NTQwODIwMTc0NTY5fA%3D%3D; st_si=65573246667118; st_pvi=68959131305862; st_sp=2021-04-02%2023%3A27%3A59; st_inirUrl=https%3A%2F%2Fjywg.18.cn%2FSearch%2FFundsFlow; st_sn=1; st_psi=20211122093354159-11923323313501-5451928262; st_asi=delete; Yybdm=5408; Uid=fNUE23lwQOlyHFRjGcQYdA%3d%3d; Khmc=%e9%99%88%e5%bf%97%e9%be%99; mobileimei=36d8feb5-52b3-490c-a1f9-9ae1b6b16423; Uuid=fa63b066777b47dca6b757b7ebf529d7";
+    public static String COOKIE_DFCF = ContentCookie.COOKIE_DFCF;
 
     public static void main(String[] args) {
 //        boolean tradIng = true;//"盘中交易中"

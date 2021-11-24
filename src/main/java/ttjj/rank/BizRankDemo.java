@@ -29,19 +29,21 @@ public class BizRankDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2021-11-05";
 
-        insertTodayBizDb(date);//新增今日数据
+//        insertTodayBizDb(date);//新增今日数据
 //        updateFundFlowBk(date);//更新当日资金流信息-板块
 //        updateFundFlowGn(date);//更新当日资金流信息-概念     //更新当日资金流信息
-//        updateEtfFundFlow(date);//更新当日
+//        updateFundFlowEtf(date);//更新当日
 
-        Set<String> etfBizSet = ContentEtf.mapEtfBiz.keySet();//板块行业
-//        Set<String> etfBizSet = ContentEtf.mapEtfAll.keySet();//全部场内etf：板块、指数
-//        Set<String> etfBizSet = ContentEtf.mapEtfIndex.keySet();//指数
+//        Set<String> etfBizSet = ContentEtf.mapEtfBiz.keySet();//板块行业
+        Set<String> etfBizSet = ContentEtf.mapEtfAll.keySet();//全部场内etf：板块、指数
+////        Set<String> etfBizSet = ContentEtf.mapEtfIndex.keySet();//指数
+
 //        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
-        int year = 2021;//2021
+
+        int year = DateUtil.getCurYear();//2021
         int month = DateUtil.getCurMonth();//
-        int day = 12;//DateUtil.getCurDay()
-//        statEtfAdrDb(etfBizSet, year,month,day,7);
+        int day = 16;//DateUtil.getCurDay()
+        statEtfAdrDb(etfBizSet, year,month,day,7);//统计涨跌次数-按照天的维度
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
@@ -157,7 +159,7 @@ public class BizRankDemo {
     }
 
     /**
-     * 统计涨跌幅
+     * 统计涨跌次数-按照天的维度
      * @param etfBizSet
      * @param days
      * @return
@@ -308,7 +310,7 @@ public class BizRankDemo {
 
             entityDb.setFundFlow(rsFundFlow);
             int updateRs = BizRankDao.updateEtfNet(entityDb);
-            System.out.println("更新结果：" + updateRs + "," + etf.getF14());
+            System.out.println("更新资金流向-概念-结果：" + updateRs + "," + etf.getF14());
         }
     }
 
@@ -329,7 +331,7 @@ public class BizRankDemo {
 
             entityDb.setFundFlow(rsFundFlow);
             int updateRs = BizRankDao.updateEtfNet(entityDb);
-            System.out.println("更新资金流向-结果：" + updateRs + "," + etf.getF14());
+            System.out.println("更新资金流向-板块-结果：" + updateRs + "," + etf.getF14());
         }
     }
 
@@ -338,7 +340,7 @@ public class BizRankDemo {
      *
      * @param date
      */
-    private static void updateEtfFundFlow(String date) {
+    private static void updateFundFlowEtf(String date) {
         List<RankBizDataDiff> rankEtf = listEtf(date, "etf", 999);//2021-04-16:425;
         for (RankBizDataDiff etf : rankEtf) {
             String stCode = etf.getF12();
@@ -350,7 +352,7 @@ public class BizRankDemo {
 
             entityDb.setFundFlow(rsFundFlow);
             int updateRs = BizRankDao.updateEtfNet(entityDb);
-            System.out.println("更新结果：" + updateRs + "," + etf.getF14());
+            System.out.println("更新资金流向-etf-结果：" + updateRs + "," + etf.getF14());
         }
     }
 
