@@ -30,6 +30,10 @@ public class BizRankDemo {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2021-11-05";
 
 //        insertTodayBizDb(date);//新增今日数据
+//        insertTodayRank(date,DB_RANK_BIZ_TYPE_HANG_YE);
+//        insertTodayRank(date,DB_RANK_BIZ_TYPE_GAI_NIAN);
+//        insertTodayRank(date,DB_RANK_BIZ_TYPE_ETF);
+//        updateDbTodayEtfMa(date);
 //        updateFundFlowBk(date);//更新当日资金流信息-板块
 //        updateFundFlowGn(date);//更新当日资金流信息-概念     //更新当日资金流信息
 //        updateFundFlowEtf(date);//更新当日
@@ -38,12 +42,12 @@ public class BizRankDemo {
         Set<String> etfBizSet = ContentEtf.mapEtfAll.keySet();//全部场内etf：板块、指数
 ////        Set<String> etfBizSet = ContentEtf.mapEtfIndex.keySet();//指数
 
-//        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
+        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
-        int year = DateUtil.getCurYear();//2021
-        int month = DateUtil.getCurMonth();//
-        int day = 16;//DateUtil.getCurDay()
-        statEtfAdrDb(etfBizSet, year,month,day,7);//统计涨跌次数-按照天的维度
+//        int year = DateUtil.getCurYear();//2021
+//        int month = DateUtil.getCurMonth();//
+//        int day = 16;//DateUtil.getCurDay()
+//        statEtfAdrDb(etfBizSet, year,month,day,7);//统计涨跌次数-按照天的维度
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
@@ -69,6 +73,71 @@ public class BizRankDemo {
 //        String endDate = "2018-12-31";
 //        insertHisDbBanKuai(begDate, endDate);//新增历史数据
     }
+
+    /**
+     *
+     * @param date
+     */
+    private static void updateDbTodayEtfMa(String date) {
+        List<RankBizDataDiff> rankEtf = listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
+        for (RankBizDataDiff rankBizDataDiff : rankEtf) {
+            String klt = KLT_101;
+            RankBizDataDiff entity = new RankBizDataDiff();
+            String zqdm = rankBizDataDiff.getF12();
+            entity.setF12(zqdm);
+            entity.setDate(date);
+            Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, "", date, KLINE_TYPE_ETF);
+            entity.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
+//                entity.setNET_MIN_7(netMap5.get(keyRsMin));
+            Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, "", date, KLINE_TYPE_ETF);
+            entity.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
+            Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, "", date, KLINE_TYPE_ETF);
+            entity.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
+            Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, "", date, KLINE_TYPE_ETF);
+            entity.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
+            Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, "", date, KLINE_TYPE_ETF);
+            entity.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
+            Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, "", date, KLINE_TYPE_ETF);
+            entity.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
+            Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, "", date, KLINE_TYPE_ETF);
+            entity.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
+            BizRankDao.updateEtfNet(entity);
+            System.out.println("更新-etf净值：" + JSON.toJSONString(entity));
+        }
+    }
+
+    /**
+     * 保存-板块、概念、etf
+     *
+     * @param date
+     * @param type
+     */
+    private static void insertTodayRank(String date, String type) {
+        if (type.equals(DB_RANK_BIZ_TYPE_HANG_YE)) {
+            List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询板块行业列表
+            //db-插入
+            BizRankDao.insertDbBiz(rankBizDataDiffListBiz);//bk-板块
+            System.out.println("bk-板块-保存完成：" + rankBizDataDiffListBiz.size());
+//            showBizSql(date, rankBizDataDiffListBiz, "bk");//显示sql-业务排行-插入
+        }
+        if (type.equals(DB_RANK_BIZ_TYPE_GAI_NIAN)) {
+            List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(date, DB_RANK_BIZ_TYPE_GAI_NIAN, NUM_MAX_999);//查询主题排名by时间类型、显示个数
+            //db-插入
+            BizRankDao.insertDbBiz(rankBizDataDiffListConcept);
+            System.out.println("rank-概念-保存完成：" + rankBizDataDiffListConcept.size());
+//            showBizSql(date, rankBizDataDiffListConcept, "gn");//显示业务排行-插入sql
+        }
+
+        if (type.equals(DB_RANK_BIZ_TYPE_ETF)) {
+            List<RankBizDataDiff> rankEtf = listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
+            BizRankDao.insertDbBiz(rankEtf);
+            System.out.println("etf-保存完成：" + rankEtf.size());
+//            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
+        }
+
+
+    }
+
 
     /**
      * 列表查询-行业etf-排序：涨跌幅
@@ -160,6 +229,7 @@ public class BizRankDemo {
 
     /**
      * 统计涨跌次数-按照天的维度
+     *
      * @param etfBizSet
      * @param days
      * @return
@@ -414,11 +484,11 @@ public class BizRankDemo {
      * @param date
      */
     private static void insertTodayBizDb(String date) {
-        boolean insertDbTodayBiz = true;
+//        boolean insertDbTodayBiz = true;
 //        boolean insertDbTodayBiz = false;
-        boolean insertDbTodayConcept = true;
+//        boolean insertDbTodayConcept = true;
 //        boolean insertDbTodayConcept = false;
-        boolean insertDbTodayEtf = true;
+//        boolean insertDbTodayEtf = true;
 //        boolean insertDbTodayEtf = false;
 
         boolean updateDbTodayEtfMa = true;//更新均线
@@ -435,28 +505,29 @@ public class BizRankDemo {
 //        int updateDbEtfNetDays = 1;
 //        int updateDbEtfNetDays = 0;
 
-        if (insertDbTodayBiz) {
-            List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询板块行业列表
-            //db-插入
-            BizRankDao.insertDbBiz(rankBizDataDiffListBiz);//bk-板块
-            System.out.println("bk-板块-保存完成：" + rankBizDataDiffListBiz.size());
-//            showBizSql(date, rankBizDataDiffListBiz, "bk");//显示sql-业务排行-插入
-        }
+//        if (insertDbTodayBiz) {
+//            List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询板块行业列表
+//            //db-插入
+//            BizRankDao.insertDbBiz(rankBizDataDiffListBiz);//bk-板块
+//            System.out.println("bk-板块-保存完成：" + rankBizDataDiffListBiz.size());
+////            showBizSql(date, rankBizDataDiffListBiz, "bk");//显示sql-业务排行-插入
+//        }
 
-        if (insertDbTodayConcept) {
-            List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(date, DB_RANK_BIZ_TYPE_GAI_NIAN, NUM_MAX_999);//查询主题排名by时间类型、显示个数
-            //db-插入
-            BizRankDao.insertDbBiz(rankBizDataDiffListConcept);
-            System.out.println("rank-概念-保存完成：" + rankBizDataDiffListConcept.size());
-//            showBizSql(date, rankBizDataDiffListConcept, "gn");//显示业务排行-插入sql
-        }
+//        if (insertDbTodayConcept) {
+//            List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(date, DB_RANK_BIZ_TYPE_GAI_NIAN, NUM_MAX_999);//查询主题排名by时间类型、显示个数
+//            //db-插入
+//            BizRankDao.insertDbBiz(rankBizDataDiffListConcept);
+//            System.out.println("rank-概念-保存完成：" + rankBizDataDiffListConcept.size());
+////            showBizSql(date, rankBizDataDiffListConcept, "gn");//显示业务排行-插入sql
+//        }
 
+//        List<RankBizDataDiff> rankEtf = listEtf(date, "etf", 999);//2021-04-16:425;
+//        if (insertDbTodayEtf) {
+//            BizRankDao.insertDbBiz(rankEtf);
+//            System.out.println("etf-保存完成：" + rankEtf.size());
+////            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
+//        }
         List<RankBizDataDiff> rankEtf = listEtf(date, "etf", 999);//2021-04-16:425;
-        if (insertDbTodayEtf) {
-            BizRankDao.insertDbBiz(rankEtf);
-            System.out.println("etf-保存完成：" + rankEtf.size());
-//            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
-        }
         if (updateDbTodayEtfMa) {
             for (RankBizDataDiff rankBizDataDiff : rankEtf) {
                 String klt = KLT_101;

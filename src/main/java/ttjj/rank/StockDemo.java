@@ -34,11 +34,11 @@ public class StockDemo {
             int startNum = 0;//开始位置，默认0
 
             //  添加或更新股票-根据日期
-//            addTodayStCom(date, startNum);
+            addTodayStCom(date, startNum);
 //            updateNetToday(date, startNum, true, false, false, false, false, false, false, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, false, false, false, true, isReport);//  更新净值
-//            updateNetToday(date, startNum, true, true, true, true, true, true, true, isReport);//  更新净值
-            updateFundFlow(date, startNum);//更新当日资金流信息
+            updateNetToday(date, startNum, true, true, true, true, true, true, true, isReport);//  更新净值
+//            updateFundFlow(date, startNum);//更新当日资金流信息
 //            updateConception(date,0);//更新题材概念
 
 

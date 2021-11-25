@@ -21,12 +21,12 @@ public class Content {
         zhishuMap.put("000852","中证1000");
         zhishuMap.put("000688","科创50");
         zhishuMap.put("399001","深证成指");
-        zhishuMap.put("399006","创业板指");
+//        zhishuMap.put("399006","创业板指");
         zhishuMap.put("399673","创业板50");
         zhishuMap.put("931643","科创创业50");
-        zhishuMap.put("399005","中小100");
+//        zhishuMap.put("399005","中小100");
         zhishuMap.put("000010","上证180");
-        zhishuMap.put("000009","上证380");
+//        zhishuMap.put("000009","上证380");
     }
 
     /**
@@ -166,6 +166,10 @@ public class Content {
      * DB_RANK_BIZ_TYPE_GAI_NIAN 排行榜-类型-概念
      */
     public static String DB_RANK_BIZ_TYPE_GAI_NIAN = "gn";
+    /**
+     * DB_RANK_BIZ_TYPE_ETF
+     */
+    public static String DB_RANK_BIZ_TYPE_ETF = "etf";
     /**
      * DB_RANK_BIZ_F12_BAN_KUAI f13类型-板块
      */
