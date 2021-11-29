@@ -334,4 +334,14 @@ public class Content {
      * DATE_WEEK_5
      */
     public static String DATE_WEEK_5 = "五";
+
+    public static  String SHANG_HAI = "1.000001";
+    public static  String SHEN_ZHEN = "0.399001";
+    public static  String CYB = "0.399006";
+    public static  String HS_300_000300 = "1.000300";
+    public static  String CYB_50_399673 = "0.399673";
+    public static  String ZZ_500_000905 = "1.000905";
+    public static  String SH_50_000016 = "1.000016";
+    public static  String KCB_50 = "1.000688";
+    public static  String BIZ_QUANSHANG = "0.399975";
 }

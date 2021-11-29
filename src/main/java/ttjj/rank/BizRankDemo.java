@@ -35,8 +35,8 @@ public class BizRankDemo {
 //        insertTodayRank(date,DB_RANK_BIZ_TYPE_ETF);
 //        updateDbTodayEtfMa(date);
 //        updateFundFlowBk(date);//更新当日资金流信息-板块
-//        updateFundFlowGn(date);//更新当日资金流信息-概念     //更新当日资金流信息
-//        updateFundFlowEtf(date);//更新当日
+//        updateFundFlowGn(date);//更新当日资金流信息-概念
+//        updateFundFlowEtf(date);////更新当日资金流信息-etf
 
 //        Set<String> etfBizSet = ContentEtf.mapEtfBiz.keySet();//板块行业
         Set<String> etfBizSet = ContentEtf.mapEtfAll.keySet();//全部场内etf：板块、指数
@@ -44,10 +44,10 @@ public class BizRankDemo {
 
         listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
-//        int year = DateUtil.getCurYear();//2021
+//        int year = DateUtil.getCurYear();//2021法0
 //        int month = DateUtil.getCurMonth();//
 //        int day = 16;//DateUtil.getCurDay()
-//        statEtfAdrDb(etfBizSet, year,month,day,7);//统计涨跌次数-按照天的维度
+//        statEtfAdrDb(etfBizSet, year, month, day, 7);//统计涨跌次数-按照天的维度
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
@@ -75,7 +75,6 @@ public class BizRankDemo {
     }
 
     /**
-     *
      * @param date
      */
     private static void updateDbTodayEtfMa(String date) {
@@ -88,19 +87,46 @@ public class BizRankDemo {
             entity.setDate(date);
             Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, "", date, KLINE_TYPE_ETF);
             entity.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
-//                entity.setNET_MIN_7(netMap5.get(keyRsMin));
+            entity.setNET_MIN_7(netMap5.get(Content.keyRsMin));
+            entity.setNET_MAX_7(netMap5.get(Content.keyRsMax));
+            entity.setNET_MIN_CLOS_7(netMap5.get(Content.keyRsNetCloseMin));
+            entity.setNET_MAX_CLOS_7(netMap5.get(Content.keyRsNetCloseMax));
             Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, "", date, KLINE_TYPE_ETF);
             entity.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
+            entity.setNET_MIN_14(netMap10.get(Content.keyRsMin));
+            entity.setNET_MAX_14(netMap10.get(Content.keyRsMax));
+            entity.setNET_MIN_CLOS_14(netMap10.get(Content.keyRsNetCloseMin));
+            entity.setNET_MAX_CLOS_14(netMap10.get(Content.keyRsNetCloseMax));
             Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, "", date, KLINE_TYPE_ETF);
             entity.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
-            Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, "", date, KLINE_TYPE_ETF);
+            entity.setNET_MIN_30(netMap20.get(Content.keyRsMin));
+            entity.setNET_MAX_30(netMap20.get(Content.keyRsMax));
+            entity.setNET_MIN_CLOS_30(netMap20.get(Content.keyRsNetCloseMin));
+            entity.setNET_MAX_CLOS_30(netMap20.get(Content.keyRsNetCloseMax));
+            Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, KLT_101, false, "", date, KLINE_TYPE_STOCK);
             entity.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
+            entity.setNET_MIN_60(netMap30.get(Content.keyRsMin));
+            entity.setNET_MAX_60(netMap30.get(Content.keyRsMax));
+            entity.setNET_MIN_CLOS_60(netMap30.get(Content.keyRsNetCloseMin));
+            entity.setNET_MAX_CLOS_60(netMap30.get(Content.keyRsNetCloseMax));
             Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, "", date, KLINE_TYPE_ETF);
             entity.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
+            entity.setNET_MIN_90(netMap60.get(Content.keyRsMin));
+            entity.setNET_MAX_90(netMap60.get(Content.keyRsMax));
+            entity.setNET_MIN_CLOS_90(netMap60.get(Content.keyRsNetCloseMin));
+            entity.setNET_MAX_CLOS_90(netMap60.get(Content.keyRsNetCloseMax));
             Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, "", date, KLINE_TYPE_ETF);
             entity.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
+            entity.setNET_MIN_180(netMap120.get(Content.keyRsMin));
+            entity.setNET_MAX_180(netMap120.get(Content.keyRsMax));
+            entity.setNET_MIN_CLOS_180(netMap120.get(Content.keyRsNetCloseMin));
+            entity.setNET_MAX_CLOS_180(netMap120.get(Content.keyRsNetCloseMax));
             Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, "", date, KLINE_TYPE_ETF);
             entity.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
+            entity.setNET_MIN_360(netMap250.get(Content.keyRsMin));
+            entity.setNET_MAX_360(netMap250.get(Content.keyRsMax));
+            entity.setNET_MIN_CLOS_360(netMap250.get(Content.keyRsNetCloseMin));
+            entity.setNET_MAX_CLOS_360(netMap250.get(Content.keyRsNetCloseMax));
             BizRankDao.updateEtfNet(entity);
             System.out.println("更新-etf净值：" + JSON.toJSONString(entity));
         }
@@ -848,53 +874,53 @@ public class BizRankDemo {
         rankEtf.setWeekYear(DateUtil.getYearWeek(date, DateUtil.YYYY_MM_DD));
         rankEtf.setWeek(DateUtil.getWeekByYyyyMmDd(date, DateUtil.YYYY_MM_DD));
         if (days == 1) {
-            rankEtf.setLAST_NET(netCloseMin);
-            rankEtf.setNET_MIN_1(minJz);
-            rankEtf.setNET_MIN_CLOS_1(netCloseMin);
-            rankEtf.setNET_MAX_1(maxJz);
-            rankEtf.setNET_MAX_CLOS_1(netCloseMax);
+            rankEtf.setLAST_NET(new BigDecimal(netCloseMin));
+            rankEtf.setNET_MIN_1(new BigDecimal(minJz));
+            rankEtf.setNET_MIN_CLOS_1(new BigDecimal(netCloseMin));
+            rankEtf.setNET_MAX_1(new BigDecimal(maxJz));
+            rankEtf.setNET_MAX_CLOS_1(new BigDecimal(netCloseMax));
         }
         if (days == 7) {
-            rankEtf.setNET_MIN_7(minJz);
-            rankEtf.setNET_MIN_CLOS_7(netCloseMin);
-            rankEtf.setNET_MAX_7(maxJz);
-            rankEtf.setNET_MAX_CLOS_7(netCloseMax);
+            rankEtf.setNET_MIN_7(new BigDecimal(minJz));
+            rankEtf.setNET_MIN_CLOS_7(new BigDecimal(netCloseMin));
+            rankEtf.setNET_MAX_7(new BigDecimal(maxJz));
+            rankEtf.setNET_MAX_CLOS_7(new BigDecimal(netCloseMax));
         }
         if (days == 14) {
-            rankEtf.setNET_MIN_14(minJz);
-            rankEtf.setNET_MIN_CLOS_14(netCloseMin);
-            rankEtf.setNET_MAX_14(maxJz);
-            rankEtf.setNET_MAX_CLOS_14(netCloseMax);
+            rankEtf.setNET_MIN_14(new BigDecimal(minJz));
+            rankEtf.setNET_MIN_CLOS_14(new BigDecimal(netCloseMin));
+            rankEtf.setNET_MAX_14(new BigDecimal(maxJz));
+            rankEtf.setNET_MAX_CLOS_14(new BigDecimal(netCloseMax));
         }
         if (days == 30) {
-            rankEtf.setNET_MIN_30(minJz);
-            rankEtf.setNET_MIN_CLOS_30(netCloseMin);
-            rankEtf.setNET_MAX_30(maxJz);
-            rankEtf.setNET_MAX_CLOS_30(netCloseMax);
+            rankEtf.setNET_MIN_30(new BigDecimal(minJz));
+            rankEtf.setNET_MIN_CLOS_30(new BigDecimal(netCloseMin));
+            rankEtf.setNET_MAX_30(new BigDecimal(maxJz));
+            rankEtf.setNET_MAX_CLOS_30(new BigDecimal(netCloseMax));
         }
         if (days == 60) {
-            rankEtf.setNET_MIN_60(minJz);
-            rankEtf.setNET_MIN_CLOS_60(netCloseMin);
-            rankEtf.setNET_MAX_60(maxJz);
-            rankEtf.setNET_MAX_CLOS_60(netCloseMax);
+            rankEtf.setNET_MIN_60(new BigDecimal(minJz));
+            rankEtf.setNET_MIN_CLOS_60(new BigDecimal(netCloseMin));
+            rankEtf.setNET_MAX_60(new BigDecimal(maxJz));
+            rankEtf.setNET_MAX_CLOS_60(new BigDecimal(netCloseMax));
         }
         if (days == 90) {
-            rankEtf.setNET_MIN_90(minJz);
-            rankEtf.setNET_MIN_CLOS_90(netCloseMin);
-            rankEtf.setNET_MAX_90(maxJz);
-            rankEtf.setNET_MAX_CLOS_90(netCloseMax);
+            rankEtf.setNET_MIN_90(new BigDecimal(minJz));
+            rankEtf.setNET_MIN_CLOS_90(new BigDecimal(netCloseMin));
+            rankEtf.setNET_MAX_90(new BigDecimal(maxJz));
+            rankEtf.setNET_MAX_CLOS_90(new BigDecimal(netCloseMax));
         }
         if (days == 180) {
-            rankEtf.setNET_MIN_180(minJz);
-            rankEtf.setNET_MIN_CLOS_180(netCloseMin);
-            rankEtf.setNET_MAX_180(maxJz);
-            rankEtf.setNET_MAX_CLOS_180(netCloseMax);
+            rankEtf.setNET_MIN_180(new BigDecimal(minJz));
+            rankEtf.setNET_MIN_CLOS_180(new BigDecimal(netCloseMin));
+            rankEtf.setNET_MAX_180(new BigDecimal(maxJz));
+            rankEtf.setNET_MAX_CLOS_180(new BigDecimal(netCloseMax));
         }
         if (days == 365) {
-            rankEtf.setNET_MIN_360(minJz);
-            rankEtf.setNET_MIN_CLOS_360(netCloseMin);
-            rankEtf.setNET_MAX_360(maxJz);
-            rankEtf.setNET_MAX_CLOS_360(netCloseMax);
+            rankEtf.setNET_MIN_360(new BigDecimal(minJz));
+            rankEtf.setNET_MIN_CLOS_360(new BigDecimal(netCloseMin));
+            rankEtf.setNET_MAX_360(new BigDecimal(maxJz));
+            rankEtf.setNET_MAX_CLOS_360(new BigDecimal(netCloseMax));
         }
 
 

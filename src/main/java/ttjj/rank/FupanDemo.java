@@ -38,16 +38,7 @@ import static utils.Content.*;
  * @date 2020/10/7
  */
 public class FupanDemo {
-    static final String SHANG_HAI = "1.000001";
-    static final String SHEN_ZHEN = "0.399001";
-    static final String CYB = "0.399006";
-    static final String HS_300_000300 = "1.000300";
-    static final String CYB_50_399673 = "0.399673";
-    static final String ZZ_500_000905 = "1.000905";
-    static final String SH_50_000016 = "1.000016";
-    static final String KCB_50 = "1.000688";
-    static final String BIZ_QUANSHANG = "0.399975";
-    static final String BIZ_BANDAOTI_XINPIAN_990001 = "0.007300";
+
     static final String COOKIE_DFCF = ContentCookie.COOKIE_DFCF;
 
     public static void main(String[] args) {
@@ -75,10 +66,10 @@ public class FupanDemo {
             }
             FundFlowService.fundFlowHandler(zqdm, null);
             //净值
-            System.out.println(handlerAvgLine("5日均线", KlineService.findNetMinMaxAvg(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-            System.out.println(handlerAvgLine("10日均线", KlineService.findNetMinMaxAvg(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-            System.out.println(handlerAvgLine("20日均线", KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-            System.out.println(handlerAvgLine("60日均线", KlineService.findNetMinMaxAvg(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+            System.out.println(handlerAvgLine("5日价格", KlineService.findNetMinMaxAvg(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+            System.out.println(handlerAvgLine("10日价格", KlineService.findNetMinMaxAvg(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+            System.out.println(handlerAvgLine("20日价格", KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+            System.out.println(handlerAvgLine("60日价格", KlineService.findNetMinMaxAvg(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
             System.out.println();
         }
     }
@@ -97,10 +88,12 @@ public class FupanDemo {
         StringBuffer sb = new StringBuffer();
         if (curPrice != null && minPrice != null && maxPrice != null) {
             BigDecimal curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
-            sb.append(strHead).append("区间：").append(curPriceArea).append("%");
+            sb.append(strHead).append("区间：").append("\t").append(curPriceArea).append("%").append(",");
         }
-        sb.append(",").append(strHead).append("：").append(netMap.get(keyRsNetCloseAvg)).append(",最低：").append(minPrice).append(",最高：").append(maxPrice);
-        sb.append(",当前价：").append(curPrice);
+        sb.append("\t").append(strHead).append("：").append("\t").append(netMap.get(keyRsNetCloseAvg));
+        sb.append("\t").append(",最低：").append("\t").append(minPrice);
+        sb.append("\t").append(",最高：").append("\t").append(maxPrice);
+        sb.append("\t").append(",当前价：").append(curPrice);
 
         return sb.toString();
     }
