@@ -33,7 +33,7 @@ public class KlineService {
      * 测试样例：查询最小净值、最大净值、均值
      */
     private static void findNetMinMaxAvgDemo() {
-        String zqdm = "123127";//Content.ZQDM_ETF_CYB50_159949
+        String zqdm = "113630";//Content.ZQDM_ETF_CYB50_159949
         String begDate = "";//查询新增交易的开始时间
         String endDate = "20500101";
         String klt = Content.KLT_101;//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
@@ -136,7 +136,7 @@ public class KlineService {
         url.append("&secid=");
 
         if (klineType.equals(KLINE_TYPE_STOCK)) {
-            if (zqdm.startsWith("00") || zqdm.startsWith("11")|| zqdm.startsWith("12")|| zqdm.startsWith("13")|| zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
+            if (zqdm.startsWith("00") || zqdm.startsWith("12")|| zqdm.startsWith("13")|| zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
                 url.append("0." + zqdm);
 
                 //指数 zqdm.startsWith("159") || zqdm.startsWith("399") ||
@@ -166,6 +166,7 @@ public class KlineService {
                 //2.931643
                 url.append("2." + zqdm);
             } else {
+//                || zqdm.startsWith("11")
                 //zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("000")|| zhiShu.startsWith("11")|| zhiShu.startsWith("12")
                 url.append("1." + zqdm);
             }

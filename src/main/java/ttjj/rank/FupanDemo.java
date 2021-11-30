@@ -38,15 +38,12 @@ import static utils.Content.*;
  * @date 2020/10/7
  */
 public class FupanDemo {
-
-    static final String COOKIE_DFCF = ContentCookie.COOKIE_DFCF;
-
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2021-11-01";
 
-        insertOrUpdate(date);//保存复盘和仓位
-//        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
+//        insertOrUpdate(date);//保存复盘和仓位
+        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 
 //        listMyPosition(date, KLT_101);//查询我的仓位 KLT_102;//检查周期类型
 
@@ -61,9 +58,9 @@ public class FupanDemo {
         List<AssetPositionDb> rs = listMyPositionByDate(date);
         for (AssetPositionDb myPosition : rs) {
             String zqdm = myPosition.getZqdm();
-            if (zqdm.equals("754212")) {
-                System.out.println("特定zqdm：" + zqdm);
-            }
+//            if (zqdm.equals("754212")) {
+//                System.out.println("特定zqdm：" + zqdm);
+//            }
             FundFlowService.fundFlowHandler(zqdm, null);
             //净值
             System.out.println(handlerAvgLine("5日价格", KlineService.findNetMinMaxAvg(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
@@ -279,13 +276,13 @@ public class FupanDemo {
 
         if (updateMyStock) {
             //显示股票每日收益
-            Fupan FupanMyStock = queryAssetByDfcfStock(COOKIE_DFCF, dateType);
+            Fupan FupanMyStock = queryAssetByDfcfStock(ContentCookie.COOKIE_DFCF, dateType);
             FuPanDao.updateDb(FupanMyStock);
         }
 
         if (updateMyStockAssetPosition) {
             //更新-我的股票-资产持仓
-            Fupan fupanMyStockAssetPosition = queryMyStockAssetPosition(COOKIE_DFCF, dateType, date);
+            Fupan fupanMyStockAssetPosition = queryMyStockAssetPosition(ContentCookie.COOKIE_DFCF, dateType, date);
             FuPanDao.updateMyStockAssetPosition(fupanMyStockAssetPosition);
         }
 

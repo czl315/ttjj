@@ -1,4 +1,5 @@
 package ttjj.rank;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -36,8 +37,8 @@ public class StockDemo {
             //  添加或更新股票-根据日期
             addTodayStCom(date, startNum);
 //            updateNetToday(date, startNum, true, false, false, false, false, false, false, isReport);//  更新净值
-//            updateNetToday(date, startNum, true, true, true, false, false, false, true, isReport);//  更新净值
-            updateNetToday(date, startNum, true, true, true, true, true, true, true, isReport);//  更新净值
+            updateNetToday(date, startNum, true, true, true, false, false, false, true, isReport);//  更新净值
+//            updateNetToday(date, startNum, true, true, true, true, true, true, true, isReport);//  更新净值
 //            updateFundFlow(date, startNum);//更新当日资金流信息
 //            updateConception(date,0);//更新题材概念
 
@@ -735,9 +736,9 @@ public class StockDemo {
             String banKuaiCode = banKuai.getF12();
             String banKuaiName = banKuai.getF14();
             stBizCountTemp++;
-            List<RankStockCommpanyDb> stockList = listRankStockByBiz(NUM_MAX_999, banKuaiCode);
+            List<RankStockCommpanyDb> stockList = listRankStockByBiz(NUM_MAX_999, banKuaiCode);//查询股票列表-根据板块
             System.out.println();
-            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName + "---[" + banKuai.getF3() + "]---" + stockList.size());
+            System.out.println("-------------------------当前板块：" + stBizCountTemp + "---" + banKuaiName + "---[" + banKuai.getF3() + "]---" + stockList.size());
             System.out.println();
 
             // 最新周期价格
@@ -791,6 +792,7 @@ public class StockDemo {
                         entity.setNET_MAX_7(netMap5.get(Content.keyRsMax).doubleValue());
                         entity.setNET_MIN_CLOS_7(netMap5.get(Content.keyRsNetCloseMin).doubleValue());
                         entity.setNET_MAX_CLOS_7(netMap5.get(Content.keyRsNetCloseMax).doubleValue());
+                        System.out.print(handlerAvgLine("5日价格", KlineService.findNetMinMaxAvg(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
                     }
                     if (isMa10) {
                         Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK);
@@ -799,6 +801,7 @@ public class StockDemo {
                         entity.setNET_MAX_14(netMap10.get(Content.keyRsMax).doubleValue());
                         entity.setNET_MIN_CLOS_14(netMap10.get(Content.keyRsNetCloseMin).doubleValue());
                         entity.setNET_MAX_CLOS_14(netMap10.get(Content.keyRsNetCloseMax).doubleValue());
+                        System.out.print(handlerAvgLine("10日价格", KlineService.findNetMinMaxAvg(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
                     }
                     if (isMa20) {
                         Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK);
@@ -807,6 +810,7 @@ public class StockDemo {
                         entity.setNET_MAX_30(netMap20.get(Content.keyRsMax).doubleValue());
                         entity.setNET_MIN_CLOS_30(netMap20.get(Content.keyRsNetCloseMin).doubleValue());
                         entity.setNET_MAX_CLOS_30(netMap20.get(Content.keyRsNetCloseMax).doubleValue());
+                        System.out.print(handlerAvgLine("20日价格", KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
                     }
                     if (isMa30) {
                         Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, KLT_101, false, "", date, KLINE_TYPE_STOCK);
@@ -823,6 +827,7 @@ public class StockDemo {
                         entity.setNET_MAX_90(netMap60.get(Content.keyRsMax).doubleValue());
                         entity.setNET_MIN_CLOS_90(netMap60.get(Content.keyRsNetCloseMin).doubleValue());
                         entity.setNET_MAX_CLOS_90(netMap60.get(Content.keyRsNetCloseMax).doubleValue());
+                        System.out.print(handlerAvgLine("60日价格", KlineService.findNetMinMaxAvg(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
                     }
                     if (isMa120) {
                         Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, KLT_101, false, "", date, KLINE_TYPE_STOCK);
@@ -840,7 +845,7 @@ public class StockDemo {
                         entity.setNET_MIN_CLOS_360(netMap250.get(Content.keyRsNetCloseMin).doubleValue());
                         entity.setNET_MAX_CLOS_360(netMap250.get(Content.keyRsNetCloseMax).doubleValue());
                     }
-
+                    System.out.println();
                     int rs = RankStockCommpanyDao.updateByCode(entity);
                     System.out.println("主板板块的均线价格更新---------------------" + entity.getF12() + ":" + entity.getF14() + ":"
                             + entity.getF3() + ",rs:" + rs + JSON.toJSONString(entity));
@@ -1565,6 +1570,31 @@ public class StockDemo {
 //            System.out.println(JSON.toJSON(row));//每个行业一行数据
 //        }
         return rankBizDataDiffList;
+    }
+
+    /**
+     * 获取均线数据
+     *
+     * @param strHead
+     * @param netMap
+     * @return
+     */
+    private static String handlerAvgLine(String strHead, Map<String, BigDecimal> netMap) {
+        StringBuffer sb = new StringBuffer();
+
+//        BigDecimal curPrice = netMap.get(keyRsNetClose);
+//        BigDecimal minPrice = netMap.get(keyRsMin);
+//        BigDecimal maxPrice = netMap.get(keyRsMax);
+//        if (curPrice != null && minPrice != null && maxPrice != null) {
+//            BigDecimal curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
+//            sb.append(strHead).append("区间：").append("\t").append(curPriceArea).append("%").append(",");
+//        }
+//        sb.append("\t").append(strHead).append("：").append("\t").append(netMap.get(keyRsNetCloseAvg));
+//        sb.append("\t").append(",最低：").append("\t").append(minPrice);
+//        sb.append("\t").append(",最高：").append("\t").append(maxPrice);
+//        sb.append("\t").append(",当前价：").append(curPrice);
+
+        return sb.toString();
     }
 
 }

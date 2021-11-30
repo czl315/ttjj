@@ -1,4 +1,4 @@
-package ttjj.rank;
+package ttjj.stat;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -25,23 +25,15 @@ import static utils.Content.*;
 /**
  * 主题排行
  */
-public class BizRankDemo {
+public class StBizStatDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2021-11-05";
-
-        insertTodayRank(date,DB_RANK_BIZ_TYPE_HANG_YE);
-        insertTodayRank(date,DB_RANK_BIZ_TYPE_GAI_NIAN);
-        insertTodayRank(date,DB_RANK_BIZ_TYPE_ETF);
-        updateDbTodayEtfMa(date);
-        updateFundFlowBk(date);//更新当日资金流信息-板块
-        updateFundFlowGn(date);//更新当日资金流信息-概念
-        updateFundFlowEtf(date);////更新当日资金流信息-etf
 
 //        Set<String> etfBizSet = ContentEtf.mapEtfBiz.keySet();//板块行业
         Set<String> etfBizSet = ContentEtf.mapEtfAll.keySet();//全部场内etf：板块、指数
 ////        Set<String> etfBizSet = ContentEtf.mapEtfIndex.keySet();//指数
 
-//        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
+        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
 //        int year = DateUtil.getCurYear();//2021法0
 //        int month = DateUtil.getCurMonth();//
@@ -379,7 +371,7 @@ public class BizRankDemo {
      * @param date
      */
     private static void checkFundFlowByEtf(String date) {
-        List<RankBizDataDiff> etfList = BizRankDemo.listEtf(date, KLINE_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
+        List<RankBizDataDiff> etfList = StBizStatDemo.listEtf(date, KLINE_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
         for (RankBizDataDiff etf : etfList) {
             //限定总市值10亿
             if (etf.getF20().compareTo(new BigDecimal("1000000000")) > 0) {

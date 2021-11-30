@@ -33,6 +33,7 @@ public class ContentEtf {
         mapEtfBiz.put("512690", "酒ETF");//512690	酒ETF	73.21
         mapEtfBiz.put("515170", "食品饮料ETF");//515170	食品饮料ETF	35.21
         mapEtfBiz.put("512170", "医药ETF");//512170	医疗ETF	112.27      512010	医药ETF	49.59
+        mapEtfBiz.put("159992", "创新药ETF");//创新药ETF	159992	34.94
         mapEtfBiz.put("159928", "消费ETF");//159928	消费ETF	103.70
         mapEtfBiz.put("159996", "家电ETF");//家电ETF	159996	10.03
         mapEtfBiz.put("512880", "证券ETF");//512880	证券ETF	353.10      512000	券商ETF	237.31      512900	证券ETF基金	88.41
@@ -71,7 +72,7 @@ public class ContentEtf {
         mapEtfIndex.put("510500", "中证500ETF");//  510500	中证500ETF	445.48      510510	中证500ETF基金	28.15
         mapEtfIndex.put("512100", "中证1000ETF");//512100	中证1000ETF	12.77
         mapEtfIndex.put("159949", "创业板50ETF");//159949	创业板50ETF	97.37
-//        mapEtfIndex.put("159967", "创成长ETF");//创成长ETF	159967	33.83
+        mapEtfIndex.put("159967", "创成长ETF");//创成长ETF	159967	33.83
         mapEtfIndex.put("588000", "科创板50ETF");//588000	科创50ETF	226.26      588080	科创板50ETF	112.41      588090	科创板ETF	31.32
         mapEtfIndex.put("159781", "双创50ETF");// 159781	双创50ETF	81.55 588400	双创50ETF	22.27
     }

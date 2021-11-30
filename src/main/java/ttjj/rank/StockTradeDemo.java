@@ -864,11 +864,12 @@ public class StockTradeDemo {
     public static StockTradeDb kline(String zhiShu, int days, String klt, String dbFieldLastNetMin, String dbFieldLastNetMax, String dbFieldLastNetMinClose, String dbFieldLastNetMaxClose) {
         StringBuffer url = new StringBuffer();
         url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-        if (zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("11") || zhiShu.startsWith("12")) {
+        if (zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("11")) {
             //|| zhiShu.startsWith("000")
             //  110、120开头是可转债
             url.append("&secid=" + "1." + zhiShu);
         } else {
+            //|| zhiShu.startsWith("12")
             url.append("&secid=" + "0." + zhiShu);
         }
 
