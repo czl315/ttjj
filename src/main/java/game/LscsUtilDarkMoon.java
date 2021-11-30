@@ -18,8 +18,8 @@ public class LscsUtilDarkMoon {
         }
 
         String page = "";
-        String cardSet = "united-in-stormwind";//forged-in-the-barrens madness-at-the-darkmoon-faire  scholomance-academy
-        String cardTye = "1暴风城";//1贫瘠之地的锤炼  暗月马戏团   通灵学院
+        String cardSet = "fractured-in-alterac-valley";//united-in-stormwind   forged-in-the-barrens madness-at-the-darkmoon-faire  scholomance-academy
+        String cardTye = "0奥特兰克";//  1暴风城    1贫瘠之地的锤炼  暗月马戏团   通灵学院
 //        String cardClass = "neutral";
         String cardClass = "";
         for (int i = 0; i <= 0; i++) {
