@@ -39,11 +39,10 @@ import static utils.Content.*;
  */
 public class FupanDemo {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2021-11-01";
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2021-11-01";
 
-//        insertOrUpdate(date);//保存复盘和仓位
-        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
+        insertOrUpdate(date);//保存复盘和仓位
+//        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 
 //        listMyPosition(date, KLT_101);//查询我的仓位 KLT_102;//检查周期类型
 
@@ -83,7 +82,7 @@ public class FupanDemo {
         BigDecimal minPrice = netMap.get(keyRsMin);
         BigDecimal maxPrice = netMap.get(keyRsMax);
         StringBuffer sb = new StringBuffer();
-        if (curPrice != null && minPrice != null && maxPrice != null) {
+        if (curPrice != null && minPrice != null && maxPrice != null && maxPrice.compareTo(new BigDecimal("0"))!=0) {
             BigDecimal curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
             sb.append(strHead).append("区间：").append("\t").append(curPriceArea).append("%").append(",");
         }
