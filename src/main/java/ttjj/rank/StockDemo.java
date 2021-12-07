@@ -38,7 +38,7 @@ public class StockDemo {
             //  添加或更新股票-根据日期
             addTodayStCom(date, startNum);
 //            updateNetToday(date, startNum, true, false, false, false, false, false, false, isReport);//  更新净值
-//            updateNetToday(date, startNum, true, true, true, false, false, false, true, isReport);//  更新净值
+//            updateNetToday(date, startNum, true, true, true, false, true, false, true, isReport);//  更新净值
             updateNetToday(date, startNum, true, true, true, true, true, true, true, isReport);//  更新净值
 //            updateFundFlow(date, startNum);//更新当日资金流信息
 //            updateConception(date,0);//更新题材概念
@@ -49,6 +49,8 @@ public class StockDemo {
 //            String endDate = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //            List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题-排名by时间类型、显示个数
 //            listReport(bkList, "2021Q3", begDate, endDate);
+
+//            updateBkList(date, startNum);//更新业务板块
         }
 
 
@@ -597,9 +599,9 @@ public class StockDemo {
      */
     private static void addHistroyStCom() {
         int addDaysMax = 0;//开始日期增加天数
-        int year = 2020;//2021
+        int year = 2021;//2021
         int month = 12;//DateUtil.getCurMonth()
-        int day = 1;//DateUtil.getCurDay()
+        int day = 3;//DateUtil.getCurDay()
         String begDate = DateUtil.getDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, year, month, day, addDaysMax);//查询新增交易的开始时间
         int days = 0;//最多增加的天数
         String endDate = DateUtil.getDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, year, month, day, days);//查询新增交易的开始时间
@@ -736,11 +738,21 @@ public class StockDemo {
 
             String banKuaiCode = banKuai.getF12();
             String banKuaiName = banKuai.getF14();
+            BigDecimal flowInBk = banKuai.getF62().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal marketValueBk = banKuai.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal flowRateBk = flowInBk.divide(marketValueBk, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(4, BigDecimal.ROUND_HALF_UP));
             stBizCountTemp++;
             List<RankStockCommpanyDb> stockList = listRankStockByBiz(NUM_MAX_999, banKuaiCode);//查询股票列表-根据板块
             System.out.println();
-            System.out.println("-------------------------当前板块：" + stBizCountTemp + "---" + banKuaiName + "---[" + banKuai.getF3() + "]---" + stockList.size());
-            System.out.println();
+            StringBuffer sb = new StringBuffer();
+            sb.append("-----------").append(stBizCountTemp).append(",");
+            sb.append("当前板块：").append("[").append(banKuaiName).append("]").append(",");
+            sb.append("涨跌：").append("[").append(banKuai.getF3()).append("]").append(",");
+            sb.append("个数：").append("[").append(stockList.size()).append("]").append(",");
+            sb.append("板块主力净流入：").append("[").append(flowInBk).append("]").append(",");
+            sb.append("流入市值比：").append("[").append(flowRateBk).append("]").append(",");
+//            System.out.println("-----------" + stBizCountTemp + ",当前板块：" + banKuaiName + "涨跌：[" + banKuai.getF3() + "]" + ",个数：[" + stockList.size() + "]，板块主力净流入:[" + flowInBk + "]" + "," + "流入市值比：[" + flowRateBk + "]");
+            System.out.println(sb.toString());
 
             // 最新周期价格
             for (RankStockCommpanyDb entity : stockList) {
@@ -851,8 +863,9 @@ public class StockDemo {
                     int rs = RankStockCommpanyDao.updateByCode(entity);
                     BigDecimal flowIn = entity.getF62() != null ? entity.getF62().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP) : entity.getF62();
                     System.out.println("主板价格更新---------------------"
-                                    + "\t" + "价格区间-5日/10日/20日/60日:" + maSb.toString()
+                                    + "\t" + "rs:" + rs
                                     + "\t" + entity.getF12() + ":" + entity.getF14() + ":" + entity.getF3() + "；"
+                                    + "\t" + "价格区间-5日/10日/20日/60日:" + maSb.toString()
                                     + "\t" + "主力-净流入:" + flowIn
 //                            + ",rs:" + rs + JSON.toJSONString(entity)
                     );
@@ -899,6 +912,55 @@ public class StockDemo {
             }
         }
     }
+
+
+    /**
+     * 更新业务板块
+     *
+     * @param date
+     * @param bkStartNum
+     */
+    private static void updateBkList(String date, int bkStartNum) {
+        List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题排名by时间类型、显示个数
+        int bizCountLimit = NUM_MAX_999;
+        int bizCountTemp = 0;
+        int stBizCountTemp = bkStartNum;
+        for (RankBizDataDiff banKuai : bkList) {
+            bizCountTemp++;
+            if (bizCountTemp < bkStartNum) {
+                System.out.println("已完成:" + banKuai.getF14() + "," + banKuai.getF12());
+                continue;//已完成
+            }
+            if (bizCountTemp > bizCountLimit) {
+                System.out.println("已中断:" + banKuai.getF14() + "," + banKuai.getF12());
+                break;//限定个数中断
+            }
+
+            String banKuaiCode = banKuai.getF12();
+            String banKuaiName = banKuai.getF14();
+            stBizCountTemp++;
+            List<RankStockCommpanyDb> stockList = listRankStockByBiz(NUM_MAX_999, banKuaiCode);//查询股票列表-根据板块
+            System.out.println();
+            System.out.println("-------------------------当前板块：" + stBizCountTemp + "---" + banKuaiName + "---[" + banKuai.getF3() + "]---" + stockList.size());
+            System.out.println();
+
+            // 最新周期价格
+            for (RankStockCommpanyDb entitySource : stockList) {
+                if (entitySource == null) {
+                    System.out.println("实体信息为null，不更新db：");
+                    continue;
+                }
+                RankStockCommpanyDb entity = new RankStockCommpanyDb();
+                entity.setF12(entitySource.getF12());
+                entity.setF14(entitySource.getF14().replace(" ", ""));
+                entity.setType(banKuaiCode);
+                entity.setType_name(banKuaiName);
+                int rs = RankStockCommpanyDao.updateBizByCode(entity);
+                System.out.println("更新业务板块---------------------" + ",rs:" + rs + JSON.toJSONString(entity));
+            }
+        }
+    }
+
 
     /**
      * 查询昨日主题排名

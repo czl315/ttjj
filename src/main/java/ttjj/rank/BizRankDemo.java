@@ -29,9 +29,9 @@ public class BizRankDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2021-11-05";
 
-        insertTodayRank(date,DB_RANK_BIZ_TYPE_HANG_YE);
-        insertTodayRank(date,DB_RANK_BIZ_TYPE_GAI_NIAN);
-        insertTodayRank(date,DB_RANK_BIZ_TYPE_ETF);
+//        insertTodayRank(date,DB_RANK_BIZ_TYPE_HANG_YE);
+//        insertTodayRank(date,DB_RANK_BIZ_TYPE_GAI_NIAN);
+//        insertTodayRank(date,DB_RANK_BIZ_TYPE_ETF);
         updateDbTodayEtfMa(date);
         updateFundFlowBk(date);//更新当日资金流信息-板块
         updateFundFlowGn(date);//更新当日资金流信息-概念
@@ -77,7 +77,7 @@ public class BizRankDemo {
      * @param date
      */
     private static void updateDbTodayEtfMa(String date) {
-        List<RankBizDataDiff> rankEtf = listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
+        List<RankBizDataDiff> rankEtf = listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);
         for (RankBizDataDiff rankBizDataDiff : rankEtf) {
             String klt = KLT_101;
             RankBizDataDiff entity = new RankBizDataDiff();
@@ -997,6 +997,14 @@ public class BizRankDemo {
     }
 
 
+    /**
+     * 列表查询-etf场内
+     * //2021-04-16:425;2021-12-06:584;
+     * @param date
+     * @param type
+     * @param pageSize
+     * @return
+     */
     public static List<RankBizDataDiff> listEtf(String date, String type, int pageSize) {
 //          http://32.push2.eastmoney.com/api/qt/clist/get?cb=jQuery11240476946102335426_1618637035810&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=b:MK0021,b:MK0022,b:MK0023,b:MK0024&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152&_=1618637035811
         String url = "http://32.push2.eastmoney.com/api/qt/clist/get";

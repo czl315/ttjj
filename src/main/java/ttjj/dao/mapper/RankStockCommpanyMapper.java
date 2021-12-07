@@ -402,4 +402,16 @@ public interface RankStockCommpanyMapper {
             "</script>"})
     void updateDate(RankBizDataDiff entity);
 
+    @Update({"<script>",
+            "update rank_st_biz_com",
+            "  <set>",
+            "    <if test='f14 != null'>f14=#{f14},</if>",
+            "    <if test='type != null'>type=#{type},</if>",
+            "    <if test='type_name != null'>type_name=#{type_name},</if>",
+            "  </set>",
+            "WHERE f12=#{f12} ",
+//            "   AND f12=#{f12} ",
+            "</script>"})
+    void updateBizByCode(RankStockCommpanyDb entity);
+
 }

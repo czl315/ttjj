@@ -193,4 +193,21 @@ public class RankStockCommpanyDao {
         }
         return rs;
     }
+
+    /**
+     * 更新业务板块-根据code
+     * @param entity
+     * @return
+     */
+    public static int updateBizByCode(RankStockCommpanyDb entity) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.update("ttjj.dao.mapper.RankStockCommpanyMapper.updateBizByCode", entity);
+            session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
 }
