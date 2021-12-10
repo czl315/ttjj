@@ -862,11 +862,18 @@ public class StockDemo {
 //                    System.out.println();
                     int rs = RankStockCommpanyDao.updateByCode(entity);
                     BigDecimal flowIn = entity.getF62() != null ? entity.getF62().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP) : entity.getF62();
+                    BigDecimal marketValue = entity.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
+                    BigDecimal flowRate = new BigDecimal("0");
+                    if (marketValue != null && marketValue.compareTo(new BigDecimal("0")) != 0) {
+                        flowRate = flowIn.divide(marketValue, 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100"));
+                    }
+
                     System.out.println("主板价格更新---------------------"
                                     + "\t" + "rs:" + rs
                                     + "\t" + entity.getF12() + ":" + entity.getF14() + ":" + entity.getF3() + "；"
                                     + "\t" + "价格区间-5日/10日/20日/60日:" + maSb.toString()
                                     + "\t" + "主力-净流入:" + flowIn
+                                    + "\t" + "流入市值比：:" + flowRate
 //                            + ",rs:" + rs + JSON.toJSONString(entity)
                     );
 

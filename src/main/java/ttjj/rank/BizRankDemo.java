@@ -29,9 +29,9 @@ public class BizRankDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2021-11-05";
 
-//        insertTodayRank(date,DB_RANK_BIZ_TYPE_HANG_YE);
-//        insertTodayRank(date,DB_RANK_BIZ_TYPE_GAI_NIAN);
-//        insertTodayRank(date,DB_RANK_BIZ_TYPE_ETF);
+        insertTodayRank(date,DB_RANK_BIZ_TYPE_HANG_YE);
+        insertTodayRank(date,DB_RANK_BIZ_TYPE_GAI_NIAN);
+        insertTodayRank(date,DB_RANK_BIZ_TYPE_ETF);
         updateDbTodayEtfMa(date);
         updateFundFlowBk(date);//更新当日资金流信息-板块
         updateFundFlowGn(date);//更新当日资金流信息-概念
