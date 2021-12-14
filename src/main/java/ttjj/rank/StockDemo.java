@@ -864,7 +864,7 @@ public class StockDemo {
                     BigDecimal flowIn = entity.getF62() != null ? entity.getF62().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP) : entity.getF62();
                     BigDecimal marketValue = entity.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
                     BigDecimal flowRate = new BigDecimal("0");
-                    if (marketValue != null && marketValue.compareTo(new BigDecimal("0")) != 0) {
+                    if (flowIn != null && marketValue != null && marketValue.compareTo(new BigDecimal("0")) != 0) {
                         flowRate = flowIn.divide(marketValue, 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100"));
                     }
 
