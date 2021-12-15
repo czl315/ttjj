@@ -82,7 +82,7 @@ public class FupanDemo {
         BigDecimal minPrice = netMap.get(keyRsMin);
         BigDecimal maxPrice = netMap.get(keyRsMax);
         StringBuffer sb = new StringBuffer();
-        if (curPrice != null && minPrice != null && maxPrice != null && maxPrice.compareTo(new BigDecimal("0"))!=0) {
+        if (curPrice != null && minPrice != null && maxPrice != null && maxPrice.compareTo(new BigDecimal("0")) != 0) {
             BigDecimal curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
             sb.append(strHead).append("区间：").append("\t").append(curPriceArea).append("%").append(",");
         }
@@ -296,7 +296,13 @@ public class FupanDemo {
         //  更新我的持仓盈亏明细
         if (updateDbFupanPositionByDate) {
             for (AssetPositionDb assetPosition : assetPositionList) {
-                insertDbFupanPosition(assetPosition);//
+                //插入-我的持仓明细
+                //  不插入XX发债，7XXXXX开头的
+                if (checkIsNewBond(assetPosition)) {
+                    System.out.println("新发债券不插入我的持仓：" + assetPosition.getZqmc());
+                    continue;
+                }
+                insertDbFupanPosition(assetPosition);//插入-我的持仓明细
 
                 //更新当日k线参数
                 List<Kline> klineList = KlineService.kline(assetPosition.getZqdm(), 1, klt, true, date, date, KLINE_TYPE_STOCK);
@@ -404,6 +410,26 @@ public class FupanDemo {
             FuPanDao.updateDb(FupanMyFund);
         }
 
+    }
+
+    /**
+     * 检查是否：XX发债，7XXXXX开头的
+     *
+     * @param assetPosition
+     */
+    private static boolean checkIsNewBond(AssetPositionDb assetPosition) {
+        if (assetPosition == null) {
+            return false;
+        }
+        String zqdm = assetPosition.getZqdm();
+        String zqmc = assetPosition.getZqmc();
+        if (zqdm.startsWith("7")) {
+            return true;
+        }
+        if (zqmc.contains("发债")) {
+            return true;
+        }
+        return false;
     }
 
 

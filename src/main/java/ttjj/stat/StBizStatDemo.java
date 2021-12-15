@@ -38,7 +38,7 @@ public class StBizStatDemo {
         int year = DateUtil.getCurYear();//2021法0
         int month = DateUtil.getCurMonth();//
         int day = 6;//DateUtil.getCurDay()
-        statEtfAdrDb(etfBizSet, year, month, day, 7);//统计涨跌次数-按照天的维度
+        statEtfAdrDb(etfBizSet, year, month, day, 8);//统计涨跌次数-按照天的维度
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
