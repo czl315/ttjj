@@ -35,13 +35,18 @@ public class StBizStatDemo {
 
 //        listEtfBizDb(etfBizSet, 1, true, true);//列表查询-行业etf-排序：涨跌幅
 
-        int year = DateUtil.getCurYear();//2021法0
-        int month = DateUtil.getCurMonth();//
-        int day = 6;//DateUtil.getCurDay()
-        statEtfAdrDb(etfBizSet, year, month, day, 8);//统计涨跌次数-按照天的维度
+//        int year = DateUtil.getCurYear();//2021法0
+//        int month = DateUtil.getCurMonth();//
+//        int day = 6;//DateUtil.getCurDay()
+//        statEtfAdrDb(etfBizSet, year, month, day, 8);//统计涨跌次数-按照天的维度
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
+
+        List<Integer> maList = new ArrayList<>();
+        maList.add(MA_30);
+        maList.add(MA_60);
+        checkMa(etfBizSet, KLT_30, maList, date);// 检查均线
 
 
 //        /**
@@ -63,6 +68,23 @@ public class StBizStatDemo {
 //        String begDate = "2018-01-01";//查询新增交易的开始时间
 //        String endDate = "2018-12-31";
 //        insertHisDbBanKuai(begDate, endDate);//新增历史数据
+    }
+
+    /**
+     * 检查均线
+     *
+     * @param etfBizSet etf列表
+     * @param klt       均线类型
+     * @param maList    均线列表
+     * @param date
+     */
+    private static void checkMa(Set<String> etfBizSet, String klt, List<Integer> maList, String date) {
+        for (String etfZqdm : etfBizSet) {
+            for (Integer maType : maList) {
+                Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(etfZqdm, maType, klt, false, "", date, KLINE_TYPE_ETF);
+                System.out.println("均线类型：" + maType + ",均线周期：" + klt + "，均线价格：" + netMap.get(Content.keyRsNetCloseAvg));
+            }
+        }
     }
 
     /**

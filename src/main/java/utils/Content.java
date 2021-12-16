@@ -306,6 +306,10 @@ public class Content {
      */
     public static String keyRsKlineCount = "klineCount";
     /**
+     * keyRsKlineZqmc 证券名称
+     */
+    public static String keyRsKlineZqmc = "klineZqmc";
+    /**
      * KLINE_TYPE_STOCK k线类型-股票
      */
     public static String KLINE_TYPE_STOCK = "stock";

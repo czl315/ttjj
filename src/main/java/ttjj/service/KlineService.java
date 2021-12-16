@@ -136,7 +136,7 @@ public class KlineService {
         url.append("&secid=");
 
         if (klineType.equals(KLINE_TYPE_STOCK)) {
-            if (zqdm.startsWith("00") || zqdm.startsWith("12")|| zqdm.startsWith("13")|| zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
+            if (zqdm.startsWith("00") || zqdm.startsWith("12") || zqdm.startsWith("13") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
                 url.append("0." + zqdm);
 
                 //指数 zqdm.startsWith("159") || zqdm.startsWith("399") ||
@@ -313,6 +313,7 @@ public class KlineService {
 
     /**
      * 获取请求头地址
+     *
      * @param requestUrl
      */
     private static String randomHttpHead(String requestUrl) {
@@ -322,7 +323,7 @@ public class KlineService {
 //        http://29.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery1124024914966884869072_1633162507065&secid=1.600719&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&beg=0&end=20500101&smplmt=460&lmt=1000000&_=1633162507087
         int random = RandomUtils.nextInt(40, 99);
         String jqueryHead = "jQuery112407539208236899613_";
-        if(random>80){
+        if (random > 80) {
             jqueryHead = "jQuery112407992655839121356_";
         }
         StringBuffer rs = new StringBuffer("http://").append(random).append(requestUrl).append(jqueryHead).append(System.currentTimeMillis());
@@ -388,7 +389,7 @@ public class KlineService {
         BigDecimal rsNetCloseAvg = new BigDecimal("0");//均值
         BigDecimal rsNetCloseSum = new BigDecimal("0");//和值
         BigDecimal rsNetClose = new BigDecimal("0");//收盘价
-        if(klines==null){
+        if (klines == null) {
             System.out.println("k线为空！");
             return rs;
         }
@@ -423,6 +424,12 @@ public class KlineService {
             rsNetCloseAvg = rsNetCloseSum.divide(count, 3, BigDecimal.ROUND_HALF_UP);
         }
 
+//        //获取证券名称
+//        String zqmc = "";
+//        if (klines.size() > 0) {
+//             zqmc = klines.get(0).getZqmc();
+//        }
+
         rs.put(Content.keyRsMin, rsMin);
         rs.put(Content.keyRsMax, rsMax);
         rs.put(Content.keyRsNetCloseMin, rsNetCloseMin);
@@ -430,6 +437,7 @@ public class KlineService {
         rs.put(Content.keyRsNetCloseAvg, rsNetCloseAvg);
         rs.put(Content.keyRsNetClose, rsNetClose);
         rs.put(Content.keyRsKlineCount, count);
+//        rs.put(Content.keyRsKlineZqmc, zqmc);
         return rs;
     }
 
