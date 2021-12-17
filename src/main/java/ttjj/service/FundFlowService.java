@@ -10,6 +10,7 @@ import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.Kline;
 import ttjj.dto.RankBizDataDiff;
+import ttjj.rank.FupanDemo;
 import utils.DateUtil;
 import utils.HttpUtil;
 import utils.ToBuyMap;
@@ -27,12 +28,20 @@ import static utils.Content.*;
  */
 public class FundFlowService {
     public static void main(String[] args) {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2021-11-01";
         String limitStartTime = null;
-        String stCode = "600436";//万科Ａ:000002  中航沈飞:600760  广发证券-000776 片仔癀：600436  分众传媒:002027  招商银行:600036 通威股份-600438
+        String zqdm = "601633";//万科Ａ:000002  中航沈飞:600760  广发证券-000776 片仔癀：600436  分众传媒:002027  招商银行:600036 通威股份-600438
         //上证50ETF:510050    券商ETF：512000 159995:芯片
 //        String limitStartTime = "2021-11-12 10:00";
 //        String limitStartTime = "2021-11-12 10:50";
-        fundFlowHandler(stCode, limitStartTime);//查询资金流向，判断买卖信号
+        fundFlowHandler(zqdm, limitStartTime);//查询资金流向，判断买卖信号
+
+        //净值
+        System.out.println(KlineService.handlerAvgLine("5日价格", KlineService.findNetMinMaxAvg(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+        System.out.println(KlineService.handlerAvgLine("10日价格", KlineService.findNetMinMaxAvg(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+        System.out.println(KlineService.handlerAvgLine("20日价格", KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+        System.out.println(KlineService.handlerAvgLine("60日价格", KlineService.findNetMinMaxAvg(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+        System.out.println();
 
 //        Set<String> toBuySet = ToBuyMap.stockMap.keySet();
 //        Set<String> toBuySet = ToBuyMap.banks.keySet();

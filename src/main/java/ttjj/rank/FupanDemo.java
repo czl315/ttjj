@@ -77,7 +77,7 @@ public class FupanDemo {
      * @param netMap
      * @return
      */
-    private static String handlerAvgLine(String strHead, Map<String, BigDecimal> netMap) {
+    public static String handlerAvgLine(String strHead, Map<String, BigDecimal> netMap) {
         BigDecimal curPrice = netMap.get(keyRsNetClose);
         BigDecimal minPrice = netMap.get(keyRsMin);
         BigDecimal maxPrice = netMap.get(keyRsMax);

@@ -10,6 +10,7 @@ import utils.Content;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -498,6 +499,30 @@ public class KlineService {
         rs.put(Content.keyRsCjeAvg, rsCjegAvg);
         rs.put(Content.keyRsKlineCount, new BigDecimal(maType));
         return rs;
+    }
+
+    /**
+     * 获取均线数据
+     *
+     * @param strHead
+     * @param netMap
+     * @return
+     */
+    public static String handlerAvgLine(String strHead, Map<String, BigDecimal> netMap) {
+        BigDecimal curPrice = netMap.get(keyRsNetClose);
+        BigDecimal minPrice = netMap.get(keyRsMin);
+        BigDecimal maxPrice = netMap.get(keyRsMax);
+        StringBuffer sb = new StringBuffer();
+        if (curPrice != null && minPrice != null && maxPrice != null && maxPrice.compareTo(new BigDecimal("0")) != 0) {
+            BigDecimal curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
+            sb.append(strHead).append("区间：").append("\t").append(curPriceArea).append("%").append(",");
+        }
+        sb.append("\t").append(strHead).append("：").append("\t").append(netMap.get(keyRsNetCloseAvg));
+        sb.append("\t").append(",最低：").append("\t").append(minPrice);
+        sb.append("\t").append(",最高：").append("\t").append(maxPrice);
+        sb.append("\t").append(",当前价：").append(curPrice);
+
+        return sb.toString();
     }
 
 }
