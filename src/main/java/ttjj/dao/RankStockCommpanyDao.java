@@ -210,4 +210,21 @@ public class RankStockCommpanyDao {
         }
         return rs;
     }
+
+    /**
+     * 删除数据-根据日期
+     * @param date
+     * @return
+     */
+    public static int deleteStComByDate(String date) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.delete("ttjj.dao.mapper.RankStockCommpanyMapper.deleteStComByDate", date);
+            session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
 }

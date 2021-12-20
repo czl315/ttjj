@@ -1,5 +1,6 @@
 package ttjj.dao.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -413,5 +414,10 @@ public interface RankStockCommpanyMapper {
 //            "   AND f12=#{f12} ",
             "</script>"})
     void updateBizByCode(RankStockCommpanyDb entity);
+
+    @Delete({"<script>",
+            "DELETE FROM `rank_st_biz_com` WHERE `date` = #{date} LIMIT 5000 ",
+            "</script>"})
+    void deleteStComByDate(String date);
 
 }
