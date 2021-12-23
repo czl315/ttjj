@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by FlySheep on 17/3/24.
  */
-@Mapper
+//@Mapper
 public interface PersonMapper {
 
     /**

@@ -137,9 +137,9 @@ public class KlineService {
         url.append("&secid=");
 
         if (klineType.equals(KLINE_TYPE_STOCK)) {
-            if (zqdm.startsWith("00") || zqdm.startsWith("12") || zqdm.startsWith("13") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
+            if (zqdm.startsWith("00") || zqdm.startsWith("12") || zqdm.startsWith("13") || zqdm.startsWith("16") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
                 url.append("0." + zqdm);
-
+//                16XXXX：深交所LOF基金：16打头(前两位均用“16”标识，中间两位为中国证监会信息中心统一规定的基金管理公司代码gg，后两位为该公司发行全部开放式基金的顺序号xx。具体表示为“16ggxx”)
                 //指数 zqdm.startsWith("159") || zqdm.startsWith("399") ||
 //                Map<String, String> zhishuMap = Content.getZhishuMap();
 //                if (zhishuMap.keySet().contains(zqdm) && !zqdm.startsWith("399")) {
@@ -215,7 +215,7 @@ public class KlineService {
             } else {
                 url.append(HTTP_KLINE_SECID_PREFIX_BANKUAI + zqdm);
             }
-        } else if (klineType.equals(KLINE_TYPE_ETF)) {
+        } else if (klineType.equals(KLINE_TYPE_ETF) || zqdm.startsWith("16")) {
             //指数 zqdm.startsWith("159")
             if (zqdm.startsWith("159")) {
                 url.append("0." + zqdm);
