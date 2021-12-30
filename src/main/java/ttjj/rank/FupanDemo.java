@@ -519,9 +519,15 @@ public class FupanDemo {
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("moneyType=").append("RMB");
 
-//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
+//        System.out.println("请求url:" + url + JSON.toJSONString(urlParam));
         String rs = HttpUtil.sendPost(url, urlParam.toString(), cookie);
 //        System.out.println("queryAssetByDfcfStock:" + rs);
+
+        //      "OtcAsset": "0.00",
+        //      "FundBal": "6597.17",   可取资金        6597.17
+        //      "FundFrz": "25506.39",  冻结资金        25506.39
+        //      "MoneyType": "0",
+        //      "MaxDraw": null,
 
         String fundMktVal = "";//证券市值
         String fundAvl = "";//可用资金
@@ -529,15 +535,15 @@ public class FupanDemo {
         String dayProfit = "";//当日盈亏
         String dayProfitRt = "";//当日盈亏收益率
         JSONObject rsJson = JSON.parseObject(rs);
+
         JSONArray rsArray = rsJson.getJSONArray("ResultObj");
         for (int i = 0; i < rsArray.size(); i++) {
             JSONObject myStock = (JSONObject) (rsArray.get(i));
 //            System.out.println("ResultObj:"+JSON.toJSONString(myStock));
-            fundMktVal = myStock.getString("FundMktVal");//证券市值
-            fundAvl = myStock.getString("FundAvl");//可用资金
-            BigDecimal totalAmtBig = new BigDecimal(fundMktVal).add(new BigDecimal(fundAvl));
-            totalAmt = totalAmtBig.toString();
-            dayProfit = myStock.getString("DayProfit");
+            fundMktVal = myStock.getString("FundMktVal");//总市值 "FundMktVal": "302225.10",
+            fundAvl = myStock.getString("FundAvl");//可用资金   "FundAvl": "45506.39",
+            totalAmt = myStock.getString("FundAll");//总资产   "FundAll": "398732.090",    BigDecimal totalAmtBig = new BigDecimal(fundMktVal).add(new BigDecimal(fundAvl));
+            dayProfit = myStock.getString("DayProfit");//      "DayProfit": "2037.00", 当日参考盈亏    2037.00
             if (fundMktVal == null || new BigDecimal(fundMktVal).compareTo(new BigDecimal("0")) == 0 || dayProfit == null) {
                 dayProfitRt = "0";
             } else {
