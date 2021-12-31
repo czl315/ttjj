@@ -119,6 +119,10 @@ public class Content {
      * DAYS_1 天数-30
      */
     public static String DAYS_30 = "30";
+    /**
+     * DAYS_365 年
+     */
+    public static String DAYS_365 = "365";
 
     /**
      * st_plate_f139_AG f139 2-A股主板(00XXXX/60XXXX);
