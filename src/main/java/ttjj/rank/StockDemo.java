@@ -885,7 +885,7 @@ public class StockDemo {
 
                     System.out.println("主板价格更新---------------------"
                                     + "\t" + "rs:" + rs
-                                    + "\t" + entity.getF12() + ":" + entity.getF14() + ":" + entity.getF3() + "；"
+                                    + "\t" + entity.getF12() + ":" + entity.getF14() + "\t" + ":" + entity.getF3() + ""
                                     + "\t" + "价格区间:" + maSb.toString()
                                     + "\t" + "主力-净流入:" + flowIn
                                     + "\t" + "流入市值比：:" + flowRate
@@ -1679,7 +1679,8 @@ public class StockDemo {
         if (curPrice != null && minPrice != null && maxPrice != null) {
             BigDecimal curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
 //            sb.append(strHead).append("区间：").append("\t").append(curPriceArea).append("%").append(",");
-            sb.append(strHead).append(curPriceArea).append("%").append(",");
+//            sb.append(strHead).append(curPriceArea).append("%").append(",");
+            sb.append(strHead).append(curPriceArea).append("\t\t");
         }
 //        sb.append("\t").append(strHead).append("：").append("\t").append(netMap.get(keyRsNetCloseAvg));
 //        sb.append("\t").append(",最低：").append("\t").append(minPrice);

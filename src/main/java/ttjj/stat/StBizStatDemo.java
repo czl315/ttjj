@@ -28,11 +28,9 @@ import static utils.Content.*;
 public class StBizStatDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2021-12-24";
+//        String date = "2021-12-23";
 
-//        Set<String> etfBizSet = ContentEtf.mapEtfBiz.keySet();//板块行业
-        Set<String> etfBizSet = ContentEtf.mapEtfAll.keySet();//全部场内etf：板块、指数
-////        Set<String> etfBizSet = ContentEtf.mapEtfIndex.keySet();//指数
+        Set<String> etfBizSet = ContentEtf.mapEtfAll.keySet();//全部场内etf：板块、指数   mapEtfAll   mapEtfBiz   mapEtfIndex
 
 //        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
@@ -44,16 +42,8 @@ public class StBizStatDemo {
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
 
-        Map<String, String> etfBizMap = new HashMap<>();
-        etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
-//        List<RankBizDataDiff> rankEtf = listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//
-//        for (RankBizDataDiff etf : rankEtf) {
-//            etfBizMap.put(etf.getF12(), etf.getF14());
-//        }
-        List<Integer> maList = new ArrayList<>();
-        maList.add(MA_30);
-        maList.add(MA_60);
-        checkMa(etfBizMap, KLT_15, maList, date);// 检查均线
+        checkMaDemo(date, true);//    检查均线
+//        checkMaDemo(date, false);//    检查均线
 
 
 //        /**
@@ -80,12 +70,31 @@ public class StBizStatDemo {
     /**
      * 检查均线
      *
+     * @param date
+     * @param isUp
+     */
+    private static void checkMaDemo(String date, boolean isUp) {
+        Map<String, String> etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
+//        List<RankBizDataDiff> rankEtf = listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//
+//        for (RankBizDataDiff etf : rankEtf) {
+//            etfBizMap.put(etf.getF12(), etf.getF14());
+//        }
+        List<Integer> maList = new ArrayList<>();
+        maList.add(MA_30);
+        maList.add(MA_60);
+        checkMa(etfBizMap, KLT_15, maList, date, isUp);// 检查均线
+    }
+
+    /**
+     * 检查均线
+     *
      * @param etfBizMap etf列表
      * @param klt       均线类型
      * @param maList    均线列表
      * @param date
+     * @param isUp
      */
-    private static void checkMa(Map<String, String> etfBizMap, String klt, List<Integer> maList, String date) {
+    private static void checkMa(Map<String, String> etfBizMap, String klt, List<Integer> maList, String date, boolean isUp) {
         for (String zqdm : etfBizMap.keySet()) {
             String zqmc = etfBizMap.get(zqdm);
             // 查询今日价格
@@ -100,11 +109,13 @@ public class StBizStatDemo {
             BigDecimal curAmt = todayKline.getCloseAmt();
             BigDecimal openAmt = todayKline.getOpenAmt();
             BigDecimal yesterdayCloseAmt = todayKline.getCloseLastAmt();
+            BigDecimal zhangDieFu = todayKline.getZhangDieFu();
             StringBuffer sbToday = new StringBuffer();
             sbToday.append(zqdm).append("，").append(zqmc);
             sbToday.append("，昨日收盘价：").append(yesterdayCloseAmt);
             sbToday.append("，开盘价：").append(openAmt);
             sbToday.append("，当前价：").append(curAmt);
+            sbToday.append("，今日涨幅：").append(zhangDieFu).append("%");
 //            System.out.println(sbToday);
             for (Integer maType : maList) {
                 StringBuffer sbMa = new StringBuffer();
@@ -126,7 +137,7 @@ public class StBizStatDemo {
 //                    sbMa.append("，开盘价高于均线但是当前价跌破均线，卖出信号！！！");
 //                }
                 //涨破均线，买出信号
-                if (yesterdayCloseAmt.compareTo(curMaAmt) < 0 && curAmt.compareTo(curMaAmt) >= 0) {
+                if (isUp && yesterdayCloseAmt.compareTo(curMaAmt) < 0 && curAmt.compareTo(curMaAmt) >= 0) {
                     System.out.println(sbToday);
                     sbMa.append("，昨日价低于均线但是当前价涨破均线，买入信号！！！！！！");
                     System.out.println(sbMa);
@@ -134,9 +145,19 @@ public class StBizStatDemo {
                     System.out.println(KlineService.handlerAvgLine("10日价格", KlineService.findNetMinMaxAvg(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
                     System.out.println(KlineService.handlerAvgLine("20日价格", KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
                     System.out.println(KlineService.handlerAvgLine("60日价格", KlineService.findNetMinMaxAvg(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+                    System.out.println();
+                }
+                if (!isUp && yesterdayCloseAmt.compareTo(curMaAmt) >= 0 && curAmt.compareTo(curMaAmt) < 0) {
+                    System.out.println(sbToday);
+                    sbMa.append("，昨日价高于均线但是当前价跌破均线，卖出信号！！！");
+                    System.out.println(sbMa);
+                    System.out.println(KlineService.handlerAvgLine("5日价格", KlineService.findNetMinMaxAvg(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+                    System.out.println(KlineService.handlerAvgLine("10日价格", KlineService.findNetMinMaxAvg(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+                    System.out.println(KlineService.handlerAvgLine("20日价格", KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+                    System.out.println(KlineService.handlerAvgLine("60日价格", KlineService.findNetMinMaxAvg(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+                    System.out.println();
                 }
             }
-            System.out.println();
         }
     }
 
