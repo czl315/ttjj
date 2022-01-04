@@ -11,6 +11,16 @@ import java.util.Set;
  * @date 2021-12-31 10:02
  */
 public class ContentBkStock {
+    /**
+     * 酿酒行业
+     */
+    public static Map<String, String> mapNiangJiuHangYe = new HashMap<>();
+    static {
+        mapNiangJiuHangYe.put("600702", "");//600702	舍得酒业	酿酒行业
+        mapNiangJiuHangYe.put("600132", "");//600132	重庆啤酒	酿酒行业
+        mapNiangJiuHangYe.put("603198", "");//603198	迎驾贡酒	酿酒行业
+        mapNiangJiuHangYe.put("603589", "");//603589	口子窖	酿酒行业
+    }
 
     /**
      * 中药
@@ -116,13 +126,13 @@ public class ContentBkStock {
     /**
      * mapEtfAll -包含行业、指数
      */
-    public static Map<String, String> mapEtfAll = new HashMap<>();
+    public static Map<String, String> mapBkStockAll = new HashMap<>();
     static {
-        mapEtfAll.putAll(mapZhongYao);
+        mapBkStockAll.putAll(mapZhongYao);
     }
 
     public static void main(String[] args) {
-        Set<String> bizSet = mapEtfAll.keySet();
+        Set<String> bizSet = mapBkStockAll.keySet();
         for (String bizCode : bizSet) {
             System.out.print(",'"+bizCode+"'");
         }

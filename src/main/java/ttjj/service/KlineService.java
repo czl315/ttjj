@@ -136,7 +136,7 @@ public class KlineService {
 //        url.append(jqueryHttpHead);
         url.append("&secid=");
 
-        if (klineType.equals(KLINE_TYPE_STOCK)) {
+        if (klineType.equals(KLINE_TYPE_STOCK)|| StringUtils.isBlank(klineType)) {
             if (zqdm.startsWith("00") || zqdm.startsWith("12") || zqdm.startsWith("13") || zqdm.startsWith("16") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
                 url.append("0." + zqdm);
 //                16XXXX：深交所LOF基金：16打头(前两位均用“16”标识，中间两位为中国证监会信息中心统一规定的基金管理公司代码gg，后两位为该公司发行全部开放式基金的顺序号xx。具体表示为“16ggxx”)

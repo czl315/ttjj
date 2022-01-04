@@ -32,17 +32,17 @@ public class StBizStatDemo {
 
         Set<String> etfBizSet = ContentEtf.mapEtfAll.keySet();//全部场内etf：板块、指数   mapEtfAll   mapEtfBiz   mapEtfIndex
 
-//        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
+        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
-//        int year = DateUtil.getCurYear();//2021法0
-//        int month = DateUtil.getCurMonth();//
-//        int day = 6;//DateUtil.getCurDay()
-//        statEtfAdrDb(etfBizSet, year, month, day, 8);//统计涨跌次数-按照天的维度
+//        int year = 2021;//DateUtil.getCurYear()
+//        int month = 12;//DateUtil.getCurMonth()
+//        int day = 15;//DateUtil.getCurDay()
+//        statEtfAdrDb(etfBizSet, year, month, day, 17);//统计涨跌次数-按照天的维度
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
 
-        checkMaDemo(date, true);//    检查均线
+//        checkMaDemo(date, true);//    检查均线
 //        checkMaDemo(date, false);//    检查均线
 
 
@@ -94,11 +94,11 @@ public class StBizStatDemo {
      * @param date
      * @param isUp
      */
-    private static void checkMa(Map<String, String> etfBizMap, String klt, List<Integer> maList, String date, boolean isUp) {
+    public static void checkMa(Map<String, String> etfBizMap, String klt, List<Integer> maList, String date, boolean isUp) {
         for (String zqdm : etfBizMap.keySet()) {
             String zqmc = etfBizMap.get(zqdm);
             // 查询今日价格
-            List<Kline> klines = KlineService.kline(zqdm, 1, KLT_101, true, date, date, KLINE_TYPE_ETF);
+            List<Kline> klines = KlineService.kline(zqdm, 1, KLT_101, true, date, date, "");
             if (klines == null || klines.size() == 0) {
                 StringBuffer sbError = new StringBuffer();
                 sbError.append(zqdm).append("，").append(zqmc).append(":k线异常！");
@@ -119,7 +119,7 @@ public class StBizStatDemo {
 //            System.out.println(sbToday);
             for (Integer maType : maList) {
                 StringBuffer sbMa = new StringBuffer();
-                Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, maType, klt, false, "", date, KLINE_TYPE_ETF);
+                Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, maType, klt, false, "", date, "");
                 BigDecimal curMaAmt = netMap.get(Content.keyRsNetCloseAvg);
                 sbMa.append(",均线周期：" + klt + "均线类型：" + maType + "，均线价格：" + curMaAmt);
 //                if (openAmt.compareTo(curMaAmt) >= 0) {

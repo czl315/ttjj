@@ -154,6 +154,10 @@ public class Content {
      */
     public static String ST_BIZ_TYPE_NIANG_JIU_HANG_YE = "酿酒行业";
     /**
+     * 酿酒行业-BK0477
+     */
+    public static String ST_BIZ_TYPE_CODE_NIANG_JIU_HANG_YE = "BK0477";
+    /**
      * ST_BIZ_TYPE_YOU_SE_JIN_SHU 有色金属-BK0478
      */
     public static String ST_BIZ_TYPE_YOU_SE_JIN_SHU = "有色金属";
