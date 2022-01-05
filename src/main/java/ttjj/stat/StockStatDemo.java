@@ -31,10 +31,10 @@ public class StockStatDemo {
          */
         for (int i = 0; i < 1; i++) {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
-//            String date = "2022-01-04";
+//            String date = "2021-12-06";
 
             BigDecimal curPriceAreaMaxRate = new BigDecimal("15");
-//            String biz = ST_BIZ_TYPE_CODE_NIANG_JIU_HANG_YE;//ST_BIZ_TYPE_CODE_NIANG_JIU_HANG_YE
+//            String biz = "BK0486";//ST_BIZ_TYPE_CODE_NIANG_JIU_HANG_YE  文化传媒,BK0486
             String biz = "";//
             BigDecimal limitMarketValue = new BigDecimal("10000000000");//限定市值
             String checkMaType = KLT_15;//  KLT_15  KLT_30  KLT_60  KLT_120 KLT_5
@@ -948,7 +948,7 @@ public class StockStatDemo {
                 continue;//特定板块非空过滤
             }
 
-            System.out.println("特定板块:" + banKuai.getF14() + "," + banKuai.getF12());
+            System.out.println("特定板块:" + banKuaiName + "," + banKuaiCode);
             List<RankStockCommpanyDb> stockList = listRankStockByBiz(NUM_MAX_999, banKuaiCode);//查询股票列表-根据板块
 
 //            BigDecimal flowInBk = banKuai.getF62().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
@@ -978,7 +978,7 @@ public class StockStatDemo {
                     List<Integer> maList = new ArrayList<>();
                     maList.add(MA_30);
                     maList.add(MA_60);
-                    StBizStatDemo.checkMa(stockMap, checkMaType, maList, date, true);// 检查均线
+                    KlineService.checkMa(stockMap, checkMaType, maList, date, true);// 检查均线
                 }
             }
         }
