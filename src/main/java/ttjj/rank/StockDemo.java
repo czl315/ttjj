@@ -35,7 +35,7 @@ public class StockDemo {
 
             int startNum = 0;//开始位置，默认0
 
-//            deleteTodayStCom();//删除数据-今日
+            deleteTodayStCom();//删除数据-今日
 
             //  添加或更新股票-根据日期
             addTodayStCom(date, startNum);
@@ -106,7 +106,6 @@ public class StockDemo {
 
     /**
      * 删除数据-今日
-     *
      */
     private static void deleteTodayStCom() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
@@ -877,7 +876,12 @@ public class StockDemo {
 //                    System.out.println();
                     int rs = RankStockCommpanyDao.updateByCode(entity);
                     BigDecimal flowIn = entity.getF62() != null ? entity.getF62().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP) : entity.getF62();
-                    BigDecimal marketValue = entity.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
+                    BigDecimal marketValue = null;
+                    if (entity.getF20() != null) {
+                        marketValue = entity.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
+                    }else{
+                        System.out.println("市值异常：" + entity.getF12() + ":" + entity.getF14() + "：" + entity.getF20());
+                    }
                     BigDecimal flowRate = new BigDecimal("0");
                     if (flowIn != null && marketValue != null && marketValue.compareTo(new BigDecimal("0")) != 0) {
                         flowRate = flowIn.divide(marketValue, 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100"));
@@ -1676,7 +1680,7 @@ public class StockDemo {
         BigDecimal curPrice = netMap.get(keyRsNetClose);
         BigDecimal minPrice = netMap.get(keyRsMin);
         BigDecimal maxPrice = netMap.get(keyRsMax);
-        if (curPrice != null && minPrice != null && maxPrice != null) {
+        if (curPrice != null && minPrice != null && maxPrice != null && maxPrice.compareTo(new BigDecimal("0")) != 0) {
             BigDecimal curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
 //            sb.append(strHead).append("区间：").append("\t").append(curPriceArea).append("%").append(",");
 //            sb.append(strHead).append(curPriceArea).append("%").append(",");

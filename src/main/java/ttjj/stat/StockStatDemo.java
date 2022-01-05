@@ -10,7 +10,6 @@ import ttjj.dto.*;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
 import ttjj.service.ReportService;
-import ttjj.stat.StBizStatDemo;
 import utils.Content;
 import utils.DateUtil;
 import utils.HttpUtil;
@@ -31,10 +30,15 @@ public class StockStatDemo {
          * 添加或更新股票-根据日期
          */
         for (int i = 0; i < 1; i++) {
-//            String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
-            String date = "2022-01-04";
+            String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
+//            String date = "2022-01-04";
 
-            checkMaByBk(date, "");// 检查均线,确认买点
+            BigDecimal curPriceAreaMaxRate = new BigDecimal("15");
+//            String biz = ST_BIZ_TYPE_CODE_NIANG_JIU_HANG_YE;//ST_BIZ_TYPE_CODE_NIANG_JIU_HANG_YE
+            String biz = "";//
+            BigDecimal limitMarketValue = new BigDecimal("10000000000");//限定市值
+            String checkMaType = KLT_15;//  KLT_15  KLT_30  KLT_60  KLT_120 KLT_5
+            checkMaByBk(date, biz, curPriceAreaMaxRate, limitMarketValue,checkMaType);// 检查均线,确认买点
 
 
 //            //查询业绩报表
@@ -930,92 +934,103 @@ public class StockStatDemo {
      * 检查均线
      *
      * @param date
+     * @param bk
+     * @param curPriceAreaMax
+     * @param limitMarketValue
+     * @param checkMaType
      */
-    private static void checkMaByBk(String date, String bk) {
+    private static void checkMaByBk(String date, String bk, BigDecimal curPriceAreaMax, BigDecimal limitMarketValue, String checkMaType) {
         List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题排名by时间类型、显示个数
         for (RankBizDataDiff banKuai : bkList) {
             String banKuaiCode = banKuai.getF12();
             String banKuaiName = banKuai.getF14();
             if (StringUtils.isNotBlank(bk) && !banKuaiCode.equals(bk)) {
-                continue;//已完成
+                continue;//特定板块非空过滤
             }
 
             System.out.println("特定板块:" + banKuai.getF14() + "," + banKuai.getF12());
-            BigDecimal flowInBk = banKuai.getF62().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
-            BigDecimal marketValueBk = banKuai.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
-            BigDecimal flowRateBk = flowInBk.divide(marketValueBk, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(4, BigDecimal.ROUND_HALF_UP));
             List<RankStockCommpanyDb> stockList = listRankStockByBiz(NUM_MAX_999, banKuaiCode);//查询股票列表-根据板块
-            System.out.println();
-            StringBuffer sb = new StringBuffer();
-            sb.append("当前板块：").append("[").append(banKuaiName).append("]").append(",");
+
+//            BigDecimal flowInBk = banKuai.getF62().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
+//            BigDecimal marketValueBk = banKuai.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
+//            BigDecimal flowRateBk = flowInBk.divide(marketValueBk, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(4, BigDecimal.ROUND_HALF_UP));
+
+//            StringBuffer sb = new StringBuffer();
 //            System.out.println("-----------" + stBizCountTemp + ",当前板块：" + banKuaiName + "涨跌：[" + banKuai.getF3() + "]" + ",个数：[" + stockList.size() + "]，板块主力净流入:[" + flowInBk + "]" + "," + "流入市值比：[" + flowRateBk + "]");
-            System.out.println(sb.toString());
+//            System.out.println(sb.toString());
 
             // 最新周期价格
             for (RankStockCommpanyDb entity : stockList) {
+                entity.setDate(date);
                 String zqdm = entity.getF12();
                 String zqmc = entity.getF14();
-                if (entity == null) {
-                    System.out.println("实体信息为null，不更新db：");
-                    continue;
-                }
-                entity.setDate(date);
-                if (StringUtils.isBlank(zqdm)) {
-                    System.out.println("实体信息异常，不更新db：" + JSON.toJSONString(entity));
+
+                //检查股票:状态、是否主板股票、市值限定
+                if (!checkIsMainStock(entity, limitMarketValue)) {
                     continue;
                 }
 
-                // 股票状态
-                if (DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED == entity.getF148()) {
-//                    System.out.println("均线价格暂不更新（退市）！" + JSON.toJSONString(entity));
-                    continue;
-                }
-                if (DB_RANK_BIZ_F148_STOCK_STATUS_UNLISTED == entity.getF148()) {
-//                    System.out.println("均线价格暂不更新（未上市）！" + JSON.toJSONString(entity));
-                    continue;
-                }
-                if (DB_RANK_BIZ_F148_STOCK_STATUS_SUSPENSION == entity.getF148()) {
-//                    System.out.println("均线价格暂不更新（暂停上市）！" + JSON.toJSONString(entity));
-                    continue;
-                }
-                if (DB_RANK_BIZ_F148_STOCK_STATUS_ST == entity.getF148()) {
-//                    System.out.println("均线价格暂不更新（ST股）！" + JSON.toJSONString(entity));
-                    continue;
-                }
-                //只更新主板板块的价格
-                if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI) {
-//                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
-                    continue;
-                }
-                //  市值限定,100亿以下不更新
-                if (entity.getF20() != null && entity.getF20().compareTo(new BigDecimal("10000000000")) < 0) {
-//                    System.out.println("均线价格暂不更新（100亿以下）！" + JSON.toJSONString(entity));
-                    continue;
-                }
-                if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
-
-                    Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK);
-                    entity.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
-                    entity.setNET_MIN_30(netMap20.get(Content.keyRsMin).doubleValue());
-                    entity.setNET_MAX_30(netMap20.get(Content.keyRsMax).doubleValue());
-                    entity.setNET_MIN_CLOS_30(netMap20.get(Content.keyRsNetCloseMin).doubleValue());
-                    entity.setNET_MAX_CLOS_30(netMap20.get(Content.keyRsNetCloseMax).doubleValue());
-                    BigDecimal curPriceArea = handlerAvgLine(KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK));
-                    if(curPriceArea.compareTo(new BigDecimal("10"))<=0){
-                        StringBuffer maSb = new StringBuffer("20日:").append(curPriceArea);
-                        Map<String, String> stockMap = new HashMap<>();//
-                        stockMap.put(zqdm, zqmc);
-                        List<Integer> maList = new ArrayList<>();
-                        maList.add(MA_30);
-                        maList.add(MA_60);
-                        StBizStatDemo.checkMa(stockMap, KLT_15, maList, date, true);// 检查均线
-                    }
-
-
-
+                BigDecimal curPriceArea = handlerAvgLine(KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+                if (curPriceArea != null && curPriceArea.compareTo(curPriceAreaMax) <= 0) {
+//                        StringBuffer maSb = new StringBuffer("20日:").append(curPriceArea);
+                    Map<String, String> stockMap = new HashMap<>();//
+                    stockMap.put(zqdm, zqmc);
+                    List<Integer> maList = new ArrayList<>();
+                    maList.add(MA_30);
+                    maList.add(MA_60);
+                    StBizStatDemo.checkMa(stockMap, checkMaType, maList, date, true);// 检查均线
                 }
             }
         }
+    }
+
+    /**
+     * 检查股票:状态、是否主板股票、市值限定
+     *
+     * @param entity
+     * @param limitMarketValue
+     * @return
+     */
+    private static boolean checkIsMainStock(RankStockCommpanyDb entity, BigDecimal limitMarketValue) {
+        String zqdm = entity.getF12();
+        String zqmc = entity.getF14();
+        if (entity == null) {
+            System.out.println("实体信息为null，不更新db：");
+            return false;
+        }
+        if (StringUtils.isBlank(zqdm)) {
+            System.out.println("实体信息异常，不更新db：" + JSON.toJSONString(entity));
+            return false;
+        }
+
+        // 股票状态
+        if (DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED == entity.getF148()) {
+//                    System.out.println("均线价格暂不更新（退市）！" + JSON.toJSONString(entity));
+            return false;
+        }
+        if (DB_RANK_BIZ_F148_STOCK_STATUS_UNLISTED == entity.getF148()) {
+//                    System.out.println("均线价格暂不更新（未上市）！" + JSON.toJSONString(entity));
+            return false;
+        }
+        if (DB_RANK_BIZ_F148_STOCK_STATUS_SUSPENSION == entity.getF148()) {
+//                    System.out.println("均线价格暂不更新（暂停上市）！" + JSON.toJSONString(entity));
+            return false;
+        }
+        if (DB_RANK_BIZ_F148_STOCK_STATUS_ST == entity.getF148()) {
+//                    System.out.println("均线价格暂不更新（ST股）！" + JSON.toJSONString(entity));
+            return false;
+        }
+        //只更新主板板块的价格
+        if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI) {
+//                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
+            return false;
+        }
+        //  市值限定,100亿以下不更新
+        if (entity.getF20() != null && entity.getF20().compareTo(new BigDecimal("10000000000")) < 0) {
+//                    System.out.println("均线价格暂不更新（100亿以下）！" + JSON.toJSONString(entity));
+            return false;
+        }
+        return true;
     }
 
 
@@ -1759,7 +1774,15 @@ public class StockStatDemo {
         BigDecimal minPrice = netMap.get(keyRsMin);
         BigDecimal maxPrice = netMap.get(keyRsMax);
         if (curPrice != null && minPrice != null && maxPrice != null) {
-            curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
+            if (maxPrice.subtract(minPrice).compareTo(new BigDecimal("0")) == 0) {
+                sb.append("\t").append("：").append("\t").append(netMap.get(keyRsNetCloseAvg));
+                sb.append("\t").append(",最低：").append("\t").append(minPrice);
+                sb.append("\t").append(",最高：").append("\t").append(maxPrice);
+                sb.append("\t").append(",当前价：").append(curPrice);
+            } else {
+                curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
+
+            }
 //            sb.append(strHead).append("区间：").append("\t").append(curPriceArea).append("%").append(",");
 //            sb.append(strHead).append(curPriceArea).append("%").append(",");
 //            sb.append(strHead).append(curPriceArea).append("\t\t");
