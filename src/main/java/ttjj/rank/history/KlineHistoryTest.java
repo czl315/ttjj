@@ -1,4 +1,4 @@
-package ttjj.rank;
+package ttjj.rank.history;
 
 import ttjj.dto.Kline;
 import ttjj.dto.RankBizDataDiff;

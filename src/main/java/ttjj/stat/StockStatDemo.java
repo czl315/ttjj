@@ -32,13 +32,17 @@ public class StockStatDemo {
         for (int i = 0; i < 1; i++) {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
 //            String date = "2021-12-06";
+            String specialDate = "2022-01-07";
 
-            BigDecimal curPriceAreaMaxRate = new BigDecimal("15");
+            BigDecimal curPriceAreaMaxRate = new BigDecimal("20");
 //            String biz = "BK0486";//ST_BIZ_TYPE_CODE_NIANG_JIU_HANG_YE  文化传媒,BK0486
             String biz = "";//
             BigDecimal limitMarketValue = new BigDecimal("10000000000");//限定市值
-            String checkMaType = KLT_15;//  KLT_15  KLT_30  KLT_60  KLT_120 KLT_5   KLT_101
-            checkMaByBk(date, biz, curPriceAreaMaxRate, limitMarketValue,checkMaType);// 检查均线,确认买点
+            String maType = KLT_60;//  KLT_15  KLT_30  KLT_60  KLT_120 KLT_5   KLT_101
+            List<Integer> maList = new ArrayList<>();
+            maList.add(MA_30);
+            maList.add(MA_60);
+            checkMaByBk(date,specialDate, biz, curPriceAreaMaxRate, limitMarketValue,maType,maList);// 检查均线,确认买点
 
 
 //            //查询业绩报表
@@ -932,14 +936,14 @@ public class StockStatDemo {
 
     /**
      * 检查均线
-     *
-     * @param date
+     *  @param date
      * @param bk
      * @param curPriceAreaMax
      * @param limitMarketValue
      * @param checkMaType
+     * @param maList
      */
-    private static void checkMaByBk(String date, String bk, BigDecimal curPriceAreaMax, BigDecimal limitMarketValue, String checkMaType) {
+    private static void checkMaByBk(String date,String specialDate, String bk, BigDecimal curPriceAreaMax, BigDecimal limitMarketValue, String checkMaType, List<Integer> maList) {
         List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题排名by时间类型、显示个数
         for (RankBizDataDiff banKuai : bkList) {
             String banKuaiCode = banKuai.getF12();
@@ -975,9 +979,6 @@ public class StockStatDemo {
 //                        StringBuffer maSb = new StringBuffer("20日:").append(curPriceArea);
                     Map<String, String> stockMap = new HashMap<>();//
                     stockMap.put(zqdm, zqmc);
-                    List<Integer> maList = new ArrayList<>();
-                    maList.add(MA_30);
-                    maList.add(MA_60);
                     KlineService.checkMa(stockMap, checkMaType, maList, date, true);// 检查均线
                 }
             }

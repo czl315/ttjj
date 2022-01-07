@@ -41,7 +41,10 @@ public class FupanDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2021-11-01";
 
-        insertOrUpdate(date);//保存复盘和仓位
+        String klt = KLT_101;//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
+        String dateType = Content.DAYS_1;//1：一天;7:周;30:月;
+        insertOrUpdate(date, klt, dateType);//保存复盘和仓位
+
 //        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 
 //        listMyPosition(date, KLT_101);//查询我的仓位 KLT_102;//检查周期类型
@@ -229,8 +232,10 @@ public class FupanDemo {
 
     /**
      * @param date
+     * @param klt
+     * @param dateType
      */
-    private static void insertOrUpdate(String date) {
+    private static void insertOrUpdate(String date, String klt, String dateType) {
         boolean updateDaPanKline = true;//显示-大盘指数
 //        boolean updateDaPanKline = false;//不显示-大盘指数
         boolean updateMyStock = true;//显示-我的股票
@@ -244,9 +249,6 @@ public class FupanDemo {
 //
 //        boolean updateMyTtjj = true;//显示-我的基金
         boolean updateMyTtjj = false;//不显示-我的基金
-
-        String klt = KLT_101;//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-        String dateType = Content.DAYS_1;//1：一天;7:周;30:月;
 
         if (updateDaPanKline) {
             String cookie = "";
