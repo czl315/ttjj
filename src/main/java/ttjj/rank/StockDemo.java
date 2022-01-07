@@ -11,6 +11,7 @@ import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
 import ttjj.service.ReportService;
 import utils.Content;
+import utils.ContentUrl;
 import utils.DateUtil;
 import utils.HttpUtil;
 
@@ -31,11 +32,11 @@ public class StockDemo {
          */
         for (int i = 0; i < 1; i++) {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
-//            String date = "2021-12-03";
+//            String date = "2022-01-01";
 
             int startNum = 0;//开始位置，默认0
 
-            deleteTodayStCom();//删除数据-今日
+//            deleteTodayStCom();//删除数据-今日
 
             //  添加或更新股票-根据日期
             addTodayStCom(date, startNum);
@@ -43,7 +44,7 @@ public class StockDemo {
 //            updateNetToday(date, startNum, true, true, true, false, true, false, true, isReport);//  更新净值
             updateNetToday(date, startNum, true, true, true, true, true, true, true, isReport);//  更新净值
 //            updateFundFlow(date, startNum);//更新当日资金流信息
-//            updateConception(date,0);//更新题材概念
+//            updateConception(date, startNum);//更新题材概念
 
 
 //            //查询业绩报表
@@ -879,7 +880,7 @@ public class StockDemo {
                     BigDecimal marketValue = null;
                     if (entity.getF20() != null) {
                         marketValue = entity.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
-                    }else{
+                    } else {
                         System.out.println("市值异常：" + entity.getF12() + ":" + entity.getF14() + "：" + entity.getF20());
                     }
                     BigDecimal flowRate = new BigDecimal("0");
@@ -1065,6 +1066,7 @@ public class StockDemo {
      */
     private static void updateConception(String date, int startNum) {
         List<RankBizDataDiff> bkList = listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
+        List<RankBizDataDiff> bkListMust = new ArrayList<>();//查询主题排名by时间类型、显示个数
         int bizCountLimit = NUM_MAX_999;
         int bizCountTemp = 0;
         for (RankBizDataDiff biz : bkList) {
@@ -1073,24 +1075,25 @@ public class StockDemo {
                 System.out.println("已完成:" + biz.getF14() + "," + biz.getF12());
                 continue;//已完成
             }
+            bkListMust.add(biz);
             if (bizCountTemp > bizCountLimit) {
                 break;//限定个数中断
             }
         }
         int stBizCountTemp = startNum;
-        for (RankBizDataDiff banKuai : bkList) {
-            String banKuaiCode = banKuai.getF12();
-            String banKuaiName = banKuai.getF14();
+        for (RankBizDataDiff bk : bkListMust) {
+            String banKuaiCode = bk.getF12();
+            String banKuaiName = bk.getF14();
             stBizCountTemp++;
             List<RankStockCommpanyDb> stockList = listRankStockByBiz(NUM_MAX_999, banKuaiCode);
 //            System.out.println();
-            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName + "---[" + banKuai.getF3() + "]---" + stockList.size());
+            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName + "---[" + bk.getF3() + "]---" + stockList.size());
 //            System.out.println();
 
             for (RankStockCommpanyDb stockInfo : stockList) {
                 String stCode = stockInfo.getF12();
                 StringBuffer url = new StringBuffer();
-                url.append("http://f10.eastmoney.com/CoreConception/CoreConceptionAjax");
+                url.append(ContentUrl.URL_CORE_CONCEPTION);
 
                 StringBuffer urlParam = new StringBuffer();
                 if (stCode.startsWith("5") || stCode.startsWith("6") || stCode.startsWith("9")) {
@@ -1125,40 +1128,36 @@ public class StockDemo {
                     continue;
                 }
 
-                //{"hxtc":[{"zqnm":"--","zqdm":"600733.SH","zqjc":"--","jyscbm":"--","gjc":"所属板块","yd":"1","ydnr":"MSCI中国 北京板块 标准普尔 成渝特区 富时罗素 固态电池 华为概念 机构重仓 汽车芯片 汽车行业 融资融券 无人驾驶 新能源车 预亏预减 中证500"},{"zqnm":"--","zqdm":"600733.SH","zqjc":"--","jyscbm":"--","gjc":"经营范围","yd":"2","ydnr":"设计、研发、销售汽车(含重型货车、大中型客车、轻型越野汽车、轻、微型客货汽车、多功能车、专用车、轿车、电动汽车、混合动力汽车)、汽车配件、机械设备、电器设备、零部件加工设备;汽车装饰;货物进出口、代理进出口、技术进出口;软件开发;技术开发、技术服务、技术咨询、技术转让;设计、制作、代理、发布国内外广告;经济贸易咨询;物业管理。"},{"zqnm":"--","zqdm":"600733.SH","zqjc":"--","jyscbm":"--","gjc":"新能源汽车","yd":"3","ydnr":"作为国家战略新兴产业之一的新能源汽车产业开拓者,北汽蓝谷子公司北京新能源汽车股份有限公司创立于2009年,是我国首家独立运营、首个获得新能源汽车生产资质的企业。北汽新能源从节能环保到电动化、智能化、网联化、共享化为目标的发展过程中实现了三年打基础、三年上水平、三年上规模的各阶段发展目标,自2013年以来连续七年保持国内新能源纯电动乘用车的销量第一。"},{"zqnm":"--","zqdm":"600733.SH","zqjc":"--","jyscbm":"--","gjc":"新能源汽车行业","yd":"4","ydnr":"2019年新能源汽车行业面临三重压力,一是汽车市场持续下行的压力,二是新能源汽车补贴急剧大幅退坡导致市场信心不足产生较大市场波动的压力,三是外资品牌、新势力、国内传统汽车企业纷纷进入新能源汽车行业的竞争压力。同时新能源汽车企业内部面临电动化及智能化技术创新、新一代产品研发、市场占有的扩张压力,新能源企业经营面临巨大挑战,但这是新兴行业螺旋式向上发展的必经阶段。在创新、协调、绿色、开放、共享的新时代发展理念指引下,新能源汽车作为国家战略型新兴产业,在政策保障、技术进步、市场认知度迅速提升、绿色环保等多因素的推动下,新能源汽车保持了快速发展的态势。根据中国汽车工业协会数据,2019年国内新能源汽车销量为120.6万辆,占世界新能源汽车销量的一半以上。世界范围内新能源汽车2019年销量为220万辆,同比增长了近10%,特别是欧洲主要国家随着碳排放限制趋严和新能源补贴增加,新能源汽车渗透率显著提升。国内新能源汽车的发展由探索阶段的政策驱动到现阶段的政策驱动和市场驱动的统筹推进,促使新能源汽车从“有没有”转向“好不好”的高质量发展。"},{"zqnm":"--","zqdm":"600733.SH","zqjc":"--","jyscbm":"--","gjc":"技术第一生产力,体系全面对抗","yd":"5","ydnr":"科学技术是第一生产力,这一论断在新兴行业表现尤为突出。新能源智能汽车首先作为汽车,其技术进步呈现为长期式的、渐进式的、积累式的特点,而电动化加智能化,其技术进步呈现为跃进式的、迭代式的、颠覆式的特点,新能源汽车技术的进步和创新是整体的、协调的、融合的,符合这一特点和要求的新能源汽车技术提升和创新是公司的核心竞争力,是公司发展的第一动力,处于公司的核心位置。公司高度重视产品的智能网联化转型。新能源汽车电动化的本质使汽车从机械能时代进入电能时代,新能源汽车具有交通工具和能源储备装置的双重属性,特别是为可再生能源(风、水、电、太阳能发电)的深度利用广度延伸奠定了基础;新能源汽车的数字化使汽车从电力时代进入信息时代,人们在汽车上拥有了庞大的应用生态;新能源汽车的智能化使汽车从信息时代进入AI时代,新能源汽车发展的技术方向要求新能源汽车企业具有强大完善的研发体系和能力。新能源汽车已从市场保护进入到市场竞争阶段,竞争已从单一产品的简单对抗发展成为研发体系和创新能力的全面对抗。北汽新能源经十年发展目前已建立了新一代新能源整车产品平台开发技术、三电技术和人工智能技术相互依托的协调研发体系和创新能力。"},{"zqnm":"--","zqdm":"600733.SH","zqjc":"--","jyscbm":"--","gjc":"系统化研发能力,完整研发生态","yd":"6","ydnr":"1、四级研发生态,要素整合共享:北汽新能源将研发能力作为企业的核心竞争力,一方面在全球范围内吸纳中外优秀专业人才,另一方面加大研发投入,构建了完整的面向未来的新一代新能源整车研发体系,提升了电池电机电控、智能网联、智能驾驶、新材料、换电储能等领域核心竞争能力。2、平台开发能力,引领高端制造:伴随着新能源汽车三电及智能技术不断积累提升,北汽新能源产品开发经历了单品“油改电”阶段、单品设计开发阶段,现已进入高性能整车模块化平台开发阶段。已建立满足新产品研发特点的整车开发管理流程,保证了新车开发进度、质量、成本、目标的要求,有效控制风险。目前已构建“大、中、小”三大类全新平台搭建,涵盖A00级到B级,轿车、SUV、CROSSOVER等多级别跨车型全面产品类型,平台底盘架构化设计,衍生多款底盘拓展方案,凸显平台车型研发周期短、开发费用相对低、通用化率高等优势。"},{"zqnm":"--","zqdm":"600733.SH","zqjc":"--","jyscbm":"--","gjc":"动力电池研发,突破提升性能","yd":"7","ydnr":"北汽新能源围绕提升电池使用性能布局研发工作,取得了多个领域关键技术的突破,完成了多个新技术在量产产品中的应用,产品竞争力显著提升。一是完成了全球首款乘用车CTP电池应用系统的开发,对于进一步提升新能源汽车的续航里程、安全与成本控制具有明显效果,助力EU5车型竞争力显著提升。二是开发了第三代IBTC智能仿生温控系统并实现批量应用,产品温控速率提升明显。三是开发了FPC集成采集技术并实现批量应用,产品稳定性显著提升。四是完成了第三代智能管理电池系统的开发并实现批量应用,集成度提升,成本降低,稳定性提高。五是完成了长寿命电池系统的开发。六是电池系统集成能力进一步提升,磷酸铁锂电池系统能量密度和新开发的三元电池系统能量密度领先于国内外同电量等级电池产品。七是建立起完善的自主开发能力,在电池系统集成技术、电池性能集成技术、电池安全技术、电池仿真分析技术、电池管理控制技术、电池测试验证技术等领域保持行业领先水平。"}]}
-                JSONObject rsJo = JSON.parseObject(rs);
-                JSONArray hxtcArray = JSON.parseArray(rsJo.getString("hxtc"));
-                if (hxtcArray == null) {
+                //{"ssbk":[{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"474","BOARD_NAME":"保险","IS_PRECISE":"0","BOARD_RANK":1},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"153","BOARD_NAME":"广东板块","IS_PRECISE":"0","BOARD_RANK":2},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"879","BOARD_NAME":"标准普尔","IS_PRECISE":"0","BOARD_RANK":3},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"867","BOARD_NAME":"富时罗素","IS_PRECISE":"0","BOARD_RANK":4},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"821","BOARD_NAME":"MSCI中国","IS_PRECISE":"0","BOARD_RANK":5},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"718","BOARD_NAME":"证金持股","IS_PRECISE":"0","BOARD_RANK":6},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"707","BOARD_NAME":"沪股通","IS_PRECISE":"0","BOARD_RANK":7},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"612","BOARD_NAME":"上证180_","IS_PRECISE":"0","BOARD_RANK":8},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"611","BOARD_NAME":"上证50_","IS_PRECISE":"0","BOARD_RANK":9},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"610","BOARD_NAME":"央视50_","IS_PRECISE":"0","BOARD_RANK":10},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"596","BOARD_NAME":"融资融券","IS_PRECISE":"0","BOARD_RANK":11},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"505","BOARD_NAME":"中字头","IS_PRECISE":"0","BOARD_RANK":12},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"500","BOARD_NAME":"HS300_","IS_PRECISE":"0","BOARD_RANK":13},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"499","BOARD_NAME":"AH股","IS_PRECISE":"0","BOARD_RANK":14},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"837","BOARD_NAME":"互联医疗","IS_PRECISE":"1","BOARD_RANK":15},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"835","BOARD_NAME":"独角兽","IS_PRECISE":"1","BOARD_RANK":16},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"830","BOARD_NAME":"区块链","IS_PRECISE":"1","BOARD_RANK":17},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"697","BOARD_NAME":"IPO受益","IS_PRECISE":"0","BOARD_RANK":18},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"653","BOARD_NAME":"养老概念","IS_PRECISE":"1","BOARD_RANK":19},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"637","BOARD_NAME":"互联金融","IS_PRECISE":"1","BOARD_RANK":20},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"549","BOARD_NAME":"深圳特区","IS_PRECISE":"1","BOARD_RANK":21},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"525","BOARD_NAME":"参股银行","IS_PRECISE":"0","BOARD_RANK":22},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","BOARD_CODE":"514","BOARD_NAME":"参股券商","IS_PRECISE":"0","BOARD_RANK":23}],"hxtc":[{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","KEYWORD":"经营范围","MAINPOINT":2,"MAINPOINT_CONTENT":"投资保险企业;监督管理控股投资企业的各种国内、国际业务;开展保险资金运用业务;经批准开展国内、国际保险业务;经中国保险监督管理委员会及国家有关部门批准的其他业务。","KEY_CLASSIF":"经营范围","KEY_CLASSIF_CODE":"002","IS_POINT":"0"},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","KEYWORD":"多元金融业务","MAINPOINT":3,"MAINPOINT_CONTENT":"公司通过多渠道分销网络以统一的品牌,借助旗下平 安寿险、平安产险、平安养老险、平安健康险、平安银 行、平安信托、平安证券、平安资产管理及平安资产管 理(香港)等公司经营保险、银行、资产管理三大核心金 融业务,借助陆金所、平安付与万里通、平安好房、平 安健康互联网、平安金融科技等公司经营互联网金融业 务,向客户提供多种金融产品和服务。","KEY_CLASSIF":"主营业务","KEY_CLASSIF_CODE":"003","IS_POINT":"0"},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","KEYWORD":"核心金融","MAINPOINT":5,"MAINPOINT_CONTENT":"\"核心金融业务方面,寿险业务实现规模保费2,998.14亿元,代理人数量近87万,新业务价值持续提升 ;产险业务实现保费收入1,639.55亿元,综合成本率95.6%,业务品质保持优良 ;平安养老险年金等养老资产管理业务行业领先 ;保险资金净投资收益率稳步提升,总投资收 益率创近年新高 ;平安银行持续推动结构调整和经营模 式创新,逐步形成“专业化、集约化、综合金融、互联 网金融”的经营特色,平安银行“不一样”的品牌形象正 逐步深化 ;平安信托坚持优化业务结构,继续严控项目 风险,业务保持稳健增长 ;平安证券经营业绩创历史新 高,战略推进成效显著 ;平安资产管理的投资业绩表现 优秀,第三方资产管理业务快速发展\"。","KEY_CLASSIF":"核心竞争力","KEY_CLASSIF_CODE":"005","IS_POINT":"1"},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","KEYWORD":"互联网金融","MAINPOINT":6,"MAINPOINT_CONTENT":"继续贯彻“科技引领金融”理念, 一方面利用互联网升级综合金融模式,将线下的金融客 户迁徙到线上,扩大服务范围,提升服务效率和体验 ; 同时,围绕用户的“医、食、住、行、玩”需求,不断完 善线上平台,提供多种服务和产品,将金融嵌入线上生 活服务,逐步横向迁徙,实现“一个客户、一个账户、 多项服务、多个产品”,让平安成为客户的“财富管家、 健康顾问、生活助手”。截至2015年12月31日,平安互 联网用户规模约2.42亿,较年初增长75.9%,继续保持 高速增长。","KEY_CLASSIF":"核心竞争力","KEY_CLASSIF_CODE":"005","IS_POINT":"1"},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","KEYWORD":"互联网金融业务","MAINPOINT":13,"MAINPOINT_CONTENT":"截至2016年12月31日,陆金所平台累计注册用户数2,838万,较上年末增长55.0%,活跃投资用户数740万,较上年末增长103.9%,2016年新增投资用户数445万,同比增长33.3%。通过陆金所平台交易的资产规模保持高速增长,2016年零售端交易量15,351.63亿元,同比增长137.5%,期末零售端资产管理规模达4,383.79亿元。截至2016年底,平安好医生自建医学团队近1,000人,提供7X24小时在线咨询服务;外部签约医生6万余人,提供复诊随诊服务;可提供挂号服务的合作医院近2,300家;合作体检机构超过700家,覆盖全国150余座城市;提供B2C全国供药和13座一线城市1小时O2O送药服务,涵盖近3万种日常用药及保健品。平安好医生累计为1.3亿用户提供健康管理服务,月活跃用户数峰值2,625万,日咨询量峰值44万。","KEY_CLASSIF":"核心竞争力","KEY_CLASSIF_CODE":"005","IS_POINT":"1"},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","KEYWORD":"平安证券拟改制并赴港上市","MAINPOINT":14,"MAINPOINT_CONTENT":"2016年6月16日公告称,公司召开第十届董事会第七次会议,审议并通过了“关于平安证券境外上市方案”在内的十一项议案。该会议同意公司控股子公司平安证券有限责任公司整体改制为股份有限公司,改制后名称拟变更为“平安证券股份有限公司”,并同意平安证券完成改制后首次公开发行H股并在香港联合交易所有限公司主板上市。平安证券股份公司拟向境外投资者及合资格境内投资者募集并在香港联交所主板上市的境外上市外资股(H股),发行方式为香港公开发行及国际配售,每股面值为人民币1.00元,发行数量不超过发行后总股本的25%(超额配售权行使前),同时根据市场情况授予承销商不超过本次基础发行的H股股数15%的超额配售权。平安证券股份公司此次境外公开发行H股所募集资金在扣除发行费用后拟用于增加其资本金,补充其营运资金,推动各项证券相关业务发展。具体募集资金用途及投向计划以届时平安证券股份公司H股招股说明书的披露为准。","KEY_CLASSIF":"核心竞争力","KEY_CLASSIF_CODE":"005","IS_POINT":"1"},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","KEYWORD":"将回购不超10%股份","MAINPOINT":17,"MAINPOINT_CONTENT":"2018年10月29日公告,前十大股东榜中,证金公司持股由二季度末的4.9%,三季度减持至2.99%。公司同日公告,公司董事会通过了公司回购议案。公司将酌情及适时回购公司公开发行的境内、境外股份,回购总额不超过公司发行总股本的10%。回购资金包括自有资金及符合监管政策法规要求的资金。","KEY_CLASSIF":"股票回购","KEY_CLASSIF_CODE":"007002","IS_POINT":"1"},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","KEYWORD":"回购具体方案仍有待确定","MAINPOINT":18,"MAINPOINT_CONTENT":"2018年10月30日早间发布关于回购公司股份及相关授权方案的提示性公告。公告称,为积极响应国家政府和监管部门的政策导向,稳定资本市场,促进股东价值最大化,公司制定股份回购计划。目前该方案还需要公司股东大会审议,并将由股东大会授权相关机构和人员在不超过公司发行总股本的10%的授权额度内,制定回购具体方案,后续具体回购股份的价格、种类、批次、数量及执行时间仍有待确定及具有不确定性。公司将严格按照有关法律法规及上市规则的要求执行后续股份回购计划,及时履行信息披露义务。","KEY_CLASSIF":"股票回购","KEY_CLASSIF_CODE":"007002","IS_POINT":"1"},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","KEYWORD":"拟50亿-100亿元回购股份","MAINPOINT":20,"MAINPOINT_CONTENT":"2019年3月12日公告,公司拟使用不低于人民币50亿元且不超过人民币100亿元的自有资金,以不超过人民币101.24元/股的回购价格回购本公司A股股份。本次回购股份将全部用于公司员工持股计划,包括但不限于公司股东大会已审议通过的长期服务计划。本次回购期限为自本次回购方案经公司年度股东大会及类别股东大会审议通过之日起不超过12个月。","KEY_CLASSIF":"股票回购","KEY_CLASSIF_CODE":"007002","IS_POINT":"1"},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","KEYWORD":"耗资2.8亿元实施首次回购","MAINPOINT":21,"MAINPOINT_CONTENT":"2019年6月18日公告,公司于2019年6月18日以集中竞价交易方式实施了首次回购A股股份,首次回购共购得3,503,689股公司A股股份,占本公司总股本的比例为0.01917%,已支付的资金总额合计人民币281,825,094.66元(不含交易费用),最低成交价格为人民币79.85元/股,最高成交价格为人民币80.93元/股。","KEY_CLASSIF":"股票回购","KEY_CLASSIF_CODE":"007002","IS_POINT":"1"},{"SECUCODE":"601318.SH","SECURITY_CODE":"601318","SECURITY_NAME_ABBR":"中国平安","KEYWORD":"增设三名联席CEO","MAINPOINT":19,"MAINPOINT_CONTENT":"2018年12月14日公告,根据《公司章程》及公司执行委员会工作细则有关规定,借鉴全球公司治理最佳实践,公司在执行委员会现行执行官负责制基础上,增设三个联席首席执行官岗位,由李源祥先生、谢永林先生、陈心颖女士担任,并由李源祥先生分管个人客户综合金融业务、由谢永林先生分管公司客户综合金融业务、由陈心颖女士分管科技业务。在公司董事长/首席执行官的领导下,三位联席首席执行官分别对三大业务主线实施统一领导、专业分工。公司董事会认为,在公司执行委员会现行执行官负责制基础上设立联席首席执行官集体决策机制,使之成为公司一项重要的制度化组织体系,将有助于深入贯彻、持续践行集体决策、分工负责、矩阵式管理的经营决策机制,更高效地整合内部资源、提升协同效率、强化风险管控,健全人才培养及梯队建设体系。上述安排符合本公司适应以客户为导向战略转型、适应新业务模式发展管理、强化本公司风险管控和人才梯队培养的需要,是对本公司现有战略及业务模式和决策机制的延续与深化,有利于加快推动本公司科技转型、生态转型战略向更深、更广层次演进,提升本公司对经营、管理风险的驾驭能力,实现长期可持续健康发展。同日,公司2018年第二次临时股东大会审议及批准了《关于审议回购公司股份及相关授权的方案》。","KEY_CLASSIF":"其他项目","KEY_CLASSIF_CODE":"010","IS_POINT":"1"}]}
+                HttpRsHxtc httpRsHxtc = JSON.parseObject(rs, HttpRsHxtc.class);
+                if (httpRsHxtc == null) {
 //            System.out.println("klines未查询到："+zhiShu);
                     return;
                 }
-                String ydnr = "";//核心题材-要点板块
-                for (int i = 0; i < hxtcArray.size(); i++) {
-                    JSONObject ssbk = JSON.parseObject(hxtcArray.getString(i));
-                    String gjc = ssbk.getString("gjc");
-                    if ("所属板块".equals(gjc)) {
-                        ydnr = ssbk.getString("ydnr");
-                        break;
-                    }
+                StringBuffer ssbk = new StringBuffer();//核心题材-所属板块
+                List<HttpRsHxtcSsbk> ssbkList = httpRsHxtc.getSsbk();
+                for (HttpRsHxtcSsbk httpRsHxtcSsbk : ssbkList) {
+                    ssbk.append(httpRsHxtcSsbk.getBOARD_NAME()).append(" ");
                 }
 
                 StringBuffer sb = new StringBuffer();
                 sb.append("UPDATE `rank_st_biz_com` ");
                 sb.append("SET ");
-                sb.append(" `conception`='" + ydnr + "' ");
+                sb.append(" `conception`='" + ssbk.toString() + "' ");
                 sb.append(" WHERE `f12`='" + stockInfo.getF12() + "'");
                 sb.append(" AND `date`='" + date + "'");
                 sb.append(";");
                 sb.append("/**" + stockInfo.getF14() + "**/");
 
-                System.out.println(sb);
 
                 //db-更新要点内容
                 RankStockCommpanyDb entity = new RankStockCommpanyDb();
                 entity.setF12(stockInfo.getF12());
                 entity.setDate(date);
-                entity.setConception(ydnr);//要点内容
-                RankStockCommpanyDao.updateByCode(entity);
+                entity.setConception(ssbk.toString());//所属板块
+                int rsUpdate = RankStockCommpanyDao.updateByCode(entity);
+
+                System.out.println(sb + " rsUpdate:" + rsUpdate);
             }
         }
 

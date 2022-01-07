@@ -389,6 +389,7 @@ public interface RankStockCommpanyMapper {
             "    <if test='fundFlow != null'>fundFlow=#{fundFlow},</if>",
             "  </set>",
             "where date=#{date} AND f12=#{f12}",
+//            "where date>=#{date} AND f12=#{f12}",
             "</script>"})
     void update(RankStockCommpanyDb entity);
 
