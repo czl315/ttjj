@@ -37,7 +37,7 @@ public class StockStatDemo {
 //            String biz = "BK0486";//ST_BIZ_TYPE_CODE_NIANG_JIU_HANG_YE  文化传媒,BK0486
             String biz = "";//
             BigDecimal limitMarketValue = new BigDecimal("10000000000");//限定市值
-            String checkMaType = KLT_15;//  KLT_15  KLT_30  KLT_60  KLT_120 KLT_5
+            String checkMaType = KLT_15;//  KLT_15  KLT_30  KLT_60  KLT_120 KLT_5   KLT_101
             checkMaByBk(date, biz, curPriceAreaMaxRate, limitMarketValue,checkMaType);// 检查均线,确认买点
 
 
