@@ -32,17 +32,22 @@ public class StockDemo {
          */
         for (int i = 0; i < 1; i++) {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
-//            String date = "2022-01-01";
+//            String date = "2022-01-07";
 
             int startNum = 0;//开始位置，默认0
 
 //            deleteTodayStCom();//删除数据-今日
 
             //  添加或更新股票-根据日期
-            addTodayStCom(date, startNum);
+//            addTodayStCom(date, startNum);
+
+            Map<String, Boolean> maUpdateMap = new HashMap<>();
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_30,true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_60,true);
 //            updateNetToday(date, startNum, true, false, false, false, false, false, false, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, false, true, false, true, isReport);//  更新净值
-            updateNetToday(date, startNum, true, true, true, true, true, true, true, isReport);//  更新净值
+//            updateNetToday(date, startNum, true, true, true, true, true, true, true,maUpdateMap, isReport);//  更新净值
+            updateNetToday(date, startNum, false, false, false, false, false, false, false,maUpdateMap, isReport);//  更新净值
 //            updateFundFlow(date, startNum);//更新当日资金流信息
 //            updateConception(date, startNum);//更新题材概念
 
@@ -733,7 +738,7 @@ public class StockDemo {
      * @param startNum
      * @param isReport
      */
-    private static void updateNetToday(String date, int startNum, boolean isMa5, boolean isMa10, boolean isMa20, boolean isMa30, boolean isMa60, boolean isMa120, boolean isMa250, boolean isReport) {
+    private static void updateNetToday(String date, int startNum, boolean isMa5, boolean isMa10, boolean isMa20, boolean isMa30, boolean isMa60, boolean isMa120, boolean isMa250, Map<String, Boolean> maUpdateMap, boolean isReport) {
         List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题排名by时间类型、显示个数
         int bizCountLimit = NUM_MAX_999;
         int bizCountTemp = 0;
@@ -874,6 +879,9 @@ public class StockDemo {
                         entity.setNET_MAX_CLOS_360(netMap250.get(Content.keyRsNetCloseMax).doubleValue());
                         maSb.append(handlerAvgLine("250日:", KlineService.findNetMinMaxAvg(zqdm, MA_250, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
                     }
+
+                    handlerNetMa(entity,maUpdateMap,date);//处理均线净值
+
 //                    System.out.println();
                     int rs = RankStockCommpanyDao.updateByCode(entity);
                     BigDecimal flowIn = entity.getF62() != null ? entity.getF62().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP) : entity.getF62();
@@ -937,6 +945,23 @@ public class StockDemo {
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * 处理均线净值
+     * @param entity
+     * @param maUpdateMap
+     * @param date
+     */
+    private static void handlerNetMa(RankStockCommpanyDb entity, Map<String, Boolean> maUpdateMap, String date) {
+        if(maUpdateMap.containsKey(MA_UPDATE_FLAG_MINUTE_15_30)){
+            Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(entity.getF12(), Content.MA_30, KLT_15, false, "", date, KLINE_TYPE_STOCK);
+            entity.setNET_MA_MI_15_30(netMap.get(Content.keyRsNetCloseAvg));
+        }
+        if(maUpdateMap.containsKey(MA_UPDATE_FLAG_MINUTE_15_60)){
+            Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(entity.getF12(), Content.MA_60, KLT_15, false, "", date, KLINE_TYPE_STOCK);
+            entity.setNET_MA_MI_15_60(netMap.get(Content.keyRsNetCloseAvg));
         }
     }
 

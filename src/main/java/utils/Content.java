@@ -347,6 +347,12 @@ public class Content {
      */
     public static String DATE_WEEK_5 = "五";
 
+    /**
+     * MA_UPDATE_FLAG_MINUTE_15_30 均线更新标志-分钟-周期
+     */
+    public static String MA_UPDATE_FLAG_MINUTE_15_30 = "maMinute15Type30";
+    public static String MA_UPDATE_FLAG_MINUTE_15_60 = "maMinute15Type60";
+
     public static  String SHANG_HAI = "1.000001";
     public static  String SHEN_ZHEN = "0.399001";
     public static  String CYB = "0.399006";

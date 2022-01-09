@@ -455,6 +455,518 @@ public class RankStockCommpanyDb {
     private BigDecimal NET_MA_120;
     private BigDecimal NET_MA_250;
 
+    private BigDecimal NET_MA_MI_1_5;
+    private BigDecimal NET_MA_MI_1_10;
+    private BigDecimal NET_MA_MI_1_20;
+    private BigDecimal NET_MA_MI_1_30;
+    private BigDecimal NET_MA_MI_1_60;
+    private BigDecimal NET_MA_MI_1_120;
+    private BigDecimal NET_MA_MI_1_250;
+
+    private BigDecimal NET_MA_MI_5_5;
+    private BigDecimal NET_MA_MI_5_10;
+    private BigDecimal NET_MA_MI_5_20;
+    private BigDecimal NET_MA_MI_5_30;
+    private BigDecimal NET_MA_MI_5_60;
+    private BigDecimal NET_MA_MI_5_120;
+    private BigDecimal NET_MA_MI_5_250;
+
+    private BigDecimal NET_MA_MI_15_5;
+    private BigDecimal NET_MA_MI_15_10;
+    private BigDecimal NET_MA_MI_15_20;
+    private BigDecimal NET_MA_MI_15_30;
+    private BigDecimal NET_MA_MI_15_60;
+    private BigDecimal NET_MA_MI_15_120;
+    private BigDecimal NET_MA_MI_15_250;
+
+    private BigDecimal NET_MA_MI_30_5;
+    private BigDecimal NET_MA_MI_30_10;
+    private BigDecimal NET_MA_MI_30_20;
+    private BigDecimal NET_MA_MI_30_30;
+    private BigDecimal NET_MA_MI_30_60;
+    private BigDecimal NET_MA_MI_30_120;
+    private BigDecimal NET_MA_MI_30_250;
+
+    private BigDecimal NET_MA_MI_60_5;
+    private BigDecimal NET_MA_MI_60_10;
+    private BigDecimal NET_MA_MI_60_20;
+    private BigDecimal NET_MA_MI_60_30;
+    private BigDecimal NET_MA_MI_60_60;
+    private BigDecimal NET_MA_MI_60_120;
+    private BigDecimal NET_MA_MI_60_250;
+
+    private BigDecimal NET_MA_MI_120_5;
+    private BigDecimal NET_MA_MI_120_10;
+    private BigDecimal NET_MA_MI_120_20;
+    private BigDecimal NET_MA_MI_120_30;
+    private BigDecimal NET_MA_MI_120_60;
+    private BigDecimal NET_MA_MI_120_120;
+    private BigDecimal NET_MA_MI_120_250;
+
+    private BigDecimal NET_MA_WE_1_5;
+    private BigDecimal NET_MA_WE_1_10;
+    private BigDecimal NET_MA_WE_1_20;
+    private BigDecimal NET_MA_WE_1_30;
+    private BigDecimal NET_MA_WE_1_60;
+    private BigDecimal NET_MA_WE_1_120;
+    private BigDecimal NET_MA_WE_1_250;
+
+    private BigDecimal NET_MA_MO_1_5;
+    private BigDecimal NET_MA_MO_1_10;
+    private BigDecimal NET_MA_MO_1_20;
+    private BigDecimal NET_MA_MO_1_30;
+    private BigDecimal NET_MA_MO_1_60;
+    private BigDecimal NET_MA_MO_1_120;
+    private BigDecimal NET_MA_MO_1_250;
+
+    public BigDecimal getNET_MA_MI_1_5() {
+        return NET_MA_MI_1_5;
+    }
+
+    public void setNET_MA_MI_1_5(BigDecimal NET_MA_MI_1_5) {
+        this.NET_MA_MI_1_5 = NET_MA_MI_1_5;
+    }
+
+    public BigDecimal getNET_MA_MI_1_10() {
+        return NET_MA_MI_1_10;
+    }
+
+    public void setNET_MA_MI_1_10(BigDecimal NET_MA_MI_1_10) {
+        this.NET_MA_MI_1_10 = NET_MA_MI_1_10;
+    }
+
+    public BigDecimal getNET_MA_MI_1_20() {
+        return NET_MA_MI_1_20;
+    }
+
+    public void setNET_MA_MI_1_20(BigDecimal NET_MA_MI_1_20) {
+        this.NET_MA_MI_1_20 = NET_MA_MI_1_20;
+    }
+
+    public BigDecimal getNET_MA_MI_1_30() {
+        return NET_MA_MI_1_30;
+    }
+
+    public void setNET_MA_MI_1_30(BigDecimal NET_MA_MI_1_30) {
+        this.NET_MA_MI_1_30 = NET_MA_MI_1_30;
+    }
+
+    public BigDecimal getNET_MA_MI_1_60() {
+        return NET_MA_MI_1_60;
+    }
+
+    public void setNET_MA_MI_1_60(BigDecimal NET_MA_MI_1_60) {
+        this.NET_MA_MI_1_60 = NET_MA_MI_1_60;
+    }
+
+    public BigDecimal getNET_MA_MI_1_120() {
+        return NET_MA_MI_1_120;
+    }
+
+    public void setNET_MA_MI_1_120(BigDecimal NET_MA_MI_1_120) {
+        this.NET_MA_MI_1_120 = NET_MA_MI_1_120;
+    }
+
+    public BigDecimal getNET_MA_MI_1_250() {
+        return NET_MA_MI_1_250;
+    }
+
+    public void setNET_MA_MI_1_250(BigDecimal NET_MA_MI_1_250) {
+        this.NET_MA_MI_1_250 = NET_MA_MI_1_250;
+    }
+
+    public BigDecimal getNET_MA_MI_5_5() {
+        return NET_MA_MI_5_5;
+    }
+
+    public void setNET_MA_MI_5_5(BigDecimal NET_MA_MI_5_5) {
+        this.NET_MA_MI_5_5 = NET_MA_MI_5_5;
+    }
+
+    public BigDecimal getNET_MA_MI_5_10() {
+        return NET_MA_MI_5_10;
+    }
+
+    public void setNET_MA_MI_5_10(BigDecimal NET_MA_MI_5_10) {
+        this.NET_MA_MI_5_10 = NET_MA_MI_5_10;
+    }
+
+    public BigDecimal getNET_MA_MI_5_20() {
+        return NET_MA_MI_5_20;
+    }
+
+    public void setNET_MA_MI_5_20(BigDecimal NET_MA_MI_5_20) {
+        this.NET_MA_MI_5_20 = NET_MA_MI_5_20;
+    }
+
+    public BigDecimal getNET_MA_MI_5_30() {
+        return NET_MA_MI_5_30;
+    }
+
+    public void setNET_MA_MI_5_30(BigDecimal NET_MA_MI_5_30) {
+        this.NET_MA_MI_5_30 = NET_MA_MI_5_30;
+    }
+
+    public BigDecimal getNET_MA_MI_5_60() {
+        return NET_MA_MI_5_60;
+    }
+
+    public void setNET_MA_MI_5_60(BigDecimal NET_MA_MI_5_60) {
+        this.NET_MA_MI_5_60 = NET_MA_MI_5_60;
+    }
+
+    public BigDecimal getNET_MA_MI_5_120() {
+        return NET_MA_MI_5_120;
+    }
+
+    public void setNET_MA_MI_5_120(BigDecimal NET_MA_MI_5_120) {
+        this.NET_MA_MI_5_120 = NET_MA_MI_5_120;
+    }
+
+    public BigDecimal getNET_MA_MI_5_250() {
+        return NET_MA_MI_5_250;
+    }
+
+    public void setNET_MA_MI_5_250(BigDecimal NET_MA_MI_5_250) {
+        this.NET_MA_MI_5_250 = NET_MA_MI_5_250;
+    }
+
+    public BigDecimal getNET_MA_MI_15_5() {
+        return NET_MA_MI_15_5;
+    }
+
+    public void setNET_MA_MI_15_5(BigDecimal NET_MA_MI_15_5) {
+        this.NET_MA_MI_15_5 = NET_MA_MI_15_5;
+    }
+
+    public BigDecimal getNET_MA_MI_15_10() {
+        return NET_MA_MI_15_10;
+    }
+
+    public void setNET_MA_MI_15_10(BigDecimal NET_MA_MI_15_10) {
+        this.NET_MA_MI_15_10 = NET_MA_MI_15_10;
+    }
+
+    public BigDecimal getNET_MA_MI_15_20() {
+        return NET_MA_MI_15_20;
+    }
+
+    public void setNET_MA_MI_15_20(BigDecimal NET_MA_MI_15_20) {
+        this.NET_MA_MI_15_20 = NET_MA_MI_15_20;
+    }
+
+    public BigDecimal getNET_MA_MI_15_30() {
+        return NET_MA_MI_15_30;
+    }
+
+    public void setNET_MA_MI_15_30(BigDecimal NET_MA_MI_15_30) {
+        this.NET_MA_MI_15_30 = NET_MA_MI_15_30;
+    }
+
+    public BigDecimal getNET_MA_MI_15_60() {
+        return NET_MA_MI_15_60;
+    }
+
+    public void setNET_MA_MI_15_60(BigDecimal NET_MA_MI_15_60) {
+        this.NET_MA_MI_15_60 = NET_MA_MI_15_60;
+    }
+
+    public BigDecimal getNET_MA_MI_15_120() {
+        return NET_MA_MI_15_120;
+    }
+
+    public void setNET_MA_MI_15_120(BigDecimal NET_MA_MI_15_120) {
+        this.NET_MA_MI_15_120 = NET_MA_MI_15_120;
+    }
+
+    public BigDecimal getNET_MA_MI_15_250() {
+        return NET_MA_MI_15_250;
+    }
+
+    public void setNET_MA_MI_15_250(BigDecimal NET_MA_MI_15_250) {
+        this.NET_MA_MI_15_250 = NET_MA_MI_15_250;
+    }
+
+    public BigDecimal getNET_MA_MI_30_5() {
+        return NET_MA_MI_30_5;
+    }
+
+    public void setNET_MA_MI_30_5(BigDecimal NET_MA_MI_30_5) {
+        this.NET_MA_MI_30_5 = NET_MA_MI_30_5;
+    }
+
+    public BigDecimal getNET_MA_MI_30_10() {
+        return NET_MA_MI_30_10;
+    }
+
+    public void setNET_MA_MI_30_10(BigDecimal NET_MA_MI_30_10) {
+        this.NET_MA_MI_30_10 = NET_MA_MI_30_10;
+    }
+
+    public BigDecimal getNET_MA_MI_30_20() {
+        return NET_MA_MI_30_20;
+    }
+
+    public void setNET_MA_MI_30_20(BigDecimal NET_MA_MI_30_20) {
+        this.NET_MA_MI_30_20 = NET_MA_MI_30_20;
+    }
+
+    public BigDecimal getNET_MA_MI_30_30() {
+        return NET_MA_MI_30_30;
+    }
+
+    public void setNET_MA_MI_30_30(BigDecimal NET_MA_MI_30_30) {
+        this.NET_MA_MI_30_30 = NET_MA_MI_30_30;
+    }
+
+    public BigDecimal getNET_MA_MI_30_60() {
+        return NET_MA_MI_30_60;
+    }
+
+    public void setNET_MA_MI_30_60(BigDecimal NET_MA_MI_30_60) {
+        this.NET_MA_MI_30_60 = NET_MA_MI_30_60;
+    }
+
+    public BigDecimal getNET_MA_MI_30_120() {
+        return NET_MA_MI_30_120;
+    }
+
+    public void setNET_MA_MI_30_120(BigDecimal NET_MA_MI_30_120) {
+        this.NET_MA_MI_30_120 = NET_MA_MI_30_120;
+    }
+
+    public BigDecimal getNET_MA_MI_30_250() {
+        return NET_MA_MI_30_250;
+    }
+
+    public void setNET_MA_MI_30_250(BigDecimal NET_MA_MI_30_250) {
+        this.NET_MA_MI_30_250 = NET_MA_MI_30_250;
+    }
+
+    public BigDecimal getNET_MA_MI_60_5() {
+        return NET_MA_MI_60_5;
+    }
+
+    public void setNET_MA_MI_60_5(BigDecimal NET_MA_MI_60_5) {
+        this.NET_MA_MI_60_5 = NET_MA_MI_60_5;
+    }
+
+    public BigDecimal getNET_MA_MI_60_10() {
+        return NET_MA_MI_60_10;
+    }
+
+    public void setNET_MA_MI_60_10(BigDecimal NET_MA_MI_60_10) {
+        this.NET_MA_MI_60_10 = NET_MA_MI_60_10;
+    }
+
+    public BigDecimal getNET_MA_MI_60_20() {
+        return NET_MA_MI_60_20;
+    }
+
+    public void setNET_MA_MI_60_20(BigDecimal NET_MA_MI_60_20) {
+        this.NET_MA_MI_60_20 = NET_MA_MI_60_20;
+    }
+
+    public BigDecimal getNET_MA_MI_60_30() {
+        return NET_MA_MI_60_30;
+    }
+
+    public void setNET_MA_MI_60_30(BigDecimal NET_MA_MI_60_30) {
+        this.NET_MA_MI_60_30 = NET_MA_MI_60_30;
+    }
+
+    public BigDecimal getNET_MA_MI_60_60() {
+        return NET_MA_MI_60_60;
+    }
+
+    public void setNET_MA_MI_60_60(BigDecimal NET_MA_MI_60_60) {
+        this.NET_MA_MI_60_60 = NET_MA_MI_60_60;
+    }
+
+    public BigDecimal getNET_MA_MI_60_120() {
+        return NET_MA_MI_60_120;
+    }
+
+    public void setNET_MA_MI_60_120(BigDecimal NET_MA_MI_60_120) {
+        this.NET_MA_MI_60_120 = NET_MA_MI_60_120;
+    }
+
+    public BigDecimal getNET_MA_MI_60_250() {
+        return NET_MA_MI_60_250;
+    }
+
+    public void setNET_MA_MI_60_250(BigDecimal NET_MA_MI_60_250) {
+        this.NET_MA_MI_60_250 = NET_MA_MI_60_250;
+    }
+
+    public BigDecimal getNET_MA_MI_120_5() {
+        return NET_MA_MI_120_5;
+    }
+
+    public void setNET_MA_MI_120_5(BigDecimal NET_MA_MI_120_5) {
+        this.NET_MA_MI_120_5 = NET_MA_MI_120_5;
+    }
+
+    public BigDecimal getNET_MA_MI_120_10() {
+        return NET_MA_MI_120_10;
+    }
+
+    public void setNET_MA_MI_120_10(BigDecimal NET_MA_MI_120_10) {
+        this.NET_MA_MI_120_10 = NET_MA_MI_120_10;
+    }
+
+    public BigDecimal getNET_MA_MI_120_20() {
+        return NET_MA_MI_120_20;
+    }
+
+    public void setNET_MA_MI_120_20(BigDecimal NET_MA_MI_120_20) {
+        this.NET_MA_MI_120_20 = NET_MA_MI_120_20;
+    }
+
+    public BigDecimal getNET_MA_MI_120_30() {
+        return NET_MA_MI_120_30;
+    }
+
+    public void setNET_MA_MI_120_30(BigDecimal NET_MA_MI_120_30) {
+        this.NET_MA_MI_120_30 = NET_MA_MI_120_30;
+    }
+
+    public BigDecimal getNET_MA_MI_120_60() {
+        return NET_MA_MI_120_60;
+    }
+
+    public void setNET_MA_MI_120_60(BigDecimal NET_MA_MI_120_60) {
+        this.NET_MA_MI_120_60 = NET_MA_MI_120_60;
+    }
+
+    public BigDecimal getNET_MA_MI_120_120() {
+        return NET_MA_MI_120_120;
+    }
+
+    public void setNET_MA_MI_120_120(BigDecimal NET_MA_MI_120_120) {
+        this.NET_MA_MI_120_120 = NET_MA_MI_120_120;
+    }
+
+    public BigDecimal getNET_MA_MI_120_250() {
+        return NET_MA_MI_120_250;
+    }
+
+    public void setNET_MA_MI_120_250(BigDecimal NET_MA_MI_120_250) {
+        this.NET_MA_MI_120_250 = NET_MA_MI_120_250;
+    }
+
+    public BigDecimal getNET_MA_WE_1_5() {
+        return NET_MA_WE_1_5;
+    }
+
+    public void setNET_MA_WE_1_5(BigDecimal NET_MA_WE_1_5) {
+        this.NET_MA_WE_1_5 = NET_MA_WE_1_5;
+    }
+
+    public BigDecimal getNET_MA_WE_1_10() {
+        return NET_MA_WE_1_10;
+    }
+
+    public void setNET_MA_WE_1_10(BigDecimal NET_MA_WE_1_10) {
+        this.NET_MA_WE_1_10 = NET_MA_WE_1_10;
+    }
+
+    public BigDecimal getNET_MA_WE_1_20() {
+        return NET_MA_WE_1_20;
+    }
+
+    public void setNET_MA_WE_1_20(BigDecimal NET_MA_WE_1_20) {
+        this.NET_MA_WE_1_20 = NET_MA_WE_1_20;
+    }
+
+    public BigDecimal getNET_MA_WE_1_30() {
+        return NET_MA_WE_1_30;
+    }
+
+    public void setNET_MA_WE_1_30(BigDecimal NET_MA_WE_1_30) {
+        this.NET_MA_WE_1_30 = NET_MA_WE_1_30;
+    }
+
+    public BigDecimal getNET_MA_WE_1_60() {
+        return NET_MA_WE_1_60;
+    }
+
+    public void setNET_MA_WE_1_60(BigDecimal NET_MA_WE_1_60) {
+        this.NET_MA_WE_1_60 = NET_MA_WE_1_60;
+    }
+
+    public BigDecimal getNET_MA_WE_1_120() {
+        return NET_MA_WE_1_120;
+    }
+
+    public void setNET_MA_WE_1_120(BigDecimal NET_MA_WE_1_120) {
+        this.NET_MA_WE_1_120 = NET_MA_WE_1_120;
+    }
+
+    public BigDecimal getNET_MA_WE_1_250() {
+        return NET_MA_WE_1_250;
+    }
+
+    public void setNET_MA_WE_1_250(BigDecimal NET_MA_WE_1_250) {
+        this.NET_MA_WE_1_250 = NET_MA_WE_1_250;
+    }
+
+    public BigDecimal getNET_MA_MO_1_5() {
+        return NET_MA_MO_1_5;
+    }
+
+    public void setNET_MA_MO_1_5(BigDecimal NET_MA_MO_1_5) {
+        this.NET_MA_MO_1_5 = NET_MA_MO_1_5;
+    }
+
+    public BigDecimal getNET_MA_MO_1_10() {
+        return NET_MA_MO_1_10;
+    }
+
+    public void setNET_MA_MO_1_10(BigDecimal NET_MA_MO_1_10) {
+        this.NET_MA_MO_1_10 = NET_MA_MO_1_10;
+    }
+
+    public BigDecimal getNET_MA_MO_1_20() {
+        return NET_MA_MO_1_20;
+    }
+
+    public void setNET_MA_MO_1_20(BigDecimal NET_MA_MO_1_20) {
+        this.NET_MA_MO_1_20 = NET_MA_MO_1_20;
+    }
+
+    public BigDecimal getNET_MA_MO_1_30() {
+        return NET_MA_MO_1_30;
+    }
+
+    public void setNET_MA_MO_1_30(BigDecimal NET_MA_MO_1_30) {
+        this.NET_MA_MO_1_30 = NET_MA_MO_1_30;
+    }
+
+    public BigDecimal getNET_MA_MO_1_60() {
+        return NET_MA_MO_1_60;
+    }
+
+    public void setNET_MA_MO_1_60(BigDecimal NET_MA_MO_1_60) {
+        this.NET_MA_MO_1_60 = NET_MA_MO_1_60;
+    }
+
+    public BigDecimal getNET_MA_MO_1_120() {
+        return NET_MA_MO_1_120;
+    }
+
+    public void setNET_MA_MO_1_120(BigDecimal NET_MA_MO_1_120) {
+        this.NET_MA_MO_1_120 = NET_MA_MO_1_120;
+    }
+
+    public BigDecimal getNET_MA_MO_1_250() {
+        return NET_MA_MO_1_250;
+    }
+
+    public void setNET_MA_MO_1_250(BigDecimal NET_MA_MO_1_250) {
+        this.NET_MA_MO_1_250 = NET_MA_MO_1_250;
+    }
+
     private Date CREATE_TIME;
     private Date UPDATE_TIME;
 
