@@ -32,12 +32,12 @@ public class StBizStatDemo {
 
         Set<String> etfBizSet = ContentEtf.mapEtfAll.keySet();//全部场内etf：板块、指数   mapEtfAll   mapEtfBiz   mapEtfIndex
 
-        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
+//        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
-//        int year = 2021;//DateUtil.getCurYear()
-//        int month = 12;//DateUtil.getCurMonth()
-//        int day = 15;//DateUtil.getCurDay()
-//        statEtfAdrDb(etfBizSet, year, month, day, 17);//统计涨跌次数-按照天的维度
+        int year = 2021;//DateUtil.getCurYear()
+        int month = 12;//DateUtil.getCurMonth()
+        int day = 27;//DateUtil.getCurDay()
+        statEtfAdrDb(etfBizSet, year, month, day, 7);//统计涨跌次数-按照天的维度
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
