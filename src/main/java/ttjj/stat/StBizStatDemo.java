@@ -42,7 +42,10 @@ public class StBizStatDemo {
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
 
-        checkMaDemo(date, true);//    检查均线
+        List<Integer> maList = new ArrayList<>();
+        maList.add(MA_30);
+        maList.add(MA_60);
+        checkMaDemo(date, true, maList);//    检查均线
 //        checkMaDemo(date, false);//    检查均线
 
 
@@ -69,22 +72,19 @@ public class StBizStatDemo {
 
     /**
      * 检查均线
-     *
-     * @param date
+     *  @param date
      * @param isUp
+     * @param maList
      */
-    private static void checkMaDemo(String date, boolean isUp) {
+    private static void checkMaDemo(String date, boolean isUp, List<Integer> maList) {
         Map<String, String> etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
 //        List<RankBizDataDiff> rankEtf = listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//
 //        for (RankBizDataDiff etf : rankEtf) {
 //            etfBizMap.put(etf.getF12(), etf.getF14());
 //        }
-        List<Integer> maList = new ArrayList<>();
-        maList.add(MA_30);
-        maList.add(MA_60);
+
         KlineService.checkMa(etfBizMap, KLT_15, maList, date, isUp);// 检查均线
     }
-
 
 
     /**

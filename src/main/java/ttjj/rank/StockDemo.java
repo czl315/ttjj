@@ -43,13 +43,8 @@ public class StockDemo {
             addTodayStCom(date, startNum);
 
             Map<String, Boolean> maUpdateMap = new HashMap<>();
-            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_5, true);
-            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_10, true);
-            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_20, true);
-            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_30, true);
-            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_60, true);
-            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_120, true);
-            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_250, true);
+            setMaMapType(MA_TYPE_DAY, maUpdateMap);
+            setMaMapType(MA_TYPE_MINUTE15, maUpdateMap);
 
 //            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_5, true);
 //            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_10, true);
@@ -65,13 +60,7 @@ public class StockDemo {
 //            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_60, true);
 //            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_120, true);
 //            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_250, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_5, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_10, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_20, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_30, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_60, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_120, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_250, true);
+
 //            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_5, true);
 //            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_10, true);
 //            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_20, true);
@@ -173,6 +162,33 @@ public class StockDemo {
 //        findListTongJj("2021-07-01","2021-07-31");//查询-统计数据
 //        findListTongJj("2021-08-01","2021-08-31");//查询-统计数据
 //        findListTongJj("2021-09-01","2021-09-31");//查询-统计数据
+    }
+
+    /**
+     * 设值-均线类型
+     *
+     * @param maTypeDay
+     * @param maUpdateMap
+     */
+    private static void setMaMapType(String maTypeDay, Map<String, Boolean> maUpdateMap) {
+        if (maTypeDay.equals(MA_TYPE_DAY)) {
+            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_5, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_10, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_20, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_30, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_60, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_120, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_250, true);
+        }
+        if (maTypeDay.equals(MA_TYPE_MINUTE15)) {
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_5, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_10, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_20, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_30, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_60, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_120, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_250, true);
+        }
     }
 
     /**
@@ -1339,8 +1355,8 @@ public class StockDemo {
 //        System.out.println(rs);//返回结果
         JSONObject rsJsonObj = JSONObject.parseObject(rs);
         for (int i = 0; i < 10; i++) {
-            if(rsJsonObj==null || !rsJsonObj.containsKey("data")){
-                System.out.println("查询数据异常，重新查询"+JSON.toJSONString(rsJsonObj));
+            if (rsJsonObj == null || !rsJsonObj.containsKey("data")) {
+                System.out.println("查询数据异常，重新查询" + JSON.toJSONString(rsJsonObj));
                 rs = HttpUtil.sendGet(url, urlParam.toString(), "");
                 rsJsonObj = JSONObject.parseObject(rs);
             } else {

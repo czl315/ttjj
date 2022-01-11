@@ -413,6 +413,16 @@ public class Content {
     public static String MA_UPDATE_FLAG_MONTH_1_60 = "maMonth1Type60";
     public static String MA_UPDATE_FLAG_MONTH_1_120 = "maMonth1Type120";
     public static String MA_UPDATE_FLAG_MONTH_1_250 = "maMonth1Type250";
+    public static String MA_TYPE_MINUTE1 = "MA_TYPE_MINUTE1";
+    public static String MA_TYPE_MINUTE5 = "MA_TYPE_MINUTE5";
+    public static String MA_TYPE_MINUTE15 = "MA_TYPE_MINUTE15";
+    public static String MA_TYPE_MINUTE30 = "MA_TYPE_MINUTE30";
+    public static String MA_TYPE_MINUTE60 = "MA_TYPE_MINUTE60";
+    public static String MA_TYPE_MINUTE120 = "MA_TYPE_MINUTE120";
+    public static String MA_TYPE_MINUTE250 = "MA_TYPE_MINUTE250";
+    public static String MA_TYPE_DAY = "MA_TYPE_DAY";
+    public static String MA_TYPE_WEEK = "MA_TYPE_WEEK";
+    public static String MA_TYPE_MONTH = "MA_TYPE_MONTH";
 
     public static  String SHANG_HAI = "1.000001";
     public static  String SHEN_ZHEN = "0.399001";

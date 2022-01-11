@@ -12,6 +12,24 @@ import java.util.Set;
  */
 public class ContentBkStock {
     /**
+     * 金融-银行
+     */
+    public static Map<String, String> mapYinHang = new HashMap<>();
+    static {
+        mapYinHang.put("600036", "招商银行");//600036	招商银行	银行
+        mapYinHang.put("601838", "成都银行");//601838	成都银行	银行
+        mapYinHang.put("002142", "宁波银行");//002142	宁波银行	银行
+        mapYinHang.put("601528", "瑞丰银行");//601528	瑞丰银行	银行
+        mapYinHang.put("601166", "兴业银行");//601166	兴业银行	银行
+    }
+    /**
+     * 金融-房地产服务
+     */
+    public static Map<String, String> mapFangDiChanFuWu = new HashMap<>();
+    static {
+        mapFangDiChanFuWu.put("001914", "招商积余");
+    }
+    /**
      * 酿酒行业
      */
     public static Map<String, String> mapNiangJiuHangYe = new HashMap<>();
@@ -85,13 +103,6 @@ public class ContentBkStock {
         mapShengWuZhiPin.put("000661", "长春高新");//000661	长春高新	生物制品
     }
 
-    /**
-     * 房地产服务
-     */
-    public static Map<String, String> mapFangDiChanFuWu = new HashMap<>();
-    static {
-        mapFangDiChanFuWu.put("001914", "招商积余");
-    }
     /**
      * 工程建设
      */
