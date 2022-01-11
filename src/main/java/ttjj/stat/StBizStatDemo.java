@@ -46,7 +46,7 @@ public class StBizStatDemo {
         maList.add(MA_30);
         maList.add(MA_60);
         checkMaDemo(date, true, maList);//    检查均线
-//        checkMaDemo(date, false);//    检查均线
+//        checkMaDemo(date, false,maList);//    检查均线
 
 
 //        /**

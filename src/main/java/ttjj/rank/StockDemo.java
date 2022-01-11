@@ -44,63 +44,19 @@ public class StockDemo {
 
             Map<String, Boolean> maUpdateMap = new HashMap<>();
             setMaMapType(MA_TYPE_DAY, maUpdateMap);
+            setMaMapType(MA_TYPE_MINUTE5, maUpdateMap);
             setMaMapType(MA_TYPE_MINUTE15, maUpdateMap);
+            setMaMapType(MA_TYPE_MINUTE30, maUpdateMap);
+            setMaMapType(MA_TYPE_MINUTE60, maUpdateMap);
+            setMaMapType(MA_TYPE_MINUTE120, maUpdateMap);
+            setMaMapType(MA_TYPE_MINUTE250, maUpdateMap);
+            setMaMapType(MA_TYPE_WEEK, maUpdateMap);
+            setMaMapType(MA_TYPE_MONTH, maUpdateMap);
+            updateNetToday(date, startNum, maUpdateMap, isReport);//  更新净值
 
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_5, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_10, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_20, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_30, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_60, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_120, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_250, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_5, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_10, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_20, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_30, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_60, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_120, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_250, true);
-
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_5, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_10, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_20, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_30, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_60, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_120, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_250, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_60_5, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_60_10, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_60_20, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_60_30, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_60_60, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_60_120, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_60_250, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_120_5, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_120_10, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_120_20, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_120_30, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_120_60, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_120_120, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_120_250, true);
-
-//            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_5, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_10, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_20, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_30, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_60, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_120, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_250, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MONTH_1_5, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MONTH_1_10, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MONTH_1_20, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MONTH_1_30, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MONTH_1_60, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MONTH_1_120, true);
-//            maUpdateMap.put(MA_UPDATE_FLAG_MONTH_1_250, true);
 //            updateNetToday(date, startNum, true, false, false, false, false, false, false, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, false, true, false, true, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, true, true, true, true,maUpdateMap, isReport);//  更新净值
-            updateNetToday(date, startNum, maUpdateMap, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, true, true, false, true,maUpdateMap, isReport);//  更新净值
 //            updateFundFlow(date, startNum);//更新当日资金流信息
 //            updateConception(date, startNum);//更新题材概念
@@ -180,6 +136,25 @@ public class StockDemo {
             maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_120, true);
             maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_250, true);
         }
+
+        if (maTypeDay.equals(MA_TYPE_MINUTE1)) {
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_5, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_10, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_20, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_30, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_60, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_120, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_1_250, true);
+        }
+        if (maTypeDay.equals(MA_TYPE_MINUTE5)) {
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_5, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_10, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_20, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_30, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_60, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_120, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_5_250, true);
+        }
         if (maTypeDay.equals(MA_TYPE_MINUTE15)) {
             maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_5, true);
             maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_10, true);
@@ -188,6 +163,52 @@ public class StockDemo {
             maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_60, true);
             maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_120, true);
             maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_15_250, true);
+        }
+        if (maTypeDay.equals(MA_TYPE_MINUTE30)) {
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_5, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_10, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_20, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_30, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_60, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_120, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_30_250, true);
+        }
+
+        if (maTypeDay.equals(MA_TYPE_MINUTE60)) {
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_60_5, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_60_10, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_60_20, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_60_30, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_60_60, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_60_120, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_60_250, true);
+        }
+        if (maTypeDay.equals(MA_TYPE_MINUTE120)) {
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_120_5, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_120_10, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_120_20, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_120_30, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_120_60, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_120_120, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_120_250, true);
+        }
+        if (maTypeDay.equals(MA_TYPE_WEEK)) {
+            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_5, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_10, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_20, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_30, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_60, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_120, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_250, true);
+        }
+        if (maTypeDay.equals(MA_TYPE_MONTH)) {
+            maUpdateMap.put(MA_UPDATE_FLAG_MONTH_1_5, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MONTH_1_10, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MONTH_1_20, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MONTH_1_30, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MONTH_1_60, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MONTH_1_120, true);
+            maUpdateMap.put(MA_UPDATE_FLAG_MONTH_1_250, true);
         }
     }
 
