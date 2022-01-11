@@ -970,7 +970,7 @@ public class StockStatDemo {
                 String zqmc = entity.getF14();
 
                 //检查股票:状态、是否主板股票、市值限定
-                if (!checkIsMainStock(entity, limitMarketValue)) {
+                if (!checkIsMainStockLimit(entity, limitMarketValue)) {
                     continue;
                 }
 
@@ -992,7 +992,7 @@ public class StockStatDemo {
      * @param limitMarketValue
      * @return
      */
-    private static boolean checkIsMainStock(RankStockCommpanyDb entity, BigDecimal limitMarketValue) {
+    private static boolean checkIsMainStockLimit(RankStockCommpanyDb entity, BigDecimal limitMarketValue) {
         String zqdm = entity.getF12();
         String zqmc = entity.getF14();
         if (entity == null) {
