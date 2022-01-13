@@ -12,6 +12,16 @@ import java.util.Set;
  */
 public class ContentBkStock {
     /**
+     * 贵金属-
+     */
+    public static Map<String, String> mapZhouQiGuiJinShu = new HashMap<>();
+    static {
+        mapZhouQiGuiJinShu.put("601899", "");//601899	紫金矿业	贵金属
+        mapZhouQiGuiJinShu.put("000975", "");//000975	银泰黄金	贵金属
+        mapZhouQiGuiJinShu.put("002155", "");//002155	湖南黄金	贵金属
+    }
+
+    /**
      * 新能源-能源金属
      */
     public static Map<String, String> mapXnyNengYuanJinShu = new HashMap<>();
@@ -59,6 +69,18 @@ public class ContentBkStock {
     public static Map<String, String> mapFangDiChanFuWu = new HashMap<>();
     static {
         mapFangDiChanFuWu.put("001914", "招商积余");
+    }
+    /**
+     * 金融-房地产开发
+     */
+    public static Map<String, String> mapJrFangDiChanKaiFa = new HashMap<>();
+    static {
+        mapJrFangDiChanKaiFa.put("600048", "");//600048	保利发展	房地产开发
+        mapJrFangDiChanKaiFa.put("000069", "");//000069	华侨城Ａ	房地产开发
+        mapJrFangDiChanKaiFa.put("", "");//600773	西藏城投	房地产开发
+        mapJrFangDiChanKaiFa.put("", "");//000537	广宇发展	房地产开发
+        mapJrFangDiChanKaiFa.put("", "");//600641	万业企业	房地产开发
+        mapJrFangDiChanKaiFa.put("", "");//000031	大悦城	    房地产开发
     }
 
     /**

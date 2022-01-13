@@ -58,6 +58,7 @@ public class ContentEtf {
         mapEtfBiz.put("515220", "煤炭ETF");//515220	煤炭ETF	31.86
         mapEtfBiz.put("516110", "汽车ETF");//汽车ETF	516110	2.23
         mapEtfBiz.put("159766", "旅游ETF");//旅游ETF	159766	2.29
+        mapEtfBiz.put("159851", "金融科技ETF");//金融科技ETF	159851	0.99
     }
 
     /**
