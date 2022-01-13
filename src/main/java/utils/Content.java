@@ -179,6 +179,10 @@ public class Content {
      */
     public static String DB_RANK_BIZ_TYPE_ETF = "etf";
     /**
+     * DB_RANK_BIZ_TYPE_LOF
+     */
+    public static String DB_RANK_BIZ_TYPE_LOF = "LOF";
+    /**
      * DB_RANK_BIZ_F12_BAN_KUAI f13类型-板块
      */
     public static long DB_RANK_BIZ_F12_BAN_KUAI = 90;

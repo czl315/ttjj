@@ -3,6 +3,7 @@ package ttjj.rank;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.BizRankDao;
 import ttjj.dto.Kline;
@@ -27,12 +28,15 @@ import static utils.Content.*;
  */
 public class BizRankDemo {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2021-11-05";
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-01-13";
 
-        insertTodayRank(date,DB_RANK_BIZ_TYPE_HANG_YE);
-        insertTodayRank(date,DB_RANK_BIZ_TYPE_GAI_NIAN);
-        insertTodayRank(date,DB_RANK_BIZ_TYPE_ETF);
-        updateDbTodayEtfMa(date);
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
+        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
+        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
         updateFundFlowBk(date);//更新当日资金流信息-板块
         updateFundFlowGn(date);//更新当日资金流信息-概念
         updateFundFlowEtf(date);////更新当日资金流信息-etf
@@ -75,10 +79,17 @@ public class BizRankDemo {
 
     /**
      * @param date
+     * @param fundType
      */
-    private static void updateDbTodayEtfMa(String date) {
-        List<RankBizDataDiff> rankEtf = listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);
-        for (RankBizDataDiff rankBizDataDiff : rankEtf) {
+    private static void updateDbTodayEtfMa(String date, String fundType) {
+        List<RankBizDataDiff> fundList = new ArrayList<>();
+        if (fundType.equals(DB_RANK_BIZ_TYPE_ETF)) {
+            fundList = listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);
+        }
+        if (fundType.equals(DB_RANK_BIZ_TYPE_LOF)) {
+            fundList = listEtf(date, DB_RANK_BIZ_TYPE_LOF, NUM_MAX_999);
+        }
+        for (RankBizDataDiff rankBizDataDiff : fundList) {
             String klt = KLT_101;
             RankBizDataDiff entity = new RankBizDataDiff();
             String zqdm = rankBizDataDiff.getF12();
@@ -154,12 +165,16 @@ public class BizRankDemo {
         }
 
         if (type.equals(DB_RANK_BIZ_TYPE_ETF)) {
-            List<RankBizDataDiff> rankEtf = listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
+            List<RankBizDataDiff> rankEtf = listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;2022-01-14:614;
             BizRankDao.insertDbBiz(rankEtf);
             System.out.println("etf-保存完成：" + rankEtf.size());
 //            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
         }
-
+        if (type.equals(DB_RANK_BIZ_TYPE_LOF)) {
+            List<RankBizDataDiff> lofList = listEtf(date, DB_RANK_BIZ_TYPE_LOF, NUM_MAX_999);//LOF：158(2022-01-14);
+            BizRankDao.insertDbBiz(lofList);
+            System.out.println("LOF-保存完成：" + lofList.size());
+        }
 
     }
 
@@ -1000,27 +1015,36 @@ public class BizRankDemo {
     /**
      * 列表查询-etf场内
      * //2021-04-16:425;2021-12-06:584;
+     *
      * @param date
      * @param type
      * @param pageSize
      * @return
      */
     public static List<RankBizDataDiff> listEtf(String date, String type, int pageSize) {
-//          http://32.push2.eastmoney.com/api/qt/clist/get?cb=jQuery11240476946102335426_1618637035810&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=b:MK0021,b:MK0022,b:MK0023,b:MK0024&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152&_=1618637035811
+//          http://32.push2.eastmoney.com/api/qt/clist/get?cb=jQuery11240476946102335426_1618637035810  &pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=b:MK0021,b:MK0022,b:MK0023,b:MK0024&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152&_=1618637035811
+        //  http://18.push2.eastmoney.com/api/qt/clist/get?cb=jQuery1124032318726260244324_1642088766312&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=b:MK0021,b:MK0022,b:MK0023,b:MK0024&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152&_=1642088766316
+        //  http://18.push2.eastmoney.com/api/qt/clist/get?cb=jQuery1124032318726260244324_1642088766312&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=b:MK0404,b:MK0405,b:MK0406,b:MK0407&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152&_=1642088766329
         String url = "http://32.push2.eastmoney.com/api/qt/clist/get";
         StringBuffer urlParam = new StringBuffer();
         long curTime = System.currentTimeMillis();
-        urlParam.append("cb=jQuery11240476946102335426_" + curTime +
-                "&pn=1" +//页数
+        urlParam.append("cb=jQuery112403231872626024" + RandomUtils.nextInt(1000, 9999) + "_");
+        urlParam.append(curTime);
+        urlParam.append("&pn=1" +//页数
                 "&pz=" + pageSize +//每页数量
                 "&po=1" +//pageorder:页面排序：0-正序；1-倒序
                 "&np=1" +//是否分页：1-分页
                 "&ut=bd1d9ddb04089700cf9c27f6f7426281" +
                 "&fltt=2" +//浮点数精度
                 "&invt=3" +//显示格式：2-"-"；3-"0.0"
-                "&fid=f3" +//排序字段
-                "&fs=b:MK0021,b:MK0022,b:MK0023,b:MK0024" +
-                "&fields=" +
+                "&fid=f3");//排序字段
+        if (type.equals(DB_RANK_BIZ_TYPE_ETF)) {
+            urlParam.append("&fs=b:MK0021,b:MK0022,b:MK0023,b:MK0024");
+        }
+        if (type.equals(DB_RANK_BIZ_TYPE_LOF)) {
+            urlParam.append("&fs=b:MK0404,b:MK0405,b:MK0406,b:MK0407");
+        }
+        urlParam.append("&fields=" +
                 "f1,f2,f3,f4,f5,f6,f7,f8,f9," +
                 "f10,f11,f12,f13,f14,f15,f16,f17,f18,f19," +
                 "f20,f21,f22,f23,f24,f25,f26,f27,f28,f29," +
@@ -1049,6 +1073,7 @@ public class BizRankDemo {
 //                "f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222" +
 
                 "&_=" + curTime);
+//        System.out.println(urlParam.toString());
         String rs = HttpUtil.sendGet(url, urlParam.toString(), "");
 //        System.out.println(rs);
         if (rs == null) {
