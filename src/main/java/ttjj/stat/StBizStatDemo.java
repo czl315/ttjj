@@ -34,10 +34,10 @@ public class StBizStatDemo {
 
 //        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
-//        int year = 2021;//DateUtil.getCurYear()
-//        int month = 12;//DateUtil.getCurMonth()
-//        int day = 27;//DateUtil.getCurDay()
-//        statEtfAdrDb(etfBizSet, year, month, day, 7);//统计涨跌次数-按照天的维度
+        int year = DateUtil.getCurYear();//DateUtil.getCurYear() 2021
+        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()   12
+        int day = 1;//DateUtil.getCurDay()   27
+        statEtfAdrDb(etfBizSet, year, month, day, 13);//统计涨跌次数-按照天的维度
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
