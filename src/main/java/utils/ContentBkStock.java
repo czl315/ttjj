@@ -12,6 +12,37 @@ import java.util.Set;
  */
 public class ContentBkStock {
     /**
+     * 新能源-能源金属
+     */
+    public static Map<String, String> mapXnyNengYuanJinShu = new HashMap<>();
+    static {
+        mapXnyNengYuanJinShu.put("002466", "");//002466	天齐锂业	能源金属
+        mapXnyNengYuanJinShu.put("600711", "");//600711	盛屯矿业	能源金属
+        mapXnyNengYuanJinShu.put("002240", "");//002240	盛新锂能	能源金属
+        mapXnyNengYuanJinShu.put("603799", "");//603799	华友钴业	能源金属
+    }
+    /**
+     * 新能源-电池
+     */
+    public static Map<String, String> mapXnyDianChi = new HashMap<>();
+    static {
+        mapXnyDianChi.put("002245", "");//002245	蔚蓝锂芯	电池
+        mapXnyDianChi.put("002812", "");//002812	恩捷股份	电池
+        mapXnyDianChi.put("002192", "");//002192	融捷股份	电池
+        mapXnyDianChi.put("000049", "");//000049	德赛电池	电池
+    }
+
+    /**
+     * 能源化工-采掘行业
+     */
+    public static Map<String, String> mapCaiJueHangYe = new HashMap<>();
+    static {
+        mapCaiJueHangYe.put("000762", "");//000762	西藏矿业	采掘行业
+        mapCaiJueHangYe.put("603979", "");//603979	金诚信	采掘行业
+        mapCaiJueHangYe.put("603505", "");//603505	金石资源	采掘行业
+    }
+
+    /**
      * 金融-银行
      */
     public static Map<String, String> mapYinHang = new HashMap<>();
@@ -29,8 +60,18 @@ public class ContentBkStock {
     static {
         mapFangDiChanFuWu.put("001914", "招商积余");
     }
+
     /**
-     * 酿酒行业
+     * 消费-旅游酒店
+     */
+    public static Map<String, String> mapXiaoFeiLvYouJiuDian = new HashMap<>();
+    static {
+        mapXiaoFeiLvYouJiuDian.put("600754", "");//600754	锦江酒店	旅游酒店
+        mapXiaoFeiLvYouJiuDian.put("600258", "");//600258	首旅酒店	旅游酒店
+        mapXiaoFeiLvYouJiuDian.put("601888", "");//601888	中国中免	旅游酒店
+    }
+    /**
+     * 消费-酿酒行业
      */
     public static Map<String, String> mapNiangJiuHangYe = new HashMap<>();
     static {
@@ -41,7 +82,7 @@ public class ContentBkStock {
     }
 
     /**
-     * 中药
+     * 医药-中药
      */
     public static Map<String, String> mapZhongYao = new HashMap<>();
     static {
@@ -55,7 +96,7 @@ public class ContentBkStock {
     }
 
     /**
-     * 光伏设备
+     * 电力-光伏设备
      */
     public static Map<String, String> mapGuangFu = new HashMap<>();
     static {
@@ -63,9 +104,8 @@ public class ContentBkStock {
         mapGuangFu.put("603806", "福斯特");
         mapGuangFu.put("002617", "露笑科技");
     }
-
     /**
-     * 风电设备
+     * 电力-风电设备
      */
     public static Map<String, String> mapFengDianSheBei = new HashMap<>();
     static {
@@ -73,15 +113,30 @@ public class ContentBkStock {
         mapFengDianSheBei.put("601615", "明阳智能");
         mapFengDianSheBei.put("603218", "日月股份");
     }
-
     /**
-     * 电力行业
+     * 电力-电力行业
      */
     public static Map<String, String> mapDianLiHangYe = new HashMap<>();
     static {
         mapDianLiHangYe.put("000155", "川能动力");
         mapDianLiHangYe.put("600032", "浙江新能");
         mapDianLiHangYe.put("600483", "福能股份");
+    }
+    /**
+     * 电力-电网设备
+     */
+    public static Map<String, String> mapDianWangSheBei = new HashMap<>();
+    static {
+        mapDianWangSheBei.put("603606", "");//603606	东方电缆	电网设备
+        mapDianWangSheBei.put("000400", "");//000400	许继电气	电网设备
+        mapDianWangSheBei.put("601877", "");//601877	正泰电器	电网设备
+        mapDianWangSheBei.put("601567", "");//601567	三星医疗	电网设备
+        mapDianWangSheBei.put("600885", "");//600885	宏发股份	电网设备
+        mapDianWangSheBei.put("601126", "");//601126	四方股份	电网设备
+        mapDianWangSheBei.put("605222", "");//605222	起帆电缆	电网设备
+        mapDianWangSheBei.put("600517", "");//600517	国网英大	电网设备
+        mapDianWangSheBei.put("600312", "");//600312	平高电气	电网设备
+        mapDianWangSheBei.put("600550", "");//600550	保变电气	电网设备
     }
 
     /**

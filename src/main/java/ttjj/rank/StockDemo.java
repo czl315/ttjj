@@ -44,20 +44,21 @@ public class StockDemo {
 
             Map<String, Boolean> maUpdateMap = new HashMap<>();
             setMaMapType(MA_TYPE_DAY, maUpdateMap);
-            setMaMapType(MA_TYPE_MINUTE5, maUpdateMap);
             setMaMapType(MA_TYPE_MINUTE15, maUpdateMap);
-            setMaMapType(MA_TYPE_MINUTE30, maUpdateMap);
-            setMaMapType(MA_TYPE_MINUTE60, maUpdateMap);
-            setMaMapType(MA_TYPE_MINUTE120, maUpdateMap);
-            setMaMapType(MA_TYPE_MINUTE250, maUpdateMap);
-            setMaMapType(MA_TYPE_WEEK, maUpdateMap);
-            setMaMapType(MA_TYPE_MONTH, maUpdateMap);
+//            setMaMapType(MA_TYPE_MINUTE5, maUpdateMap);
+//            setMaMapType(MA_TYPE_MINUTE30, maUpdateMap);
+//            setMaMapType(MA_TYPE_MINUTE60, maUpdateMap);
+//            setMaMapType(MA_TYPE_MINUTE120, maUpdateMap);
+//            setMaMapType(MA_TYPE_MINUTE250, maUpdateMap);
+//            setMaMapType(MA_TYPE_WEEK, maUpdateMap);
+//            setMaMapType(MA_TYPE_MONTH, maUpdateMap);
             updateNetToday(date, startNum, maUpdateMap, isReport);//  更新净值
 
 //            updateNetToday(date, startNum, true, false, false, false, false, false, false, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, false, true, false, true, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, true, true, true, true,maUpdateMap, isReport);//  更新净值
 //            updateNetToday(date, startNum, true, true, true, true, true, false, true,maUpdateMap, isReport);//  更新净值
+
 //            updateFundFlow(date, startNum);//更新当日资金流信息
 //            updateConception(date, startNum);//更新题材概念
 
