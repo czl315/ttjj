@@ -38,24 +38,24 @@ public class StockDemo {
             int startNum = 0;//开始位置，默认0
 
 //            deleteTodayStCom();//删除数据-今日
+            addTodayStCom(date, startNum);//  添加或更新股票-根据日期
+//            updateTodayStCom(date, startNum);//更新股票
 
-//            addTodayStCom(date, startNum);//  添加或更新股票-根据日期
-            updateTodayStCom(date, startNum);//更新股票
-
+            BigDecimal limitMarketValue = new BigDecimal("100000000").multiply(new BigDecimal("50"));
             Map<String, Boolean> maUpdateMap = new HashMap<>();
             setMaMapType(MA_TYPE_DAY, maUpdateMap);
             setMaMapType(MA_TYPE_MINUTE15, maUpdateMap);
-//            setMaMapType(MA_TYPE_MINUTE5, maUpdateMap);
-//            setMaMapType(MA_TYPE_MINUTE30, maUpdateMap);
-//            setMaMapType(MA_TYPE_MINUTE60, maUpdateMap);
-//            setMaMapType(MA_TYPE_MINUTE120, maUpdateMap);
-//            setMaMapType(MA_TYPE_MINUTE250, maUpdateMap);
-//            setMaMapType(MA_TYPE_WEEK, maUpdateMap);
-//            setMaMapType(MA_TYPE_MONTH, maUpdateMap);
-//            updateNetToday(date, startNum, maUpdateMap, isReport);//  更新净值
+            setMaMapType(MA_TYPE_MINUTE5, maUpdateMap);
+            setMaMapType(MA_TYPE_MINUTE30, maUpdateMap);
+            setMaMapType(MA_TYPE_MINUTE60, maUpdateMap);
+            setMaMapType(MA_TYPE_MINUTE120, maUpdateMap);
+            setMaMapType(MA_TYPE_MINUTE250, maUpdateMap);
+            setMaMapType(MA_TYPE_WEEK, maUpdateMap);
+            setMaMapType(MA_TYPE_MONTH, maUpdateMap);
+            updateNetToday(date, startNum, maUpdateMap, isReport,limitMarketValue);//  更新净值
 
+            updateConception(date, startNum);//更新题材概念
 //            updateFundFlow(date, startNum);//更新当日资金流信息
-//            updateConception(date, startNum);//更新题材概念
 
 
 //            //查询业绩报表
@@ -879,7 +879,7 @@ public class StockDemo {
      * @param startNum
      * @param isReport
      */
-    private static void updateNetToday(String date, int startNum, Map<String, Boolean> maUpdateMap, boolean isReport) {
+    private static void updateNetToday(String date, int startNum, Map<String, Boolean> maUpdateMap, boolean isReport,BigDecimal limitMarketValue) {
         List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题排名by时间类型、显示个数
         int bizCountLimit = NUM_MAX_999;
         int bizCountTemp = 0;
@@ -917,7 +917,6 @@ public class StockDemo {
                 entity.setDate(date);
                 String stCode = entity.getF12();
                 //检查股票:状态、是否主板股票、市值限定
-                BigDecimal limitMarketValue = new BigDecimal("10000000000");
                 if (!StockService.checkIsMainStockLimit(entity, limitMarketValue)) {
                     continue;
                 }
@@ -943,12 +942,12 @@ public class StockDemo {
                         flowRate = flowIn.divide(marketValue, 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100"));
                     }
 
-                    System.out.println("主板价格更新---------------------"
-                                    + "\t" + "rs:" + rs
+                    System.out.println("rs:" + rs
                                     + "\t" + entity.getF12() + ":" + entity.getF14() + "\t" + ":" + entity.getF3() + ""
                                     + "\t" + "价格区间:" + maSb.toString()
                                     + "\t" + "主力-净流入:" + flowIn
                                     + "\t" + "流入市值比：:" + flowRate
+                                    + "\t" + "市值：:" + marketValue
 //                            + ",rs:" + rs + JSON.toJSONString(entity)
                     );
 

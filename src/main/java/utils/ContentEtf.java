@@ -31,12 +31,12 @@ public class ContentEtf {
         mapEtfBiz.put("159883", "医疗器械ETF");//159883	医疗器械ETF	7.36
 
         mapEtfBiz.put("159996", "家电ETF");//159996   家电ETF		10.03
-        mapEtfBiz.put("512980", "传媒ETF");//512980	传媒ETF	52.66
         mapEtfBiz.put("512690", "酒ETF");//512690	酒ETF	73.21
         mapEtfBiz.put("515170", "食品饮料ETF");//515170	食品饮料ETF	35.21
         mapEtfBiz.put("159928", "消费ETF");//159928	    消费ETF	103.70
         mapEtfBiz.put("159766", "旅游ETF");//159766   旅游ETF		2.29
-        mapEtfBiz.put("159869", "游戏ETF");//159869	游戏ETF	4.21
+        mapEtfBiz.put("512980", "传媒ETF");//512980	传媒ETF	52.66
+//        mapEtfBiz.put("159869", "游戏ETF");//159869	游戏ETF	4.21
 
         mapEtfBiz.put("512800", "银行ETF");//512800	银行ETF	91.44   515290	银行ETF天弘	81.57
         mapEtfBiz.put("512880", "证券ETF");//512880	证券ETF	353.10      512000	券商ETF	237.31      512900	证券ETF基金	88.41

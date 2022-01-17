@@ -56,7 +56,7 @@ public class StockService {
             return false;
         }
         //  市值限定,100亿以下不更新
-        if (entity.getF20() != null && entity.getF20().compareTo(new BigDecimal("10000000000")) < 0) {
+        if (entity.getF20() != null && entity.getF20().compareTo(limitMarketValue) < 0) {
 //                    System.out.println("均线价格暂不更新（100亿以下）！" + JSON.toJSONString(entity));
             return false;
         }
