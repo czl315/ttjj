@@ -32,12 +32,12 @@ public class StBizStatDemo {
 
         Set<String> etfBizSet = ContentEtf.mapEtfAll.keySet();//全部场内etf：板块、指数   mapEtfAll   mapEtfBiz   mapEtfIndex
 
-//        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
+//        listEtfBizDb(etfBizSet, 1, true, true);//列表查询-行业etf-排序：涨跌幅
 
-        int year = DateUtil.getCurYear();//DateUtil.getCurYear() 2021
-        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()   12
-        int day = 1;//DateUtil.getCurDay()   27
-        statEtfAdrDb(etfBizSet, year, month, day, 13);//统计涨跌次数-按照天的维度
+//        int year = DateUtil.getCurYear();//DateUtil.getCurYear() 2021
+//        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()   12
+//        int day = 1;//DateUtil.getCurDay()   27
+//        statEtfAdrDb(etfBizSet, year, month, day, 13);//统计涨跌次数-按照天的维度
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
@@ -45,11 +45,11 @@ public class StBizStatDemo {
         List<Integer> maList = new ArrayList<>();
         maList.add(MA_30);
         maList.add(MA_60);
-        checkMaDemo(date, true, maList,KLT_15);//    检查均线:买入信号   KLT_15
+        checkMaDemo(date, true, maList,KLT_30);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
 //        checkMaDemo(date, false, maList, KLT_15);//    检查均线:卖出信号
 
 
-//        /**
+//        /**Es
 //         * 更新均值
 //         */
 //        List<RankBizDataDiff> bizList = listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询主题排名by时间类型、显示个数

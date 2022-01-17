@@ -12,6 +12,62 @@ import java.util.Set;
  */
 public class ContentBkStock {
     /**
+     * 医药-医疗器械
+     */
+    public static Map<String, String> mapYyYiLiaoQiXie = new HashMap<>();
+    static {
+        mapYyYiLiaoQiXie.put("002432", "");//002432	九安医疗	医疗器械
+        mapYyYiLiaoQiXie.put("603392", "");//603392	万泰生物	医疗器械
+        mapYyYiLiaoQiXie.put("600055", "");//600055	万东医疗	医疗器械
+        mapYyYiLiaoQiXie.put("002030", "");//002030	达安基因	医疗器械
+        mapYyYiLiaoQiXie.put("002223", "");//002223	鱼跃医疗	医疗器械
+        mapYyYiLiaoQiXie.put("605369", "");//605369	拱东医疗	医疗器械
+    }
+    /**
+     * 医药-生物制品
+     */
+    public static Map<String, String> mapYyShengWuZhiPin = new HashMap<>();
+    static {
+        mapYyShengWuZhiPin.put("002581", "");//002581	未名医药	生物制品
+        mapYyShengWuZhiPin.put("002038", "");//002038	双鹭药业	生物制品
+        mapYyShengWuZhiPin.put("600161", "");//600161	天坛生物	生物制品
+        mapYyShengWuZhiPin.put("000661", "");//000661	长春高新	生物制品
+        mapYyShengWuZhiPin.put("", "");//
+        mapYyShengWuZhiPin.put("", "");//
+    }
+    /**
+     * 医药-中药
+     */
+    public static Map<String, String> mapZhongYao = new HashMap<>();
+    static {
+        mapZhongYao.put("600771", "广誉远");//广誉远	600771
+        mapZhongYao.put("600566", "济川药业");
+        mapZhongYao.put("600993", "马应龙");
+        mapZhongYao.put("600329", "中新药业");
+        mapZhongYao.put("000650", "仁和药业");
+        mapZhongYao.put("000423", "东阿阿胶");
+        mapZhongYao.put("600085", "同仁堂");
+    }
+    /**
+     * 医药-化学制药
+     */
+    public static Map<String, String> getMapYyHuaXueZhiYao = new HashMap<>();
+    static {
+        getMapYyHuaXueZhiYao.put("", "");//
+    }
+    /**
+     * mapYy 医药
+     */
+    public static Map<String, String> mapYy = new HashMap<>();
+    static {
+        mapYy.putAll(mapYyYiLiaoQiXie);//医药-医疗器械
+        mapYy.putAll(mapYyShengWuZhiPin);//医药-生物制品
+        mapYy.putAll(mapZhongYao);//医药-中药
+        mapYy.putAll(getMapYyHuaXueZhiYao);//医药-化学制药
+    }
+
+
+    /**
      * 贵金属-
      */
     public static Map<String, String> mapZhouQiGuiJinShu = new HashMap<>();
@@ -103,19 +159,7 @@ public class ContentBkStock {
         mapNiangJiuHangYe.put("603589", "");//603589	口子窖	酿酒行业
     }
 
-    /**
-     * 医药-中药
-     */
-    public static Map<String, String> mapZhongYao = new HashMap<>();
-    static {
-        mapZhongYao.put("600771", "广誉远");//广誉远	600771
-        mapZhongYao.put("600566", "济川药业");
-        mapZhongYao.put("600993", "马应龙");
-        mapZhongYao.put("600329", "中新药业");
-        mapZhongYao.put("000650", "仁和药业");
-        mapZhongYao.put("000423", "东阿阿胶");
-        mapZhongYao.put("600085", "同仁堂");
-    }
+
 
     /**
      * 电力-光伏设备

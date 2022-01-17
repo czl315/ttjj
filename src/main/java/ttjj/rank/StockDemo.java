@@ -37,10 +37,10 @@ public class StockDemo {
 
             int startNum = 0;//开始位置，默认0
 
-            deleteTodayStCom();//删除数据-今日
+//            deleteTodayStCom();//删除数据-今日
 
-            //  添加或更新股票-根据日期
-            addTodayStCom(date, startNum);
+//            addTodayStCom(date, startNum);//  添加或更新股票-根据日期
+            updateTodayStCom(date, startNum);//更新股票
 
             Map<String, Boolean> maUpdateMap = new HashMap<>();
             setMaMapType(MA_TYPE_DAY, maUpdateMap);
@@ -52,12 +52,7 @@ public class StockDemo {
 //            setMaMapType(MA_TYPE_MINUTE250, maUpdateMap);
 //            setMaMapType(MA_TYPE_WEEK, maUpdateMap);
 //            setMaMapType(MA_TYPE_MONTH, maUpdateMap);
-            updateNetToday(date, startNum, maUpdateMap, isReport);//  更新净值
-
-//            updateNetToday(date, startNum, true, false, false, false, false, false, false, isReport);//  更新净值
-//            updateNetToday(date, startNum, true, true, true, false, true, false, true, isReport);//  更新净值
-//            updateNetToday(date, startNum, true, true, true, true, true, true, true,maUpdateMap, isReport);//  更新净值
-//            updateNetToday(date, startNum, true, true, true, true, true, false, true,maUpdateMap, isReport);//  更新净值
+//            updateNetToday(date, startNum, maUpdateMap, isReport);//  更新净值
 
 //            updateFundFlow(date, startNum);//更新当日资金流信息
 //            updateConception(date, startNum);//更新题材概念
@@ -119,6 +114,49 @@ public class StockDemo {
 //        findListTongJj("2021-07-01","2021-07-31");//查询-统计数据
 //        findListTongJj("2021-08-01","2021-08-31");//查询-统计数据
 //        findListTongJj("2021-09-01","2021-09-31");//查询-统计数据
+    }
+
+    /**
+     * 更新股票：涨幅等
+     * @param date
+     * @param startNum
+     */
+    private static void updateTodayStCom(String date, int startNum) {
+        List<RankBizDataDiff> bkList = listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
+        List<RankBizDataDiff> bkListMust = new ArrayList<>();//查询主题排名by时间类型、显示个数
+        int bizCountLimit = NUM_MAX_999;
+        int bizCountTemp = 0;
+        for (RankBizDataDiff biz : bkList) {
+            bizCountTemp++;
+            if (bizCountTemp < startNum) {
+                System.out.println("已完成:" + biz.getF14() + "," + biz.getF12());
+                continue;//已完成
+            }
+            bkListMust.add(biz);
+            if (bizCountTemp > bizCountLimit) {
+                break;//限定个数中断
+            }
+        }
+        int stBizCountTemp = startNum;
+        for (RankBizDataDiff bk : bkListMust) {
+            String banKuaiCode = bk.getF12();
+            String banKuaiName = bk.getF14();
+            stBizCountTemp++;
+            List<RankStockCommpanyDb> stockList = listRankStockByBiz(NUM_MAX_999, banKuaiCode);
+//            System.out.println();
+            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName + "---[" + bk.getF3() + "]---" + stockList.size());
+//            System.out.println();
+
+            for (RankStockCommpanyDb stockInfo : stockList) {
+                stockInfo.setDate(date);
+
+                int rsUpdate = RankStockCommpanyDao.updateByCode(stockInfo);
+
+                System.out.println("rsUpdate:" + rsUpdate);
+            }
+        }
+
+
     }
 
     /**
