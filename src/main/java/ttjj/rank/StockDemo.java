@@ -45,16 +45,16 @@ public class StockDemo {
             Map<String, Boolean> maUpdateMap = new HashMap<>();
             setMaMapType(MA_TYPE_DAY, maUpdateMap);
             setMaMapType(MA_TYPE_MINUTE15, maUpdateMap);
-            setMaMapType(MA_TYPE_MINUTE5, maUpdateMap);
-            setMaMapType(MA_TYPE_MINUTE30, maUpdateMap);
-            setMaMapType(MA_TYPE_MINUTE60, maUpdateMap);
-            setMaMapType(MA_TYPE_MINUTE120, maUpdateMap);
-            setMaMapType(MA_TYPE_MINUTE250, maUpdateMap);
-            setMaMapType(MA_TYPE_WEEK, maUpdateMap);
-            setMaMapType(MA_TYPE_MONTH, maUpdateMap);
+//            setMaMapType(MA_TYPE_MINUTE5, maUpdateMap);
+//            setMaMapType(MA_TYPE_MINUTE30, maUpdateMap);
+//            setMaMapType(MA_TYPE_MINUTE60, maUpdateMap);
+//            setMaMapType(MA_TYPE_MINUTE120, maUpdateMap);
+//            setMaMapType(MA_TYPE_MINUTE250, maUpdateMap);
+//            setMaMapType(MA_TYPE_WEEK, maUpdateMap);
+//            setMaMapType(MA_TYPE_MONTH, maUpdateMap);
             updateNetToday(date, startNum, maUpdateMap, isReport,limitMarketValue);//  更新净值
 
-            updateConception(date, startNum);//更新题材概念
+//            updateConception(date, startNum);//更新题材概念
 //            updateFundFlow(date, startNum);//更新当日资金流信息
 
 
