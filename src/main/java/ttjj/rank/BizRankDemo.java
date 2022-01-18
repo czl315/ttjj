@@ -12,7 +12,6 @@ import ttjj.dto.StatEtfUpDown;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
 import utils.Content;
-import utils.ContentEtf;
 import utils.DateUtil;
 import utils.HttpUtil;
 
@@ -31,6 +30,8 @@ public class BizRankDemo {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-01-13";
 
+//        deleteTodayBiz();//删除数据-今日
+
         insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
         insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
         insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
@@ -40,21 +41,6 @@ public class BizRankDemo {
         updateFundFlowBk(date);//更新当日资金流信息-板块
         updateFundFlowGn(date);//更新当日资金流信息-概念
         updateFundFlowEtf(date);////更新当日资金流信息-etf
-
-//        Set<String> etfBizSet = ContentEtf.mapEtfBiz.keySet();//板块行业
-        Set<String> etfBizSet = ContentEtf.mapEtfAll.keySet();//全部场内etf：板块、指数
-////        Set<String> etfBizSet = ContentEtf.mapEtfIndex.keySet();//指数
-
-//        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
-
-//        int year = DateUtil.getCurYear();//2021法0
-//        int month = DateUtil.getCurMonth();//
-//        int day = 16;//DateUtil.getCurDay()
-//        statEtfAdrDb(etfBizSet, year, month, day, 7);//统计涨跌次数-按照天的维度
-
-        //        //检查资金流向-etf
-//        checkFundFlowByEtf(date);
-
 
 //        /**
 //         * 更新均值
@@ -75,6 +61,15 @@ public class BizRankDemo {
 //        String begDate = "2018-01-01";//查询新增交易的开始时间
 //        String endDate = "2018-12-31";
 //        insertHisDbBanKuai(begDate, endDate);//新增历史数据
+    }
+
+    /**
+     * 删除数据-今日
+     */
+    private static void deleteTodayBiz() {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        int rs = BizRankDao.deleteByDate(date);
+        System.out.println("日期：" + date + "，删除结果：" + rs);
     }
 
     /**
@@ -138,7 +133,7 @@ public class BizRankDemo {
             entity.setNET_MIN_CLOS_360(netMap250.get(Content.keyRsNetCloseMin));
             entity.setNET_MAX_CLOS_360(netMap250.get(Content.keyRsNetCloseMax));
             BizRankDao.updateEtfNet(entity);
-            System.out.println("更新-etf净值：" + JSON.toJSONString(entity));
+            System.out.println("更新-etf净值：" + rankBizDataDiff.getF12() + ":" + rankBizDataDiff.getF3() + ":" + rankBizDataDiff.getF223());
         }
     }
 

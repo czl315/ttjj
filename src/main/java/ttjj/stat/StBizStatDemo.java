@@ -37,7 +37,7 @@ public class StBizStatDemo {
 //        int year = DateUtil.getCurYear();//DateUtil.getCurYear() 2021
 //        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()   12
 //        int day = 1;//DateUtil.getCurDay()   27
-//        statEtfAdrDb(etfBizSet, year, month, day, 13);//统计涨跌次数-按照天的维度
+//        statEtfAdrDb(etfBizSet, year, month, day, 18);//统计涨跌次数-按照天的维度
 
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
@@ -45,7 +45,7 @@ public class StBizStatDemo {
         List<Integer> maList = new ArrayList<>();
         maList.add(MA_30);
         maList.add(MA_60);
-//        checkMaDemo(date, true, maList,KLT_30);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        checkMaDemo(date, true, maList,KLT_30);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
 //        checkMaDemo(date, false, maList, KLT_15);//    检查均线:卖出信号
 
 //        showGianNian(date);

@@ -499,7 +499,7 @@ public interface RankStockCommpanyMapper {
     void updateBizByCode(RankStockCommpanyDb entity);
 
     @Delete({"<script>",
-            "DELETE FROM `rank_st_biz_com` WHERE `date` = #{date} LIMIT 5000 ",
+            "DELETE FROM `rank_st_biz_com` WHERE `date` = #{date} LIMIT 9999 ",
             "</script>"})
     void deleteStComByDate(String date);
 

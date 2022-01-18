@@ -38,8 +38,8 @@ public class StockDemo {
             int startNum = 0;//开始位置，默认0
 
 //            deleteTodayStCom();//删除数据-今日
-            addTodayStCom(date, startNum);//  添加或更新股票-根据日期
-//            updateTodayStCom(date, startNum);//更新股票
+//            addTodayStCom(date, startNum);//  添加或更新股票-根据日期
+            updateTodayStCom(date, startNum);//更新股票
 
             BigDecimal limitMarketValue = new BigDecimal("100000000").multiply(new BigDecimal("50"));
             Map<String, Boolean> maUpdateMap = new HashMap<>();
@@ -152,7 +152,7 @@ public class StockDemo {
 
                 int rsUpdate = RankStockCommpanyDao.updateByCode(stockInfo);
 
-                System.out.println("rsUpdate:" + rsUpdate);
+//                System.out.println("rsUpdate:" + rsUpdate);
             }
         }
 

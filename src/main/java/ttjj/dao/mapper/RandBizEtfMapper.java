@@ -1,5 +1,6 @@
 package ttjj.dao.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -196,5 +197,10 @@ public interface RandBizEtfMapper {
             "where date=#{date} ",
             "</script>"})
     void updateDate(RankBizDataDiff entity);
+
+    @Delete({"<script>",
+            "DELETE FROM `rank_st_biz` WHERE `date` = #{date} LIMIT 9999 ",
+            "</script>"})
+    int deleteByDate(String date);
 
 }
