@@ -133,7 +133,7 @@ public class BizRankDemo {
             entity.setNET_MIN_CLOS_360(netMap250.get(Content.keyRsNetCloseMin));
             entity.setNET_MAX_CLOS_360(netMap250.get(Content.keyRsNetCloseMax));
             BizRankDao.updateEtfNet(entity);
-            System.out.println("更新-etf净值：" + rankBizDataDiff.getF12() + ":" + rankBizDataDiff.getF3() + ":" + rankBizDataDiff.getF223());
+            System.out.println("更新-etf净值：" + rankBizDataDiff.getF3() + ":" + "\t" + rankBizDataDiff.getF223() + ":" + rankBizDataDiff.getF12() + ":" + rankBizDataDiff.getF14());
         }
     }
 
