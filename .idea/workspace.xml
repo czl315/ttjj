@@ -2,16 +2,21 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/src/main/java/ttjj/dao/impl/TradeDaoImpl.java" line="357" />
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/ttjj/rank/history/KlineHistoryTest.java" line="32" />
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java" description="String rs = klineRsStrHttpDfcf(zhiShu, lmt, klt, i..." line="66" />
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/ttjj/rank/StockDemo.java" line="546" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ca85812-23e8-4912-aa72-996e5b64ab48" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/StockTradeMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/StockTradeMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/db/StockTradeDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/db/StockTradeDb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ttjj/doc/统计-涨幅次数.xls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/doc/ttjj.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/doc/ttjj.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/rank/BizRankDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/rank/BizRankDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/stat/StBizStatDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/stat/StBizStatDemo.java" afterDir="false" />
     </list>
     <list id="ed2e1449-ef22-4f61-a315-cbcd50c17e28" name="no Changelist" comment="no Changelist">
-      <change beforePath="$PROJECT_DIR$/target/classes/utils/HttpUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utils/HttpUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/ContentCookie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/ContentCookie.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -27,345 +32,84 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/RandBizEtfMapper.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/StockDemo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="18" selection-start-line="18" selection-end-line="85" selection-end-column="50" />
+            <state relative-caret-position="930">
+              <caret line="51" column="59" lean-forward="true" selection-start-line="51" selection-start-column="59" selection-end-line="51" selection-end-column="59" />
+              <folding>
+                <element signature="method#maBreakUp#0;class#StockDemo#0" />
+                <element signature="method#findListTongJj#0;class#StockDemo#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/StockTradeMapper.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/stat/StBizStatDemo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="26" column="71" selection-start-line="26" selection-start-column="65" selection-end-line="26" selection-end-column="71" />
+            <state relative-caret-position="526">
+              <caret line="88" column="18" lean-forward="true" selection-start-line="88" selection-start-column="18" selection-end-line="88" selection-end-column="18" />
               <folding>
-                <element signature="e#3048#6098#1" />
+                <element signature="method#updateDbTodayEtfMa#0;class#StBizStatDemo#0" />
+                <element signature="method#insertTodayRank#0;class#StBizStatDemo#0" />
+                <element signature="method#listEtfBizDb#0;class#StBizStatDemo#0" />
+                <element signature="method#statEtfAdrDb#0;class#StBizStatDemo#0" />
+                <element signature="method#handlerUpOrDownList#0;class#StBizStatDemo#0" />
+                <element signature="method#handlerEtfName#0;class#StBizStatDemo#0" />
+                <element signature="method#checkFundFlowByEtf#0;class#StBizStatDemo#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/FupanDemo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="44" column="57" lean-forward="true" selection-start-line="44" selection-start-column="57" selection-end-line="44" selection-end-column="57" />
+              <folding>
+                <element signature="method#listMyPosition#0;class#FupanDemo#0" />
+                <element signature="method#handlerFundByTtjj#0;class#FupanDemo#0" />
+                <element signature="method#queryAssetByTtjj#0;class#FupanDemo#0" />
+                <element signature="method#szzsKlineMonth#0;class#FupanDemo#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/utils/ContentCookie.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="421">
-              <caret line="779" column="19" lean-forward="true" selection-start-line="779" selection-start-column="19" selection-end-line="779" selection-end-column="19" />
-              <folding>
-                <element signature="method#handlerBizTp#0;class#StockTradeDemo#0" />
-                <element signature="method#listMyStock#0;class#StockTradeDemo#0" />
-              </folding>
+            <state relative-caret-position="390">
+              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/StockTrade.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="208" column="18" selection-start-line="208" selection-start-column="18" selection-end-line="208" selection-end-column="18" />
-              <folding>
-                <element signature="e#35382#35383#0" expanded="true" />
-                <element signature="e#35409#35410#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/impl/TradeStockDaoImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="52" column="28" selection-start-line="52" selection-start-column="28" selection-end-line="52" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/db/StockTradeDb.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="707">
-              <caret line="170" column="5" lean-forward="true" selection-start-line="170" selection-start-column="5" selection-end-line="170" selection-end-column="5" />
-              <folding>
-                <element signature="e#2217#2218#0" expanded="true" />
-                <element signature="e#2247#2248#0" expanded="true" />
-                <element signature="e#2293#2294#0" expanded="true" />
-                <element signature="e#2331#2332#0" expanded="true" />
-                <element signature="e#2368#2369#0" expanded="true" />
-                <element signature="e#2401#2402#0" expanded="true" />
-                <element signature="e#2453#2454#0" expanded="true" />
-                <element signature="e#2497#2498#0" expanded="true" />
-                <element signature="e#2536#2537#0" expanded="true" />
-                <element signature="e#2571#2572#0" expanded="true" />
-                <element signature="e#2627#2628#0" expanded="true" />
-                <element signature="e#2675#2676#0" expanded="true" />
-                <element signature="e#3040#3041#0" expanded="true" />
-                <element signature="e#3069#3070#0" expanded="true" />
-                <element signature="e#3113#3114#0" expanded="true" />
-                <element signature="e#3149#3150#0" expanded="true" />
-                <element signature="e#3186#3187#0" expanded="true" />
-                <element signature="e#3219#3220#0" expanded="true" />
-                <element signature="e#3271#3272#0" expanded="true" />
-                <element signature="e#3315#3316#0" expanded="true" />
-                <element signature="e#3530#3531#0" expanded="true" />
-                <element signature="e#3569#3570#0" expanded="true" />
-                <element signature="e#3633#3634#0" expanded="true" />
-                <element signature="e#3689#3690#0" expanded="true" />
-                <element signature="e#3911#3912#0" expanded="true" />
-                <element signature="e#3945#3946#0" expanded="true" />
-                <element signature="e#3999#4000#0" expanded="true" />
-                <element signature="e#4045#4046#0" expanded="true" />
-                <element signature="e#4083#4084#0" expanded="true" />
-                <element signature="e#4117#4118#0" expanded="true" />
-                <element signature="e#4171#4172#0" expanded="true" />
-                <element signature="e#4217#4218#0" expanded="true" />
-                <element signature="e#4250#4251#0" expanded="true" />
-                <element signature="e#4279#4280#0" expanded="true" />
-                <element signature="e#4323#4324#0" expanded="true" />
-                <element signature="e#4359#4360#0" expanded="true" />
-                <element signature="e#4396#4397#0" expanded="true" />
-                <element signature="e#4429#4430#0" expanded="true" />
-                <element signature="e#4481#4482#0" expanded="true" />
-                <element signature="e#4525#4526#0" expanded="true" />
-                <element signature="e#4564#4565#0" expanded="true" />
-                <element signature="e#4599#4600#0" expanded="true" />
-                <element signature="e#4655#4656#0" expanded="true" />
-                <element signature="e#4703#4704#0" expanded="true" />
-                <element signature="e#1464#1465#0" expanded="true" />
-                <element signature="e#1500#1501#0" expanded="true" />
-                <element signature="e#1558#1559#0" expanded="true" />
-                <element signature="e#1608#1609#0" expanded="true" />
-                <element signature="e#33486#33487#0" expanded="true" />
-                <element signature="e#33516#33517#0" expanded="true" />
-                <element signature="e#33562#33563#0" expanded="true" />
-                <element signature="e#33600#33601#0" expanded="true" />
-                <element signature="e#33636#33637#0" expanded="true" />
-                <element signature="e#33668#33669#0" expanded="true" />
-                <element signature="e#33718#33719#0" expanded="true" />
-                <element signature="e#33760#33761#0" expanded="true" />
-                <element signature="e#33796#33797#0" expanded="true" />
-                <element signature="e#33828#33829#0" expanded="true" />
-                <element signature="e#33878#33879#0" expanded="true" />
-                <element signature="e#33920#33921#0" expanded="true" />
-                <element signature="e#33957#33958#0" expanded="true" />
-                <element signature="e#33990#33991#0" expanded="true" />
-                <element signature="e#34042#34043#0" expanded="true" />
-                <element signature="e#34086#34087#0" expanded="true" />
-                <element signature="e#34123#34124#0" expanded="true" />
-                <element signature="e#34156#34157#0" expanded="true" />
-                <element signature="e#34208#34209#0" expanded="true" />
-                <element signature="e#34252#34253#0" expanded="true" />
-                <element signature="e#34289#34290#0" expanded="true" />
-                <element signature="e#34322#34323#0" expanded="true" />
-                <element signature="e#34374#34375#0" expanded="true" />
-                <element signature="e#34418#34419#0" expanded="true" />
-                <element signature="e#34455#34456#0" expanded="true" />
-                <element signature="e#34488#34489#0" expanded="true" />
-                <element signature="e#34540#34541#0" expanded="true" />
-                <element signature="e#34584#34585#0" expanded="true" />
-                <element signature="e#34622#34623#0" expanded="true" />
-                <element signature="e#34656#34657#0" expanded="true" />
-                <element signature="e#34710#34711#0" expanded="true" />
-                <element signature="e#34756#34757#0" expanded="true" />
-                <element signature="e#34794#34795#0" expanded="true" />
-                <element signature="e#34828#34829#0" expanded="true" />
-                <element signature="e#34882#34883#0" expanded="true" />
-                <element signature="e#34928#34929#0" expanded="true" />
-                <element signature="e#34964#34965#0" expanded="true" />
-                <element signature="e#34996#34997#0" expanded="true" />
-                <element signature="e#35046#35047#0" expanded="true" />
-                <element signature="e#35088#35089#0" expanded="true" />
-                <element signature="e#35124#35125#0" expanded="true" />
-                <element signature="e#35156#35157#0" expanded="true" />
-                <element signature="e#35206#35207#0" expanded="true" />
-                <element signature="e#35248#35249#0" expanded="true" />
-                <element signature="e#35285#35286#0" expanded="true" />
-                <element signature="e#35318#35319#0" expanded="true" />
-                <element signature="e#35370#35371#0" expanded="true" />
-                <element signature="e#35414#35415#0" expanded="true" />
-                <element signature="e#35451#35452#0" expanded="true" />
-                <element signature="e#35484#35485#0" expanded="true" />
-                <element signature="e#35536#35537#0" expanded="true" />
-                <element signature="e#35580#35581#0" expanded="true" />
-                <element signature="e#35617#35618#0" expanded="true" />
-                <element signature="e#35650#35651#0" expanded="true" />
-                <element signature="e#35702#35703#0" expanded="true" />
-                <element signature="e#35746#35747#0" expanded="true" />
-                <element signature="e#35783#35784#0" expanded="true" />
-                <element signature="e#35816#35817#0" expanded="true" />
-                <element signature="e#35868#35869#0" expanded="true" />
-                <element signature="e#35912#35913#0" expanded="true" />
-                <element signature="e#35950#35951#0" expanded="true" />
-                <element signature="e#35984#35985#0" expanded="true" />
-                <element signature="e#36038#36039#0" expanded="true" />
-                <element signature="e#36084#36085#0" expanded="true" />
-                <element signature="e#36122#36123#0" expanded="true" />
-                <element signature="e#36156#36157#0" expanded="true" />
-                <element signature="e#36210#36211#0" expanded="true" />
-                <element signature="e#36256#36257#0" expanded="true" />
-                <element signature="e#36297#36298#0" expanded="true" />
-                <element signature="e#36334#36335#0" expanded="true" />
-                <element signature="e#36394#36395#0" expanded="true" />
-                <element signature="e#36446#36447#0" expanded="true" />
-                <element signature="e#36487#36488#0" expanded="true" />
-                <element signature="e#36524#36525#0" expanded="true" />
-                <element signature="e#36584#36585#0" expanded="true" />
-                <element signature="e#36636#36637#0" expanded="true" />
-                <element signature="e#36678#36679#0" expanded="true" />
-                <element signature="e#36716#36717#0" expanded="true" />
-                <element signature="e#36778#36779#0" expanded="true" />
-                <element signature="e#36832#36833#0" expanded="true" />
-                <element signature="e#36874#36875#0" expanded="true" />
-                <element signature="e#36912#36913#0" expanded="true" />
-                <element signature="e#36974#36975#0" expanded="true" />
-                <element signature="e#37028#37029#0" expanded="true" />
-                <element signature="e#37070#37071#0" expanded="true" />
-                <element signature="e#37108#37109#0" expanded="true" />
-                <element signature="e#37170#37171#0" expanded="true" />
-                <element signature="e#37224#37225#0" expanded="true" />
-                <element signature="e#37266#37267#0" expanded="true" />
-                <element signature="e#37304#37305#0" expanded="true" />
-                <element signature="e#37366#37367#0" expanded="true" />
-                <element signature="e#37420#37421#0" expanded="true" />
-                <element signature="e#37463#37464#0" expanded="true" />
-                <element signature="e#37502#37503#0" expanded="true" />
-                <element signature="e#37566#37567#0" expanded="true" />
-                <element signature="e#37622#37623#0" expanded="true" />
-                <element signature="e#37665#37666#0" expanded="true" />
-                <element signature="e#37704#37705#0" expanded="true" />
-                <element signature="e#37768#37769#0" expanded="true" />
-                <element signature="e#37824#37825#0" expanded="true" />
-                <element signature="e#37865#37866#0" expanded="true" />
-                <element signature="e#37902#37903#0" expanded="true" />
-                <element signature="e#37962#37963#0" expanded="true" />
-                <element signature="e#38014#38015#0" expanded="true" />
-                <element signature="e#38055#38056#0" expanded="true" />
-                <element signature="e#38092#38093#0" expanded="true" />
-                <element signature="e#38152#38153#0" expanded="true" />
-                <element signature="e#38204#38205#0" expanded="true" />
-                <element signature="e#38246#38247#0" expanded="true" />
-                <element signature="e#38284#38285#0" expanded="true" />
-                <element signature="e#38346#38347#0" expanded="true" />
-                <element signature="e#38400#38401#0" expanded="true" />
-                <element signature="e#38442#38443#0" expanded="true" />
-                <element signature="e#38480#38481#0" expanded="true" />
-                <element signature="e#38542#38543#0" expanded="true" />
-                <element signature="e#38596#38597#0" expanded="true" />
-                <element signature="e#38638#38639#0" expanded="true" />
-                <element signature="e#38676#38677#0" expanded="true" />
-                <element signature="e#38738#38739#0" expanded="true" />
-                <element signature="e#38792#38793#0" expanded="true" />
-                <element signature="e#38834#38835#0" expanded="true" />
-                <element signature="e#38872#38873#0" expanded="true" />
-                <element signature="e#38934#38935#0" expanded="true" />
-                <element signature="e#38988#38989#0" expanded="true" />
-                <element signature="e#39031#39032#0" expanded="true" />
-                <element signature="e#39070#39071#0" expanded="true" />
-                <element signature="e#39134#39135#0" expanded="true" />
-                <element signature="e#39190#39191#0" expanded="true" />
-                <element signature="e#39233#39234#0" expanded="true" />
-                <element signature="e#39272#39273#0" expanded="true" />
-                <element signature="e#39336#39337#0" expanded="true" />
-                <element signature="e#39392#39393#0" expanded="true" />
-                <element signature="e#7244#7245#0" expanded="true" />
-                <element signature="e#7275#7276#0" expanded="true" />
-                <element signature="e#7323#7324#0" expanded="true" />
-                <element signature="e#7363#7364#0" expanded="true" />
-                <element signature="e#7468#7469#0" expanded="true" />
-                <element signature="e#7501#7502#0" expanded="true" />
-                <element signature="e#7553#7554#0" expanded="true" />
-                <element signature="e#7597#7598#0" expanded="true" />
-                <element signature="e#8150#8151#0" expanded="true" />
-                <element signature="e#8177#8178#0" expanded="true" />
-                <element signature="e#8217#8218#0" expanded="true" />
-                <element signature="e#8249#8250#0" expanded="true" />
-                <element signature="e#8285#8286#0" expanded="true" />
-                <element signature="e#8317#8318#0" expanded="true" />
-                <element signature="e#8367#8368#0" expanded="true" />
-                <element signature="e#8409#8410#0" expanded="true" />
-                <element signature="e#8447#8448#0" expanded="true" />
-                <element signature="e#8481#8482#0" expanded="true" />
-                <element signature="e#8535#8536#0" expanded="true" />
-                <element signature="e#8581#8582#0" expanded="true" />
-                <element signature="e#8618#8619#0" expanded="true" />
-                <element signature="e#8651#8652#0" expanded="true" />
-                <element signature="e#8703#8704#0" expanded="true" />
-                <element signature="e#8747#8748#0" expanded="true" />
-                <element signature="e#8783#8784#0" expanded="true" />
-                <element signature="e#8815#8816#0" expanded="true" />
-                <element signature="e#8865#8866#0" expanded="true" />
-                <element signature="e#8907#8908#0" expanded="true" />
-                <element signature="e#8953#8954#0" expanded="true" />
-                <element signature="e#8995#8996#0" expanded="true" />
-                <element signature="e#9166#9167#0" expanded="true" />
-                <element signature="e#9201#9202#0" expanded="true" />
-                <element signature="e#9257#9258#0" expanded="true" />
-                <element signature="e#9305#9306#0" expanded="true" />
-                <element signature="e#9340#9341#0" expanded="true" />
-                <element signature="e#9371#9372#0" expanded="true" />
-                <element signature="e#9419#9420#0" expanded="true" />
-                <element signature="e#9459#9460#0" expanded="true" />
-                <element signature="e#11853#11854#0" expanded="true" />
-                <element signature="e#11887#11888#0" expanded="true" />
-                <element signature="e#11941#11942#0" expanded="true" />
-                <element signature="e#11987#11988#0" expanded="true" />
-                <element signature="e#12023#12024#0" expanded="true" />
-                <element signature="e#12055#12056#0" expanded="true" />
-                <element signature="e#12105#12106#0" expanded="true" />
-                <element signature="e#12147#12148#0" expanded="true" />
-                <element signature="e#12185#12186#0" expanded="true" />
-                <element signature="e#12219#12220#0" expanded="true" />
-                <element signature="e#12273#12274#0" expanded="true" />
-                <element signature="e#12319#12320#0" expanded="true" />
-                <element signature="e#12359#12360#0" expanded="true" />
-                <element signature="e#12395#12396#0" expanded="true" />
-                <element signature="e#12453#12454#0" expanded="true" />
-                <element signature="e#12503#12504#0" expanded="true" />
-                <element signature="e#12563#12564#0" expanded="true" />
-                <element signature="e#12592#12593#0" expanded="true" />
-                <element signature="e#12636#12637#0" expanded="true" />
-                <element signature="e#12672#12673#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/RankStockBizCompany.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="143" column="14" selection-start-line="143" selection-start-column="14" selection-end-line="143" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/utils/HttpUtil.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="57" column="10" selection-start-line="57" selection-start-column="10" selection-end-line="57" selection-end-column="10" />
-              <folding>
-                <element signature="method#sendGetTtjj#0;class#HttpUtil#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/config-mybatis.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/KlineDemo.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
-              <caret line="9" column="40" lean-forward="true" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
+              <caret line="24" column="44" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/application.yml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/BizRankDemo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="14" column="10" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+            <state relative-caret-position="433">
+              <caret line="40" column="57" lean-forward="true" selection-start-line="40" selection-start-column="57" selection-end-line="40" selection-end-column="57" />
+              <folding>
+                <element signature="method#updateDbTodayEtfNetMaxMinTime#0;class#BizRankDemo#0" />
+                <element signature="method#updateDateBiz#0;class#BizRankDemo#0" />
+                <element signature="method#findTrends#0;class#BizRankDemo#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -375,75 +119,75 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>yyyy-</find>
-      <find>updateFupan</find>
-      <find>fupanRs</find>
-      <find>insertRandBizEtf</find>
-      <find>date</find>
-      <find>sqlSessionFactory</find>
-      <find>512510</find>
-      <find>_30</find>
-      <find>30</find>
-      <find>60</find>
-      <find>90</find>
-      <find>180</find>
-      <find>7</find>
-      <find>fupan</find>
-      <find>getUserByID</find>
-      <find>FD_CODE</find>
-      <find>rankEtf</find>
-      <find>.setNET_MIN_1(minJz)</find>
-      <find>159949</find>
-      <find>setLAST_NET</find>
-      <find>insert</find>
-      <find>DEBUG</find>
-      <find>listMyStock</find>
-      <find>listMy</find>
-      <find>HashMap</find>
-      <find>`</find>
-      <find>TYPE</find>
-      <find>SOURCE</find>
-      <find>`conception`</find>
-      <find>catch (Exception</find>
+      <find>Week</find>
+      <find>setNET_MA_MI_15</find>
+      <find>MA_UPDATE_FLAG_MINUTE_120</find>
+      <find>KLT_120</find>
+      <find>setNET_MA_MI_120</find>
+      <find>entity.setNET_MA_MI_15</find>
+      <find>MA_UPDATE_FLAG_WEEK_1</find>
+      <find>WE</find>
+      <find>fqt</find>
+      <find>MA_UPDATE_FLAG_MINUTE_15</find>
+      <find>maMinute15</find>
+      <find>=(</find>
+      <find>旅游酒店</find>
+      <find>cb=jQuery</find>
+      <find>klines数据异常</find>
+      <find>医疗器械</find>
+      <find>RankStockCommpanyDao.updateByCode</find>
+      <find>主板价格更新---------------------</find>
+      <find>互联网服务</find>
+      <find>addTodayStCom</find>
+      <find>当前stBizCountTemp</find>
+      <find>rsUpdate</find>
+      <find>deleteStComByDate</find>
+      <find>deleteByDate</find>
+      <find>del</find>
+      <find>updateNetMa</find>
+      <find>deleteTodayStCom</find>
+      <find>5日价格</find>
+      <find>5日</find>
+      <find>当前板块</find>
     </findStrings>
     <replaceStrings>
-      <replace>f23</replace>
-      <replace>f6</replace>
-      <replace>f3</replace>
-      <replace>f2</replace>
-      <replace>Double</replace>
-      <replace>Long</replace>
-      <replace>f7</replace>
-      <replace>F7</replace>
-      <replace>f8</replace>
-      <replace>F8</replace>
-      <replace>F9</replace>
-      <replace>f9</replace>
-      <replace>ttjj.dao</replace>
-      <replace>&quot;,</replace>
-      <replace>#{f</replace>
-      <replace>}</replace>
-      <replace>;</replace>
-      <replace>private Double</replace>
-      <replace>_30</replace>
-      <replace>14</replace>
-      <replace>30</replace>
-      <replace>60</replace>
-      <replace>90</replace>
-      <replace>180</replace>
-      <replace>360</replace>
-      <replace>1</replace>
-      <replace>stock_trade</replace>
-      <replace>},</replace>
-      <replace>#{</replace>
-      <replace>stockTradeDb</replace>
+      <replace>120</replace>
+      <replace>MA_UPDATE_FLAG_WEEK</replace>
+      <replace>maWeek</replace>
+      <replace>MA_UPDATE_FLAG_MONTH_</replace>
+      <replace>Month</replace>
+      <replace>maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_60</replace>
+      <replace>KLT_5</replace>
+      <replace>setNET_MA_MI_5</replace>
+      <replace>MA_UPDATE_FLAG_MINUTE_30</replace>
+      <replace>MA_UPDATE_FLAG_MINUTE_60</replace>
+      <replace>MA_UPDATE_FLAG_MINUTE_120</replace>
+      <replace>MA_UPDATE_FLAG_MINUTE_250</replace>
+      <replace>KLT_30</replace>
+      <replace>KLT_60</replace>
+      <replace>setNET_MA_MI_30</replace>
+      <replace>setNET_MA_MI_60</replace>
+      <replace>setNET_MA_MI_120</replace>
+      <replace>MA_UPDATE_FLAG_WEEK_1</replace>
+      <replace>KLT_120</replace>
+      <replace>KLT_102</replace>
+      <replace>setNET_MA_WEEK_1</replace>
+      <replace>setNET_MA_WE_1</replace>
+      <replace>entity.setNET_MA_MI_1</replace>
+      <replace>MA_UPDATE_FLAG_MONTH_1</replace>
+      <replace>KLT_103</replace>
+      <replace>MO</replace>
+      <replace>MA_UPDATE_FLAG_MINUTE_5</replace>
+      <replace>maMinute5</replace>
+      <replace>=%28</replace>
+      <replace>%28</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -452,57 +196,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/MybatisApplication.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/MybatisApplication.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/controller/PersonController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/FundRankDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/FundRankDemo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/utils/HttpUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/BizRank.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/复盘.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/基金排行.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-每日股票涨跌幅.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-业务概念.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/stock_股票.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/stock_周期净值比率.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-行业.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-周期净值比率.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/fundRank.txt" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/trade/TradeDemo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/point/TrendsDemo.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Dao/mapper/BlogMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Dao/mapper/FupanMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Dao/impl/TradeStockDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Dao/TradeDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Dao/mapper/TestMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Dao/mapper/TestMybatis.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Dao/TradeStockDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/Dao/impl/TradeDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/spring-config-imp.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/TestMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/MyBatisUtils.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/User.xml.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/FupanMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/Fupan.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/TestMybatis.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/TestMybatis.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/Fupan.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/fupan/FupanDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/FuPanDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/FupanPositionMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/FupanPositionDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-股票-资金流入.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/Report.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/ReportDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/ReportMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/ReportDemo.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/FupanMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/db/Fupan.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/db/RankBizEtf.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/StatEtf.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/StatEtfUpDown.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/StockNotice.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/ToBuyMap.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/service/NoticeService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/StockTradeDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/game/LscsUtilDarkMoon.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/KlineDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/service/FundFlowService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/RankStockCommpanyDao.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/HttpUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/dao/PersonMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/RankBizDataDiff.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/RandBizEtfMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/application.yml" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/RankStockBizCompany.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/db/StockTrade.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/BizRankDemo.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/log4j.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/stat/StockQueryDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/StockStatDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/fund/FundRankDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/history/KlineHistoryTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/HttpRsHxtcHxtc.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/HttpRsHxtcSsbk.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/HttpRsHxtc.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/db/RankStockCommpanyDb.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/stat/StockStatDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/ContentUrl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/service/ReportService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/Content.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/ContentBkStock.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/FupanDemo.java" />
         <option value="$PROJECT_DIR$/src/main/resources/config-mybatis.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/StockTradeMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/db/StockTradeDb.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/service/StockService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/ContentEtf.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/BizRankDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/RankStockCommpanyMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/RandBizEtfMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/StockDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/BizRankDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/stat/StBizStatDemo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/ContentCookie.java" />
       </list>
     </option>
   </component>
@@ -511,6 +255,11 @@
       <MavenGeneralSettings>
         <option name="userSettingsFile" value="L:\work\Java\repository\settings.xml" />
       </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
     </option>
   </component>
   <component name="MavenProjectNavigator">
@@ -549,8 +298,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="258" />
-    <option name="y" value="18" />
+    <option name="x" value="-11" />
+    <option name="y" value="-11" />
     <option name="width" value="1401" />
     <option name="height" value="981" />
   </component>
@@ -605,45 +354,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
-              <item name="mapper" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-              <item name="db" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-              <item name="dto" type="462c0819:PsiDirectoryNode" />
+              <item name="doc" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
@@ -661,7 +372,16 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-              <item name="trade" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
+              <item name="stat" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
@@ -670,13 +390,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj202004" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj202004" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -687,30 +400,30 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java" />
-    <property name="settings.editor.selected.configurable" value="Console" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/ttjj/doc" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="ttjj.db" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java" />
-      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\resources" />
-      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\game" />
-      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\ttjj\sql" />
-      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\ttjj\doc" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="ttjj.dao.mapper" />
-      <recent name="ttjj.db" />
-      <recent name="ttjj.fupan" />
-      <recent name="ttjj.point" />
-      <recent name="ttjj.rank" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\study\base\principle" />
       <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\sql" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="ttjj.db" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ttjj.dto" />
+      <recent name="utils" />
+      <recent name="ttjj.rank" />
+      <recent name="ttjj.stat" />
+      <recent name="ttjj.service" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\ttjj\doc" />
+      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\game" />
+      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\ttjj\sql" />
+      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java" />
+      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\resources" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -725,7 +438,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.StockTradeDemo">
+  <component name="RunManager" selected="Application.StBizStatDemo">
     <configuration name="BizRankDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ttjj.rank.BizRankDemo" />
       <module name="ttjj202004" />
@@ -739,8 +452,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FundRankDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ttjj.rank.FundRankDemo" />
+    <configuration name="FupanDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ttjj.rank.FupanDemo" />
       <module name="ttjj202004" />
       <extension name="coverage">
         <pattern>
@@ -752,8 +465,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RankStockBizCompany" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ttjj.rank.RankStockBizCompany" />
+    <configuration name="KlineDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ttjj.rank.KlineDemo" />
       <module name="ttjj202004" />
       <extension name="coverage">
         <pattern>
@@ -765,12 +478,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StockTradeDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ttjj.trade.StockTradeDemo" />
+    <configuration name="StBizStatDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ttjj.stat.StBizStatDemo" />
       <module name="ttjj202004" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ttjj.trade.*" />
+          <option name="PATTERN" value="ttjj.stat.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -778,25 +491,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SzzsDataDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ttjj.point.SzzsDataDemo" />
+    <configuration name="StockDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ttjj.rank.StockDemo" />
       <module name="ttjj202004" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ttjj.point.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestMybatis" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ttjj.dao.TestMybatis" />
-      <module name="ttjj202004" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ttjj.dao.*" />
+          <option name="PATTERN" value="ttjj.rank.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -806,11 +506,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.StockTradeDemo" />
-        <item itemvalue="Application.RankStockBizCompany" />
-        <item itemvalue="Application.SzzsDataDemo" />
+        <item itemvalue="Application.StBizStatDemo" />
+        <item itemvalue="Application.StockDemo" />
         <item itemvalue="Application.BizRankDemo" />
-        <item itemvalue="Application.FundRankDemo" />
+        <item itemvalue="Application.KlineDemo" />
+        <item itemvalue="Application.FupanDemo" />
       </list>
     </recent_temporary>
   </component>
@@ -826,350 +526,350 @@
       <option name="presentableId" value="Default" />
       <updated>1590287300739</updated>
     </task>
-    <task id="LOCAL-00170" summary="sql">
-      <created>1612285839625</created>
-      <option name="number" value="00170" />
-      <option name="presentableId" value="LOCAL-00170" />
+    <task id="LOCAL-00306" summary="业绩报表">
+      <created>1635478318808</created>
+      <option name="number" value="00306" />
+      <option name="presentableId" value="LOCAL-00306" />
       <option name="project" value="LOCAL" />
-      <updated>1612285839629</updated>
+      <updated>1635478318809</updated>
     </task>
-    <task id="LOCAL-00171" summary="sql">
-      <created>1612368032802</created>
-      <option name="number" value="00171" />
-      <option name="presentableId" value="LOCAL-00171" />
+    <task id="LOCAL-00307" summary="业绩报表：保存或更新">
+      <created>1635669978702</created>
+      <option name="number" value="00307" />
+      <option name="presentableId" value="LOCAL-00307" />
       <option name="project" value="LOCAL" />
-      <updated>1612368032802</updated>
+      <updated>1635669978703</updated>
     </task>
-    <task id="LOCAL-00172" summary="sql">
-      <created>1612798479514</created>
-      <option name="number" value="00172" />
-      <option name="presentableId" value="LOCAL-00172" />
+    <task id="LOCAL-00308" summary="业绩报表：保存或更新">
+      <created>1635691088262</created>
+      <option name="number" value="00308" />
+      <option name="presentableId" value="LOCAL-00308" />
       <option name="project" value="LOCAL" />
-      <updated>1612798479519</updated>
+      <updated>1635691088263</updated>
     </task>
-    <task id="LOCAL-00173" summary="sql">
-      <created>1613880462536</created>
-      <option name="number" value="00173" />
-      <option name="presentableId" value="LOCAL-00173" />
+    <task id="LOCAL-00309" summary="st：资金流向">
+      <created>1635693360206</created>
+      <option name="number" value="00309" />
+      <option name="presentableId" value="LOCAL-00309" />
       <option name="project" value="LOCAL" />
-      <updated>1613880462537</updated>
+      <updated>1635693360206</updated>
     </task>
-    <task id="LOCAL-00174" summary="sql">
-      <created>1613885116081</created>
-      <option name="number" value="00174" />
-      <option name="presentableId" value="LOCAL-00174" />
+    <task id="LOCAL-00310" summary="st：资金流向">
+      <created>1635906600837</created>
+      <option name="number" value="00310" />
+      <option name="presentableId" value="LOCAL-00310" />
       <option name="project" value="LOCAL" />
-      <updated>1613885116082</updated>
+      <updated>1635906600840</updated>
     </task>
-    <task id="LOCAL-00175" summary="sql">
-      <created>1614005528918</created>
-      <option name="number" value="00175" />
-      <option name="presentableId" value="LOCAL-00175" />
+    <task id="LOCAL-00311" summary="st：查询股票-从数据库中-最新的一条">
+      <created>1636103554069</created>
+      <option name="number" value="00311" />
+      <option name="presentableId" value="LOCAL-00311" />
       <option name="project" value="LOCAL" />
-      <updated>1614005528919</updated>
+      <updated>1636103554071</updated>
     </task>
-    <task id="LOCAL-00176" summary="sql">
-      <created>1614096763531</created>
-      <option name="number" value="00176" />
-      <option name="presentableId" value="LOCAL-00176" />
+    <task id="LOCAL-00312" summary="etf：列表查询-行业etf-排序：涨跌幅">
+      <created>1636193130926</created>
+      <option name="number" value="00312" />
+      <option name="presentableId" value="LOCAL-00312" />
       <option name="project" value="LOCAL" />
-      <updated>1614096763533</updated>
+      <updated>1636193130928</updated>
     </task>
-    <task id="LOCAL-00177" summary="sql">
-      <created>1614182425446</created>
-      <option name="number" value="00177" />
-      <option name="presentableId" value="LOCAL-00177" />
+    <task id="LOCAL-00313" summary="etf：列表查询-行业etf-排序：涨跌幅">
+      <created>1636863007657</created>
+      <option name="number" value="00313" />
+      <option name="presentableId" value="LOCAL-00313" />
       <option name="project" value="LOCAL" />
-      <updated>1614182425447</updated>
+      <updated>1636863007663</updated>
     </task>
-    <task id="LOCAL-00178" summary="sql">
-      <created>1614274648748</created>
-      <option name="number" value="00178" />
-      <option name="presentableId" value="LOCAL-00178" />
+    <task id="LOCAL-00314" summary="代码走查">
+      <created>1636939176894</created>
+      <option name="number" value="00314" />
+      <option name="presentableId" value="LOCAL-00314" />
       <option name="project" value="LOCAL" />
-      <updated>1614274648749</updated>
+      <updated>1636939176895</updated>
     </task>
-    <task id="LOCAL-00179" summary="sql">
-      <created>1614519501664</created>
-      <option name="number" value="00179" />
-      <option name="presentableId" value="LOCAL-00179" />
+    <task id="LOCAL-00315" summary="代码走查">
+      <created>1636989570233</created>
+      <option name="number" value="00315" />
+      <option name="presentableId" value="LOCAL-00315" />
       <option name="project" value="LOCAL" />
-      <updated>1614519501667</updated>
+      <updated>1636989570233</updated>
     </task>
-    <task id="LOCAL-00180" summary="sql">
-      <created>1614528790096</created>
-      <option name="number" value="00180" />
-      <option name="presentableId" value="LOCAL-00180" />
+    <task id="LOCAL-00316" summary="股票公告">
+      <created>1637156453607</created>
+      <option name="number" value="00316" />
+      <option name="presentableId" value="LOCAL-00316" />
       <option name="project" value="LOCAL" />
-      <updated>1614528790096</updated>
+      <updated>1637156453609</updated>
     </task>
-    <task id="LOCAL-00181" summary="sql">
-      <created>1614702116130</created>
-      <option name="number" value="00181" />
-      <option name="presentableId" value="LOCAL-00181" />
+    <task id="LOCAL-00317" summary="代码走查">
+      <created>1637551805309</created>
+      <option name="number" value="00317" />
+      <option name="presentableId" value="LOCAL-00317" />
       <option name="project" value="LOCAL" />
-      <updated>1614702116132</updated>
+      <updated>1637551805311</updated>
     </task>
-    <task id="LOCAL-00182" summary="sql">
-      <created>1615276472476</created>
-      <option name="number" value="00182" />
-      <option name="presentableId" value="LOCAL-00182" />
+    <task id="LOCAL-00318" summary="代码走查">
+      <created>1637717784327</created>
+      <option name="number" value="00318" />
+      <option name="presentableId" value="LOCAL-00318" />
       <option name="project" value="LOCAL" />
-      <updated>1615276472477</updated>
+      <updated>1637717784328</updated>
     </task>
-    <task id="LOCAL-00183" summary="work">
-      <created>1615286579628</created>
-      <option name="number" value="00183" />
-      <option name="presentableId" value="LOCAL-00183" />
+    <task id="LOCAL-00319" summary="代码走查">
+      <created>1637803707976</created>
+      <option name="number" value="00319" />
+      <option name="presentableId" value="LOCAL-00319" />
       <option name="project" value="LOCAL" />
-      <updated>1615286579629</updated>
+      <updated>1637803707978</updated>
     </task>
-    <task id="LOCAL-00184" summary="work">
-      <created>1615305120918</created>
-      <option name="number" value="00184" />
-      <option name="presentableId" value="LOCAL-00184" />
+    <task id="LOCAL-00320" summary="代码走查">
+      <created>1638149088078</created>
+      <option name="number" value="00320" />
+      <option name="presentableId" value="LOCAL-00320" />
       <option name="project" value="LOCAL" />
-      <updated>1615305120920</updated>
+      <updated>1638149088079</updated>
     </task>
-    <task id="LOCAL-00185" summary="交易:股票">
-      <created>1615475863178</created>
-      <option name="number" value="00185" />
-      <option name="presentableId" value="LOCAL-00185" />
+    <task id="LOCAL-00321" summary="代码走查">
+      <created>1638243233914</created>
+      <option name="number" value="00321" />
+      <option name="presentableId" value="LOCAL-00321" />
       <option name="project" value="LOCAL" />
-      <updated>1615475863179</updated>
+      <updated>1638243233915</updated>
     </task>
-    <task id="LOCAL-00186" summary="交易:股票，业务类型">
-      <created>1615514080919</created>
-      <option name="number" value="00186" />
-      <option name="presentableId" value="LOCAL-00186" />
+    <task id="LOCAL-00322" summary="game">
+      <created>1638252548998</created>
+      <option name="number" value="00322" />
+      <option name="presentableId" value="LOCAL-00322" />
       <option name="project" value="LOCAL" />
-      <updated>1615514080920</updated>
+      <updated>1638252548998</updated>
     </task>
-    <task id="LOCAL-00187" summary="交易:股票，交割单">
-      <created>1615818401938</created>
-      <option name="number" value="00187" />
-      <option name="presentableId" value="LOCAL-00187" />
+    <task id="LOCAL-00323" summary="代码走查">
+      <created>1638754383463</created>
+      <option name="number" value="00323" />
+      <option name="presentableId" value="LOCAL-00323" />
       <option name="project" value="LOCAL" />
-      <updated>1615818401940</updated>
+      <updated>1638754383464</updated>
     </task>
-    <task id="LOCAL-00188" summary="交易">
-      <created>1616338407285</created>
-      <option name="number" value="00188" />
-      <option name="presentableId" value="LOCAL-00188" />
+    <task id="LOCAL-00324" summary="st：更新业务板块-根据code">
+      <created>1638842748577</created>
+      <option name="number" value="00324" />
+      <option name="presentableId" value="LOCAL-00324" />
       <option name="project" value="LOCAL" />
-      <updated>1616338407286</updated>
+      <updated>1638842748578</updated>
     </task>
-    <task id="LOCAL-00189" summary="行业排行：行业板块">
-      <created>1616382168660</created>
-      <option name="number" value="00189" />
-      <option name="presentableId" value="LOCAL-00189" />
+    <task id="LOCAL-00325" summary="代码走查">
+      <created>1639128133216</created>
+      <option name="number" value="00325" />
+      <option name="presentableId" value="LOCAL-00325" />
       <option name="project" value="LOCAL" />
-      <updated>1616382168662</updated>
+      <updated>1639128133217</updated>
     </task>
-    <task id="LOCAL-00190" summary="行业排行：行业板块">
-      <created>1616514438478</created>
-      <option name="number" value="00190" />
-      <option name="presentableId" value="LOCAL-00190" />
+    <task id="LOCAL-00326" summary="代码走查">
+      <created>1639448911512</created>
+      <option name="number" value="00326" />
+      <option name="presentableId" value="LOCAL-00326" />
       <option name="project" value="LOCAL" />
-      <updated>1616514438480</updated>
+      <updated>1639448911512</updated>
     </task>
-    <task id="LOCAL-00191" summary="行业排行：行业板块">
-      <created>1616846718760</created>
-      <option name="number" value="00191" />
-      <option name="presentableId" value="LOCAL-00191" />
+    <task id="LOCAL-00327" summary="仓位：新发债券不插入我的持仓">
+      <created>1639534273089</created>
+      <option name="number" value="00327" />
+      <option name="presentableId" value="LOCAL-00327" />
       <option name="project" value="LOCAL" />
-      <updated>1616846718762</updated>
+      <updated>1639534273090</updated>
     </task>
-    <task id="LOCAL-00192" summary="game：lscs">
-      <created>1617113206117</created>
-      <option name="number" value="00192" />
-      <option name="presentableId" value="LOCAL-00192" />
+    <task id="LOCAL-00328" summary="代码走查">
+      <created>1639621740767</created>
+      <option name="number" value="00328" />
+      <option name="presentableId" value="LOCAL-00328" />
       <option name="project" value="LOCAL" />
-      <updated>1617113206120</updated>
+      <updated>1639621740769</updated>
     </task>
-    <task id="LOCAL-00193" summary="game：lscs">
-      <created>1617208254987</created>
-      <option name="number" value="00193" />
-      <option name="presentableId" value="LOCAL-00193" />
+    <task id="LOCAL-00329" summary="代码走查">
+      <created>1639707045908</created>
+      <option name="number" value="00329" />
+      <option name="presentableId" value="LOCAL-00329" />
       <option name="project" value="LOCAL" />
-      <updated>1617208254988</updated>
+      <updated>1639707045916</updated>
     </task>
-    <task id="LOCAL-00194" summary="game：lscs">
-      <created>1617258693982</created>
-      <option name="number" value="00194" />
-      <option name="presentableId" value="LOCAL-00194" />
+    <task id="LOCAL-00330" summary="st：删除数据-今日">
+      <created>1639965887484</created>
+      <option name="number" value="00330" />
+      <option name="presentableId" value="LOCAL-00330" />
       <option name="project" value="LOCAL" />
-      <updated>1617258693983</updated>
+      <updated>1639965887485</updated>
     </task>
-    <task id="LOCAL-00195" summary="交易">
-      <created>1617290258025</created>
-      <option name="number" value="00195" />
-      <option name="presentableId" value="LOCAL-00195" />
+    <task id="LOCAL-00331" summary="k线:LOF">
+      <created>1640250171776</created>
+      <option name="number" value="00331" />
+      <option name="presentableId" value="LOCAL-00331" />
       <option name="project" value="LOCAL" />
-      <updated>1617290258027</updated>
+      <updated>1640250171777</updated>
     </task>
-    <task id="LOCAL-00196" summary="交易">
-      <created>1617380561868</created>
-      <option name="number" value="00196" />
-      <option name="presentableId" value="LOCAL-00196" />
+    <task id="LOCAL-00332" summary="仓位：修复总资产">
+      <created>1640855499135</created>
+      <option name="number" value="00332" />
+      <option name="presentableId" value="LOCAL-00332" />
       <option name="project" value="LOCAL" />
-      <updated>1617380561870</updated>
+      <updated>1640855499135</updated>
     </task>
-    <task id="LOCAL-00197" summary="排行-行业股票-公司-每日明细">
-      <created>1617532220585</created>
-      <option name="number" value="00197" />
-      <option name="presentableId" value="LOCAL-00197" />
+    <task id="LOCAL-00333" summary="代码走查">
+      <created>1640918144061</created>
+      <option name="number" value="00333" />
+      <option name="presentableId" value="LOCAL-00333" />
       <option name="project" value="LOCAL" />
-      <updated>1617532220585</updated>
+      <updated>1640918144062</updated>
     </task>
-    <task id="LOCAL-00198" summary="排行-行业股票-公司-每日明细">
-      <created>1617678266621</created>
-      <option name="number" value="00198" />
-      <option name="presentableId" value="LOCAL-00198" />
+    <task id="LOCAL-00334" summary="仓位：修复总资产：总资产 = 场内资产+场外资产">
+      <created>1640937385402</created>
+      <option name="number" value="00334" />
+      <option name="presentableId" value="LOCAL-00334" />
       <option name="project" value="LOCAL" />
-      <updated>1617678266622</updated>
+      <updated>1640937385402</updated>
     </task>
-    <task id="LOCAL-00199" summary="sql">
-      <created>1617679168742</created>
-      <option name="number" value="00199" />
-      <option name="presentableId" value="LOCAL-00199" />
+    <task id="LOCAL-00335" summary="st：板块个股">
+      <created>1640961629327</created>
+      <option name="number" value="00335" />
+      <option name="presentableId" value="LOCAL-00335" />
       <option name="project" value="LOCAL" />
-      <updated>1617679168743</updated>
+      <updated>1640961629327</updated>
     </task>
-    <task id="LOCAL-00200" summary="test：mybatis">
-      <created>1617803091585</created>
-      <option name="number" value="00200" />
-      <option name="presentableId" value="LOCAL-00200" />
+    <task id="LOCAL-00336" summary="st：股票统计数据">
+      <created>1641314471548</created>
+      <option name="number" value="00336" />
+      <option name="presentableId" value="LOCAL-00336" />
       <option name="project" value="LOCAL" />
-      <updated>1617803091586</updated>
+      <updated>1641314471550</updated>
     </task>
-    <task id="LOCAL-00201" summary="sql：back-work">
-      <created>1617807699501</created>
-      <option name="number" value="00201" />
-      <option name="presentableId" value="LOCAL-00201" />
+    <task id="LOCAL-00337" summary="st：检查均线">
+      <created>1641400182437</created>
+      <option name="number" value="00337" />
+      <option name="presentableId" value="LOCAL-00337" />
       <option name="project" value="LOCAL" />
-      <updated>1617807699503</updated>
+      <updated>1641400182438</updated>
     </task>
-    <task id="LOCAL-00202" summary="交易">
-      <created>1617936326192</created>
-      <option name="number" value="00202" />
-      <option name="presentableId" value="LOCAL-00202" />
+    <task id="LOCAL-00338" summary="k线:检查均线">
+      <created>1641403321741</created>
+      <option name="number" value="00338" />
+      <option name="presentableId" value="LOCAL-00338" />
       <option name="project" value="LOCAL" />
-      <updated>1617936326193</updated>
+      <updated>1641403321741</updated>
     </task>
-    <task id="LOCAL-00203" summary="交易">
-      <created>1618238229909</created>
-      <option name="number" value="00203" />
-      <option name="presentableId" value="LOCAL-00203" />
+    <task id="LOCAL-00339" summary="代码走查">
+      <created>1641519597785</created>
+      <option name="number" value="00339" />
+      <option name="presentableId" value="LOCAL-00339" />
       <option name="project" value="LOCAL" />
-      <updated>1618238229909</updated>
+      <updated>1641519597787</updated>
     </task>
-    <task id="LOCAL-00204" summary="数据备份">
-      <created>1618238890613</created>
-      <option name="number" value="00204" />
-      <option name="presentableId" value="LOCAL-00204" />
+    <task id="LOCAL-00340" summary="代码走查">
+      <created>1641570811937</created>
+      <option name="number" value="00340" />
+      <option name="presentableId" value="LOCAL-00340" />
       <option name="project" value="LOCAL" />
-      <updated>1618238890613</updated>
+      <updated>1641570811938</updated>
     </task>
-    <task id="LOCAL-00205" summary="交易">
-      <created>1618501230326</created>
-      <option name="number" value="00205" />
-      <option name="presentableId" value="LOCAL-00205" />
+    <task id="LOCAL-00341" summary="st：所属板块">
+      <created>1641576144913</created>
+      <option name="number" value="00341" />
+      <option name="presentableId" value="LOCAL-00341" />
       <option name="project" value="LOCAL" />
-      <updated>1618501230327</updated>
+      <updated>1641576144913</updated>
     </task>
-    <task id="LOCAL-00206" summary="etf">
-      <created>1618750908699</created>
-      <option name="number" value="00206" />
-      <option name="presentableId" value="LOCAL-00206" />
+    <task id="LOCAL-00342" summary="代码走查">
+      <created>1641744161177</created>
+      <option name="number" value="00342" />
+      <option name="presentableId" value="LOCAL-00342" />
       <option name="project" value="LOCAL" />
-      <updated>1618750908709</updated>
+      <updated>1641744161179</updated>
     </task>
-    <task id="LOCAL-00207" summary="交易">
-      <created>1618965912692</created>
-      <option name="number" value="00207" />
-      <option name="presentableId" value="LOCAL-00207" />
+    <task id="LOCAL-00343" summary="st：检查均线">
+      <created>1641865773845</created>
+      <option name="number" value="00343" />
+      <option name="presentableId" value="LOCAL-00343" />
       <option name="project" value="LOCAL" />
-      <updated>1618965912693</updated>
+      <updated>1641865773846</updated>
     </task>
-    <task id="LOCAL-00208" summary="交易">
-      <created>1619140841100</created>
-      <option name="number" value="00208" />
-      <option name="presentableId" value="LOCAL-00208" />
+    <task id="LOCAL-00344" summary="st：检查均线">
+      <created>1641879567608</created>
+      <option name="number" value="00344" />
+      <option name="presentableId" value="LOCAL-00344" />
       <option name="project" value="LOCAL" />
-      <updated>1619140841101</updated>
+      <updated>1641879567609</updated>
     </task>
-    <task id="LOCAL-00209" summary="交易">
-      <created>1619192595151</created>
-      <option name="number" value="00209" />
-      <option name="presentableId" value="LOCAL-00209" />
+    <task id="LOCAL-00345" summary="st：检查均线">
+      <created>1641913444070</created>
+      <option name="number" value="00345" />
+      <option name="presentableId" value="LOCAL-00345" />
       <option name="project" value="LOCAL" />
-      <updated>1619192595152</updated>
+      <updated>1641913444072</updated>
     </task>
-    <task id="LOCAL-00210" summary="sql">
-      <created>1619194201960</created>
-      <option name="number" value="00210" />
-      <option name="presentableId" value="LOCAL-00210" />
+    <task id="LOCAL-00346" summary="业绩报表">
+      <created>1641913475970</created>
+      <option name="number" value="00346" />
+      <option name="presentableId" value="LOCAL-00346" />
       <option name="project" value="LOCAL" />
-      <updated>1619194201960</updated>
+      <updated>1641913475971</updated>
     </task>
-    <task id="LOCAL-00211" summary="sql">
-      <created>1619194658883</created>
-      <option name="number" value="00211" />
-      <option name="presentableId" value="LOCAL-00211" />
+    <task id="LOCAL-00347" summary="代码走查">
+      <created>1642039242825</created>
+      <option name="number" value="00347" />
+      <option name="presentableId" value="LOCAL-00347" />
       <option name="project" value="LOCAL" />
-      <updated>1619194658883</updated>
+      <updated>1642039242826</updated>
     </task>
-    <task id="LOCAL-00212" summary="复盘：指数趋势">
-      <created>1619399933711</created>
-      <option name="number" value="00212" />
-      <option name="presentableId" value="LOCAL-00212" />
+    <task id="LOCAL-00348" summary="代码走查">
+      <created>1642087710746</created>
+      <option name="number" value="00348" />
+      <option name="presentableId" value="LOCAL-00348" />
       <option name="project" value="LOCAL" />
-      <updated>1619399933723</updated>
+      <updated>1642087710746</updated>
     </task>
-    <task id="LOCAL-00213" summary="test：mybatis">
-      <created>1619489070282</created>
-      <option name="number" value="00213" />
-      <option name="presentableId" value="LOCAL-00213" />
+    <task id="LOCAL-00349" summary="etf：增加lof类型">
+      <created>1642090605033</created>
+      <option name="number" value="00349" />
+      <option name="presentableId" value="LOCAL-00349" />
       <option name="project" value="LOCAL" />
-      <updated>1619489070284</updated>
+      <updated>1642090605034</updated>
     </task>
-    <task id="LOCAL-00214" summary="mybatis">
-      <created>1619537324476</created>
-      <option name="number" value="00214" />
-      <option name="presentableId" value="LOCAL-00214" />
+    <task id="LOCAL-00350" summary="代码走查">
+      <created>1642090662153</created>
+      <option name="number" value="00350" />
+      <option name="presentableId" value="LOCAL-00350" />
       <option name="project" value="LOCAL" />
-      <updated>1619537324477</updated>
+      <updated>1642090662153</updated>
     </task>
-    <task id="LOCAL-00215" summary="排行榜-etf：插入和更新净值">
-      <created>1619539970322</created>
-      <option name="number" value="00215" />
-      <option name="presentableId" value="LOCAL-00215" />
+    <task id="LOCAL-00351" summary="st：更新股票">
+      <created>1642387427894</created>
+      <option name="number" value="00351" />
+      <option name="presentableId" value="LOCAL-00351" />
       <option name="project" value="LOCAL" />
-      <updated>1619539970322</updated>
+      <updated>1642387427895</updated>
     </task>
-    <task id="LOCAL-00216" summary="排行榜-etf：插入和更新净值">
-      <created>1619575452432</created>
-      <option name="number" value="00216" />
-      <option name="presentableId" value="LOCAL-00216" />
+    <task id="LOCAL-00352" summary="st：更新股票">
+      <created>1642411550989</created>
+      <option name="number" value="00352" />
+      <option name="presentableId" value="LOCAL-00352" />
       <option name="project" value="LOCAL" />
-      <updated>1619575452433</updated>
+      <updated>1642411550989</updated>
     </task>
-    <task id="LOCAL-00217" summary="交易-证券：db">
-      <created>1619593870625</created>
-      <option name="number" value="00217" />
-      <option name="presentableId" value="LOCAL-00217" />
+    <task id="LOCAL-00353" summary="etf：删除-根据日期">
+      <created>1642489603333</created>
+      <option name="number" value="00353" />
+      <option name="presentableId" value="LOCAL-00353" />
       <option name="project" value="LOCAL" />
-      <updated>1619593870625</updated>
+      <updated>1642489603334</updated>
     </task>
-    <task id="LOCAL-00218" summary="交易-证券：更新要点概念">
-      <created>1619595554790</created>
-      <option name="number" value="00218" />
-      <option name="presentableId" value="LOCAL-00218" />
+    <task id="LOCAL-00354" summary="代码走查">
+      <created>1642611821934</created>
+      <option name="number" value="00354" />
+      <option name="presentableId" value="LOCAL-00354" />
       <option name="project" value="LOCAL" />
-      <updated>1619595554790</updated>
+      <updated>1642611821938</updated>
     </task>
-    <option name="localTasksCounter" value="219" />
+    <option name="localTasksCounter" value="355" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1185,7 +885,7 @@
     <frame x="-11" y="-11" width="2582" height="1406" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49802372" visible="true" weight="0.19823435" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49802372" visible="true" weight="0.1464687" />
       <window_info id="Structure" order="1" sideWeight="0.5019763" side_tool="true" weight="0.21669342" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -1197,13 +897,13 @@
       <window_info anchor="bottom" id="Debug" order="2" weight="0.41210613" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.4995987" weight="0.5315091" />
+      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.49919742" weight="0.8233831" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3283582" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4995987" weight="0.327529" />
       <window_info anchor="bottom" id="风险组件扫描" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50040126" side_tool="true" weight="0.6774461" />
-      <window_info anchor="bottom" id="Duplication Code Results" order="10" />
-      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.4995987" weight="0.44527364" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5008026" side_tool="true" weight="0.5812604" />
+      <window_info anchor="bottom" id="Duplication Code Results" order="10" weight="0.3286424" />
+      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.4995987" weight="0.38391376" />
       <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.50040126" weight="0.5140962" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -1214,36 +914,6 @@
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout>
-    <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49802372" weight="0.19622792" />
-      <window_info id="Structure" order="1" sideWeight="0.5019763" side_tool="true" weight="0.21669342" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3291874" />
-      <window_info anchor="bottom" id="Debug" order="2" weight="0.41210613" />
-      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.4995987" visible="true" weight="0.5315091" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3283582" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4995987" weight="0.327529" />
-      <window_info anchor="bottom" id="风险组件扫描" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50040126" side_tool="true" weight="0.6774461" />
-      <window_info anchor="bottom" id="Duplication Code Results" order="10" />
-      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.4995987" weight="0.44527364" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.50040126" weight="0.5140962" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Maven" order="4" weight="0.32985553" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="Capture Analysis" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-    </layout-to-restore>
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.sql" />
@@ -1301,776 +971,981 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="0605" />
-    <MESSAGE value="交易：更新数据库语句-更新-我的交易-最新净值和日期" />
-    <MESSAGE value="ttjj" />
-    <MESSAGE value="交易：精简数据库字段" />
-    <MESSAGE value="trade" />
+    <MESSAGE value="st：查询-超跌反弹" />
+    <MESSAGE value="仓位：查询我的仓位" />
+    <MESSAGE value="仓位：查询我的仓位，检查周期" />
+    <MESSAGE value="业绩报表：保存或更新" />
+    <MESSAGE value="st：资金流向" />
+    <MESSAGE value="st：查询股票-从数据库中-最新的一条" />
+    <MESSAGE value="etf：列表查询-行业etf-排序：涨跌幅" />
+    <MESSAGE value="股票公告" />
     <MESSAGE value="game" />
-    <MESSAGE value="java：设计原则" />
-    <MESSAGE value="work" />
-    <MESSAGE value="交易:股票" />
-    <MESSAGE value="交易:股票，业务类型" />
-    <MESSAGE value="交易:股票，交割单" />
-    <MESSAGE value="行业排行：行业板块" />
-    <MESSAGE value="game：lscs" />
-    <MESSAGE value="排行-行业股票-公司-每日明细" />
-    <MESSAGE value="sql：back-work" />
-    <MESSAGE value="数据备份" />
-    <MESSAGE value="etf" />
-    <MESSAGE value="交易" />
-    <MESSAGE value="sql" />
-    <MESSAGE value="复盘：指数趋势" />
-    <MESSAGE value="test：mybatis" />
-    <MESSAGE value="mybatis" />
-    <MESSAGE value="排行榜-etf：插入和更新净值" />
-    <MESSAGE value="交易-证券：db" />
-    <MESSAGE value="交易-证券：更新要点概念" />
-    <option name="LAST_COMMIT_MESSAGE" value="交易-证券：更新要点概念" />
+    <MESSAGE value="st：更新业务板块-根据code" />
+    <MESSAGE value="仓位：新发债券不插入我的持仓" />
+    <MESSAGE value="st：删除数据-今日" />
+    <MESSAGE value="k线:LOF" />
+    <MESSAGE value="仓位：修复总资产" />
+    <MESSAGE value="仓位：修复总资产：总资产 = 场内资产+场外资产" />
+    <MESSAGE value="st：板块个股" />
+    <MESSAGE value="st：股票统计数据" />
+    <MESSAGE value="k线:检查均线" />
+    <MESSAGE value="st：所属板块" />
+    <MESSAGE value="st：检查均线" />
+    <MESSAGE value="业绩报表" />
+    <MESSAGE value="etf：增加lof类型" />
+    <MESSAGE value="st：更新股票" />
+    <MESSAGE value="etf：删除-根据日期" />
+    <MESSAGE value="代码走查" />
+    <option name="LAST_COMMIT_MESSAGE" value="代码走查" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/game/LscsUtilDarkMoon.java</url>
-          <line>34</line>
+          <url>file://$PROJECT_DIR$/src/main/java/ttjj/rank/history/KlineHistoryTest.java</url>
+          <line>184</line>
           <properties />
-          <option name="timeStamp" value="4" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java</url>
+          <line>383</line>
+          <properties />
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java</url>
+          <line>66</line>
+          <properties />
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java</url>
+          <line>129</line>
+          <properties />
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java</url>
+          <line>282</line>
+          <properties />
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ttjj/service/ReportService.java</url>
+          <line>32</line>
+          <properties />
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="FupanMyFund" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/world.sql" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/testczl.sql" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/sakila.sql" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-周期净值比率.sql">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/StockNotice.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="17" column="38" lean-forward="true" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-业务概念.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="653">
-          <caret line="74" column="21" lean-forward="true" selection-start-line="74" selection-start-column="21" selection-end-line="74" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-每日股票涨跌幅.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="983">
-          <caret line="175" column="4" selection-start-line="175" selection-start-column="4" selection-end-line="175" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/排行榜-基金排行.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="773">
-          <caret line="110" column="4" lean-forward="true" selection-start-line="110" selection-start-column="4" selection-end-line="110" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/复盘.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="983">
-          <caret line="171" column="13" selection-start-line="171" selection-start-column="13" selection-end-line="171" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/stock_biz.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/stock_股票.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="983">
-          <caret line="229" column="1" selection-start-line="229" selection-start-column="1" selection-end-line="229" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/stock_周期净值比率.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="773">
-          <caret line="80" column="4" lean-forward="true" selection-start-line="80" selection-start-column="4" selection-end-line="80" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-查询.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="10" column="16" lean-forward="true" selection-end-line="203" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/sql/ol_fund_trade-行业.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="983">
-          <caret line="190" column="1" selection-start-line="190" selection-start-column="1" selection-end-line="190" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_211/src.zip!/java/util/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8940">
-          <caret line="324" column="11" selection-start-line="324" selection-start-column="11" selection-end-line="324" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/fundRank.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/point/TrendsDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="48" column="20" lean-forward="true" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/MybatisApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="11" column="45" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="43" />
+        <state relative-caret-position="2880">
+          <caret line="106" column="33" selection-start-line="106" selection-start-column="33" selection-end-line="106" selection-end-column="33" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2492#2493#0" expanded="true" />
+            <element signature="e#2520#2521#0" expanded="true" />
+            <element signature="e#2562#2563#0" expanded="true" />
+            <element signature="e#2596#2597#0" expanded="true" />
+            <element signature="e#2630#2631#0" expanded="true" />
+            <element signature="e#2660#2661#0" expanded="true" />
+            <element signature="e#2706#2707#0" expanded="true" />
+            <element signature="e#2744#2745#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/game/LscsHtmlUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/ToBuyMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="72" column="13" selection-start-line="72" selection-start-column="13" selection-end-line="72" selection-end-column="13" />
+        <state relative-caret-position="1650">
+          <caret line="57" column="41" selection-start-line="57" selection-start-column="41" selection-end-line="57" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/service/NoticeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="37" column="28" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="28" />
+          <folding>
+            <element signature="method#httpRsStockNotice#0;class#NoticeService#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_211/jre/lib/rt.jar!/sun/net/www/HeaderParser.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_211/src.zip!/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="110" column="19" selection-start-line="110" selection-start-column="19" selection-end-line="110" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/game/LscsUtilDarkMoon.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="77" column="13" selection-start-line="77" selection-start-column="13" selection-end-line="77" selection-end-column="13" />
+        <state relative-caret-position="381">
+          <caret line="23" column="30" lean-forward="true" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_211/src.zip!/java/io/BufferedReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="388" column="19" selection-start-line="388" selection-start-column="19" selection-end-line="388" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_211/src.zip!/java/net/SocketInputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="93" column="23" selection-start-line="93" selection-start-column="23" selection-end-line="93" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/ForEachTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/dao/PersonMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="91" column="26" selection-start-line="91" selection-start-column="26" selection-end-line="91" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/TradeDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/impl/TradeDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/User.xml.fxml" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/Fupan.xml" />
-    <entry file="jar://L:/work/Java/repository/org/mybatis/mybatis/3.4.5/mybatis-3.4.5.jar!/org/apache/ibatis/session/SqlSession.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/TradeStockDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/db/RankBizEtf.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/FundRank.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="127" column="23" selection-start-line="127" selection-start-column="23" selection-end-line="127" selection-end-column="23" />
-          <folding>
-            <element signature="e#2274#2275#0" expanded="true" />
-            <element signature="e#2307#2308#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/MyBatisUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/fupan/FupanDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3780">
-          <caret line="141" column="5" selection-start-line="131" selection-start-column="45" selection-end-line="141" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1920">
-          <caret line="75" column="22" selection-start-line="75" selection-start-column="22" selection-end-line="75" selection-end-column="22" />
-          <folding>
-            <element signature="method#szzsKlineMonth#0;class#SzzsDataDemo#0" />
-            <element signature="method#szKlineWeek#0;class#SzzsDataDemo#0" />
-            <element signature="method#hs300Kline#0;class#SzzsDataDemo#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/db/Fupan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="13" column="24" lean-forward="true" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+        <state relative-caret-position="2760">
+          <caret line="92" column="21" selection-start-line="92" selection-start-column="21" selection-end-line="92" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/FupanMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="17" column="37" lean-forward="true" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
+        <state>
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/TestMybatis.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/FupanPositionDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="43" column="24" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
+        <state relative-caret-position="570">
+          <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#updateDbFupan#0;class#FupanPositionDao#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/StockTradeToday.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/DateUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/FundRankDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="196" column="34" selection-start-line="196" selection-start-column="28" selection-end-line="196" selection-end-column="34" />
+        <state relative-caret-position="630">
+          <caret line="56" column="25" selection-start-line="56" selection-start-column="25" selection-end-line="56" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#main#0;class#DateUtil#0" />
+            <element signature="e#1669#1670#0" expanded="true" />
+            <element signature="e#1739#1740#0" expanded="true" />
+            <element signature="method#getCurYearMonth#0;class#DateUtil#0" />
+            <element signature="method#getTimeInMillisByDateStr#0;class#DateUtil#0" />
+            <element signature="method#getYearWeek#0;class#DateUtil#0" />
+            <element signature="method#getYearMonth#0;class#DateUtil#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/RankBizDataDiff.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="276" column="4" selection-start-line="276" selection-start-column="4" selection-end-line="276" selection-end-column="28" />
-          <folding>
-            <element signature="e#22462#22463#0" expanded="true" />
-            <element signature="e#22493#22494#0" expanded="true" />
-            <element signature="e#22541#22542#0" expanded="true" />
-            <element signature="e#22581#22582#0" expanded="true" />
-            <element signature="e#22617#22618#0" expanded="true" />
-            <element signature="e#22649#22650#0" expanded="true" />
-            <element signature="e#22699#22700#0" expanded="true" />
-            <element signature="e#22741#22742#0" expanded="true" />
-            <element signature="e#22777#22778#0" expanded="true" />
-            <element signature="e#22809#22810#0" expanded="true" />
-            <element signature="e#22859#22860#0" expanded="true" />
-            <element signature="e#22901#22902#0" expanded="true" />
-            <element signature="e#22938#22939#0" expanded="true" />
-            <element signature="e#22971#22972#0" expanded="true" />
-            <element signature="e#23023#23024#0" expanded="true" />
-            <element signature="e#23067#23068#0" expanded="true" />
-            <element signature="e#23104#23105#0" expanded="true" />
-            <element signature="e#23137#23138#0" expanded="true" />
-            <element signature="e#23189#23190#0" expanded="true" />
-            <element signature="e#23233#23234#0" expanded="true" />
-            <element signature="e#23270#23271#0" expanded="true" />
-            <element signature="e#23303#23304#0" expanded="true" />
-            <element signature="e#23355#23356#0" expanded="true" />
-            <element signature="e#23399#23400#0" expanded="true" />
-            <element signature="e#23436#23437#0" expanded="true" />
-            <element signature="e#23469#23470#0" expanded="true" />
-            <element signature="e#23521#23522#0" expanded="true" />
-            <element signature="e#23565#23566#0" expanded="true" />
-            <element signature="e#23603#23604#0" expanded="true" />
-            <element signature="e#23637#23638#0" expanded="true" />
-            <element signature="e#23691#23692#0" expanded="true" />
-            <element signature="e#23737#23738#0" expanded="true" />
-            <element signature="e#23775#23776#0" expanded="true" />
-            <element signature="e#23809#23810#0" expanded="true" />
-            <element signature="e#23863#23864#0" expanded="true" />
-            <element signature="e#23909#23910#0" expanded="true" />
-            <element signature="e#23945#23946#0" expanded="true" />
-            <element signature="e#23977#23978#0" expanded="true" />
-            <element signature="e#24027#24028#0" expanded="true" />
-            <element signature="e#24069#24070#0" expanded="true" />
-            <element signature="e#24105#24106#0" expanded="true" />
-            <element signature="e#24137#24138#0" expanded="true" />
-            <element signature="e#24187#24188#0" expanded="true" />
-            <element signature="e#24229#24230#0" expanded="true" />
-            <element signature="e#24266#24267#0" expanded="true" />
-            <element signature="e#24299#24300#0" expanded="true" />
-            <element signature="e#24351#24352#0" expanded="true" />
-            <element signature="e#24395#24396#0" expanded="true" />
-            <element signature="e#24432#24433#0" expanded="true" />
-            <element signature="e#24465#24466#0" expanded="true" />
-            <element signature="e#24517#24518#0" expanded="true" />
-            <element signature="e#24561#24562#0" expanded="true" />
-            <element signature="e#24598#24599#0" expanded="true" />
-            <element signature="e#24631#24632#0" expanded="true" />
-            <element signature="e#24683#24684#0" expanded="true" />
-            <element signature="e#24727#24728#0" expanded="true" />
-            <element signature="e#24764#24765#0" expanded="true" />
-            <element signature="e#24797#24798#0" expanded="true" />
-            <element signature="e#24849#24850#0" expanded="true" />
-            <element signature="e#24893#24894#0" expanded="true" />
-            <element signature="e#24931#24932#0" expanded="true" />
-            <element signature="e#24965#24966#0" expanded="true" />
-            <element signature="e#25019#25020#0" expanded="true" />
-            <element signature="e#25065#25066#0" expanded="true" />
-            <element signature="e#25103#25104#0" expanded="true" />
-            <element signature="e#25137#25138#0" expanded="true" />
-            <element signature="e#25191#25192#0" expanded="true" />
-            <element signature="e#25237#25238#0" expanded="true" />
-            <element signature="e#25278#25279#0" expanded="true" />
-            <element signature="e#25315#25316#0" expanded="true" />
-            <element signature="e#25375#25376#0" expanded="true" />
-            <element signature="e#25427#25428#0" expanded="true" />
-            <element signature="e#25468#25469#0" expanded="true" />
-            <element signature="e#25505#25506#0" expanded="true" />
-            <element signature="e#25565#25566#0" expanded="true" />
-            <element signature="e#25617#25618#0" expanded="true" />
-            <element signature="e#25659#25660#0" expanded="true" />
-            <element signature="e#25697#25698#0" expanded="true" />
-            <element signature="e#25759#25760#0" expanded="true" />
-            <element signature="e#25813#25814#0" expanded="true" />
-            <element signature="e#25855#25856#0" expanded="true" />
-            <element signature="e#25893#25894#0" expanded="true" />
-            <element signature="e#25955#25956#0" expanded="true" />
-            <element signature="e#26009#26010#0" expanded="true" />
-            <element signature="e#26051#26052#0" expanded="true" />
-            <element signature="e#26089#26090#0" expanded="true" />
-            <element signature="e#26151#26152#0" expanded="true" />
-            <element signature="e#26205#26206#0" expanded="true" />
-            <element signature="e#26247#26248#0" expanded="true" />
-            <element signature="e#26285#26286#0" expanded="true" />
-            <element signature="e#26347#26348#0" expanded="true" />
-            <element signature="e#26401#26402#0" expanded="true" />
-            <element signature="e#26444#26445#0" expanded="true" />
-            <element signature="e#26483#26484#0" expanded="true" />
-            <element signature="e#26547#26548#0" expanded="true" />
-            <element signature="e#26603#26604#0" expanded="true" />
-            <element signature="e#26646#26647#0" expanded="true" />
-            <element signature="e#26685#26686#0" expanded="true" />
-            <element signature="e#26749#26750#0" expanded="true" />
-            <element signature="e#26805#26806#0" expanded="true" />
-            <element signature="e#26846#26847#0" expanded="true" />
-            <element signature="e#26883#26884#0" expanded="true" />
-            <element signature="e#26943#26944#0" expanded="true" />
-            <element signature="e#26995#26996#0" expanded="true" />
-            <element signature="e#27036#27037#0" expanded="true" />
-            <element signature="e#27073#27074#0" expanded="true" />
-            <element signature="e#27133#27134#0" expanded="true" />
-            <element signature="e#27185#27186#0" expanded="true" />
-            <element signature="e#27227#27228#0" expanded="true" />
-            <element signature="e#27265#27266#0" expanded="true" />
-            <element signature="e#27327#27328#0" expanded="true" />
-            <element signature="e#27381#27382#0" expanded="true" />
-            <element signature="e#27423#27424#0" expanded="true" />
-            <element signature="e#27461#27462#0" expanded="true" />
-            <element signature="e#27523#27524#0" expanded="true" />
-            <element signature="e#27577#27578#0" expanded="true" />
-            <element signature="e#27619#27620#0" expanded="true" />
-            <element signature="e#27657#27658#0" expanded="true" />
-            <element signature="e#27719#27720#0" expanded="true" />
-            <element signature="e#27773#27774#0" expanded="true" />
-            <element signature="e#27815#27816#0" expanded="true" />
-            <element signature="e#27853#27854#0" expanded="true" />
-            <element signature="e#27915#27916#0" expanded="true" />
-            <element signature="e#27969#27970#0" expanded="true" />
-            <element signature="e#28012#28013#0" expanded="true" />
-            <element signature="e#28051#28052#0" expanded="true" />
-            <element signature="e#28115#28116#0" expanded="true" />
-            <element signature="e#28171#28172#0" expanded="true" />
-            <element signature="e#28214#28215#0" expanded="true" />
-            <element signature="e#28253#28254#0" expanded="true" />
-            <element signature="e#28317#28318#0" expanded="true" />
-            <element signature="e#28373#28374#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="810">
+          <caret line="36" column="19" lean-forward="true" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/BizRankDemo.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/stat/StockQueryDemo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="691">
-          <caret line="253" column="24" selection-start-line="253" selection-start-column="24" selection-end-line="253" selection-end-column="24" />
+        <state relative-caret-position="210">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/Kline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5130">
+          <caret line="216" column="20" selection-start-line="216" selection-start-column="20" selection-end-line="216" selection-end-column="20" />
           <folding>
-            <element signature="method#listEtf#0;class#BizRankDemo#0" />
+            <element signature="e#2711#2712#0" expanded="true" />
+            <element signature="e#2739#2740#0" expanded="true" />
+            <element signature="e#3010#3011#0" expanded="true" />
+            <element signature="e#3041#3042#0" expanded="true" />
+            <element signature="e#3785#3786#0" expanded="true" />
+            <element signature="e#3811#3812#0" expanded="true" />
+            <element signature="e#4074#4075#0" expanded="true" />
+            <element signature="e#4107#4108#0" expanded="true" />
+            <element signature="e#4247#4248#0" expanded="true" />
+            <element signature="e#4279#4280#0" expanded="true" />
+            <element signature="e#4416#4417#0" expanded="true" />
+            <element signature="e#4449#4450#0" expanded="true" />
+            <element signature="e#5091#5092#0" expanded="true" />
+            <element signature="e#5123#5124#0" expanded="true" />
+            <element signature="e#5177#5178#0" expanded="true" />
+            <element signature="e#5219#5220#0" expanded="true" />
+            <element signature="e#5260#5261#0" expanded="true" />
+            <element signature="e#5293#5294#0" expanded="true" />
+            <element signature="e#5349#5350#0" expanded="true" />
+            <element signature="e#5393#5394#0" expanded="true" />
+            <element signature="e#5434#5435#0" expanded="true" />
+            <element signature="e#5467#5468#0" expanded="true" />
+            <element signature="e#5523#5524#0" expanded="true" />
+            <element signature="e#5567#5568#0" expanded="true" />
+            <element signature="e#5608#5609#0" expanded="true" />
+            <element signature="e#5641#5642#0" expanded="true" />
+            <element signature="e#5697#5698#0" expanded="true" />
+            <element signature="e#5741#5742#0" expanded="true" />
+            <element signature="e#5782#5783#0" expanded="true" />
+            <element signature="e#5815#5816#0" expanded="true" />
+            <element signature="e#5871#5872#0" expanded="true" />
+            <element signature="e#5915#5916#0" expanded="true" />
+            <element signature="e#5957#5958#0" expanded="true" />
+            <element signature="e#5991#5992#0" expanded="true" />
+            <element signature="e#6049#6050#0" expanded="true" />
+            <element signature="e#6095#6096#0" expanded="true" />
+            <element signature="e#6137#6138#0" expanded="true" />
+            <element signature="e#6171#6172#0" expanded="true" />
+            <element signature="e#6229#6230#0" expanded="true" />
+            <element signature="e#6275#6276#0" expanded="true" />
+            <element signature="e#6315#6316#0" expanded="true" />
+            <element signature="e#6347#6348#0" expanded="true" />
+            <element signature="e#6401#6402#0" expanded="true" />
+            <element signature="e#6443#6444#0" expanded="true" />
+            <element signature="e#6484#6485#0" expanded="true" />
+            <element signature="e#6517#6518#0" expanded="true" />
+            <element signature="e#6573#6574#0" expanded="true" />
+            <element signature="e#6617#6618#0" expanded="true" />
+            <element signature="e#6658#6659#0" expanded="true" />
+            <element signature="e#6691#6692#0" expanded="true" />
+            <element signature="e#6747#6748#0" expanded="true" />
+            <element signature="e#6791#6792#0" expanded="true" />
+            <element signature="e#6832#6833#0" expanded="true" />
+            <element signature="e#6865#6866#0" expanded="true" />
+            <element signature="e#6921#6922#0" expanded="true" />
+            <element signature="e#6965#6966#0" expanded="true" />
+            <element signature="e#7006#7007#0" expanded="true" />
+            <element signature="e#7039#7040#0" expanded="true" />
+            <element signature="e#7095#7096#0" expanded="true" />
+            <element signature="e#7139#7140#0" expanded="true" />
+            <element signature="e#7181#7182#0" expanded="true" />
+            <element signature="e#7215#7216#0" expanded="true" />
+            <element signature="e#7273#7274#0" expanded="true" />
+            <element signature="e#7319#7320#0" expanded="true" />
+            <element signature="e#7361#7362#0" expanded="true" />
+            <element signature="e#7395#7396#0" expanded="true" />
+            <element signature="e#7453#7454#0" expanded="true" />
+            <element signature="e#7499#7500#0" expanded="true" />
+            <element signature="e#7544#7545#0" expanded="true" />
+            <element signature="e#7581#7582#0" expanded="true" />
+            <element signature="e#7645#7646#0" expanded="true" />
+            <element signature="e#7697#7698#0" expanded="true" />
+            <element signature="e#7743#7744#0" expanded="true" />
+            <element signature="e#7781#7782#0" expanded="true" />
+            <element signature="e#7847#7848#0" expanded="true" />
+            <element signature="e#7901#7902#0" expanded="true" />
+            <element signature="e#7947#7948#0" expanded="true" />
+            <element signature="e#7985#7986#0" expanded="true" />
+            <element signature="e#8051#8052#0" expanded="true" />
+            <element signature="e#8105#8106#0" expanded="true" />
+            <element signature="e#8151#8152#0" expanded="true" />
+            <element signature="e#8189#8190#0" expanded="true" />
+            <element signature="e#8255#8256#0" expanded="true" />
+            <element signature="e#8309#8310#0" expanded="true" />
+            <element signature="e#8355#8356#0" expanded="true" />
+            <element signature="e#8393#8394#0" expanded="true" />
+            <element signature="e#8459#8460#0" expanded="true" />
+            <element signature="e#8513#8514#0" expanded="true" />
+            <element signature="e#8560#8561#0" expanded="true" />
+            <element signature="e#8599#8600#0" expanded="true" />
+            <element signature="e#8667#8668#0" expanded="true" />
+            <element signature="e#8723#8724#0" expanded="true" />
+            <element signature="e#8770#8771#0" expanded="true" />
+            <element signature="e#8809#8810#0" expanded="true" />
+            <element signature="e#8877#8878#0" expanded="true" />
+            <element signature="e#8933#8934#0" expanded="true" />
+            <element signature="e#8978#8979#0" expanded="true" />
+            <element signature="e#9015#9016#0" expanded="true" />
+            <element signature="e#9079#9080#0" expanded="true" />
+            <element signature="e#9131#9132#0" expanded="true" />
+            <element signature="e#9177#9178#0" expanded="true" />
+            <element signature="e#9215#9216#0" expanded="true" />
+            <element signature="e#9281#9282#0" expanded="true" />
+            <element signature="e#9335#9336#0" expanded="true" />
+            <element signature="e#9381#9382#0" expanded="true" />
+            <element signature="e#9419#9420#0" expanded="true" />
+            <element signature="e#9485#9486#0" expanded="true" />
+            <element signature="e#9539#9540#0" expanded="true" />
+            <element signature="e#9585#9586#0" expanded="true" />
+            <element signature="e#9623#9624#0" expanded="true" />
+            <element signature="e#9689#9690#0" expanded="true" />
+            <element signature="e#9743#9744#0" expanded="true" />
+            <element signature="e#9789#9790#0" expanded="true" />
+            <element signature="e#9827#9828#0" expanded="true" />
+            <element signature="e#9893#9894#0" expanded="true" />
+            <element signature="e#9947#9948#0" expanded="true" />
+            <element signature="e#9994#9995#0" expanded="true" />
+            <element signature="e#10033#10034#0" expanded="true" />
+            <element signature="e#10101#10102#0" expanded="true" />
+            <element signature="e#10157#10158#0" expanded="true" />
+            <element signature="e#10204#10205#0" expanded="true" />
+            <element signature="e#10243#10244#0" expanded="true" />
+            <element signature="e#10311#10312#0" expanded="true" />
+            <element signature="e#10367#10368#0" expanded="true" />
+            <element signature="e#10406#10407#0" expanded="true" />
+            <element signature="e#10437#10438#0" expanded="true" />
+            <element signature="e#10489#10490#0" expanded="true" />
+            <element signature="e#10529#10530#0" expanded="true" />
+            <element signature="e#10569#10570#0" expanded="true" />
+            <element signature="e#10601#10602#0" expanded="true" />
+            <element signature="e#10655#10656#0" expanded="true" />
+            <element signature="e#10697#10698#0" expanded="true" />
+            <element signature="e#10737#10738#0" expanded="true" />
+            <element signature="e#10769#10770#0" expanded="true" />
+            <element signature="e#10823#10824#0" expanded="true" />
+            <element signature="e#10865#10866#0" expanded="true" />
+            <element signature="e#10905#10906#0" expanded="true" />
+            <element signature="e#10937#10938#0" expanded="true" />
+            <element signature="e#10991#10992#0" expanded="true" />
+            <element signature="e#11033#11034#0" expanded="true" />
+            <element signature="e#11073#11074#0" expanded="true" />
+            <element signature="e#11105#11106#0" expanded="true" />
+            <element signature="e#11159#11160#0" expanded="true" />
+            <element signature="e#11201#11202#0" expanded="true" />
+            <element signature="e#11242#11243#0" expanded="true" />
+            <element signature="e#11275#11276#0" expanded="true" />
+            <element signature="e#11331#11332#0" expanded="true" />
+            <element signature="e#11375#11376#0" expanded="true" />
+            <element signature="e#11416#11417#0" expanded="true" />
+            <element signature="e#11449#11450#0" expanded="true" />
+            <element signature="e#11505#11506#0" expanded="true" />
+            <element signature="e#11549#11550#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/fund/FundRankDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/StockTradeDemo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
-          <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="14" column="10" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/config-mybatis.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="9" column="40" lean-forward="true" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/trade/TradeDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="617">
-          <caret line="321" column="61" selection-start-line="321" selection-start-column="50" selection-end-line="321" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/trade/AssetStockDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-668">
-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/impl/TradeStockDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="52" column="28" selection-start-line="52" selection-start-column="28" selection-end-line="52" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/StockTrade.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="208" column="18" selection-start-line="208" selection-start-column="18" selection-end-line="208" selection-end-column="18" />
+          <caret line="29" column="59" selection-start-line="29" selection-start-column="59" selection-end-line="29" selection-end-column="59" />
           <folding>
-            <element signature="e#35382#35383#0" expanded="true" />
-            <element signature="e#35409#35410#0" expanded="true" />
+            <element signature="docComment;method#showInsertDb#0;class#StockTradeDemo#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/RandBizEtfMapper.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/FuPanDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="18" selection-start-line="18" selection-end-line="85" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/StockTradeMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="26" column="71" selection-start-line="26" selection-start-column="65" selection-end-line="26" selection-end-column="71" />
+        <state relative-caret-position="193">
+          <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
           <folding>
-            <element signature="e#3048#6098#1" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/db/StockTradeDb.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/history/KlineHistoryTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="707">
-          <caret line="170" column="5" lean-forward="true" selection-start-line="170" selection-start-column="5" selection-end-line="170" selection-end-column="5" />
+        <state relative-caret-position="183">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/LsjzData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/HttpRsHxtc.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="13" column="31" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="31" />
           <folding>
-            <element signature="e#2217#2218#0" expanded="true" />
-            <element signature="e#2247#2248#0" expanded="true" />
-            <element signature="e#2293#2294#0" expanded="true" />
-            <element signature="e#2331#2332#0" expanded="true" />
-            <element signature="e#2368#2369#0" expanded="true" />
-            <element signature="e#2401#2402#0" expanded="true" />
-            <element signature="e#2453#2454#0" expanded="true" />
-            <element signature="e#2497#2498#0" expanded="true" />
-            <element signature="e#2536#2537#0" expanded="true" />
-            <element signature="e#2571#2572#0" expanded="true" />
-            <element signature="e#2627#2628#0" expanded="true" />
-            <element signature="e#2675#2676#0" expanded="true" />
-            <element signature="e#3040#3041#0" expanded="true" />
-            <element signature="e#3069#3070#0" expanded="true" />
-            <element signature="e#3113#3114#0" expanded="true" />
-            <element signature="e#3149#3150#0" expanded="true" />
-            <element signature="e#3186#3187#0" expanded="true" />
-            <element signature="e#3219#3220#0" expanded="true" />
-            <element signature="e#3271#3272#0" expanded="true" />
-            <element signature="e#3315#3316#0" expanded="true" />
-            <element signature="e#3530#3531#0" expanded="true" />
-            <element signature="e#3569#3570#0" expanded="true" />
-            <element signature="e#3633#3634#0" expanded="true" />
-            <element signature="e#3689#3690#0" expanded="true" />
-            <element signature="e#3911#3912#0" expanded="true" />
-            <element signature="e#3945#3946#0" expanded="true" />
-            <element signature="e#3999#4000#0" expanded="true" />
-            <element signature="e#4045#4046#0" expanded="true" />
-            <element signature="e#4083#4084#0" expanded="true" />
-            <element signature="e#4117#4118#0" expanded="true" />
-            <element signature="e#4171#4172#0" expanded="true" />
-            <element signature="e#4217#4218#0" expanded="true" />
-            <element signature="e#4250#4251#0" expanded="true" />
-            <element signature="e#4279#4280#0" expanded="true" />
-            <element signature="e#4323#4324#0" expanded="true" />
-            <element signature="e#4359#4360#0" expanded="true" />
-            <element signature="e#4396#4397#0" expanded="true" />
-            <element signature="e#4429#4430#0" expanded="true" />
-            <element signature="e#4481#4482#0" expanded="true" />
-            <element signature="e#4525#4526#0" expanded="true" />
-            <element signature="e#4564#4565#0" expanded="true" />
-            <element signature="e#4599#4600#0" expanded="true" />
-            <element signature="e#4655#4656#0" expanded="true" />
-            <element signature="e#4703#4704#0" expanded="true" />
-            <element signature="e#1464#1465#0" expanded="true" />
-            <element signature="e#1500#1501#0" expanded="true" />
-            <element signature="e#1558#1559#0" expanded="true" />
-            <element signature="e#1608#1609#0" expanded="true" />
-            <element signature="e#33486#33487#0" expanded="true" />
-            <element signature="e#33516#33517#0" expanded="true" />
-            <element signature="e#33562#33563#0" expanded="true" />
-            <element signature="e#33600#33601#0" expanded="true" />
-            <element signature="e#33636#33637#0" expanded="true" />
-            <element signature="e#33668#33669#0" expanded="true" />
-            <element signature="e#33718#33719#0" expanded="true" />
-            <element signature="e#33760#33761#0" expanded="true" />
-            <element signature="e#33796#33797#0" expanded="true" />
-            <element signature="e#33828#33829#0" expanded="true" />
-            <element signature="e#33878#33879#0" expanded="true" />
-            <element signature="e#33920#33921#0" expanded="true" />
-            <element signature="e#33957#33958#0" expanded="true" />
-            <element signature="e#33990#33991#0" expanded="true" />
-            <element signature="e#34042#34043#0" expanded="true" />
-            <element signature="e#34086#34087#0" expanded="true" />
-            <element signature="e#34123#34124#0" expanded="true" />
-            <element signature="e#34156#34157#0" expanded="true" />
-            <element signature="e#34208#34209#0" expanded="true" />
-            <element signature="e#34252#34253#0" expanded="true" />
-            <element signature="e#34289#34290#0" expanded="true" />
-            <element signature="e#34322#34323#0" expanded="true" />
-            <element signature="e#34374#34375#0" expanded="true" />
-            <element signature="e#34418#34419#0" expanded="true" />
-            <element signature="e#34455#34456#0" expanded="true" />
-            <element signature="e#34488#34489#0" expanded="true" />
-            <element signature="e#34540#34541#0" expanded="true" />
-            <element signature="e#34584#34585#0" expanded="true" />
-            <element signature="e#34622#34623#0" expanded="true" />
-            <element signature="e#34656#34657#0" expanded="true" />
-            <element signature="e#34710#34711#0" expanded="true" />
-            <element signature="e#34756#34757#0" expanded="true" />
-            <element signature="e#34794#34795#0" expanded="true" />
-            <element signature="e#34828#34829#0" expanded="true" />
-            <element signature="e#34882#34883#0" expanded="true" />
-            <element signature="e#34928#34929#0" expanded="true" />
-            <element signature="e#34964#34965#0" expanded="true" />
-            <element signature="e#34996#34997#0" expanded="true" />
-            <element signature="e#35046#35047#0" expanded="true" />
-            <element signature="e#35088#35089#0" expanded="true" />
-            <element signature="e#35124#35125#0" expanded="true" />
-            <element signature="e#35156#35157#0" expanded="true" />
-            <element signature="e#35206#35207#0" expanded="true" />
-            <element signature="e#35248#35249#0" expanded="true" />
-            <element signature="e#35285#35286#0" expanded="true" />
-            <element signature="e#35318#35319#0" expanded="true" />
-            <element signature="e#35370#35371#0" expanded="true" />
-            <element signature="e#35414#35415#0" expanded="true" />
-            <element signature="e#35451#35452#0" expanded="true" />
-            <element signature="e#35484#35485#0" expanded="true" />
-            <element signature="e#35536#35537#0" expanded="true" />
-            <element signature="e#35580#35581#0" expanded="true" />
-            <element signature="e#35617#35618#0" expanded="true" />
-            <element signature="e#35650#35651#0" expanded="true" />
-            <element signature="e#35702#35703#0" expanded="true" />
-            <element signature="e#35746#35747#0" expanded="true" />
-            <element signature="e#35783#35784#0" expanded="true" />
-            <element signature="e#35816#35817#0" expanded="true" />
-            <element signature="e#35868#35869#0" expanded="true" />
-            <element signature="e#35912#35913#0" expanded="true" />
-            <element signature="e#35950#35951#0" expanded="true" />
-            <element signature="e#35984#35985#0" expanded="true" />
-            <element signature="e#36038#36039#0" expanded="true" />
-            <element signature="e#36084#36085#0" expanded="true" />
-            <element signature="e#36122#36123#0" expanded="true" />
-            <element signature="e#36156#36157#0" expanded="true" />
-            <element signature="e#36210#36211#0" expanded="true" />
-            <element signature="e#36256#36257#0" expanded="true" />
-            <element signature="e#36297#36298#0" expanded="true" />
-            <element signature="e#36334#36335#0" expanded="true" />
-            <element signature="e#36394#36395#0" expanded="true" />
-            <element signature="e#36446#36447#0" expanded="true" />
-            <element signature="e#36487#36488#0" expanded="true" />
-            <element signature="e#36524#36525#0" expanded="true" />
-            <element signature="e#36584#36585#0" expanded="true" />
-            <element signature="e#36636#36637#0" expanded="true" />
-            <element signature="e#36678#36679#0" expanded="true" />
-            <element signature="e#36716#36717#0" expanded="true" />
-            <element signature="e#36778#36779#0" expanded="true" />
-            <element signature="e#36832#36833#0" expanded="true" />
-            <element signature="e#36874#36875#0" expanded="true" />
-            <element signature="e#36912#36913#0" expanded="true" />
-            <element signature="e#36974#36975#0" expanded="true" />
-            <element signature="e#37028#37029#0" expanded="true" />
-            <element signature="e#37070#37071#0" expanded="true" />
-            <element signature="e#37108#37109#0" expanded="true" />
-            <element signature="e#37170#37171#0" expanded="true" />
-            <element signature="e#37224#37225#0" expanded="true" />
-            <element signature="e#37266#37267#0" expanded="true" />
-            <element signature="e#37304#37305#0" expanded="true" />
-            <element signature="e#37366#37367#0" expanded="true" />
-            <element signature="e#37420#37421#0" expanded="true" />
-            <element signature="e#37463#37464#0" expanded="true" />
-            <element signature="e#37502#37503#0" expanded="true" />
-            <element signature="e#37566#37567#0" expanded="true" />
-            <element signature="e#37622#37623#0" expanded="true" />
-            <element signature="e#37665#37666#0" expanded="true" />
-            <element signature="e#37704#37705#0" expanded="true" />
-            <element signature="e#37768#37769#0" expanded="true" />
-            <element signature="e#37824#37825#0" expanded="true" />
-            <element signature="e#37865#37866#0" expanded="true" />
-            <element signature="e#37902#37903#0" expanded="true" />
-            <element signature="e#37962#37963#0" expanded="true" />
-            <element signature="e#38014#38015#0" expanded="true" />
-            <element signature="e#38055#38056#0" expanded="true" />
-            <element signature="e#38092#38093#0" expanded="true" />
-            <element signature="e#38152#38153#0" expanded="true" />
-            <element signature="e#38204#38205#0" expanded="true" />
-            <element signature="e#38246#38247#0" expanded="true" />
-            <element signature="e#38284#38285#0" expanded="true" />
-            <element signature="e#38346#38347#0" expanded="true" />
-            <element signature="e#38400#38401#0" expanded="true" />
-            <element signature="e#38442#38443#0" expanded="true" />
-            <element signature="e#38480#38481#0" expanded="true" />
-            <element signature="e#38542#38543#0" expanded="true" />
-            <element signature="e#38596#38597#0" expanded="true" />
-            <element signature="e#38638#38639#0" expanded="true" />
-            <element signature="e#38676#38677#0" expanded="true" />
-            <element signature="e#38738#38739#0" expanded="true" />
-            <element signature="e#38792#38793#0" expanded="true" />
-            <element signature="e#38834#38835#0" expanded="true" />
-            <element signature="e#38872#38873#0" expanded="true" />
-            <element signature="e#38934#38935#0" expanded="true" />
-            <element signature="e#38988#38989#0" expanded="true" />
-            <element signature="e#39031#39032#0" expanded="true" />
-            <element signature="e#39070#39071#0" expanded="true" />
-            <element signature="e#39134#39135#0" expanded="true" />
-            <element signature="e#39190#39191#0" expanded="true" />
-            <element signature="e#39233#39234#0" expanded="true" />
-            <element signature="e#39272#39273#0" expanded="true" />
-            <element signature="e#39336#39337#0" expanded="true" />
-            <element signature="e#39392#39393#0" expanded="true" />
-            <element signature="e#7244#7245#0" expanded="true" />
-            <element signature="e#7275#7276#0" expanded="true" />
-            <element signature="e#7323#7324#0" expanded="true" />
-            <element signature="e#7363#7364#0" expanded="true" />
-            <element signature="e#7468#7469#0" expanded="true" />
-            <element signature="e#7501#7502#0" expanded="true" />
-            <element signature="e#7553#7554#0" expanded="true" />
-            <element signature="e#7597#7598#0" expanded="true" />
-            <element signature="e#8150#8151#0" expanded="true" />
-            <element signature="e#8177#8178#0" expanded="true" />
-            <element signature="e#8217#8218#0" expanded="true" />
-            <element signature="e#8249#8250#0" expanded="true" />
-            <element signature="e#8285#8286#0" expanded="true" />
-            <element signature="e#8317#8318#0" expanded="true" />
-            <element signature="e#8367#8368#0" expanded="true" />
-            <element signature="e#8409#8410#0" expanded="true" />
-            <element signature="e#8447#8448#0" expanded="true" />
-            <element signature="e#8481#8482#0" expanded="true" />
-            <element signature="e#8535#8536#0" expanded="true" />
-            <element signature="e#8581#8582#0" expanded="true" />
-            <element signature="e#8618#8619#0" expanded="true" />
-            <element signature="e#8651#8652#0" expanded="true" />
-            <element signature="e#8703#8704#0" expanded="true" />
-            <element signature="e#8747#8748#0" expanded="true" />
-            <element signature="e#8783#8784#0" expanded="true" />
-            <element signature="e#8815#8816#0" expanded="true" />
-            <element signature="e#8865#8866#0" expanded="true" />
-            <element signature="e#8907#8908#0" expanded="true" />
-            <element signature="e#8953#8954#0" expanded="true" />
-            <element signature="e#8995#8996#0" expanded="true" />
-            <element signature="e#9166#9167#0" expanded="true" />
-            <element signature="e#9201#9202#0" expanded="true" />
-            <element signature="e#9257#9258#0" expanded="true" />
-            <element signature="e#9305#9306#0" expanded="true" />
-            <element signature="e#9340#9341#0" expanded="true" />
-            <element signature="e#9371#9372#0" expanded="true" />
-            <element signature="e#9419#9420#0" expanded="true" />
-            <element signature="e#9459#9460#0" expanded="true" />
-            <element signature="e#11853#11854#0" expanded="true" />
-            <element signature="e#11887#11888#0" expanded="true" />
-            <element signature="e#11941#11942#0" expanded="true" />
-            <element signature="e#11987#11988#0" expanded="true" />
-            <element signature="e#12023#12024#0" expanded="true" />
-            <element signature="e#12055#12056#0" expanded="true" />
-            <element signature="e#12105#12106#0" expanded="true" />
-            <element signature="e#12147#12148#0" expanded="true" />
-            <element signature="e#12185#12186#0" expanded="true" />
-            <element signature="e#12219#12220#0" expanded="true" />
-            <element signature="e#12273#12274#0" expanded="true" />
-            <element signature="e#12319#12320#0" expanded="true" />
-            <element signature="e#12359#12360#0" expanded="true" />
-            <element signature="e#12395#12396#0" expanded="true" />
-            <element signature="e#12453#12454#0" expanded="true" />
-            <element signature="e#12503#12504#0" expanded="true" />
-            <element signature="e#12563#12564#0" expanded="true" />
-            <element signature="e#12592#12593#0" expanded="true" />
-            <element signature="e#12636#12637#0" expanded="true" />
-            <element signature="e#12672#12673#0" expanded="true" />
+            <element signature="e#272#273#0" expanded="true" />
+            <element signature="e#299#300#0" expanded="true" />
+            <element signature="e#353#354#0" expanded="true" />
+            <element signature="e#385#386#0" expanded="true" />
+            <element signature="e#430#431#0" expanded="true" />
+            <element signature="e#457#458#0" expanded="true" />
+            <element signature="e#511#512#0" expanded="true" />
+            <element signature="e#543#544#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/HttpRsHxtcHxtc.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/HttpRsHxtcSsbk.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="7" column="27" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="27" />
+          <folding>
+            <element signature="e#378#379#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#457#458#0" expanded="true" />
+            <element signature="e#497#498#0" expanded="true" />
+            <element signature="e#537#538#0" expanded="true" />
+            <element signature="e#573#574#0" expanded="true" />
+            <element signature="e#631#632#0" expanded="true" />
+            <element signature="e#681#682#0" expanded="true" />
+            <element signature="e#726#727#0" expanded="true" />
+            <element signature="e#767#768#0" expanded="true" />
+            <element signature="e#835#836#0" expanded="true" />
+            <element signature="e#895#896#0" expanded="true" />
+            <element signature="e#932#933#0" expanded="true" />
+            <element signature="e#965#966#0" expanded="true" />
+            <element signature="e#1017#1018#0" expanded="true" />
+            <element signature="e#1061#1062#0" expanded="true" />
+            <element signature="e#1098#1099#0" expanded="true" />
+            <element signature="e#1131#1132#0" expanded="true" />
+            <element signature="e#1183#1184#0" expanded="true" />
+            <element signature="e#1227#1228#0" expanded="true" />
+            <element signature="e#1264#1265#0" expanded="true" />
+            <element signature="e#1297#1298#0" expanded="true" />
+            <element signature="e#1349#1350#0" expanded="true" />
+            <element signature="e#1393#1394#0" expanded="true" />
+            <element signature="e#1427#1428#0" expanded="true" />
+            <element signature="e#1460#1461#0" expanded="true" />
+            <element signature="e#1509#1510#0" expanded="true" />
+            <element signature="e#1553#1554#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/utils/HttpUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="57" column="10" selection-start-line="57" selection-start-column="10" selection-end-line="57" selection-end-column="10" />
+        <state relative-caret-position="202">
+          <caret line="26" column="28" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/stat/StockStatDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="44" column="12" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/ReportDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1200">
+          <caret line="52" column="86" selection-start-line="52" selection-start-column="86" selection-end-line="52" selection-end-column="86" />
           <folding>
-            <element signature="method#sendGetTtjj#0;class#HttpUtil#0" />
+            <element signature="method#insertReport#0;class#ReportDemo#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/RankStockBizCompany.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/ReportDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="143" column="14" selection-start-line="143" selection-start-column="14" selection-end-line="143" selection-end-column="14" />
+        <state relative-caret-position="1140">
+          <caret line="40" column="25" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/trade/StockTradeDemo.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/ReportMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="779" column="19" lean-forward="true" selection-start-line="779" selection-start-column="19" selection-end-line="779" selection-end-column="19" />
+        <state relative-caret-position="210">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/ContentUrl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="8" column="23" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/service/ReportService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="56" column="39" selection-start-line="56" selection-start-column="39" selection-end-line="56" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/ContentBkStock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1890">
+          <caret line="65" column="52" selection-start-line="65" selection-start-column="52" selection-end-line="65" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/db/RankStockCommpanyDb.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="219" column="26" selection-start-line="219" selection-start-column="23" selection-end-line="219" selection-end-column="26" />
           <folding>
-            <element signature="method#handlerBizTp#0;class#StockTradeDemo#0" />
-            <element signature="method#listMyStock#0;class#StockTradeDemo#0" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#10645#10646#0" expanded="true" />
+            <element signature="e#10681#10682#0" expanded="true" />
+            <element signature="e#10743#10744#0" expanded="true" />
+            <element signature="e#10793#10794#0" expanded="true" />
+            <element signature="e#10838#10839#0" expanded="true" />
+            <element signature="e#10875#10876#0" expanded="true" />
+            <element signature="e#10939#10940#0" expanded="true" />
+            <element signature="e#10991#10992#0" expanded="true" />
+            <element signature="e#11036#11037#0" expanded="true" />
+            <element signature="e#11073#11074#0" expanded="true" />
+            <element signature="e#11137#11138#0" expanded="true" />
+            <element signature="e#11189#11190#0" expanded="true" />
+            <element signature="e#11234#11235#0" expanded="true" />
+            <element signature="e#11271#11272#0" expanded="true" />
+            <element signature="e#11335#11336#0" expanded="true" />
+            <element signature="e#11387#11388#0" expanded="true" />
+            <element signature="e#11432#11433#0" expanded="true" />
+            <element signature="e#11469#11470#0" expanded="true" />
+            <element signature="e#11533#11534#0" expanded="true" />
+            <element signature="e#11585#11586#0" expanded="true" />
+            <element signature="e#11631#11632#0" expanded="true" />
+            <element signature="e#11669#11670#0" expanded="true" />
+            <element signature="e#11735#11736#0" expanded="true" />
+            <element signature="e#11789#11790#0" expanded="true" />
+            <element signature="e#11835#11836#0" expanded="true" />
+            <element signature="e#11873#11874#0" expanded="true" />
+            <element signature="e#11939#11940#0" expanded="true" />
+            <element signature="e#11993#11994#0" expanded="true" />
+            <element signature="e#12037#12038#0" expanded="true" />
+            <element signature="e#12073#12074#0" expanded="true" />
+            <element signature="e#12135#12136#0" expanded="true" />
+            <element signature="e#12185#12186#0" expanded="true" />
+            <element signature="e#12230#12231#0" expanded="true" />
+            <element signature="e#12267#12268#0" expanded="true" />
+            <element signature="e#12331#12332#0" expanded="true" />
+            <element signature="e#12383#12384#0" expanded="true" />
+            <element signature="e#12428#12429#0" expanded="true" />
+            <element signature="e#12465#12466#0" expanded="true" />
+            <element signature="e#12529#12530#0" expanded="true" />
+            <element signature="e#12581#12582#0" expanded="true" />
+            <element signature="e#12626#12627#0" expanded="true" />
+            <element signature="e#12663#12664#0" expanded="true" />
+            <element signature="e#12727#12728#0" expanded="true" />
+            <element signature="e#12779#12780#0" expanded="true" />
+            <element signature="e#12824#12825#0" expanded="true" />
+            <element signature="e#12861#12862#0" expanded="true" />
+            <element signature="e#12925#12926#0" expanded="true" />
+            <element signature="e#12977#12978#0" expanded="true" />
+            <element signature="e#13023#13024#0" expanded="true" />
+            <element signature="e#13061#13062#0" expanded="true" />
+            <element signature="e#13127#13128#0" expanded="true" />
+            <element signature="e#13181#13182#0" expanded="true" />
+            <element signature="e#13227#13228#0" expanded="true" />
+            <element signature="e#13265#13266#0" expanded="true" />
+            <element signature="e#13331#13332#0" expanded="true" />
+            <element signature="e#13385#13386#0" expanded="true" />
+            <element signature="e#13430#13431#0" expanded="true" />
+            <element signature="e#13467#13468#0" expanded="true" />
+            <element signature="e#13531#13532#0" expanded="true" />
+            <element signature="e#13583#13584#0" expanded="true" />
+            <element signature="e#13629#13630#0" expanded="true" />
+            <element signature="e#13667#13668#0" expanded="true" />
+            <element signature="e#13733#13734#0" expanded="true" />
+            <element signature="e#13787#13788#0" expanded="true" />
+            <element signature="e#13833#13834#0" expanded="true" />
+            <element signature="e#13871#13872#0" expanded="true" />
+            <element signature="e#13937#13938#0" expanded="true" />
+            <element signature="e#13991#13992#0" expanded="true" />
+            <element signature="e#14037#14038#0" expanded="true" />
+            <element signature="e#14075#14076#0" expanded="true" />
+            <element signature="e#14141#14142#0" expanded="true" />
+            <element signature="e#14195#14196#0" expanded="true" />
+            <element signature="e#14241#14242#0" expanded="true" />
+            <element signature="e#14279#14280#0" expanded="true" />
+            <element signature="e#14345#14346#0" expanded="true" />
+            <element signature="e#14399#14400#0" expanded="true" />
+            <element signature="e#14446#14447#0" expanded="true" />
+            <element signature="e#14485#14486#0" expanded="true" />
+            <element signature="e#14553#14554#0" expanded="true" />
+            <element signature="e#14609#14610#0" expanded="true" />
+            <element signature="e#14656#14657#0" expanded="true" />
+            <element signature="e#14695#14696#0" expanded="true" />
+            <element signature="e#14763#14764#0" expanded="true" />
+            <element signature="e#14819#14820#0" expanded="true" />
+            <element signature="e#14864#14865#0" expanded="true" />
+            <element signature="e#14901#14902#0" expanded="true" />
+            <element signature="e#14965#14966#0" expanded="true" />
+            <element signature="e#15017#15018#0" expanded="true" />
+            <element signature="e#15063#15064#0" expanded="true" />
+            <element signature="e#15101#15102#0" expanded="true" />
+            <element signature="e#15167#15168#0" expanded="true" />
+            <element signature="e#15221#15222#0" expanded="true" />
+            <element signature="e#15267#15268#0" expanded="true" />
+            <element signature="e#15305#15306#0" expanded="true" />
+            <element signature="e#15371#15372#0" expanded="true" />
+            <element signature="e#15425#15426#0" expanded="true" />
+            <element signature="e#15471#15472#0" expanded="true" />
+            <element signature="e#15509#15510#0" expanded="true" />
+            <element signature="e#15575#15576#0" expanded="true" />
+            <element signature="e#15629#15630#0" expanded="true" />
+            <element signature="e#15675#15676#0" expanded="true" />
+            <element signature="e#15713#15714#0" expanded="true" />
+            <element signature="e#15779#15780#0" expanded="true" />
+            <element signature="e#15833#15834#0" expanded="true" />
+            <element signature="e#15880#15881#0" expanded="true" />
+            <element signature="e#15919#15920#0" expanded="true" />
+            <element signature="e#15987#15988#0" expanded="true" />
+            <element signature="e#16043#16044#0" expanded="true" />
+            <element signature="e#16090#16091#0" expanded="true" />
+            <element signature="e#16129#16130#0" expanded="true" />
+            <element signature="e#16197#16198#0" expanded="true" />
+            <element signature="e#16253#16254#0" expanded="true" />
+            <element signature="e#16298#16299#0" expanded="true" />
+            <element signature="e#16335#16336#0" expanded="true" />
+            <element signature="e#16399#16400#0" expanded="true" />
+            <element signature="e#16451#16452#0" expanded="true" />
+            <element signature="e#16497#16498#0" expanded="true" />
+            <element signature="e#16535#16536#0" expanded="true" />
+            <element signature="e#16601#16602#0" expanded="true" />
+            <element signature="e#16655#16656#0" expanded="true" />
+            <element signature="e#16701#16702#0" expanded="true" />
+            <element signature="e#16739#16740#0" expanded="true" />
+            <element signature="e#16805#16806#0" expanded="true" />
+            <element signature="e#16859#16860#0" expanded="true" />
+            <element signature="e#16905#16906#0" expanded="true" />
+            <element signature="e#16943#16944#0" expanded="true" />
+            <element signature="e#17009#17010#0" expanded="true" />
+            <element signature="e#17063#17064#0" expanded="true" />
+            <element signature="e#17109#17110#0" expanded="true" />
+            <element signature="e#17147#17148#0" expanded="true" />
+            <element signature="e#17213#17214#0" expanded="true" />
+            <element signature="e#17267#17268#0" expanded="true" />
+            <element signature="e#17314#17315#0" expanded="true" />
+            <element signature="e#17353#17354#0" expanded="true" />
+            <element signature="e#17421#17422#0" expanded="true" />
+            <element signature="e#17477#17478#0" expanded="true" />
+            <element signature="e#17524#17525#0" expanded="true" />
+            <element signature="e#17563#17564#0" expanded="true" />
+            <element signature="e#17631#17632#0" expanded="true" />
+            <element signature="e#17687#17688#0" expanded="true" />
+            <element signature="e#17733#17734#0" expanded="true" />
+            <element signature="e#17771#17772#0" expanded="true" />
+            <element signature="e#17837#17838#0" expanded="true" />
+            <element signature="e#17891#17892#0" expanded="true" />
+            <element signature="e#17938#17939#0" expanded="true" />
+            <element signature="e#17977#17978#0" expanded="true" />
+            <element signature="e#18045#18046#0" expanded="true" />
+            <element signature="e#18101#18102#0" expanded="true" />
+            <element signature="e#18148#18149#0" expanded="true" />
+            <element signature="e#18187#18188#0" expanded="true" />
+            <element signature="e#18255#18256#0" expanded="true" />
+            <element signature="e#18311#18312#0" expanded="true" />
+            <element signature="e#18358#18359#0" expanded="true" />
+            <element signature="e#18397#18398#0" expanded="true" />
+            <element signature="e#18465#18466#0" expanded="true" />
+            <element signature="e#18521#18522#0" expanded="true" />
+            <element signature="e#18568#18569#0" expanded="true" />
+            <element signature="e#18607#18608#0" expanded="true" />
+            <element signature="e#18675#18676#0" expanded="true" />
+            <element signature="e#18731#18732#0" expanded="true" />
+            <element signature="e#18779#18780#0" expanded="true" />
+            <element signature="e#18819#18820#0" expanded="true" />
+            <element signature="e#18889#18890#0" expanded="true" />
+            <element signature="e#18947#18948#0" expanded="true" />
+            <element signature="e#18995#18996#0" expanded="true" />
+            <element signature="e#19035#19036#0" expanded="true" />
+            <element signature="e#19105#19106#0" expanded="true" />
+            <element signature="e#19163#19164#0" expanded="true" />
+            <element signature="e#19207#19208#0" expanded="true" />
+            <element signature="e#19243#19244#0" expanded="true" />
+            <element signature="e#19305#19306#0" expanded="true" />
+            <element signature="e#19355#19356#0" expanded="true" />
+            <element signature="e#19400#19401#0" expanded="true" />
+            <element signature="e#19437#19438#0" expanded="true" />
+            <element signature="e#19501#19502#0" expanded="true" />
+            <element signature="e#19553#19554#0" expanded="true" />
+            <element signature="e#19598#19599#0" expanded="true" />
+            <element signature="e#19635#19636#0" expanded="true" />
+            <element signature="e#19699#19700#0" expanded="true" />
+            <element signature="e#19751#19752#0" expanded="true" />
+            <element signature="e#19796#19797#0" expanded="true" />
+            <element signature="e#19833#19834#0" expanded="true" />
+            <element signature="e#19897#19898#0" expanded="true" />
+            <element signature="e#19949#19950#0" expanded="true" />
+            <element signature="e#19994#19995#0" expanded="true" />
+            <element signature="e#20031#20032#0" expanded="true" />
+            <element signature="e#20095#20096#0" expanded="true" />
+            <element signature="e#20147#20148#0" expanded="true" />
+            <element signature="e#20193#20194#0" expanded="true" />
+            <element signature="e#20231#20232#0" expanded="true" />
+            <element signature="e#20297#20298#0" expanded="true" />
+            <element signature="e#20351#20352#0" expanded="true" />
+            <element signature="e#20397#20398#0" expanded="true" />
+            <element signature="e#20435#20436#0" expanded="true" />
+            <element signature="e#20501#20502#0" expanded="true" />
+            <element signature="e#20555#20556#0" expanded="true" />
+            <element signature="e#20599#20600#0" expanded="true" />
+            <element signature="e#20635#20636#0" expanded="true" />
+            <element signature="e#20697#20698#0" expanded="true" />
+            <element signature="e#20747#20748#0" expanded="true" />
+            <element signature="e#20792#20793#0" expanded="true" />
+            <element signature="e#20829#20830#0" expanded="true" />
+            <element signature="e#20893#20894#0" expanded="true" />
+            <element signature="e#20945#20946#0" expanded="true" />
+            <element signature="e#20990#20991#0" expanded="true" />
+            <element signature="e#21027#21028#0" expanded="true" />
+            <element signature="e#21091#21092#0" expanded="true" />
+            <element signature="e#21143#21144#0" expanded="true" />
+            <element signature="e#21188#21189#0" expanded="true" />
+            <element signature="e#21225#21226#0" expanded="true" />
+            <element signature="e#21289#21290#0" expanded="true" />
+            <element signature="e#21341#21342#0" expanded="true" />
+            <element signature="e#21386#21387#0" expanded="true" />
+            <element signature="e#21423#21424#0" expanded="true" />
+            <element signature="e#21487#21488#0" expanded="true" />
+            <element signature="e#21539#21540#0" expanded="true" />
+            <element signature="e#21585#21586#0" expanded="true" />
+            <element signature="e#21623#21624#0" expanded="true" />
+            <element signature="e#21689#21690#0" expanded="true" />
+            <element signature="e#21743#21744#0" expanded="true" />
+            <element signature="e#21789#21790#0" expanded="true" />
+            <element signature="e#21827#21828#0" expanded="true" />
+            <element signature="e#21893#21894#0" expanded="true" />
+            <element signature="e#21947#21948#0" expanded="true" />
+            <element signature="e#22956#22957#0" expanded="true" />
+            <element signature="e#22989#22990#0" expanded="true" />
+            <element signature="e#23992#23993#0" expanded="true" />
+            <element signature="e#24017#24018#0" expanded="true" />
+            <element signature="e#26507#26508#0" expanded="true" />
+            <element signature="e#26537#26538#0" expanded="true" />
+            <element signature="e#26865#26866#0" expanded="true" />
+            <element signature="e#26891#26892#0" expanded="true" />
+            <element signature="e#26995#26996#0" expanded="true" />
+            <element signature="e#27025#27026#0" expanded="true" />
+            <element signature="e#28103#28104#0" expanded="true" />
+            <element signature="e#28133#28134#0" expanded="true" />
+            <element signature="e#28915#28916#0" expanded="true" />
+            <element signature="e#28941#28942#0" expanded="true" />
+            <element signature="e#29659#29660#0" expanded="true" />
+            <element signature="e#29685#29686#0" expanded="true" />
+            <element signature="e#30893#30894#0" expanded="true" />
+            <element signature="e#30919#30920#0" expanded="true" />
+            <element signature="e#32431#32432#0" expanded="true" />
+            <element signature="e#32461#32462#0" expanded="true" />
+            <element signature="e#32982#32983#0" expanded="true" />
+            <element signature="e#33009#33010#0" expanded="true" />
+            <element signature="e#33307#33308#0" expanded="true" />
+            <element signature="e#33339#33340#0" expanded="true" />
+            <element signature="e#34398#34399#0" expanded="true" />
+            <element signature="e#34425#34426#0" expanded="true" />
+            <element signature="e#34528#34529#0" expanded="true" />
+            <element signature="e#34555#34556#0" expanded="true" />
+            <element signature="e#35363#35364#0" expanded="true" />
+            <element signature="e#35395#35396#0" expanded="true" />
+            <element signature="e#35424#35425#0" expanded="true" />
+            <element signature="e#35451#35452#0" expanded="true" />
+            <element signature="e#35489#35490#0" expanded="true" />
+            <element signature="e#35521#35522#0" expanded="true" />
+            <element signature="e#36257#36258#0" expanded="true" />
+            <element signature="e#36289#36290#0" expanded="true" />
+            <element signature="e#37856#37857#0" expanded="true" />
+            <element signature="e#37883#37884#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/config-mybatis.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="6" column="60" lean-forward="true" selection-start-line="6" selection-start-column="60" selection-end-line="6" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/service/StockService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1560">
+          <caret line="58" column="89" selection-start-line="58" selection-start-column="89" selection-end-line="58" selection-end-column="89" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/Content.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5040">
+          <caret line="171" column="25" selection-start-line="171" selection-start-column="25" selection-end-line="171" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/RankStockCommpanyDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="222" column="90" selection-start-line="222" selection-start-column="73" selection-end-line="222" selection-end-column="90" />
+          <folding>
+            <element signature="method#insertDb#0;class#RankStockCommpanyDao#0" />
+            <element signature="method#findListMaBreakUpCond#0;class#RankStockCommpanyDao#0" />
+            <element signature="method#findListSuperDropBounce#0;class#RankStockCommpanyDao#0" />
+            <element signature="method#findListDateBefore#0;class#RankStockCommpanyDao#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/BizRankDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="742">
+          <caret line="128" column="78" selection-start-line="128" selection-start-column="66" selection-end-line="128" selection-end-column="78" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/RankStockCommpanyMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="754">
+          <caret line="501" column="76" selection-start-line="501" selection-start-column="76" selection-end-line="501" selection-end-column="76" />
+          <folding>
+            <element signature="e#897#3476#1" />
+            <element signature="e#3631#7578#1" />
+            <element signature="e#7731#16330#1" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/RandBizEtfMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="814">
+          <caret line="203" column="20" selection-start-line="203" selection-start-column="8" selection-end-line="203" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/ContentEtf.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="60" column="88" lean-forward="true" selection-start-line="60" selection-start-column="88" selection-end-line="60" selection-end-column="88" />
+          <folding>
+            <element signature="method#main#0;class#ContentEtf#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/service/FundFlowService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/KlineDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="24" column="44" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/BizRankDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="40" column="57" lean-forward="true" selection-start-line="40" selection-start-column="57" selection-end-line="40" selection-end-column="57" />
+          <folding>
+            <element signature="method#updateDbTodayEtfNetMaxMinTime#0;class#BizRankDemo#0" />
+            <element signature="method#updateDateBiz#0;class#BizRankDemo#0" />
+            <element signature="method#findTrends#0;class#BizRankDemo#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/StockDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="930">
+          <caret line="51" column="59" lean-forward="true" selection-start-line="51" selection-start-column="59" selection-end-line="51" selection-end-column="59" />
+          <folding>
+            <element signature="method#maBreakUp#0;class#StockDemo#0" />
+            <element signature="method#findListTongJj#0;class#StockDemo#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/stat/StBizStatDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="88" column="18" lean-forward="true" selection-start-line="88" selection-start-column="18" selection-end-line="88" selection-end-column="18" />
+          <folding>
+            <element signature="method#updateDbTodayEtfMa#0;class#StBizStatDemo#0" />
+            <element signature="method#insertTodayRank#0;class#StBizStatDemo#0" />
+            <element signature="method#listEtfBizDb#0;class#StBizStatDemo#0" />
+            <element signature="method#statEtfAdrDb#0;class#StBizStatDemo#0" />
+            <element signature="method#handlerUpOrDownList#0;class#StBizStatDemo#0" />
+            <element signature="method#handlerEtfName#0;class#StBizStatDemo#0" />
+            <element signature="method#checkFundFlowByEtf#0;class#StBizStatDemo#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/FupanDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="44" column="57" lean-forward="true" selection-start-line="44" selection-start-column="57" selection-end-line="44" selection-end-column="57" />
+          <folding>
+            <element signature="method#listMyPosition#0;class#FupanDemo#0" />
+            <element signature="method#handlerFundByTtjj#0;class#FupanDemo#0" />
+            <element signature="method#queryAssetByTtjj#0;class#FupanDemo#0" />
+            <element signature="method#szzsKlineMonth#0;class#FupanDemo#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/ContentCookie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
         </state>
       </provider>
     </entry>
