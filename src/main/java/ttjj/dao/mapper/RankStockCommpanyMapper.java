@@ -503,4 +503,63 @@ public interface RankStockCommpanyMapper {
             "</script>"})
     void deleteStComByDate(String date);
 
+    /**
+     * 查询-股票涨跌次数
+     *
+     * @param condition
+     * @return
+     */
+    @Select({"<script>",
+            " SELECT",
+            "   rank_st_biz_com.f12 code ",
+            "   ,rank_st_biz_com.f14 name ",
+            "   ,rank_st_biz_com.type_name type_name ",
+            "   ,rank_st_biz_com.f139 ",
+            "   ,COUNT(1) count ",
+            "   ,ROUND(((SELECT t2.f2 FROM rank_st_biz_com t2 WHERE t2.date=#{endDate} AND t2.f12 = rank_st_biz_com.f12)-(SELECT t2.f18 FROM rank_st_biz_com t2 WHERE t2.date=#{begDate} AND t2.f12 = rank_st_biz_com.f12))/(SELECT t2.f18 FROM rank_st_biz_com t2 WHERE t2.date=#{begDate} AND t2.f12 = rank_st_biz_com.f12)*100,2)  adrSum ",
+            " FROM ",
+            "   `rank_st_biz_com` rank_st_biz_com ",
+            " WHERE 1=1 ",
+            "   <if test='f139 != null'> ",
+            "   AND rank_st_biz_com.f139=#{f139} ",
+            "   </if> ",
+            "   <if test='marketValueMin != null'> ",
+            "   AND rank_st_biz_com.f20 >= #{marketValueMin} ",
+            "   </if> ",
+            "   <if test='adrMin != null'> ",
+            "   AND rank_st_biz_com.f3 >= #{adrMin} ",
+            "   </if> ",
+            "       <if test='begDate != null'> ",
+            "       <![CDATA[ AND rank_st_biz_com.date >= #{begDate} ]]> ",
+            "       </if> ",
+            "       <if test='endDate != null'> ",
+            "       <![CDATA[ AND rank_st_biz_com.date <= #{endDate} ]]> ",
+            "       </if> ",
+            "   AND rank_st_biz_com.f12 IN  ",
+            "   <foreach collection='stCodeList' item='item' open='(' separator=',' close=')'>  ",
+            "       #{item} ",
+            "   </foreach> ",
+            " GROUP BY rank_st_biz_com.f12 ",
+            " ORDER BY ",
+            "   COUNT(1) DESC",
+            "</script>"})
+    List<StatRsStAdrCount> findListStatStAdrCount(StatCondStAdrCount condition);
+
+    /**
+     * 查询列表-模糊匹配-概念
+     *
+     * @param condition
+     * @return
+     */
+    @Select({"<script>",
+            "   SELECT ",
+            "       * ",
+            "   FROM rank_st_biz_com ",
+            "   WHERE 1=1  ",
+            "       AND rank_st_biz_com.date = #{date}  ",
+            "       AND rank_st_biz_com.conception LIKE CONCAT('%',#{conception},'%')",
+//            "   ORDER BY rank_st_biz_com.f3 DESC ",
+            "</script>"})
+    List<RankStockCommpanyDb> findListLikeConception(RankStockCommpanyDb condition);
+
 }

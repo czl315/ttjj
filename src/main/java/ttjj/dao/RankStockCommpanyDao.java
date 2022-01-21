@@ -227,4 +227,47 @@ public class RankStockCommpanyDao {
         }
         return rs;
     }
+
+    /**
+     * 查询-股票涨跌次数
+     *
+     * @param condition
+     * @return
+     */
+    public static List<StatRsStAdrCount> findListStatStAdrCount(StatCondStAdrCount condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<StatRsStAdrCount> rs = null;
+        try {
+//                System.out.println(JSON.toJSONString(condition));
+            rs = session.selectList("ttjj.dao.mapper.RankStockCommpanyMapper.findListStatStAdrCount", condition);
+            session.commit();
+        } catch (Exception e) {
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * 查询列表-模糊匹配-概念
+     * @param condition
+     * @return
+     */
+    public static List<RankStockCommpanyDb> findListLikeConception(RankStockCommpanyDb condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<RankStockCommpanyDb> rs = null;
+        try {
+//                System.out.println(JSON.toJSONString(condition));
+            rs = session.selectList("ttjj.dao.mapper.RankStockCommpanyMapper.findListLikeConception", condition);
+            session.commit();
+        } catch (Exception e) {
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
 }
