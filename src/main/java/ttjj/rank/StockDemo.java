@@ -41,6 +41,9 @@ public class StockDemo {
             addTodayStCom(date, startNum);//  添加或更新股票-根据日期
 //            updateTodayStCom(date, startNum);//更新股票
 
+            updateConception(date, startNum);//更新题材概念
+//            updateFundFlow(date, startNum);//更新当日资金流信息
+
             BigDecimal limitMarketValue = new BigDecimal("100000000").multiply(new BigDecimal("50"));
             Map<String, Boolean> maUpdateMap = new HashMap<>();
             setMaMapType(MA_TYPE_DAY, maUpdateMap);
@@ -53,10 +56,6 @@ public class StockDemo {
 //            setMaMapType(MA_TYPE_WEEK, maUpdateMap);
 //            setMaMapType(MA_TYPE_MONTH, maUpdateMap);
             updateNetToday(date, startNum, maUpdateMap, isReport,limitMarketValue);//  更新净值
-
-            updateConception(date, startNum);//更新题材概念
-//            updateFundFlow(date, startNum);//更新当日资金流信息
-
 
 //            //查询业绩报表
 //            String begDate = "20210701";

@@ -32,12 +32,12 @@ public class BizRankDemo {
 
 //        deleteTodayBiz();//删除数据-今日
 
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
+        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
+        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
         insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
         insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
-        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
-        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
         updateFundFlowBk(date);//更新当日资金流信息-板块
         updateFundFlowGn(date);//更新当日资金流信息-概念
         updateFundFlowEtf(date);////更新当日资金流信息-etf
