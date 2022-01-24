@@ -43,11 +43,29 @@ public class StBizStatDemo {
         //        //检查资金流向-etf
 //        checkFundFlowByEtf(date);
 
+        Map<String, String> etfBizMap = new HashMap<>();
+
+//        etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
+//        List<Integer> maList = new ArrayList<>();
+//        maList.add(MA_30);
+//        maList.add(MA_60);
+//        checkMaDemo(etfBizMap, date, true, maList, KLT_30);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+//        checkMaDemo(date, false, maList, KLT_15);//    检查均线:卖出信号
+
+        //查询概念的股票列表
+        RankStockCommpanyDb conditionLikeConception = new RankStockCommpanyDb();
+        conditionLikeConception.setDate(date);
+        String conception = "数字货币";//国资云概念 数字货币
+        conditionLikeConception.setConception(conception);
+        conditionLikeConception.setF139(DB_RANK_BIZ_F139_BK_MAIN);
+        List<RankStockCommpanyDb> stListLikeConception = RankStockCommpanyDao.findListLikeConception(conditionLikeConception);
         List<Integer> maList = new ArrayList<>();
         maList.add(MA_30);
-        maList.add(MA_60);
-//        checkMaDemo(date, true, maList,KLT_60);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-//        checkMaDemo(date, false, maList, KLT_15);//    检查均线:卖出信号
+//        maList.add(MA_60);
+        for (RankStockCommpanyDb rankStockCommpanyDb : stListLikeConception) {
+            etfBizMap.put(rankStockCommpanyDb.getF12(),rankStockCommpanyDb.getF14());
+        }
+        checkMaDemo(etfBizMap, date, true, maList, KLT_30);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
 
 //        showGianNian(date);
 
@@ -73,29 +91,63 @@ public class StBizStatDemo {
 //        insertHisDbBanKuai(begDate, endDate);//新增历史数据
 
         //统计涨跌次数
-        String begDate = "2022-01-17";//查询开始时间
+        String begDate365 = "2021-01-24";//查询开始时间
+        String begDate180 = "2021-07-24";//查询开始时间
+        String begDate90 = "2021-10-24";//查询开始时间
+        String begDate30 = "2021-12-24";//查询开始时间
+        String begDate14 = "2022-01-10";//查询开始时间
+        String begDate7 = "2022-01-17";//查询开始时间
         String endDate = date;
-        String conception = "国资云概念";
         BigDecimal adrMin = new BigDecimal("0");
-        BigDecimal marketValueMin = new BigDecimal("5000000000");
-        statStAdrCount(conception, begDate, endDate, adrMin, DB_RANK_BIZ_F139_BAN_KUAI, marketValueMin);
+        BigDecimal marketValueMin = new BigDecimal("50").multiply(new BigDecimal("100000000"));
+        Map<String, StatRsStAdrCount> statRsStAdrCountMap = new HashMap<>();
+//        {
+//            statStAdrCount(conception, begDate365, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：365
+//            statStAdrCount(conception, begDate180, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
+//            statStAdrCount(conception, begDate90, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：90
+//            statStAdrCount(conception, begDate30, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
+//            statStAdrCount(conception, begDate14, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
+//            statStAdrCount(conception, begDate7, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
+//            List<StatRsStAdrCount> statRsStAdrCountList = new ArrayList<>();
+//            for (String code : statRsStAdrCountMap.keySet()) {
+//                StatRsStAdrCount statRsStAdrCount = statRsStAdrCountMap.get(code);
+//                statRsStAdrCountList.add(statRsStAdrCount);
+//            }
+//            statRsStAdrCountList = statRsStAdrCountList.stream().filter(e -> e != null).sorted(Comparator.comparing(StatRsStAdrCount::getCount, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+//            for (StatRsStAdrCount statRsStAdrCount : statRsStAdrCountList) {
+//                StringBuffer sb = new StringBuffer();
+////                System.out.println(JSON.toJSONString(statRsStAdrCount));
+//                sb.append(statRsStAdrCount.getCode());
+//                sb.append("\t");
+//                sb.append(statRsStAdrCount.getName());
+//                sb.append("\t");
+//                sb.append(statRsStAdrCount.getCount());
+//                sb.append("\t");
+//                sb.append(statRsStAdrCount.getType_name());
+//                sb.append("\t");
+//                System.out.println(sb);
+//            }
+//        }
+
 
     }
 
     /**
      * 统计涨跌次数
      */
-    private static void statStAdrCount(String conception, String begDate, String endDate, BigDecimal adrMin, long bk, BigDecimal marketValueMin) {
+    private static Map<String, StatRsStAdrCount> statStAdrCount(String conception, String begDate, String endDate, BigDecimal adrMin, long bk, BigDecimal marketValueMin, Map<String, StatRsStAdrCount> statRsStAdrCountMap) {
         //查询概念的股票列表
         RankStockCommpanyDb conditionLikeConception = new RankStockCommpanyDb();
         conditionLikeConception.setDate(endDate);
         conditionLikeConception.setConception(conception);
         List<RankStockCommpanyDb> stCodeListLikeConception = RankStockCommpanyDao.findListLikeConception(conditionLikeConception);
         List<String> stCodeList = new ArrayList<>();
-        if (stCodeListLikeConception != null && stCodeListLikeConception.size() > 0) {
-            for (RankStockCommpanyDb rankStockCommpanyDb : stCodeListLikeConception) {
-                stCodeList.add(rankStockCommpanyDb.getF12());
-            }
+        if (stCodeListLikeConception == null || stCodeListLikeConception.size() <= 0) {
+            System.out.println(conception + ":查询股票列表为空！");
+            return statRsStAdrCountMap;
+        }
+        for (RankStockCommpanyDb rankStockCommpanyDb : stCodeListLikeConception) {
+            stCodeList.add(rankStockCommpanyDb.getF12());
         }
 
         StatCondStAdrCount condition = new StatCondStAdrCount();
@@ -108,9 +160,19 @@ public class StBizStatDemo {
         condition.setStCodeList(stCodeList);
         List<StatRsStAdrCount> rs = RankStockCommpanyDao.findListStatStAdrCount(condition);
         for (StatRsStAdrCount stAdrCount : rs) {
-            System.out.println(JSON.toJSONString(stAdrCount));
+            String code = stAdrCount.getCode();
+//            System.out.println(JSON.toJSONString(stAdrCount));
 //            System.out.println(stAdrCount.getCode()+":"+stAdrCount.getName()+":"+stAdrCount.getCount());
+            if (statRsStAdrCountMap.containsKey(code)) {
+                StatRsStAdrCount stMapDtoOld = statRsStAdrCountMap.get(code);
+                BigDecimal countOld = stMapDtoOld.getCount();
+                stMapDtoOld.setCount(countOld.add(stAdrCount.getCount()));
+                statRsStAdrCountMap.put(code, stMapDtoOld);
+            } else {
+                statRsStAdrCountMap.put(code, stAdrCount);
+            }
         }
+        return statRsStAdrCountMap;
     }
 
     /**
@@ -126,13 +188,14 @@ public class StBizStatDemo {
     /**
      * 检查均线
      *
+     * @param etfBizMap
      * @param date
      * @param isUp
      * @param maList
      * @param kltType
      */
-    private static void checkMaDemo(String date, boolean isUp, List<Integer> maList, String kltType) {
-        Map<String, String> etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
+    private static void checkMaDemo(Map<String, String> etfBizMap, String date, boolean isUp, List<Integer> maList, String kltType) {
+//        Map<String, String> etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
 //        List<RankBizDataDiff> rankEtf = listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//
 //        for (RankBizDataDiff etf : rankEtf) {
 //            etfBizMap.put(etf.getF12(), etf.getF14());
