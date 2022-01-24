@@ -55,7 +55,7 @@ public class StockDemo {
 //            setMaMapType(MA_TYPE_MINUTE250, maUpdateMap);
 //            setMaMapType(MA_TYPE_WEEK, maUpdateMap);
 //            setMaMapType(MA_TYPE_MONTH, maUpdateMap);
-            updateNetToday(date, startNum, maUpdateMap, isReport,limitMarketValue);//  更新净值
+            updateNetToday(date, startNum, maUpdateMap, isReport, limitMarketValue);//  更新净值
 
 //            //查询业绩报表
 //            String begDate = "20210701";
@@ -117,6 +117,7 @@ public class StockDemo {
 
     /**
      * 更新股票：涨幅等
+     *
      * @param date
      * @param startNum
      */
@@ -147,6 +148,10 @@ public class StockDemo {
 //            System.out.println();
 
             for (RankStockCommpanyDb stockInfo : stockList) {
+                if (stockInfo.getF3() == null) {
+//                    System.out.println("数据异常:" + JSON.toJSONString(stockInfo));
+                    continue;
+                }
                 stockInfo.setDate(date);
 
                 int rsUpdate = RankStockCommpanyDao.updateByCode(stockInfo);
@@ -320,7 +325,7 @@ public class StockDemo {
                 continue;
             }
             //只更新主板板块的价格
-            if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI) {
+            if (entity.getF139() != DB_RANK_BIZ_F139_BK_MAIN) {
 //                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
                 continue;
             }
@@ -330,7 +335,7 @@ public class StockDemo {
                 continue;
             }
 
-            if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
+            if (entity.getF139() == DB_RANK_BIZ_F139_BK_MAIN) {
                 String rsFundFlow = FundFlowService.httpFundFlowRs(stCode);
 
                 RankStockCommpanyDb entityDb = new RankStockCommpanyDb();
@@ -394,7 +399,7 @@ public class StockDemo {
                     continue;
                 }
                 //只更新主板板块的价格
-                if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI) {
+                if (entity.getF139() != DB_RANK_BIZ_F139_BK_MAIN) {
 //                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
                     continue;
                 }
@@ -403,7 +408,7 @@ public class StockDemo {
 //                    System.out.println("均线价格暂不更新（100亿以下）！" + JSON.toJSONString(entity));
                     continue;
                 }
-                if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
+                if (entity.getF139() == DB_RANK_BIZ_F139_BK_MAIN) {
 //                    System.out.println("股票---------------------" + entity.getF14() + ":"+ entity.getF3() + JSON.toJSONString(entity));
                     List<Report> rsReport = ReportService.listHttpReportByStCode(stCode);
                     for (Report report : rsReport) {
@@ -526,7 +531,7 @@ public class StockDemo {
         condition.setCurDayAdd1(curDayAdd1);
         condition.setCurDayAdd2(curDayAdd2);
         condition.setCurDayAdd3(curDayAdd3);
-        condition.setF139(DB_RANK_BIZ_F139_BAN_KUAI);
+        condition.setF139(DB_RANK_BIZ_F139_BK_MAIN);
 //        condition.setType_name(ST_BIZ_TYPE_YOU_SE_JIN_SHU);
         condition.setF20(200 * 00000000l);//市值
         condition.setGoodRateCurDayLimitDown(new BigDecimal("0"));//当日涨幅下限
@@ -878,7 +883,7 @@ public class StockDemo {
      * @param startNum
      * @param isReport
      */
-    private static void updateNetToday(String date, int startNum, Map<String, Boolean> maUpdateMap, boolean isReport,BigDecimal limitMarketValue) {
+    private static void updateNetToday(String date, int startNum, Map<String, Boolean> maUpdateMap, boolean isReport, BigDecimal limitMarketValue) {
         List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题排名by时间类型、显示个数
         int bizCountLimit = NUM_MAX_999;
         int bizCountTemp = 0;
@@ -920,7 +925,7 @@ public class StockDemo {
                     continue;
                 }
 
-                if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
+                if (entity.getF139() == DB_RANK_BIZ_F139_BK_MAIN) {
                     // 周期价格:均线、最低、最高、收盘最低、收盘最高
                     String zqdm = entity.getF12();
 

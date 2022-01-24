@@ -51,7 +51,7 @@ public class StockService {
             return false;
         }
         //只更新主板板块的价格
-        if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI) {
+        if (entity.getF139() != DB_RANK_BIZ_F139_BK_MAIN) {
 //                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
             return false;
         }

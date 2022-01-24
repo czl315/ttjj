@@ -189,11 +189,11 @@ public class Content {
     /**
      * DB_RANK_BIZ_F19_BAN_KUAI f19类型-板块
      */
-    public static long DB_RANK_BIZ_F19_BAN_KUAI = 2;
+    public static long DB_RANK_BIZ_F19_BK_MAIN = 2;
     /**
-     * DB_RANK_BIZ_F139_BAN_KUAI f19类型-板块:主板板块
+     * DB_RANK_BIZ_F139_BK_MAIN f19类型-板块:主板板块
      */
-    public static long DB_RANK_BIZ_F139_BAN_KUAI = 2;
+    public static long DB_RANK_BIZ_F139_BK_MAIN = 2;
 
     /**
      * DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED f148 状态：2-退市或停牌;

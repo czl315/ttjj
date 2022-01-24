@@ -149,7 +149,7 @@ public class StockQueryDemo {
         if (dateListBefore.size() >= 6) {
             condition.setCurDaySub6(dateListBefore.get(5));
         }
-        condition.setF139(DB_RANK_BIZ_F139_BAN_KUAI);
+        condition.setF139(DB_RANK_BIZ_F139_BK_MAIN);
 //        condition.setType_name(ST_BIZ_TYPE_YOU_SE_JIN_SHU);
         condition.setMarketValueMin(new BigDecimal("20000000000"));//市值
         //量比最高
@@ -327,7 +327,7 @@ public class StockQueryDemo {
         condition.setCurDayAdd1(curDayAdd1);
         condition.setCurDayAdd2(curDayAdd2);
         condition.setCurDayAdd3(curDayAdd3);
-        condition.setF139(DB_RANK_BIZ_F139_BAN_KUAI);
+        condition.setF139(DB_RANK_BIZ_F139_BK_MAIN);
 //        condition.setType_name(ST_BIZ_TYPE_YOU_SE_JIN_SHU);
         condition.setF20(200 * 00000000l);//市值
         condition.setGoodRateCurDayLimitDown(new BigDecimal("0"));//当日涨幅下限

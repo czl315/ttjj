@@ -31,13 +31,15 @@ public class BizRankDemo {
 //        String date = "2022-01-13";
 
 //        deleteTodayBiz();//删除数据-今日
-
+//
         insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
-        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
         insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
-        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
         insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
         insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
+
+        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
+        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
+
         updateFundFlowBk(date);//更新当日资金流信息-板块
         updateFundFlowGn(date);//更新当日资金流信息-概念
         updateFundFlowEtf(date);////更新当日资金流信息-etf
@@ -723,14 +725,14 @@ public class BizRankDemo {
             rankBizDataDiff.setF16(kline.getMinAmt().doubleValue());
             rankBizDataDiff.setF17(kline.getOpenAmt().doubleValue());
             rankBizDataDiff.setF18(kline.getCloseAmt().subtract(kline.getZhangDieE()).doubleValue());//计算昨日收盘价：今日收盘价-今日涨跌额
-            rankBizDataDiff.setF19(DB_RANK_BIZ_F19_BAN_KUAI);
+            rankBizDataDiff.setF19(DB_RANK_BIZ_F19_BK_MAIN);
             rankBizDataDiff.setF27(DB_RANK_BIZ_F12_BAN_KUAI);
-            rankBizDataDiff.setF29(DB_RANK_BIZ_F139_BAN_KUAI);
+            rankBizDataDiff.setF29(DB_RANK_BIZ_F139_BK_MAIN);
             rankBizDataDiff.setF33(0.0);
             rankBizDataDiff.setF107(5L);
             rankBizDataDiff.setF111(0L);
-            rankBizDataDiff.setF139(DB_RANK_BIZ_F139_BAN_KUAI);
-            rankBizDataDiff.setF152(DB_RANK_BIZ_F139_BAN_KUAI);
+            rankBizDataDiff.setF139(DB_RANK_BIZ_F139_BK_MAIN);
+            rankBizDataDiff.setF152(DB_RANK_BIZ_F139_BK_MAIN);
 
             rankBizDataDiffList.add(rankBizDataDiff);
         }

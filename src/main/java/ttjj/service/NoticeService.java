@@ -89,7 +89,7 @@ public class NoticeService {
                 continue;
             }
             //只更新主板板块的价格
-            if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI) {
+            if (entity.getF139() != DB_RANK_BIZ_F139_BK_MAIN) {
 //                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
                 continue;
             }
@@ -99,7 +99,7 @@ public class NoticeService {
                 continue;
             }
 
-            if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
+            if (entity.getF139() == DB_RANK_BIZ_F139_BK_MAIN) {
                 findStockNotice(stCode, filterList);
             } else {
                 System.out.println("非主板不更新！");

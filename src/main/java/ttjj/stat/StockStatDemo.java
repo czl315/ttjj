@@ -173,7 +173,7 @@ public class StockStatDemo {
                 continue;
             }
             //只更新主板板块的价格
-            if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI) {
+            if (entity.getF139() != DB_RANK_BIZ_F139_BK_MAIN) {
 //                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
                 continue;
             }
@@ -183,7 +183,7 @@ public class StockStatDemo {
                 continue;
             }
 
-            if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
+            if (entity.getF139() == DB_RANK_BIZ_F139_BK_MAIN) {
                 String rsFundFlow = FundFlowService.httpFundFlowRs(stCode);
 
                 RankStockCommpanyDb entityDb = new RankStockCommpanyDb();
@@ -247,7 +247,7 @@ public class StockStatDemo {
                     continue;
                 }
                 //只更新主板板块的价格
-                if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI) {
+                if (entity.getF139() != DB_RANK_BIZ_F139_BK_MAIN) {
 //                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
                     continue;
                 }
@@ -256,7 +256,7 @@ public class StockStatDemo {
 //                    System.out.println("均线价格暂不更新（100亿以下）！" + JSON.toJSONString(entity));
                     continue;
                 }
-                if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
+                if (entity.getF139() == DB_RANK_BIZ_F139_BK_MAIN) {
 //                    System.out.println("股票---------------------" + entity.getF14() + ":"+ entity.getF3() + JSON.toJSONString(entity));
                     List<Report> rsReport = ReportService.listHttpReportByStCode(stCode);
                     for (Report report : rsReport) {
@@ -379,7 +379,7 @@ public class StockStatDemo {
         condition.setCurDayAdd1(curDayAdd1);
         condition.setCurDayAdd2(curDayAdd2);
         condition.setCurDayAdd3(curDayAdd3);
-        condition.setF139(DB_RANK_BIZ_F139_BAN_KUAI);
+        condition.setF139(DB_RANK_BIZ_F139_BK_MAIN);
 //        condition.setType_name(ST_BIZ_TYPE_YOU_SE_JIN_SHU);
         condition.setF20(200 * 00000000l);//市值
         condition.setGoodRateCurDayLimitDown(new BigDecimal("0"));//当日涨幅下限
@@ -795,7 +795,7 @@ public class StockStatDemo {
                     continue;
                 }
                 //只更新主板板块的价格
-                if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI) {
+                if (entity.getF139() != DB_RANK_BIZ_F139_BK_MAIN) {
 //                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
                     continue;
                 }
@@ -804,7 +804,7 @@ public class StockStatDemo {
 //                    System.out.println("均线价格暂不更新（100亿以下）！" + JSON.toJSONString(entity));
                     continue;
                 }
-                if (entity.getF139() == DB_RANK_BIZ_F139_BAN_KUAI) {
+                if (entity.getF139() == DB_RANK_BIZ_F139_BK_MAIN) {
                     // 周期价格:均线、最低、最高、收盘最低、收盘最高
                     String zqdm = entity.getF12();
 
@@ -1022,7 +1022,7 @@ public class StockStatDemo {
             return false;
         }
         //只更新主板板块的价格
-        if (entity.getF139() != DB_RANK_BIZ_F139_BAN_KUAI) {
+        if (entity.getF139() != DB_RANK_BIZ_F139_BK_MAIN) {
 //                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
             return false;
         }
