@@ -17,7 +17,6 @@ import utils.DateUtil;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,9 +30,7 @@ public class StBizStatDemo {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2021-12-23";
 
-        Set<String> etfBizSet = ContentEtf.mapEtfAll.keySet();//全部场内etf：板块、指数   mapEtfAll   mapEtfBiz   mapEtfIndex
-
-//        listEtfBizDb(etfBizSet, 0, true, true);//列表查询-行业etf-排序：涨跌幅
+//        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
 //        int year = DateUtil.getCurYear();//DateUtil.getCurYear() 2021
 //        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()   12
@@ -45,27 +42,26 @@ public class StBizStatDemo {
 
         Map<String, String> etfBizMap = new HashMap<>();
 
-//        etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
-//        List<Integer> maList = new ArrayList<>();
-//        maList.add(MA_30);
-//        maList.add(MA_60);
-//        checkMaDemo(etfBizMap, date, true, maList, KLT_30);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-//        checkMaDemo(date, false, maList, KLT_15);//    检查均线:卖出信号
+        etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
+        List<Integer> maList = new ArrayList<>();
+        maList.add(MA_30);
+        maList.add(MA_60);
+
+        checkMaDemo(etfBizMap, date, true, maList, KLT_15);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+//        checkMaDemo(etfBizMap, date, false, maList, KLT_30);//    检查均线:卖出信号
 
         //查询概念的股票列表
         RankStockCommpanyDb conditionLikeConception = new RankStockCommpanyDb();
         conditionLikeConception.setDate(date);
-        String conception = "数字货币";//国资云概念 数字货币
+        String conception = "黄金概念";//国资云概念 数字货币 通用航空    黄金概念
         conditionLikeConception.setConception(conception);
         conditionLikeConception.setF139(DB_RANK_BIZ_F139_BK_MAIN);
         List<RankStockCommpanyDb> stListLikeConception = RankStockCommpanyDao.findListLikeConception(conditionLikeConception);
-        List<Integer> maList = new ArrayList<>();
-        maList.add(MA_30);
-//        maList.add(MA_60);
+
         for (RankStockCommpanyDb rankStockCommpanyDb : stListLikeConception) {
-            etfBizMap.put(rankStockCommpanyDb.getF12(),rankStockCommpanyDb.getF14());
+            etfBizMap.put(rankStockCommpanyDb.getF12(), rankStockCommpanyDb.getF14());
         }
-        checkMaDemo(etfBizMap, date, true, maList, KLT_30);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+//        checkMaDemo(etfBizMap, date, true, maList, KLT_15);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
 
 //        showGianNian(date);
 
@@ -102,12 +98,12 @@ public class StBizStatDemo {
         BigDecimal marketValueMin = new BigDecimal("50").multiply(new BigDecimal("100000000"));
         Map<String, StatRsStAdrCount> statRsStAdrCountMap = new HashMap<>();
 //        {
-//            statStAdrCount(conception, begDate365, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：365
-//            statStAdrCount(conception, begDate180, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
-//            statStAdrCount(conception, begDate90, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：90
-//            statStAdrCount(conception, begDate30, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
-//            statStAdrCount(conception, begDate14, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
-//            statStAdrCount(conception, begDate7, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
+//            statStAdrCount(stListLikeConception, conception, begDate365, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：365
+//            statStAdrCount(stListLikeConception, conception, begDate180, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
+//            statStAdrCount(stListLikeConception, conception, begDate90, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：90
+//            statStAdrCount(stListLikeConception, conception, begDate30, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
+//            statStAdrCount(stListLikeConception, conception, begDate14, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
+//            statStAdrCount(stListLikeConception, conception, begDate7, endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
 //            List<StatRsStAdrCount> statRsStAdrCountList = new ArrayList<>();
 //            for (String code : statRsStAdrCountMap.keySet()) {
 //                StatRsStAdrCount statRsStAdrCount = statRsStAdrCountMap.get(code);
@@ -135,18 +131,13 @@ public class StBizStatDemo {
     /**
      * 统计涨跌次数
      */
-    private static Map<String, StatRsStAdrCount> statStAdrCount(String conception, String begDate, String endDate, BigDecimal adrMin, long bk, BigDecimal marketValueMin, Map<String, StatRsStAdrCount> statRsStAdrCountMap) {
-        //查询概念的股票列表
-        RankStockCommpanyDb conditionLikeConception = new RankStockCommpanyDb();
-        conditionLikeConception.setDate(endDate);
-        conditionLikeConception.setConception(conception);
-        List<RankStockCommpanyDb> stCodeListLikeConception = RankStockCommpanyDao.findListLikeConception(conditionLikeConception);
+    private static Map<String, StatRsStAdrCount> statStAdrCount(List<RankStockCommpanyDb> stListLikeConception, String conception, String begDate, String endDate, BigDecimal adrMin, long bk, BigDecimal marketValueMin, Map<String, StatRsStAdrCount> statRsStAdrCountMap) {
         List<String> stCodeList = new ArrayList<>();
-        if (stCodeListLikeConception == null || stCodeListLikeConception.size() <= 0) {
+        if (stListLikeConception == null || stListLikeConception.size() <= 0) {
             System.out.println(conception + ":查询股票列表为空！");
             return statRsStAdrCountMap;
         }
-        for (RankStockCommpanyDb rankStockCommpanyDb : stCodeListLikeConception) {
+        for (RankStockCommpanyDb rankStockCommpanyDb : stListLikeConception) {
             stCodeList.add(rankStockCommpanyDb.getF12());
         }
 
@@ -158,7 +149,7 @@ public class StBizStatDemo {
         condition.setEndDate(endDate);
 
         condition.setStCodeList(stCodeList);
-        List<StatRsStAdrCount> rs = RankStockCommpanyDao.findListStatStAdrCount(condition);
+        List<StatRsStAdrCount> rs = RankStockCommpanyDao.findListStatStAdrCount(condition); //  查询-股票涨跌次数
         for (StatRsStAdrCount stAdrCount : rs) {
             String code = stAdrCount.getCode();
 //            System.out.println(JSON.toJSONString(stAdrCount));

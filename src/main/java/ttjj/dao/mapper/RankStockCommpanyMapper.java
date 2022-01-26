@@ -527,7 +527,7 @@ public interface RankStockCommpanyMapper {
             "   AND rank_st_biz_com.f20 >= #{marketValueMin} ",
             "   </if> ",
             "   <if test='adrMin != null'> ",
-            "   AND rank_st_biz_com.f3 >= #{adrMin} ",
+            "   AND rank_st_biz_com.f3 > #{adrMin} ",
             "   </if> ",
             "       <if test='begDate != null'> ",
             "       <![CDATA[ AND rank_st_biz_com.date >= #{begDate} ]]> ",
