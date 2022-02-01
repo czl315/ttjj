@@ -14,8 +14,7 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static utils.Content.KLINE_TYPE_INDEX;
-import static utils.Content.KLINE_TYPE_STOCK;
+import static utils.Content.*;
 
 
 /**
@@ -146,7 +145,7 @@ public class KlineDemo {
                 }
 
                 //计算净值
-                updateNet(zqdm,  lmt,  klt,  begDate,  endDate,  klineType);
+                updateNet(zqdm, lmt, klt, begDate, endDate, klineType);
             }
         }
     }
@@ -262,8 +261,18 @@ public class KlineDemo {
      */
     private static void addKlineDaZhouQi(String zqdm, int lmt, String klt, String begDate, String endDate) {
         //  插入数据库-K线-大周期
-        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate, KLINE_TYPE_INDEX);
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, false, begDate, endDate, KLINE_TYPE_INDEX);
         for (Kline kline : klines) {
+            if (KLT_101.equals(klt)) {
+                kline.setMonth(DateUtil.getYearMonth(endDate, DateUtil.YYYY_MM_DD));
+                kline.setWeekYear(DateUtil.getYearWeek(endDate, DateUtil.YYYY_MM_DD));
+                kline.setWeek(DateUtil.getWeekByYyyyMmDd(endDate, DateUtil.YYYY_MM_DD));
+            }
+            if (KLT_102.equals(klt)) {
+                kline.setMonth(DateUtil.getYearMonth(endDate, DateUtil.YYYY_MM_DD));
+                kline.setWeekYear(DateUtil.getYearWeek(endDate, DateUtil.YYYY_MM_DD));
+            }
+
             /**
              * 插入数据库-K线
              */

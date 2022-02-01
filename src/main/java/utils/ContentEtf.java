@@ -28,7 +28,7 @@ public class ContentEtf {
 
         mapEtfBiz.put("512170", "医药ETF");//512170	医疗ETF	112.27      512010	医药ETF	49.59
         mapEtfBiz.put("159992", "创新药ETF");//创新药ETF	159992	34.94
-        mapEtfBiz.put("159883", "医疗器械ETF");//159883	医疗器械ETF	7.36
+//        mapEtfBiz.put("159883", "医疗器械ETF");//159883	医疗器械ETF	7.36
 
         mapEtfBiz.put("159996", "家电ETF");//159996   家电ETF		10.03
         mapEtfBiz.put("512690", "酒ETF");//512690	酒ETF	73.21

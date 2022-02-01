@@ -561,7 +561,7 @@ public interface RankStockCommpanyMapper {
             "       </if> ",
             "       AND rank_st_biz_com.date = #{date}  ",
             "       AND rank_st_biz_com.conception LIKE CONCAT('%',#{conception},'%')",
-//            "   ORDER BY rank_st_biz_com.f3 DESC ",
+            "   ORDER BY rank_st_biz_com.f3 DESC ",
             "</script>"})
     List<RankStockCommpanyDb> findListLikeConception(RankStockCommpanyDb condition);
 

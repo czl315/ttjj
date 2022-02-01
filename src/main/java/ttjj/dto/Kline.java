@@ -13,6 +13,18 @@ public class Kline {
      */
     private String ktime;
     /**
+     * month
+     */
+    private String month;
+    /**
+     * weekYear
+     */
+    private String weekYear;
+    /**
+     * week
+     */
+    private String week;
+    /**
      * zqdm 证券代码
      */
     private String zqdm;
@@ -531,5 +543,30 @@ public class Kline {
 
     public void setNET_MA_250(BigDecimal NET_MA_250) {
         this.NET_MA_250 = NET_MA_250;
+    }
+
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getWeekYear() {
+        return weekYear;
+    }
+
+    public void setWeekYear(String weekYear) {
+        this.weekYear = weekYear;
+    }
+
+    public String getWeek() {
+        return week;
+    }
+
+    public void setWeek(String week) {
+        this.week = week;
     }
 }

@@ -169,7 +169,7 @@ public class StockDemo {
      * @param maTypeDay
      * @param maUpdateMap
      */
-    private static void setMaMapType(String maTypeDay, Map<String, Boolean> maUpdateMap) {
+    public static void setMaMapType(String maTypeDay, Map<String, Boolean> maUpdateMap) {
         if (maTypeDay.equals(MA_TYPE_DAY)) {
             maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_5, true);
             maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_10, true);
@@ -1006,7 +1006,7 @@ public class StockDemo {
      * @param date
      * @param maSb
      */
-    private static void handlerNetMa(RankStockCommpanyDb entity, Map<String, Boolean> maUpdateMap, String date, StringBuffer maSb) {
+    public static void handlerNetMa(RankStockCommpanyDb entity, Map<String, Boolean> maUpdateMap, String date, StringBuffer maSb) {
         String zqdm = entity.getF12();
         if (maUpdateMap.containsKey(MA_UPDATE_FLAG_MINUTE_1_5) && maUpdateMap.get(MA_UPDATE_FLAG_MINUTE_1_5)) {
             Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, KLT_1, false, "", date, KLINE_TYPE_STOCK);

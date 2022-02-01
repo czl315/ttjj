@@ -23,6 +23,7 @@ public interface KlineMapper {
             " `NET_MIN_CLOS_5`,`NET_MIN_CLOS_10`, `NET_MIN_CLOS_20`, `NET_MIN_CLOS_30`, `NET_MIN_CLOS_60`,`NET_MIN_CLOS_120`,`NET_MIN_CLOS_250`, ",
             " `NET_MAX_CLOS_5`,`NET_MAX_CLOS_10`, `NET_MAX_CLOS_20`, `NET_MAX_CLOS_30`, `NET_MAX_CLOS_60`,`NET_MAX_CLOS_120`,`NET_MAX_CLOS_250`, ",
             " `NET_MA_5`,`NET_MA_10`, `NET_MA_20`, `NET_MA_30`, `NET_MA_60`,`NET_MA_120`,`NET_MA_250`, ",
+            " `month`,`weekYear`,`week`,",
             " `huanShouLv` ",
             ") VALUES (",
             " #{ktime},#{zqdm}, #{zqmc}, #{klt}, #{rs}, ",
@@ -33,6 +34,7 @@ public interface KlineMapper {
             " #{NET_MIN_CLOS_5},#{NET_MIN_CLOS_10}, #{NET_MIN_CLOS_20}, #{NET_MIN_CLOS_30}, #{NET_MIN_CLOS_60},#{NET_MIN_CLOS_120},#{NET_MIN_CLOS_250}, ",
             " #{NET_MAX_CLOS_5},#{NET_MAX_CLOS_10}, #{NET_MAX_CLOS_20}, #{NET_MAX_CLOS_30}, #{NET_MAX_CLOS_60},#{NET_MAX_CLOS_120},#{NET_MAX_CLOS_250}, ",
             " #{NET_MA_5},#{NET_MA_10}, #{NET_MA_20}, #{NET_MA_30}, #{NET_MA_60},#{NET_MA_120},#{NET_MA_250}, ",
+            " #{month},#{weekYear},#{week},",
             " #{huanShouLv} ",
             ");",
             "</script>"})
