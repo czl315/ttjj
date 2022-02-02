@@ -21,7 +21,7 @@ public class Content {
         zhishuMap.put("000852","中证1000");
         zhishuMap.put("000688","科创50");
         zhishuMap.put("399001","深证成指");
-//        zhishuMap.put("399006","创业板指");
+        zhishuMap.put("399006","创业板指");
         zhishuMap.put("399673","创业板50");
         zhishuMap.put("931643","科创创业50");
 //        zhishuMap.put("399005","中小100");

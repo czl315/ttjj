@@ -25,7 +25,7 @@ public class KlineDemo {
         //  插入常用指数k线
         boolean isAddMinuteKline = true;//是否添加分钟级别K线
         String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
-        int lmt = 1000000;
+        int lmt = 1;
         int addDaysMax = 0;//最多增加的天数
         int year = DateUtil.getCurYear();//2021
         int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()
@@ -245,8 +245,13 @@ public class KlineDemo {
         kline.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
         kline.setNET_MIN_250(netMap250.get(Content.keyRsMin));
         kline.setNET_MAX_250(netMap250.get(Content.keyRsMax));
-        kline.setNET_MIN_CLOS_250(netMap250.get(Content.keyRsNetCloseMin));
-        kline.setNET_MAX_CLOS_250(netMap250.get(Content.keyRsNetCloseMax));
+        BigDecimal NET_MAX_CLOS_250 = netMap250.get(Content.keyRsNetCloseMax);
+        if (NET_MAX_CLOS_250 == null) {
+            System.out.println("均值异常！！！！！！！！！！！！！！！！！！！！");
+            kline.setNET_MIN_CLOS_250(new BigDecimal("0"));
+        } else {
+            kline.setNET_MIN_CLOS_250(netMap250.get(Content.keyRsNetCloseMin));
+        }
         KlineDao.updateNet(kline);
     }
 
@@ -261,7 +266,10 @@ public class KlineDemo {
      */
     private static void addKlineDaZhouQi(String zqdm, int lmt, String klt, String begDate, String endDate) {
         //  插入数据库-K线-大周期
-        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, false, begDate, endDate, KLINE_TYPE_INDEX);
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate, KLINE_TYPE_INDEX);
+        if (klines == null || klines.size() == 0) {
+            return;
+        }
         for (Kline kline : klines) {
             if (KLT_101.equals(klt)) {
                 kline.setMonth(DateUtil.getYearMonth(endDate, DateUtil.YYYY_MM_DD));
@@ -271,6 +279,9 @@ public class KlineDemo {
             if (KLT_102.equals(klt)) {
                 kline.setMonth(DateUtil.getYearMonth(endDate, DateUtil.YYYY_MM_DD));
                 kline.setWeekYear(DateUtil.getYearWeek(endDate, DateUtil.YYYY_MM_DD));
+            }
+            if (KLT_103.equals(klt)) {
+                kline.setMonth(DateUtil.getYearMonth(endDate, DateUtil.YYYY_MM_DD));
             }
 
             /**
