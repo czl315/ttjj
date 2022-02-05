@@ -263,9 +263,9 @@ public class StockStatDemo {
                         //是否有2021三季报
                         if (report.getQDATE().equals(quarter)) {
                             BigDecimal tbzzYyzsr = report.getYSTZ();
-                            BigDecimal tbzzJlr = report.getSJLTZ();
-                            BigDecimal hbzzYyzsr = report.getYSHZ();
-                            BigDecimal hbzzJlr = report.getSJLHZ();
+                            BigDecimal tbzzJlr = report.getJLRTBZCL();
+                            BigDecimal hbzzYyzsr = report.getDJDYSHZ();
+                            BigDecimal hbzzJlr = report.getDJDJLHZ();
 //                                System.out.println(JSON.toJSONString(report));
                             String stName = report.getSECURITY_NAME_ABBR();
 //                            if (stName.equals("维远股份")) {
@@ -898,8 +898,8 @@ public class StockStatDemo {
                         for (Report report : rsReport) {
                             //是否有2021三季报
                             if (report.getQDATE().equals(qDate)) {
-                                BigDecimal hbzzYyzsr = report.getYSHZ();
-                                BigDecimal hbzzJlr = report.getSJLHZ();
+                                BigDecimal hbzzYyzsr = report.getDJDYSHZ();
+                                BigDecimal hbzzJlr = report.getDJDJLHZ();
 //                                System.out.println(JSON.toJSONString(report));
                                 System.out.print(report.getSECURITY_NAME_ABBR());
 //                                System.out.print("；营业总收入-同比增长:" + report.getYSTZ());

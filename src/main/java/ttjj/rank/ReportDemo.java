@@ -25,7 +25,7 @@ public class ReportDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);// String date = "2021-09-24";
         int indexBeg = 0;//行业序号：从0开始
-        int indexEnd = 999;//行业序号-结束
+        int indexEnd = NUM_MAX_999;//行业序号-结束
 
         //查询所有行业列表
         List<RankBizDataDiff> bizList = BizRankDemo.listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询所有行业列表

@@ -24,16 +24,16 @@ import static utils.Content.KLINE_TYPE_STOCK;
 public class ReportService {
     public static void main(String[] args) {
         // 查询业绩报表
-        String stCode = "603866";
+        String stCode = "688699";
         List<Report> rs = listHttpReportByStCode(stCode);
         String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0);// String today = "2021-09-17";
         String qDate = "2021Q4";//报表周期
         for (Report report : rs) {
             //是否有2021三季报
             if (report.getQDATE().equals(qDate)) {
-                String startDate = "20210701";
+                String startDate = "20211001";
                 System.out.println(JSON.toJSONString(report));
-                System.out.print(report.getSECURITY_NAME_ABBR() + "；营业总收入-环比增长:" + report.getYSHZ() + "；营业总收入-同比增长:" + report.getYSTZ() + ":净利润-环比增长:" + report.getSJLHZ());
+                System.out.print(report.getSECURITY_NAME_ABBR() + "；营业总收入-环比增长:" + report.getDJDYSHZ() + "；营业总收入-同比增长:" + report.getYSTZ() + ":净利润-环比增长:" + report.getDJDJLHZ()+ ":净利润-同比增长:" + report.getJLRTBZCL());
 //                //查询区间价格涨跌-最近4个月
                 BigDecimal totalAdr = new BigDecimal("0");
                 List<Kline> klines = KlineService.kline(stCode, 4, Content.KLT_103, true, startDate, date, KLINE_TYPE_STOCK);
@@ -45,7 +45,7 @@ public class ReportService {
                 break;
             }
 //                            System.out.println(qDate + "没有查询到！");
-            break;//只查询第一个
+//            break;//只查询第一个
         }
     }
 

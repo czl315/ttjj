@@ -45,6 +45,15 @@ import java.math.BigDecimal;
  * @date 2021-10-27 11:56
  */
 public class Report {
+        private String REPORT_DATE;
+        private BigDecimal TOTAL_OPERATE_INCOME_SQ;
+        private BigDecimal PARENT_NETPROFIT_SQ;
+
+
+    /**
+     * MARKET "MARKET": "0102",
+     */
+    private String MARKET;
     /**
      * SECURITY_CODE 证券编码
      *  *         "SECURITY_CODE": "002624",
@@ -109,7 +118,11 @@ public class Report {
      * YSHZ 营业总收入-季度环比增长(%)
      *  *         "YSHZ": 28.2079,
      */
-    private BigDecimal YSHZ;
+//    private BigDecimal YSHZ;
+    /**
+     * DJDYSHZ
+     */
+    private BigDecimal DJDYSHZ;
 
     /**
      * PARENT_NETPROFIT 净利润-净利润(元)
@@ -122,15 +135,18 @@ public class Report {
      */
     private BigDecimal WEIGHTAVG_ROE;
     /**
-     * SJLTZ 净利润-同比增长(%)
+     * 净利润-同比增长(%)
+     * SJLTZ (历史)
      *  *         "SJLTZ": -55.72,
      */
-    private BigDecimal SJLTZ;
+//    private BigDecimal SJLTZ;
+    private BigDecimal JLRTBZCL;
     /**
      * BPS 每股净资产(元)
      *         "BPS": 5.585338538859,
      */
-    private BigDecimal BPS;
+//    private BigDecimal BPS;
+    private BigDecimal PARENT_BVPS;
     /**
      * MGJYXJJE 每股经营现金流量(元)
      *  *         "MGJYXJJE": 0.261280616914,
@@ -146,7 +162,11 @@ public class Report {
      * SJLHZ 净利润-季度环比增长(%)
      *  *         "SJLHZ": 362.4657,
      */
-    private BigDecimal SJLHZ;
+//    private BigDecimal SJLHZ;
+    /**
+     * DJDJLHZ "DJDYSHZ": -60.296897018451,季度环比增长
+     */
+    private BigDecimal DJDJLHZ;
     /**
      * ASSIGNDSCRPT 分配转增描述
      * 不分配不转增
@@ -330,22 +350,6 @@ public class Report {
         return YSTZ;
     }
 
-    public void setSJLTZ(BigDecimal SJLTZ) {
-        this.SJLTZ = SJLTZ;
-    }
-
-    public BigDecimal getSJLTZ() {
-        return SJLTZ;
-    }
-
-    public void setBPS(BigDecimal BPS) {
-        this.BPS = BPS;
-    }
-
-    public BigDecimal getBPS() {
-        return BPS;
-    }
-
     public void setMGJYXJJE(BigDecimal MGJYXJJE) {
         this.MGJYXJJE = MGJYXJJE;
     }
@@ -360,22 +364,6 @@ public class Report {
 
     public BigDecimal getXSMLL() {
         return XSMLL;
-    }
-
-    public void setYSHZ(BigDecimal YSHZ) {
-        this.YSHZ = YSHZ;
-    }
-
-    public BigDecimal getYSHZ() {
-        return YSHZ;
-    }
-
-    public void setSJLHZ(BigDecimal SJLHZ) {
-        this.SJLHZ = SJLHZ;
-    }
-
-    public BigDecimal getSJLHZ() {
-        return SJLHZ;
     }
 
     public void setASSIGNDSCRPT(String ASSIGNDSCRPT) {
@@ -490,5 +478,67 @@ public class Report {
         return SECUCODE;
     }
 
+    public String getREPORT_DATE() {
+        return REPORT_DATE;
+    }
 
+    public void setREPORT_DATE(String REPORT_DATE) {
+        this.REPORT_DATE = REPORT_DATE;
+    }
+
+    public BigDecimal getTOTAL_OPERATE_INCOME_SQ() {
+        return TOTAL_OPERATE_INCOME_SQ;
+    }
+
+    public void setTOTAL_OPERATE_INCOME_SQ(BigDecimal TOTAL_OPERATE_INCOME_SQ) {
+        this.TOTAL_OPERATE_INCOME_SQ = TOTAL_OPERATE_INCOME_SQ;
+    }
+
+    public BigDecimal getPARENT_NETPROFIT_SQ() {
+        return PARENT_NETPROFIT_SQ;
+    }
+
+    public void setPARENT_NETPROFIT_SQ(BigDecimal PARENT_NETPROFIT_SQ) {
+        this.PARENT_NETPROFIT_SQ = PARENT_NETPROFIT_SQ;
+    }
+
+    public BigDecimal getPARENT_BVPS() {
+        return PARENT_BVPS;
+    }
+
+    public void setPARENT_BVPS(BigDecimal PARENT_BVPS) {
+        this.PARENT_BVPS = PARENT_BVPS;
+    }
+
+    public BigDecimal getJLRTBZCL() {
+        return JLRTBZCL;
+    }
+
+    public void setJLRTBZCL(BigDecimal JLRTBZCL) {
+        this.JLRTBZCL = JLRTBZCL;
+    }
+
+    public BigDecimal getDJDYSHZ() {
+        return DJDYSHZ;
+    }
+
+    public void setDJDYSHZ(BigDecimal DJDYSHZ) {
+        this.DJDYSHZ = DJDYSHZ;
+    }
+
+    public BigDecimal getDJDJLHZ() {
+        return DJDJLHZ;
+    }
+
+    public void setDJDJLHZ(BigDecimal DJDJLHZ) {
+        this.DJDJLHZ = DJDJLHZ;
+    }
+
+    public String getMARKET() {
+        return MARKET;
+    }
+
+    public void setMARKET(String MARKET) {
+        this.MARKET = MARKET;
+    }
 }
