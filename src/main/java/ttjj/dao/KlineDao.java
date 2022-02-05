@@ -2,7 +2,9 @@ package ttjj.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import ttjj.dto.Kline;
+import ttjj.dto.*;
+
+import java.util.List;
 
 /**
  * @author chenzhilong
@@ -42,6 +44,28 @@ public class KlineDao {
         try {
             rs = session.insert("ttjj.dao.mapper.KlineMapper.updateNet", entity);
             session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * 查询-涨跌次数
+     *
+     * @param condition
+     * @return
+     */
+    public static List<StatRsStAdrCountKline> findListStatStAdrCount(StatCondStAdrCountKline condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<StatRsStAdrCountKline> rs = null;
+        try {
+//                System.out.println(JSON.toJSONString(condition));
+            rs = session.selectList("ttjj.dao.mapper.KlineMapper.findListStatStAdrCount", condition);
+            session.commit();
+        } catch (Exception e) {
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
         } finally {
             session.close();
         }

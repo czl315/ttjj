@@ -5,12 +5,12 @@ import java.util.List;
 
 
 /**
- * StatCondStAdrCount简介
- *  统计数据-查询条件-股票涨跌次数
+ * StatCondStAdrCountKline简介
+ *  统计数据-查询条件-涨跌次数-指数k线
  * @author Administrator
- * @date 2022-01-21 10:31
+ * @date 2022-02-02 23:59
  */
-public class StatCondStAdrCount {
+public class StatCondStAdrCountKline {
     /**
      * code
      */

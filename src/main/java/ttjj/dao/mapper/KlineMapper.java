@@ -3,8 +3,11 @@ package ttjj.dao.mapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import ttjj.db.AssetPositionDb;
 import ttjj.dto.Kline;
+import ttjj.dto.StatCondStAdrCountKline;
+import ttjj.dto.StatRsStAdrCountKline;
+
+import java.util.List;
 
 /**
  * 复盘-我的持仓明细
@@ -82,5 +85,43 @@ public interface KlineMapper {
             "where ktime=#{ktime} AND zqdm=#{zqdm} AND klt=#{klt}",
             "</script>"})
     void updateNet(Kline entity);
+
+    /**
+     * 查询-涨跌次数
+     *
+     * @param condition
+     * @return
+     */
+    @Select({"<script>",
+            " SELECT",
+            "   kline.zqdm code ",
+            "   ,kline.zqmc name ",
+            "   ,SUBSTR(kline.ktime FROM 9 FOR 2) rsDate ",
+            "   ,COUNT(1) count ",
+            "   ,ROUND(SUM(kline.zhangDieFu),2) adrSum",
+            " FROM ",
+            "   `kline` kline ",
+            " WHERE 1=1 ",
+            "   <if test='klt != null'> ",
+            "   AND kline.klt = #{klt} ",
+            "   </if> ",
+            "   <if test='adrMin != null'> ",
+            "   AND kline.zhangDieFu > #{adrMin} ",
+            "   </if> ",
+            "       <if test='begDate != null'> ",
+            "       <![CDATA[ AND kline.ktime >= #{begDate} ]]> ",
+            "       </if> ",
+            "       <if test='endDate != null'> ",
+            "       <![CDATA[ AND kline.ktime <= #{endDate} ]]> ",
+            "       </if> ",
+            "   AND kline.zqmc IN  ",
+            "   <foreach collection='stCodeList' item='item' open='(' separator=',' close=')'>  ",
+            "       #{item} ",
+            "   </foreach> ",
+            " GROUP BY SUBSTR(kline.ktime FROM 9 FOR 2) ",
+            " ORDER BY ",
+            "   SUBSTR(kline.ktime FROM 9 FOR 2) ",
+            "</script>"})
+    List<StatRsStAdrCountKline> findListStatStAdrCount(StatCondStAdrCountKline condition);
 
 }

@@ -8,29 +8,42 @@ import java.util.Map;
  * @date
  */
 public class Content {
-    /**常用指数
+    /**
+     * ZHISHU_CODE_000001
+     */
+    public static String ZHISHU_CODE_000001 = "000001";
+    /**
+     * ZHISHU_NAME_000001
+     */
+    public static String ZHISHU_NAME_000001 = "上证指数";
+    public static String ZHISHU_NAME_399673 = "创业板50";
+    /**
+     * 常用指数
      * 000001	上证指数
      */
     private static Map<String, String> zhishuMap = new HashMap<>();
+
     static {
-        zhishuMap.put("000001","上证指数");
-        zhishuMap.put("000300","沪深300");
-        zhishuMap.put("000016","上证50");
-        zhishuMap.put("000903","中证100");
-        zhishuMap.put("000905","中证500");
-        zhishuMap.put("000852","中证1000");
-        zhishuMap.put("000688","科创50");
-        zhishuMap.put("399001","深证成指");
-        zhishuMap.put("399006","创业板指");
-        zhishuMap.put("399673","创业板50");
-        zhishuMap.put("931643","科创创业50");
+        zhishuMap.put(ZHISHU_CODE_000001, ZHISHU_NAME_000001);
+        zhishuMap.put("000300", "沪深300");
+        zhishuMap.put("000016", "上证50");
+        zhishuMap.put("000903", "中证100");
+        zhishuMap.put("000905", "中证500");
+        zhishuMap.put("000852", "中证1000");
+        zhishuMap.put("000688", "科创50");
+        zhishuMap.put("399001", "深证成指");
+        zhishuMap.put("399006", "创业板指");
+        zhishuMap.put("399673", "创业板50");
+        zhishuMap.put("931643", "科创创业50");
 //        zhishuMap.put("399005","中小100");
-        zhishuMap.put("000010","上证180");
+        zhishuMap.put("000010", "上证180");
 //        zhishuMap.put("000009","上证380");
     }
 
+
     /**
      * 常用指数
+     *
      * @return
      */
     public static Map<String, String> getZhishuMap() {
@@ -83,7 +96,7 @@ public class Content {
      */
     public static String KLT_120 = "120";
     /**
-     * klt_1 klt=1:1分钟;5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+     * klt_1 klt=101:日;
      */
     public static String KLT_101 = "101";
     /**
@@ -150,7 +163,7 @@ public class Content {
      */
     public static String ST_BIZ_TYPE_ZAOZHIYINSHUA = "造纸印刷";
     /**
-     *  酿酒行业-BK0477
+     * 酿酒行业-BK0477
      */
     public static String ST_BIZ_TYPE_NIANG_JIU_HANG_YE = "酿酒行业";
     /**
@@ -428,13 +441,13 @@ public class Content {
     public static String MA_TYPE_WEEK = "MA_TYPE_WEEK";
     public static String MA_TYPE_MONTH = "MA_TYPE_MONTH";
 
-    public static  String SHANG_HAI = "1.000001";
-    public static  String SHEN_ZHEN = "0.399001";
-    public static  String CYB = "0.399006";
-    public static  String HS_300_000300 = "1.000300";
-    public static  String CYB_50_399673 = "0.399673";
-    public static  String ZZ_500_000905 = "1.000905";
-    public static  String SH_50_000016 = "1.000016";
-    public static  String KCB_50 = "1.000688";
-    public static  String BIZ_QUANSHANG = "0.399975";
+    public static String SHANG_HAI = "1.000001";
+    public static String SHEN_ZHEN = "0.399001";
+    public static String CYB = "0.399006";
+    public static String HS_300_000300 = "1.000300";
+    public static String CYB_50_399673 = "0.399673";
+    public static String ZZ_500_000905 = "1.000905";
+    public static String SH_50_000016 = "1.000016";
+    public static String KCB_50 = "1.000688";
+    public static String BIZ_QUANSHANG = "0.399975";
 }

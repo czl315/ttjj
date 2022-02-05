@@ -22,19 +22,19 @@ import static utils.Content.*;
  */
 public class KlineDemo {
     public static void main(String[] args) {
-        //  插入常用指数k线
-        boolean isAddMinuteKline = true;//是否添加分钟级别K线
-        String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
-        int lmt = 1;
-        int addDaysMax = 0;//最多增加的天数
-        int year = DateUtil.getCurYear();//2021
-        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()
-        int day = DateUtil.getCurDay();//DateUtil.getCurDay()
-        String klineType = KLINE_TYPE_INDEX;
-        addZhishuKline(isAddMinuteKline, klt, lmt, addDaysMax, year, month, day, klineType);
+//        //  插入常用指数k线
+//        boolean isAddMinuteKline = true;//是否添加分钟级别K线
+//        String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+//        int lmt = 1;
+//        int addDaysMax = 0;//最多增加的天数
+//        int year = DateUtil.getCurYear();//2021
+//        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()
+//        int day = DateUtil.getCurDay();//DateUtil.getCurDay()
+//        String klineType = KLINE_TYPE_INDEX;
+//        addZhishuKline(isAddMinuteKline, klt, lmt, addDaysMax, year, month, day, klineType);
 
-////        // 查询k线
-//        findKline();
+//        // 查询k线
+        findKline();
 
     }
 
@@ -42,7 +42,7 @@ public class KlineDemo {
         String zqdm = "000001";
         String klt = Content.KLT_5;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
-        int addDaysMax = -1;//最多增加的天数
+        int addDaysMax = -100;//最多增加的天数
         int year = DateUtil.getCurYear();//2021
         int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()
         int day = DateUtil.getCurDay();//DateUtil.getCurDay()

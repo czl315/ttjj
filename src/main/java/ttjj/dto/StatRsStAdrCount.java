@@ -27,6 +27,20 @@ public class StatRsStAdrCount extends StatCondStAdrCount {
      */
     private BigDecimal count;
 
+    /**
+     * rsDate 结果日期
+     */
+    private String rsDate;
+
+    public String getRsDate() {
+        return rsDate;
+    }
+
+    public void setRsDate(String rsDate) {
+        this.rsDate = rsDate;
+    }
+
+
     public String getType() {
         return type;
     }
