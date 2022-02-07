@@ -255,7 +255,7 @@ public class RankStockCommpanyDao {
      * @param condition
      * @return
      */
-    public static List<RankStockCommpanyDb> findListLikeConception(RankStockCommpanyDb condition) {
+    public static List<RankStockCommpanyDb> findListLikeConception(CondStLikeConception condition) {
         SqlSession session = sqlSessionFactory.openSession();
         List<RankStockCommpanyDb> rs = null;
         try {

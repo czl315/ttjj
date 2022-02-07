@@ -560,9 +560,14 @@ public interface RankStockCommpanyMapper {
             "       AND rank_st_biz_com.f139=#{f139} ",
             "       </if> ",
             "       AND rank_st_biz_com.date = #{date}  ",
-            "       AND rank_st_biz_com.conception LIKE CONCAT('%',#{conception},'%')",
+//            "       AND rank_st_biz_com.conception LIKE CONCAT('%',#{conception},'%')",
+            "       <if test='conpetionList != null'> ",
+            "       <foreach collection='conpetionList' item='item' open='AND  (' separator='or' close=')'>  ",
+            "           rank_st_biz_com.conception LIKE CONCAT('%',#{item},'%') ",
+            "       </foreach> ",
+            "       </if> ",
             "   ORDER BY rank_st_biz_com.f3 DESC ",
             "</script>"})
-    List<RankStockCommpanyDb> findListLikeConception(RankStockCommpanyDb condition);
+    List<RankStockCommpanyDb> findListLikeConception(CondStLikeConception condition);
 
 }
