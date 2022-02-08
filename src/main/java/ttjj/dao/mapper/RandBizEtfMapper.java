@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import ttjj.db.Fupan;
-import ttjj.dto.RankBizDataDiff;
+import ttjj.dto.*;
 
 import java.util.List;
 import java.util.Map;
@@ -35,6 +35,7 @@ public interface RandBizEtfMapper {
 
     /**
      * 列表查询-行业etf-排序：涨跌幅
+     *
      * @param condition
      * @return
      */
@@ -53,7 +54,7 @@ public interface RandBizEtfMapper {
             "   ORDER BY rank_st_biz.f3 DESC ",
             "   LIMIT 100 ",
             "</script>"})
-    List<RankBizDataDiff> listEtfBiz(Map<String,Object> condition);
+    List<RankBizDataDiff> listEtfBiz(Map<String, Object> condition);
 
     @Insert({"<script>",
             "INSERT INTO `bank19`.`rank_st_biz`(",
@@ -202,5 +203,43 @@ public interface RandBizEtfMapper {
             "DELETE FROM `rank_st_biz` WHERE `date` = #{date} LIMIT 9999 ",
             "</script>"})
     int deleteByDate(String date);
+
+    /**
+     * 查询-涨跌次数
+     *
+     * @param condition
+     * @return
+     */
+    @Select({"<script>",
+            " SELECT",
+            "   rank_st_biz.f12 code ",
+            "   ,rank_st_biz.f14 name ",
+            "   ,SUBSTR(rank_st_biz.date FROM 9 FOR 2) rsDate ",
+            "   ,COUNT(1) count ",
+            "   ,ROUND(SUM(rank_st_biz.f3),2) adrSum",
+            " FROM ",
+            "   `rank_st_biz` rank_st_biz ",
+            " WHERE 1=1 ",
+            "   <if test='adrMin != null'> ",
+            "   AND rank_st_biz.type = #{type}  ",
+            "   </if> ",
+            "   <if test='adrMin != null'> ",
+            "   AND rank_st_biz.f3 > #{adrMin} ",
+            "   </if> ",
+            "       <if test='begDate != null'> ",
+            "       <![CDATA[ AND rank_st_biz.date >= #{begDate} ]]> ",
+            "       </if> ",
+            "       <if test='endDate != null'> ",
+            "       <![CDATA[ AND rank_st_biz.date <= #{endDate} ]]> ",
+            "       </if> ",
+            "   AND rank_st_biz.f12 IN  ",
+            "   <foreach collection='stCodeList' item='item' open='(' separator=',' close=')'>  ",
+            "       #{item} ",
+            "   </foreach> ",
+            " GROUP BY SUBSTR(rank_st_biz.date FROM 9 FOR 2) ",
+            " ORDER BY ",
+            "   SUBSTR(rank_st_biz.date FROM 9 FOR 2) ",
+            "</script>"})
+    List<StatRsStAdrCountBiz> findListStatStAdrCount(StatCondStAdrCountBiz condition);
 
 }

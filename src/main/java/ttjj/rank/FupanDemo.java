@@ -45,6 +45,8 @@ public class FupanDemo {
         String dateType = Content.DAYS_1;//1：一天;7:周;30:月;
         insertOrUpdate(date, klt, dateType);//保存复盘和仓位
 
+        KlineDemo.main(new String[1]);
+
 //        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 
 //        listMyPosition(date, KLT_101);//查询我的仓位 KLT_102;//检查周期类型

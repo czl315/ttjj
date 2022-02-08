@@ -2,7 +2,7 @@ package ttjj.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import ttjj.dto.RankBizDataDiff;
+import ttjj.dto.*;
 
 import java.util.List;
 import java.util.Map;
@@ -130,6 +130,27 @@ public class BizRankDao {
             session.commit();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * 查询-涨跌次数
+     * @param condition
+     * @return
+     */
+    public static List<StatRsStAdrCountBiz> findListStatStAdrCount(StatCondStAdrCountBiz condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<StatRsStAdrCountBiz> rs = null;
+        try {
+//                System.out.println(JSON.toJSONString(condition));
+            rs = session.selectList("ttjj.dao.mapper.RandBizEtfMapper.findListStatStAdrCount", condition);
+            session.commit();
+        } catch (Exception e) {
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
         } finally {
             session.close();
         }

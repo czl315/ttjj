@@ -287,6 +287,7 @@ public class KlineDemo {
             /**
              * 插入数据库-K线
              */
+            System.out.println(JSON.toJSONString(kline));
             KlineDao.insert(kline);
 
             //计算净值

@@ -27,18 +27,18 @@ public class StatKlineDemo {
     public static void main(String[] args) {
 
 //        // 统计涨跌次数-根据每月中的日期
-        statAdrCountByDay();
+        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
+        statAdrCountByDay(zqmc);
 
     }
 
     /**
      * 统计涨跌次数-根据每月中的日期
      */
-    private static void statAdrCountByDay() {
+    private static void statAdrCountByDay(String zqmc) {
         String begDate = "2020-01-01";//开始时间
         String endDate = "2021-12-31";//DateUtil.getToday(DateUtil.YYYY_MM_DD)
         String klt = KLT_101;
-        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
         List<String> stCodeList = new ArrayList<>();
         stCodeList.add(zqmc);
         BigDecimal adrMin = new BigDecimal("0");
@@ -61,71 +61,28 @@ public class StatKlineDemo {
         }
 
         System.out.println(zqmc);
+
         List<String> days = new ArrayList<>();
-        days.add("01");
-//        staticsPct(rsGt0, rsAll, days);
-//        days = new ArrayList<>();
-        days.add("02");
-//        staticsPct(rsGt0, rsAll, days);
-//        days = new ArrayList<>();
-        days.add("03");
-//        staticsPct(rsGt0, rsAll, days);
-//        days = new ArrayList<>();
-        days.add("04");
-//        staticsPct(rsGt0, rsAll, days);
-//        days = new ArrayList<>();
-        days.add("05");
-//        staticsPct(rsGt0, rsAll, days);
-//        days = new ArrayList<>();
-        days.add("06");
-//        staticsPct(rsGt0, rsAll, days);
-//        days = new ArrayList<>();
-        days.add("07");
-//        staticsPct(rsGt0, rsAll, days);
-//        days = new ArrayList<>();
-        days.add("08");
-//        staticsPct(rsGt0, rsAll, days);
-//        days = new ArrayList<>();
-        days.add("09");
-//        staticsPct(rsGt0, rsAll, days);
-//        days = new ArrayList<>();
-        days.add("10");
+
+        days = Arrays.asList("01,02,03,04,05".split(","));
         staticsPct(rsGt0, rsAll, days);
-        days = new ArrayList<>();
-        days.add("11");
-        days.add("12");
-        days.add("13");
-        days.add("14");
-        days.add("15");
+        days = Arrays.asList("06,07,08,09,10".split(","));
+        staticsPct(rsGt0, rsAll, days);
+        days = Arrays.asList("07".split(","));
+        staticsPct(rsGt0, rsAll, days);
+        days = Arrays.asList("08".split(","));
+        staticsPct(rsGt0, rsAll, days);
+        days = Arrays.asList("11,12,13,14,15".split(","));
+        staticsPct(rsGt0, rsAll, days);
+        days = Arrays.asList("16,17,18,19,20".split(","));
+        staticsPct(rsGt0, rsAll, days);
+        days = Arrays.asList("21,22,23,24,25".split(","));
+        staticsPct(rsGt0, rsAll, days);
+        days = Arrays.asList("26,27,28,29,30".split(","));
+        staticsPct(rsGt0, rsAll, days);
+        days = Arrays.asList("31".split(","));
         staticsPct(rsGt0, rsAll, days);
 
-        days = new ArrayList<>();
-        days.add("16");
-        days.add("17");
-        days.add("18");
-        days.add("19");
-        days.add("20");
-        staticsPct(rsGt0, rsAll, days);
-
-        days = new ArrayList<>();
-        days.add("21");
-        days.add("22");
-        days.add("23");
-        days.add("24");
-        days.add("25");
-        staticsPct(rsGt0, rsAll, days);
-
-        days = new ArrayList<>();
-        days.add("26");
-        days.add("27");
-        days.add("28");
-        days.add("29");
-        days.add("30");
-        staticsPct(rsGt0, rsAll, days);
-
-        days = new ArrayList<>();
-        days.add("31");
-        staticsPct(rsGt0, rsAll, days);
     }
 
     /**
