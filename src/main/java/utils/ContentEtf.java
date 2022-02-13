@@ -52,7 +52,7 @@ public class ContentEtf {
 
         mapEtfBiz.put("512660", "军工ETF");//512660	军工ETF	151.61      512680	中证军工ETF	40.29
 //        mapEtfBiz.put("515150", "一带一路ETF");//515150	一带一路ETF	12.84
-        mapEtfBiz.put("512960", "央调ETF");//512960	央调ETF	71.73   512950	央企改革ETF	68.96   159959	央企ETF	24.79   515600	央企创新ETF	21.75
+        mapEtfBiz.put("515900", "央创");//512960	央调ETF	71.73   512950	央企改革ETF	68.96   159959	央企ETF	24.79   515600	央企创新ETF	21.75 515900 央创 40
 
         mapEtfBiz.put("159825", "农业ETF");//159825	农业ETF	17.81   159827	农业50ETF	2.24    516550	农业ETF	0.81
         mapEtfBiz.put("159865", "养殖ETF");//159865	养殖ETF	12.49
