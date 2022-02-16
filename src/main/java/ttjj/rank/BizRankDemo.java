@@ -40,9 +40,9 @@ public class BizRankDemo {
         updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
         updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
 
-        updateFundFlowBk(date);//更新当日资金流信息-板块
-        updateFundFlowGn(date);//更新当日资金流信息-概念
-        updateFundFlowEtf(date);////更新当日资金流信息-etf
+//        updateFundFlowBk(date);//更新当日资金流信息-板块
+//        updateFundFlowGn(date);//更新当日资金流信息-概念
+//        updateFundFlowEtf(date);////更新当日资金流信息-etf
 
 //        /**
 //         * 更新均值

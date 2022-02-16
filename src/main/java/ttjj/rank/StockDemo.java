@@ -55,7 +55,8 @@ public class StockDemo {
 //            setMaMapType(MA_TYPE_MINUTE250, maUpdateMap);
 //            setMaMapType(MA_TYPE_WEEK, maUpdateMap);
 //            setMaMapType(MA_TYPE_MONTH, maUpdateMap);
-            updateNetToday(date, startNum, maUpdateMap, isReport, limitMarketValue);//  更新净值
+
+//            updateFundFlow(date, startNum);//更新当日资金流信息
 
 //            //查询业绩报表
 //            String begDate = "20210701";
@@ -823,7 +824,7 @@ public class StockDemo {
                     rankStockCommpanyDb.setF1(3L);
                 }
                 rankStockCommpanyDb.setF2(kline.getCloseAmt().doubleValue());
-                rankStockCommpanyDb.setF3(kline.getZhangDieFu().doubleValue());
+                rankStockCommpanyDb.setF3(kline.getZhangDieFu());
                 rankStockCommpanyDb.setF4(kline.getZhangDieE().doubleValue());
                 rankStockCommpanyDb.setF5(kline.getCjl().longValue());
                 rankStockCommpanyDb.setF6(kline.getCje().longValue());

@@ -43,6 +43,7 @@ public class ContentEtf {
         mapEtfBiz.put("510230", "金融ETF基金");//159940	金融ETF基金	20.80   510230	金融ETF	41.09
         mapEtfBiz.put("512200", "房地产ETF");//512200	房地产ETF	17.53
         mapEtfBiz.put("518880", "黄金ETF");//518880	黄金ETF	113.78
+        mapEtfBiz.put("516970", "基建50ETF");//516970	基建50ETF	50.27
 
         mapEtfBiz.put("513050", "中概互联网ETF");//513050	中概互联网ETF	315.74
         mapEtfBiz.put("159920", "恒生ETF");//159920	恒生ETF	96.60
@@ -56,9 +57,9 @@ public class ContentEtf {
 
         mapEtfBiz.put("159825", "农业ETF");//159825	农业ETF	17.81   159827	农业50ETF	2.24    516550	农业ETF	0.81
         mapEtfBiz.put("159865", "养殖ETF");//159865	养殖ETF	12.49
-        mapEtfBiz.put("516970", "基建50ETF");//516970	基建50ETF	50.27
 
         mapEtfBiz.put("159981", "能源化工ETF");//159981	能源化工ETF	2.96    159930	能源ETF	2.06
+        mapEtfBiz.put("159930", "能源ETF");//159930	能源ETF	1.83
         mapEtfBiz.put("512400", "有色金属ETF");//512400	有色金属ETF	40.66
         mapEtfBiz.put("510880", "红利ETF");//510880	红利ETF	161.92
         mapEtfBiz.put("515210", "钢铁ETF");//515210	钢铁ETF	18.11

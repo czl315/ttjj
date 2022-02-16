@@ -671,7 +671,7 @@ public class StockStatDemo {
                     rankStockCommpanyDb.setF1(3L);
                 }
                 rankStockCommpanyDb.setF2(kline.getCloseAmt().doubleValue());
-                rankStockCommpanyDb.setF3(kline.getZhangDieFu().doubleValue());
+                rankStockCommpanyDb.setF3(kline.getZhangDieFu());
                 rankStockCommpanyDb.setF4(kline.getZhangDieE().doubleValue());
                 rankStockCommpanyDb.setF5(kline.getCjl().longValue());
                 rankStockCommpanyDb.setF6(kline.getCje().longValue());

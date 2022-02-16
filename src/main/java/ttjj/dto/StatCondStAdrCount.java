@@ -44,7 +44,7 @@ public class StatCondStAdrCount {
     /**
      * plate 板块 f139 2-A股主板(00XXXX/60XXXX);3-B股(200XXX/900XXX);5-创业板(30XXXX);32-科创板(688XXX);33-存托凭证(689XXX,689是科创板专门为CDR存托凭证公司)
      */
-    private long f139;
+    private Long f139;
     /**
      * 涨跌率-最低
      */
@@ -103,11 +103,11 @@ public class StatCondStAdrCount {
         this.endDate = endDate;
     }
 
-    public long getF139() {
+    public Long getF139() {
         return f139;
     }
 
-    public void setF139(long f139) {
+    public void setF139(Long f139) {
         this.f139 = f139;
     }
 

@@ -29,27 +29,21 @@ import static utils.Content.*;
  */
 public class StBizStatDemo {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-01-28";
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//                        String date = "2022-02-15";
+        BigDecimal mvMin = new BigDecimal("50").multiply(new BigDecimal("100000000"));
 
-//        maCheck(date, true);//检查均线
+        maCheck(date, true);//检查均线
 
-        String conceptionList = "元宇宙概念,虚拟数字人,NFT概念";//
-//        String conceptionList = "预制菜概念";//
-//        String conceptionList = "数字货币,移动支付";//数字货币    eSIM
-//        String conceptionList = "稀缺资源";//稀缺资源
-//        String conceptionList = "REITs概念,民爆概念";//
-//        String conceptionList = "在线旅游,免税概念";//旅游  盲盒经济
-//        String conceptionList = "猪肉概念,鸡肉概念";//农业养殖
-//        String conceptionList = "可燃冰,地下管网,油气设服,页岩气";
-//        String conceptionList = "盐湖提锂,动力电池回收";//
-        //国资云概念 数字货币 通用航空    黄金概念 有机硅    虚拟电厂    券商概念
-        //  煤化工
-        //  可燃冰 油气设服    地下管网    页岩气 低碳冶金    磷化工 天然气 油价相关
-        //        String conceptionList = "可燃冰,地下管网,油气设服,页岩气";
-        statAdrCount(date, conceptionList);//统计涨跌次数
+//        String conceptionList = "新冠药物,CRO ,流感,长寿药,独家药品";//新冠药物,CRO,超级真菌   长寿药    草甘膦    流感   独家药品
+//        String conceptionList = "在线旅游,免税概念,盲盒经济,退税商店,影视概念";//旅游
+//                String conceptionList = "数字货币,互联金融,数字经济,数据安全,区块链,智慧政务,网络安全";//数字货币  互联金融    eSIM    移动支付    数字经济   数据安全   区块链 智慧政务   网络安全
 
-//        showGianNian(date);//显示概念涨幅排行榜
+//                String conceptionList = "装配建筑";//
+        String conceptionList = "稀土永磁";//稀缺资源   稀土永磁
+//        statAdrCount(date, conceptionList, DB_RANK_BIZ_F139_BK_MAIN, mvMin);//统计涨跌次数
 
+        showGianNian(date);//显示概念涨幅排行榜
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
@@ -74,15 +68,38 @@ public class StBizStatDemo {
      *
      * @param date
      */
-    private static void statAdrCount(String date, String conceptionList) {
+    private static void statAdrCount(String date, String conceptionList, Long board, BigDecimal mvMin) {
+        //        String conceptionList = "元宇宙概念,虚拟数字人,NFT概念";//
+//        String conceptionList = "预制菜概念";//
+//                String conceptionList = "在线教育";//在线教育
+
+//        String conceptionList = "REITs概念,民爆概念";//
+//        String conceptionList = "猪肉概念,鸡肉概念";//农业养殖
+//        String conceptionList = "可燃冰,地下管网,油气设服,页岩气";
+//        String conceptionList = "盐湖提锂,动力电池回收";//
+        //国资云概念 数字货币 通用航空    黄金概念 有机硅    虚拟电厂    券商概念
+        //  煤化工
+        //  可燃冰 油气设服    地下管网    页岩气 低碳冶金    磷化工 天然气 油价相关
+        //        String conceptionList = "可燃冰,地下管网,油气设服,页岩气";
+
+        List<BigDecimal> adrMinList = new ArrayList<>();
+        BigDecimal adrMin = null;
+//        adrMin = new BigDecimal("3");
+//        adrMinList.add(adrMin);
+//        adrMin = new BigDecimal("5");
+//        adrMinList.add(adrMin);
+//        adrMin = new BigDecimal("7");
+//        adrMinList.add(adrMin);
+        adrMin = new BigDecimal("9");
+        adrMinList.add(adrMin);
+
         Map<String, String> stMap = new HashMap<>();
         CondStLikeConception conditionLikeConception = new CondStLikeConception();
         conditionLikeConception.setDate(date);
-        List<String> conpetionList = new ArrayList<>();
         String[] conceptionStrs = conceptionList.split(",");
-        conpetionList = Arrays.asList(conceptionStrs);
+        List<String> conpetionList = Arrays.asList(conceptionStrs);
         conditionLikeConception.setConpetionList(conpetionList);
-        conditionLikeConception.setF139(DB_RANK_BIZ_F139_BK_MAIN);
+        conditionLikeConception.setF139(board);
         List<RankStockCommpanyDb> stListLikeConception = RankStockCommpanyDao.findListLikeConception(conditionLikeConception);
 
         //查询概念的股票列表
@@ -96,7 +113,8 @@ public class StBizStatDemo {
 //            checkMaDemo(stMap, date, true, maList, KLT_60);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
 //            checkMaDemo(stMap, date, true, maList, KLT_101);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
         }
-        statStAdrCountDemo(date, stListLikeConception);//统计涨跌次数
+
+        statStAdrCountDemo(date, stListLikeConception, board, mvMin, adrMinList);//统计涨跌次数
     }
 
     /**
@@ -108,7 +126,7 @@ public class StBizStatDemo {
     private static void maCheck(String date, boolean isUp) {
         Map<String, String> etfBizMap = new HashMap<>();
         List<Integer> maList = new ArrayList<>();
-        maList.add(MA_30);
+//        maList.add(MA_30);
         maList.add(MA_60);
         etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
         if (isUp) {
@@ -244,41 +262,23 @@ public class StBizStatDemo {
      * @param date
      * @param stListLikeConception
      */
-    private static void statStAdrCountDemo(String date, List<RankStockCommpanyDb> stListLikeConception) {
-        String endDate = date;
-        BigDecimal adrMin = new BigDecimal("0");
-        BigDecimal marketValueMin = new BigDecimal("50").multiply(new BigDecimal("100000000"));
+    private static void statStAdrCountDemo(String date, List<RankStockCommpanyDb> stListLikeConception, Long board, BigDecimal mvMin, List<BigDecimal> adrMinList) {
         Map<String, StatRsStAdrCount> statRsStAdrCountMap = new HashMap<>();
-        {
-//            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -365), endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：365
-//            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -180), endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
-//            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -90), endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：90
-//            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -30), endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
-//            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -14), endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
-//            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -7), endDate, adrMin, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
+        for (BigDecimal adrMinTemp : adrMinList) {
             //涨幅超过
-            BigDecimal adrMinTemp = new BigDecimal("5");
-//            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -365), endDate, adrMinTemp, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：365
-//            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -180), endDate, adrMinTemp, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
-//            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -90), endDate, adrMinTemp, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：90
-//            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -30), endDate, adrMinTemp, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
-//            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -14), endDate, adrMinTemp, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
-//            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -7), endDate, adrMinTemp, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
-            //涨幅超过
-            adrMinTemp = new BigDecimal("9");
-            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -365), endDate, adrMinTemp, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：365
-            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -180), endDate, adrMinTemp, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
-            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -90), endDate, adrMinTemp, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：90
-            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -30), endDate, adrMinTemp, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
-            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -14), endDate, adrMinTemp, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
-            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -7), endDate, adrMinTemp, DB_RANK_BIZ_F139_BK_MAIN, marketValueMin, statRsStAdrCountMap);//统计次数：
-
-            List<StatRsStAdrCount> statRsStAdrCountList = new ArrayList<>();
-            for (String code : statRsStAdrCountMap.keySet()) {
-                StatRsStAdrCount statRsStAdrCount = statRsStAdrCountMap.get(code);
-                statRsStAdrCountList.add(statRsStAdrCount);
-            }
-            statRsStAdrCountList = statRsStAdrCountList.stream().filter(e -> e != null).sorted(Comparator.comparing(StatRsStAdrCount::getCount, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -365), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：365
+            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -180), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：
+            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -90), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：90
+            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -30), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：
+            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -14), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：
+            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -7), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：
+        }
+        List<StatRsStAdrCount> statRsStAdrCountList = new ArrayList<>();
+        for (String code : statRsStAdrCountMap.keySet()) {
+            StatRsStAdrCount statRsStAdrCount = statRsStAdrCountMap.get(code);
+            statRsStAdrCountList.add(statRsStAdrCount);
+        }
+        statRsStAdrCountList = statRsStAdrCountList.stream().filter(e -> e != null).sorted(Comparator.comparing(StatRsStAdrCount::getCount, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
 
 //            System.out.println("/**");
 //            System.out.println("* " + conception + " ");
@@ -286,53 +286,58 @@ public class StBizStatDemo {
 //            System.out.println("public static Map<String, String> mapTemp = new HashMap<>();");
 //            System.out.println("static {");
 
-            Map<String, RankStockCommpanyDb> stDbMap = new HashMap<>();
-            for (RankStockCommpanyDb rankStockCommpanyDb : stListLikeConception) {
-                stDbMap.put(rankStockCommpanyDb.getF12(), rankStockCommpanyDb);
+        Map<String, RankStockCommpanyDb> stDbMap = new HashMap<>();
+        for (RankStockCommpanyDb rankStockCommpanyDb : stListLikeConception) {
+            stDbMap.put(rankStockCommpanyDb.getF12(), rankStockCommpanyDb);
 //                System.out.println(rankStockCommpanyDb.getF12()+":"+rankStockCommpanyDb.getF14()+":"+rankStockCommpanyDb.getF3());
+        }
+
+        for (StatRsStAdrCount statRsStAdrCount : statRsStAdrCountList) {
+            StringBuffer sb = new StringBuffer();
+//                System.out.println(JSON.toJSONString(statRsStAdrCount));
+            String stCode = statRsStAdrCount.getCode();
+            BigDecimal stAdrCount = statRsStAdrCount.getCount();
+            String biz = handlerStName(statRsStAdrCount.getType_name());
+
+            RankStockCommpanyDb rankStockCommpanyDb = stDbMap.get(stCode);
+            String adr = formatDouble(rankStockCommpanyDb.getF3());
+            String liangBi = formatDouble(rankStockCommpanyDb.getF10());
+            String stName = handlerStName(rankStockCommpanyDb.getF14());
+            BigDecimal marketValue = null;
+            if (rankStockCommpanyDb.getF20() != null) {
+                marketValue = rankStockCommpanyDb.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
             }
 
-            for (StatRsStAdrCount statRsStAdrCount : statRsStAdrCountList) {
-                StringBuffer sb = new StringBuffer();
-//                System.out.println(JSON.toJSONString(statRsStAdrCount));
-                String stCode = statRsStAdrCount.getCode();
-                String stName = handlerStName(statRsStAdrCount.getName());
-                BigDecimal stAdrCount = statRsStAdrCount.getCount();
-                String biz = handlerStName(statRsStAdrCount.getType_name());
-
-                RankStockCommpanyDb rankStockCommpanyDb = stDbMap.get(stCode);
-                String adr = formatPct(new BigDecimal(rankStockCommpanyDb.getF3().toString()));
-                BigDecimal marketValue = null;
-                if (rankStockCommpanyDb.getF20() != null) {
-                    marketValue = rankStockCommpanyDb.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
-                }
-
-                sb.append(stCode).append("\t");
-                sb.append(stName).append("\t");
-                sb.append(stAdrCount).append("\t");
-                sb.append(biz).append("\t");
-                sb.append(adr).append("\t");
-                sb.append(marketValue).append("\t");
-                System.out.print(sb);
+            sb.append(stCode).append("\t");
+            sb.append(stName).append("\t");
+            sb.append(stAdrCount).append("\t");
+            sb.append(biz).append("\t");
+            sb.append(adr).append("\t");
+            sb.append(marketValue).append("\t");
+            sb.append(liangBi).append("\t");
+            System.out.print(sb);
 //                System.out.println("mapTemp.put(\"" + stCode + "\", \"" + stName.replace(" ","") + "\");//" + stCode + " " + stName + " " + stAdrCount + " " + biz + " ");
 
-                StringBuffer maSb = new StringBuffer();
-                RankStockCommpanyDb stock = new RankStockCommpanyDb();
-                stock.setF12(statRsStAdrCount.getCode());
-                Map<String, Boolean> maUpdateMap = new HashMap<>();
-                StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
-                StockDemo.handlerNetMa(stock, maUpdateMap, date, maSb);//处理均线净值
-                System.out.println("价格区间:" + maSb.toString());
-            }
+            StringBuffer maSb = new StringBuffer();
+            RankStockCommpanyDb stock = new RankStockCommpanyDb();
+            stock.setF12(statRsStAdrCount.getCode());
+            Map<String, Boolean> maUpdateMap = new HashMap<>();
+            StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
+            StockDemo.handlerNetMa(stock, maUpdateMap, date, maSb);//处理均线净值
+            System.out.println("价格区间:" + maSb.toString());
+        }
 
 //            System.out.println("}");
-        }
+
     }
 
-    private static String formatPct(BigDecimal f3) {
+    private static String formatDouble(BigDecimal f3) {
+        if (f3 == null) {
+            return null;
+        }
         String f3Str = f3.toString();
         if (f3Str.length() <= 3) {
-            return f3Str + "0";
+            return f3Str + " ";
         }
         return f3Str;
     }
@@ -341,10 +346,14 @@ public class StBizStatDemo {
      * @param name
      */
     private static String handlerStName(String name) {
-        if (StringUtils.isNotBlank(name) && name.length() <= 2) {
+        if (name.length() <= 2) {
             name = name + "    ";
-        } else if (StringUtils.isNotBlank(name) && name.length() < 4) {
+        }
+        if (name.length() > 2 && name.length() < 4) {
             name = name + "  ";
+        }
+        if (name.startsWith("*ST")) {
+            name = name + " ";
         }
         return name;
     }
@@ -352,7 +361,7 @@ public class StBizStatDemo {
     /**
      * 统计涨跌次数
      */
-    private static Map<String, StatRsStAdrCount> statStAdrCount(List<RankStockCommpanyDb> stListLikeConception, String begDate, String endDate, BigDecimal adrMin, long bk, BigDecimal marketValueMin, Map<String, StatRsStAdrCount> statRsStAdrCountMap) {
+    private static Map<String, StatRsStAdrCount> statStAdrCount(List<RankStockCommpanyDb> stListLikeConception, String begDate, String endDate, BigDecimal adrMin, Long bk, BigDecimal mvMin, Map<String, StatRsStAdrCount> statRsStAdrCountMap) {
         List<String> stCodeList = new ArrayList<>();
         if (stListLikeConception == null || stListLikeConception.size() <= 0) {
             System.out.println(JSON.toJSONString(stListLikeConception) + ":查询股票列表为空！");
@@ -364,7 +373,7 @@ public class StBizStatDemo {
 
         StatCondStAdrCount condition = new StatCondStAdrCount();
         condition.setF139(bk);
-        condition.setMarketValueMin(marketValueMin);//市值
+        condition.setMarketValueMin(mvMin);//市值
         condition.setAdrMin(adrMin);
         condition.setBegDate(begDate);
         condition.setEndDate(endDate);
@@ -392,8 +401,9 @@ public class StBizStatDemo {
      */
     private static void showGianNian(String date) {
         List<RankBizDataDiff> rankList = BizRankDemo.listConcept(date, DB_RANK_BIZ_TYPE_GAI_NIAN, NUM_MAX_999);//查询主题排名by时间类型、显示个数
+        System.out.println("排行榜-概念：");
         for (RankBizDataDiff etf : rankList) {
-            System.out.println("概念-涨幅：" + etf.getF14() + ":" + etf.getF3());
+            System.out.println(etf.getF14() + ":" + etf.getF3());
         }
     }
 

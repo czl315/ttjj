@@ -1,10 +1,12 @@
-package ttjj.rank;
+package ttjj.rank.history;
 
 import com.alibaba.fastjson.JSON;
 import ttjj.dao.ReportDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.Report;
+import ttjj.rank.BizRankDemo;
+import ttjj.rank.StockDemo;
 import ttjj.service.ReportService;
 import utils.DateUtil;
 

@@ -58,7 +58,7 @@ public class RankStockCommpanyDb {
     /**
      * f3 涨跌幅
      */
-    private Double f3;
+    private BigDecimal f3;
     /**
      * f4 涨跌数值
      */
@@ -86,7 +86,7 @@ public class RankStockCommpanyDb {
     /**
      * f10 量比
      */
-    private Double f10;
+    private BigDecimal f10;
     private Double f11;
     /**
      * f12 股票代码
@@ -1047,11 +1047,11 @@ public class RankStockCommpanyDb {
         this.f2 = f2;
     }
 
-    public Double getF3() {
+    public BigDecimal getF3() {
         return f3;
     }
 
-    public void setF3(Double f3) {
+    public void setF3(BigDecimal f3) {
         this.f3 = f3;
     }
 
@@ -1103,11 +1103,11 @@ public class RankStockCommpanyDb {
         this.f9 = f9;
     }
 
-    public Double getF10() {
+    public BigDecimal getF10() {
         return f10;
     }
 
-    public void setF10(Double f10) {
+    public void setF10(BigDecimal f10) {
         this.f10 = f10;
     }
 

@@ -287,8 +287,8 @@ public class KlineDemo {
             /**
              * 插入数据库-K线
              */
-            System.out.println(JSON.toJSONString(kline));
-            KlineDao.insert(kline);
+            int rs = KlineDao.insert(kline);
+            System.out.println(rs + "-" + kline.getZqmc());
 
             //计算净值
             Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, begDate, endDate, KLINE_TYPE_INDEX);
