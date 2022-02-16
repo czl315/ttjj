@@ -33,7 +33,7 @@ public class StBizStatDemo {
 //                        String date = "2022-02-15";
         BigDecimal mvMin = new BigDecimal("50").multiply(new BigDecimal("100000000"));
 
-        maCheck(date, true);//检查均线
+//        maCheck(date, true);//检查均线
 
 //        String conceptionList = "新冠药物,CRO ,流感,长寿药,独家药品";//新冠药物,CRO,超级真菌   长寿药    草甘膦    流感   独家药品
 //        String conceptionList = "在线旅游,免税概念,盲盒经济,退税商店,影视概念";//旅游
@@ -43,9 +43,9 @@ public class StBizStatDemo {
         String conceptionList = "稀土永磁";//稀缺资源   稀土永磁
 //        statAdrCount(date, conceptionList, DB_RANK_BIZ_F139_BK_MAIN, mvMin);//统计涨跌次数
 
-        showGianNian(date);//显示概念涨幅排行榜
+//        showGianNian(date);//显示概念涨幅排行榜
 
-//        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
+        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
 //        int year = DateUtil.getCurYear();//DateUtil.getCurYear() 2021
 //        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()   12

@@ -48,6 +48,7 @@ public class StockDemo {
             Map<String, Boolean> maUpdateMap = new HashMap<>();
             setMaMapType(MA_TYPE_DAY, maUpdateMap);
             setMaMapType(MA_TYPE_MINUTE15, maUpdateMap);
+            updateNetToday(date, startNum, maUpdateMap, isReport, limitMarketValue);//  更新净值
 //            setMaMapType(MA_TYPE_MINUTE5, maUpdateMap);
 //            setMaMapType(MA_TYPE_MINUTE30, maUpdateMap);
 //            setMaMapType(MA_TYPE_MINUTE60, maUpdateMap);

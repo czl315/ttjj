@@ -13,7 +13,8 @@ import ttjj.db.StockTradeDb;
 import ttjj.dto.Asset;
 import ttjj.dto.AssetPosition;
 import ttjj.dto.Kline;
-import ttjj.dto.RankBizDataDiff;
+import ttjj.rank.history.KlineDemo;
+import ttjj.rank.history.StockTradeDemo;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
 import utils.Content;
@@ -45,7 +46,7 @@ public class FupanDemo {
         String dateType = Content.DAYS_1;//1：一天;7:周;30:月;
         insertOrUpdate(date, klt, dateType);//保存复盘和仓位
 
-        KlineDemo.main(new String[1]);
+        KlineDemo.main(null);
 
 //        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 
