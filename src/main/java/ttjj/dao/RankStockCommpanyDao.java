@@ -16,6 +16,7 @@ public class RankStockCommpanyDao {
      * sqlSessionFactory mybatis
      */
     static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
+    static boolean showTime = true;//显示花费时间;
 
     /**
      * 查询股票-从数据库中-最新的一条
@@ -196,6 +197,7 @@ public class RankStockCommpanyDao {
 
     /**
      * 更新业务板块-根据code
+     *
      * @param entity
      * @return
      */
@@ -213,6 +215,7 @@ public class RankStockCommpanyDao {
 
     /**
      * 删除数据-根据日期
+     *
      * @param date
      * @return
      */
@@ -235,6 +238,10 @@ public class RankStockCommpanyDao {
      * @return
      */
     public static List<StatRsStAdrCount> findListStatStAdrCount(StatCondStAdrCount condition) {
+        long timeBeg = 0;
+        if (showTime) {
+            timeBeg = System.currentTimeMillis();
+        }
         SqlSession session = sqlSessionFactory.openSession();
         List<StatRsStAdrCount> rs = null;
         try {
@@ -247,18 +254,28 @@ public class RankStockCommpanyDao {
         } finally {
             session.close();
         }
+        if (showTime) {
+            long timeEnd = System.currentTimeMillis();
+            System.out.println("time-findListStatStAdrCount():" + (timeEnd - timeBeg));
+        }
         return rs;
     }
 
     /**
      * 查询列表-模糊匹配-概念
+     *
      * @param condition
      * @return
      */
     public static List<RankStockCommpanyDb> findListLikeConception(CondStLikeConception condition) {
+        long timeBeg = 0;
+        if (showTime) {
+            timeBeg = System.currentTimeMillis();
+        }
         SqlSession session = sqlSessionFactory.openSession();
         List<RankStockCommpanyDb> rs = null;
         try {
+
 //                System.out.println(JSON.toJSONString(condition));
             rs = session.selectList("ttjj.dao.mapper.RankStockCommpanyMapper.findListLikeConception", condition);
             session.commit();
@@ -267,6 +284,10 @@ public class RankStockCommpanyDao {
             System.out.println(e.getMessage());
         } finally {
             session.close();
+        }
+        if (showTime) {
+            long timeEnd = System.currentTimeMillis();
+            System.out.println("time-findListLikeConception():" + (timeEnd - timeBeg));
         }
         return rs;
     }
