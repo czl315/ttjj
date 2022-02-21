@@ -31,19 +31,15 @@ public class StBizStatDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //                        String date = "2022-02-17";
-        BigDecimal mvMin = new BigDecimal("50").multiply(new BigDecimal("100000000"));
+        BigDecimal mvMin = new BigDecimal("100000000").multiply(new BigDecimal("50"));
+//        showGianNian(date);//显示概念涨幅排行榜
 
-//        maCheck(date, true);//检查均线
-
-
-//                String conceptionList = "数字货币,互联金融,数字经济,数据安全,区块链,智慧政务,网络安全";//数字货币  互联金融    eSIM    移动支付    数字经济   数据安全   区块链 智慧政务   网络安全
-
+        String conceptionList = "东数西算";//数字货币,互联金融,数字经济,数据安全,区块链,智慧政务,网络安全,国资云概念,数据中心
 //                String conceptionList = "工业母机";//
-        String conceptionList = "稀缺资源";//稀缺资源   稀土永磁
+//        String conceptionList = "稀缺资源";//稀缺资源   稀土永磁
 //        String conceptionList = "磷化工";//磷化工
 //        String conceptionList = "盐湖提锂,刀片电池,固态电池,动力电池回收,锂电池,钠离子电池";//盐湖提锂,刀片电池,固态电池,动力电池回收,锂电池,钠离子电池
         statAdrCount(date, conceptionList, DB_RANK_BIZ_F139_BK_MAIN, mvMin);//统计涨跌次数
-//        showGianNian(date);//显示概念涨幅排行榜
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
