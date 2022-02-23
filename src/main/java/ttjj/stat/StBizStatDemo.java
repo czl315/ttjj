@@ -31,20 +31,20 @@ import static utils.Content.*;
 public class StBizStatDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//                        String date = "2022-02-22";
+//                        String date = "2022-02-23";
         BigDecimal mvMin = new BigDecimal("100000000").multiply(new BigDecimal("50"));
 //        showGianNian(date);//显示概念涨幅排行榜
 
-//        String conceptionList = "东数西算";//东数西算,国资云概念,VPN,数据中心,华为昇腾,云计算,边缘计算,华为欧拉,智慧政务,网络安全
-                String conceptionList = "新冠药物";//
+        String conceptionList = "杭州亚运会";//最新概念：土壤修复,智慧灯杆,净水概念,杭州亚运会
+//        String conceptionList = "全息技术,3D摄像头";//全息技术,3D摄像头
+//        String conceptionList = "钠离子电池";//盐湖提锂,刀片电池,固态电池,动力电池回收,锂电池,钠离子电池
 //                String conceptionList = "培育钻石";//培育钻石
-//                String conceptionList = "民爆概念";//民爆概念
-//        String conceptionList = "辅助生殖";//辅助生殖,婴童概念,新冠药物,中药概念,养老概念,毛发医疗,阿兹海默,长寿药  超级真菌,CRO   中药概念:114;
-//        String conceptionList = "盐湖提锂";//盐湖提锂,刀片电池,固态电池,动力电池回收,锂电池,钠离子电池
+//                String conceptionList = "汽车芯片";//光刻胶,中芯概念,IGBT概念,汽车芯片,第三代半导体,半导体概念
+//                String conceptionList = "磷化工";//
+//        String conceptionList = "新冠药物";//辅助生殖,婴童概念,新冠药物,中药概念,养老概念,毛发医疗,阿兹海默,长寿药  超级真菌,CRO   中药概念:114;
+//        String conceptionList = "东数西算";//东数西算,国资云概念,VPN,数据中心,华为昇腾,云计算,边缘计算,华为欧拉,智慧政务,网络安全
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("3"),new BigDecimal("5"),new BigDecimal("7"),new BigDecimal("9"));
         statAdrCount(date, conceptionList, DB_RANK_BIZ_F139_BK_MAIN, mvMin,adrMinList);//统计涨跌次数
-
-//        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
 //        int year = DateUtil.getCurYear();//DateUtil.getCurYear() 2021
 //        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()   12
@@ -72,7 +72,7 @@ public class StBizStatDemo {
 //                String conceptionList = "工业母机";//
 //        String conceptionList = "稀缺资源";//稀缺资源   稀土永磁
 //        String conceptionList = "磷化工";//磷化工
-
+//                String conceptionList = "民爆概念";//民爆概念
 //        String conceptionList = "在线旅游,免税概念,盲盒经济,退税商店,影视概念";//旅游
         //        String conceptionList = "元宇宙概念,虚拟数字人,NFT概念";//
 //        String conceptionList = "预制菜概念";//
@@ -82,10 +82,6 @@ public class StBizStatDemo {
 //        String conceptionList = "可燃冰,地下管网,油气设服,页岩气";
         //  可燃冰 油气设服    地下管网    页岩气 低碳冶金    磷化工 天然气 油价相关
         //        String conceptionList = "可燃冰,地下管网,油气设服,页岩气";
-
-
-
-        Map<String, String> stMap = new HashMap<>();
         CondStLikeConception conditionLikeConception = new CondStLikeConception();
         conditionLikeConception.setDate(date);
         String[] conceptionStrs = conceptionList.split(",");
@@ -95,7 +91,7 @@ public class StBizStatDemo {
         List<RankStockCommpanyDb> stListLikeConception = RankStockCommpanyDao.findListLikeConception(conditionLikeConception);
         System.out.println("概念：" + JSON.toJSONString(conpetionList) + ";" + "股票个数：" + stListLikeConception.size() + ";");
 
-        showAdrCount(date, stListLikeConception, board, mvMin, adrMinList);//统计涨跌次数
+        showAdrCount(date, stListLikeConception, board, mvMin, adrMinList,conpetionList);//统计涨跌次数
     }
 
     /**
@@ -239,11 +235,11 @@ public class StBizStatDemo {
 
     /**
      * 统计涨跌次数
-     *
-     * @param date
+     *  @param date
      * @param stListLikeConception
+     * @param conpetionList
      */
-    private static void showAdrCount(String date, List<RankStockCommpanyDb> stListLikeConception, Long board, BigDecimal mvMin, List<BigDecimal> adrMinList) {
+    private static void showAdrCount(String date, List<RankStockCommpanyDb> stListLikeConception, Long board, BigDecimal mvMin, List<BigDecimal> adrMinList, List<String> conpetionList) {
         Map<String, StatRsStAdrCount> statRsStAdrCountMap = new HashMap<>();
         ExecutorService service = Executors.newCachedThreadPool();// 创建一个的线程池
         for (BigDecimal adrMinTemp : adrMinList) {
@@ -278,7 +274,7 @@ public class StBizStatDemo {
             try {
                 System.out.println("线程池状态：" + service);
 //                service.awaitTermination(20, TimeUnit.SECONDS);
-                Thread.sleep(1000);
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -291,12 +287,6 @@ public class StBizStatDemo {
         }
         statRsStAdrCountList = statRsStAdrCountList.stream().filter(e -> e != null).sorted(Comparator.comparing(StatRsStAdrCount::getCount, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
 
-//            System.out.println("/**");
-//            System.out.println("* " + conception + " ");
-//            System.out.println("*/");
-//            System.out.println("public static Map<String, String> mapTemp = new HashMap<>();");
-//            System.out.println("static {");
-
         Map<String, RankStockCommpanyDb> stDbMap = new HashMap<>();
         for (RankStockCommpanyDb rankStockCommpanyDb : stListLikeConception) {
             stDbMap.put(rankStockCommpanyDb.getF12(), rankStockCommpanyDb);
@@ -307,6 +297,7 @@ public class StBizStatDemo {
 ////            checkMaDemo(stMap, date, true, maList, KLT_60);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
 ////            checkMaDemo(stMap, date, true, maList, KLT_101);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
 
+        System.out.println("概念：" + JSON.toJSONString(conpetionList) + ";" + "股票个数：" + stListLikeConception.size() + ";");
         for (StatRsStAdrCount statRsStAdrCount : statRsStAdrCountList) {
             StringBuffer sb = new StringBuffer();
 //                System.out.println(JSON.toJSONString(statRsStAdrCount));
@@ -449,93 +440,6 @@ public class StBizStatDemo {
         KlineService.checkMa(etfBizMap, kltType, maList, date, isUp);// 检查均线
     }
 
-    /**
-     * 列表查询-行业etf-排序：涨跌幅
-     *
-     * @param etfBizSet etf集合
-     * @param days
-     * @param showUp    是否显示上涨
-     * @param showDown  是否显示下跌
-     * @return
-     */
-    private static Map<String, StatEtfUpDown> listEtfBizDb(Set<String> etfBizSet, int days, boolean showUp, boolean showDown) {
-        Map<String, StatEtfUpDown> statRs = new HashMap<>();
-        List<StatEtfUpDown> statEtfUpDownList = new ArrayList<>();
-        //按照日期，倒序查询
-        for (int i = 0; i <= days; i++) {
-            String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
-            Map<String, Object> condition = new HashMap<>();
-            condition.put("list", etfBizSet);
-            condition.put("date", date);
-            List<RankBizDataDiff> rankListUp = BizRankDao.listEtfBiz(condition);
-            if (rankListUp == null) {
-                continue;
-            }
-            List<RankBizDataDiff> rankListDown = rankListUp.stream().filter(e -> e != null).sorted(Comparator.comparing(RankBizDataDiff::getF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());//倒序
-            String curWeekNo = DateUtil.getWeekByYyyyMmDd(date, DateUtil.YYYY_MM_DD);
-            if (showUp) {
-                if (curWeekNo.equals(DATE_WEEK_5)) {
-                }
-                System.out.println(date + "上涨:");
-                String upListStr = handlerUpOrDownList(rankListUp, 100, true);//处理上涨
-                System.out.println(upListStr);//显示
-            }
-            if (showDown) {
-                if (curWeekNo.equals(DATE_WEEK_5)) {
-                }
-                System.out.println(date + "下跌:");
-                String downListStr = handlerUpOrDownList(rankListDown, 100, false);
-                System.out.println(downListStr);//显示
-            }
-
-//            for (RankBizDataDiff biz : rankListUp) {
-//                if (rankListUp == null) {
-//                    return null;
-//                }
-//                String code = biz.getF12();
-//                StatEtfUpDown statEtfUpDown = new StatEtfUpDown();
-//                if (statRs.containsKey(code)) {
-//                    statEtfUpDown = statRs.get(code);
-//                }
-//                statEtfUpDown.setCode(biz.getF12());
-//                statEtfUpDown.setName(handlerEtfName(biz.getF14()));
-//                int oldCountCurContinueUp = statEtfUpDown.getCountCurContinueUp();
-//                int oldCountCurContinueDown = statEtfUpDown.getCountCurContinueDown();
-//                int oldCountTotalUp = statEtfUpDown.getCountTotalUp();
-//                int oldCountTotalDown = statEtfUpDown.getCountTotalDown();
-//                //  当前连续次数合计-上涨:如果上涨，次数加，否则次数重置为0；下跌次数反之
-//                if (biz.getF3().compareTo(new BigDecimal("0")) > 0) {
-//                    statEtfUpDown.setCountCurContinueUp(oldCountCurContinueUp + 1);
-//                    statEtfUpDown.setCountCurContinueDown(0);
-//                    statEtfUpDown.setCountTotalUp(oldCountTotalUp + 1);
-//                } else {
-//                    statEtfUpDown.setCountCurContinueDown(oldCountCurContinueDown + 1);
-//                    statEtfUpDown.setCountCurContinueUp(0);
-//                    statEtfUpDown.setCountTotalDown(oldCountTotalDown + 1);
-//                }
-//                statRs.put(code, statEtfUpDown);
-//            }
-        }
-
-        statEtfUpDownList.addAll(statRs.values());
-        //排序
-        statEtfUpDownList = statEtfUpDownList.stream().filter(e -> e != null).sorted(Comparator.comparing(StatEtfUpDown::getCountTotalUp, Comparator.nullsFirst(Integer::compareTo)).reversed()).collect(Collectors.toList());
-        System.out.println();
-        for (StatEtfUpDown dto : statEtfUpDownList) {
-            String name = dto.getName();
-            System.out.print(dto.getCode());
-            System.out.print("\t累计-涨跌比:" + dto.getCountTotalUp() + ":" + dto.getCountTotalDown());
-            System.out.print(" \t当前连续次数合计-涨跌比:" + dto.getCountCurContinueUp() + ":" + dto.getCountCurContinueDown());
-            System.out.print("\t");
-            if (name.length() < 4) {
-                System.out.print(dto.getName());
-            } else {
-                System.out.print(dto.getName());
-            }
-            System.out.println();
-        }
-        return statRs;
-    }
 
     /**
      * 统计涨跌次数-按照天的维度
@@ -567,7 +471,7 @@ public class StBizStatDemo {
                     statEtfUpDown = statRs.get(code);
                 }
                 statEtfUpDown.setCode(biz.getF12());
-                statEtfUpDown.setName(handlerEtfName(biz.getF14()));
+                statEtfUpDown.setName(BizEtfControl.handlerEtfName(biz.getF14()));
                 int oldCountCurContinueUp = statEtfUpDown.getCountCurContinueUp();
                 int oldCountCurContinueDown = statEtfUpDown.getCountCurContinueDown();
                 int oldCountTotalUp = statEtfUpDown.getCountTotalUp();
@@ -606,57 +510,6 @@ public class StBizStatDemo {
         return statRs;
     }
 
-    /**
-     * 处理上涨列表
-     *
-     * @param upRankList
-     * @return
-     */
-    private static String handlerUpOrDownList(List<RankBizDataDiff> upRankList, int limit, boolean upDownFlag) {
-        StringBuffer sb = new StringBuffer();
-        if (upRankList == null) {
-            return null;
-        }
-        int temp = 0;
-        for (RankBizDataDiff r : upRankList) {
-            temp++;
-            if (temp > limit) {
-                break;
-            }
-            String name = handlerEtfName(r.getF14());
-            //如果上涨标志，涨幅小于0，中断
-            if (upDownFlag && r.getF3().compareTo(new BigDecimal("0")) <= 0) {
-                break;
-            }
-            //如果下跌标志，涨幅小于0，中断
-            if (!upDownFlag && r.getF3().compareTo(new BigDecimal("0")) >= 0) {
-                break;
-            }
-            sb.append("," + name);
-//            sb.append("," + name + "：" + r.getF3());
-
-        }
-        String rs = "";
-        if (sb.length() > 0) {
-            rs = sb.substring(1);
-        }
-        return rs;
-    }
-
-    /**
-     * 处理etf名称
-     *
-     * @param name
-     */
-    private static String handlerEtfName(String name) {
-        name = name.replace("ETF", "");
-        name = name.replace("基金", "");
-        name = name.replace("有色金属", "有色");
-        name = name.replace("基建50", "基建");
-        name = name.replace("能源化工", "能源化工");
-        name = name.replace("中概互联网", "中概");
-        return name;
-    }
 
     /**
      * 检查资金流向-etf

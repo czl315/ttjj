@@ -2072,7 +2072,7 @@ public class StockDemo {
             if (priceSize > 4 && priceSize < 6) {
                 curPriceAreaStr = curPriceArea.toString() + " ";
             }
-            sb.append(strHead).append(curPriceAreaStr).append("\t\t");
+            sb.append(strHead).append(curPriceAreaStr).append("\t");
         }
 //        sb.append("\t").append(strHead).append("：").append("\t").append(netMap.get(keyRsNetCloseAvg));
 //        sb.append("\t").append(",最低：").append("\t").append(minPrice);

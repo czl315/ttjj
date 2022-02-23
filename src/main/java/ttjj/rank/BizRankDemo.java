@@ -30,24 +30,24 @@ public class BizRankDemo {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-01-13";
 
-//        deleteTodayBiz();//删除数据-今日
-//
-//        insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
-//        insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
-//        insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
-//        insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
-//
-//        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
-//        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
+        deleteTodayBiz();//删除数据-今日
 
-        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE);
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
+
         updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_GAI_NIAN);
+        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE);
         updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_ETF);
         updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_LOF);
 
-//        updateFundFlowBk(date);//更新当日资金流信息-板块
-//        updateFundFlowGn(date);//更新当日资金流信息-概念
-//        updateFundFlowEtf(date);////更新当日资金流信息-etf
+        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
+        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
+
+        updateFundFlowBk(date);//更新当日资金流信息-板块
+        updateFundFlowGn(date);//更新当日资金流信息-概念
+        updateFundFlowEtf(date);////更新当日资金流信息-etf
 
 //        /**
 //         * 更新均值
@@ -146,67 +146,67 @@ public class BizRankDemo {
         for (Kline kline : klines) {
             String ktime = kline.getKtime();
             if (klt.equals(KLT_15)) {
-                if (ktime.contains("09:45")) {
+                if (ktime.contains("09:45:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_0945(closeAmt);
                 }
-                if (ktime.contains("10:00")) {
+                if (ktime.contains("10:00:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_1000(closeAmt);
                 }
-                if (ktime.contains("10:15")) {
+                if (ktime.contains("10:15:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_1015(closeAmt);
                 }
-                if (ktime.contains("10:30")) {
+                if (ktime.contains("10:30:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_1030(closeAmt);
                 }
-                if (ktime.contains("10:45")) {
+                if (ktime.contains("10:45:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_1045(closeAmt);
                 }
-                if (ktime.contains("11:00")) {
+                if (ktime.contains("11:00:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_1100(closeAmt);
                 }
-                if (ktime.contains("11:15")) {
+                if (ktime.contains("11:15:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_1115(closeAmt);
                 }
-                if (ktime.contains("11:30")) {
+                if (ktime.contains("11:30:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_1130(closeAmt);
                 }
-                if (ktime.contains("13:15")) {
+                if (ktime.contains("13:15:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_1315(closeAmt);
                 }
-                if (ktime.contains("13:30")) {
+                if (ktime.contains("13:30:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_1330(closeAmt);
                 }
-                if (ktime.contains("13:45")) {
+                if (ktime.contains("13:45:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_1345(closeAmt);
                 }
-                if (ktime.contains("14:00")) {
+                if (ktime.contains("14:00:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_1400(closeAmt);
                 }
-                if (ktime.contains("14:15")) {
+                if (ktime.contains("14:15:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_1415(closeAmt);
                 }
-                if (ktime.contains("14:30")) {
+                if (ktime.contains("14:30:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_1430(closeAmt);
                 }
-                if (ktime.contains("14:45")) {
+                if (ktime.contains("14:45:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_1445(closeAmt);
                 }
-                if (ktime.contains("15:00")) {
+                if (ktime.contains("15:00:00")) {
                     BigDecimal closeAmt = kline.getCloseAmt();
                     rankBizDataDiff.setNET_TODAY_1500(closeAmt);
                 }

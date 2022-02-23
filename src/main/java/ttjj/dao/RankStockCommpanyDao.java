@@ -16,7 +16,7 @@ public class RankStockCommpanyDao {
      * sqlSessionFactory mybatis
      */
     static SqlSessionFactory sqlSessionFactory = MyBatisUtils.getSqlSessionFactory();
-    static boolean showTime = true;//显示花费时间;
+    static boolean showTime = false;//显示花费时间;
 
     /**
      * 查询股票-从数据库中-最新的一条
