@@ -32,13 +32,18 @@ public class BizRankDemo {
 
 //        deleteTodayBiz();//删除数据-今日
 //
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
+//        insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
+//        insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
+//        insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
+//        insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
+//
+//        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
+//        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
 
-        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
-        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
+        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE);
+        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_GAI_NIAN);
+        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_ETF);
+        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_LOF);
 
 //        updateFundFlowBk(date);//更新当日资金流信息-板块
 //        updateFundFlowGn(date);//更新当日资金流信息-概念
@@ -63,6 +68,151 @@ public class BizRankDemo {
 //        String begDate = "2018-01-01";//查询新增交易的开始时间
 //        String endDate = "2018-12-31";
 //        insertHisDbBanKuai(begDate, endDate);//新增历史数据
+    }
+
+    /**
+     * 更新今日净值价-根据周期
+     *
+     * @param date
+     * @param klt
+     */
+    private static void updateDbTodayNetCloseByKlt(String date, String klt, String type) {
+        List<RankBizDataDiff> fundList = new ArrayList<>();
+        if (type.equals(DB_RANK_BIZ_TYPE_ETF)) {
+            fundList = listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);
+            for (RankBizDataDiff rankBizDataDiff : fundList) {
+                List<Kline> klines = KlineService.kline(rankBizDataDiff.getF12(), NUM_MAX_99, klt, true, date, date, KLINE_TYPE_ETF);
+                if (klines == null || klines.size() == 0) {
+                    System.out.println("k线为空：" + JSON.toJSONString(rankBizDataDiff));
+                    continue;
+                }
+                handlerTodayNetCloseByKlt(rankBizDataDiff, klines, klt);
+                int rs = BizRankDao.updateEtfNet(rankBizDataDiff);
+                System.out.println("更新今日净值价-etf：" + rs);
+            }
+        }
+        if (type.equals(DB_RANK_BIZ_TYPE_LOF)) {
+            fundList = listEtf(date, DB_RANK_BIZ_TYPE_LOF, NUM_MAX_999);
+            for (RankBizDataDiff rankBizDataDiff : fundList) {
+                List<Kline> klines = KlineService.kline(rankBizDataDiff.getF12(), NUM_MAX_99, klt, true, date, date, KLINE_TYPE_ETF);
+                if (klines == null || klines.size() == 0) {
+                    System.out.println("k线为空：" + JSON.toJSONString(rankBizDataDiff));
+                    continue;
+                }
+                handlerTodayNetCloseByKlt(rankBizDataDiff, klines, klt);
+                int rs = BizRankDao.updateEtfNet(rankBizDataDiff);
+                System.out.println("更新今日净值价-lof：" + rs);
+            }
+        }
+        if (type.equals(DB_RANK_BIZ_TYPE_HANG_YE)) {
+            fundList = listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询板块行业列表
+            for (RankBizDataDiff rankBizDataDiff : fundList) {
+                List<Kline> klines = KlineService.kline(rankBizDataDiff.getF12(), NUM_MAX_999, klt, true, date, date, KLINE_TYPE_BAN_KUAI);
+                if (klines == null || klines.size() == 0) {
+                    System.out.println("k线为空：" + JSON.toJSONString(rankBizDataDiff));
+                    continue;
+                }
+                handlerTodayNetCloseByKlt(rankBizDataDiff, klines, klt);
+                int rs = BizRankDao.updateEtfNet(rankBizDataDiff);
+                System.out.println("更新今日净值价-行业：" + rs);
+            }
+        }
+        if (type.equals(DB_RANK_BIZ_TYPE_GAI_NIAN)) {
+            fundList = listConcept(date, DB_RANK_BIZ_TYPE_GAI_NIAN, NUM_MAX_999);//查询主题排名by时间类型、显示个数
+            for (RankBizDataDiff rankBizDataDiff : fundList) {
+                List<Kline> klines = KlineService.kline(rankBizDataDiff.getF12(), NUM_MAX_999, klt, true, date, date, KLINE_TYPE_BAN_KUAI);
+                if (klines == null || klines.size() == 0) {
+                    System.out.println("k线为空：" + JSON.toJSONString(rankBizDataDiff));
+                    continue;
+                }
+                handlerTodayNetCloseByKlt(rankBizDataDiff, klines, klt);
+                int rs = BizRankDao.updateEtfNet(rankBizDataDiff);
+                System.out.println("更新今日净值价-概念：" + rs);
+            }
+        }
+    }
+
+    /**
+     * 处理今日净值
+     *
+     * @param rankBizDataDiff
+     * @param klines
+     * @param klt
+     */
+    private static void handlerTodayNetCloseByKlt(RankBizDataDiff rankBizDataDiff, List<Kline> klines, String klt) {
+        if (klines == null) {
+            return;
+        }
+        for (Kline kline : klines) {
+            String ktime = kline.getKtime();
+            if (klt.equals(KLT_15)) {
+                if (ktime.contains("09:45")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_0945(closeAmt);
+                }
+                if (ktime.contains("10:00")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_1000(closeAmt);
+                }
+                if (ktime.contains("10:15")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_1015(closeAmt);
+                }
+                if (ktime.contains("10:30")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_1030(closeAmt);
+                }
+                if (ktime.contains("10:45")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_1045(closeAmt);
+                }
+                if (ktime.contains("11:00")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_1100(closeAmt);
+                }
+                if (ktime.contains("11:15")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_1115(closeAmt);
+                }
+                if (ktime.contains("11:30")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_1130(closeAmt);
+                }
+                if (ktime.contains("13:15")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_1315(closeAmt);
+                }
+                if (ktime.contains("13:30")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_1330(closeAmt);
+                }
+                if (ktime.contains("13:45")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_1345(closeAmt);
+                }
+                if (ktime.contains("14:00")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_1400(closeAmt);
+                }
+                if (ktime.contains("14:15")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_1415(closeAmt);
+                }
+                if (ktime.contains("14:30")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_1430(closeAmt);
+                }
+                if (ktime.contains("14:45")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_1445(closeAmt);
+                }
+                if (ktime.contains("15:00")) {
+                    BigDecimal closeAmt = kline.getCloseAmt();
+                    rankBizDataDiff.setNET_TODAY_1500(closeAmt);
+                }
+            }
+
+        }
     }
 
     /**
@@ -110,7 +260,7 @@ public class BizRankDemo {
             entity.setNET_MAX_30(netMap20.get(Content.keyRsMax));
             entity.setNET_MIN_CLOS_30(netMap20.get(Content.keyRsNetCloseMin));
             entity.setNET_MAX_CLOS_30(netMap20.get(Content.keyRsNetCloseMax));
-            Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, KLT_101, false, "", date, KLINE_TYPE_STOCK);
+            Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, "", date, KLINE_TYPE_STOCK);
             entity.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
             entity.setNET_MIN_60(netMap30.get(Content.keyRsMin));
             entity.setNET_MAX_60(netMap30.get(Content.keyRsMax));

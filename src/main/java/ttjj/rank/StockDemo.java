@@ -37,7 +37,7 @@ public class StockDemo {
 
             int startNum = 0;//开始位置，默认0
 
-            deleteTodayStCom();//删除数据-今日
+//            deleteTodayStCom();//删除数据-今日
             addTodayStCom(date, startNum);//  添加或更新股票-根据日期
 //            updateTodayStCom(date, startNum);//更新股票
             updateConception(date, startNum);//更新题材概念
@@ -2061,7 +2061,18 @@ public class StockDemo {
             BigDecimal curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
 //            sb.append(strHead).append("区间：").append("\t").append(curPriceArea).append("%").append(",");
 //            sb.append(strHead).append(curPriceArea).append("%").append(",");
-            sb.append(strHead).append(curPriceArea).append("\t\t");
+            String curPriceAreaStr = "";
+            int priceSize = curPriceArea.toString().length();
+            if (curPriceArea != null) {
+                curPriceAreaStr = curPriceArea.toString();
+            }
+            if (priceSize <= 4) {
+                curPriceAreaStr = curPriceArea.toString() + "  ";
+            }
+            if (priceSize > 4 && priceSize < 6) {
+                curPriceAreaStr = curPriceArea.toString() + " ";
+            }
+            sb.append(strHead).append(curPriceAreaStr).append("\t\t");
         }
 //        sb.append("\t").append(strHead).append("：").append("\t").append(netMap.get(keyRsNetCloseAvg));
 //        sb.append("\t").append(",最低：").append("\t").append(minPrice);

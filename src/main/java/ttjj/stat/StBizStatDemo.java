@@ -20,6 +20,7 @@ import utils.HttpUtil;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 import static utils.Content.*;
@@ -30,16 +31,18 @@ import static utils.Content.*;
 public class StBizStatDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//                        String date = "2022-02-17";
+//                        String date = "2022-02-22";
         BigDecimal mvMin = new BigDecimal("100000000").multiply(new BigDecimal("50"));
 //        showGianNian(date);//显示概念涨幅排行榜
 
-        String conceptionList = "东数西算";//数字货币,互联金融,数字经济,数据安全,区块链,智慧政务,网络安全,国资云概念,数据中心
-//                String conceptionList = "工业母机";//
-//        String conceptionList = "稀缺资源";//稀缺资源   稀土永磁
-//        String conceptionList = "磷化工";//磷化工
-//        String conceptionList = "盐湖提锂,刀片电池,固态电池,动力电池回收,锂电池,钠离子电池";//盐湖提锂,刀片电池,固态电池,动力电池回收,锂电池,钠离子电池
-        statAdrCount(date, conceptionList, DB_RANK_BIZ_F139_BK_MAIN, mvMin);//统计涨跌次数
+//        String conceptionList = "东数西算";//东数西算,国资云概念,VPN,数据中心,华为昇腾,云计算,边缘计算,华为欧拉,智慧政务,网络安全
+                String conceptionList = "新冠药物";//
+//                String conceptionList = "培育钻石";//培育钻石
+//                String conceptionList = "民爆概念";//民爆概念
+//        String conceptionList = "辅助生殖";//辅助生殖,婴童概念,新冠药物,中药概念,养老概念,毛发医疗,阿兹海默,长寿药  超级真菌,CRO   中药概念:114;
+//        String conceptionList = "盐湖提锂";//盐湖提锂,刀片电池,固态电池,动力电池回收,锂电池,钠离子电池
+        List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("3"),new BigDecimal("5"),new BigDecimal("7"),new BigDecimal("9"));
+        statAdrCount(date, conceptionList, DB_RANK_BIZ_F139_BK_MAIN, mvMin,adrMinList);//统计涨跌次数
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
@@ -64,32 +67,23 @@ public class StBizStatDemo {
      *
      * @param date
      */
-    private static void statAdrCount(String date, String conceptionList, Long board, BigDecimal mvMin) {
-        //        String conceptionList = "新冠药物,CRO ,流感,长寿药,独家药品";//新冠药物,CRO,超级真菌   长寿药    草甘膦    流感   独家药品
+    private static void statAdrCount(String date, String conceptionList, Long board, BigDecimal mvMin,List<BigDecimal> adrMinList) {
+        //        String conceptionList = "数字货币";//数字货币,互联金融,数字经济,数据安全,区块链,智慧政务,网络安全,
+//                String conceptionList = "工业母机";//
+//        String conceptionList = "稀缺资源";//稀缺资源   稀土永磁
+//        String conceptionList = "磷化工";//磷化工
+
 //        String conceptionList = "在线旅游,免税概念,盲盒经济,退税商店,影视概念";//旅游
         //        String conceptionList = "元宇宙概念,虚拟数字人,NFT概念";//
 //        String conceptionList = "预制菜概念";//
 //                String conceptionList = "在线教育";//在线教育
-
 //        String conceptionList = "REITs概念,民爆概念";//
 //        String conceptionList = "猪肉概念,鸡肉概念";//农业养殖
 //        String conceptionList = "可燃冰,地下管网,油气设服,页岩气";
-
-        //国资云概念 数字货币 通用航空    黄金概念 有机硅    虚拟电厂    券商概念
-        //  煤化工
         //  可燃冰 油气设服    地下管网    页岩气 低碳冶金    磷化工 天然气 油价相关
         //        String conceptionList = "可燃冰,地下管网,油气设服,页岩气";
 
-        List<BigDecimal> adrMinList = new ArrayList<>();
-        BigDecimal adrMin = null;
-//        adrMin = new BigDecimal("3");
-//        adrMinList.add(adrMin);
-//        adrMin = new BigDecimal("5");
-//        adrMinList.add(adrMin);
-//        adrMin = new BigDecimal("7");
-//        adrMinList.add(adrMin);
-        adrMin = new BigDecimal("9");
-        adrMinList.add(adrMin);
+
 
         Map<String, String> stMap = new HashMap<>();
         CondStLikeConception conditionLikeConception = new CondStLikeConception();
@@ -251,15 +245,45 @@ public class StBizStatDemo {
      */
     private static void showAdrCount(String date, List<RankStockCommpanyDb> stListLikeConception, Long board, BigDecimal mvMin, List<BigDecimal> adrMinList) {
         Map<String, StatRsStAdrCount> statRsStAdrCountMap = new HashMap<>();
+        ExecutorService service = Executors.newCachedThreadPool();// 创建一个的线程池
         for (BigDecimal adrMinTemp : adrMinList) {
             //涨幅超过
-            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -365), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：365
-            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -180), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：
-            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -90), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：90
-            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -30), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：
-            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -14), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：
-            statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -7), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：
+            service.execute(() -> {
+                statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -365), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：365
+            });
+            service.execute(() -> {
+                statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -180), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：365
+            });
+            service.execute(() -> {
+                statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -90), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：90
+            });
+            service.execute(() -> {
+                statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -30), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：90
+            });
+            service.execute(() -> {
+                statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -14), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：90
+            });
+            service.execute(() -> {
+                statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -7), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：90
+            });
         }
+
+        // 等待子线程结束，再继续执行下面的代码
+        service.shutdown();
+        while(true) {
+            if (service.isTerminated()) {
+                System.out.println("service-thread-ok!"+"线程池状态：" + service);
+                break;
+            }
+            try {
+                System.out.println("线程池状态：" + service);
+//                service.awaitTermination(20, TimeUnit.SECONDS);
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         List<StatRsStAdrCount> statRsStAdrCountList = new ArrayList<>();
         for (String code : statRsStAdrCountMap.keySet()) {
             StatRsStAdrCount statRsStAdrCount = statRsStAdrCountMap.get(code);
@@ -400,8 +424,10 @@ public class StBizStatDemo {
         List<RankBizDataDiff> rankList = BizRankDemo.listConcept(date, DB_RANK_BIZ_TYPE_GAI_NIAN, NUM_MAX_999);//查询主题排名by时间类型、显示个数
         System.out.println("排行榜-概念：");
         for (RankBizDataDiff etf : rankList) {
-            System.out.println(etf.getF14() + ":" + etf.getF3());
+            System.out.print(etf.getF14() + ",");
+//            System.out.print(etf.getF14() + ":" + etf.getF3());
         }
+        System.out.println();
     }
 
     /**

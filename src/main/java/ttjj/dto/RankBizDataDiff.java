@@ -366,6 +366,26 @@ public class RankBizDataDiff {
     private BigDecimal NET_MA_250;
 
     /**
+     * NET_TODAY_0945 当日时段净值
+     */
+    private BigDecimal NET_TODAY_0945;
+    private BigDecimal NET_TODAY_1000;
+    private BigDecimal NET_TODAY_1015;
+    private BigDecimal NET_TODAY_1030;
+    private BigDecimal NET_TODAY_1045;
+    private BigDecimal NET_TODAY_1100;
+    private BigDecimal NET_TODAY_1115;
+    private BigDecimal NET_TODAY_1130;
+    private BigDecimal NET_TODAY_1315;
+    private BigDecimal NET_TODAY_1330;
+    private BigDecimal NET_TODAY_1345;
+    private BigDecimal NET_TODAY_1400;
+    private BigDecimal NET_TODAY_1415;
+    private BigDecimal NET_TODAY_1430;
+    private BigDecimal NET_TODAY_1445;
+    private BigDecimal NET_TODAY_1500;
+
+    /**
      * pt_time_min 指数时间点-最小值
      */
     private String pt_time_min;
@@ -1969,5 +1989,133 @@ public class RankBizDataDiff {
 
     public void setFundFlow(String fundFlow) {
         this.fundFlow = fundFlow;
+    }
+
+    public BigDecimal getNET_TODAY_0945() {
+        return NET_TODAY_0945;
+    }
+
+    public void setNET_TODAY_0945(BigDecimal NET_TODAY_0945) {
+        this.NET_TODAY_0945 = NET_TODAY_0945;
+    }
+
+    public BigDecimal getNET_TODAY_1000() {
+        return NET_TODAY_1000;
+    }
+
+    public void setNET_TODAY_1000(BigDecimal NET_TODAY_1000) {
+        this.NET_TODAY_1000 = NET_TODAY_1000;
+    }
+
+    public BigDecimal getNET_TODAY_1015() {
+        return NET_TODAY_1015;
+    }
+
+    public void setNET_TODAY_1015(BigDecimal NET_TODAY_1015) {
+        this.NET_TODAY_1015 = NET_TODAY_1015;
+    }
+
+    public BigDecimal getNET_TODAY_1030() {
+        return NET_TODAY_1030;
+    }
+
+    public void setNET_TODAY_1030(BigDecimal NET_TODAY_1030) {
+        this.NET_TODAY_1030 = NET_TODAY_1030;
+    }
+
+    public BigDecimal getNET_TODAY_1045() {
+        return NET_TODAY_1045;
+    }
+
+    public void setNET_TODAY_1045(BigDecimal NET_TODAY_1045) {
+        this.NET_TODAY_1045 = NET_TODAY_1045;
+    }
+
+    public BigDecimal getNET_TODAY_1100() {
+        return NET_TODAY_1100;
+    }
+
+    public void setNET_TODAY_1100(BigDecimal NET_TODAY_1100) {
+        this.NET_TODAY_1100 = NET_TODAY_1100;
+    }
+
+    public BigDecimal getNET_TODAY_1115() {
+        return NET_TODAY_1115;
+    }
+
+    public void setNET_TODAY_1115(BigDecimal NET_TODAY_1115) {
+        this.NET_TODAY_1115 = NET_TODAY_1115;
+    }
+
+    public BigDecimal getNET_TODAY_1130() {
+        return NET_TODAY_1130;
+    }
+
+    public void setNET_TODAY_1130(BigDecimal NET_TODAY_1130) {
+        this.NET_TODAY_1130 = NET_TODAY_1130;
+    }
+
+    public BigDecimal getNET_TODAY_1345() {
+        return NET_TODAY_1345;
+    }
+
+    public void setNET_TODAY_1345(BigDecimal NET_TODAY_1345) {
+        this.NET_TODAY_1345 = NET_TODAY_1345;
+    }
+
+    public BigDecimal getNET_TODAY_1400() {
+        return NET_TODAY_1400;
+    }
+
+    public void setNET_TODAY_1400(BigDecimal NET_TODAY_1400) {
+        this.NET_TODAY_1400 = NET_TODAY_1400;
+    }
+
+    public BigDecimal getNET_TODAY_1415() {
+        return NET_TODAY_1415;
+    }
+
+    public void setNET_TODAY_1415(BigDecimal NET_TODAY_1415) {
+        this.NET_TODAY_1415 = NET_TODAY_1415;
+    }
+
+    public BigDecimal getNET_TODAY_1430() {
+        return NET_TODAY_1430;
+    }
+
+    public void setNET_TODAY_1430(BigDecimal NET_TODAY_1430) {
+        this.NET_TODAY_1430 = NET_TODAY_1430;
+    }
+
+    public BigDecimal getNET_TODAY_1445() {
+        return NET_TODAY_1445;
+    }
+
+    public void setNET_TODAY_1445(BigDecimal NET_TODAY_1445) {
+        this.NET_TODAY_1445 = NET_TODAY_1445;
+    }
+
+    public BigDecimal getNET_TODAY_1500() {
+        return NET_TODAY_1500;
+    }
+
+    public void setNET_TODAY_1500(BigDecimal NET_TODAY_1500) {
+        this.NET_TODAY_1500 = NET_TODAY_1500;
+    }
+
+    public BigDecimal getNET_TODAY_1315() {
+        return NET_TODAY_1315;
+    }
+
+    public void setNET_TODAY_1315(BigDecimal NET_TODAY_1315) {
+        this.NET_TODAY_1315 = NET_TODAY_1315;
+    }
+
+    public BigDecimal getNET_TODAY_1330() {
+        return NET_TODAY_1330;
+    }
+
+    public void setNET_TODAY_1330(BigDecimal NET_TODAY_1330) {
+        this.NET_TODAY_1330 = NET_TODAY_1330;
     }
 }
