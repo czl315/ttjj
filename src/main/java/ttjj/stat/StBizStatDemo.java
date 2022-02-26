@@ -26,24 +26,22 @@ import java.util.stream.Collectors;
 import static utils.Content.*;
 
 /**
- * 主题排行
+ * 业务概念
+ * @author Administrator
+ * @date 2022-02-25 10:41
  */
 public class StBizStatDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //                        String date = "2022-02-23";
         BigDecimal mvMin = new BigDecimal("100000000").multiply(new BigDecimal("50"));
-//        showGianNian(date);//显示概念涨幅排行榜
+        showGianNian(date);//显示概念涨幅排行榜
 
-        String conceptionList = "杭州亚运会";//最新概念：土壤修复,智慧灯杆,净水概念,杭州亚运会
-//        String conceptionList = "全息技术,3D摄像头";//全息技术,3D摄像头
-//        String conceptionList = "钠离子电池";//盐湖提锂,刀片电池,固态电池,动力电池回收,锂电池,钠离子电池
-//                String conceptionList = "培育钻石";//培育钻石
-//                String conceptionList = "汽车芯片";//光刻胶,中芯概念,IGBT概念,汽车芯片,第三代半导体,半导体概念
-//                String conceptionList = "磷化工";//
-//        String conceptionList = "新冠药物";//辅助生殖,婴童概念,新冠药物,中药概念,养老概念,毛发医疗,阿兹海默,长寿药  超级真菌,CRO   中药概念:114;
-//        String conceptionList = "东数西算";//东数西算,国资云概念,VPN,数据中心,华为昇腾,云计算,边缘计算,华为欧拉,智慧政务,网络安全
-        List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("3"),new BigDecimal("5"),new BigDecimal("7"),new BigDecimal("9"));
+        List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"),new BigDecimal("3"),new BigDecimal("5"),new BigDecimal("7"),new BigDecimal("9"));
+//        String conceptionList = "新冠检测,新冠药物";//CRO ,新冠检测,新冠药物,体外诊断,毛发医疗,注射器概念,CAR-T细胞疗法,医疗美容,精准医疗,免疫治疗,医疗器械概念,重组蛋白,阿兹海默
+//        String conceptionList = "CRO ";//CRO,体外诊断,辅助生殖,婴童概念,新冠药物,中药概念,养老概念,毛发医疗,阿兹海默,长寿药  超级真菌,   中药概念:114;
+//                String conceptionList = "HIT电池";//光伏: HIT电池,绿色电力
+                String conceptionList = "EDR概念";//稀缺资源   稀土永磁
         statAdrCount(date, conceptionList, DB_RANK_BIZ_F139_BK_MAIN, mvMin,adrMinList);//统计涨跌次数
 
 //        int year = DateUtil.getCurYear();//DateUtil.getCurYear() 2021
@@ -68,9 +66,21 @@ public class StBizStatDemo {
      * @param date
      */
     private static void statAdrCount(String date, String conceptionList, Long board, BigDecimal mvMin,List<BigDecimal> adrMinList) {
+//                String conceptionList = "可燃冰,油气设服,页岩气,氦气概念,天然气,油价相关";//石油：可燃冰,油气设服,页岩气,氦气概念,天然气,油价相关,
+//        String conceptionList = "黄金概念";//贵金属: 黄金概念
+//        String conceptionList = "航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航";//军工: 航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航,
+//        String conceptionList = "HIT电池";//光伏: HIT电池
+
+//                        String conceptionList = "工业母机";//
+//        String conceptionList = "盐湖提锂";//盐湖提锂,刀片电池,固态电池,动力电池回收,锂电池,钠离子电池
+//                String conceptionList = "培育钻石";//培育钻石
+//                String conceptionList = "汽车芯片";//光刻胶,中芯概念,IGBT概念,汽车芯片,第三代半导体,半导体概念
+//        String conceptionList = "东数西算";//东数西算,国资云概念,VPN,数据中心,华为昇腾,云计算,边缘计算,华为欧拉,智慧政务,网络安全
+
         //        String conceptionList = "数字货币";//数字货币,互联金融,数字经济,数据安全,区块链,智慧政务,网络安全,
-//                String conceptionList = "工业母机";//
-//        String conceptionList = "稀缺资源";//稀缺资源   稀土永磁
+//        String conceptionList = "杭州亚运会";//最新概念：土壤修复,智慧灯杆,净水概念,杭州亚运会
+//        String conceptionList = "全息技术,3D摄像头";//全息技术,3D摄像头
+
 //        String conceptionList = "磷化工";//磷化工
 //                String conceptionList = "民爆概念";//民爆概念
 //        String conceptionList = "在线旅游,免税概念,盲盒经济,退税商店,影视概念";//旅游
@@ -79,9 +89,6 @@ public class StBizStatDemo {
 //                String conceptionList = "在线教育";//在线教育
 //        String conceptionList = "REITs概念,民爆概念";//
 //        String conceptionList = "猪肉概念,鸡肉概念";//农业养殖
-//        String conceptionList = "可燃冰,地下管网,油气设服,页岩气";
-        //  可燃冰 油气设服    地下管网    页岩气 低碳冶金    磷化工 天然气 油价相关
-        //        String conceptionList = "可燃冰,地下管网,油气设服,页岩气";
         CondStLikeConception conditionLikeConception = new CondStLikeConception();
         conditionLikeConception.setDate(date);
         String[] conceptionStrs = conceptionList.split(",");
@@ -309,11 +316,14 @@ public class StBizStatDemo {
             String adr = formatDouble(rankStockCommpanyDb.getF3());
             String liangBi = formatDouble(rankStockCommpanyDb.getF10());
             String stName = handlerStName(rankStockCommpanyDb.getF14());
+            Double curPrice = rankStockCommpanyDb.getF2();
             BigDecimal marketValue = null;
             if (rankStockCommpanyDb.getF20() != null) {
                 marketValue = rankStockCommpanyDb.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
             }
 
+//            map.put("002432", "");//002432	九安医疗	医疗器械
+            System.out.print("map.put(\""+stCode+"\", \""+stName+"\");//");//map  map.put("002432", "");//002432	九安医疗	医疗器械
             sb.append(stCode).append("\t");
             sb.append(stName).append("\t");
             sb.append(stAdrCount).append("\t");
@@ -330,6 +340,8 @@ public class StBizStatDemo {
             Map<String, Boolean> maUpdateMap = new HashMap<>();
             StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
             StockDemo.handlerNetMa(stock, maUpdateMap, date, maSb);//处理均线净值
+            maSb.append("\t").append(",当前价：").append(curPrice);
+            maSb.append("\t").append(",当前：").append( DateUtil.getToday(DateUtil.YYYY_MM_DD_HH_MM_SS));
             System.out.println("价格区间:" + maSb.toString());
         }
 

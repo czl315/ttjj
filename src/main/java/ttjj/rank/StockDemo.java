@@ -2078,6 +2078,7 @@ public class StockDemo {
 //        sb.append("\t").append(",最低：").append("\t").append(minPrice);
 //        sb.append("\t").append(",最高：").append("\t").append(maxPrice);
 //        sb.append("\t").append(",当前价：").append(curPrice);
+//        sb.append("\t").append(",当前：").append( DateUtil.getToday(DateUtil.YYYY_MM_DD_HH_MM_SS));
 
         return sb.toString();
     }

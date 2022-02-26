@@ -33,11 +33,12 @@ public class BizRankDemo {
         deleteTodayBiz();//删除数据-今日
 
         insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
+        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_GAI_NIAN);
+
         insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
         insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
         insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
 
-        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_GAI_NIAN);
         updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE);
         updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_ETF);
         updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_LOF);
