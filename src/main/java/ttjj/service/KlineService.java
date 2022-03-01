@@ -553,11 +553,11 @@ public class KlineService {
             BigDecimal zhangDieFu = todayKline.getZhangDieFu();
             StringBuffer sbDay = new StringBuffer();
             sbDay.append(zqdm).append("，").append(zqmc);
-            sbDay.append("，今日涨幅：").append(zhangDieFu).append("%");
-            sbDay.append("，日期：").append(date);
-            sbDay.append("，昨日收盘价：").append(yesterdayCloseAmt);
-            sbDay.append("，开盘价：").append(openAmt);
-            sbDay.append("，当前价：").append(curAmt);
+            sbDay.append("，今日涨幅：").append(zhangDieFu).append("%").append("\t");
+//            sbDay.append("，日期：").append(date);
+//            sbDay.append("，昨日收盘价：").append(yesterdayCloseAmt);
+//            sbDay.append("，开盘价：").append(openAmt);
+//            sbDay.append("，当前价：").append(curAmt);
 //            System.out.println(sbToday);
             for (Integer maType : maList) {
                 StringBuffer sbMa = new StringBuffer();
@@ -581,15 +581,14 @@ public class KlineService {
                 //涨破均线，买出信号
                 if (isUp && yesterdayCloseAmt.compareTo(curMaAmt) < 0 && curAmt.compareTo(curMaAmt) >= 0) {
                     System.out.print(sbDay);
-                    sbMa.append("，昨日价低于均线但是当前价涨破均线，买入信号！！！！！！");
-                    System.out.println(sbMa);
+//                    sbMa.append("，昨日价低于均线但是当前价涨破均线，买入信号！！！！！！");
                     System.out.print(KlineService.handlerAvgLine("5日:", KlineService.findNetMinMaxAvg(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
                     System.out.print(KlineService.handlerAvgLine("10日:", KlineService.findNetMinMaxAvg(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
                     System.out.print(KlineService.handlerAvgLine("20日:", KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
                     System.out.print(KlineService.handlerAvgLine("60日:", KlineService.findNetMinMaxAvg(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+                    System.out.println(sbMa);
 //                    System.out.println(KlineService.handlerAvgLine("120日价格", KlineService.findNetMinMaxAvg(zqdm, MA_120, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
 //                    System.out.println(KlineService.handlerAvgLine("250日价格", KlineService.findNetMinMaxAvg(zqdm, MA_250, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-                    System.out.println();
                     System.out.println();
                 }
                 if (!isUp && yesterdayCloseAmt.compareTo(curMaAmt) >= 0 && curAmt.compareTo(curMaAmt) < 0) {

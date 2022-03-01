@@ -18,9 +18,8 @@ import static utils.Content.*;
  */
 public class BizEtfControl {
     public static void main(String[] args) {
-//        checkMaDemo();
-
-        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
+        checkMaDemo();
+//        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
     }
 
     /**
