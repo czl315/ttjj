@@ -27,28 +27,30 @@ import static utils.Content.*;
  */
 public class BizRankDemo {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-01-13";
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-01-13";
+        boolean isOnlyGn = true;
+//        boolean isOnlyGn = false;
 
         deleteTodayBiz();//删除数据-今日
-
         insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
         updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_GAI_NIAN);
+        if (!isOnlyGn) {
+            insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
+            insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
+            insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
 
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
+            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE);
+            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_ETF);
+            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_LOF);
 
-        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE);
-        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_ETF);
-        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_LOF);
+            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
+            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
 
-        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
-        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
+            updateFundFlowBk(date);//更新当日资金流信息-板块
+            updateFundFlowGn(date);//更新当日资金流信息-概念
+            updateFundFlowEtf(date);////更新当日资金流信息-etf
+        }
 
-        updateFundFlowBk(date);//更新当日资金流信息-板块
-        updateFundFlowGn(date);//更新当日资金流信息-概念
-        updateFundFlowEtf(date);////更新当日资金流信息-etf
 
 //        /**
 //         * 更新均值

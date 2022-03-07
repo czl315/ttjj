@@ -22,7 +22,8 @@ import static utils.Content.*;
 public class StockStatDemo {
     public static void main(String[] args) {
 
-        checkMaDemo();
+        Map<String, String> zqMap = ContStConception.mapChuanMeiYuanYuZhou;//   mapXinGuan mapShiShuZiHuoBi  mapYiLiao   mapXnyGuangFuHit
+        checkMaDemo(zqMap);
 
         /**
          * 添加或更新股票-根据日期
@@ -103,16 +104,15 @@ public class StockStatDemo {
 
     /**
      * 检查均线
+     * @param zqMap
      */
-    private static void checkMaDemo() {
+    public static void checkMaDemo(Map<String, String> zqMap) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//                        String date = "2022-02-15";
         boolean isUp = true;//检查上涨
-
-        Map<String, String> zqMap = ContStConception.mapShiShuZiHuoBi;//   mapXinGuan mapShiShuZiHuoBi  mapYiLiao   mapXnyGuangFuHit
 //        boolean isUp = false;
 
         List<Integer> maList = new ArrayList<>();
-        maList.add(MA_30);
+//        maList.add(MA_30);
         maList.add(MA_60);
 
 //        KlineService.checkMa(zqMap, KLT_5, maList, date, isUp);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101

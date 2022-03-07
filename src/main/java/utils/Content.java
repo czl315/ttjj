@@ -1,5 +1,6 @@
 package utils;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -359,6 +360,10 @@ public class Content {
      * NUM_MAX_99 数量上限-99
      */
     public static int NUM_MAX_99 = 99;
+    /**
+     * NUM_YI_50 数字-亿
+     */
+    public static BigDecimal NUM_YI_50 = new BigDecimal("100000000").multiply(new BigDecimal("50"));
     /**
      * DATE_WEEK_5
      */
