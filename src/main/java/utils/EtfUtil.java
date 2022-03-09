@@ -18,9 +18,15 @@ public class EtfUtil {
         if (name.length() <= 2) {
             name = name + "    ";
         }
-        if (name.length() > 2 && name.length() < 4) {
-            name = name + "  ";
+        if (name.contains("50")) {
+            name =  name + "  ";
         }
+//        if (name.length() > 2 && name.length() < 4) {
+//            name = name + "\t";
+//        }
+//        if (name.length() >= 4) {
+//            name = name + "\t";
+//        }
         return name;
     }
 }

@@ -34,15 +34,15 @@ public class StBizStatDemo {
         showGianNian(date);//显示概念涨幅排行榜
 
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5"), new BigDecimal("7"), new BigDecimal("9"));
-        String conceptions = "元宇宙概念";//传媒：元宇宙概念,虚拟数字人,NFT概念,云游戏,盲盒经济,快手概念,广电,电子竞技,手游概念,网络游戏
-//        String conceptions = "辅助生殖";//辅助生殖,婴童概念
-//        String conceptions = "汽车芯片";//光刻胶,中芯概念,IGBT概念,汽车芯片,第三代半导体,半导体概念
-//        String conceptions = "鸡肉概念";//低碳冶金
-//        String conceptions = "绿色电力";//绿色电力,风能,抽水蓄能
-//        String conceptions = "在线旅游";//消费-旅游:在线旅游,免税概念,盲盒经济,退税商店,影视概念
-//        String conceptions = "中俄贸易概念";//中俄贸易概念
-//        String conceptions = "可燃冰,油气设服,页岩气,天然气,油价相关";//石油：可燃冰,油气设服,页岩气,天然气,油价相关       ,氦气概念
-//        String conceptions = "新冠药物";//新冠药物,新冠检测,体外诊断     ,毛发医疗,注射器概念,CAR-T细胞疗法,医疗美容,精准医疗,免疫治疗,医疗器械概念,重组蛋白,阿兹海默
+//        String conceptions = "东数西算";//东数西算,国资云概念,VPN,数据中心,华为昇腾,云计算,边缘计算,华为欧拉,智慧政务,网络安全
+        String conceptions = "水产养殖";//食品: 预制菜概念,水产养殖,鸡肉概念,猪肉概念     海洋经济        社区团购
+//        String conceptions = "贵金属";//贵金属: 黄金概念,培育钻石    贵金属
+//        String conceptions = "白酒";//白酒
+//        String conceptions = "辅助生殖,婴童概念";//辅助生殖,婴童概念
+//        String conceptions = "装配建筑,地下管网";//装配建筑,地下管网
+//                String conceptions = "宠物经济";//养老概念,宠物经济
+//        String conceptions = "氦气概念";//石油：可燃冰,油气设服,页岩气,天然气,油价相关       ,氦气概念
+//        String conceptions = "疫苗冷链";//新冠药物,新冠检测,体外诊断     ,毛发医疗,注射器概念,CAR-T细胞疗法,医疗美容,精准医疗,免疫治疗,医疗器械概念,重组蛋白,阿兹海默
         List<RankStockCommpanyDb> stListLikeConception = listlikeConception(date, conceptions, DB_RANK_BIZ_F139_BK_MAIN, NUM_YI_50, adrMinList);
         showAdrCount(date, stListLikeConception, DB_RANK_BIZ_F139_BK_MAIN, NUM_YI_50, adrMinList, conceptions);//统计涨跌次数
 
@@ -72,28 +72,29 @@ public class StBizStatDemo {
      * @param date
      * @param conceptions
      * @param board
-     * @param numYi50
+     * @param mvMin
      * @param adrMinList
      * @return
      */
-    private static List<RankStockCommpanyDb> listlikeConception(String date, String conceptions, long board, BigDecimal numYi50, List<BigDecimal> adrMinList) {
-//        String conceptions = "土壤修复";//CRO,体外诊断,辅助生殖,婴童概念,新冠药物,中药概念,养老概念,毛发医疗,阿兹海默,长寿药  超级真菌,   中药概念:114;
+    private static List<RankStockCommpanyDb> listlikeConception(String date, String conceptions, long board, BigDecimal mvMin, List<BigDecimal> adrMinList) {
+
+        //        String conceptions = "元宇宙概念";//传媒：元宇宙概念,虚拟数字人,NFT概念,云游戏,盲盒经济,快手概念,广电,电子竞技,手游概念,网络游戏
+//        String conceptions = "汽车芯片";//光刻胶,中芯概念,IGBT概念,汽车芯片,第三代半导体,半导体概念
+//        String conceptions = "鸡肉概念";//低碳冶金
+//        String conceptions = "绿色电力";//绿色电力,风能,抽水蓄能
+//        String conceptions = "在线旅游";//消费-旅游:在线旅游,免税概念,盲盒经济,退税商店,影视概念
+//        String conceptions = "中俄贸易概念";//中俄贸易概念
 //        String conceptions = "HIT电池,光伏建筑一体化";//新能源-光伏: HIT电池,光伏建筑一体化
 //        String conceptions = "中药概念";//中药概念:114;
         //        String conceptions = "数字货币";//数字经济:数字货币,数据安全,数字经济,区块链        互联金融,智慧政务,网络安全,
-//        String conceptions = "东数西算";//东数西算,国资云概念,VPN,数据中心,华为昇腾,云计算,边缘计算,华为欧拉,智慧政务,网络安全
 //        String conceptions = "刀片电池";//新能源-锂电池：盐湖提锂,刀片电池,固态电池,动力电池回收,锂电池,钠离子电池
-//        String conceptions = "预制菜概念,水产养殖,鸡肉概念,猪肉概念";//食品: 预制菜概念,水产养殖,鸡肉概念,猪肉概念     海洋经济        社区团购
 //                String conceptions = "EDR概念";//稀缺资源   稀土永磁
-//        String conceptions = "黄金概念";//贵金属: 黄金概念
 //        String conceptions = "航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航";//军工: 航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航,
 //                        String conceptions = "工业母机";//
-//                String conceptions = "培育钻石";//培育钻石
 //        String conceptions = "杭州亚运会";//最新概念：土壤修复,智慧灯杆,净水概念,杭州亚运会
 //        String conceptions = "全息技术,3D摄像头";//全息技术,3D摄像头
 //        String conceptions = "磷化工";//磷化工
 //                String conceptions = "民爆概念";//民爆概念
-//        String conceptions = "预制菜概念";//
 //                String conceptions = "在线教育";//在线教育
 //        String conceptions = "REITs概念,民爆概念";//
 //        String conceptions = "猪肉概念,鸡肉概念";//农业养殖
@@ -103,7 +104,7 @@ public class StBizStatDemo {
         List<String> conpetionList = Arrays.asList(conceptionStrs);
         conditionLikeConception.setConpetionList(conpetionList);
         conditionLikeConception.setF139(board);
-//        conditionLikeConception.setF20(mvMin);
+        conditionLikeConception.setF20(mvMin);
         List<RankStockCommpanyDb> stListLikeConception = RankStockCommpanyDao.findListLikeConception(conditionLikeConception);
         System.out.println("概念：" + JSON.toJSONString(conpetionList) + ";" + "股票个数：" + stListLikeConception.size() + ";");
         return stListLikeConception;
