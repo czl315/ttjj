@@ -34,23 +34,22 @@ public class StBizStatDemo {
         showGianNian(date);//显示概念涨幅排行榜
 
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5"), new BigDecimal("7"), new BigDecimal("9"));
-//        String conceptions = "东数西算";//东数西算,国资云概念,VPN,数据中心,华为昇腾,云计算,边缘计算,华为欧拉,智慧政务,网络安全
-        String conceptions = "水产养殖";//食品: 预制菜概念,水产养殖,鸡肉概念,猪肉概念     海洋经济        社区团购
+        String conceptions = "IGBT概念";//光刻胶,中芯概念,IGBT概念,汽车芯片,第三代半导体,半导体概念
+//        String conceptions = "新冠药物";//5日内：商汤概念,京东金融,中俄贸易概念,核污染防治,海绵城市,在线旅游,新冠药物,东数西算
+//        String conceptions = "东数西算,国资云概念";//东数西算,国资云概念,数据中心,华为昇腾,云计算,边缘计算,华为欧拉,智慧政务,网络安全,VPN
+//        String conceptions = "新冠药物,新冠检测,体外诊断";//新冠药物,新冠检测,体外诊断     ,毛发医疗,注射器概念,CAR-T细胞疗法,医疗美容,精准医疗,免疫治疗,医疗器械概念,重组蛋白,阿兹海默
+//        String conceptions = "绿色电力";//绿色电力,风能,抽水蓄能
 //        String conceptions = "贵金属";//贵金属: 黄金概念,培育钻石    贵金属
-//        String conceptions = "白酒";//白酒
-//        String conceptions = "辅助生殖,婴童概念";//辅助生殖,婴童概念
-//        String conceptions = "装配建筑,地下管网";//装配建筑,地下管网
-//                String conceptions = "宠物经济";//养老概念,宠物经济
-//        String conceptions = "氦气概念";//石油：可燃冰,油气设服,页岩气,天然气,油价相关       ,氦气概念
-//        String conceptions = "疫苗冷链";//新冠药物,新冠检测,体外诊断     ,毛发医疗,注射器概念,CAR-T细胞疗法,医疗美容,精准医疗,免疫治疗,医疗器械概念,重组蛋白,阿兹海默
-        List<RankStockCommpanyDb> stListLikeConception = listlikeConception(date, conceptions, DB_RANK_BIZ_F139_BK_MAIN, NUM_YI_50, adrMinList);
+//        String conceptions = "基本金属";//基本金属
+//        String conceptions = "在线旅游";//消费-旅游:在线旅游,免税概念,盲盒经济,退税商店,影视概念
+        List<RankStockCommpanyDb> stListLikeConception = listlikeConception(date, conceptions, DB_RANK_BIZ_F139_BK_MAIN, NUM_YI_50, adrMinList);//查询股票列表-根据概念、涨幅列表
         showAdrCount(date, stListLikeConception, DB_RANK_BIZ_F139_BK_MAIN, NUM_YI_50, adrMinList, conceptions);//统计涨跌次数
 
         Map<String, String> zqMap = new HashMap<>();
         for (RankStockCommpanyDb stock : stListLikeConception) {
             zqMap.put(stock.getF12(), stock.getF14());
         }
-        StockStatDemo.checkMaDemo(zqMap);
+//        StockStatDemo.checkMaDemo(zqMap);
 
 //        int year = DateUtil.getCurYear();//DateUtil.getCurYear() 2021
 //        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()   12
@@ -69,6 +68,8 @@ public class StBizStatDemo {
     }
 
     /**
+     * 查询股票列表-根据概念、涨幅列表
+     *
      * @param date
      * @param conceptions
      * @param board
@@ -77,12 +78,14 @@ public class StBizStatDemo {
      * @return
      */
     private static List<RankStockCommpanyDb> listlikeConception(String date, String conceptions, long board, BigDecimal mvMin, List<BigDecimal> adrMinList) {
-
+//        String conceptions = "水产养殖";//食品: 预制菜概念,水产养殖,鸡肉概念,猪肉概念     海洋经济        社区团购
+//        String conceptions = "白酒";//白酒
+//        String conceptions = "辅助生殖,婴童概念";//辅助生殖,婴童概念
+//        String conceptions = "装配建筑,地下管网";//装配建筑,地下管网
+//        String conceptions = "宠物经济";//养老概念,宠物经济
+//        String conceptions = "氦气概念";//石油：可燃冰,油气设服,页岩气,天然气,油价相关       ,氦气概念
         //        String conceptions = "元宇宙概念";//传媒：元宇宙概念,虚拟数字人,NFT概念,云游戏,盲盒经济,快手概念,广电,电子竞技,手游概念,网络游戏
-//        String conceptions = "汽车芯片";//光刻胶,中芯概念,IGBT概念,汽车芯片,第三代半导体,半导体概念
 //        String conceptions = "鸡肉概念";//低碳冶金
-//        String conceptions = "绿色电力";//绿色电力,风能,抽水蓄能
-//        String conceptions = "在线旅游";//消费-旅游:在线旅游,免税概念,盲盒经济,退税商店,影视概念
 //        String conceptions = "中俄贸易概念";//中俄贸易概念
 //        String conceptions = "HIT电池,光伏建筑一体化";//新能源-光伏: HIT电池,光伏建筑一体化
 //        String conceptions = "中药概念";//中药概念:114;

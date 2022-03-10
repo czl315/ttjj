@@ -1476,19 +1476,29 @@ public class BizRankDemo {
                 "f220,f221,f222,f223,f224,f225,f226,f227,f228,f229" +
                 "&_=" + curTime);
         String rs = HttpUtil.sendGet(url, urlParam.toString(), "");
-//        System.out.println(rs);
-        if (rs == null) {
-            return null;
-        }
-        if (rs.startsWith("jQuery")) {
-            rs = rs.substring(rs.indexOf("{"));
-        }
-        if (rs.endsWith(");")) {
-            rs = rs.substring(0, rs.length() - 2);
-        }
 //        System.out.println(rs);//返回结果
+        JSONObject rsJsonObj = null;
         JSONArray jsonArrayBiz = new JSONArray();
-        JSONObject rsJsonObj = JSONObject.parseObject(rs);
+        for (int i = 0; i < 10; i++) {
+//            if (rs == null) {
+//                return null;
+//            }
+            if (rs.startsWith("jQuery")) {
+                rs = rs.substring(rs.indexOf("{"));
+            }
+            if (rs.endsWith(");")) {
+                rs = rs.substring(0, rs.length() - 2);
+            }
+            rsJsonObj = JSONObject.parseObject(rs);
+            if (rsJsonObj == null || !rsJsonObj.containsKey("data")) {
+                System.out.println("查询数据异常，重新查询" + JSON.toJSONString(rsJsonObj));
+                rs = HttpUtil.sendGet(url, urlParam.toString(), "");
+                rsJsonObj = JSONObject.parseObject(rs);
+            } else {
+                break;
+            }
+        }
+
         JSONObject rsJsonData = rsJsonObj.getJSONObject("data");
         JSONArray rsJsonDataDiff = rsJsonData.getJSONArray("diff");
         List<RankBizDataDiff> rankBizDataDiffList = JSON.parseArray(JSON.toJSONString(rsJsonDataDiff), RankBizDataDiff.class);
