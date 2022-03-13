@@ -1480,9 +1480,6 @@ public class BizRankDemo {
         JSONObject rsJsonObj = null;
         JSONArray jsonArrayBiz = new JSONArray();
         for (int i = 0; i < 10; i++) {
-//            if (rs == null) {
-//                return null;
-//            }
             if (rs.startsWith("jQuery")) {
                 rs = rs.substring(rs.indexOf("{"));
             }
@@ -1490,7 +1487,7 @@ public class BizRankDemo {
                 rs = rs.substring(0, rs.length() - 2);
             }
             rsJsonObj = JSONObject.parseObject(rs);
-            if (rsJsonObj == null || !rsJsonObj.containsKey("data")) {
+            if (rs == null || rsJsonObj == null || !rsJsonObj.containsKey("data")) {
                 System.out.println("查询数据异常，重新查询" + JSON.toJSONString(rsJsonObj));
                 rs = HttpUtil.sendGet(url, urlParam.toString(), "");
                 rsJsonObj = JSONObject.parseObject(rs);

@@ -22,7 +22,10 @@ import static utils.Content.*;
 public class StockStatDemo {
     public static void main(String[] args) {
 
-        Map<String, String> zqMap = ContStConception.mapChuanMeiYuanYuZhou;//   mapXinGuan mapShiShuZiHuoBi  mapYiLiao   mapXnyGuangFuHit
+//        Map<String, String> zqMap = ContStConception.mapYiLiaoXinGuanAll;// 医疗：  mapYiLiaoXinGuanAll
+//        Map<String, String> zqMap = ContStConception.mapJinRongQuanShang;// 金融：   mapJinRongQuanShang
+//        Map<String, String> zqMap = ContStConception.mapKeJiShuZiHuoBi;// 科技：   mapKeJiShuZiHuoBi
+        Map<String, String> zqMap = ContStConception.mapXiaoFeiZaiXianLvYou;// 消费：   mapXiaoFeiZaiXianLvYou
         checkMaDemo(zqMap);
 
         /**
