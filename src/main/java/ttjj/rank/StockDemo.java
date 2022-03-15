@@ -42,11 +42,10 @@ public class StockDemo {
             updateConception(date, startNum);//更新题材概念
 //            updateTodayStCom(date, startNum);//更新股票
 
-            BigDecimal limitMarketValue = new BigDecimal("100000000").multiply(new BigDecimal("50"));
             Map<String, Boolean> maUpdateMap = new HashMap<>();
             setMaMapType(MA_TYPE_DAY, maUpdateMap);
             setMaMapType(MA_TYPE_MINUTE15, maUpdateMap);
-            updateNetToday(date, startNum, maUpdateMap, isReport, limitMarketValue);//  更新净值
+            updateNetToday(date, startNum, maUpdateMap, isReport, NUM_YI_50);//  更新净值
 //            setMaMapType(MA_TYPE_MINUTE5, maUpdateMap);
 //            setMaMapType(MA_TYPE_MINUTE30, maUpdateMap);
 //            setMaMapType(MA_TYPE_MINUTE60, maUpdateMap);
