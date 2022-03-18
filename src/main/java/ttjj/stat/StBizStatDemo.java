@@ -34,28 +34,17 @@ public class StBizStatDemo {
         showGianNian(date);//显示概念涨幅排行榜
 
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5"), new BigDecimal("7"), new BigDecimal("9"));
-//        String conceptions = "电子身份证";//电子身份证
-//        String conceptions = "新冠检测,新冠药物,体外诊断";//新冠检测,新冠药物,体外诊断     肝素概念,幽门螺杆菌概念,重组蛋白,基因测序,超级真菌
-//        String conceptions = "券商概念";//券商:
-//        String conceptions = "光伏建筑一体化";//科技-光伏: HIT电池,光伏建筑一体化      ,太阳能        ["太阳能"];股票个数：168;
-        String conceptions = "中芯概念,IGBT概念";//光刻胶,中芯概念,IGBT概念,汽车芯片,第三代半导体,半导体概念
-//        String conceptions = "白酒";//白酒,啤酒概念
-//        String conceptions = "盐湖提锂,PVDF概念";//新能源-锂电池：盐湖提锂,PVDF概念,刀片电池,固态电池,钠离子电池,动力电池回收,锂电池,氟化工   ["盐湖提锂"];股票个数：18;["PVDF概念"]：5;
-//        String conceptions = "云游戏";//传媒：虚拟数字人,NFT概念,元宇宙概念,云游戏,盲盒经济,快手概念,广电,电子竞技,手游概念,网络游戏
-//        String conceptions = "辅助生殖,婴童概念,托育服务";//辅助生殖,婴童概念,托育服务
-//        String conceptions = "航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航";//军工: 航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航,
-//        String conceptions = "航母概念,大飞机,通用航空,航天概念,空间站概念";//军工:航母概念,大飞机,通用航空,航天概念,空间站概念,军民融合
+//        String conceptions = "租售同权";//金融-房地产：租售同权
+//        String conceptions = "光刻胶,中芯概念,IGBT概念,汽车芯片,第三代半导体,半导体概念";//光刻胶,中芯概念,IGBT概念,汽车芯片,第三代半导体,半导体概念
 //        String conceptions = "在线旅游";//消费-旅游:在线旅游,免税概念,盲盒经济,退税商店,影视概念
-//        String conceptions = "预制菜概念";//农业养殖：转基因,鸡肉概念,水产养殖,猪肉概念,预制菜概念,农业种植
-//        String conceptions = "数字货币";//科技-数字经济:数字货币,跨境支付,数据安全,数字经济,区块链        互联金融,智慧政务,网络安全,
-//        String conceptions = "海绵城市";//地下管网,水利建设,海绵城市,装配建筑
-//        String conceptions = "可燃冰,页岩气,油气设服";//石油：可燃冰,页岩气,油气设服,天然气,油价相关       ,氦气概念
-//        String conceptions = "抽水蓄能";//绿色电力,抽水蓄能,风能
-//        String conceptions = "CRO ,CAR-T细胞疗法,地塞米松";//CRO ,CAR-T细胞疗法,地塞米松,超级真菌
-//        String conceptions = "东数西算";//东数西算,国资云概念,数据中心,华为昇腾,云计算,边缘计算,华为欧拉,智慧政务,网络安全,VPN
-//        String conceptions = "氟化工";//化学：氟化工
-//        String conceptions = "中俄贸易概念";//中俄贸易概念
-//        String conceptions = "商汤概念";//5日内：商汤概念,HIT电池,地塞米松,
+//        String conceptions = "东数西算,国资云概念,VPN";//东数西算,国资云概念,VPN,数据中心,华为昇腾,云计算,边缘计算,华为欧拉,智慧政务,网络安全
+//        String conceptions = "NFT概念,虚拟数字人,云游戏,元宇宙概念";//传媒：NFT概念,虚拟数字人,云游戏,快手概念,元宇宙概念,盲盒经济,广电,电子竞技,手游概念,网络游戏
+//        String conceptions = "PVDF概念";//新能源-锂电池：盐湖提锂,PVDF概念,刀片电池,固态电池,钠离子电池,动力电池回收,锂电池,氟化工   ["盐湖提锂"];股票个数：18;["PVDF概念"]：5;
+        String conceptions = "数字货币,跨境支付,电子身份证";//科技-数字经济:数字货币,跨境支付,电子身份证,eSIM,数据安全,数字经济,区块链        互联金融,智慧政务,网络安全,
+//        String conceptions = "新冠检测,新冠药物,体外诊断";//新冠检测,新冠药物,体外诊断     肝素概念,幽门螺杆菌概念,重组蛋白,基因测序,超级真菌
+//        String conceptions = "CRO ";//CRO ,CAR-T细胞疗法,地塞米松,超级真菌
+
+//        String conceptions = "白酒";//白酒,啤酒概念
 
         List<RankStockCommpanyDb> stListLikeConception = listlikeConception(date, conceptions, DB_RANK_BIZ_F139_BK_MAIN, NUM_YI_50, adrMinList);//查询股票列表-根据概念、涨幅列表
         showAdrCount(date, stListLikeConception, DB_RANK_BIZ_F139_BK_MAIN, NUM_YI_50, adrMinList, conceptions);//统计涨跌次数
@@ -93,18 +82,26 @@ public class StBizStatDemo {
      * @return
      */
     private static List<RankStockCommpanyDb> listlikeConception(String date, String conceptions, long board, BigDecimal mvMin, List<BigDecimal> adrMinList) {
+//        String conceptions = "券商概念";//券商:
+//        String conceptions = "中俄贸易概念";//中俄贸易概念
+//        String conceptions = "光伏建筑一体化";//科技-光伏: HIT电池,光伏建筑一体化      ,太阳能        ["太阳能"];股票个数：168;
+//        String conceptions = "辅助生殖,婴童概念,托育服务";//辅助生殖,婴童概念,托育服务
+//        String conceptions = "航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航";//军工: 航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航,
+//        String conceptions = "航母概念,大飞机,通用航空,航天概念,空间站概念";//军工:航母概念,大飞机,通用航空,航天概念,空间站概念,军民融合
+//        String conceptions = "预制菜概念";//农业养殖：转基因,鸡肉概念,水产养殖,猪肉概念,预制菜概念,农业种植
+//        String conceptions = "水产养殖";//食品: 预制菜概念,水产养殖,鸡肉概念,猪肉概念     海洋经济        社区团购
+//        String conceptions = "海绵城市";//地下管网,水利建设,海绵城市,装配建筑
+//        String conceptions = "可燃冰,页岩气,油气设服";//石油：可燃冰,页岩气,油气设服,天然气,油价相关       ,氦气概念
+//        String conceptions = "抽水蓄能";//绿色电力,抽水蓄能,风能
+//        String conceptions = "氟化工";//化学：氟化工
+//        String conceptions = "商汤概念";//5日内：商汤概念,HIT电池,地塞米松,
 //        String conceptions = "贵金属";//贵金属: 黄金概念,培育钻石    贵金属
 //        String conceptions = "基本金属";//基本金属
-//        String conceptions = "水产养殖";//食品: 预制菜概念,水产养殖,鸡肉概念,猪肉概念     海洋经济        社区团购
-//        String conceptions = "宠物经济";//养老概念,宠物经济
-//        String conceptions = "鸡肉概念";//低碳冶金
 //        String conceptions = "中药概念";//中药概念:114;
 //                String conceptions = "EDR概念";//稀缺资源   稀土永磁
-//                        String conceptions = "工业母机";//
 //        String conceptions = "杭州亚运会";//最新概念：土壤修复,智慧灯杆,净水概念,杭州亚运会
 //        String conceptions = "全息技术,3D摄像头";//全息技术,3D摄像头
 //        String conceptions = "磷化工";//磷化工
-//                String conceptions = "民爆概念";//民爆概念
 //                String conceptions = "在线教育";//在线教育
 //        String conceptions = "REITs概念,民爆概念";//
         CondStLikeConception conditionLikeConception = new CondStLikeConception();

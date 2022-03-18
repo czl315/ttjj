@@ -27,25 +27,22 @@ import static utils.Content.*;
  */
 public class StockDemo {
     public static void main(String[] args) {
-        boolean isReport = false;//是否查询业绩报表
-        /**
-         * 添加或更新股票-根据日期
-         */
         for (int i = 0; i < 1; i++) {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
 //            String date = "2022-03-04";
-
+            boolean isReport = false;//是否查询业绩报表
             int startNum = 0;//开始位置，默认0
+            Map<String, Boolean> maUpdateMap = new HashMap<>();
+            setMaMapType(MA_TYPE_DAY, maUpdateMap);
+            setMaMapType(MA_TYPE_MINUTE15, maUpdateMap);
 
 //            deleteTodayStCom();//删除数据-今日
             addTodayStCom(date, startNum);//  添加或更新股票-根据日期
             updateConception(date, startNum);//更新题材概念
 //            updateTodayStCom(date, startNum);//更新股票
 
-            Map<String, Boolean> maUpdateMap = new HashMap<>();
-            setMaMapType(MA_TYPE_DAY, maUpdateMap);
-            setMaMapType(MA_TYPE_MINUTE15, maUpdateMap);
-            updateNetToday(date, startNum, maUpdateMap, isReport, NUM_YI_50);//  更新净值
+//            updateNetToday(date, startNum, maUpdateMap, isReport, NUM_YI_50);//  更新净值
+
 //            setMaMapType(MA_TYPE_MINUTE5, maUpdateMap);
 //            setMaMapType(MA_TYPE_MINUTE30, maUpdateMap);
 //            setMaMapType(MA_TYPE_MINUTE60, maUpdateMap);
