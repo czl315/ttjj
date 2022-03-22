@@ -149,17 +149,7 @@ public class ContStConception {
         mapYiLiaoXinGuanYaoWu.put("600196", "复星医药");//221	化学制药	-0.27	1029.00	1.15	价格区间: 5日:37.91 	10日:34.50 	20日:34.50 	30日:23.51 	60日:17.60 	120日:10.25 	250日:6.87  		,当前价：40.15	,当前：2022-03-11 11:35:03
     }
 
-    /**
-     * mapYiLiaoXinGuanJianCe 概念：["新冠检测"];股票个数：15;
-     */
-    public static Map<String, String> mapYiLiaoXinGuanJianCe = new HashMap<>();
 
-    static {
-        mapYiLiaoXinGuanJianCe.put("002432", "九安医疗");//575	医疗器械	10   	284.19	1.66	价格区间: 5日:100.00	10日:69.31 	20日:51.38 	30日:51.38 	60日:58.16 	120日:64.49 	250日:64.49 		,当前价：59.38	,当前：2022-03-11 13:51:13
-        mapYiLiaoXinGuanJianCe.put("002932", "明德生物");//377	医疗器械	10   	99.88	5.46	价格区间: 5日:100.00	10日:100.00	20日:100.00	30日:100.00	60日:46.32 	120日:55.00 	250日:65.00 		,当前价：95.23	,当前：2022-03-11 13:51:15
-        mapYiLiaoXinGuanJianCe.put("002584", "西陇科学");//297	电子化学品	6.8 	64.37	2.48	价格区间: 5日:87.82 	10日:87.82 	20日:90.49 	30日:90.49 	60日:57.95 	120日:66.05 	250日:68.17 		,当前价：11.0	,当前：2022-03-11 13:51:16
-        mapYiLiaoXinGuanJianCe.put("603392", "万泰生物");//296	医疗器械	1.96	1532.17	1.7 	价格区间: 5日:82.19 	10日:73.06 	20日:91.33 	30日:91.33 	60日:92.18 	120日:88.09 	250日:69.31 		,当前价：252.4	,当前：2022-03-11 13:51:17
-    }
 
 
     /**
@@ -230,7 +220,6 @@ public class ContStConception {
     static {
         mapYiLiao.putAll(mapYiLiaoCro);
         mapYiLiao.putAll(mapYiLiaoXinGuanYaoWu);
-        mapYiLiao.putAll(mapYiLiaoXinGuanJianCe);
     }
 
     /**
@@ -240,6 +229,5 @@ public class ContStConception {
 
     static {
         mapYiLiaoXinGuanAll.putAll(mapYiLiaoXinGuanYaoWu);
-        mapYiLiaoXinGuanAll.putAll(mapYiLiaoXinGuanJianCe);
     }
 }

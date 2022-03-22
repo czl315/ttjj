@@ -55,32 +55,11 @@ public class ContStConc {
     }
 
     /**
-     * 国资云概念 
-     */
-    public static Map<String, String> mapGuoZiYun = new HashMap<>();
-    static {
-        mapGuoZiYun.put("603881", "数据港");  //603881 数据港   226 互联网服务
-        mapGuoZiYun.put("000977", "浪潮信息");//000977 浪潮信息 214 计算机设备 
-        mapGuoZiYun.put("002152", "广电运通");//002152 广电运通 213 计算机设备 
-        mapGuoZiYun.put("600602", "云赛智联");//600602 云赛智联 207 软件开发 
-        mapGuoZiYun.put("000158", "常山北明");//000158 常山北明 205 综合行业 
-        mapGuoZiYun.put("002368", "太极股份");//002368 太极股份 204 互联网服务 
-        mapGuoZiYun.put("000032", "深桑达Ａ");//000032 深桑达Ａ 201 通信设备 
-        mapGuoZiYun.put("600126", "杭钢股份");//600126 杭钢股份 193 钢铁行业 
-        mapGuoZiYun.put("000070", "特发信息");//000070 特发信息 181 通信设备 
-        mapGuoZiYun.put("000815", "美利云");  //000815 美利云   47 造纸印刷
-        mapGuoZiYun.put("600756", "浪潮软件");//600756 浪潮软件 45 互联网服务 
-    }
-
-
-
-    /**
      * mapAll
      */
     public static Map<String, String> mapAll = new HashMap<>();
     static {
         mapAll.putAll(mapZaiXianLvYou);
         mapAll.putAll(mapYanHuTiLi);
-        mapAll.putAll(mapGuoZiYun);
     }
 }
