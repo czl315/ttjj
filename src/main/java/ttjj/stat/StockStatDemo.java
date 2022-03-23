@@ -24,9 +24,8 @@ public class StockStatDemo {
 
 //        Map<String, String> zqMap = ContMapStZiYuan.allZiYuan;//资源
 //        Map<String, String> zqMap = ContStConception.mapXnyGuangFuHit;// 光伏
-//        Map<String, String> zqMap = ContStConception.mapJinRongQuanShang;// 金融：   mapJinRongQuanShang
-//        Map<String, String> zqMap = ContStConception.mapKeJiShuZiHuoBi;// 科技：   mapKeJiShuZiHuoBi mapKeJiDongYuanYvZhou mapKeJiXinPian
-        Map<String, String> zqMap = ContMapStXiaoFei.all;// 消费：   mapXiaoFeiZaiXianLvYou   mapXiaoFeiZaiXianLvYou
+        Map<String, String> zqMap = ContMapStJinRong.all;// 金融：   mapJinRongQuanShang
+//        Map<String, String> zqMap = ContMapStXiaoFei.all;// 消费：   mapXiaoFeiZaiXianLvYou   mapXiaoFeiZaiXianLvYou
 //        Map<String, String> zqMap = ContMapStKeJi.all;// 科技
 //        Map<String, String> zqMap = ContMapStYiLiao.all;// 医疗：  mapYiLiaoXinGuanAll  mapYiLiao
         checkMaDemo(zqMap);
