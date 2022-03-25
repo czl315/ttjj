@@ -12,6 +12,27 @@ import java.util.Map;
 public class ContMapStYiLiao {
 
     /**
+     * ganSuGaiNian ["肝素概念"]：9;
+     */
+    public static Map<String, String> ganSuGaiNian = new HashMap<>();
+
+    static {
+        ganSuGaiNian.put("600196", "复星医药");//329	化学制药	2.22	1323.99	1.75	价格区间: 5日:34.80 	10日:63.07 	20日:66.70 	30日:66.70 	60日:66.70 	120日:65.43 	250日:27.88 		,当前价：51.66	,当前：2022-03-24 10:56:16
+        ganSuGaiNian.put("002550", "千红制药");//329	化学制药	-1.01	75.64	1.27	价格区间: 5日:28.95 	10日:17.89 	20日:56.84 	30日:56.84 	60日:38.82 	120日:43.11 	250日:47.58 		,当前价：5.91	,当前：2022-03-24 10:56:18
+    }
+
+    /**
+     * chaoJiZhenJun ["超级真菌"]：11;
+     */
+    public static Map<String, String> chaoJiZhenJun = new HashMap<>();
+
+    static {
+        chaoJiZhenJun.put("002435", "长江健康");//372	化学制药	-1.55	86.52	0.95	价格区间: 5日:26.71 	10日:12.62 	20日:48.77 	30日:52.38 	60日:53.37 	120日:53.37 	250日:53.37 		,当前价：7.0	,当前：2022-03-24 11:02:11
+        chaoJiZhenJun.put("002581", "未名医药");//320	生物制品	-0.51	116.64	0.96	价格区间: 5日:57.50 	10日:47.54 	20日:60.98 	30日:60.98 	60日:33.24 	120日:37.04 	250日:55.90 		,当前价：17.68	,当前：2022-03-24 11:02:12
+        chaoJiZhenJun.put("600521", "华海药业");//295	化学制药	-0.67	332.66	0.65	价格区间: 5日:9.95  	10日:7.18  	20日:24.10 	30日:38.01 	60日:38.01 	120日:51.91 	250日:56.74 		,当前价：22.3	,当前：2022-03-24 11:02:14
+    }
+
+    /**
      * zhongYaoGaiNian ["中药概念"]：80;
      */
     public static Map<String, String> zhongYaoGaiNian = new HashMap<>();
@@ -45,6 +66,7 @@ public class ContMapStYiLiao {
         xinGuanYaoWu.put("002584", "西陇科学");//297	电子化学品	-3.86	62.68	3.77	价格区间: 5日:45.56 	10日:67.44 	20日:72.24 	30日:73.37 	60日:57.03 	120日:65.43 	250日:67.59 		,当前价：10.71	,当前：2022-03-18 10:52:33
         xinGuanYaoWu.put("600668", "尖峰集团");//285	水泥建材	-2.53	71.64	3.88	价格区间: 5日:38.07 	10日:41.14 	20日:52.32 	30日:52.10 	60日:66.95 	120日:70.66 	250日:71.69 		,当前价：20.82	,当前：2022-03-18 10:52:34
     }
+
     /**
      * mapYiLiaoXinGuanJianCe 概念：["新冠检测"];股票个数：15;
      */
@@ -77,6 +99,7 @@ public class ContMapStYiLiao {
         mapYiLiaoXinGuanAll.putAll(xinGuanYaoWu);
         mapYiLiaoXinGuanAll.putAll(xinGuanJianCe);
     }
+
     /**
      * all
      */
@@ -87,5 +110,7 @@ public class ContMapStYiLiao {
         all.putAll(zhongYaoGaiNian);
         all.putAll(xinGuanYaoWu);
         all.putAll(xinGuanJianCe);
+        all.putAll(ganSuGaiNian);//肝素概念
+        all.putAll(chaoJiZhenJun);//超级真菌
     }
 }

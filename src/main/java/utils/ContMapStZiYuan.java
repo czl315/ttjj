@@ -42,7 +42,7 @@ public class ContMapStZiYuan {
     public static Map<String, String> allZiYuan = new HashMap<>();
 
     static {
-        allZiYuan.putAll(keRanBing);
-        allZiYuan.putAll(youJiaXiangGuan);
+        allZiYuan.putAll(keRanBing);//可燃冰
+        allZiYuan.putAll(youJiaXiangGuan);//油价相关
     }
 }

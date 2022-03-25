@@ -23,18 +23,7 @@ public class ContentBkStock {
         mapYyYiLiaoQiXie.put("002223", "");//002223	鱼跃医疗	医疗器械
         mapYyYiLiaoQiXie.put("605369", "");//605369	拱东医疗	医疗器械
     }
-    /**
-     * 医药-生物制品
-     */
-    public static Map<String, String> mapYyShengWuZhiPin = new HashMap<>();
-    static {
-        mapYyShengWuZhiPin.put("002581", "");//002581	未名医药	生物制品
-        mapYyShengWuZhiPin.put("002038", "");//002038	双鹭药业	生物制品
-        mapYyShengWuZhiPin.put("600161", "");//600161	天坛生物	生物制品
-        mapYyShengWuZhiPin.put("000661", "");//000661	长春高新	生物制品
-        mapYyShengWuZhiPin.put("", "");//
-        mapYyShengWuZhiPin.put("", "");//
-    }
+
     /**
      * 医药-中药
      */
@@ -61,7 +50,6 @@ public class ContentBkStock {
     public static Map<String, String> mapYy = new HashMap<>();
     static {
         mapYy.putAll(mapYyYiLiaoQiXie);//医药-医疗器械
-        mapYy.putAll(mapYyShengWuZhiPin);//医药-生物制品
         mapYy.putAll(mapZhongYao);//医药-中药
         mapYy.putAll(getMapYyHuaXueZhiYao);//医药-化学制药
     }
@@ -203,25 +191,6 @@ public class ContentBkStock {
         mapDianWangSheBei.put("600517", "");//600517	国网英大	电网设备
         mapDianWangSheBei.put("600312", "");//600312	平高电气	电网设备
         mapDianWangSheBei.put("600550", "");//600550	保变电气	电网设备
-    }
-
-    /**
-     * 医药商业
-     */
-    public static Map<String, String> mapYiYaoShangYe = new HashMap<>();
-    static {
-        mapYiYaoShangYe.put("002411", "延安必康");
-        mapYiYaoShangYe.put("603939", "益丰药房");
-        mapYiYaoShangYe.put("002727", "一心堂");
-    }
-    /**
-     * 生物制品
-     */
-    public static Map<String, String> mapShengWuZhiPin = new HashMap<>();
-    static {
-        mapShengWuZhiPin.put("002581", "未名医药");//002581	未名医药	生物制品
-        mapShengWuZhiPin.put("000403", "派林生物");//000403	派林生物	生物制品
-        mapShengWuZhiPin.put("000661", "长春高新");//000661	长春高新	生物制品
     }
 
     /**

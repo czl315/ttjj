@@ -127,22 +127,6 @@ public class ContStConception {
     }
 
     /**
-     * mapYiLiaoXinGuanYaoWu 概念：["新冠药物"];股票个数：3;
-     */
-    public static Map<String, String> mapYiLiaoXinGuanYaoWu = new HashMap<>();
-
-    static {
-        mapYiLiaoXinGuanYaoWu.put("002349", "精华制药");//436	中药    	3.96	118.51	1.59	价格区间: 5日:76.14 	10日:56.28 	20日:50.11 	30日:41.90 	60日:50.92 	120日:52.14 	250日:54.51 		,当前价：14.18	,当前：2022-03-11 11:34:58
-        mapYiLiaoXinGuanYaoWu.put("600668", "尖峰集团");//319	水泥建材	5.79	84.89	2.53	价格区间: 5日:91.55 	10日:93.12 	20日:93.16 	30日:93.22 	60日:95.32 	120日:95.81 	250日:95.96 		,当前价：24.67	,当前：2022-03-11 11:34:59
-        mapYiLiaoXinGuanYaoWu.put("002603", "以岭药业");//296	中药    	1.02	411.83	1.5 	价格区间: 5日:54.97 	10日:50.87 	20日:54.86 	30日:61.39 	60日:71.71 	120日:74.08 	250日:76.35 		,当前价：24.65	,当前：2022-03-11 11:35:00
-        mapYiLiaoXinGuanYaoWu.put("002584", "西陇科学");//291	电子化学品	3.2 	62.21	2.48	价格区间: 5日:74.79 	10日:74.79 	20日:80.33 	30日:80.33 	60日:53.21 	120日:62.22 	250日:64.58 		,当前价：10.63	,当前：2022-03-11 11:35:02
-        mapYiLiaoXinGuanYaoWu.put("600196", "复星医药");//221	化学制药	-0.27	1029.00	1.15	价格区间: 5日:37.91 	10日:34.50 	20日:34.50 	30日:23.51 	60日:17.60 	120日:10.25 	250日:6.87  		,当前价：40.15	,当前：2022-03-11 11:35:03
-    }
-
-
-
-
-    /**
      * mapCro
      */
     public static Map<String, String> mapYiLiaoCro = new HashMap<>();
@@ -209,15 +193,6 @@ public class ContStConception {
 
     static {
         mapYiLiao.putAll(mapYiLiaoCro);
-        mapYiLiao.putAll(mapYiLiaoXinGuanYaoWu);
     }
 
-    /**
-     * mapYiLiaoXinGuanAll 医疗-新冠-汇总:概念：["新冠药物","新冠检测","体外诊断"];股票个数：29;
-     */
-    public static Map<String, String> mapYiLiaoXinGuanAll = new HashMap<>();
-
-    static {
-        mapYiLiaoXinGuanAll.putAll(mapYiLiaoXinGuanYaoWu);
-    }
 }
