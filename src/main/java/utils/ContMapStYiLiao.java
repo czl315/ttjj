@@ -12,6 +12,17 @@ import java.util.Map;
 public class ContMapStYiLiao {
 
     /**
+     * aZiHaiMo ["阿兹海默"]：9;
+     */
+    public static Map<String, String> aZiHaiMo = new HashMap<>();
+
+    static {
+        aZiHaiMo.put("002082", "万邦德  ");//246	化学制药	3.64	70.48	5.22	价格区间: 5日:65.43 	10日:72.80 	20日:69.60 	30日:58.19 	60日:22.14 	120日:22.14 	250日:22.14 		,当前价：11.4	,当前：2022-03-25 11:08:43
+        aZiHaiMo.put("000756", "新华制药");//234	化学制药	2.91	62.62	5.08	价格区间: 5日:89.10 	10日:93.03 	20日:85.34 	30日:85.34 	60日:55.77 	120日:58.30 	250日:58.30 		,当前价：9.9	,当前：2022-03-25 11:08:44
+        aZiHaiMo.put("002020", "京新药业");//221	化学制药	10.03	95.33	87.83	价格区间: 5日:100.00	10日:100.00	20日:100.00	30日:100.00	60日:100.00	120日:100.00	250日:100.00		,当前价：10.53	,当前：2022-03-25 11:08:46
+    }
+
+    /**
      * ganSuGaiNian ["肝素概念"]：9;
      */
     public static Map<String, String> ganSuGaiNian = new HashMap<>();
@@ -112,5 +123,6 @@ public class ContMapStYiLiao {
         all.putAll(xinGuanJianCe);
         all.putAll(ganSuGaiNian);//肝素概念
         all.putAll(chaoJiZhenJun);//超级真菌
+        all.putAll(aZiHaiMo);//阿兹海默
     }
 }

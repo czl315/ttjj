@@ -34,28 +34,28 @@ public class StBizStatDemo {
         showGianNian(date);//显示概念涨幅排行榜
 
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5"), new BigDecimal("7"), new BigDecimal("9"));
-        String conceptions = "数字货币";//科技-数字经济:数字货币,跨境支付,电子身份证,eSIM,数据安全,数字经济,区块链        互联金融,智慧政务,网络安全, ["eSIM"]：5;
-//        String conceptions = "CRO ";//医药-创新药：CRO ,
-//        String conceptions = "CAR-T细胞疗法";//新冠检测,新冠药物,体外诊断     ,幽门螺杆菌概念,重组蛋白,CAR-T细胞疗法,基因测序,超级真菌
-//        String conceptions = "超级真菌";//医疗-中药：长寿药,中药概念,流感,肝素概念,超级真菌        ["中药概念"]：80;
-//        String conceptions = "辅助生殖";//辅助生殖,婴童概念,托育服务
-//        String conceptions = "稀缺资源";//稀缺资源,稀土永磁,基本金属,钛白粉
 //        String conceptions = "预制菜概念";//消费-食品: 预制菜概念,转基因,鸡肉概念,水产养殖,猪肉概念,农业种植,人造肉     ["转基因"]：8;
+//        String conceptions = "拼多多概念";//科技-数字经济:数字货币,跨境支付,电子身份证,eSIM,数据安全,数字经济,区块链,抖音小店        互联金融,智慧政务,网络安全, ["eSIM"]：5;
+//        String conceptions = "REITs概念";//金融-房地产：租售同权,REITs概念,建筑节能,装配建筑,地下管网,水利建设,海绵城市,民爆概念
+//        String conceptions = "在线旅游";//消费-旅游:在线旅游,免税概念,盲盒经济,退税商店,影视概念
+//        String conceptions = "券商概念";//金融-券商:
+//        String conceptions = "阿兹海默";//医疗-中药：长寿药,中药概念,流感,肝素概念,超级真菌,阿兹海默        ["中药概念"]：80;
+//        String conceptions = "中超概念";//消费-体育：中超概念,体育产业
+//        String conceptions = "新冠药物";//新冠检测,新冠药物,体外诊断     ,幽门螺杆菌概念,重组蛋白,CAR-T细胞疗法,基因测序,超级真菌
+//        String conceptions = "稀缺资源";//稀缺资源,稀土永磁,基本金属,钛白粉
+        String conceptions = "可燃冰,页岩气,油气设服,天然气,油价相关";//资源-石油：可燃冰,页岩气,油气设服,天然气,油价相关
+
+//        String conceptions = "CRO ";//医药-创新药：CRO ,
+//        String conceptions = "辅助生殖";//辅助生殖,婴童概念,托育服务
 //        String conceptions = "盐湖提锂";//新能源-锂电池：盐湖提锂,PVDF概念,刀片电池,固态电池,钠离子电池,动力电池回收,锂电池,氟化工   ["盐湖提锂"];股票个数：18;["PVDF概念"]：5;["氟化工"]：21;
 //        String conceptions = "东数西算";//东数西算,国资云概念,VPN,数据中心,华为昇腾,云计算,边缘计算,华为欧拉,智慧政务,网络安全
 //        String conceptions = "工业气体";//科技-新能源：氢能源,氦气概念,工业气体
-
 //        String conceptions = "虚拟电厂";//科技-电力:特高压,绿色电力,抽水蓄能,风能,虚拟电厂
 //        String conceptions = "5G概念";//科技-通讯:6G概念,5G概念
-//        String conceptions = "体育产业";//消费-体育：中超概念,体育产业
-//        String conceptions = "装配建筑";//金融-房地产：租售同权,REITs概念,建筑节能,装配建筑,地下管网,水利建设,海绵城市
 //        String conceptions = "白酒";//白酒,啤酒概念
 //        String conceptions = "上海自贸";//最新概念：土壤修复,智慧灯杆,净水概念,杭州亚运会
 //        String conceptions = "培育钻石";//贵金属: 黄金概念,培育钻石    贵金属
-//        String conceptions = "券商概念";//券商:
 //        String conceptions = "云游戏";//传媒：NFT概念,虚拟数字人,云游戏,快手概念,元宇宙概念,盲盒经济,广电,电子竞技,手游概念,网络游戏
-//        String conceptions = "可燃冰";//资源-石油：可燃冰,页岩气,油气设服,天然气,油价相关
-//        String conceptions = "在线旅游";//消费-旅游:在线旅游,免税概念,盲盒经济,退税商店,影视概念
 
         List<RankStockCommpanyDb> stListLikeConception = listlikeConception(date, conceptions, DB_RANK_BIZ_F139_BK_MAIN, NUM_YI_50, adrMinList);//查询股票列表-根据概念、涨幅列表
         showAdrCount(date, stListLikeConception, DB_RANK_BIZ_F139_BK_MAIN, NUM_YI_50, adrMinList, conceptions);//统计涨跌次数

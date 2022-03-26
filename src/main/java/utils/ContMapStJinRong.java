@@ -12,6 +12,21 @@ import java.util.Map;
 public class ContMapStJinRong {
 
     /**
+     * quanShangGaiNian 概念：["券商概念"];股票个数：51;
+     */
+    public static Map<String, String> quanShangGaiNian = new HashMap<>();
+
+    static {
+        quanShangGaiNian.put("002945", "华林证券");//275	证券    	-1.93	452.79	3.12	价格区间: 5日:39.84 	10日:27.86 	20日:55.35 	30日:60.26 	60日:66.07 	120日:73.06 	250日:73.06 		,当前价：16.77	,当前：2022-03-25 10:54:37
+        quanShangGaiNian.put("600906", "财达证券");//237	证券    	0.98	369.61	1.55	价格区间: 5日:37.18 	10日:31.36 	20日:45.79 	30日:45.79 	60日:37.26 	120日:28.99 	250日:48.67 		,当前价：11.39	,当前：2022-03-25 10:54:39
+        quanShangGaiNian.put("600958", "东方证券");//207	证券    	1.11	766.50	1.45	价格区间: 5日:70.00 	10日:63.55 	20日:34.82 	30日:29.55 	60日:15.76 	120日:10.13 	250日:23.71 		,当前价：10.96	,当前：2022-03-25 10:54:40
+        quanShangGaiNian.put("000776", "广发证券");//198	证券    	0   	1317.69	1.93	价格区间: 5日:25.00 	10日:65.93 	20日:45.43 	30日:30.91 	60日:16.02 	120日:13.05 	250日:25.00 		,当前价：17.29	,当前：2022-03-25 10:54:41
+        quanShangGaiNian.put("601456", "国联证券");//191	证券    	2.26	372.38	3.42	价格区间: 5日:40.74 	10日:30.67 	20日:22.88 	30日:16.51 	60日:13.01 	120日:26.48 	250日:21.70 		,当前价：13.15	,当前：2022-03-25 10:54:43
+        quanShangGaiNian.put("002939", "长城证券");//186	证券    	0.84	297.31	1.34	价格区间: 5日:25.58 	10日:40.23 	20日:20.45 	30日:14.75 	60日:8.89  	120日:6.46  	250日:9.71  		,当前价：9.58	,当前：2022-03-25 10:54:44
+        quanShangGaiNian.put("600095", "湘财股份");//182	证券    	0.48	240.96	1.99	价格区间: 5日:36.84 	10日:37.50 	20日:36.92 	30日:36.64 	60日:18.60 	120日:14.77 	250日:13.63 		,当前价：8.44	,当前：2022-03-25 10:54:45
+    }
+
+    /**
      * jianZhuJieNeng ["建筑节能"]：6;
      */
     public static Map<String, String> jianZhuJieNeng = new HashMap<>();
@@ -60,6 +75,7 @@ public class ContMapStJinRong {
         all.putAll(zuShouTongQuan);
         all.putAll(reits);
         all.putAll(jianZhuJieNeng);
+        all.putAll(jianZhuJieNeng);
     }
 
     /**
@@ -71,5 +87,6 @@ public class ContMapStJinRong {
         fangDiChan.putAll(zuShouTongQuan);
         fangDiChan.putAll(reits);
         fangDiChan.putAll(jianZhuJieNeng);
+        fangDiChan.putAll(quanShangGaiNian);//券商概念
     }
 }

@@ -1475,11 +1475,12 @@ public class BizRankDemo {
                 "f210,f211,f212,f213,f214,f215,f216,f217,f218,f219" + "," +
                 "f220,f221,f222,f223,f224,f225,f226,f227,f228,f229" +
                 "&_=" + curTime);
-        String rs = HttpUtil.sendGet(url, urlParam.toString(), "");
-//        System.out.println(rs);//返回结果
+        String rs = "";
         JSONObject rsJsonObj = null;
         JSONArray jsonArrayBiz = new JSONArray();
         for (int i = 0; i < 10; i++) {
+            rs = HttpUtil.sendGet(url, urlParam.toString(), "");
+//        System.out.println(rs);//返回结果
             if (rs.startsWith("jQuery")) {
                 rs = rs.substring(rs.indexOf("{"));
             }
@@ -1488,9 +1489,8 @@ public class BizRankDemo {
             }
             rsJsonObj = JSONObject.parseObject(rs);
             if (rs == null || rsJsonObj == null || !rsJsonObj.containsKey("data")) {
-                System.out.println("查询数据异常，重新查询" + JSON.toJSONString(rsJsonObj));
-                rs = HttpUtil.sendGet(url, urlParam.toString(), "");
-                rsJsonObj = JSONObject.parseObject(rs);
+                System.out.println("查询数据异常，重新查询：" + JSON.toJSONString(rsJsonObj));
+                continue;
             } else {
                 break;
             }
