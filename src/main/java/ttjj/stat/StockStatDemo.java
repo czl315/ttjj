@@ -21,12 +21,12 @@ import static utils.Content.*;
  */
 public class StockStatDemo {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-03-25";
+
 //        Map<String, String> zqMap = ContMapStZiYuan.allZiYuan;//资源
-//        Map<String, String> zqMap = ContStConception.mapXnyGuangFuHit;// 光伏
-//        Map<String, String> zqMap = ContMapStJinRong.all;// 金融：   mapJinRongQuanShang
+        Map<String, String> zqMap = ContMapStJinRong.all;// 金融：   mapJinRongQuanShang
 //        Map<String, String> zqMap = ContMapStXiaoFei.all;// 消费：   mapXiaoFeiZaiXianLvYou   mapXiaoFeiZaiXianLvYou
-        Map<String, String> zqMap = ContMapStKeJi.all;// 科技
+//        Map<String, String> zqMap = ContMapStKeJi.all;// 科技-all： 传媒-chuanMei
 //        Map<String, String> zqMap = ContMapStYiLiao.all;// 医疗：  mapYiLiaoXinGuanAll  mapYiLiao
         checkMaDemo(zqMap, date);
 

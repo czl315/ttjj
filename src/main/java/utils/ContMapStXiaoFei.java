@@ -1,5 +1,7 @@
 package utils;
 
+import ttjj.stat.StockStatDemo;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,14 +12,37 @@ import java.util.Map;
  * @date 2022-03-18 10:09
  */
 public class ContMapStXiaoFei {
+
     /**
-     * zhuanJiYin ["转基因"]：8;
+     * nongYe_shuiChanYangZhi ["水产养殖"]：6;
      */
-    public static Map<String, String> zhuanJiYin = new HashMap<>();
+    public static Map<String, String> nongYe_shuiChanYangZhi = new HashMap<>();
+
     static {
-        zhuanJiYin.put("600596", "新安股份");//328	农药兽药	0.74	224.16	5.59	价格区间: 5日:85.71 	10日:85.83 	20日:60.23 	30日:69.50 	60日:73.67 	120日:22.34 	250日:43.53 		,当前价：27.39	,当前：2022-03-21 11:05:54
-        zhuanJiYin.put("002100", "天康生物");//286	农牧饲渔	2.37	163.68	3.11	价格区间: 5日:95.43 	10日:95.43 	20日:92.16 	30日:71.48 	60日:80.37 	120日:85.44 	250日:87.24 		,当前价：12.09	,当前：2022-03-21 11:05:55
-        zhuanJiYin.put("002385", "大北农  ");//249	农牧饲渔	2.73	327.58	4.8 	价格区间: 5日:88.89 	10日:55.56 	20日:39.80 	30日:28.67 	60日:20.05 	120日:19.32 	250日:31.28 		,当前价：7.91	,当前：2022-03-21 11:05:57
+        nongYe_shuiChanYangZhi.put("001313", "粤海饲料");//285	农牧饲渔	-5.69	111.44	3.45	价格区间: 5日:9.71  	10日:35.96 	20日:45.68 	30日:68.23 	60日:68.23 	120日:68.23 	250日:68.23 		,当前价：15.92	,当前：2022-03-28 14:40:27
+        nongYe_shuiChanYangZhi.put("002385", "大北农  ");//266	农牧饲渔	3.09	345.38	12.36	价格区间: 5日:92.86 	10日:96.12 	20日:61.69 	30日:61.69 	60日:31.08 	120日:29.95 	250日:40.33 		,当前价：8.34	,当前：2022-03-28 14:40:29
+        nongYe_shuiChanYangZhi.put("600438", "通威股份");//263	光伏设备	4.48	1941.97	8.51	价格区间: 5日:40.92 	10日:35.82 	20日:38.53 	30日:63.23 	60日:66.73 	120日:31.92 	250日:41.73 		,当前价：43.14	,当前：2022-03-28 14:40:30
+    }
+    /**
+     * 农业-转基因 ["转基因"]：8;
+     */
+    public static Map<String, String> nongYe_zhuanJiYin = new HashMap<>();
+    static {
+        nongYe_zhuanJiYin.put("600596", "新安股份");//323	农药兽药	-0.47	227.51	3.54	价格区间: 5日:54.67 	10日:80.48 	20日:77.06 	30日:78.14 	60日:84.81 	120日:45.36 	250日:45.97 		,当前价：27.8	,当前：2022-03-28 14:04:12
+        nongYe_zhuanJiYin.put("002041", "登海种业");//269	农牧饲渔	3.62	211.64	6.55	价格区间: 5日:91.73 	10日:96.14 	20日:95.44 	30日:94.40 	60日:54.59 	120日:52.56 	250日:67.13 		,当前价：24.05	,当前：2022-03-28 14:04:14
+        nongYe_zhuanJiYin.put("002100", "天康生物");//268	农牧饲渔	-0.89	166.25	2.81	价格区间: 5日:62.34 	10日:88.16 	20日:88.16 	30日:88.16 	60日:83.09 	120日:90.17 	250日:92.01 		,当前价：12.28	,当前：2022-03-28 14:04:15
+        nongYe_zhuanJiYin.put("002385", "大北农  ");//266	农牧饲渔	3.09	345.38	12.36	价格区间: 5日:87.14 	10日:93.02 	20日:59.70 	30日:59.70 	60日:30.08 	120日:28.99 	250日:39.51 		,当前价：8.34	,当前：2022-03-28 14:04:16
+    }
+
+    /**
+     * nongYe_caoGanLin ["草甘膦"]：10;
+     */
+    public static Map<String, String> nongYe_caoGanLin = new HashMap<>();
+
+    static {
+        nongYe_caoGanLin.put("600389", "江山股份");//354	农药兽药	-0.96	128.81	1.51	价格区间: 5日:56.31 	10日:80.37 	20日:73.48 	30日:55.75 	60日:59.54 	120日:40.69 	250日:53.36 		,当前价：43.37	,当前：2022-03-28 14:09:50
+        nongYe_caoGanLin.put("600141", "兴发集团");//347	化肥行业	-5.18	370.43	7.91	价格区间: 5日:26.72 	10日:26.72 	20日:11.98 	30日:11.41 	60日:33.70 	120日:16.73 	250日:45.69 		,当前价：33.32	,当前：2022-03-28 14:09:52
+        nongYe_caoGanLin.put("600596", "新安股份");//323	农药兽药	-0.47	227.51	3.54	价格区间: 5日:51.87 	10日:79.28 	20日:75.91 	30日:77.05 	60日:84.05 	120日:44.96 	250日:45.80 		,当前价：27.8	,当前：2022-03-28 14:09:53
     }
 
     /**
@@ -45,7 +70,14 @@ public class ContMapStXiaoFei {
         yuZhiCaiGaiNian.put("000876", "新希望  ");//236	农牧饲渔	2.5 	701.46	1.98	价格区间: 5日:98.17 	10日:58.27 	20日:55.99 	30日:44.51 	60日:42.24 	120日:57.76 	250日:42.92 		,当前价：15.57	,当前：2022-03-21 10:41:02
         yuZhiCaiGaiNian.put("603345", "安井食品");//235	食品饮料	3.12	339.89	3.46	价格区间: 5日:86.65 	10日:86.65 	20日:44.35 	30日:34.64 	60日:15.72 	120日:13.03 	250日:8.52  		,当前价：115.88	,当前：2022-03-21 10:41:03
     }
+    public static Map<String, String> nongYe = new HashMap<>();
 
+    static {
+        //农业
+        nongYe.putAll(nongYe_zhuanJiYin);//农业-转基因
+        nongYe.putAll(nongYe_caoGanLin);//农业-草甘膦
+        nongYe.putAll(nongYe_shuiChanYangZhi);//农业-水产养殖
+    }
     /**
      * allZiYuan
      */
@@ -54,5 +86,14 @@ public class ContMapStXiaoFei {
     static {
         all.putAll(zaiXianLvYou);
         all.putAll(yuZhiCaiGaiNian);
+        //农业
+        all.putAll(nongYe_zhuanJiYin);//农业-转基因
+        all.putAll(nongYe_caoGanLin);//农业-草甘膦
+        all.putAll(nongYe_shuiChanYangZhi);//农业-水产养殖
+    }
+
+    public static void main(String[] args) {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-03-25";
+        StockStatDemo.checkMaDemo(ContMapStXiaoFei.nongYe, date);//all nongYe
     }
 }

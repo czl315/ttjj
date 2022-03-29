@@ -134,5 +134,7 @@ public class ContMapStKeJi {
         all.putAll(foHuaGong);
         all.putAll(dongShuXiSuan);//东数西算
         all.putAll(shuZiHuoBi);//数字货币
+
+        all.putAll(ContMapStKeJiChuanMei.all);//传媒
     }
 }
