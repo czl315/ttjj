@@ -18,16 +18,19 @@ import static utils.Content.*;
  */
 public class BizEtfControl {
     public static void main(String[] args) {
-        checkMaDemo();
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-03-28";
+
+        checkMaDemo(date);
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
     }
 
     /**
      * 检查均线
+     *
+     * @param date
      */
-    private static void checkMaDemo() {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//                        String date = "2022-02-15";
-
+    private static void checkMaDemo(String date) {
         boolean isUp = true;//检查上涨
 //        boolean isUp = false;
 

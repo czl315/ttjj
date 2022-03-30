@@ -365,6 +365,10 @@ public class Content {
      */
     public static BigDecimal NUM_YI_50 = new BigDecimal("100000000").multiply(new BigDecimal("50"));
     /**
+     * NUM_YI_0
+     */
+    public static BigDecimal NUM_YI_0 = new BigDecimal("100000000").multiply(new BigDecimal("0"));
+    /**
      * DATE_WEEK_5
      */
     public static String DATE_WEEK_5 = "五";

@@ -12,6 +12,18 @@ import java.util.Map;
  * @date 2022-03-18 10:09
  */
 public class ContMapStXiaoFei {
+    /**
+     * nongYe_linHuaGong ["磷化工"]：26;
+     */
+    public static Map<String, String> nongYe_linHuaGong = new HashMap<>();
+
+    static {
+        nongYe_linHuaGong.put("000422", "湖北宜化");//465	化学原料	10.01	190.53	2.31	价格区间: 5日:100.00	10日:100.00	20日:96.97 	30日:79.43 	60日:80.79 	120日:26.15 	250日:56.09 		,当前价：21.22	,当前：2022-03-29 14:09:47
+        nongYe_linHuaGong.put("600096", "云天化  ");//455	化肥行业	9.52	504.87	2.36	价格区间: 5日:94.31 	10日:94.79 	20日:95.33 	30日:97.07 	60日:97.67 	120日:72.85 	250日:67.56 		,当前价：27.5	,当前：2022-03-29 14:09:49
+        nongYe_linHuaGong.put("600141", "兴发集团");//363	化肥行业	6.44	399.00	3.4 	价格区间: 5日:87.30 	10日:87.30 	20日:42.04 	30日:37.29 	60日:53.01 	120日:26.31 	250日:50.70 		,当前价：35.89	,当前：2022-03-29 14:09:50
+        nongYe_linHuaGong.put("002895", "川恒股份");//359	化肥行业	5.54	111.60	2.31	价格区间: 5日:85.07 	10日:91.40 	20日:54.25 	30日:41.48 	60日:40.95 	120日:12.89 	250日:31.50 		,当前价：22.85	,当前：2022-03-29 14:09:52
+        nongYe_linHuaGong.put("600596", "新安股份");//333	农药兽药	3.07	236.19	1.76	价格区间: 5日:87.29 	10日:94.22 	20日:94.07 	30日:94.07 	60日:96.08 	120日:56.43 	250日:48.43 		,当前价：28.86	,当前：2022-03-29 14:09:53
+    }
 
     /**
      * nongYe_shuiChanYangZhi ["水产养殖"]：6;
@@ -77,6 +89,7 @@ public class ContMapStXiaoFei {
         nongYe.putAll(nongYe_zhuanJiYin);//农业-转基因
         nongYe.putAll(nongYe_caoGanLin);//农业-草甘膦
         nongYe.putAll(nongYe_shuiChanYangZhi);//农业-水产养殖
+        nongYe.putAll(nongYe_linHuaGong);//农业-磷化工
     }
     /**
      * allZiYuan
@@ -86,10 +99,8 @@ public class ContMapStXiaoFei {
     static {
         all.putAll(zaiXianLvYou);
         all.putAll(yuZhiCaiGaiNian);
-        //农业
-        all.putAll(nongYe_zhuanJiYin);//农业-转基因
-        all.putAll(nongYe_caoGanLin);//农业-草甘膦
-        all.putAll(nongYe_shuiChanYangZhi);//农业-水产养殖
+
+        all.putAll(nongYe); //农业:转基因,草甘膦,水产养殖,磷化工
     }
 
     public static void main(String[] args) {

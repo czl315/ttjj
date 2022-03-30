@@ -116,14 +116,14 @@ public class ContMapStYiLiao {
     }
 
     /**
-     * mapYiLiaoXinGuanAll 医疗-新冠-汇总:概念：["新冠药物","新冠检测","体外诊断"];股票个数：29;
+     * xinGuan 医疗-新冠-汇总:概念：["新冠药物","新冠检测","体外诊断"];股票个数：29;
      */
-    public static Map<String, String> mapYiLiaoXinGuanAll = new HashMap<>();
+    public static Map<String, String> xinGuan = new HashMap<>();
 
     static {
-        mapYiLiaoXinGuanAll.putAll(xinGuanYaoWu);
-        mapYiLiaoXinGuanAll.putAll(xinGuanJianCe);
-        mapYiLiaoXinGuanAll.putAll(tiWaiZhenDuan);//体外诊断
+        xinGuan.putAll(xinGuanYaoWu);//新冠药物
+        xinGuan.putAll(xinGuanJianCe);//新冠检测
+        xinGuan.putAll(tiWaiZhenDuan);//体外诊断
     }
 
     /**
@@ -133,12 +133,9 @@ public class ContMapStYiLiao {
 
     static {
         all.putAll(changShouYao);//长寿药
-        all.putAll(zhongYaoGaiNian);
+        all.putAll(zhongYaoGaiNian);//中药概念
 
-        //医疗-新冠-汇总
-        all.putAll(xinGuanYaoWu);
-        all.putAll(xinGuanJianCe);
-        all.putAll(tiWaiZhenDuan);//体外诊断
+        all.putAll(xinGuan);//医疗-新冠-汇总
 
         all.putAll(ganSuGaiNian);//肝素概念
         all.putAll(chaoJiZhenJun);//超级真菌
@@ -147,6 +144,7 @@ public class ContMapStYiLiao {
 
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-03-25";
-        StockStatDemo.checkMaDemo(ContMapStYiLiao.all, date);
+//        StockStatDemo.checkMaDemo(ContMapStYiLiao.all, date);
+        StockStatDemo.checkMaDemo(ContMapStYiLiao.xinGuan, date);
     }
 }
