@@ -73,17 +73,7 @@ public class ContMapStJinRong {
         reits.put("000002", "万科Ａ  ");//196	房地产开发	2.98	2011.19	1.92	价格区间: 5日:99.69 	10日:94.41 	20日:51.28 	30日:44.28 	60日:37.07 	120日:37.07 	250日:18.03 		,当前价：17.3	,当前：2022-03-22 10:56:20
     }
 
-    /**
-     * allZiYuan
-     */
-    public static Map<String, String> all = new HashMap<>();
 
-    static {
-        all.putAll(zuShouTongQuan);
-        all.putAll(reits);
-        all.putAll(jianZhuJieNeng);
-        all.putAll(jianZhuJieNeng);
-    }
 
     /**
      * fangDiChan 房地产
@@ -91,14 +81,24 @@ public class ContMapStJinRong {
     public static Map<String, String> fangDiChan = new HashMap<>();
 
     static {
-        fangDiChan.putAll(zuShouTongQuan);
+        fangDiChan.putAll(zuShouTongQuan);//租售同权
         fangDiChan.putAll(reits);
         fangDiChan.putAll(jianZhuJieNeng);
-        fangDiChan.putAll(quanShangGaiNian);//券商概念
+    }
+
+    /**
+     * allZiYuan
+     */
+    public static Map<String, String> all = new HashMap<>();
+
+    static {
+        all.putAll(fangDiChan);//房地产
+        all.putAll(quanShangGaiNian);//券商概念
     }
 
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-03-25";
-        StockStatDemo.checkMaDemo(ContMapStJinRong.all, date);
+//        StockStatDemo.checkMaDemo(ContMapStJinRong.all, date);
+        StockStatDemo.checkMaDemo(ContMapStJinRong.zuShouTongQuan, date);
     }
 }

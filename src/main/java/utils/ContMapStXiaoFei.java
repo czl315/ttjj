@@ -12,6 +12,21 @@ import java.util.Map;
  * @date 2022-03-18 10:09
  */
 public class ContMapStXiaoFei {
+
+    /**
+     * shiPin_tiaoWeiPin ["调味品概念"]：19;
+     */
+    public static Map<String, String> shiPin_tiaoWeiPin = new HashMap<>();
+
+    static {
+        shiPin_tiaoWeiPin.put("002053", "云南能投");//374	化学原料	2.03	103.04	1.23	价格区间: 5日:18.60 	10日:5.13  	20日:35.20 	30日:35.37 	60日:39.54 	120日:42.72 	250日:47.63 		,当前价：13.54	,当前：2022-03-30 14:19:50
+        shiPin_tiaoWeiPin.put("000505", "京粮控股");//332	农牧饲渔	4   	96.39	6.56	价格区间: 5日:86.45 	10日:88.53 	20日:89.44 	30日:89.44 	60日:90.03 	120日:90.07 	250日:90.07 		,当前价：13.26	,当前：2022-03-30 14:19:52
+        shiPin_tiaoWeiPin.put("600328", "中盐化工");//299	化学原料	4.21	161.08	2.34	价格区间: 5日:94.71 	10日:95.65 	20日:75.16 	30日:73.55 	60日:73.55 	120日:33.63 	250日:39.60 		,当前价：16.82	,当前：2022-03-30 14:19:53
+        shiPin_tiaoWeiPin.put("002539", "云图控股");//284	化肥行业	-0.73	137.88	2.65	价格区间: 5日:78.81 	10日:82.42 	20日:69.09 	30日:65.29 	60日:61.29 	120日:31.96 	250日:35.96 		,当前价：13.65	,当前：2022-03-30 14:19:54
+        shiPin_tiaoWeiPin.put("002597", "金禾实业");//271	食品饮料	0.45	223.75	1.05	价格区间: 5日:55.03 	10日:59.75 	20日:81.89 	30日:73.46 	60日:35.56 	120日:33.73 	250日:45.23 		,当前价：39.89	,当前：2022-03-30 14:19:56
+        shiPin_tiaoWeiPin.put("600251", "冠农股份");//268	农牧饲渔	-5.79	78.85	2.44	价格区间: 5日:14.29 	10日:36.25 	20日:42.29 	30日:55.89 	60日:63.31 	120日:63.31 	250日:60.00 		,当前价：10.09	,当前：2022-03-30 14:19:57
+        shiPin_tiaoWeiPin.put("002568", "百润股份");//250	酿酒行业	7.38	276.61	2.41	价格区间: 5日:71.47 	10日:52.92 	20日:29.29 	30日:24.46 	60日:11.16 	120日:8.40  	250日:5.46  		,当前价：36.83	,当前：2022-03-30 14:19:57
+    }
     /**
      * nongYe_linHuaGong ["磷化工"]：26;
      */
@@ -31,9 +46,9 @@ public class ContMapStXiaoFei {
     public static Map<String, String> nongYe_shuiChanYangZhi = new HashMap<>();
 
     static {
-        nongYe_shuiChanYangZhi.put("001313", "粤海饲料");//285	农牧饲渔	-5.69	111.44	3.45	价格区间: 5日:9.71  	10日:35.96 	20日:45.68 	30日:68.23 	60日:68.23 	120日:68.23 	250日:68.23 		,当前价：15.92	,当前：2022-03-28 14:40:27
-        nongYe_shuiChanYangZhi.put("002385", "大北农  ");//266	农牧饲渔	3.09	345.38	12.36	价格区间: 5日:92.86 	10日:96.12 	20日:61.69 	30日:61.69 	60日:31.08 	120日:29.95 	250日:40.33 		,当前价：8.34	,当前：2022-03-28 14:40:29
-        nongYe_shuiChanYangZhi.put("600438", "通威股份");//263	光伏设备	4.48	1941.97	8.51	价格区间: 5日:40.92 	10日:35.82 	20日:38.53 	30日:63.23 	60日:66.73 	120日:31.92 	250日:41.73 		,当前价：43.14	,当前：2022-03-28 14:40:30
+        nongYe_shuiChanYangZhi.put("001313", "粤海饲料");//280	农牧饲渔	-1.86	110.81	1.35	价格区间: 5日:14.32 	10日:27.13 	20日:35.62 	30日:60.74 	60日:66.52 	120日:66.52 	250日:66.52 		,当前价：15.83	,当前：2022-03-30 14:48:56
+        nongYe_shuiChanYangZhi.put("002385", "大北农  ");//275	农牧饲渔	0   	360.71	2.9 	价格区间: 5日:80.87 	10日:84.51 	20日:75.62 	30日:75.62 	60日:38.58 	120日:36.71 	250日:46.09 		,当前价：8.71	,当前：2022-03-30 14:48:57
+        nongYe_shuiChanYangZhi.put("600438", "通威股份");//264	光伏设备	2.02	2002.29	1.58	价格区间: 5日:94.81 	10日:66.48 	20日:67.89 	30日:79.17 	60日:82.62 	120日:39.52 	250日:46.48 		,当前价：44.48	,当前：2022-03-30 14:48:58
     }
     /**
      * 农业-转基因 ["转基因"]：8;
@@ -91,6 +106,16 @@ public class ContMapStXiaoFei {
         nongYe.putAll(nongYe_shuiChanYangZhi);//农业-水产养殖
         nongYe.putAll(nongYe_linHuaGong);//农业-磷化工
     }
+
+    /**
+     * shiPin 食品
+     */
+    public static Map<String, String> shiPin = new HashMap<>();
+
+    static {
+        shiPin.putAll(shiPin_tiaoWeiPin);
+    }
+
     /**
      * allZiYuan
      */
@@ -101,10 +126,12 @@ public class ContMapStXiaoFei {
         all.putAll(yuZhiCaiGaiNian);
 
         all.putAll(nongYe); //农业:转基因,草甘膦,水产养殖,磷化工
+        all.putAll(shiPin); //食品
     }
 
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-03-25";
-        StockStatDemo.checkMaDemo(ContMapStXiaoFei.nongYe, date);//all nongYe
+//        StockStatDemo.checkMaDemo(ContMapStXiaoFei.nongYe, date);//all nongYe
+        StockStatDemo.checkMaDemo(ContMapStXiaoFei.shiPin, date);//
     }
 }

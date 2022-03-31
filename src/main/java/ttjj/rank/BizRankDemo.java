@@ -130,7 +130,7 @@ public class BizRankDemo {
                 }
                 handlerTodayNetCloseByKlt(rankBizDataDiff, klines, klt);
                 int rs = BizRankDao.updateEtfNet(rankBizDataDiff);
-                System.out.println("更新今日净值价-概念：" + rs);
+                System.out.println("概念：" + rankBizDataDiff.getF14() + ",rs：" + rs);
             }
         }
     }
