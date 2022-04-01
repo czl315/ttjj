@@ -35,19 +35,20 @@ public class StBizStatDemo {
         showGianNian(date);//显示概念涨幅排行榜
 
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5"), new BigDecimal("7"), new BigDecimal("9"));
-        String conceptions = "数据安全";//科技-数字经济:数字货币,eSIM,电子身份证,跨境支付,数据安全,数字经济,区块链,抖音小店        互联金融,智慧政务,网络安全, ["eSIM"]：5;
+        String conceptions = "跨境支付";//科技-数字经济:数字货币,电子身份证,跨境支付,电子车牌,数字经济,ETC,移动支付,数据安全,区块链,eSIM,京东金融,抖音小店         ["eSIM"]：5;
 //        String conceptions = "租售同权";//金融-房地产：租售同权,REITs概念,建筑节能,装配建筑,地下管网,水利建设,滨海新区,海绵城市,民爆概念
-//        String conceptions = "固态电池";//新能源-锂电池：盐湖提锂,PVDF概念,刀片电池,固态电池,钠离子电池,动力电池回收,锂电池,氟化工   ["盐湖提锂"];股票个数：18;["PVDF概念"]：5;["氟化工"]：21;
-//        String conceptions = "抽水蓄能";//科技-电力:抽水蓄能,特高压,绿色电力,风能,虚拟电厂
-//        String conceptions = "券商概念";//金融-券商:券商概念,互联金融
-//        String conceptions = "毛发医疗";//医疗-医美：毛发医疗,医疗美容,
+//        String conceptions = "特高压";//科技-电力:特高压,抽水蓄能,绿色电力,风能,虚拟电厂
 //        String conceptions = "新冠检测,新冠药物,体外诊断";//医疗-新冠：新冠检测,新冠药物,体外诊断
-//        String conceptions = "青蒿素";//医疗-创新药：CRO ,青蒿素
-//        String conceptions = "流感";//医疗-中药：毛发医疗,医疗美容,中药概念,独家药品,长寿药,流感,肝素概念,超级真菌,阿兹海默        ["中药概念"]：80;
-//        String conceptions = "中超概念";//消费-体育：中超概念,体育产业,赛马概念
-//        String conceptions = "水产养殖";//消费-农业: 水产养殖,鸡肉概念,猪肉概念,农业种植,转基因,草甘膦,磷化工,蝗虫防治,预制菜概念,调味品概念    ["转基因"]：8;
-//        String conceptions = "NFT概念";//科技-传媒：NFT概念,虚拟数字人,华为欧拉,鸿蒙概念,广电,元宇宙概念,云游戏,快手概念,盲盒经济,电子竞技,手游概念,网络游戏
+//        String conceptions = "青蒿素";    //医疗-创新药：CRO ,青蒿素
+//        String conceptions = "植物照明";//消费-农业: 转基因,水产养殖,鸡肉概念,猪肉概念,农业种植,草甘膦,磷化工,蝗虫防治,预制菜概念,调味品概念    ["转基因"]：8;
+//        String conceptions = "重组蛋白";//医疗-制药：阿兹海默,地塞米松
+//        String conceptions = "赛马概念";//消费-体育：中超概念,体育产业,赛马概念
+//        String conceptions = "毛发医疗";//医疗-医美：毛发医疗,医疗美容,
+//        String conceptions = "广电";//科技-传媒：NFT概念,虚拟数字人,华为欧拉,鸿蒙概念,广电,元宇宙概念,云游戏,快手概念,盲盒经济,电子竞技,手游概念,网络游戏
 
+//        String conceptions = "中药概念";//医疗-中药：毛发医疗,医疗美容,中药概念,独家药品,长寿药,流感,肝素概念,超级真菌,阿兹海默        ["中药概念"]：80;
+//        String conceptions = "固态电池";//新能源-锂电池：盐湖提锂,PVDF概念,刀片电池,固态电池,钠离子电池,动力电池回收,锂电池,氟化工   ["盐湖提锂"];股票个数：18;["PVDF概念"]：5;["氟化工"]：21;
+//        String conceptions = "券商概念";//金融-券商:券商概念,互联金融
 //        String conceptions = "拼多多概念";//消费-电商:拼多多概念
 //        String conceptions = "在线旅游";//消费-旅游:在线旅游,免税概念,盲盒经济,退税商店,影视概念
 
@@ -61,7 +62,13 @@ public class StBizStatDemo {
 //        String conceptions = "上海自贸";//最新概念：土壤修复,智慧灯杆,净水概念,杭州亚运会
 //        String conceptions = "培育钻石";//贵金属: 黄金概念,培育钻石    贵金属
 //        String conceptions = "IGBT概念,汽车芯片,第三代半导体";//光刻胶,中芯概念,IGBT概念,汽车芯片,第三代半导体,半导体概念
-
+//        String conceptions = "中俄贸易概念";//中俄贸易概念
+//        String conceptions = "光伏建筑一体化";//科技-光伏: HIT电池,光伏建筑一体化      ,太阳能        ["太阳能"];股票个数：168;
+//        String conceptions = "航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航";//军工: 航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航,
+//        String conceptions = "航母概念,大飞机,通用航空,航天概念,空间站概念";//军工:航母概念,大飞机,通用航空,航天概念,空间站概念,军民融合
+//        String conceptions = "氟化工";//化学：氟化工
+//        String conceptions = "商汤概念";//5日内：商汤概念,HIT电池,
+//        String conceptions = "全息技术,3D摄像头";//全息技术,3D摄像头
         List<RankStockCommpanyDb> stListLikeConception = listlikeConception(date, conceptions, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50, adrMinList);//查询股票列表-根据概念、涨幅列表
         showAdrCount(date, stListLikeConception, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50, adrMinList, conceptions);//统计涨跌次数
 
@@ -98,14 +105,7 @@ public class StBizStatDemo {
      * @return
      */
     private static List<RankStockCommpanyDb> listlikeConception(String date, String conceptions, Long board, BigDecimal mvMin, List<BigDecimal> adrMinList) {
-//        String conceptions = "中俄贸易概念";//中俄贸易概念
-//        String conceptions = "光伏建筑一体化";//科技-光伏: HIT电池,光伏建筑一体化      ,太阳能        ["太阳能"];股票个数：168;
-//        String conceptions = "航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航";//军工: 航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航,
-//        String conceptions = "航母概念,大飞机,通用航空,航天概念,空间站概念";//军工:航母概念,大飞机,通用航空,航天概念,空间站概念,军民融合
-//        String conceptions = "氟化工";//化学：氟化工
-//        String conceptions = "商汤概念";//5日内：商汤概念,HIT电池,地塞米松,
-//        String conceptions = "全息技术,3D摄像头";//全息技术,3D摄像头
-//                String conceptions = "在线教育";//在线教育
+
         CondStLikeConception conditionLikeConception = new CondStLikeConception();
         conditionLikeConception.setDate(date);
         String[] conceptionStrs = conceptions.split(",");
