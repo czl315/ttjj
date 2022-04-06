@@ -232,8 +232,8 @@ public class ContMapStYiLiao {
 
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-03-25";
-//        StockStatDemo.checkMaDemo(ContMapStYiLiao.all, date);
-        StockStatDemo.checkMaDemo(ContMapStYiLiao.zhiYao, date);
+        StockStatDemo.checkMaDemo(ContMapStYiLiao.all, date);
+//        StockStatDemo.checkMaDemo(ContMapStYiLiao.zhiYao, date);
 //        StockStatDemo.checkMaDemo(ContMapStYiLiao.xinGuan, date);
 //        StockStatDemo.checkMaDemo(ContMapStYiLiao.chuangXinYao, date);
     }
