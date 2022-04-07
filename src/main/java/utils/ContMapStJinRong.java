@@ -77,14 +77,14 @@ public class ContMapStJinRong {
 
 
     /**
-     * fangDiChan 房地产:租售同权
+     * fangDiChan 房地产:租售同权,建筑节能
      */
     public static Map<String, String> fangDiChan = new HashMap<>();
 
     static {
         fangDiChan.putAll(fangDiChan_zuShouTongQuan);//租售同权
         fangDiChan.putAll(reits);
-        fangDiChan.putAll(jianZhuJieNeng);
+        fangDiChan.putAll(jianZhuJieNeng);//建筑节能
     }
 
     /**
@@ -99,8 +99,8 @@ public class ContMapStJinRong {
 
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-03-25";
-//        StockStatDemo.checkMaDemo(ContMapStJinRong.all, date);
+        StockStatDemo.checkMaDemo(ContMapStJinRong.all, date);
 //        StockStatDemo.checkMaDemo(ContMapStJinRong.fangDiChan_zuShouTongQuan, date);
-        StockStatDemo.checkMaDemo(ContMapStJinRong.quanShangGaiNian, date);
+//        StockStatDemo.checkMaDemo(ContMapStJinRong.quanShangGaiNian, date);
     }
 }

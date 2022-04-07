@@ -207,6 +207,7 @@ public class ContMapStXiaoFei {
 
     static {
         shiPin.putAll(shiPin_tiaoWeiPin);
+        shiPin.putAll(yuZhiCaiGaiNian);
     }
 
     /**
@@ -244,8 +245,6 @@ public class ContMapStXiaoFei {
     public static Map<String, String> all = new HashMap<>();
 
     static {
-        all.putAll(yuZhiCaiGaiNian);
-
         all.putAll(nongYe); //农业:转基因,草甘膦,水产养殖,磷化工
         all.putAll(shiPin); //食品
         all.putAll(jiuShui); //酒水
@@ -255,8 +254,8 @@ public class ContMapStXiaoFei {
 
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-03-25";
-        StockStatDemo.checkMaDemo(ContMapStXiaoFei.lvYou, date);//all nongYe
-//        StockStatDemo.checkMaDemo(ContMapStXiaoFei.all, date);//all nongYe
+//        StockStatDemo.checkMaDemo(ContMapStXiaoFei.lvYou, date);//all nongYe lvYou
+        StockStatDemo.checkMaDemo(ContMapStXiaoFei.all, date);//all nongYe
 //        StockStatDemo.checkMaDemo(ContMapStXiaoFei.shiPin, date);//
     }
 }

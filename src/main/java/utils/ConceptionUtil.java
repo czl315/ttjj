@@ -22,6 +22,7 @@ public class ConceptionUtil {
         stConceptionMap.put("电子身份证", "shuZi_dianZiShenFenZheng");
         stConceptionMap.put("数据安全", "shuZi_shuJuAnQuan");
         stConceptionMap.put("数字货币", "shuZi_shuZiHuoBi");
+        stConceptionMap.put("国资云概念", "shuZi_guoZiYun");
 
         stConceptionMap.put("在线旅游", "lvYou_zaiXianLvYou");
         stConceptionMap.put("免税概念", "lvYou_mianShui");
@@ -37,9 +38,13 @@ public class ConceptionUtil {
 
         stConceptionMap.put("NFT概念", "chuanMei_nft");
         stConceptionMap.put("广电", "chuanMei_guangDian");
+        stConceptionMap.put("职业教育", "chuanMei_jiaoYu");
 
         stConceptionMap.put("新冠药物", "xinGuan_xinGuanYaoWu");
 
         stConceptionMap.put("券商概念", "quanShangGaiNian");
+
+        stConceptionMap.put("基本金属", "jinShu_jiBenJinShu");
+        stConceptionMap.put("氢能源", "qingNengYuan");
     }
 }
