@@ -44,6 +44,7 @@ public class ConceptionUtil {
         stConceptionMap.put("草甘膦", "nongYe_caoGanLin");
         stConceptionMap.put("磷化工", "nongYe_linHuaGong");
         stConceptionMap.put("猪肉概念", "nongYe_zhuRou");
+        stConceptionMap.put("鸡肉概念", "nongYe_jiRou");
         stConceptionMap.put("水产养殖", "nongYe_shuiChanYangZhi");
         stConceptionMap.put("转基因", "nongYe_zhuanJiYin");
         stConceptionMap.put("生态农业", "nongYe_shengTaiNongYe");
