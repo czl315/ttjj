@@ -494,7 +494,7 @@ public class StBizStatDemo {
 //            etfBizMap.put(etf.getF12(), etf.getF14());
 //        }
 
-        KlineService.checkMa(etfBizMap, kltType, maList, date, isUp);// 检查均线
+        KlineService.checkMa(etfBizMap, kltType, maList, date, isUp, null);// 检查均线
     }
 
 

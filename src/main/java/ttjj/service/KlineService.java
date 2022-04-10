@@ -530,13 +530,37 @@ public class KlineService {
     /**
      * 检查均线
      *
+     * @param zqMap
+     * @param spDate
+     */
+    public static void checkMaDemo(Map<String, String> zqMap, String date, String spDate) {
+//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//                        String date = "2022-02-15";
+        boolean isUp = true;//检查上涨
+//        boolean isUp = false;
+
+        List<Integer> maList = new ArrayList<>();
+//        maList.add(MA_30);
+        maList.add(MA_60);
+
+//        KlineService.checkMa(zqMap, KLT_5, maList, date, isUp);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_15, maList, date, isUp, spDate);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_30, maList, date, isUp, spDate);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_60, maList, date, isUp, spDate);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_101, maList, date, isUp, spDate);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_102, maList, date, isUp, spDate);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+    }
+
+    /**
+     * 检查均线
+     *
      * @param etfBizMap etf列表
      * @param klt       均线类型
      * @param maList    均线列表
      * @param date
      * @param isUp
+     * @param spDate
      */
-    public static void checkMa(Map<String, String> etfBizMap, String klt, List<Integer> maList, String date, boolean isUp) {
+    public static void checkMa(Map<String, String> etfBizMap, String klt, List<Integer> maList, String date, boolean isUp, String spDate) {
         for (String zqdm : etfBizMap.keySet()) {
             String zqmc = etfBizMap.get(zqdm);
             // 查询今日价格
@@ -555,7 +579,15 @@ public class KlineService {
 
             StringBuffer sbDay = new StringBuffer();
             sbDay.append("\t").append(zqdm).append("，").append(EtfUtil.handlerEtfName(zqmc));
-            sbDay.append("，涨幅：").append(zhangDieFu).append("%").append("\t");
+            sbDay.append("，["+date+"]涨幅：").append(zhangDieFu).append("%").append("\t");
+            //查询特定日期涨跌幅
+            if (spDate != null) {
+                List<Kline> klinesSpDate = KlineService.kline(zqdm, 1, KLT_101, true, spDate, spDate, "");
+                if (klinesSpDate != null && klinesSpDate.size() != 0) {
+                    Kline todayKlineSpDate = klinesSpDate.get(0);
+                    sbDay.append("，特定日期["+spDate+"]涨幅：").append(todayKlineSpDate.getZhangDieFu()).append("%").append("\t");
+                }
+            }
 //            sbDay.append("，日期：").append(date);
 //            sbDay.append("，昨日收盘价：").append(yesterdayCloseAmt);
 //            sbDay.append("，开盘价：").append(openAmt);

@@ -1,5 +1,6 @@
 package utils;
 
+import ttjj.service.KlineService;
 import ttjj.stat.StockStatDemo;
 
 import java.util.HashMap;
@@ -314,9 +315,9 @@ public class ContMapStZiYuan {
     }
 
     public static void main(String[] args) {
-//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-                String date = "2022-04-07";
-//        StockStatDemo.checkMaDemo(chuanMei, date);//
-        StockStatDemo.checkMaDemo(nongYe_linHuaGong, date);// all   huaGong   nongYe_linHuaGong
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//                String date = "2022-04-07";
+//                String spDate = "2022-04-08";//特定日期：下一交易日
+        KlineService.checkMaDemo(all, date,spDate);// all   huaGong   nongYe_linHuaGong
     }
 }

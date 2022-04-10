@@ -1,5 +1,6 @@
 package utils;
 
+import ttjj.service.KlineService;
 import ttjj.stat.StBizStatDemo;
 import ttjj.stat.StockStatDemo;
 
@@ -182,6 +183,7 @@ public class ContMapStJinRong {
     static {
         guiJinShu.putAll(guiJinShu_peiYuZuanShi);
     }
+
     /**
      * allZiYuan
      */
@@ -194,9 +196,10 @@ public class ContMapStJinRong {
     }
 
     public static void main(String[] args) {
+        String spDate = null;
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-03-25";
-        StockStatDemo.checkMaDemo(ContMapStJinRong.all, date);
-//        StockStatDemo.checkMaDemo(ContMapStJinRong.fangDiChan_zuShouTongQuan, date);
-//        StockStatDemo.checkMaDemo(ContMapStJinRong.quanShangGaiNian, date);
+//        String date = "2022-04-07";
+//        spDate = "2022-04-08";//特定日期：下一交易日
+        KlineService.checkMaDemo(all, date, spDate);// all   huaGong   nongYe_linHuaGong
     }
 }
