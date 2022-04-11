@@ -41,6 +41,12 @@ public class ConceptionUtil {
         stConceptionMap.put("在线旅游", "lvYou_zaiXianLvYou");
         stConceptionMap.put("免税概念", "lvYou_mianShui");
         stConceptionMap.put("航空机场", "lvYou_hangKongJiChang");
+        stConceptionMap.put("快递概念", "wuLiu_kuaiDi");
+        stConceptionMap.put("调味品概念", "shiPin_tiaoWeiPin");
+        stConceptionMap.put("预制菜概念", "shiPin_yuZhiCai");
+        stConceptionMap.put("社区团购", "shiPin_sheQuTuanGou");
+        stConceptionMap.put("白酒", "jiuShui_baiJiu");
+
         stConceptionMap.put("草甘膦", "nongYe_caoGanLin");
         stConceptionMap.put("磷化工", "nongYe_linHuaGong");
         stConceptionMap.put("猪肉概念", "nongYe_zhuRou");
@@ -50,14 +56,15 @@ public class ConceptionUtil {
         stConceptionMap.put("生态农业", "nongYe_shengTaiNongYe");
         stConceptionMap.put("化工原料", "nongYe_huaGongYuanLiao");
         stConceptionMap.put("蝗虫防治", "nongYe_huangChongFangZhi");
+        stConceptionMap.put("农业种植", "nongYe_nongYeZhongZhi");
 
-        stConceptionMap.put("调味品概念", "shiPin_tiaoWeiPin");
-        stConceptionMap.put("白酒", "jiuShui_baiJiu");
 
-        stConceptionMap.put("新冠药物", "xinGuan_xinGuanYaoWu");
         stConceptionMap.put("独家药品", "zhongYao_duJiaYaoPin");
+        stConceptionMap.put("长寿药", "zhongYao_changShouYao");
+        stConceptionMap.put("新冠药物", "xinGuan_xinGuanYaoWu");
         stConceptionMap.put("CAR-T细胞疗法", "chuangXinYao_cart");
         stConceptionMap.put("青蒿素", "chuangXinYao_qingGaoSu");
+        stConceptionMap.put("肝素概念", "zhiYao_ganSuGaiNian");
 
         stConceptionMap.put("黄金概念", "guiJinShu_huangJin");
         stConceptionMap.put("培育钻石", "guiJinShu_peiYuZuanShi");
@@ -70,6 +77,7 @@ public class ConceptionUtil {
         stConceptionMap.put("地下管网", "fangDiChan_diXiaGuanWang");
         stConceptionMap.put("工程机械概念", "fangDiChan_gongChengJiXie");
         stConceptionMap.put("民爆概念", "fangDiChan_minBao");
+        stConceptionMap.put("银行 ", "yinHang");
 
         stConceptionMap.put("基本金属", "jinShu_jiBenJinShu");
         stConceptionMap.put("氢能源", "qiTi_qingNengYuan");

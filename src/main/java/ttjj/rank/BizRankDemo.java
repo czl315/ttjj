@@ -1489,7 +1489,7 @@ public class BizRankDemo {
             }
             rsJsonObj = JSONObject.parseObject(rs);
             if (rs == null || rsJsonObj == null || !rsJsonObj.containsKey("data")) {
-                System.out.println("查询数据异常，重新查询：" + JSON.toJSONString(rsJsonObj));
+                System.out.println("查询数据异常，重新查询：" + rs);
                 continue;
             } else {
                 break;
