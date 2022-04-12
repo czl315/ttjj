@@ -168,16 +168,16 @@ public class ContMapStZiYuan {
     }
 
     /**
-     * nongYe_linHuaGong ["磷化工"]：26;
+     * huaGong_linHuaGong ["磷化工"]：26;
      */
-    public static Map<String, String> nongYe_linHuaGong = new HashMap<>();
+    public static Map<String, String> huaGong_linHuaGong = new HashMap<>();
 
     static {
-        nongYe_linHuaGong.put("000422", "湖北宜化");//509	化学原料     9.05	222.85	null	价格区间: 5日:96.16 	10日:97.21 	20日:97.52 	30日:97.69 	60日:98.03 	120日:45.23 	250日:67.30 		,当前价：24.82	,当前：2022-04-08 11:01:44
-        nongYe_linHuaGong.put("600096", "云天化  ");//472	化肥行业     6.26	538.83	null	价格区间: 5日:97.46 	10日:98.00 	20日:98.26 	30日:98.40 	60日:99.08 	120日:86.59 	250日:74.29 		,当前价：29.35	,当前：2022-04-08 11:01:46
-        nongYe_linHuaGong.put("600141", "兴发集团");//382	化肥行业     10   	414.56	null	价格区间: 5日:100.00	10日:100.00	20日:100.00	30日:52.54 	60日:64.44 	120日:31.99 	250日:53.67 		,当前价：37.29	,当前：2022-04-08 11:01:47
-        nongYe_linHuaGong.put("002895", "川恒股份");//381	化肥行业     6.99	115.12	null	价格区间: 5日:94.34 	10日:94.34 	20日:95.69 	30日:52.02 	60日:51.35 	120日:16.17 	250日:33.42 		,当前价：23.57	,当前：2022-04-08 11:01:48
-        nongYe_linHuaGong.put("600596", "新安股份");//333	农药兽药     4.55	231.36	null	价格区间: 5日:93.42 	10日:67.96 	20日:79.38 	30日:79.35 	60日:86.33 	120日:52.26 	250日:46.30 		,当前价：28.27	,当前：2022-04-08 11:01:49
+        huaGong_linHuaGong.put("000422", "湖北宜化");//486	化学原料     -2.23	212.44	1.9 	价格区间: 5日:63.57 	10日:75.79 	20日:80.56 	30日:81.82 	60日:82.65 	120日:38.80 	250日:63.40 		,当前价：23.66	,当前：2022-04-12 11:02:18
+        huaGong_linHuaGong.put("600096", "云天化  ");//449	化肥行业     -0.94	523.41	2.16	价格区间: 5日:65.03 	10日:75.96 	20日:79.34 	30日:80.81 	60日:88.54 	120日:81.45 	250日:71.55 		,当前价：28.51	,当前：2022-04-12 11:02:19
+        huaGong_linHuaGong.put("002895", "川恒股份");//402	化肥行业     0.4 	123.58	4.53	价格区间: 5日:89.64 	10日:90.16 	20日:91.81 	30日:78.09 	60日:70.47 	120日:22.19 	250日:36.95 		,当前价：25.3	,当前：2022-04-12 11:02:20
+        huaGong_linHuaGong.put("600141", "兴发集团");//379	化肥行业     -1.3	414.78	2.33	价格区间: 5日:82.90 	10日:83.36 	20日:83.36 	30日:57.76 	60日:66.64 	120日:33.08 	250日:54.24 		,当前价：37.31	,当前：2022-04-12 11:02:21
+        huaGong_linHuaGong.put("600596", "新安股份");//324	农药兽药     -2.81	220.39	1.98	价格区间: 5日:20.81 	10日:31.74 	20日:56.07 	30日:56.21 	60日:71.01 	120日:42.99 	250日:42.95 		,当前价：26.93	,当前：2022-04-12 11:02:23
     }
 
     /**
@@ -190,7 +190,7 @@ public class ContMapStZiYuan {
         huaGong.putAll(huaGong_huaGongYuanLiao);//化工原料
         huaGong.putAll(huaGong_taiBaiFen);//钛白粉
         huaGong.putAll(huaGong_youJiGui);//有机硅
-        huaGong.putAll(nongYe_linHuaGong);//磷化工
+        huaGong.putAll(huaGong_linHuaGong);//磷化工
     }
 
     /**
@@ -334,6 +334,6 @@ public class ContMapStZiYuan {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //                String date = "2022-04-07";
 //                String spDate = "2022-04-08";//特定日期：下一交易日
-        KlineService.checkMaDemo(all, date,spDate);// all   huaGong   nongYe_linHuaGong
+        KlineService.checkMaDemo(all, date,spDate);// all   huaGong   huaGong_linHuaGong
     }
 }
