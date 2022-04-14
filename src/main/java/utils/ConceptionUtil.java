@@ -43,6 +43,9 @@ public class ConceptionUtil {
         stConceptionMap.put("电子竞技", "youXi_dianZiJingJi");
         stConceptionMap.put("手游概念", "youXi_shouYou");
         stConceptionMap.put("网络游戏", "youXi_wangLuoYouXi");
+        //科技-工业
+        stConceptionMap.put("工业母机", "gongYe_gongYeMuJi");
+        stConceptionMap.put("工业4.0", "gongYe_gongYe40");
 
         stConceptionMap.put("光刻胶", "xinPian_guangKeJiao");
         stConceptionMap.put("中芯概念", "xinPian_zhongXin");
@@ -64,7 +67,9 @@ public class ConceptionUtil {
         stConceptionMap.put("调味品概念", "shiPin_tiaoWeiPin");
         stConceptionMap.put("预制菜概念", "shiPin_yuZhiCai");
         stConceptionMap.put("社区团购", "shiPin_sheQuTuanGou");
+        stConceptionMap.put("乳业", "shiPin_ruYe");
         stConceptionMap.put("白酒", "jiuShui_baiJiu");
+        stConceptionMap.put("啤酒概念", "jiuShui_piJiu");
 
         stConceptionMap.put("草甘膦", "nongYe_caoGanLin");
         stConceptionMap.put("磷化工", "huaGong_linHuaGong");
@@ -84,6 +89,7 @@ public class ConceptionUtil {
         stConceptionMap.put("CAR-T细胞疗法", "chuangXinYao_cart");
         stConceptionMap.put("青蒿素", "chuangXinYao_qingGaoSu");
         stConceptionMap.put("肝素概念", "zhiYao_ganSuGaiNian");
+        stConceptionMap.put("地塞米松", "zhiYao_diSaiMiSong");
         stConceptionMap.put("疫苗冷链", "zhongYao_yiMiaoLengLian");
 
         stConceptionMap.put("黄金概念", "guiJinShu_huangJin");
