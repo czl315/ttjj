@@ -26,6 +26,8 @@ public class ConceptionUtil {
             //数字经济
             stConceptionMap.put("电子身份证", "shuZi_dianZiShenFenZheng");
             stConceptionMap.put("数据安全", "shuZi_shuJuAnQuan");
+            stConceptionMap.put("智慧政务", "shuZi_zhiHuiZhengWu");
+            stConceptionMap.put("电子车牌", "shuZi_dianZiChePai");
             stConceptionMap.put("数字货币", "shuZi_shuZiHuoBi");
             stConceptionMap.put("国资云概念", "shuZi_guoZiYun");
             stConceptionMap.put("eSIM", "shuZi_esim");
@@ -38,7 +40,12 @@ public class ConceptionUtil {
             stConceptionMap.put("海工装备", "junGong_haiGongZhuangBei");
             //科技-汽车
             stConceptionMap.put("激光雷达", "qiChe_jiGuangLeiDa");
+            stConceptionMap.put("胎压监测", "qiChe_taiYaJianCe");
             stConceptionMap.put("华为汽车", "qiChe_huaWeiQiChe");
+            stConceptionMap.put("特斯拉", "qiChe_teSiLa");
+            stConceptionMap.put("磁悬浮概念", "qiChe_ciXuanFu");
+            //
+            stConceptionMap.put("HIT电池", "guangFu_hit");
 
             stConceptionMap.put("盐湖提锂", "yanHuTiLi");
             stConceptionMap.put("NFT概念", "chuanMei_nft");
@@ -54,47 +61,60 @@ public class ConceptionUtil {
             stConceptionMap.put("工业母机", "gongYe_gongYeMuJi");
             stConceptionMap.put("工业4.0", "gongYe_gongYe40");
             stConceptionMap.put("人脑工程", "zhiNeng_renNaoGongCheng");
+
             stConceptionMap.put("绿色电力", "dianLi_lvSeDianLi");
+            stConceptionMap.put("虚拟电厂", "dianLi_xuNiDianChang");
+            stConceptionMap.put("发电机概念", "dianLi_faDianJi");
+            stConceptionMap.put("抽水蓄能", "dianLi_chouShuiXuNeng");
 
             stConceptionMap.put("光刻胶", "xinPian_guangKeJiao");
             stConceptionMap.put("中芯概念", "xinPian_zhongXin");
             stConceptionMap.put("汽车芯片", "xinPian_qiCheXinPian");
             stConceptionMap.put("PVDF概念", "xinPian_pvdf");
+            stConceptionMap.put("IGBT概念", "xinPian_igbt");
+
             stConceptionMap.put("氟化工", "huaGong_foHuaGong");
             stConceptionMap.put("钛白粉", "huaGong_taiBaiFen");
             stConceptionMap.put("有机硅", "huaGong_youJiGui");
         }
 
+        /**
+         * 消费
+         */
+        {
+            stConceptionMap.put("在线旅游", "lvYou_zaiXianLvYou");
+            stConceptionMap.put("免税概念", "lvYou_mianShui");
+            stConceptionMap.put("航空机场", "lvYou_hangKongJiChang");
+            stConceptionMap.put("退税商店", "lvYou_tuiShuiShangDian");
 
-        stConceptionMap.put("在线旅游", "lvYou_zaiXianLvYou");
-        stConceptionMap.put("免税概念", "lvYou_mianShui");
-        stConceptionMap.put("航空机场", "lvYou_hangKongJiChang");
-        stConceptionMap.put("退税商店", "lvYou_tuiShuiShangDian");
-        stConceptionMap.put("快递概念", "wuLiu_kuaiDi");
-        stConceptionMap.put("统一大市场", "wuLiu_tongYiDaShiChang");
-        stConceptionMap.put("RCEP概念", "wuLiu_rcep");
-        stConceptionMap.put("海洋经济", "wuLiu_haiYangJingJi");
-        stConceptionMap.put("中俄贸易概念", "wuLiu_zhongEMaoYi");
+            stConceptionMap.put("快递概念", "wuLiu_kuaiDi");
+            stConceptionMap.put("统一大市场", "wuLiu_tongYiDaShiChang");
+            stConceptionMap.put("RCEP概念", "wuLiu_rcep");
+            stConceptionMap.put("海洋经济", "wuLiu_haiYangJingJi");
+            stConceptionMap.put("中俄贸易概念", "wuLiu_zhongEMaoYi");
+            stConceptionMap.put("进口博览", "wuLiu_jinKouBoLan");
 
-        stConceptionMap.put("调味品概念", "shiPin_tiaoWeiPin");
-        stConceptionMap.put("预制菜概念", "shiPin_yuZhiCai");
-        stConceptionMap.put("社区团购", "shiPin_sheQuTuanGou");
-        stConceptionMap.put("乳业", "shiPin_ruYe");
-        stConceptionMap.put("人造肉", "shiPin_renZaoRou");
+            stConceptionMap.put("调味品概念", "shiPin_tiaoWeiPin");
+            stConceptionMap.put("预制菜概念", "shiPin_yuZhiCai");
+            stConceptionMap.put("社区团购", "shiPin_sheQuTuanGou");
+            stConceptionMap.put("乳业", "shiPin_ruYe");
+            stConceptionMap.put("人造肉", "shiPin_renZaoRou");
 
-        stConceptionMap.put("白酒", "jiuShui_baiJiu");
-        stConceptionMap.put("啤酒概念", "jiuShui_piJiu");
+            stConceptionMap.put("白酒", "jiuShui_baiJiu");
+            stConceptionMap.put("啤酒概念", "jiuShui_piJiu");
 
-        stConceptionMap.put("草甘膦", "nongYe_caoGanLin");
-        stConceptionMap.put("磷化工", "huaGong_linHuaGong");
-        stConceptionMap.put("猪肉概念", "nongYe_zhuRou");
-        stConceptionMap.put("鸡肉概念", "nongYe_jiRou");
-        stConceptionMap.put("水产养殖", "nongYe_shuiChanYangZhi");
-        stConceptionMap.put("转基因", "nongYe_zhuanJiYin");
-        stConceptionMap.put("生态农业", "nongYe_shengTaiNongYe");
-        stConceptionMap.put("化工原料", "nongYe_huaGongYuanLiao");
-        stConceptionMap.put("蝗虫防治", "nongYe_huangChongFangZhi");
-        stConceptionMap.put("农业种植", "nongYe_nongYeZhongZhi");
+            stConceptionMap.put("草甘膦", "nongYe_caoGanLin");
+            stConceptionMap.put("磷化工", "huaGong_linHuaGong");
+            stConceptionMap.put("猪肉概念", "nongYe_zhuRou");
+            stConceptionMap.put("鸡肉概念", "nongYe_jiRou");
+            stConceptionMap.put("水产养殖", "nongYe_shuiChanYangZhi");
+            stConceptionMap.put("转基因", "nongYe_zhuanJiYin");
+            stConceptionMap.put("生态农业", "nongYe_shengTaiNongYe");
+            stConceptionMap.put("化工原料", "nongYe_huaGongYuanLiao");
+            stConceptionMap.put("蝗虫防治", "nongYe_huangChongFangZhi");
+            stConceptionMap.put("农业种植", "nongYe_nongYeZhongZhi");
+        }
+
 
         /**
          * 医疗
