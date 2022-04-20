@@ -47,7 +47,7 @@ public class ConceptionUtil {
             //
             stConceptionMap.put("HIT电池", "guangFu_hit");
 
-            stConceptionMap.put("盐湖提锂", "yanHuTiLi");
+            stConceptionMap.put("盐湖提锂", "xinNengYuan_yanHuTiLi");
             stConceptionMap.put("NFT概念", "chuanMei_nft");
             stConceptionMap.put("广电", "chuanMei_guangDian");
             stConceptionMap.put("职业教育", "chuanMei_jiaoYu");
@@ -105,12 +105,13 @@ public class ConceptionUtil {
 
             stConceptionMap.put("草甘膦", "nongYe_caoGanLin");
             stConceptionMap.put("磷化工", "huaGong_linHuaGong");
+            stConceptionMap.put("化工原料", "huaGong_huaGongYuanLiao");
             stConceptionMap.put("猪肉概念", "nongYe_zhuRou");
             stConceptionMap.put("鸡肉概念", "nongYe_jiRou");
             stConceptionMap.put("水产养殖", "nongYe_shuiChanYangZhi");
             stConceptionMap.put("转基因", "nongYe_zhuanJiYin");
             stConceptionMap.put("生态农业", "nongYe_shengTaiNongYe");
-            stConceptionMap.put("化工原料", "nongYe_huaGongYuanLiao");
+
             stConceptionMap.put("蝗虫防治", "nongYe_huangChongFangZhi");
             stConceptionMap.put("农业种植", "nongYe_nongYeZhongZhi");
         }
@@ -162,5 +163,6 @@ public class ConceptionUtil {
         stConceptionMap.put("氦气概念", "qiTi_haiQi");
         stConceptionMap.put("低碳冶金", "gangTie_diTanYeJin");
         stConceptionMap.put("煤化工", "meiTan_meiHuaGong");
+        stConceptionMap.put("稀缺资源", "meiTan_xiQueZiYuan");
     }
 }

@@ -431,7 +431,7 @@ public class FupanDemo {
         if (zqdm.startsWith("7")) {
             return true;
         }
-        if (zqmc.contains("发债") || zqmc.contains("科伦转债")) {
+        if (zqmc.contains("发债")) {
             return true;
         }
         return false;
