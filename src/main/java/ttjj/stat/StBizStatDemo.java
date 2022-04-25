@@ -36,38 +36,42 @@ public class StBizStatDemo {
 
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5"), new BigDecimal("7"), new BigDecimal("9"));
 
-//        String conceptions = "租售同权,REITs概念";//金融-房地产：租售同权,REITs概念,装配建筑,赛马概念,民爆概念,建筑节能,地下管网,海绵城市,工程机械概念,水利建设,滨海新区,京津冀
-//        String conceptions = "转基因,鸡肉概念,草甘膦";//资源-农业: 转基因,鸡肉概念,草甘膦,蝗虫防治,猪肉概念,水产养殖,生态农业,农业种植,乡村振兴,宠物经济
+//        String conceptions = "绿色电力";//金融-房地产：租售同权,REITs概念,赛马概念,装配建筑,民爆概念,建筑节能,地下管网,海绵城市,工程机械概念,水利建设,滨海新区,京津冀
+        String conceptions = "抖音小店";//消费-零售:退税商店,新零售,C2M概念,抖音小店
+
+//        String conceptions = "汽车芯片";//科技-芯片：汽车芯片,IGBT概念,中芯概念,第三代半导体,PVDF概念,光刻胶,半导体概念,
+//        String conceptions = "毛发医疗";//医疗-医美：毛发医疗,医疗美容,
+//        String conceptions = "券商概念";//金融-券商:券商概念,互联金融,参股期货
+//        String conceptions = "广电";//科技-传媒：广电,NFT概念,虚拟数字人,快手概念,手游概念,华为欧拉,鸿蒙概念,元宇宙概念,盲盒经济
+//        String conceptions = "社区团购";//消费-食品: 预制菜概念,社区团购,调味品概念,转基因,水产养殖,鸡肉概念,猪肉概念,乳业,代糖概念,超级品牌,人造肉
+
+//        String conceptions = "电子车牌";//科技-数字经济:智慧政务,国资云概念,电子车牌,数据安全,数字货币,eSIM,电子身份证,东数西算,ETC,VPN,数据中心,云计算,边缘计算,网络安全,华为昇腾,数字经济,跨境支付,移动支付,区块链,京东金融,       ["eSIM"]：5;
+//        String conceptions = "水产养殖";//资源-农业: 草甘膦,蝗虫防治,生态农业,农业种植,乡村振兴,宠物经济
+//        String conceptions = "在线旅游";//消费-旅游:在线旅游,免税概念,退税商店,航空机场,盲盒经济,影视概念
+//        String conceptions = "统一大市场";//消费-物流:统一大市场,快递概念,海洋经济,中俄贸易概念,RCEP概念,进口博览
+//        String conceptions = "白酒";//消费-酒:白酒,啤酒概念
+//        String conceptions = "医废处理";//医疗-制药：维生素,地塞米松,疫苗冷链,阿兹海默,基因测序
+
+//        String conceptions = "青蒿素";//医疗-创新药：CRO ,青蒿素,CAR-T细胞疗法
+//        String conceptions = "长寿药";//医疗-中药：长寿药,流感,肝素概念,独家药品,中药概念,超级真菌,阿兹海默,幽门螺杆菌概念
 //        String conceptions = "化工原料";//资源-化工: 磷化工,钛白粉,氟化工,有机硅,化工原料,
 //        String conceptions = "稀缺资源";//资源-煤炭：煤化工,稀缺资源,
 //        String conceptions = "低碳冶金";//资源-钢铁：低碳冶金,基本金属,稀土永磁,钛白粉
 //        String conceptions = "氦气概念";//资源-气体：氢能源,氦气概念,工业气体
-//        String conceptions = "调味品概念";//消费-食品: 预制菜概念,调味品概念,社区团购,    乳业,人造肉
-//        String conceptions = "在线旅游";//消费-旅游:在线旅游,免税概念,退税商店,航空机场,盲盒经济,影视概念
-//        String conceptions = "统一大市场";//消费-物流:统一大市场,快递概念,中俄贸易概念,海洋经济,RCEP概念,进口博览
-//        String conceptions = "毛发医疗";//医疗-医美：毛发医疗,医疗美容,
 //        String conceptions = "盐湖提锂";//科技-锂电池：刀片电池,盐湖提锂,固态电池,钠离子电池,动力电池回收,锂电池,氟化工   ["盐湖提锂"];股票个数：18;["PVDF概念"]：5;["氟化工"]：21;
 //        String conceptions = "航母概念";//科技-军工: 航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航,
 //        String conceptions = "云游戏";//科技-传媒：云游戏,手游概念,电子竞技,网络游戏,
-        String conceptions = "NFT概念";//科技-传媒：广电,NFT概念,虚拟数字人,快手概念,手游概念,华为欧拉,鸿蒙概念,元宇宙概念,盲盒经济
 
 //        String conceptions = "地热能";//科技-电力:抽水蓄能,虚拟电厂,特高压,绿色电力,风能,
-//        String conceptions = "MLCC";//科技-芯片：汽车芯片,IGBT概念,中芯概念,第三代半导体,PVDF概念,光刻胶,半导体概念,
 //        String conceptions = "磁悬浮概念";//科技-汽车: 激光雷达,胎压监测,华为汽车,特斯拉
 //        String conceptions = "工业母机";//科技-工业: 工业母机,工业4.0
 //        String conceptions = "培育钻石";//消费-贵金属: 培育钻石,黄金概念,
 //        String conceptions = "HIT电池";//科技-光伏: HIT电池,光伏建筑一体化      ,太阳能        ["太阳能"];股票个数：168;
-//        String conceptions = "长寿药";//医疗-中药：长寿药,流感,肝素概念,独家药品,中药概念,超级真菌,阿兹海默,幽门螺杆菌概念
-//        String conceptions = "ETC";//科技-数字经济:数据安全,智慧政务,数字货币,eSIM,电子身份证,东数西算,电子车牌,ETC,国资云概念,VPN,数据中心,云计算,边缘计算,网络安全,华为昇腾,数字经济,跨境支付,移动支付,区块链,京东金融,抖音小店         ["eSIM"]：5;
 
-//        String conceptions = "啤酒概念";//消费-酒:白酒,啤酒概念
-//        String conceptions = "青蒿素";//医疗-创新药：CRO ,青蒿素,CAR-T细胞疗法
 //        String conceptions = "新冠药物";//医疗-新冠：新冠检测,新冠药物,体外诊断
-//        String conceptions = "维生素";//医疗-制药：维生素,地塞米松,疫苗冷链,阿兹海默,基因测序
 
 //        String conceptions = "人脑工程";//科技-智能: 人脑工程
 
-//        String conceptions = "券商概念";//金融-券商:券商概念,互联金融,参股期货
 
 
 //        String conceptions = "土地流转";//临时：中俄贸易概念

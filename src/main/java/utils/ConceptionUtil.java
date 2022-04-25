@@ -82,10 +82,14 @@ public class ConceptionUtil {
          * 消费
          */
         {
+            stConceptionMap.put("C2M概念", "lingShou_c2m");
+            stConceptionMap.put("退税商店", "lingShou_tuiShuiShangDian");
+            stConceptionMap.put("新零售", "lingShou_xinLingShou");
+
             stConceptionMap.put("在线旅游", "lvYou_zaiXianLvYou");
             stConceptionMap.put("免税概念", "lvYou_mianShui");
             stConceptionMap.put("航空机场", "lvYou_hangKongJiChang");
-            stConceptionMap.put("退税商店", "lvYou_tuiShuiShangDian");
+
 
             stConceptionMap.put("快递概念", "wuLiu_kuaiDi");
             stConceptionMap.put("统一大市场", "wuLiu_tongYiDaShiChang");
@@ -95,6 +99,8 @@ public class ConceptionUtil {
             stConceptionMap.put("进口博览", "wuLiu_jinKouBoLan");
 
             stConceptionMap.put("调味品概念", "shiPin_tiaoWeiPin");
+            stConceptionMap.put("代糖概念", "shiPin_daiTang");
+            stConceptionMap.put("超级品牌", "shiPin_chaoJiPinPai");
             stConceptionMap.put("预制菜概念", "shiPin_yuZhiCai");
             stConceptionMap.put("社区团购", "shiPin_sheQuTuanGou");
             stConceptionMap.put("乳业", "shiPin_ruYe");
@@ -107,7 +113,7 @@ public class ConceptionUtil {
             stConceptionMap.put("磷化工", "huaGong_linHuaGong");
             stConceptionMap.put("化工原料", "huaGong_huaGongYuanLiao");
             stConceptionMap.put("猪肉概念", "nongYe_zhuRou");
-            stConceptionMap.put("鸡肉概念", "nongYe_jiRou");
+            stConceptionMap.put("鸡肉概念", "shiPin_jiRou");
             stConceptionMap.put("水产养殖", "nongYe_shuiChanYangZhi");
             stConceptionMap.put("转基因", "nongYe_zhuanJiYin");
             stConceptionMap.put("生态农业", "nongYe_shengTaiNongYe");

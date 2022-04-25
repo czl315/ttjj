@@ -29,7 +29,7 @@ public class StockDemo {
     public static void main(String[] args) {
         for (int i = 0; i < 1; i++) {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
-//            String date = "2022-04-18";
+//            String date = "2022-04-21";
             boolean isReport = false;//是否查询业绩报表
             int startNum = 0;//开始位置，默认0
             Map<String, Boolean> maUpdateMap = new HashMap<>();
