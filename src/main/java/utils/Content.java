@@ -361,6 +361,10 @@ public class Content {
      */
     public static int NUM_MAX_99 = 99;
     /**
+     * NUM_YI_30 数字-亿
+     */
+    public static BigDecimal NUM_YI_30 = new BigDecimal("100000000").multiply(new BigDecimal("30"));
+    /**
      * NUM_YI_50 数字-亿
      */
     public static BigDecimal NUM_YI_50 = new BigDecimal("100000000").multiply(new BigDecimal("50"));

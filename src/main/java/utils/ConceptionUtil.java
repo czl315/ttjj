@@ -11,12 +11,22 @@ import java.util.Map;
  */
 public class ConceptionUtil {
 
+
+
     /**
      * StConceptionMap 概念map
      */
     public static Map<String, String> stConceptionMap = new HashMap<>();
 
+
     static {
+        /**
+         * 指数
+         */
+        {
+            stConceptionMap.put("上证50_", "shangZheng_50");
+        }
+
         /**
          * 科技
          */

@@ -573,4 +573,25 @@ public interface RankStockCommpanyMapper {
             "</script>"})
     List<RankStockCommpanyDb> findListLikeConception(CondStLikeConception condition);
 
+
+    @Select({"<script>",
+            "   SELECT ",
+            "       * ",
+            "   FROM rank_st_biz_com ",
+            "   WHERE 1=1  ",
+            "       AND rank_st_biz_com.date = #{date}  ",
+            "       <if test='f139 != null'> ",
+            "       AND rank_st_biz_com.f139=#{f139} ",
+            "       </if> ",
+//            "       AND rank_st_biz_com.conception LIKE CONCAT('%',#{conception},'%')",
+            "       <if test='f20 != null'> ",
+            "       AND rank_st_biz_com.f20 >= #{f20} ",
+            "       </if> ",
+            "       <if test='type_name != null'> ",
+            "       AND rank_st_biz_com.type_name = #{type_name} ",
+            "       </if> ",
+            "   ORDER BY rank_st_biz_com.f3 DESC ",
+            "</script>"})
+    List<RankStockCommpanyDb> findListByCondition(RankStockCommpanyDb condition);
+
 }

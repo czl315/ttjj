@@ -291,4 +291,34 @@ public class RankStockCommpanyDao {
         }
         return rs;
     }
+
+    /**
+     * 查询列表-根据板块
+     * @param condition
+     * @return
+     */
+    public static List<RankStockCommpanyDb> findListByCondition(RankStockCommpanyDb condition) {
+        long timeBeg = 0;
+        if (showTime) {
+            timeBeg = System.currentTimeMillis();
+        }
+        SqlSession session = sqlSessionFactory.openSession();
+        List<RankStockCommpanyDb> rs = null;
+        try {
+
+//                System.out.println(JSON.toJSONString(condition));
+            rs = session.selectList("ttjj.dao.mapper.RankStockCommpanyMapper.findListByCondition", condition);
+            session.commit();
+        } catch (Exception e) {
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        if (showTime) {
+            long timeEnd = System.currentTimeMillis();
+            System.out.println("time-findListLikeConception():" + (timeEnd - timeBeg));
+        }
+        return rs;
+    }
 }

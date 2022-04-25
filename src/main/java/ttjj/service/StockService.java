@@ -2,9 +2,13 @@ package ttjj.service;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
+import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
+import ttjj.dto.CondStLikeConception;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
 import static utils.Content.*;
 
@@ -61,6 +65,45 @@ public class StockService {
             return false;
         }
         return true;
+    }
+
+    /**
+     * 查询股票列表-根据概念
+     *
+     * @param date
+     * @param conceptions
+     * @param board
+     * @param mvMin
+     * @return
+     */
+    public static List<RankStockCommpanyDb> listlikeConception(String date, String conceptions, Long board, BigDecimal mvMin) {
+        CondStLikeConception conditionLikeConception = new CondStLikeConception();
+        conditionLikeConception.setDate(date);
+        String[] conceptionStrs = conceptions.split(",");
+        List<String> conpetionList = Arrays.asList(conceptionStrs);
+        conditionLikeConception.setConpetionList(conpetionList);
+        conditionLikeConception.setF139(board);
+        conditionLikeConception.setF20(mvMin);
+        List<RankStockCommpanyDb> stListLikeConception = RankStockCommpanyDao.findListLikeConception(conditionLikeConception);
+//        System.out.println("概念：" + JSON.toJSONString(conpetionList) + ";" + "股票个数：" + stListLikeConception.size() + ";");
+        return stListLikeConception;
+    }
+
+    /**
+     * 查询列表-根据板块
+     * @param boardName
+     * @param date
+     * @param board
+     * @param mvMin
+     * @return
+     */
+    public static List<RankStockCommpanyDb> findListByCondition(String boardName, String date, Long board, BigDecimal mvMin) {
+        RankStockCommpanyDb condition = new RankStockCommpanyDb();
+        condition.setDate(date);
+        condition.setF139(board);
+        condition.setF20(mvMin);
+        condition.setType_name(boardName);
+        return RankStockCommpanyDao.findListByCondition(condition);
     }
 
 }
