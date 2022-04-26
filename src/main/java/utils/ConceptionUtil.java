@@ -28,6 +28,15 @@ public class ConceptionUtil {
         }
 
         /**
+         * 业务板块
+         */
+        {
+            stConceptionMap.put("银行", "yinHang");
+            stConceptionMap.put("航空机场", "hangKongJiChang");
+            stConceptionMap.put("证券", "zhengQuan");
+        }
+
+        /**
          * 科技
          */
         {

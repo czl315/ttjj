@@ -363,7 +363,7 @@ public class StockTradeDemo {
 //
 //        List<String> typeListJinRong = new ArrayList<>();
 //        typeListJinRong.add("601555");//东吴证券
-//        typeListJinRong.add("501025");//香港银行
+//        typeListJinRong.add("501025");//
 //        if (typeListJinRong.contains(fundTrade.getZqdm())) {
 //            fundTrade.setBizTy("金融");
 //            fundTrade.setRiskStLoss(baseRiskStLoss);
@@ -745,7 +745,7 @@ public class StockTradeDemo {
 
         List<String> typeListJinRong = new ArrayList<>();
 //        typeListJinRong.add("601555");//东吴证券
-//        typeListJinRong.add("501025");//香港银行
+//        typeListJinRong.add("501025");//
         typeListJinRong.add("000776");//广发证券
         for (String zqdm : typeListJinRong) {
             StockTrade stockTradeTemp = new StockTrade();

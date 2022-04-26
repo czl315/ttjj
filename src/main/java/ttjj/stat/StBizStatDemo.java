@@ -38,17 +38,18 @@ public class StBizStatDemo {
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("0"), new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5"), new BigDecimal("7"), new BigDecimal("9"));
         List<Integer> daysList = Arrays.asList(-120, -90, -30, -14, -7);
 
-//        String conceptions = "肝素概念";//医疗-中药：肝素概念,长寿药,流感,独家药品,中药概念,超级真菌,阿兹海默,幽门螺杆菌概念
+//        String conceptions = "长寿药";//医疗-中药：肝素概念,长寿药,流感,独家药品,中药概念,超级真菌,阿兹海默,幽门螺杆菌概念
 //        String conceptions = "券商概念";//金融-券商:券商概念,互联金融,参股期货
+//        String conceptions = "超级品牌";//消费-食品: 超级品牌,预制菜概念,社区团购,调味品概念,转基因,水产养殖,鸡肉概念,猪肉概念,乳业,代糖概念,人造肉
 //        String conceptions = "绿色电力";//金融-房地产：地下管网,租售同权,REITs概念,赛马概念,装配建筑,民爆概念,建筑节能,海绵城市,工程机械概念,水利建设,滨海新区,京津冀
 //        String conceptions = "白酒";//消费-酒:白酒,啤酒概念
-        String conceptions = "上证50_";//指数:上证50_,HS300_,茅指数
+        String conceptions = "上证50_";//指数:上证50_,HS300_,茅指数,超级品牌
 
+//        String conceptions = "新冠药物";//医疗-新冠：新冠检测,新冠药物,体外诊断
 //        String conceptions = "抖音小店";//消费-零售:退税商店,新零售,C2M概念,抖音小店
 //        String conceptions = "汽车芯片";//科技-芯片：汽车芯片,IGBT概念,中芯概念,第三代半导体,PVDF概念,光刻胶,半导体概念,
 //        String conceptions = "毛发医疗";//医疗-医美：毛发医疗,医疗美容,
 //        String conceptions = "广电";//科技-传媒：广电,NFT概念,虚拟数字人,快手概念,手游概念,华为欧拉,鸿蒙概念,元宇宙概念,盲盒经济
-//        String conceptions = "社区团购";//消费-食品: 预制菜概念,社区团购,调味品概念,转基因,水产养殖,鸡肉概念,猪肉概念,乳业,代糖概念,超级品牌,人造肉
 
 //        String conceptions = "电子车牌";//科技-数字经济:智慧政务,国资云概念,电子车牌,数据安全,数字货币,eSIM,电子身份证,东数西算,ETC,VPN,数据中心,云计算,边缘计算,网络安全,华为昇腾,数字经济,跨境支付,移动支付,区块链,京东金融,       ["eSIM"]：5;
 //        String conceptions = "水产养殖";//资源-农业: 草甘膦,蝗虫防治,生态农业,农业种植,乡村振兴,宠物经济
@@ -56,34 +57,14 @@ public class StBizStatDemo {
 //        String conceptions = "统一大市场";//消费-物流:统一大市场,快递概念,海洋经济,中俄贸易概念,RCEP概念,进口博览
 //        String conceptions = "医废处理";//医疗-制药：维生素,地塞米松,疫苗冷链,阿兹海默,基因测序
 
-//        String conceptions = "青蒿素";//医疗-创新药：CRO ,青蒿素,CAR-T细胞疗法
-//        String conceptions = "化工原料";//资源-化工: 磷化工,钛白粉,氟化工,有机硅,化工原料,
-//        String conceptions = "稀缺资源";//资源-煤炭：煤化工,稀缺资源,
-//        String conceptions = "低碳冶金";//资源-钢铁：低碳冶金,基本金属,稀土永磁,钛白粉
-//        String conceptions = "氦气概念";//资源-气体：氢能源,氦气概念,工业气体
-//        String conceptions = "盐湖提锂";//科技-锂电池：刀片电池,盐湖提锂,固态电池,钠离子电池,动力电池回收,锂电池,氟化工   ["盐湖提锂"];股票个数：18;["PVDF概念"]：5;["氟化工"]：21;
-//        String conceptions = "航母概念";//科技-军工: 航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航,
-//        String conceptions = "云游戏";//科技-传媒：云游戏,手游概念,电子竞技,网络游戏,
 
-//        String conceptions = "地热能";//科技-电力:抽水蓄能,虚拟电厂,特高压,绿色电力,风能,
-//        String conceptions = "磁悬浮概念";//科技-汽车: 激光雷达,胎压监测,华为汽车,特斯拉
-//        String conceptions = "工业母机";//科技-工业: 工业母机,工业4.0
-//        String conceptions = "培育钻石";//消费-贵金属: 培育钻石,黄金概念,
-//        String conceptions = "HIT电池";//科技-光伏: HIT电池,光伏建筑一体化      ,太阳能        ["太阳能"];股票个数：168;
-
-//        String conceptions = "新冠药物";//医疗-新冠：新冠检测,新冠药物,体外诊断
-//        String conceptions = "人脑工程";//科技-智能: 人脑工程
-
-//        String conceptions = "银行 ";//金融-银行:银行,互联金融
-//        String conceptions = "体育产业";//消费-体育：中超概念,体育产业,
-//        String conceptions = "职业教育";//科技-教育:职业教育
-//        String conceptions = "上海自贸";//：上海自贸
-//        String conceptions = "可燃冰,页岩气,油气设服,天然气,油价相关";//资源-石油：可燃冰,页岩气,油气设服,天然气,油价相关
-//        String conceptions = "辅助生殖";//辅助生殖,婴童概念,托育服务
-//        String conceptions = "杭州亚运会";//最新概念：土壤修复,智慧灯杆,净水概念,杭州亚运会
-//        List<RankStockCommpanyDb> stList = StockService.listlikeConception(date, conceptions, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50);//查询股票列表-根据概念
-        List<RankStockCommpanyDb> stList = StockService.findListByCondition("银行",date, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50);//查询股票列表-根据板块：
+        List<RankStockCommpanyDb> stList = StockService.listlikeConception(date, conceptions, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50);//查询股票列表-根据概念
         showAdrCount(date, stList, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50, adrMinList, daysList,conceptions);//统计涨跌次数
+
+        //按板块查询
+//        String board = "证券";//银行  航空机场    证券
+//        List<RankStockCommpanyDb> stList = StockService.findListByCondition(board,date, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50);//查询股票列表-根据板块：
+//        showAdrCount(date, stList, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50, adrMinList, daysList,board);//统计涨跌次数
 
         Map<String, String> zqMap = new HashMap<>();
         for (RankStockCommpanyDb stock : stList) {
