@@ -38,23 +38,25 @@ public class StBizStatDemo {
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("0"), new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5"), new BigDecimal("7"), new BigDecimal("9"));
         List<Integer> daysList = Arrays.asList(-120, -90, -30, -14, -7);
 
+//        String conceptions = "注射器概念";//科技-芯片：汽车芯片,IGBT概念,中芯概念,第三代半导体,PVDF概念,光刻胶,半导体概念,
+//        String conceptions = "海绵城市";//金融-房地产：地下管网,民爆概念,海绵城市,租售同权,REITs概念,赛马概念,装配建筑,建筑节能,工程机械概念,水利建设,滨海新区,京津冀
+//        String conceptions = "刀片电池";//科技-新能车：刀片电池,盐湖提锂,固态电池,动力电池回收,钠离子电池,锂电池,氟化工   ["盐湖提锂"];股票个数：18;["氟化工"]：21;
+//        String conceptions = "数字货币";//科技-数字经济:数字货币,智慧政务,国资云概念,电子车牌,数据安全,eSIM,电子身份证,东数西算,ETC,VPN,数据中心,云计算,边缘计算,网络安全,华为昇腾,数字经济,跨境支付,移动支付,区块链,京东金融,       ["eSIM"]：5;
+//        String conceptions = "肝炎概念";//医疗-中药：肝素概念,肝炎概念,长寿药,流感,独家药品,中药概念,超级真菌,阿兹海默,幽门螺杆菌概念
+        String conceptions = "油价相关";//资源-石油：可燃冰,页岩气,油气设服,天然气,油价相关
+
 //        String conceptions = "统一大市场";//消费-物流:统一大市场,快递概念,海洋经济,中俄贸易概念,RCEP概念,进口博览
 //        String conceptions = "退税商店";//消费-零售:免税概念,退税商店,新零售,C2M概念,抖音小店
 //        String conceptions = "预制菜概念";//消费-食品: 社区团购,预制菜概念,超级品牌,调味品概念,转基因,水产养殖,鸡肉概念,猪肉概念,乳业,代糖概念,人造肉
-//        String conceptions = "REITs概念";//金融-房地产：地下管网,租售同权,REITs概念,赛马概念,装配建筑,民爆概念,建筑节能,海绵城市,工程机械概念,水利建设,滨海新区,京津冀
-        String conceptions = "上证50_";//指数:上证50_,HS300_,茅指数
+//        String conceptions = "上证50_";//指数:上证50_,HS300_,茅指数
 //        String conceptions = "白酒";//消费-酒:白酒,啤酒概念
-//        String conceptions = "肝素概念";//医疗-中药：肝素概念,长寿药,流感,独家药品,中药概念,超级真菌,阿兹海默,幽门螺杆菌概念
 
 //        String conceptions = "在线旅游";//消费-旅游:在线旅游,航空机场,盲盒经济,影视概念
 //        String conceptions = "券商概念";//金融-券商:券商概念,互联金融,参股期货
-
 //        String conceptions = "新冠药物";//医疗-新冠：新冠检测,新冠药物,体外诊断
-//        String conceptions = "汽车芯片";//科技-芯片：汽车芯片,IGBT概念,中芯概念,第三代半导体,PVDF概念,光刻胶,半导体概念,
 //        String conceptions = "毛发医疗";//医疗-医美：毛发医疗,医疗美容,
 //        String conceptions = "广电";//科技-传媒：广电,NFT概念,虚拟数字人,快手概念,手游概念,华为欧拉,鸿蒙概念,元宇宙概念,盲盒经济
 
-//        String conceptions = "电子车牌";//科技-数字经济:智慧政务,国资云概念,电子车牌,数据安全,数字货币,eSIM,电子身份证,东数西算,ETC,VPN,数据中心,云计算,边缘计算,网络安全,华为昇腾,数字经济,跨境支付,移动支付,区块链,京东金融,       ["eSIM"]：5;
 //        String conceptions = "水产养殖";//资源-农业: 草甘膦,蝗虫防治,生态农业,农业种植,乡村振兴,宠物经济
 //        String conceptions = "医废处理";//医疗-制药：维生素,地塞米松,疫苗冷链,阿兹海默,基因测序
 

@@ -80,6 +80,9 @@ public class ReportDemo {
     private static void insertOrUpdateReport(String stCode) {
         List<Report> rs = ReportService.listHttpReportByStCode(stCode);//查询业绩报表-根据证券编码
         for (Report entity : rs) {
+            if(entity.getSECURITY_CODE().equals("002610")){
+                System.out.println("");
+            }
             //  查询业绩报表是否存在
             Report existEntity = ReportDao.findByCondition(entity);
             if (existEntity == null) {

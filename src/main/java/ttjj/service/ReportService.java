@@ -71,7 +71,7 @@ public class ReportService {
         urlParam.append("&sortTypes=-1%2C-1");//&sortTypes=-1%2C-1
         urlParam.append("&pageSize=50");//&pageSize=50
         urlParam.append("&pageNumber=1");//&pageNumber=1
-        urlParam.append("&reportName=RPT_FCI_PERFORMANCEE");//&reportName=RPT_FCI_PERFORMANCEE
+        urlParam.append("&reportName=RPT_LICO_FN_CPD");//&reportName=RPT_FCI_PERFORMANCEE   RPT_LICO_FN_CPD:业绩报表
         urlParam.append("&columns=ALL");//&columns=ALL
         //&filter=(SECURITY_TYPE_CODE+in+(%22058001001%22%2C%22058001008%22))(TRADE_MARKET_CODE!%3D%22069001017%22)(REPORT_DATE%3D%272021-12-31%27)
         //&filter: (SECURITY_TYPE_CODE in ("058001001","058001008"))(TRADE_MARKET_CODE!="069001017")(REPORT_DATE='2021-12-31')  沪深A股

@@ -159,6 +159,7 @@ public class ConceptionUtil {
             stConceptionMap.put("青蒿素", "chuangXinYao_qingGaoSu");
             //制药
             stConceptionMap.put("肝素概念", "zhiYao_ganSuGaiNian");
+            stConceptionMap.put("肝炎概念", "zhiYao_ganYan");
             stConceptionMap.put("地塞米松", "zhiYao_diSaiMiSong");
             stConceptionMap.put("基因测序", "zhiYao_jiYinCeXu");
             stConceptionMap.put("维生素", "zhiYao_weiShengSu");

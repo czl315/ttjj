@@ -77,12 +77,13 @@ public class StockService {
      * @return
      */
     public static List<RankStockCommpanyDb> listlikeConception(String date, String conceptions, Long board, BigDecimal mvMin) {
+
+
         //        String conceptions = "青蒿素";//医疗-创新药：CRO ,青蒿素,CAR-T细胞疗法
 //        String conceptions = "化工原料";//资源-化工: 磷化工,钛白粉,氟化工,有机硅,化工原料,
 //        String conceptions = "稀缺资源";//资源-煤炭：煤化工,稀缺资源,
 //        String conceptions = "低碳冶金";//资源-钢铁：低碳冶金,基本金属,稀土永磁,钛白粉
 //        String conceptions = "氦气概念";//资源-气体：氢能源,氦气概念,工业气体
-//        String conceptions = "盐湖提锂";//科技-锂电池：刀片电池,盐湖提锂,固态电池,钠离子电池,动力电池回收,锂电池,氟化工   ["盐湖提锂"];股票个数：18;["PVDF概念"]：5;["氟化工"]：21;
 //        String conceptions = "航母概念";//科技-军工: 航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航,
 //        String conceptions = "云游戏";//科技-传媒：云游戏,手游概念,电子竞技,网络游戏,
 //        String conceptions = "地热能";//科技-电力:抽水蓄能,虚拟电厂,特高压,绿色电力,风能,
@@ -95,7 +96,6 @@ public class StockService {
 //        String conceptions = "体育产业";//消费-体育：中超概念,体育产业,
 //        String conceptions = "职业教育";//科技-教育:职业教育
 //        String conceptions = "上海自贸";//：上海自贸
-//        String conceptions = "可燃冰,页岩气,油气设服,天然气,油价相关";//资源-石油：可燃冰,页岩气,油气设服,天然气,油价相关
 //        String conceptions = "辅助生殖";//辅助生殖,婴童概念,托育服务
 //        String conceptions = "杭州亚运会";//最新概念：土壤修复,智慧灯杆,净水概念,杭州亚运会
         CondStLikeConception conditionLikeConception = new CondStLikeConception();

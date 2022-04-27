@@ -118,7 +118,7 @@ public class Report {
      * YSHZ 营业总收入-季度环比增长(%)
      *  *         "YSHZ": 28.2079,
      */
-//    private BigDecimal YSHZ;
+    private BigDecimal YSHZ;
     /**
      * DJDYSHZ
      */
@@ -139,7 +139,7 @@ public class Report {
      * SJLTZ (历史)
      *  *         "SJLTZ": -55.72,
      */
-//    private BigDecimal SJLTZ;
+    private BigDecimal SJLTZ;
     private BigDecimal JLRTBZCL;
     /**
      * BPS 每股净资产(元)
@@ -162,7 +162,7 @@ public class Report {
      * SJLHZ 净利润-季度环比增长(%)
      *  *         "SJLHZ": 362.4657,
      */
-//    private BigDecimal SJLHZ;
+    private BigDecimal SJLHZ;
     /**
      * DJDJLHZ "DJDYSHZ": -60.296897018451,季度环比增长
      */
@@ -540,5 +540,29 @@ public class Report {
 
     public void setMARKET(String MARKET) {
         this.MARKET = MARKET;
+    }
+
+    public BigDecimal getYSHZ() {
+        return YSHZ;
+    }
+
+    public void setYSHZ(BigDecimal YSHZ) {
+        this.YSHZ = YSHZ;
+    }
+
+    public BigDecimal getSJLTZ() {
+        return SJLTZ;
+    }
+
+    public void setSJLTZ(BigDecimal SJLTZ) {
+        this.SJLTZ = SJLTZ;
+    }
+
+    public BigDecimal getSJLHZ() {
+        return SJLHZ;
+    }
+
+    public void setSJLHZ(BigDecimal SJLHZ) {
+        this.SJLHZ = SJLHZ;
     }
 }
