@@ -77,11 +77,8 @@ public class StockService {
      * @return
      */
     public static List<RankStockCommpanyDb> listlikeConception(String date, String conceptions, Long board, BigDecimal mvMin) {
-
-
-        //        String conceptions = "青蒿素";//医疗-创新药：CRO ,青蒿素,CAR-T细胞疗法
+//        String conceptions = "青蒿素";//医疗-创新药：CRO ,青蒿素,CAR-T细胞疗法
 //        String conceptions = "化工原料";//资源-化工: 磷化工,钛白粉,氟化工,有机硅,化工原料,
-//        String conceptions = "稀缺资源";//资源-煤炭：煤化工,稀缺资源,
 //        String conceptions = "低碳冶金";//资源-钢铁：低碳冶金,基本金属,稀土永磁,钛白粉
 //        String conceptions = "氦气概念";//资源-气体：氢能源,氦气概念,工业气体
 //        String conceptions = "航母概念";//科技-军工: 航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航,
@@ -90,10 +87,9 @@ public class StockService {
 //        String conceptions = "磁悬浮概念";//科技-汽车: 激光雷达,胎压监测,华为汽车,特斯拉
 //        String conceptions = "工业母机";//科技-工业: 工业母机,工业4.0
 //        String conceptions = "培育钻石";//消费-贵金属: 培育钻石,黄金概念,
-//        String conceptions = "HIT电池";//科技-光伏: HIT电池,光伏建筑一体化      ,太阳能        ["太阳能"];股票个数：168;
 //        String conceptions = "人脑工程";//科技-智能: 人脑工程
 //        String conceptions = "银行 ";//金融-银行:银行,互联金融
-//        String conceptions = "体育产业";//消费-体育：中超概念,体育产业,
+//        String conceptions = "体育产业";//消费-体育：体育产业,
 //        String conceptions = "职业教育";//科技-教育:职业教育
 //        String conceptions = "上海自贸";//：上海自贸
 //        String conceptions = "辅助生殖";//辅助生殖,婴童概念,托育服务

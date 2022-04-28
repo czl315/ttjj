@@ -52,7 +52,11 @@ public class ReportDemo {
             }
 
             System.out.println("行业-------------------------------：" + biz.getF14());
-            stockList.addAll(StockDemo.listRankStockByBiz(NUM_MAX_999, biz.getF12()));
+            //特定行业
+            if(biz.getF14().equals("证券")){
+                stockList.addAll(StockDemo.listRankStockByBiz(NUM_MAX_999, biz.getF12()));
+            }
+//            stockList.addAll(StockDemo.listRankStockByBiz(NUM_MAX_999, biz.getF12()));
         }
 
         //保存业绩报表
@@ -80,9 +84,9 @@ public class ReportDemo {
     private static void insertOrUpdateReport(String stCode) {
         List<Report> rs = ReportService.listHttpReportByStCode(stCode);//查询业绩报表-根据证券编码
         for (Report entity : rs) {
-            if(entity.getSECURITY_CODE().equals("002610")){
-                System.out.println("");
-            }
+//            if(entity.getSECURITY_CODE().equals("002610")){
+//                System.out.println("");
+//            }
             //  查询业绩报表是否存在
             Report existEntity = ReportDao.findByCondition(entity);
             if (existEntity == null) {
