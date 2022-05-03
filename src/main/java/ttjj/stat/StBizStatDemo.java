@@ -31,9 +31,9 @@ import static utils.Content.*;
  */
 public class StBizStatDemo {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//                String date = "2022-04-08";
-        showGianNian(date);//显示概念涨幅排行榜
+//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+                String date = "2022-04-29";
+//        showGianNian(date);//显示概念涨幅排行榜
 
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("0"), new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5"), new BigDecimal("7"), new BigDecimal("9"));
         List<Integer> daysList = Arrays.asList(-120, -90, -30, -14, -7);
@@ -64,20 +64,19 @@ public class StBizStatDemo {
 //        String conceptions = "水产养殖";//资源-农业: 草甘膦,蝗虫防治,生态农业,农业种植,乡村振兴,宠物经济
 //        String conceptions = "医废处理";//医疗-制药：维生素,地塞米松,疫苗冷链,阿兹海默,基因测序
 
-
-        List<RankStockCommpanyDb> stList = StockService.listlikeConception(date, conceptions, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50);//查询股票列表-根据概念
-        showAdrCount(date, stList, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50, adrMinList, daysList,conceptions);//统计涨跌次数
+//        List<RankStockCommpanyDb> stList = StockService.listlikeConception(date, conceptions, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50);//查询股票列表-根据概念
+//        showAdrCount(date, stList, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50, adrMinList, daysList,conceptions);//统计涨跌次数
 
         //按板块查询
-//        String board = "旅游酒店";//银行  航空机场    证券
-//        List<RankStockCommpanyDb> stList = StockService.findListByCondition(board,date, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50);//查询股票列表-根据板块：
-//        showAdrCount(date, stList, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50, adrMinList, daysList,board);//统计涨跌次数
+        String board = "风电设备";//银行  航空机场    证券
+        List<RankStockCommpanyDb> stList = StockService.findListByCondition(board,date, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50);//查询股票列表-根据板块：
+        showAdrCount(date, stList, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50, adrMinList, daysList,board);//统计涨跌次数
 
-        Map<String, String> zqMap = new HashMap<>();
-        for (RankStockCommpanyDb stock : stList) {
-            zqMap.put(stock.getF12(), stock.getF14());
-        }
-        StockStatDemo.checkMaDemo(zqMap, date);
+//        Map<String, String> zqMap = new HashMap<>();
+//        for (RankStockCommpanyDb stock : stList) {
+//            zqMap.put(stock.getF12(), stock.getF14());
+//        }
+//        StockStatDemo.checkMaDemo(zqMap, date);
 
 //        int year = DateUtil.getCurYear();//DateUtil.getCurYear() 2021
 //        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()   12

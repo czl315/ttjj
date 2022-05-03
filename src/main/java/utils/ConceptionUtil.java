@@ -26,11 +26,100 @@ public class ConceptionUtil {
          * 业务板块
          */
         {
+            stConceptionMap.put("煤炭行业", "meiTanHangYe");
+            stConceptionMap.put("房地产开发", "fangDiChanKaiFa");
+            stConceptionMap.put("工程建设", "gongChengJianShe");
             stConceptionMap.put("银行", "yinHang");
-            stConceptionMap.put("航空机场", "hangKongJiChang");
-            stConceptionMap.put("证券", "zhengQuan");
             stConceptionMap.put("商业百货", "shangYeBaiHuo");
             stConceptionMap.put("旅游酒店", "lvYouJiuDian");
+            stConceptionMap.put("航运港口", "hangYunGangKou");
+            stConceptionMap.put("水泥建材", "shuiNiJianCai");
+            stConceptionMap.put("贵金属", "guiJinShu");
+            stConceptionMap.put("化肥行业", "huaFeiHangYe");
+
+            stConceptionMap.put("铁路公路", "tieLuGongLu");
+            stConceptionMap.put("农药兽药", "nongYaoShouYao");
+            stConceptionMap.put("工程咨询服务", "gongChengZiXunFuWu");
+            stConceptionMap.put("航空机场", "hangKongJiChang");
+            stConceptionMap.put("物流行业", "wuLiuHangYe");
+            stConceptionMap.put("钢铁行业", "gangTieHangYe");
+            stConceptionMap.put("农牧饲渔", "nongMuSiYu");
+            stConceptionMap.put("房地产服务", "fangDiChanFuWu");
+            stConceptionMap.put("综合行业", "zongHeHangYe");
+            stConceptionMap.put("公用事业", "gongYongShiYe");
+
+            stConceptionMap.put("保险", "baoXian");
+            stConceptionMap.put("珠宝首饰", "zhuBaoShouShi");
+            stConceptionMap.put("医药商业", "yiYaoShangYe");
+            stConceptionMap.put("贸易行业", "maoYiHangYe");
+            stConceptionMap.put("酿酒行业", "niangJiuHangYe");
+            stConceptionMap.put("化学制药", "huaXueZhiYao");
+            stConceptionMap.put("石油行业", "shiYouHangYe");
+            stConceptionMap.put("化纤行业", "huaQianHangYe");
+            stConceptionMap.put("纺织服装", "fangZhiFuZhuang");
+            stConceptionMap.put("中药", "zhongYao");
+
+            stConceptionMap.put("化学原料", "huaXueYuanLiao");
+            stConceptionMap.put("采掘行业", "caiJueHangYe");
+            stConceptionMap.put("燃气", "ranQi");
+            stConceptionMap.put("电力行业", "dianLiHangYe");
+            stConceptionMap.put("非金属材料", "feiJinShuCaiLiao");
+            stConceptionMap.put("造纸印刷", "zaoZhiYinShua");
+            stConceptionMap.put("家电行业", "jiaDianHangYe");
+            stConceptionMap.put("食品饮料", "shiPinYinLiao");
+            stConceptionMap.put("交运设备", "jiaoYunSheBei");
+            stConceptionMap.put("小金属", "xiaoJinShu");
+
+            stConceptionMap.put("家用轻工", "jiaYongQingGong");
+            stConceptionMap.put("电子化学品", "dianZiHuaXuePin");
+            stConceptionMap.put("有色金属", "youSeJinShu");
+            stConceptionMap.put("化学制品", "huaXueZhiPin");
+            stConceptionMap.put("汽车服务", "qiCheFuWu");
+            stConceptionMap.put("装修建材", "zhuangXiuJianCai");
+            stConceptionMap.put("通信服务", "tongXinFuWu");
+            stConceptionMap.put("装修装饰", "zhuangXiuZhuangShi");
+            stConceptionMap.put("玻璃玻纤", "boLiBoQian");
+            stConceptionMap.put("证券", "zhengQuan");
+
+            stConceptionMap.put("教育", "jiaoYu");
+            stConceptionMap.put("美容护理", "meiRongHuLi");
+            stConceptionMap.put("文化传媒", "wenHuaChuanMei");
+            stConceptionMap.put("多元金融", "duoYuanJinRong");
+            stConceptionMap.put("医疗器械", "yiLiaoQiXie");
+            stConceptionMap.put("生物制品", "shengWuZhiPin");
+            stConceptionMap.put("专业服务", "zhuanYeFuWu");
+            stConceptionMap.put("环保行业", "huanBaoHangYe");
+            stConceptionMap.put("医疗服务", "yiLiaoFuWu");
+            stConceptionMap.put("通用设备", "tongYongSheBei");
+
+            stConceptionMap.put("包装材料", "baoZhuangCaiLiao");
+            stConceptionMap.put("能源金属", "nengYuanJinShu");
+            stConceptionMap.put("互联网服务", "huLianWangFuWu");
+            stConceptionMap.put("通信设备", "tongXinSheBei");
+            stConceptionMap.put("汽车零部件", "qiCheLingBuJian");
+            stConceptionMap.put("汽车整车", "qiCheZhengChe");
+            stConceptionMap.put("专用设备", "zhuanYongSheBei");
+            stConceptionMap.put("工程机械", "gongChengJiXie");
+            stConceptionMap.put("塑料制品", "suLiaoZhiPin");
+            stConceptionMap.put("船舶制造", "chuanBoZhiZao");
+
+            stConceptionMap.put("橡胶制品", "xiangJiaoZhiPin");
+            stConceptionMap.put("电网设备", "dianWangSheBei");
+            stConceptionMap.put("仪器仪表", "yiQiYiBiao");
+            stConceptionMap.put("计算机设备", "jiSuanJiSheBei");
+            stConceptionMap.put("软件开发", "ruanJianKaiFa");
+            stConceptionMap.put("光伏设备", "guangFuSheBei");
+            stConceptionMap.put("游戏", "youXi");
+            stConceptionMap.put("电子元件", "dianZiYuanJian");
+            stConceptionMap.put("电机", "dianJi");
+            stConceptionMap.put("电源设备", "dianYuanSheBei");
+
+            stConceptionMap.put("半导体", "banDaoTi");
+            stConceptionMap.put("航天航空", "hangTianHangKong");
+            stConceptionMap.put("光学光电子", "guangXueGuangDianZi");
+            stConceptionMap.put("消费电子", "xiaoFeiDianZi");
+            stConceptionMap.put("电池", "dianChi");
+            stConceptionMap.put("风电设备", "fengDianSheBei");
         }
 
         /**
