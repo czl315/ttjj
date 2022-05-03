@@ -38,12 +38,14 @@ public class StBizStatDemo {
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("0"), new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5"), new BigDecimal("7"), new BigDecimal("9"));
         List<Integer> daysList = Arrays.asList(-120, -90, -30, -14, -7);
 
-//        String conceptions = "快递概念";//消费-物流:统一大市场,快递概念,海洋经济,中俄贸易概念,RCEP概念,进口博览
+//        String conceptions = "毛发医疗";//医疗-医美：毛发医疗,医疗美容,
 //        String conceptions = "肝炎概念";//医疗-中药：肝素概念,肝炎概念,长寿药,流感,独家药品,中药概念,超级真菌,阿兹海默,幽门螺杆菌概念
+
+//        String conceptions = "快递概念";//消费-物流:统一大市场,快递概念,海洋经济,中俄贸易概念,RCEP概念,进口博览
 //        String conceptions = "HIT电池";//科技-光伏: HIT电池,光伏建筑一体化      ,太阳能        ["太阳能"];股票个数：168;
 //        String conceptions = "煤化工";//资源-煤炭：煤化工,稀缺资源,
-//        String conceptions = "上证50_";//指数:上证50_,HS300_,茅指数
-        String conceptions = "地下管网";//金融-房地产：地下管网,民爆概念,海绵城市,租售同权,REITs概念,赛马概念,装配建筑,建筑节能,工程机械概念,水利建设,滨海新区,京津冀,中超概念,
+        String conceptions = "上证50_";//指数:上证50_,HS300_,茅指数
+//        String conceptions = "地下管网";//金融-房地产：地下管网,民爆概念,海绵城市,租售同权,REITs概念,赛马概念,装配建筑,建筑节能,工程机械概念,水利建设,滨海新区,京津冀,中超概念,
 
 //        String conceptions = "注射器概念";//科技-芯片：汽车芯片,IGBT概念,中芯概念,第三代半导体,PVDF概念,光刻胶,半导体概念,
 //        String conceptions = "刀片电池";//科技-新能车：刀片电池,盐湖提锂,固态电池,动力电池回收,钠离子电池,锂电池,氟化工   ["盐湖提锂"];股票个数：18;["氟化工"]：21;
@@ -57,7 +59,6 @@ public class StBizStatDemo {
 //        String conceptions = "在线旅游";//消费-旅游:在线旅游,航空机场,盲盒经济,影视概念
 //        String conceptions = "券商概念";//金融-券商:券商概念,互联金融,参股期货
 //        String conceptions = "新冠药物";//医疗-新冠：新冠检测,新冠药物,体外诊断
-//        String conceptions = "毛发医疗";//医疗-医美：毛发医疗,医疗美容,
 //        String conceptions = "广电";//科技-传媒：广电,NFT概念,虚拟数字人,快手概念,手游概念,华为欧拉,鸿蒙概念,元宇宙概念,盲盒经济
 
 //        String conceptions = "水产养殖";//资源-农业: 草甘膦,蝗虫防治,生态农业,农业种植,乡村振兴,宠物经济
@@ -68,7 +69,7 @@ public class StBizStatDemo {
         showAdrCount(date, stList, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50, adrMinList, daysList,conceptions);//统计涨跌次数
 
         //按板块查询
-//        String board = "证券";//银行  航空机场    证券
+//        String board = "旅游酒店";//银行  航空机场    证券
 //        List<RankStockCommpanyDb> stList = StockService.findListByCondition(board,date, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50);//查询股票列表-根据板块：
 //        showAdrCount(date, stList, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50, adrMinList, daysList,board);//统计涨跌次数
 

@@ -10,15 +10,10 @@ import java.util.Map;
  * @date 2022-03-30 13:58
  */
 public class ConceptionUtil {
-
-
-
     /**
      * StConceptionMap 概念map
      */
     public static Map<String, String> stConceptionMap = new HashMap<>();
-
-
     static {
         /**
          * 指数
@@ -34,6 +29,8 @@ public class ConceptionUtil {
             stConceptionMap.put("银行", "yinHang");
             stConceptionMap.put("航空机场", "hangKongJiChang");
             stConceptionMap.put("证券", "zhengQuan");
+            stConceptionMap.put("商业百货", "shangYeBaiHuo");
+            stConceptionMap.put("旅游酒店", "lvYouJiuDian");
         }
 
         /**
