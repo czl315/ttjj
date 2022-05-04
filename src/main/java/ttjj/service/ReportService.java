@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
+import ttjj.dao.ReportDao;
 import ttjj.dto.Kline;
 import ttjj.dto.Report;
 import utils.Content;
@@ -131,6 +132,15 @@ public class ReportService {
         rsList = JSON.parseArray(data, Report.class);
 
         return rsList;
+    }
+
+    /**
+     *
+     * @param condition
+     * @return
+     */
+    public static Report findByCondition(Report condition) {
+        return ReportDao.findByCondition(condition);
     }
 
 

@@ -171,8 +171,8 @@ public class StockDemo {
             maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_20, true);
             maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_30, true);
             maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_60, true);
-            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_120, true);
-            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_250, true);
+//            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_120, true);
+//            maUpdateMap.put(MA_UPDATE_FLAG_DAY_1_250, true);
         }
 
         if (maTypeDay.equals(MA_TYPE_MINUTE1)) {

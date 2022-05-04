@@ -12,6 +12,7 @@ import ttjj.rank.BizRankDemo;
 import ttjj.rank.StockDemo;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
+import ttjj.service.ReportService;
 import ttjj.service.StockService;
 import utils.*;
 
@@ -31,8 +32,8 @@ import static utils.Content.*;
  */
 public class StBizStatDemo {
     public static void main(String[] args) {
-//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-                String date = "2022-04-29";
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-04-29";
 //        showGianNian(date);//显示概念涨幅排行榜
 
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("0"), new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5"), new BigDecimal("7"), new BigDecimal("9"));
@@ -68,9 +69,10 @@ public class StBizStatDemo {
 //        showAdrCount(date, stList, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50, adrMinList, daysList,conceptions);//统计涨跌次数
 
         //按板块查询
-        String board = "风电设备";//银行  航空机场    证券
-        List<RankStockCommpanyDb> stList = StockService.findListByCondition(board,date, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50);//查询股票列表-根据板块：
-        showAdrCount(date, stList, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50, adrMinList, daysList,board);//统计涨跌次数
+        String board = "煤炭行业";//银行  航空机场    证券
+        List<RankStockCommpanyDb> stList = StockService.findListByCondition(board, date, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50);//查询股票列表-根据板块：
+        String reportQuete = "2022Q1";//业绩报表季度
+        showAdrCount(date, stList, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50, adrMinList, daysList, board, reportQuete);//统计涨跌次数
 
 //        Map<String, String> zqMap = new HashMap<>();
 //        for (RankStockCommpanyDb stock : stList) {
@@ -93,7 +95,6 @@ public class StBizStatDemo {
 //        statAdrCountByDay(zqmc, begDate, endDate);
 
     }
-
 
 
     /**
@@ -237,17 +238,18 @@ public class StBizStatDemo {
 
     /**
      * 统计涨跌次数
-     *  @param date
+     *
+     * @param date
      * @param stListLikeConception
      * @param daysList
      * @param conpetions
      */
-    private static void showAdrCount(String date, List<RankStockCommpanyDb> stListLikeConception, Long board, BigDecimal mvMin, List<BigDecimal> adrMinList, List<Integer> daysList, String conpetions) {
+    private static void showAdrCount(String date, List<RankStockCommpanyDb> stListLikeConception, Long board, BigDecimal mvMin, List<BigDecimal> adrMinList, List<Integer> daysList, String conpetions, String reportQuete) {
         Map<String, StatRsStAdrCount> statRsStAdrCountMap = new HashMap<>();
         ExecutorService service = Executors.newCachedThreadPool();// 创建一个的线程池
         for (BigDecimal adrMinTemp : adrMinList) {
             //涨幅超过
-            for (Integer days : daysList){
+            for (Integer days : daysList) {
                 service.execute(() -> {
                     statStAdrCount(stListLikeConception, DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, days), date, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：90
                 });
@@ -348,13 +350,38 @@ public class StBizStatDemo {
             Map<String, Boolean> maUpdateMap = new HashMap<>();
             StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
             StockDemo.handlerNetMa(stock, maUpdateMap, date, maSb);//处理均线净值
-            maSb.append("\t").append(",当前价：").append(curPrice);
-            maSb.append("\t").append(",当前：").append(DateUtil.getToday(DateUtil.YYYY_MM_DD_HH_MM_SS));
+            if (StringUtils.isNotBlank(reportQuete)) {
+                handlerReport(maSb, stock,reportQuete);
+            }
+//            maSb.append("\t").append(",当前价：").append(curPrice);
+//            maSb.append("\t").append(",当前：").append(DateUtil.getToday(DateUtil.YYYY_MM_DD_HH_MM_SS));
             System.out.println("价格区间:" + maSb.toString());
         }
 
 //            System.out.println("}");
 
+    }
+
+    /**
+     * 处理业绩报表
+     *  @param maSb
+     * @param stock
+     * @param reportQuete
+     */
+    private static void handlerReport(StringBuffer maSb, RankStockCommpanyDb stock, String reportQuete) {
+        Report condition = new Report();
+        condition.setSECURITY_CODE(stock.getF12());
+        condition.setQDATE(reportQuete);
+        Report report = ReportService.findByCondition(condition);
+        if(report!=null){
+            BigDecimal SJLHZ = report.getSJLHZ().setScale(2,RoundingMode.HALF_UP);//净利环增
+            BigDecimal SJLTZ = report.getSJLTZ().setScale(2,RoundingMode.HALF_UP);//净利同增
+            BigDecimal YSHZ = report.getYSHZ().setScale(2,RoundingMode.HALF_UP);//营收环增
+            BigDecimal YSTZ = report.getYSTZ().setScale(2,RoundingMode.HALF_UP);//营收同增
+            maSb.append("净利环增:").append(SJLHZ).append(";净利同增:").append(SJLTZ).append(";营收环增:").append(YSHZ).append(";营收同增:").append(YSTZ).append(";");
+        }else{
+            maSb.append("业绩报表为空");
+        }
     }
 
     private static String formatDouble(BigDecimal f3) {

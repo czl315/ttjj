@@ -25,7 +25,8 @@ import static utils.Content.NUM_MAX_999;
  */
 public class ReportDemo {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);// String date = "2021-09-24";
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        // String date = "2021-09-24";
         int indexBeg = 0;//行业序号：从0开始
         int indexEnd = NUM_MAX_999;//行业序号-结束
 
@@ -53,10 +54,10 @@ public class ReportDemo {
 
             System.out.println("行业-------------------------------：" + biz.getF14());
             //特定行业
-            if(biz.getF14().equals("证券")){
-                stockList.addAll(StockDemo.listRankStockByBiz(NUM_MAX_999, biz.getF12()));
-            }
-//            stockList.addAll(StockDemo.listRankStockByBiz(NUM_MAX_999, biz.getF12()));
+//            if(biz.getF14().equals("证券")){
+//                stockList.addAll(StockDemo.listRankStockByBiz(NUM_MAX_999, biz.getF12()));
+//            }
+            stockList.addAll(StockDemo.listRankStockByBiz(NUM_MAX_999, biz.getF12()));
         }
 
         //保存业绩报表
