@@ -153,10 +153,13 @@ public class ConceptionUtil {
             stConceptionMap.put("HIT电池", "guangFu_hit");
 
             stConceptionMap.put("盐湖提锂", "xinNengYuan_yanHuTiLi");
+            stConceptionMap.put("动力电池回收", "xinNengChe_dongLiDianChiHuiShou");
             stConceptionMap.put("NFT概念", "chuanMei_nft");
             stConceptionMap.put("广电", "chuanMei_guangDian");
             stConceptionMap.put("职业教育", "chuanMei_jiaoYu");
             stConceptionMap.put("虚拟数字人", "chuanMei_xunNiShuZiRen");
+            stConceptionMap.put("华为欧拉", "ruanJian_huaWeiOLa");
+            stConceptionMap.put("鸿蒙概念", "ruanJian_hongMeng");
             //游戏
             stConceptionMap.put("云游戏", "youXi_yunYouXi");
             stConceptionMap.put("电子竞技", "youXi_dianZiJingJi");
@@ -265,6 +268,7 @@ public class ConceptionUtil {
         stConceptionMap.put("租售同权", "fangDiChan_zuShouTongQuan");
         stConceptionMap.put("海绵城市", "fangDiChan_haiMianChengShi");
         stConceptionMap.put("装配建筑", "fangDiChan_zhuangPeiJianZhu");
+        stConceptionMap.put("建筑节能", "fangDiChan_jianZhuJieNeng");
         stConceptionMap.put("REITs概念", "fangDiChan_reits");
         stConceptionMap.put("地下管网", "fangDiChan_diXiaGuanWang");
         stConceptionMap.put("工程机械概念", "fangDiChan_gongChengJiXie");

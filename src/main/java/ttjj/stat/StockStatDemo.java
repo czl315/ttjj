@@ -8,6 +8,7 @@ import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.*;
 import ttjj.service.KlineService;
+import ttjj.service.StockService;
 import utils.*;
 
 import java.math.BigDecimal;
@@ -52,7 +53,7 @@ public class StockStatDemo {
 ////            //查询业绩报表
 ////            String begDate = "20210701";
 ////            String endDate = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-////            List<RankBizDataDiff> bkList = listBiz(NUM_MAX_999);//查询主题-排名by时间类型、显示个数
+////            List<RankBizDataDiff> bkList = StockService.listBiz(NUM_MAX_999);//查询主题-排名by时间类型、显示个数
 ////            listReport(bkList, "2021Q3", begDate, endDate);
 //
 ////            updateBkList(date, startNum);//更新业务板块

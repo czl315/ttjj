@@ -48,7 +48,7 @@ public class NoticeService {
      * @param date
      */
     private static void listStockNotice(String date, List<String> filterList) {
-        List<RankBizDataDiff> bkList = StockDemo.listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
+        List<RankBizDataDiff> bkList = StockService.listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
         List<RankStockCommpanyDb> stockList = new ArrayList<>();
         int stBizCountTemp = 0;
         for (RankBizDataDiff banKuai : bkList) {
