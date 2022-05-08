@@ -79,8 +79,8 @@ public class StBizStatDemo {
             }
             String biz = "物流行业";//银行  航空机场    证券
 //            String biz = rankBizDataDiff.getF14();
-            List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50);//查询股票列表-根据板块：
-            showAdrCount(date, stList, DB_RANK_BIZ_F19_BK_MAIN, NUM_YI_50, adrMinList, daysList, biz, reportQuete);//统计涨跌次数
+            List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
+            showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, reportQuete);//统计涨跌次数
 
 //            Map<String, String> zqMap = new HashMap<>();
 //            for (RankStockCommpanyDb stock : stList) {

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * ContMapStZiYuan简介-股票分类数据：金融
+ * ContMapStZiYuan-业务板块
  *
  * @author Administrator
  * @date 2022-03-18 10:09
@@ -1168,9 +1168,9 @@ public class ContMapStBoard {
 
     public static void main(String[] args) {
         String spDate = null;
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-03-25";
-//        String date = "2022-04-08";
-//        spDate = "2022-04-08";//特定日期：下一交易日
-        KlineService.checkMaDemo(all, date, spDate);// all   huaGong   huaGong_linHuaGong    yinHang
+//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        String date = "2022-04-29";
+        spDate = "2022-05-05";//特定日期：下一交易日
+        KlineService.checkMaDemo(meiTanHangYe, date, spDate);// all   huaGong   huaGong_linHuaGong    yinHang
     }
 }

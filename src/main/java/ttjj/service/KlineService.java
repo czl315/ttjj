@@ -5,6 +5,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
+import ttjj.dao.KlineDao;
+import ttjj.dao.RankStockCommpanyDao;
+import ttjj.dto.DateCond;
 import ttjj.dto.Kline;
 import utils.Content;
 import utils.EtfUtil;
@@ -27,8 +30,38 @@ public class KlineService {
     static String KLINE_HTTP_HEAD = ".push2his.eastmoney.com/api/qt/stock/kline/get?cb=";
 
     public static void main(String[] args) {
-        // 查询最小净值、最大净值、均值
-        findNetMinMaxAvgDemo();
+
+        //比较两个指数：上证50，三倍做空FTSE中国ETF
+        a50CompareYang();
+
+
+//        findNetMinMaxAvgDemo();// 查询最小净值、最大净值、均值
+    }
+
+    /**
+     * 比较两个指数：上证50，三倍做空FTSE中国ETF
+     */
+    private static void a50CompareYang() {
+        String code1 = "107.YANG";
+        String code2 = "000001";//000016 上证50;  000001:上证指数
+        String date = "2022-05-06";
+        String date2 = "";
+        List<String> dateListBefore = RankStockCommpanyDao.findListDateAfter(new DateCond(date, 1));
+        if (dateListBefore != null && dateListBefore.size() > 0) {
+            date2 = dateListBefore.get(0);
+        }
+        List<Kline> klines = KlineService.kline(code1, 1, KLT_101, true, date, date, "");
+        for (Kline kline : klines) {
+//            System.out.println(JSON.toJSONString(kline));
+            System.out.println(code1+"[" + date + "]:" + kline.getZhangDieFu().divide(new BigDecimal("-3"), 2, BigDecimal.ROUND_HALF_UP));
+            if (StringUtils.isNotBlank(date2)) {
+                List<Kline> klines2 = KlineService.kline(code2, 1, KLT_101, true, date2, date2, "");
+                if (klines2 != null) {
+                    System.out.println(code2+"[" + date2 + "]:" + klines2.get(0).getZhangDieFu());
+                }
+            }
+
+        }
     }
 
     /**
@@ -167,6 +200,8 @@ public class KlineService {
             } else if (zqdm.startsWith("93")) {
                 //2.931643
                 url.append("2." + zqdm);
+            } else if (zqdm.startsWith("107.")) {
+                url.append(zqdm);//美股
             } else {
 //                || zqdm.startsWith("11")
                 //zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("000")|| zhiShu.startsWith("11")|| zhiShu.startsWith("12")
@@ -283,7 +318,6 @@ public class KlineService {
 
         StringBuffer urlParam = new StringBuffer();
 //        urlParam.append("&StartDate=").append(startDate);
-
 //        System.out.println("请求url:" + randomHttpHead(KLINE_HTTP_HEAD) + url.toString());
         String rs = "";
         try {
@@ -579,13 +613,13 @@ public class KlineService {
 
             StringBuffer sbDay = new StringBuffer();
             sbDay.append("\t").append(zqdm).append("，").append(EtfUtil.handlerEtfName(zqmc));
-            sbDay.append("，["+date+"]涨幅：").append(zhangDieFu).append("%").append("\t");
+            sbDay.append("，[" + date + "]涨幅：").append(zhangDieFu).append("%").append("\t");
             //查询特定日期涨跌幅
             if (spDate != null) {
                 List<Kline> klinesSpDate = KlineService.kline(zqdm, 1, KLT_101, true, spDate, spDate, "");
                 if (klinesSpDate != null && klinesSpDate.size() != 0) {
                     Kline todayKlineSpDate = klinesSpDate.get(0);
-                    sbDay.append("，特定日期["+spDate+"]涨幅：").append(todayKlineSpDate.getZhangDieFu()).append("%").append("\t");
+                    sbDay.append("，特定日期[" + spDate + "]涨幅：").append(todayKlineSpDate.getZhangDieFu()).append("%").append("\t");
                 }
             }
 //            sbDay.append("，日期：").append(date);
