@@ -337,7 +337,7 @@ public class StockDemo {
                 entityDb.setF12(stCode);
                 entityDb.setDate(date);
 
-                entityDb.setFundFlow(rsFundFlow);
+//                entityDb.setFundFlow(rsFundFlow);
                 int updateRs = RankStockCommpanyDao.updateByCode(entityDb);
                 System.out.println("更新结果：" + updateRs + "," + entity.getF14());
             } else {

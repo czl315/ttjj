@@ -354,7 +354,7 @@ public interface RankStockCommpanyMapper {
             "    <if test='f7 != null'>f7=#{f7},</if>",
             "    <if test='f8 != null'>f8=#{f8},</if>",
             "    <if test='f9 != null'>f9=#{f9},</if>",
-            "    <if test='f10 != null'>f6=#{f10},</if>",
+            "    <if test='f10 != null'>f10=#{f10},</if>",
             "    <if test='f15 != null'>f15=#{f15},</if>",
             "    <if test='f16 != null'>f16=#{f16},</if>",
             "    <if test='f20 != null'>f20=#{f20},</if>",
@@ -468,7 +468,7 @@ public interface RankStockCommpanyMapper {
             "    <if test='NET_MA_MO_1_120 != null'>NET_MA_MO_1_120=#{NET_MA_MO_1_120},</if>",
             "    <if test='NET_MA_MO_1_250 != null'>NET_MA_MO_1_250=#{NET_MA_MO_1_250},</if>",
 
-            "    <if test='fundFlow != null'>fundFlow=#{fundFlow},</if>",
+//            "    <if test='fundFlow != null'>fundFlow=#{fundFlow},</if>",
             "  </set>",
             "where date=#{date} AND f12=#{f12}",
 //            "where date>=#{date} AND f12=#{f12}",
