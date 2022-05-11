@@ -2,6 +2,7 @@ package ttjj.service;
 
 import ttjj.dao.StockAdrCountDao;
 import ttjj.db.StockAdrCount;
+import ttjj.db.StockAdrCountVo;
 
 import java.util.List;
 
@@ -56,5 +57,14 @@ public class StockAdrCountService {
         }
 //        System.out.println("批量插入:" + rs);
         return rs;
+    }
+
+    /**
+     * 查询列表-根据条件
+     * @param condition
+     * @return
+     */
+    public static List<StockAdrCount> findListByCondition(StockAdrCountVo condition) {
+        return StockAdrCountDao.findListByCondition(condition);
     }
 }

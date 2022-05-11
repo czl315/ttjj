@@ -6,6 +6,7 @@ import ttjj.dto.StatEtfUpDown;
 import ttjj.service.KlineService;
 import utils.ContentEtf;
 import utils.DateUtil;
+import utils.EtfUtil;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -40,12 +41,25 @@ public class BizEtfControl {
 
         Map<String, String> etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
 
-//            KlineService.checkMa(etfBizMap, KLT_5, maList, date, isUp,null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(etfBizMap, KLT_15, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(etfBizMap, KLT_30, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(etfBizMap, KLT_60, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(etfBizMap, KLT_101, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(etfBizMap, KLT_102, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        for (String zqdm : etfBizMap.keySet()) {
+            String zqmc = etfBizMap.get(zqdm);
+            StringBuffer sbDay = new StringBuffer();
+            sbDay.append("\t").append(zqdm).append("，");
+            sbDay.append("\t").append(EtfUtil.handlerEtfName(zqmc)).append("\t");
+//            sbDay.append("涨幅：").append(zhangDieFu).append("%").append("\t");
+            System.out.print(sbDay);
+            Map<String, String> etfBizMapSub = new HashMap<>();
+            etfBizMapSub.put(zqdm,zqmc);
+            //            KlineService.checkMa(etfBizMap, KLT_5, maList, date, isUp,null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+            KlineService.checkMa(etfBizMapSub, KLT_15, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+            KlineService.checkMa(etfBizMapSub, KLT_30, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+            KlineService.checkMa(etfBizMapSub, KLT_60, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+            KlineService.checkMa(etfBizMapSub, KLT_101, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+            KlineService.checkMa(etfBizMapSub, KLT_102, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+            System.out.println();
+        }
+
+
     }
 
     /**

@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import ttjj.db.StockAdrCount;
+import ttjj.db.StockAdrCountVo;
 
 import java.util.List;
 
@@ -79,12 +80,25 @@ public interface StockAdrCountMapper {
             "       <if test='type_name != null'> ",
             "       AND type_name = #{type_name} ",
             "       </if> ",
-            "   ORDER BY f3 DESC ",
+            "       <if test='order_num != null'> ",
+            "       AND order_num = #{order_num} ",
+            "       </if> ",
+            "       <if test='orderNumList != null'> ",
+            "           AND stock_adr_count.order_num IN  ",
+            "           <foreach collection='orderNumList' item='item' open='(' separator=',' close=')'>  ",
+            "               #{item} ",
+            "           </foreach> ",
+            "       </if> ",
+            "       <if test='ADR_UP_COUNT_SUM_60 != null'> ",
+            "       <![CDATA[ AND ADR_UP_COUNT_SUM_60 >= #{ADR_UP_COUNT_SUM_60} ]]> ",
+            "       </if> ",
+
+//            "   ORDER BY stock_adr_count.ADR_UP_COUNT_SUM_60 DESC ",
+            "   ORDER BY stock_adr_count.ADR_UP_COUNT_60 DESC ",
             "</script>"})
-    List<StockAdrCount> findListByCondition(StockAdrCount condition);
+    List<StockAdrCount> findListByCondition(StockAdrCountVo condition);
 
     /**
-     *
      * @param condition
      * @return
      */

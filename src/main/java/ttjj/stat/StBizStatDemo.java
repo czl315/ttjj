@@ -36,7 +36,8 @@ public class StBizStatDemo {
 
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("0"), new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5"), new BigDecimal("7"), new BigDecimal("9"));
         List<Integer> daysList = Arrays.asList(-90, -60, -30, -14, -7);
-        String reportQuete = "2022Q1";//业绩报表季度
+        String reportQuete = "";//业绩报表季度  2022Q1
+        boolean isShowPriceArea = false;//是否显示价格区间
         long board = DB_RANK_BIZ_F19_BK_MAIN;
         BigDecimal mvLimit = NUM_YI_50;
 
@@ -70,7 +71,7 @@ public class StBizStatDemo {
 
 //        按板块查询
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
-        int limit = 99;//限定个数
+        int limit = NUM_MAX_99;//限定个数
         for (RankBizDataDiff rankBizDataDiff : bizList) {
             if (--limit < 0) {
                 break;
@@ -78,7 +79,7 @@ public class StBizStatDemo {
 //            String biz = "航空机场";//银行  航空机场    证券
             String biz = rankBizDataDiff.getF14();
             List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
-            List<StockAdrCount> stockAdrCountList = showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, reportQuete);//统计涨跌次数
+            List<StockAdrCount> stockAdrCountList = showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, reportQuete, isShowPriceArea);//统计涨跌次数
             System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertListOrUpdate(stockAdrCountList));
 
 //            Map<String, String> zqMap = new HashMap<>();
@@ -252,8 +253,9 @@ public class StBizStatDemo {
      * @param stListLikeConception
      * @param daysList
      * @param conpetions
+     * @param isShowPriceArea
      */
-    private static List<StockAdrCount> showAdrCount(String date, List<RankStockCommpanyDb> stListLikeConception, Long board, BigDecimal mvMin, List<BigDecimal> adrMinList, List<Integer> daysList, String conpetions, String reportQuete) {
+    private static List<StockAdrCount> showAdrCount(String date, List<RankStockCommpanyDb> stListLikeConception, Long board, BigDecimal mvMin, List<BigDecimal> adrMinList, List<Integer> daysList, String conpetions, String reportQuete, boolean isShowPriceArea) {
         List<StockAdrCount> stockAdrCountList = new ArrayList<>();
         Map<String, StockAdrCount> statRsStAdrCountMap = new HashMap<>();
         ExecutorService service = Executors.newCachedThreadPool();// 创建一个的线程池
@@ -308,10 +310,10 @@ public class StBizStatDemo {
             BigDecimal stAdrCount = statRsStAdrCount.getADR_UP_COUNT_SUM_60();
 
             RankStockCommpanyDb rankStockCommpanyDb = stDbMap.get(stCode);
-            String biz = formatBizName(rankStockCommpanyDb.getType_name());
-            String adr = formatDouble(rankStockCommpanyDb.getF3());
-            String liangBi = formatDouble(rankStockCommpanyDb.getF10());
-            String stName = handlerStName(rankStockCommpanyDb.getF14());
+            String biz = StockUtil.formatBizName(rankStockCommpanyDb.getType_name());
+            String adr = StockUtil.formatDouble(rankStockCommpanyDb.getF3());
+            String liangBi = StockUtil.formatDouble(rankStockCommpanyDb.getF10());
+            String stName = StockUtil.handlerStName(rankStockCommpanyDb.getF14());
             Double curPrice = rankStockCommpanyDb.getF2();
             BigDecimal marketValue = null;
             if (rankStockCommpanyDb.getF20() != null) {
@@ -334,18 +336,22 @@ public class StBizStatDemo {
             System.out.print(sb);
 //                System.out.println("mapTemp.put(\"" + stCode + "\", \"" + stName.replace(" ","") + "\");//" + stCode + " " + stName + " " + stAdrCount + " " + biz + " ");
 
-            StringBuffer maSb = new StringBuffer();
             RankStockCommpanyDb stock = new RankStockCommpanyDb();
             stock.setF12(statRsStAdrCount.getF12());
-            Map<String, Boolean> maUpdateMap = new HashMap<>();
-            StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
-            StockDemo.handlerNetMa(stock, maUpdateMap, date, maSb);//处理均线净值
+            StringBuffer maSb = new StringBuffer();
+            if (isShowPriceArea) {
+                Map<String, Boolean> maUpdateMap = new HashMap<>();
+                StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
+                StringBuffer sbPriceArea = new StringBuffer();
+                StockDemo.handlerNetMa(stock, maUpdateMap, date, sbPriceArea);//处理均线净值
+//            maSb.append("\t").append(",当前价：").append(curPrice);
+//            maSb.append("\t").append(",当前：").append(DateUtil.getToday(DateUtil.YYYY_MM_DD_HH_MM_SS));
+                System.out.println("价格区间:" + sbPriceArea.toString());
+            }
             if (StringUtils.isNotBlank(reportQuete)) {
                 handlerReport(maSb, stock, reportQuete);
             }
-//            maSb.append("\t").append(",当前价：").append(curPrice);
-//            maSb.append("\t").append(",当前：").append(DateUtil.getToday(DateUtil.YYYY_MM_DD_HH_MM_SS));
-            System.out.println("价格区间:" + maSb.toString());
+            System.out.println();
 
             statRsStAdrCount.setType_name(rankStockCommpanyDb.getType_name());
             statRsStAdrCount.setConception(rankStockCommpanyDb.getConception());
@@ -400,60 +406,10 @@ public class StBizStatDemo {
         }
     }
 
-    private static String formatDouble(BigDecimal f3) {
-        if (f3 == null) {
-            return null;
-        }
-        String f3Str = f3.toString();
-        if (f3Str.length() == 3) {
-            return f3Str + " ";
-        }
-        if (f3Str.length() <= 2) {
-            return f3Str + "   ";
-        }
-        return f3Str;
-    }
 
-    /**
-     * @param name
-     */
-    private static String handlerStName(String name) {
-        if (name.length() <= 2) {
-            name = name + "    ";
-        }
-        if (name.length() > 2 && name.length() < 4) {
-            name = name + "  ";
-        }
-        if (name.startsWith("*ST")) {
-            name = name + " ";
-        }
-        if (name.startsWith("ST")) {
-            name = name + "  ";
-        }
-        return name;
-    }
 
-    /**
-     * 格式化名称-业务
-     *
-     * @param name
-     * @return
-     */
-    private static String formatBizName(String name) {
-        if (name.length() == 2) {
-            name = name + "        ";
-        }
-        if (name.length() == 3) {
-            name = name + "      ";
-        }
-        if (name.length() == 4) {
-            name = name + "    ";
-        }
-        if (name.length() == 5) {
-            name = name + "  ";
-        }
-        return name;
-    }
+
+
 
     /**
      * 统计涨跌次数

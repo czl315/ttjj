@@ -3,6 +3,9 @@ package ttjj.dao;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import ttjj.db.StockAdrCount;
+import ttjj.db.StockAdrCountVo;
+
+import java.util.List;
 
 public class StockAdrCountDao {
     /**
@@ -40,6 +43,25 @@ public class StockAdrCountDao {
         try {
             rs = session.selectOne("ttjj.dao.mapper.StockAdrCountMapper.findByCondition", condition);
             session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * 查询列表-根据条件
+     * @param condition
+     * @return
+     */
+    public static List<StockAdrCount> findListByCondition(StockAdrCountVo condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<StockAdrCount> rs = null;
+        try {
+            rs = session.selectList("ttjj.dao.mapper.StockAdrCountMapper.findListByCondition", condition);
+            session.commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         } finally {
             session.close();
         }
