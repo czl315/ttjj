@@ -40,8 +40,9 @@ public class StBizStatDemo {
         long board = DB_RANK_BIZ_F19_BK_MAIN;
         BigDecimal mvLimit = NUM_YI_50;
 
-//        String conceptions = "体外诊断";//医疗-新冠：新冠检测,新冠药物,体外诊断
-        String conceptions = "鸿蒙概念";//科技-软件：华为欧拉,鸿蒙概念
+        {
+            //        String conceptions = "体外诊断";//医疗-新冠：新冠检测,新冠药物,体外诊断
+            String conceptions = "鸿蒙概念";//科技-软件：华为欧拉,鸿蒙概念
 //                String conceptions = "国资云概念";//科技-数字经济:数字货币,智慧政务,国资云概念,电子车牌,数据安全,eSIM,电子身份证,东数西算,ETC,VPN,数据中心,云计算,边缘计算,网络安全,华为昇腾,数字经济,跨境支付,移动支付,区块链,京东金融,       ["eSIM"]：5;
 //                String conceptions = "华为欧拉";//科技-传媒：华为欧拉,广电,NFT概念,虚拟数字人,快手概念,手游概念,元宇宙概念,盲盒经济
 
@@ -57,7 +58,7 @@ public class StBizStatDemo {
 //        String conceptions = "滨海新区";//地区板块:沪企改革,上海自贸,滨海新区
 
 //        String conceptions = "上证50_";//指数:上证50_,HS300_,茅指数
-
+        }
 //        List<RankStockCommpanyDb> stList = StockService.listlikeConception(date, conceptions, board, mvLimit);//查询股票列表-根据概念
 //        showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, conceptions, reportQuete);//统计涨跌次数
 //
@@ -69,13 +70,13 @@ public class StBizStatDemo {
 
 //        按板块查询
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
-        int limit = 1;//限定个数
+        int limit = 99;//限定个数
         for (RankBizDataDiff rankBizDataDiff : bizList) {
             if (--limit < 0) {
                 break;
             }
-            String biz = "航空机场";//银行  航空机场    证券
-//            String biz = rankBizDataDiff.getF14();
+//            String biz = "航空机场";//银行  航空机场    证券
+            String biz = rankBizDataDiff.getF14();
             List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
             List<StockAdrCount> stockAdrCountList = showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, reportQuete);//统计涨跌次数
             System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertListOrUpdate(stockAdrCountList));
@@ -490,7 +491,7 @@ public class StBizStatDemo {
                     if (countOldTemp != null) {
                         stMapDtoOld.setADR_UP_COUNT_5(countOldTemp.add(stAdrCount.getCount()));
                     } else {
-                        stMapDtoOld.setADR_UP_COUNT_5(stAdrCount.getCount());
+                        stMapDtoOld.setADR_UP_COUNT_5(stAdrCount.getCount() != null ? stAdrCount.getCount() : new BigDecimal("0"));
                     }
                 }
                 if (days == -14) {
@@ -498,7 +499,7 @@ public class StBizStatDemo {
                     if (countOldTemp != null) {
                         stMapDtoOld.setADR_UP_COUNT_10(countOldTemp.add(stAdrCount.getCount()));
                     } else {
-                        stMapDtoOld.setADR_UP_COUNT_10(stAdrCount.getCount());
+                        stMapDtoOld.setADR_UP_COUNT_10(stAdrCount.getCount() != null ? stAdrCount.getCount() : new BigDecimal("0"));
                     }
                 }
                 if (days == -30) {
@@ -506,7 +507,7 @@ public class StBizStatDemo {
                     if (countOldTemp != null) {
                         stMapDtoOld.setADR_UP_COUNT_20(countOldTemp.add(stAdrCount.getCount()));
                     } else {
-                        stMapDtoOld.setADR_UP_COUNT_20(stAdrCount.getCount());
+                        stMapDtoOld.setADR_UP_COUNT_20(stAdrCount.getCount() != null ? stAdrCount.getCount() : new BigDecimal("0"));
                     }
                 }
                 if (days == -60) {
@@ -514,7 +515,7 @@ public class StBizStatDemo {
                     if (countOldTemp != null) {
                         stMapDtoOld.setADR_UP_COUNT_40(countOldTemp.add(stAdrCount.getCount()));
                     } else {
-                        stMapDtoOld.setADR_UP_COUNT_40(stAdrCount.getCount());
+                        stMapDtoOld.setADR_UP_COUNT_40(stAdrCount.getCount() != null ? stAdrCount.getCount() : new BigDecimal("0"));
                     }
                 }
                 if (days == -90) {
@@ -522,7 +523,7 @@ public class StBizStatDemo {
                     if (countOldTemp != null) {
                         stMapDtoOld.setADR_UP_COUNT_60(countOldTemp.add(stAdrCount.getCount()));
                     } else {
-                        stMapDtoOld.setADR_UP_COUNT_60(stAdrCount.getCount());
+                        stMapDtoOld.setADR_UP_COUNT_60(stAdrCount.getCount() != null ? stAdrCount.getCount() : new BigDecimal("0"));
                     }
                 }
                 statRsStAdrCountMap.put(code, stMapDtoOld);
