@@ -253,6 +253,10 @@ public class Content {
      */
     public static int MA_30 = 30;
     /**
+     * MA_40
+     */
+    public static int MA_40 = 40;
+    /**
      * MA_60
      */
     public static int MA_60 = 60;

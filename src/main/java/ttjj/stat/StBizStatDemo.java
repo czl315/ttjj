@@ -31,7 +31,7 @@ import static utils.Content.*;
 public class StBizStatDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-04-29";
+//        String date = "2022-05-11";
 //        showGianNian(date);//显示概念涨幅排行榜
 
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("0"), new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5"), new BigDecimal("7"), new BigDecimal("9"));
@@ -72,12 +72,14 @@ public class StBizStatDemo {
 //        按板块查询
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
         int limit = NUM_MAX_99;//限定个数
+        int stBizCountTemp = 0;
         for (RankBizDataDiff rankBizDataDiff : bizList) {
             if (--limit < 0) {
                 break;
             }
-//            String biz = "航空机场";//银行  航空机场    证券
+//            String biz = "化学制药";//银行  航空机场    证券
             String biz = rankBizDataDiff.getF14();
+            System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz );
             List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
             List<StockAdrCount> stockAdrCountList = showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, reportQuete, isShowPriceArea);//统计涨跌次数
             System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertListOrUpdate(stockAdrCountList));
@@ -306,10 +308,10 @@ public class StBizStatDemo {
         for (StockAdrCount statRsStAdrCount : statRsStAdrCountList) {
             StringBuffer sb = new StringBuffer();
 //                System.out.println(JSON.toJSONString(statRsStAdrCount));
-            String stCode = statRsStAdrCount.getF12();
+            String zqdm = statRsStAdrCount.getF12();
             BigDecimal stAdrCount = statRsStAdrCount.getADR_UP_COUNT_SUM_60();
 
-            RankStockCommpanyDb rankStockCommpanyDb = stDbMap.get(stCode);
+            RankStockCommpanyDb rankStockCommpanyDb = stDbMap.get(zqdm);
             String biz = StockUtil.formatBizName(rankStockCommpanyDb.getType_name());
             String adr = StockUtil.formatDouble(rankStockCommpanyDb.getF3());
             String liangBi = StockUtil.formatDouble(rankStockCommpanyDb.getF10());
@@ -325,7 +327,7 @@ public class StBizStatDemo {
             if (ConceptionUtil.stConceptionMap.get(conpetions) != null) {
                 concepPinYin = ConceptionUtil.stConceptionMap.get(conpetions);
             }
-            System.out.print(concepPinYin + ".put(\"" + stCode + "\", \"" + stName + "\");//");//map  map.put("002432", "");//002432	九安医疗	医疗器械
+            System.out.print(concepPinYin + ".put(\"" + zqdm + "\", \"" + stName + "\");//");//map  map.put("002432", "");//002432	九安医疗	医疗器械
 //            sb.append(stCode).append("\t");
 //            sb.append(stName).append("\t");
             sb.append(stAdrCount).append("\t");
@@ -373,6 +375,15 @@ public class StBizStatDemo {
             statRsStAdrCount.setF18(rankStockCommpanyDb.getF18());
             statRsStAdrCount.setF20(rankStockCommpanyDb.getF20());
             statRsStAdrCount.setF21(rankStockCommpanyDb.getF21());
+
+            //处理价格区间
+            statRsStAdrCount.setNET_AREA_DAY_5(KlineService.handlerPriceAreaRate(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+            statRsStAdrCount.setNET_AREA_DAY_10(KlineService.handlerPriceAreaRate(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+            statRsStAdrCount.setNET_AREA_DAY_20(KlineService.handlerPriceAreaRate(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+            statRsStAdrCount.setNET_AREA_DAY_40(KlineService.handlerPriceAreaRate(zqdm, MA_40, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+            statRsStAdrCount.setNET_AREA_DAY_60(KlineService.handlerPriceAreaRate(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+            statRsStAdrCount.setNET_AREA_DAY_120(KlineService.handlerPriceAreaRate(zqdm, MA_120, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+            statRsStAdrCount.setNET_AREA_DAY_250(KlineService.handlerPriceAreaRate(zqdm, MA_250, KLT_101, false, "", date, KLINE_TYPE_STOCK));
 
             orderNum = orderNum.add(new BigDecimal("1"));
             statRsStAdrCount.setOrder_num(orderNum);

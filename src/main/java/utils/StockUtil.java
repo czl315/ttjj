@@ -21,6 +21,9 @@ public class StockUtil {
             name = name + " ";
         }
         if (name.startsWith("ST")) {
+            name = name + " ";
+        }
+        if (name.startsWith("A")) {
             name = name + "  ";
         }
         return name;

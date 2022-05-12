@@ -120,6 +120,35 @@ public class StockAdrCount {
      */
     private BigDecimal ADR_UP_COUNT_SUM_60;
 
+    /**
+     * NET_AREA_DAY_5 净值区间
+     */
+    private BigDecimal NET_AREA_DAY_5;
+    /**
+     * NET_AREA_DAY_10
+     */
+    private BigDecimal NET_AREA_DAY_10;
+    /**
+     * NET_AREA_DAY_20
+     */
+    private BigDecimal NET_AREA_DAY_20;
+    /**
+     * NET_AREA_DAY_40
+     */
+    private BigDecimal NET_AREA_DAY_40;
+    /**
+     * NET_AREA_DAY_60
+     */
+    private BigDecimal NET_AREA_DAY_60;
+    /**
+     * NET_AREA_DAY_120
+     */
+    private BigDecimal NET_AREA_DAY_120;
+    /**
+     * NET_AREA_DAY_250
+     */
+    private BigDecimal NET_AREA_DAY_250;
+
     public String getDate() {
         return date;
     }
@@ -334,5 +363,61 @@ public class StockAdrCount {
 
     public void setADR_UP_COUNT_SUM_60(BigDecimal ADR_UP_COUNT_SUM_60) {
         this.ADR_UP_COUNT_SUM_60 = ADR_UP_COUNT_SUM_60;
+    }
+
+    public BigDecimal getNET_AREA_DAY_5() {
+        return NET_AREA_DAY_5;
+    }
+
+    public void setNET_AREA_DAY_5(BigDecimal NET_AREA_DAY_5) {
+        this.NET_AREA_DAY_5 = NET_AREA_DAY_5;
+    }
+
+    public BigDecimal getNET_AREA_DAY_10() {
+        return NET_AREA_DAY_10;
+    }
+
+    public void setNET_AREA_DAY_10(BigDecimal NET_AREA_DAY_10) {
+        this.NET_AREA_DAY_10 = NET_AREA_DAY_10;
+    }
+
+    public BigDecimal getNET_AREA_DAY_20() {
+        return NET_AREA_DAY_20;
+    }
+
+    public void setNET_AREA_DAY_20(BigDecimal NET_AREA_DAY_20) {
+        this.NET_AREA_DAY_20 = NET_AREA_DAY_20;
+    }
+
+    public BigDecimal getNET_AREA_DAY_40() {
+        return NET_AREA_DAY_40;
+    }
+
+    public void setNET_AREA_DAY_40(BigDecimal NET_AREA_DAY_40) {
+        this.NET_AREA_DAY_40 = NET_AREA_DAY_40;
+    }
+
+    public BigDecimal getNET_AREA_DAY_60() {
+        return NET_AREA_DAY_60;
+    }
+
+    public void setNET_AREA_DAY_60(BigDecimal NET_AREA_DAY_60) {
+        this.NET_AREA_DAY_60 = NET_AREA_DAY_60;
+    }
+
+    public BigDecimal getNET_AREA_DAY_120() {
+        return NET_AREA_DAY_120;
+    }
+
+    public void setNET_AREA_DAY_120(BigDecimal NET_AREA_DAY_120) {
+        this.NET_AREA_DAY_120 = NET_AREA_DAY_120;
+    }
+
+    public BigDecimal getNET_AREA_DAY_250() {
+        return NET_AREA_DAY_250;
+    }
+
+    public void setNET_AREA_DAY_250(BigDecimal NET_AREA_DAY_250) {
+        this.NET_AREA_DAY_250 = NET_AREA_DAY_250;
     }
 }

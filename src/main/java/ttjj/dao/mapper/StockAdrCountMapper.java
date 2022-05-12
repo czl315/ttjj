@@ -24,14 +24,16 @@ public interface StockAdrCountMapper {
             ",`f10`, `f12`, `f14`, `f15`, `f16` ",
             ",`f17`, `f18`, `f20`, `f21`, `order_num` ",
             ",`conception`, `ADR_UP_COUNT_5`, `ADR_UP_COUNT_10`, `ADR_UP_COUNT_20`, `ADR_UP_COUNT_40` ",
-            ",`ADR_UP_COUNT_60`, `ADR_UP_COUNT_SUM_60`",
+            ",`ADR_UP_COUNT_60`, `ADR_UP_COUNT_SUM_60`,`NET_AREA_DAY_5`, `NET_AREA_DAY_10`, `NET_AREA_DAY_20`",
+            ", `NET_AREA_DAY_40`, `NET_AREA_DAY_60`, `NET_AREA_DAY_120`, `NET_AREA_DAY_250`",
             ") VALUES (",
             "#{date},#{type_name},#{f2},#{f3},#{f4}",
             ",#{f5},#{f6},#{f7},#{f8},#{f9}",
             ",#{f10},#{f12},#{f14},#{f15},#{f16}",
             ",#{f17},#{f18},#{f20},#{f21},#{order_num}",
             ",#{conception},#{ADR_UP_COUNT_5},#{ADR_UP_COUNT_10},#{ADR_UP_COUNT_20},#{ADR_UP_COUNT_40}",
-            ",#{ADR_UP_COUNT_60}, #{ADR_UP_COUNT_SUM_60}",
+            ",#{ADR_UP_COUNT_60}, #{ADR_UP_COUNT_SUM_60},#{NET_AREA_DAY_5}, #{NET_AREA_DAY_10}, #{NET_AREA_DAY_20}",
+            ",#{NET_AREA_DAY_40}, #{NET_AREA_DAY_60}, #{NET_AREA_DAY_120}, #{NET_AREA_DAY_250}",
             ");",
             "</script>"})
     int insert(StockAdrCount entity);

@@ -1,11 +1,14 @@
 package ttjj.stat;
 
+import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.db.StockAdrCount;
 import ttjj.db.StockAdrCountVo;
+import ttjj.dto.DateCond;
 import ttjj.rank.StockDemo;
 import ttjj.service.KlineService;
 import ttjj.service.StockAdrCountService;
+import utils.DateUtil;
 import utils.StockUtil;
 
 import java.math.BigDecimal;
@@ -21,13 +24,45 @@ import static utils.Content.*;
  */
 public class StockAdrCountDemo {
     public static void main(String[] args) {
-//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-        String date = "2022-05-10";
+        statStockAdrCount(-1, -1);//统计股票涨跌次数:0,0为当天
+//        statStockAdrCountBatch(10);//统计股票涨跌次数:0,0为当天
+
+    }
+
+    /**
+     * 统计股票涨跌次数:批量
+     *
+     * @param days 天数
+     */
+    private static void statStockAdrCountBatch(int days) {
+        for (int i = 0; i <= days; i++) {
+            statStockAdrCount((i + 1), i);
+        }
+    }
+
+    /**
+     * 统计股票涨跌次数
+     */
+    private static void statStockAdrCount(int maDateInt, int spDateInt) {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-05-10";
         boolean isShowPriceArea = true;//是否显示价格区间
+//        boolean isShowPriceArea = false;//是否显示价格区间
         String biz = "银行";
+        String maDate = date;
+        String spDate = date;
+        if (maDateInt >= 0 && spDateInt >= 0) {
+            List<String> dateListBefore = RankStockCommpanyDao.findListDateBefore(new DateCond(date, 20));
+            maDate = dateListBefore.get(maDateInt);
+            spDate = dateListBefore.get(spDateInt);
+        }
+
+        int overCount = 0;//第二天上涨个数
+        int downCount = 0;//第二天下跌个数
 
         List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"));
-//        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("4"));
+//        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"));
+//        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"));
         BigDecimal adrUpCountSum60Limit = new BigDecimal("0");
         StockAdrCountVo condition = new StockAdrCountVo();
         condition.setDate(date);
@@ -57,25 +92,19 @@ public class StockAdrCountDemo {
 
             Map<String, String> zqMap = new HashMap<>();
             zqMap.put(stockAdrCount.getF12(), stockAdrCount.getF14());
+//            zqMap.put("002594", "比亚迪");
             boolean isUp = true;//检查上涨
             List<Integer> maList = new ArrayList<>();
 //        maList.add(MA_30);
             maList.add(MA_60);
-
-//            KlineService.checkMa(zqMap, KLT_15, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-//            KlineService.checkMa(zqMap, KLT_30, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-//            KlineService.checkMa(zqMap, KLT_60, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-//            KlineService.checkMa(zqMap, KLT_101, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-//            KlineService.checkMa(zqMap, KLT_102, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-
 //            String maDate = date;
-            String maDate = "2022-05-09";
-            StringBuffer sbMa15 = KlineService.showUpMa(stock, KLT_15, maList, maDate, isUp);//显示信息-上涨均线
-            StringBuffer sbMa30 = KlineService.showUpMa(stock, KLT_30, maList, maDate, isUp);//显示信息-上涨均线
-            StringBuffer sbMa60 = KlineService.showUpMa(stock, KLT_60, maList, maDate, isUp);//显示信息-上涨均线
-            StringBuffer sbMa101 = KlineService.showUpMa(stock, KLT_101, maList, maDate, isUp);//显示信息-上涨均线
-            StringBuffer sbMa102 = KlineService.showUpMa(stock, KLT_102, maList, maDate, isUp);//显示信息-上涨均线
-            StringBuffer sbMa = new StringBuffer(sbMa15).append(sbMa30).append(sbMa60).append(sbMa101).append(sbMa102);
+
+            boolean isMa15 = KlineService.showUpMa(stock, KLT_15, maList, maDate, isUp);//显示信息-上涨均线
+            boolean isMa30 = KlineService.showUpMa(stock, KLT_30, maList, maDate, isUp);//显示信息-上涨均线
+            boolean isMa60 = KlineService.showUpMa(stock, KLT_60, maList, maDate, isUp);//显示信息-上涨均线
+            boolean isMa101 = KlineService.showUpMa(stock, KLT_101, maList, maDate, isUp);//显示信息-上涨均线
+            boolean isMa102 = KlineService.showUpMa(stock, KLT_102, maList, maDate, isUp);//显示信息-上涨均线
+            boolean isHasMa = isMa15 || isMa30 || isMa60 || isMa101 || isMa102;
 
 //            System.out.print(sbStockAdrCount);//显示信息-涨幅次数
 //            System.out.print("价格区间:" + sbPriceArea.toString());//显示信息-价格区间
@@ -84,34 +113,52 @@ public class StockAdrCountDemo {
 //            String spDate = "2022-05-11";
 //            System.out.print(KlineService.showDateF3(spDate, stock));
 //            System.out.println();
-            if (sbMa.length() > 0) {//只显示超过均线的
-                System.out.print(sbStockAdrCount);//显示信息-涨幅次数
-                System.out.print(sbPriceArea.toString());//显示信息-价格区间
-                if(sbMa15.length() == 0){
-                    sbMa15 = new StringBuffer("---");
+            if (isHasMa) {//只显示超过均线的
+                StringBuffer sbMa15 = new StringBuffer("----");
+                StringBuffer sbMa30 = new StringBuffer("----");
+                StringBuffer sbMa60 = new StringBuffer("----");
+                StringBuffer sbMa101 = new StringBuffer("----");
+                StringBuffer sbMa102 = new StringBuffer("----");
+                if (isMa15) {
+                    sbMa15 = new StringBuffer("15  ");
                 }
-                if(sbMa30.length() == 0){
-                    sbMa30 = new StringBuffer("---");
+                if (isMa30) {
+                    sbMa30 = new StringBuffer("30  ");
                 }
-                if(sbMa60.length() == 0){
-                    sbMa60 = new StringBuffer("---");
+                if (isMa60) {
+                    sbMa60 = new StringBuffer("60  ");
                 }
-                if(sbMa101.length() == 0){
-                    sbMa101 = new StringBuffer("---");
+                if (isMa101) {
+                    sbMa101 = new StringBuffer("101 ");
                 }
-                if(sbMa102.length() == 0){
-                    sbMa102 = new StringBuffer("---");
+                if (isMa102) {
+                    sbMa102 = new StringBuffer("102 ");
                 }
-                sbMa = new StringBuffer(sbMa15).append(sbMa30).append(sbMa60).append(sbMa101).append(sbMa102);
-                System.out.print("超均线"+maDate+":" +sbMa);
-                System.out.print(KlineService.showDateF3(maDate, stock));
-                String spDate = "2022-05-10";
-                System.out.print(KlineService.showDateF3(spDate, stock));
-                System.out.println();
+
+//                if(isMa60){
+                if (isMa30 && isMa60) {
+                    System.out.print(sbStockAdrCount);//显示信息-涨幅次数
+                    System.out.print(sbPriceArea.toString());//显示信息-价格区间
+                    StringBuffer sbMa = new StringBuffer(sbMa15).append(sbMa30).append(sbMa60).append(sbMa101).append(sbMa102);
+                    System.out.print("超均线" + maDate + ":" + sbMa);
+
+                    BigDecimal maDateF3 = KlineService.showDateF3(maDate, stock);
+                    BigDecimal spDateF3 = KlineService.showDateF3(spDate, stock);
+                    System.out.print("[" + maDate + "]：" + maDateF3 + "\t");
+                    System.out.print("[" + spDate + "]：" + spDateF3);
+                    System.out.println();
+
+
+                    if (spDateF3.compareTo(new BigDecimal("0")) > 0) {
+                        overCount++;
+                    } else {
+                        downCount++;
+                    }
+                }
             }
-
-
         }
+        System.out.println("第二天上涨-下跌比:" + overCount + ":" + downCount);
+        System.out.println();
 
 //        StockStatDemo.checkMaDemo(zqMap, date);
 
