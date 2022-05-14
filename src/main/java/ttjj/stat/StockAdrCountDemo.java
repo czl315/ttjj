@@ -1,5 +1,6 @@
 package ttjj.stat;
 
+import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.db.StockAdrCount;
@@ -48,7 +49,12 @@ public class StockAdrCountDemo {
 //        String date = "2022-05-10";
         boolean isShowPriceArea = true;//是否显示价格区间
 //        boolean isShowPriceArea = false;//是否显示价格区间
+//        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"));
+        List<BigDecimal> orderNumList = null;
+//        List<Boolean> upMaList = Arrays.asList(false,true,true);//判断是否超过均线列表：15,30,60
+        List<Boolean> upMaList = null;//判断是否超过均线列表：15,30,60
         String biz = "银行";
+        String orderBy = " ADR_UP_COUNT_5 DESC ";//排序
         String maDate = date;
         String spDate = date;
         if (maDateInt >= 0 && spDateInt >= 0) {
@@ -60,7 +66,6 @@ public class StockAdrCountDemo {
         int overCount = 0;//第二天上涨个数
         int downCount = 0;//第二天下跌个数
 
-        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"));
 //        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"));
 //        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"));
         BigDecimal adrUpCountSum60Limit = new BigDecimal("0");
@@ -68,7 +73,10 @@ public class StockAdrCountDemo {
         condition.setDate(date);
         condition.setOrderNumList(orderNumList);
         condition.setADR_UP_COUNT_SUM_60(adrUpCountSum60Limit);
-//        condition.setType_name(biz);
+        condition.setOrderBy(orderBy);
+        if (StringUtils.isNotBlank(biz)) {
+            condition.setType_name(biz);
+        }
         List<StockAdrCount> stockAdrCountList = StockAdrCountService.findListByCondition(condition);
         for (StockAdrCount stockAdrCount : stockAdrCountList) {
             StringBuffer sbStockAdrCount = new StringBuffer();
@@ -135,25 +143,37 @@ public class StockAdrCountDemo {
                     sbMa102 = new StringBuffer("102 ");
                 }
 
+                //判断是否超过均线列表：15,30,60
+                boolean isUpMa = false;
+                if (upMaList != null && upMaList.size() > 0) {
+                    isUpMa = isMa30 && isMa60;
+                }
 //                if(isMa60){
-                if (isMa30 && isMa60) {
+                if (isUpMa) {
                     System.out.print(sbStockAdrCount);//显示信息-涨幅次数
                     System.out.print(sbPriceArea.toString());//显示信息-价格区间
                     StringBuffer sbMa = new StringBuffer(sbMa15).append(sbMa30).append(sbMa60).append(sbMa101).append(sbMa102);
                     System.out.print("超均线" + maDate + ":" + sbMa);
-
                     BigDecimal maDateF3 = KlineService.showDateF3(maDate, stock);
                     BigDecimal spDateF3 = KlineService.showDateF3(spDate, stock);
                     System.out.print("[" + maDate + "]：" + maDateF3 + "\t");
                     System.out.print("[" + spDate + "]：" + spDateF3);
                     System.out.println();
-
-
                     if (spDateF3.compareTo(new BigDecimal("0")) > 0) {
                         overCount++;
                     } else {
                         downCount++;
                     }
+                } else {
+                    System.out.print(sbStockAdrCount);//显示信息-涨幅次数
+                    System.out.print(sbPriceArea.toString());//显示信息-价格区间
+                    StringBuffer sbMa = new StringBuffer(sbMa15).append(sbMa30).append(sbMa60).append(sbMa101).append(sbMa102);
+                    System.out.print("超均线" + maDate + ":" + sbMa);
+                    BigDecimal maDateF3 = KlineService.showDateF3(maDate, stock);
+                    BigDecimal spDateF3 = KlineService.showDateF3(spDate, stock);
+                    System.out.print("[" + maDate + "]：" + maDateF3 + "\t");
+                    System.out.print("[" + spDate + "]：" + spDateF3);
+                    System.out.println();
                 }
             }
         }

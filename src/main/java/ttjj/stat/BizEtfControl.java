@@ -1,8 +1,10 @@
 package ttjj.stat;
 
 import ttjj.dao.BizRankDao;
+import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.StatEtfUpDown;
+import ttjj.rank.StockDemo;
 import ttjj.service.KlineService;
 import utils.ContentEtf;
 import utils.DateUtil;
@@ -21,8 +23,9 @@ public class BizEtfControl {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-03-28";
+        boolean isShowPriceArea = true;//是否显示价格区间
 
-        checkMaDemo(date);
+        checkMaDemo(date, isShowPriceArea);
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
     }
 
@@ -30,8 +33,9 @@ public class BizEtfControl {
      * 检查均线
      *
      * @param date
+     * @param isShowPriceArea 是否显示价格区间
      */
-    private static void checkMaDemo(String date) {
+    private static void checkMaDemo(String date, boolean isShowPriceArea) {
         boolean isUp = true;//检查上涨
 //        boolean isUp = false;
 
@@ -44,18 +48,32 @@ public class BizEtfControl {
         for (String zqdm : etfBizMap.keySet()) {
             String zqmc = etfBizMap.get(zqdm);
             StringBuffer sbDay = new StringBuffer();
-            sbDay.append("\t").append(zqdm).append("，");
-            sbDay.append("\t").append(EtfUtil.handlerEtfName(zqmc)).append("\t");
+            sbDay.append(zqdm).append("\t");
+            sbDay.append("\t[").append(EtfUtil.handlerEtfName(zqmc)).append("]\t");
 //            sbDay.append("涨幅：").append(zhangDieFu).append("%").append("\t");
             System.out.print(sbDay);
             Map<String, String> etfBizMapSub = new HashMap<>();
-            etfBizMapSub.put(zqdm,zqmc);
+            etfBizMapSub.put(zqdm, zqmc);
+
+            //净值
+            if (isShowPriceArea) {
+                RankStockCommpanyDb stock = new RankStockCommpanyDb();
+                stock.setF12(zqdm);
+                StringBuffer sbPriceArea = new StringBuffer();
+                Map<String, Boolean> maUpdateMap = new HashMap<>();
+                StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
+                StockDemo.handlerNetMa(stock, maUpdateMap, date, sbPriceArea);//处理均线净值
+                System.out.print(sbPriceArea.toString() + "\t");//显示信息-价格区间
+            }
+
+            System.out.print("超过均线：");//显示信息-价格区间
             //            KlineService.checkMa(etfBizMap, KLT_5, maList, date, isUp,null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
             KlineService.checkMa(etfBizMapSub, KLT_15, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
             KlineService.checkMa(etfBizMapSub, KLT_30, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
             KlineService.checkMa(etfBizMapSub, KLT_60, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
             KlineService.checkMa(etfBizMapSub, KLT_101, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
             KlineService.checkMa(etfBizMapSub, KLT_102, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+
             System.out.println();
         }
 

@@ -95,8 +95,11 @@ public interface StockAdrCountMapper {
             "       <![CDATA[ AND ADR_UP_COUNT_SUM_60 >= #{ADR_UP_COUNT_SUM_60} ]]> ",
             "       </if> ",
 
+            "       <if test='orderBy != null '> ",
+            "        ORDER BY  ${orderBy} ",
+            "       </if> ",
 //            "   ORDER BY stock_adr_count.ADR_UP_COUNT_SUM_60 DESC ",
-            "   ORDER BY stock_adr_count.ADR_UP_COUNT_60 DESC ",
+//            "   ORDER BY stock_adr_count.ADR_UP_COUNT_60 DESC ",
             "</script>"})
     List<StockAdrCount> findListByCondition(StockAdrCountVo condition);
 

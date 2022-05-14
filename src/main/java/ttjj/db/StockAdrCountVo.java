@@ -15,11 +15,24 @@ public class StockAdrCountVo extends StockAdrCount {
      */
     private List<BigDecimal> orderNumList;
 
+    /**
+     * orderBy 排序字段
+     */
+    private String orderBy;
+
     public List<BigDecimal> getOrderNumList() {
         return orderNumList;
     }
 
     public void setOrderNumList(List<BigDecimal> orderNumList) {
         this.orderNumList = orderNumList;
+    }
+
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
     }
 }

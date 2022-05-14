@@ -48,7 +48,7 @@ public class RankStComTjCond {
     private String plate;
 
     /**
-     * orderBy 排序
+     * orderBy 排序字段
      */
     private String orderBy;
 
