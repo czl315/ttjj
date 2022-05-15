@@ -203,7 +203,7 @@ public class KlineService {
                 url.append("2." + zqdm);
             } else if (zqdm.startsWith("107.")) {
                 url.append(zqdm);//美股
-            } if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI)||zqdm.startsWith(HTTP_KLINE_TYPE_BK_REFIX)) {//板块
+            } else if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI)||zqdm.startsWith(HTTP_KLINE_TYPE_BK_REFIX)) {//板块
                 if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI)) {//板块
                     url.append(zqdm);//secid: 90.BK0438
                 } else {

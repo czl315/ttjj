@@ -46,15 +46,15 @@ public class StockAdrCountDemo {
      */
     private static void statStockAdrCount(int maDateInt, int spDateInt) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-05-10";
+//        String date = "2022-05-13";
         boolean isShowPriceArea = true;//是否显示价格区间
 //        boolean isShowPriceArea = false;//是否显示价格区间
 //        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"));
         List<BigDecimal> orderNumList = null;
 //        List<Boolean> upMaList = Arrays.asList(false,true,true);//判断是否超过均线列表：15,30,60
         List<Boolean> upMaList = null;//判断是否超过均线列表：15,30,60
-        String biz = "银行";
-        String orderBy = " ADR_UP_COUNT_5 DESC ";//排序
+        String biz = "化肥行业";//化肥行业
+        String orderBy = " ADR_UP_COUNT_5 DESC ";//排序   ADR_UP_COUNT_5 DESC
         String maDate = date;
         String spDate = date;
         if (maDateInt >= 0 && spDateInt >= 0) {

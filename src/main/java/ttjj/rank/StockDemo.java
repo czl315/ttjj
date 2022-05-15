@@ -1179,7 +1179,7 @@ public class StockDemo {
             entity.setNET_MAX_7(netMap5.get(Content.keyRsMax).doubleValue());
             entity.setNET_MIN_CLOS_7(netMap5.get(Content.keyRsNetCloseMin).doubleValue());
             entity.setNET_MAX_CLOS_7(netMap5.get(Content.keyRsNetCloseMax).doubleValue());
-            maSb.append(handlerAvgLine(" 5日:", KlineService.findNetMinMaxAvg(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+            maSb.append(handlerAvgLine(" 5日:", netMap5));
         }
         if (maUpdateMap.containsKey(MA_UPDATE_FLAG_DAY_1_10) && maUpdateMap.get(MA_UPDATE_FLAG_DAY_1_10)) {
             Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK);
