@@ -35,9 +35,7 @@ public class BizService {
      * @return
      */
     public static List<RankBizDataDiff> listBiz(String date, String type, int pageSize) {
-//          http://32.push2.eastmoney.com/api/qt/clist/get?cb=jQuery11240476946102335426_1618637035810  &pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=b:MK0021,b:MK0022,b:MK0023,b:MK0024&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152&_=1618637035811
-        //  http://18.push2.eastmoney.com/api/qt/clist/get?cb=jQuery1124032318726260244324_1642088766312&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=b:MK0021,b:MK0022,b:MK0023,b:MK0024&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152&_=1642088766316
-        //  http://18.push2.eastmoney.com/api/qt/clist/get?cb=jQuery1124032318726260244324_1642088766312&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=b:MK0404,b:MK0405,b:MK0406,b:MK0407&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152&_=1642088766329
+        //http://28.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408110589206747254_1616379873172&pn=1&pz=20&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&fid=f3&fs=m:90+t:2+f:!50&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222&_=1616379873199
         String url = "http://32.push2.eastmoney.com/api/qt/clist/get";
         StringBuffer urlParam = new StringBuffer();
         long curTime = System.currentTimeMillis();
@@ -46,11 +44,17 @@ public class BizService {
         urlParam.append("&pn=1" +//页数
                 "&pz=" + pageSize +//每页数量
                 "&po=1" +//pageorder:页面排序：0-正序；1-倒序
-                "&np=1" +//是否分页：1-分页
+                "&np=1" +
                 "&ut=bd1d9ddb04089700cf9c27f6f7426281" +
                 "&fltt=2" +//浮点数精度
-                "&invt=3" +//显示格式：2-"-"；3-"0.0"
+                "&invt=3" +//显示格式：-；0.0
                 "&fid=f3");//排序字段
+        if (type.equals(DB_RANK_BIZ_TYPE_HANG_YE)) {
+            urlParam.append("&fs=m:90+t:2+f:!50");
+        }
+        if (type.equals(DB_RANK_BIZ_TYPE_GAI_NIAN)) {
+            urlParam.append("&fs=m:90+t:3+f:!50");
+        }
         if (type.equals(DB_RANK_BIZ_TYPE_ETF)) {
             urlParam.append("&fs=b:MK0021,b:MK0022,b:MK0023,b:MK0024");
         }
@@ -82,16 +86,29 @@ public class BizService {
                 "f210,f211,f212,f213,f214,f215,f216,f217,f218,f219" + "," +
                 "f220,f221,f222,f223,f224,f225,f226,f227,f228,f229" +
 //                "f230,f231,f232,f233,f234,f235,f236,f237,f238,f239" +
-
 //                "f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222" +
-
                 "&_=" + curTime);
 //        System.out.println(urlParam.toString());
-        String rs = HttpUtil.sendGet(url, urlParam.toString(), "");
-        System.out.println(rs);
-        if (rs == null) {
-            return null;
+        String rs = "";
+        JSONObject rsJsonObj = null;
+        for (int i = 0; i < 10; i++) {
+            rs = HttpUtil.sendGet(url, urlParam.toString(), "");
+//        System.out.println(rs);//返回结果
+            if (rs.startsWith("jQuery")) {
+                rs = rs.substring(rs.indexOf("{"));
+            }
+            if (rs.endsWith(");")) {
+                rs = rs.substring(0, rs.length() - 2);
+            }
+            rsJsonObj = JSONObject.parseObject(rs);
+            if (rs == null || rsJsonObj == null || !rsJsonObj.containsKey("data")) {
+                System.out.println("查询数据异常，重新查询：" + rs);
+                continue;
+            } else {
+                break;
+            }
         }
+        System.out.println(rs);
         if (rs.startsWith("jQuery")) {
             rs = rs.substring(rs.indexOf("{"));
         }
@@ -99,11 +116,7 @@ public class BizService {
             rs = rs.substring(0, rs.length() - 2);
         }
 //        System.out.println(rs);//返回结果
-        JSONObject rsJsonObj = JSONObject.parseObject(rs);
-        if (rsJsonObj == null || !rsJsonObj.containsKey("data")) {
-            System.out.println("---------------data---error!!!!!");
-            return null;
-        }
+
         JSONObject rsJsonData = rsJsonObj.getJSONObject("data");
         JSONArray rsJsonDataDiff = rsJsonData.getJSONArray("diff");
         List<RankBizDataDiff> rankBizDataDiffList = JSON.parseArray(JSON.toJSONString(rsJsonDataDiff), RankBizDataDiff.class);
@@ -116,7 +129,6 @@ public class BizService {
             row.setType(type);
 //            System.out.println(JSON.toJSON(row));//每个行业一行数据
         }
-
         return rankBizDataDiffList;
     }
 }

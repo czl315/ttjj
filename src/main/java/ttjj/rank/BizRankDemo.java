@@ -33,27 +33,26 @@ public class BizRankDemo {
         boolean isOnlyGn = true;
 //        boolean isOnlyGn = false;
 
-//        deleteTodayBiz();//删除数据-今日
-//        insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
-//        insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
-//        insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
-//        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE);
-//        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_GAI_NIAN);
-//        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_ETF);
-//        if (!isOnlyGn) {
-//            insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
-//            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_LOF);
-//
+        deleteTodayBiz();//删除数据-今日
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
+        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE);
+        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_GAI_NIAN);
+        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_ETF);
+        if (!isOnlyGn) {
+            insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
+            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_LOF);
+
             updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_HANG_YE);
             updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
-//
-//            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
-//            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
-//
-//            updateFundFlowBk(date);//更新当日资金流信息-板块
-//            updateFundFlowGn(date);//更新当日资金流信息-概念
-//            updateFundFlowEtf(date);////更新当日资金流信息-etf
-//        }
+            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
+            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
+
+            updateFundFlowBk(date);//更新当日资金流信息-板块
+            updateFundFlowGn(date);//更新当日资金流信息-概念
+            updateFundFlowEtf(date);////更新当日资金流信息-etf
+        }
 
 
 //        /**
@@ -240,58 +239,49 @@ public class BizRankDemo {
         if (fundType.equals(DB_RANK_BIZ_TYPE_HANG_YE)) {
             fundList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);
         }
-        if (fundType.equals(DB_RANK_BIZ_TYPE_GAI_NIAN)) {
-            fundList = listConcept(date, DB_RANK_BIZ_TYPE_GAI_NIAN, NUM_MAX_999);//查询主题排名by时间类型、显示个数
-        }
-        if (fundType.equals(DB_RANK_BIZ_TYPE_ETF)) {
-            fundList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);
-        }
-        if (fundType.equals(DB_RANK_BIZ_TYPE_LOF)) {
-            fundList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_LOF, NUM_MAX_999);
-        }
         for (RankBizDataDiff rankBizDataDiff : fundList) {
             String klt = KLT_101;
             RankBizDataDiff entity = new RankBizDataDiff();
             String zqdm = rankBizDataDiff.getF12();
             entity.setF12(zqdm);
             entity.setDate(date);
-            Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, "", date, KLINE_TYPE_ETF);
+            Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, "", date, null);
             entity.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
             entity.setNET_MIN_7(netMap5.get(Content.keyRsMin));
             entity.setNET_MAX_7(netMap5.get(Content.keyRsMax));
             entity.setNET_MIN_CLOS_7(netMap5.get(Content.keyRsNetCloseMin));
             entity.setNET_MAX_CLOS_7(netMap5.get(Content.keyRsNetCloseMax));
-            Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, "", date, KLINE_TYPE_ETF);
+            Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, "", date, null);
             entity.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
             entity.setNET_MIN_14(netMap10.get(Content.keyRsMin));
             entity.setNET_MAX_14(netMap10.get(Content.keyRsMax));
             entity.setNET_MIN_CLOS_14(netMap10.get(Content.keyRsNetCloseMin));
             entity.setNET_MAX_CLOS_14(netMap10.get(Content.keyRsNetCloseMax));
-            Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, "", date, KLINE_TYPE_ETF);
+            Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, "", date, null);
             entity.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
             entity.setNET_MIN_30(netMap20.get(Content.keyRsMin));
             entity.setNET_MAX_30(netMap20.get(Content.keyRsMax));
             entity.setNET_MIN_CLOS_30(netMap20.get(Content.keyRsNetCloseMin));
             entity.setNET_MAX_CLOS_30(netMap20.get(Content.keyRsNetCloseMax));
-            Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, "", date, KLINE_TYPE_STOCK);
+            Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, "", date, null);
             entity.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
             entity.setNET_MIN_60(netMap30.get(Content.keyRsMin));
             entity.setNET_MAX_60(netMap30.get(Content.keyRsMax));
             entity.setNET_MIN_CLOS_60(netMap30.get(Content.keyRsNetCloseMin));
             entity.setNET_MAX_CLOS_60(netMap30.get(Content.keyRsNetCloseMax));
-            Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, "", date, KLINE_TYPE_ETF);
+            Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, "", date, null);
             entity.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
             entity.setNET_MIN_90(netMap60.get(Content.keyRsMin));
             entity.setNET_MAX_90(netMap60.get(Content.keyRsMax));
             entity.setNET_MIN_CLOS_90(netMap60.get(Content.keyRsNetCloseMin));
             entity.setNET_MAX_CLOS_90(netMap60.get(Content.keyRsNetCloseMax));
-            Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, "", date, KLINE_TYPE_ETF);
+            Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, "", date, null);
             entity.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
             entity.setNET_MIN_180(netMap120.get(Content.keyRsMin));
             entity.setNET_MAX_180(netMap120.get(Content.keyRsMax));
             entity.setNET_MIN_CLOS_180(netMap120.get(Content.keyRsNetCloseMin));
             entity.setNET_MAX_CLOS_180(netMap120.get(Content.keyRsNetCloseMax));
-            Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, "", date, KLINE_TYPE_ETF);
+            Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, "", date, null);
             entity.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
             entity.setNET_MIN_360(netMap250.get(Content.keyRsMin));
             entity.setNET_MAX_360(netMap250.get(Content.keyRsMax));

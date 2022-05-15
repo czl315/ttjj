@@ -230,6 +230,10 @@ public class Content {
      * HTTP_KLINE_SECID_PREFIX_BANKUAI 请求前缀-板块
      */
     public static String HTTP_KLINE_SECID_PREFIX_BANKUAI = "90.";
+    /**
+     * HTTP_KLINE_TYPE_BK_REFIX k线类型-板块开头
+     */
+    public static String HTTP_KLINE_TYPE_BK_REFIX = "BK";
 
 
     /**
