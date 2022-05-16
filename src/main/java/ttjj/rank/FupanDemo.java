@@ -243,8 +243,8 @@ public class FupanDemo {
 //        boolean updateDaPanKline = false;//不显示-大盘指数
         boolean updateMyStock = true;//显示-我的股票
 //        boolean updateMyStock = false;//不显示-我的股票
-        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓
-//        boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
+//        boolean updateMyStockAssetPosition = true;//更新-我的股票-资产持仓 2022-02-16 字段太长，不再插入
+        boolean updateMyStockAssetPosition = false;//不更新-我的股票-资产持仓
         boolean findDbMyPositionByDate = true;//从数据库中根据日期查询我的持仓盈亏
 //        boolean findDbMyPositionByDate = false;//从数据库中根据日期查询我的持仓盈亏
         boolean updateDbFupanPositionByDate = true;//更新我的持仓盈亏明细
@@ -287,6 +287,7 @@ public class FupanDemo {
         if (updateMyStockAssetPosition) {
             //更新-我的股票-资产持仓
             Fupan fupanMyStockAssetPosition = queryMyStockAssetPosition(ContentCookie.COOKIE_DFCF, dateType, date);
+
             FuPanDao.updateMyStockAssetPosition(fupanMyStockAssetPosition);
         }
 
@@ -295,7 +296,7 @@ public class FupanDemo {
         if (findDbMyPositionByDate) {
             String findDate = date;//查询日期
             String period = "1";
-            assetPositionList = findDbMyPositionByDate(findDate, period);
+            assetPositionList = findDbMyPositionByDate(findDate, period, dateType);
         }
 
         //  更新我的持仓盈亏明细
@@ -653,19 +654,34 @@ public class FupanDemo {
 
     }
 
+    private static String queryMyStockAssetPositionByDfcf(String cookie, String dateType, String date) {
+        String url = "https://jywg.18.cn/Com/queryAssetAndPositionV1?validatekey=734d22f9-364d-4460-bac6-e6df18953822&moneyType=RMB";
+
+        StringBuffer urlParam = new StringBuffer();
+//        urlParam.append("moneyType=").append("RMB");
+
+//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
+        String assetPositionRs = HttpUtil.sendPost(url, urlParam.toString(), cookie);
+        System.out.println("queryAssetPositionRs:" + assetPositionRs);
+
+        return assetPositionRs;
+
+    }
+
     /**
      * 从数据库中根据日期查询我的持仓盈亏
      *
      * @param date
      * @param period
+     * @param dateType
      * @return
      */
-    private static List<AssetPositionDb> findDbMyPositionByDate(String date, String period) {
-        Fupan condition = new Fupan();
-        condition.setCode(date);
-        condition.setPeriod(period);
-        Fupan fupanDb = FuPanDao.findDbByDate(condition);
-        String assetPositionRs = fupanDb.getAssetPosition();
+    private static List<AssetPositionDb> findDbMyPositionByDate(String date, String period, String dateType) {
+//        Fupan condition = new Fupan();
+//        condition.setCode(date);
+//        condition.setPeriod(period);
+//        Fupan fupanDb = FuPanDao.findDbByDate(condition);
+        String assetPositionRs = queryMyStockAssetPositionByDfcf(ContentCookie.COOKIE_DFCF, dateType, date);
         System.out.println("findDbMyPositionByDate:" + assetPositionRs);
 
         JSONObject assetPositionRsJsonObject = JSON.parseObject(assetPositionRs);

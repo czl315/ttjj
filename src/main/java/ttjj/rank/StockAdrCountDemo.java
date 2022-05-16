@@ -1,15 +1,18 @@
-package ttjj.stat;
+package ttjj.rank;
 
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.RankStockCommpanyDao;
+import ttjj.dao.StockAdrCountDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.db.StockAdrCount;
+import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.StockAdrCountCond;
 import ttjj.dto.DateCond;
 import ttjj.dto.StockAdrCountVo;
-import ttjj.rank.StockDemo;
 import ttjj.service.KlineService;
 import ttjj.service.StockAdrCountService;
+import ttjj.service.StockService;
+import ttjj.stat.StBizStatDemo;
 import utils.DateUtil;
 import utils.StockUtil;
 
@@ -26,8 +29,70 @@ import static utils.Content.*;
  */
 public class StockAdrCountDemo {
     public static void main(String[] args) {
-        statStockAdrCount(-1, -1);//统计股票涨跌次数:0,0为当天
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-05-16";
+
+        statStockAdrCount(-1, date,date);//统计股票涨跌次数:0,0为当天
 //        statStockAdrCountBatch(10);//统计股票涨跌次数:0,0为当天
+
+//        //先删除，后插入
+//        deleteTodayStAdrCount();
+//        insertStockAdrCount(date);
+
+    }
+
+    /**
+     *
+     *
+     * @param date
+     */
+    private static void insertStockAdrCount(String date) {
+        List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("0"), new BigDecimal("1"), new BigDecimal("3"), new BigDecimal("5"), new BigDecimal("7"), new BigDecimal("9"));
+        List<Integer> daysList = Arrays.asList(-90, -60, -30, -14, -7);
+        String reportQuete = "";//业绩报表季度  2022Q1
+        boolean isShowPriceArea = false;//是否显示价格区间
+        long board = DB_RANK_BIZ_F19_BK_MAIN;
+        BigDecimal mvLimit = NUM_YI_50;
+
+//        按板块查询
+        List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
+        int limit = NUM_MAX_99;//限定个数
+        int stBizCountTemp = 0;
+        for (RankBizDataDiff rankBizDataDiff : bizList) {
+            if (--limit < 0) {
+                break;
+            }
+//            String biz = "医疗服务";//银行  航空机场    证券
+            String biz = rankBizDataDiff.getF14();
+            System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz );
+            List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
+            List<StockAdrCount> stockAdrCountList = StBizStatDemo.showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, reportQuete, isShowPriceArea);//统计涨跌次数
+//            //插入或更新
+//            System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertListOrUpdate(stockAdrCountList));
+
+            System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertList(stockAdrCountList));
+
+//            Map<String, String> zqMap = new HashMap<>();
+//            for (RankStockCommpanyDb stock : stList) {
+//                zqMap.put(stock.getF12(), stock.getF14());
+//            }
+//            StockStatDemo.checkMaDemo(zqMap, date);
+        }
+
+
+//        int year = DateUtil.getCurYear();//DateUtil.getCurYear() 2021
+//        int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()   12
+//        int day = 1;//DateUtil.getCurDay()   27
+//        statEtfAdrDb(etfBizSet, year, month, day, 18);//统计涨跌次数-按照天的维度
+
+        //检查资金流向-etf
+//        checkFundFlowByEtf(date);
+
+//        //        // 统计涨跌次数-根据每月中的日期
+//        String zqmc = "159949";//512800 510050:上证50ETF  512000:券商ETF
+//        String begDate = "2020-01-01";//开始时间
+//        String endDate = date;//DateUtil.getToday(DateUtil.YYYY_MM_DD)
+//        statAdrCountByDay(zqmc, begDate, endDate);
 
     }
 
@@ -36,32 +101,31 @@ public class StockAdrCountDemo {
      *
      * @param days 天数
      */
-    private static void statStockAdrCountBatch(int days) {
+    private static void statStockAdrCountBatch(int days,String date) {
         for (int i = 0; i <= days; i++) {
-            statStockAdrCount((i + 1), i);
+            statStockAdrCount((i + 1), date, date);
         }
     }
 
     /**
      * 统计股票涨跌次数
      */
-    private static void statStockAdrCount(int maDateInt, int spDateInt) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-05-13";
+    private static void statStockAdrCount(int maDateInt, String spDate, String date) {
         boolean isShowPriceArea = true;//是否显示价格区间
 //        boolean isShowPriceArea = false;//是否显示价格区间
 //        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"));
         List<BigDecimal> orderNumList = null;
 //        List<Boolean> upMaList = Arrays.asList(false,true,true);//判断是否超过均线列表：15,30,60
         List<Boolean> upMaList = null;//判断是否超过均线列表：15,30,60
-        String biz = "风电设备";//化肥行业 农牧饲渔 航天航空    证券
-        String orderBy = " ADR_UP_COUNT_20 DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
+//        String biz = "医疗服务";//化肥行业 农牧饲渔 航天航空    证券  医疗服务 医疗器械
+//        String biz = "医疗器械";//医疗： 医疗服务 医疗器械
+//        String biz = "风电设备";//科技： 光伏设备  风电设备
+        String biz = "证券";//金融： 银行
+        String orderBy = " ADR_UP_COUNT_SUM_60 DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
         String maDate = date;
-        String spDate = date;
-        if (maDateInt >= 0 && spDateInt >= 0) {
+        if (maDateInt >= 0 ) {
             List<String> dateListBefore = RankStockCommpanyDao.findListDateBefore(new DateCond(date, 20));
             maDate = dateListBefore.get(maDateInt);
-            spDate = dateListBefore.get(spDateInt);
         }
 
         int overCount = 0;//第二天上涨个数
@@ -125,12 +189,13 @@ public class StockAdrCountDemo {
 //            String spDate = "2022-05-11";
 //            System.out.print(KlineService.showDateF3(spDate, stock));
 //            System.out.println();
+//            isHasMa = true;
             if (isHasMa) {//只显示超过均线的
-                StringBuffer sbMa15 = new StringBuffer("----");
-                StringBuffer sbMa30 = new StringBuffer("----");
-                StringBuffer sbMa60 = new StringBuffer("----");
-                StringBuffer sbMa101 = new StringBuffer("----");
-                StringBuffer sbMa102 = new StringBuffer("----");
+                StringBuffer sbMa15 = new StringBuffer("    ");
+                StringBuffer sbMa30 = new StringBuffer("    ");
+                StringBuffer sbMa60 = new StringBuffer("    ");
+                StringBuffer sbMa101 = new StringBuffer("    ");
+                StringBuffer sbMa102 = new StringBuffer("    ");
                 if (isMa15) {
                     sbMa15 = new StringBuffer("15  ");
                 }
@@ -189,5 +254,12 @@ public class StockAdrCountDemo {
 
     }
 
-
+    /**
+     * 删除数据-今日
+     */
+    private static void deleteTodayStAdrCount() {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        int rs = StockAdrCountDao.deleteByDate(date);
+        System.out.println("日期：" + date + "，删除结果：" + rs);
+    }
 }

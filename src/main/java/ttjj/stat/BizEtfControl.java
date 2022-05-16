@@ -30,9 +30,8 @@ public class BizEtfControl {
         boolean isShowUpMa = true;//是否显示-超过均线
 //        boolean isShowUpMa = false;//是否显示-超过均线
 
-        List<StockAdrCountVo> rs = checkMaDemo(date, isShowPriceArea, isShowUpMa);
-        String orderMaArea = "orderMaAreaDay5";
-        showStockMa(rs,orderMaArea,isShowPriceArea, isShowUpMa);
+        showStockMa(checkMaDemo(date, isShowPriceArea, isShowUpMa),MA_DAY_5,isShowPriceArea, isShowUpMa);
+
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
     }
 
@@ -245,7 +244,7 @@ public class BizEtfControl {
             return;
         }
         if(StringUtils.isNotBlank(orderField)){
-            if("orderMaAreaDay5".equals(orderField)){
+            if(MA_DAY_5.equals(orderField)){
                 rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_5, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
             }
         }

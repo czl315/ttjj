@@ -87,4 +87,22 @@ public class StockAdrCountDao {
         return rs;
     }
 
+    /**
+     * 删除-根据日期
+     * @param date
+     * @return
+     */
+    public static int deleteByDate(String date) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.delete("ttjj.dao.mapper.StockAdrCountMapper.deleteByDate", date);
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
 }

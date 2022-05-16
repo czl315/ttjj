@@ -113,6 +113,11 @@ public interface StockAdrCountMapper {
     @Delete({"<script>",
             "DELETE FROM `stock_adr_count` WHERE f12=#{f12} AND date = #{date} LIMIT 1 ",
             "</script>"})
-    int deleteByCondition(String date);
+    int deleteByCondition(StockAdrCount condition);
+
+    @Delete({"<script>",
+            "DELETE FROM `stock_adr_count` WHERE `date` = #{date} LIMIT 9999 ",
+            "</script>"})
+    int deleteByDate(String date);
 
 }

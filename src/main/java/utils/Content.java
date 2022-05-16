@@ -471,4 +471,33 @@ public class Content {
     public static String SH_50_000016 = "1.000016";
     public static String KCB_50 = "1.000688";
     public static String BIZ_QUANSHANG = "0.399975";
+
+    /**
+     * MA_DAY_5 均线-日-5
+     */
+    public static String MA_DAY_5 = "MA_DAY_5";
+    /**
+     * MA_DAY_10 均线-日-
+     */
+    public static String MA_DAY_10 = "MA_DAY_10";
+    /**
+     * MA_DAY_20 均线-日-
+     */
+    public static String MA_DAY_20 = "MA_DAY_20";
+    /**
+     * MA_DAY_40 均线-日-
+     */
+    public static String MA_DAY_40 = "MA_DAY_40";
+    /**
+     * MA_DAY_60 均线-日-
+     */
+    public static String MA_DAY_60 = "MA_DAY_60";
+    /**
+     * MA_DAY_120 均线-日-
+     */
+    public static String MA_DAY_120 = "MA_DAY_120";
+    /**
+     * MA_DAY_250 均线-日-
+     */
+    public static String MA_DAY_250 = "MA_DAY_250";
 }

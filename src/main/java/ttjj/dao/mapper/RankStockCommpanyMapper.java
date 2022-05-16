@@ -253,7 +253,7 @@ public interface RankStockCommpanyMapper {
      * @return
      */
     @Select({"<script>",
-            " <![CDATA[  SELECT t.date FROM rank_st_biz_com t WHERE t.date < #{curDate} GROUP BY t.date ORDER BY t.date desc limit #{count} ]]> ",
+            " <![CDATA[  SELECT t.date FROM rank_st_biz_com t WHERE t.date <= #{curDate} GROUP BY t.date ORDER BY t.date desc limit #{count} ]]> ",
             "</script>"})
     List<String> findListDateBefore(DateCond condition);
 
@@ -264,7 +264,7 @@ public interface RankStockCommpanyMapper {
      * @return
      */
     @Select({"<script>",
-            " <![CDATA[  SELECT t.date FROM rank_st_biz_com t WHERE t.date > #{curDate} GROUP BY t.date ORDER BY t.date ASC limit #{count} ]]> ",
+            " <![CDATA[  SELECT t.date FROM rank_st_biz_com t WHERE t.date >= #{curDate} GROUP BY t.date ORDER BY t.date ASC limit #{count} ]]> ",
             "</script>"})
     List<String> findListDateAfter(DateCond condition);
 

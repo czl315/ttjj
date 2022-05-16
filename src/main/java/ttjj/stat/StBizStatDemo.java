@@ -257,7 +257,7 @@ public class StBizStatDemo {
      * @param conpetions
      * @param isShowPriceArea
      */
-    private static List<StockAdrCount> showAdrCount(String date, List<RankStockCommpanyDb> stListLikeConception, Long board, BigDecimal mvMin, List<BigDecimal> adrMinList, List<Integer> daysList, String conpetions, String reportQuete, boolean isShowPriceArea) {
+    public static List<StockAdrCount> showAdrCount(String date, List<RankStockCommpanyDb> stListLikeConception, Long board, BigDecimal mvMin, List<BigDecimal> adrMinList, List<Integer> daysList, String conpetions, String reportQuete, boolean isShowPriceArea) {
         List<StockAdrCount> stockAdrCountList = new ArrayList<>();
         Map<String, StockAdrCount> statRsStAdrCountMap = new HashMap<>();
         ExecutorService service = Executors.newCachedThreadPool();// 创建一个的线程池
