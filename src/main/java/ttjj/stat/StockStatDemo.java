@@ -423,7 +423,7 @@ public class StockStatDemo {
                     continue;
                 }
 
-                BigDecimal curPriceArea = handlerAvgLine(KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+                BigDecimal curPriceArea = StockService.handlerMaArea(KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK));
                 if (curPriceArea != null && curPriceArea.compareTo(curPriceAreaMax) <= 0) {
 //                        StringBuffer maSb = new StringBuffer("20日:").append(curPriceArea);
                     Map<String, String> stockMap = new HashMap<>();//
@@ -863,38 +863,6 @@ public class StockStatDemo {
         return rankBizDataDiffList;
     }
 
-    /**
-     * 获取均线数据
-     *
-     * @param netMap
-     * @return
-     */
-    private static BigDecimal handlerAvgLine(Map<String, BigDecimal> netMap) {
-        StringBuffer sb = new StringBuffer();
-        BigDecimal curPriceArea = null;
-        BigDecimal curPrice = netMap.get(keyRsNetClose);
-        BigDecimal minPrice = netMap.get(keyRsMin);
-        BigDecimal maxPrice = netMap.get(keyRsMax);
-        if (curPrice != null && minPrice != null && maxPrice != null) {
-            if (maxPrice.subtract(minPrice).compareTo(new BigDecimal("0")) == 0) {
-                sb.append("\t").append("：").append("\t").append(netMap.get(keyRsNetCloseAvg));
-                sb.append("\t").append(",最低：").append("\t").append(minPrice);
-                sb.append("\t").append(",最高：").append("\t").append(maxPrice);
-                sb.append("\t").append(",当前价：").append(curPrice);
-            } else {
-                curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
 
-            }
-//            sb.append(strHead).append("区间：").append("\t").append(curPriceArea).append("%").append(",");
-//            sb.append(strHead).append(curPriceArea).append("%").append(",");
-//            sb.append(strHead).append(curPriceArea).append("\t\t");
-        }
-//        sb.append("\t").append(strHead).append("：").append("\t").append(netMap.get(keyRsNetCloseAvg));
-//        sb.append("\t").append(",最低：").append("\t").append(minPrice);
-//        sb.append("\t").append(",最高：").append("\t").append(maxPrice);
-//        sb.append("\t").append(",当前价：").append(curPrice);
-
-        return curPriceArea;
-    }
 
 }

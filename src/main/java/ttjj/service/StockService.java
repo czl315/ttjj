@@ -11,8 +11,10 @@ import ttjj.dto.RankBizDataDiff;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static utils.Content.*;
 
@@ -225,6 +227,23 @@ public class StockService {
 //            System.out.println(JSON.toJSON(row));//每个行业一行数据
 //        }
         return rankBizDataDiffList;
+    }
+
+    /**
+     * 获取均线区间
+     *
+     * @param netMap
+     * @return
+     */
+    public static BigDecimal handlerMaArea(Map<String, BigDecimal> netMap) {
+        BigDecimal curPriceArea = null;
+        BigDecimal curPrice = netMap.get(keyRsNetClose);
+        BigDecimal minPrice = netMap.get(keyRsMin);
+        BigDecimal maxPrice = netMap.get(keyRsMax);
+        if (curPrice != null && minPrice != null && maxPrice != null) {
+            curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
+        }
+        return curPriceArea;
     }
 
 }

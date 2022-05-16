@@ -345,7 +345,7 @@ public class StBizStatDemo {
                 Map<String, Boolean> maUpdateMap = new HashMap<>();
                 StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
                 StringBuffer sbPriceArea = new StringBuffer();
-                StockDemo.handlerNetMa(stock, maUpdateMap, date, sbPriceArea);//处理均线净值
+                StockDemo.handlerNetMa(stock, maUpdateMap, date, sbPriceArea, new StockAdrCountVo());//处理均线净值
 //            maSb.append("\t").append(",当前价：").append(curPrice);
 //            maSb.append("\t").append(",当前：").append(DateUtil.getToday(DateUtil.YYYY_MM_DD_HH_MM_SS));
                 System.out.println("价格区间:" + sbPriceArea.toString());

@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import ttjj.db.StockAdrCount;
-import ttjj.db.StockAdrCountVo;
+import ttjj.dto.StockAdrCountCond;
 
 import java.util.List;
 
@@ -101,7 +101,7 @@ public interface StockAdrCountMapper {
 //            "   ORDER BY stock_adr_count.ADR_UP_COUNT_SUM_60 DESC ",
 //            "   ORDER BY stock_adr_count.ADR_UP_COUNT_60 DESC ",
             "</script>"})
-    List<StockAdrCount> findListByCondition(StockAdrCountVo condition);
+    List<StockAdrCount> findListByCondition(StockAdrCountCond condition);
 
     /**
      * @param condition

@@ -1,4 +1,6 @@
-package ttjj.db;
+package ttjj.dto;
+
+import ttjj.db.StockAdrCount;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.List;
  * @author Administrator
  * @date 2022-05-09 23:47
  */
-public class StockAdrCountVo extends StockAdrCount {
+public class StockAdrCountCond extends StockAdrCount {
     /**
      * order_num 查询条件：排序号列表
      */

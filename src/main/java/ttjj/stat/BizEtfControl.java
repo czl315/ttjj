@@ -4,6 +4,7 @@ import ttjj.dao.BizRankDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.StatEtfUpDown;
+import ttjj.dto.StockAdrCountVo;
 import ttjj.rank.StockDemo;
 import ttjj.service.KlineService;
 import utils.ContentEtf;
@@ -24,6 +25,7 @@ public class BizEtfControl {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-03-28";
         boolean isShowPriceArea = true;//是否显示价格区间
+//        boolean isShowPriceArea = false;//是否显示价格区间
 
         checkMaDemo(date, isShowPriceArea);
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
@@ -46,10 +48,12 @@ public class BizEtfControl {
         Map<String, String> etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
 
         for (String zqdm : etfBizMap.keySet()) {
+            StockAdrCountVo stockAdrCountVo = new StockAdrCountVo();
             String zqmc = etfBizMap.get(zqdm);
+            String zqmcFormat = EtfUtil.handlerEtfName(zqmc);
             StringBuffer sbDay = new StringBuffer();
             sbDay.append(zqdm).append("\t");
-            sbDay.append("\t[").append(EtfUtil.handlerEtfName(zqmc)).append("]\t");
+            sbDay.append("\t[").append(zqmcFormat).append("]\t");
 //            sbDay.append("涨幅：").append(zhangDieFu).append("%").append("\t");
             System.out.print(sbDay);
             Map<String, String> etfBizMapSub = new HashMap<>();
@@ -62,7 +66,7 @@ public class BizEtfControl {
                 StringBuffer sbPriceArea = new StringBuffer();
                 Map<String, Boolean> maUpdateMap = new HashMap<>();
                 StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
-                StockDemo.handlerNetMa(stock, maUpdateMap, date, sbPriceArea);//处理均线净值
+                StockDemo.handlerNetMa(stock, maUpdateMap, date, sbPriceArea,stockAdrCountVo);//处理均线净值
                 System.out.print(sbPriceArea.toString() + "\t");//显示信息-价格区间
             }
 
@@ -75,6 +79,9 @@ public class BizEtfControl {
             KlineService.checkMa(etfBizMapSub, KLT_102, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
 
             System.out.println();
+
+            stockAdrCountVo.setF12(zqdm);
+            stockAdrCountVo.setF12(zqmcFormat);
         }
 
 

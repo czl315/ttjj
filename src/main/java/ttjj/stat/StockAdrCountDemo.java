@@ -4,8 +4,9 @@ import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.db.StockAdrCount;
-import ttjj.db.StockAdrCountVo;
+import ttjj.dto.StockAdrCountCond;
 import ttjj.dto.DateCond;
+import ttjj.dto.StockAdrCountVo;
 import ttjj.rank.StockDemo;
 import ttjj.service.KlineService;
 import ttjj.service.StockAdrCountService;
@@ -53,8 +54,8 @@ public class StockAdrCountDemo {
         List<BigDecimal> orderNumList = null;
 //        List<Boolean> upMaList = Arrays.asList(false,true,true);//判断是否超过均线列表：15,30,60
         List<Boolean> upMaList = null;//判断是否超过均线列表：15,30,60
-        String biz = "化肥行业";//化肥行业
-        String orderBy = " ADR_UP_COUNT_5 DESC ";//排序   ADR_UP_COUNT_5 DESC
+        String biz = "证券";//化肥行业 农牧饲渔 航天航空    证券
+        String orderBy = " ADR_UP_COUNT_20 DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
         String maDate = date;
         String spDate = date;
         if (maDateInt >= 0 && spDateInt >= 0) {
@@ -69,7 +70,7 @@ public class StockAdrCountDemo {
 //        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"));
 //        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"));
         BigDecimal adrUpCountSum60Limit = new BigDecimal("0");
-        StockAdrCountVo condition = new StockAdrCountVo();
+        StockAdrCountCond condition = new StockAdrCountCond();
         condition.setDate(date);
         condition.setOrderNumList(orderNumList);
         condition.setADR_UP_COUNT_SUM_60(adrUpCountSum60Limit);
@@ -84,6 +85,9 @@ public class StockAdrCountDemo {
             sbStockAdrCount.append(StockUtil.formatBizName(stockAdrCount.getType_name())).append("\t");
             sbStockAdrCount.append(stockAdrCount.getADR_UP_COUNT_SUM_60()).append("\t\t");
             sbStockAdrCount.append(stockAdrCount.getADR_UP_COUNT_60()).append("\t\t");
+            sbStockAdrCount.append(stockAdrCount.getADR_UP_COUNT_40()).append("\t\t");
+            sbStockAdrCount.append(stockAdrCount.getADR_UP_COUNT_20()).append("\t\t");
+            sbStockAdrCount.append(stockAdrCount.getADR_UP_COUNT_10()).append("\t\t");
             sbStockAdrCount.append(stockAdrCount.getADR_UP_COUNT_5()).append("\t\t");
             sbStockAdrCount.append(StockUtil.formatDouble(stockAdrCount.getF3())).append("\t");
             sbStockAdrCount.append(stockAdrCount.getOrder_num()).append("\t");
@@ -95,7 +99,7 @@ public class StockAdrCountDemo {
             if (isShowPriceArea) {
                 Map<String, Boolean> maUpdateMap = new HashMap<>();
                 StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
-                StockDemo.handlerNetMa(stock, maUpdateMap, date, sbPriceArea);//处理均线净值
+                StockDemo.handlerNetMa(stock, maUpdateMap, date, sbPriceArea, new StockAdrCountVo());//处理均线净值
             }
 
             Map<String, String> zqMap = new HashMap<>();
@@ -144,10 +148,11 @@ public class StockAdrCountDemo {
                 }
 
                 //判断是否超过均线列表：15,30,60
-                boolean isUpMa = false;
-                if (upMaList != null && upMaList.size() > 0) {
-                    isUpMa = isMa30 && isMa60;
-                }
+                boolean isUpMa = true;
+//                boolean isUpMa = false;
+//                if (upMaList != null && upMaList.size() > 0) {
+//                    isUpMa = isMa30 && isMa60;
+//                }
 //                if(isMa60){
                 if (isUpMa) {
                     System.out.print(sbStockAdrCount);//显示信息-涨幅次数

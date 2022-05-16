@@ -29,6 +29,7 @@ public class ReportDemo {
         // String date = "2021-09-24";
         int indexBeg = 0;//行业序号：从0开始
         int indexEnd = NUM_MAX_999;//行业序号-结束
+        String reportQuete = "2022Q1";
 
         //查询所有行业列表
         List<RankBizDataDiff> bizList = BizRankDemo.listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询所有行业列表
@@ -62,7 +63,7 @@ public class ReportDemo {
 
         //保存业绩报表
         for (RankStockCommpanyDb rankStockCommpanyDb : stockList) {
-            insertOrUpdateReport(rankStockCommpanyDb.getF12());
+            insertOrUpdateReport(rankStockCommpanyDb.getF12(),reportQuete);
         }
     }
 
@@ -80,14 +81,16 @@ public class ReportDemo {
     /**
      * 保存或更新业绩报告
      *
-     * @param stCode
+     * @param stCode      证券代码
+     * @param reportQuete 报表季度
      */
-    private static void insertOrUpdateReport(String stCode) {
+    private static void insertOrUpdateReport(String stCode, String reportQuete) {
         List<Report> rs = ReportService.listHttpReportByStCode(stCode);//查询业绩报表-根据证券编码
         for (Report entity : rs) {
-//            if(entity.getSECURITY_CODE().equals("002610")){
-//                System.out.println("");
-//            }
+            if(!entity.getQDATE().equals(reportQuete)){
+//                System.out.println("非报告期，跳过");
+                continue;
+            }
             //  查询业绩报表是否存在
             Report existEntity = ReportDao.findByCondition(entity);
             if (existEntity == null) {

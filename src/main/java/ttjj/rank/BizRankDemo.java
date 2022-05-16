@@ -28,8 +28,8 @@ import static utils.Content.*;
  */
 public class BizRankDemo {
     public static void main(String[] args) {
-//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-                String date = "2022-05-13";
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//                String date = "2022-05-13";
         boolean isOnlyGn = true;
 //        boolean isOnlyGn = false;
 

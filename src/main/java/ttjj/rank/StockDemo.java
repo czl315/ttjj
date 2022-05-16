@@ -925,7 +925,7 @@ public class StockDemo {
                     String zqdm = entity.getF12();
 
                     StringBuffer maSb = new StringBuffer();
-                    handlerNetMa(entity, maUpdateMap, date, maSb);//处理均线净值
+                    handlerNetMa(entity, maUpdateMap, date, maSb, new StockAdrCountVo());//处理均线净值
 
 //                    System.out.println();
                     int rs = RankStockCommpanyDao.updateByCode(entity);
@@ -1000,8 +1000,9 @@ public class StockDemo {
      * @param maUpdateMap
      * @param date
      * @param maSb
+     * @param stockAdrCountVo
      */
-    public static void handlerNetMa(RankStockCommpanyDb entity, Map<String, Boolean> maUpdateMap, String date, StringBuffer maSb) {
+    public static void handlerNetMa(RankStockCommpanyDb entity, Map<String, Boolean> maUpdateMap, String date, StringBuffer maSb, StockAdrCountVo stockAdrCountVo) {
         String zqdm = entity.getF12();
         if (maUpdateMap.containsKey(MA_UPDATE_FLAG_MINUTE_1_5) && maUpdateMap.get(MA_UPDATE_FLAG_MINUTE_1_5)) {
             Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, KLT_1, false, "", date, KLINE_TYPE_STOCK);
@@ -1173,12 +1174,17 @@ public class StockDemo {
         }
 
         if (maUpdateMap.containsKey(MA_UPDATE_FLAG_DAY_1_5) && maUpdateMap.get(MA_UPDATE_FLAG_DAY_1_5)) {
-            Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK);
+            int ma = Content.MA_5;
+            String klt = KLT_101;
+            Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, ma, klt, false, "", date, KLINE_TYPE_STOCK);
             entity.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
             entity.setNET_MIN_7(netMap5.get(Content.keyRsMin).doubleValue());
             entity.setNET_MAX_7(netMap5.get(Content.keyRsMax).doubleValue());
             entity.setNET_MIN_CLOS_7(netMap5.get(Content.keyRsNetCloseMin).doubleValue());
             entity.setNET_MAX_CLOS_7(netMap5.get(Content.keyRsNetCloseMax).doubleValue());
+            if (stockAdrCountVo != null && stockAdrCountVo.getF12() != null) {
+                stockAdrCountVo.setNET_AREA_DAY_5(StockService.handlerMaArea(KlineService.findNetMinMaxAvg(zqdm, ma, klt, false, "", date, KLINE_TYPE_STOCK)));
+            }
             maSb.append(handlerAvgLine(" 5日:", netMap5));
         }
         if (maUpdateMap.containsKey(MA_UPDATE_FLAG_DAY_1_10) && maUpdateMap.get(MA_UPDATE_FLAG_DAY_1_10)) {
