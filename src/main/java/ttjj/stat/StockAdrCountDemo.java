@@ -54,7 +54,7 @@ public class StockAdrCountDemo {
         List<BigDecimal> orderNumList = null;
 //        List<Boolean> upMaList = Arrays.asList(false,true,true);//判断是否超过均线列表：15,30,60
         List<Boolean> upMaList = null;//判断是否超过均线列表：15,30,60
-        String biz = "证券";//化肥行业 农牧饲渔 航天航空    证券
+        String biz = "风电设备";//化肥行业 农牧饲渔 航天航空    证券
         String orderBy = " ADR_UP_COUNT_20 DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
         String maDate = date;
         String spDate = date;

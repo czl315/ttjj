@@ -34,19 +34,19 @@ public class BizRankDemo {
 //        boolean isOnlyGn = false;
 
         deleteTodayBiz();//删除数据-今日
+
         insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
         updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE);
+        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_HANG_YE);
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
         updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_GAI_NIAN);
+        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
         updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_ETF);
+        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
         if (!isOnlyGn) {
             insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
             updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_LOF);
-
-            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_HANG_YE);
-            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
-            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
             updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
 
             updateFundFlowBk(date);//更新当日资金流信息-板块
@@ -236,9 +236,7 @@ public class BizRankDemo {
      */
     private static void updateDbTodayEtfMa(String date, String fundType) {
         List<RankBizDataDiff> fundList = new ArrayList<>();
-        if (fundType.equals(DB_RANK_BIZ_TYPE_HANG_YE)) {
-            fundList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);
-        }
+        fundList = BizService.listBiz(date, fundType, NUM_MAX_999);
         for (RankBizDataDiff rankBizDataDiff : fundList) {
             String klt = KLT_101;
             RankBizDataDiff entity = new RankBizDataDiff();

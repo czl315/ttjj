@@ -1,5 +1,6 @@
 package ttjj.stat;
 
+import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.BizRankDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.RankBizDataDiff;
@@ -26,18 +27,25 @@ public class BizEtfControl {
 //        String date = "2022-03-28";
         boolean isShowPriceArea = true;//是否显示价格区间
 //        boolean isShowPriceArea = false;//是否显示价格区间
+        boolean isShowUpMa = true;//是否显示-超过均线
+//        boolean isShowUpMa = false;//是否显示-超过均线
 
-        checkMaDemo(date, isShowPriceArea);
+        List<StockAdrCountVo> rs = checkMaDemo(date, isShowPriceArea, isShowUpMa);
+        String orderMaArea = "orderMaAreaDay5";
+        showStockMa(rs,orderMaArea,isShowPriceArea, isShowUpMa);
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
     }
+
 
     /**
      * 检查均线
      *
      * @param date
      * @param isShowPriceArea 是否显示价格区间
+     * @param isShowUpMa
      */
-    private static void checkMaDemo(String date, boolean isShowPriceArea) {
+    private static List<StockAdrCountVo> checkMaDemo(String date, boolean isShowPriceArea, boolean isShowUpMa) {
+        List<StockAdrCountVo> rs = new ArrayList<>();
         boolean isUp = true;//检查上涨
 //        boolean isUp = false;
 
@@ -50,14 +58,10 @@ public class BizEtfControl {
         for (String zqdm : etfBizMap.keySet()) {
             StockAdrCountVo stockAdrCountVo = new StockAdrCountVo();
             String zqmc = etfBizMap.get(zqdm);
-            String zqmcFormat = EtfUtil.handlerEtfName(zqmc);
-            StringBuffer sbDay = new StringBuffer();
-            sbDay.append(zqdm).append("\t");
-            sbDay.append("\t[").append(zqmcFormat).append("]\t");
-//            sbDay.append("涨幅：").append(zhangDieFu).append("%").append("\t");
-            System.out.print(sbDay);
             Map<String, String> etfBizMapSub = new HashMap<>();
             etfBizMapSub.put(zqdm, zqmc);
+            stockAdrCountVo.setF12(zqdm);
+            stockAdrCountVo.setF14(zqmc);
 
             //净值
             if (isShowPriceArea) {
@@ -66,24 +70,25 @@ public class BizEtfControl {
                 StringBuffer sbPriceArea = new StringBuffer();
                 Map<String, Boolean> maUpdateMap = new HashMap<>();
                 StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
-                StockDemo.handlerNetMa(stock, maUpdateMap, date, sbPriceArea,stockAdrCountVo);//处理均线净值
-                System.out.print(sbPriceArea.toString() + "\t");//显示信息-价格区间
+                StockDemo.handlerNetMa(stock, maUpdateMap, date, sbPriceArea, stockAdrCountVo);//处理均线净值
             }
 
-            System.out.print("超过均线：");//显示信息-价格区间
-            //            KlineService.checkMa(etfBizMap, KLT_5, maList, date, isUp,null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-            KlineService.checkMa(etfBizMapSub, KLT_15, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-            KlineService.checkMa(etfBizMapSub, KLT_30, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-            KlineService.checkMa(etfBizMapSub, KLT_60, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-            KlineService.checkMa(etfBizMapSub, KLT_101, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-            KlineService.checkMa(etfBizMapSub, KLT_102, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-
-            System.out.println();
-
-            stockAdrCountVo.setF12(zqdm);
-            stockAdrCountVo.setF12(zqmcFormat);
+            if (isShowUpMa) {
+                //            KlineService.checkMa(etfBizMap, KLT_5, maList, date, isUp,null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+                String upMa15 = KlineService.checkMa(etfBizMapSub, KLT_15, maList, date, isUp, null, false);
+                stockAdrCountVo.setUpMaDay15(upMa15);
+                String upMa30 = KlineService.checkMa(etfBizMapSub, KLT_30, maList, date, isUp, null, false);
+                stockAdrCountVo.setUpMaDay30(upMa30);
+                String upMa60 = KlineService.checkMa(etfBizMapSub, KLT_60, maList, date, isUp, null, false);
+                stockAdrCountVo.setUpMaDay60(upMa60);
+                String upMa101 = KlineService.checkMa(etfBizMapSub, KLT_101, maList, date, isUp, null, false);
+                stockAdrCountVo.setUpMaDay101(upMa101);
+                String upMa102 = KlineService.checkMa(etfBizMapSub, KLT_102, maList, date, isUp, null, false);
+                stockAdrCountVo.setUpMaDay102(upMa102);
+            }
+            rs.add(stockAdrCountVo);
         }
-
+        return rs;
 
     }
 
@@ -227,5 +232,53 @@ public class BizEtfControl {
         return name;
     }
 
+    /**
+     * 显示均线信息
+     * @param rs 统计信息
+     * @param orderField
+     * @param isShowPriceArea 是否显示价格区间
+     * @param isShowUpMa 是否显示-超过均线
+     */
+    private static void showStockMa(List<StockAdrCountVo> rs, String orderField, boolean isShowPriceArea, boolean isShowUpMa) {
+
+        if(rs ==null || rs.size()==0){
+            return;
+        }
+        if(StringUtils.isNotBlank(orderField)){
+            if("orderMaAreaDay5".equals(orderField)){
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_5, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+        for (StockAdrCountVo stockAdrCountVo : rs) {
+            System.out.print(stockAdrCountVo.getF12());
+            System.out.print("\t");
+            System.out.print(EtfUtil.handlerEtfName(stockAdrCountVo.getF14()));
+            System.out.print("\t");
+            if (isShowPriceArea) {
+                System.out.print("5日:" + stockAdrCountVo.getNET_AREA_DAY_5() + "\t");//显示信息-价格区间
+                System.out.print("10日:" + stockAdrCountVo.getNET_AREA_DAY_10() + "\t");//显示信息-价格区间
+                System.out.print("20日:" + stockAdrCountVo.getNET_AREA_DAY_20() + "\t");//显示信息-价格区间
+                System.out.print("40日:" + stockAdrCountVo.getNET_AREA_DAY_40() + "\t");//显示信息-价格区间
+                System.out.print("60日:" + stockAdrCountVo.getNET_AREA_DAY_60() + "\t");//显示信息-价格区间
+//                System.out.print("120日:"+stockAdrCountVo.getNET_AREA_DAY_120() + "\t");//显示信息-价格区间
+//                System.out.print("250日:"+stockAdrCountVo.getNET_AREA_DAY_250() + "\t");//显示信息-价格区间
+            }
+            if (isShowUpMa) {
+                System.out.print("超过均线：");//显示信息-价格区间
+                String upMa15 = stockAdrCountVo.getUpMaDay15();
+                String upMa30 = stockAdrCountVo.getUpMaDay30();
+                String upMa60 = stockAdrCountVo.getUpMaDay60();
+                String upMa101 = stockAdrCountVo.getUpMaDay101();
+                String upMa102 = stockAdrCountVo.getUpMaDay102();
+
+                System.out.print(StringUtils.isNotBlank(upMa15) ? upMa15 : "-------");
+                System.out.print(StringUtils.isNotBlank(upMa30) ? upMa30 : "-------");
+                System.out.print(StringUtils.isNotBlank(upMa60) ? upMa60 : "-------");
+                System.out.print(StringUtils.isNotBlank(upMa101) ? upMa101 : "-------");
+                System.out.print(StringUtils.isNotBlank(upMa102) ? upMa102 : "-------");
+            }
+            System.out.println();
+        }
+    }
 
 }

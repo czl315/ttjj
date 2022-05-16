@@ -5,13 +5,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
-import ttjj.dao.KlineDao;
 import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.DateCond;
 import ttjj.dto.Kline;
 import utils.Content;
-import utils.EtfUtil;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
@@ -602,24 +600,25 @@ public class KlineService {
         maList.add(MA_60);
 
 //        KlineService.checkMa(zqMap, KLT_5, maList, date, isUp);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_15, maList, date, isUp, spDate);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_30, maList, date, isUp, spDate);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_60, maList, date, isUp, spDate);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_101, maList, date, isUp, spDate);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_102, maList, date, isUp, spDate);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_15, maList, date, isUp, spDate, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_30, maList, date, isUp, spDate, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_60, maList, date, isUp, spDate, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_101, maList, date, isUp, spDate, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_102, maList, date, isUp, spDate, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
     }
 
     /**
      * 检查均线
-     *
-     * @param etfBizMap etf列表
+     *  @param etfBizMap etf列表
      * @param klt       均线类型
      * @param maList    均线列表
      * @param date
      * @param isUp
      * @param spDate
+     * @param isShow 是否显示结果
      */
-    public static void checkMa(Map<String, String> etfBizMap, String klt, List<Integer> maList, String date, boolean isUp, String spDate) {
+    public static String checkMa(Map<String, String> etfBizMap, String klt, List<Integer> maList, String date, boolean isUp, String spDate, boolean isShow) {
+        StringBuffer sbMa = new StringBuffer();
         for (String zqdm : etfBizMap.keySet()) {
             String zqmc = etfBizMap.get(zqdm);
             // 查询今日价格
@@ -655,12 +654,11 @@ public class KlineService {
 //            sbDay.append("，当前价：").append(curAmt);
 //            System.out.println(sbDay);
             for (Integer maType : maList) {
-                StringBuffer sbMa = new StringBuffer();
                 Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, maType, klt, false, "", date, "");
                 BigDecimal curMaAmt = netMap.get(Content.keyRsNetCloseAvg);
 //                sbMa.append("均线周期：");
-                sbMa.append(klt + "(" + maType + ")");
-                sbMa.append("\t");
+//                sbMa.append(klt + "(" + maType + ")");
+//                sbMa.append("\t");
 //                sbMa.append(",均线价格：" + curMaAmt);
 //                if (openAmt.compareTo(curMaAmt) >= 0) {
 //                    sbMa.append("，开盘价高于均线");
@@ -683,8 +681,9 @@ public class KlineService {
 //                    System.out.print(KlineService.handlerAvgLine("10日:", KlineService.findNetMinMaxAvg(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
 //                    System.out.print(KlineService.handlerAvgLine("20日:", KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
 //                    System.out.print(KlineService.handlerAvgLine("60日:", KlineService.findNetMinMaxAvg(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-                    System.out.print(sbMa);
-                    System.out.print(sbDay);
+                    sbMa.append(klt + "(" + maType + ")");
+//                    System.out.print(sbMa);
+//                    System.out.print(sbDay);
 //                    System.out.println(KlineService.handlerAvgLine("120日价格", KlineService.findNetMinMaxAvg(zqdm, MA_120, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
 //                    System.out.println(KlineService.handlerAvgLine("250日价格", KlineService.findNetMinMaxAvg(zqdm, MA_250, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
 //                    System.out.println();
@@ -701,6 +700,7 @@ public class KlineService {
                 }
             }
         }
+        return sbMa.toString();
     }
 
     /**

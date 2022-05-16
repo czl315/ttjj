@@ -12,7 +12,6 @@ import ttjj.service.StockService;
 import utils.*;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.*;
 
 import static utils.Content.*;
@@ -123,11 +122,11 @@ public class StockStatDemo {
         maList.add(MA_60);
 
 //        KlineService.checkMa(zqMap, KLT_5, maList, date, isUp,null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_15, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_30, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_60, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_101, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_102, maList, date, isUp, null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_15, maList, date, isUp, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_30, maList, date, isUp, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_60, maList, date, isUp, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_101, maList, date, isUp, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_102, maList, date, isUp, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
     }
 
     /**
@@ -428,7 +427,7 @@ public class StockStatDemo {
 //                        StringBuffer maSb = new StringBuffer("20日:").append(curPriceArea);
                     Map<String, String> stockMap = new HashMap<>();//
                     stockMap.put(zqdm, zqmc);
-                    KlineService.checkMa(stockMap, checkMaType, maList, date, true, null);// 检查均线
+                    KlineService.checkMa(stockMap, checkMaType, maList, date, true, null, true);// 检查均线
                 }
             }
         }

@@ -77,7 +77,7 @@ public class StBizStatDemo {
             if (--limit < 0) {
                 break;
             }
-//            String biz = "化学制药";//银行  航空机场    证券
+//            String biz = "医疗服务";//银行  航空机场    证券
             String biz = rankBizDataDiff.getF14();
             System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz );
             List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
@@ -549,7 +549,7 @@ public class StBizStatDemo {
 //            etfBizMap.put(etf.getF12(), etf.getF14());
 //        }
 
-        KlineService.checkMa(etfBizMap, kltType, maList, date, isUp, null);// 检查均线
+        KlineService.checkMa(etfBizMap, kltType, maList, date, isUp, null, true);// 检查均线
     }
 
 
