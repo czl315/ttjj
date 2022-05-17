@@ -248,6 +248,18 @@ public class BizEtfControl {
             if(MA_DAY_5.equals(orderField)){
                 rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_5, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
             }
+            if(MA_DAY_10.equals(orderField)){
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_10, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+            if(MA_DAY_20.equals(orderField)){
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_20, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+            if(MA_DAY_40.equals(orderField)){
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_40, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+            if(MA_DAY_60.equals(orderField)){
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_60, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
         }
         for (StockAdrCountVo stockAdrCountVo : rs) {
             System.out.print(stockAdrCountVo.getF12());

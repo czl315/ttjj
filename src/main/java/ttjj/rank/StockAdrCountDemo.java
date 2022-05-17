@@ -13,6 +13,7 @@ import ttjj.service.KlineService;
 import ttjj.service.StockAdrCountService;
 import ttjj.service.StockService;
 import ttjj.stat.StBizStatDemo;
+import utils.ConceptionUtil;
 import utils.DateUtil;
 import utils.StockUtil;
 
@@ -118,10 +119,11 @@ public class StockAdrCountDemo {
 //        List<Boolean> upMaList = Arrays.asList(false,true,true);//判断是否超过均线列表：15,30,60
         List<Boolean> upMaList = null;//判断是否超过均线列表：15,30,60
 //        String biz = "医疗服务";//化肥行业 农牧饲渔 航天航空    证券  医疗服务 医疗器械
-//        String biz = "医疗器械";//医疗： 医疗服务 医疗器械
-//        String biz = "风电设备";//科技： 光伏设备  风电设备
-        String biz = "采掘行业";//金融： 银行
-        String orderBy = " ADR_UP_COUNT_SUM_60 DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
+//        String biz = "生物制品";//医疗： 医疗服务 医疗器械 中药 生物制品
+//        String biz = "非金属材料";//科技： 光伏设备  能源金属  风电设备  电池    非金属材料
+        String biz = "物流行业";//金融： 银行  工程咨询服务
+//        String biz = "酿酒行业";//消费： 酿酒行业
+        String orderBy = " ADR_UP_COUNT_60 DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
         String maDate = date;
         if (maDateInt >= 0 ) {
             List<String> dateListBefore = RankStockCommpanyDao.findListDateBefore(new DateCond(date, 20));
@@ -142,10 +144,18 @@ public class StockAdrCountDemo {
         if (StringUtils.isNotBlank(biz)) {
             condition.setType_name(biz);
         }
+        //            map.put("002432", "");//002432	九安医疗	医疗器械
+        String concepPinYin = "mapGn";
+        if (ConceptionUtil.stConceptionMap.get(biz) != null) {
+            concepPinYin = ConceptionUtil.stConceptionMap.get(biz);
+        }
+
         List<StockAdrCount> stockAdrCountList = StockAdrCountService.findListByCondition(condition);
         for (StockAdrCount stockAdrCount : stockAdrCountList) {
             StringBuffer sbStockAdrCount = new StringBuffer();
-            sbStockAdrCount.append(StockUtil.handlerStName(stockAdrCount.getF14())).append("\t");
+//            sbStockAdrCount.append(StockUtil.handlerStName(stockAdrCount.getF14())).append("\t");
+            String stName = StockUtil.handlerStName(stockAdrCount.getF14());
+            sbStockAdrCount.append((concepPinYin + ".put(\"" + stockAdrCount.getF12() + "\", \"" + stName + "\");//"));//map  map.put("002432", "");//002432	九安医疗	医疗器械
             sbStockAdrCount.append(StockUtil.formatBizName(stockAdrCount.getType_name())).append("\t");
             sbStockAdrCount.append(stockAdrCount.getADR_UP_COUNT_SUM_60()).append("\t\t");
             sbStockAdrCount.append(stockAdrCount.getADR_UP_COUNT_60()).append("\t\t");
@@ -226,15 +236,15 @@ public class StockAdrCountDemo {
                     StringBuffer sbMa = new StringBuffer(sbMa15).append(sbMa30).append(sbMa60).append(sbMa101).append(sbMa102);
                     System.out.print("超均线" + maDate + ":" + sbMa);
                     BigDecimal maDateF3 = KlineService.showDateF3(maDate, stock);
-                    BigDecimal spDateF3 = KlineService.showDateF3(spDate, stock);
                     System.out.print("[" + maDate + "]：" + maDateF3 + "\t");
-                    System.out.print("[" + spDate + "]：" + spDateF3);
+//                    BigDecimal spDateF3 = KlineService.showDateF3(spDate, stock);
+//                    System.out.print("[" + spDate + "]：" + spDateF3);
                     System.out.println();
-                    if (spDateF3.compareTo(new BigDecimal("0")) > 0) {
-                        overCount++;
-                    } else {
-                        downCount++;
-                    }
+//                    if (spDateF3.compareTo(new BigDecimal("0")) > 0) {
+//                        overCount++;
+//                    } else {
+//                        downCount++;
+//                    }
                 } else {
                     System.out.print(sbStockAdrCount);//显示信息-涨幅次数
                     System.out.print(sbPriceArea.toString());//显示信息-价格区间

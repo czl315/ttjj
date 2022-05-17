@@ -71,24 +71,25 @@ public class StBizStatDemo {
 
 //        按板块查询
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
-        int limit = NUM_MAX_99;//限定个数
+//        int limit = NUM_MAX_99;//限定个数
+        int limit = 1;//限定个数
         int stBizCountTemp = 0;
         for (RankBizDataDiff rankBizDataDiff : bizList) {
             if (--limit < 0) {
                 break;
             }
-//            String biz = "医疗服务";//银行  航空机场    证券
-            String biz = rankBizDataDiff.getF14();
+            String biz = "银行";//银行  航空机场    证券
+//            String biz = rankBizDataDiff.getF14();
             System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz );
             List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
             List<StockAdrCount> stockAdrCountList = showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, reportQuete, isShowPriceArea);//统计涨跌次数
-            System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertListOrUpdate(stockAdrCountList));
+//            System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertListOrUpdate(stockAdrCountList));
 
-//            Map<String, String> zqMap = new HashMap<>();
-//            for (RankStockCommpanyDb stock : stList) {
-//                zqMap.put(stock.getF12(), stock.getF14());
-//            }
-//            StockStatDemo.checkMaDemo(zqMap, date);
+            Map<String, String> zqMap = new HashMap<>();
+            for (RankStockCommpanyDb stock : stList) {
+                zqMap.put(stock.getF12(), stock.getF14());
+            }
+            StockStatDemo.checkMaDemo(zqMap, date);
         }
 
 
