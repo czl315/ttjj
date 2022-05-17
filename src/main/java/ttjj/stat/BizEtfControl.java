@@ -30,7 +30,8 @@ public class BizEtfControl {
         boolean isShowUpMa = true;//是否显示-超过均线
 //        boolean isShowUpMa = false;//是否显示-超过均线
 
-        showStockMa(checkMaDemo(date, isShowPriceArea, isShowUpMa),MA_DAY_5,isShowPriceArea, isShowUpMa);
+        List<StockAdrCountVo> rs = checkMaDemo(date, isShowPriceArea, isShowUpMa);
+        showStockMa(rs,MA_DAY_5,isShowPriceArea, isShowUpMa);
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
     }

@@ -5,8 +5,8 @@ import ttjj.dao.ReportDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.Report;
-import ttjj.rank.BizRankDemo;
 import ttjj.rank.StockDemo;
+import ttjj.service.BizService;
 import ttjj.service.ReportService;
 import utils.DateUtil;
 
@@ -32,7 +32,7 @@ public class ReportDemo {
         String reportQuete = "2022Q1";
 
         //查询所有行业列表
-        List<RankBizDataDiff> bizList = BizRankDemo.listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询所有行业列表
+        List<RankBizDataDiff> bizList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询所有行业列表
 //        List<RankBizDataDiff> bizList = new ArrayList<>();//查询所有行业列表
 //        RankBizDataDiff bizOne = new RankBizDataDiff();//指定一个板块行业
 //        bizOne.setF12("BK0438");//食品饮料:BK0438

@@ -120,7 +120,7 @@ public class StockAdrCountDemo {
 //        String biz = "医疗服务";//化肥行业 农牧饲渔 航天航空    证券  医疗服务 医疗器械
 //        String biz = "医疗器械";//医疗： 医疗服务 医疗器械
 //        String biz = "风电设备";//科技： 光伏设备  风电设备
-        String biz = "证券";//金融： 银行
+        String biz = "采掘行业";//金融： 银行
         String orderBy = " ADR_UP_COUNT_SUM_60 DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
         String maDate = date;
         if (maDateInt >= 0 ) {
@@ -176,6 +176,7 @@ public class StockAdrCountDemo {
 //            String maDate = date;
 
             boolean isMa15 = KlineService.showUpMa(stock, KLT_15, maList, maDate, isUp);//显示信息-上涨均线
+//            String upMa15 = KlineService.checkMa(stock, KLT_15, maList, date, isUp, null, false);
             boolean isMa30 = KlineService.showUpMa(stock, KLT_30, maList, maDate, isUp);//显示信息-上涨均线
             boolean isMa60 = KlineService.showUpMa(stock, KLT_60, maList, maDate, isUp);//显示信息-上涨均线
             boolean isMa101 = KlineService.showUpMa(stock, KLT_101, maList, maDate, isUp);//显示信息-上涨均线
@@ -189,7 +190,7 @@ public class StockAdrCountDemo {
 //            String spDate = "2022-05-11";
 //            System.out.print(KlineService.showDateF3(spDate, stock));
 //            System.out.println();
-//            isHasMa = true;
+            isHasMa = true;
             if (isHasMa) {//只显示超过均线的
                 StringBuffer sbMa15 = new StringBuffer("    ");
                 StringBuffer sbMa30 = new StringBuffer("    ");
