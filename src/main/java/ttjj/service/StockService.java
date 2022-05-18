@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.CondStLikeConception;
+import ttjj.dto.DateCond;
 import ttjj.dto.RankBizDataDiff;
 import utils.HttpUtil;
 
@@ -245,5 +246,27 @@ public class StockService {
         }
         return curPriceArea;
     }
+
+    /**
+     * 查询指定日期之后交易日期列表
+     *
+     * @param date 指定日期
+     * @param days 限定返回数量
+     * @return 日期列表
+     */
+    public static List<String> findListDateAfter(String date, int days) {
+        return RankStockCommpanyDao.findListDateAfter(new DateCond(date, days));
+    }
+
+    /**
+     * 查询指定日期之前交易日期列表
+     * @param date 指定日期
+     * @param days 限定返回数量
+     * @return 日期列表
+     */
+    public static List<String> findListDateBefore(String date, int days) {
+        return RankStockCommpanyDao.findListDateBefore(new DateCond(date, days));
+    }
+
 
 }

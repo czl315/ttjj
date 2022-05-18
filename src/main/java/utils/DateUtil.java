@@ -24,8 +24,8 @@ public class DateUtil {
 //        System.out.println(getCurYearWeek());
 //        System.out.println(getWeek(new Date()));
 //        System.out.println(getWeekByYyyyMmDd("2021-08-29",DateUtil.YYYY_MM_DD));
-        System.out.println(getYearWeek("2021-08-29", DateUtil.YYYY_MM_DD));
-
+//        System.out.println(getYearWeek("2021-08-29", DateUtil.YYYY_MM_DD));
+        System.out.println(getAddDays(YYYY_MM_DD,"2022-05-01",-1));
 
 //        //获取格式化日期
 //        String date = getDateStrAddDaysByFormat(YYYY_MM_DD, 2021, 2, 28, -1);
@@ -249,5 +249,25 @@ public class DateUtil {
             week_index = 0;
         }
         return weeks[week_index];
+    }
+
+    /**
+     * 指定日期增加n天的日期
+     * @param format
+     * @param dateStr
+     * @param addDays
+     * @return
+     */
+    public static String getAddDays(String format, String dateStr, int addDays) {
+        Date date = new Date();
+        try {
+            date = new SimpleDateFormat(format).parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, addDays);//加一天
+        return new SimpleDateFormat(format).format(cal.getTime());
     }
 }

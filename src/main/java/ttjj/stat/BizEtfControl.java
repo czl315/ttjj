@@ -18,6 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static utils.Content.*;
+import static utils.DateUtil.YYYY_MM_DD;
 
 /**
  * 主题排行
@@ -25,25 +26,25 @@ import static utils.Content.*;
 public class BizEtfControl {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-05-17";
-//        String spDate = "";//
-        String spDate = "2022-05-18";//是否显示特定日期涨跌
+//        String date = "2022-05-18";
+        String spDate = "";//
+//            spDate = DateUtil.getAddDays(YYYY_MM_DD, date, 1);//是否显示特定日期涨跌   "2022-05-18"
+//        List<String> dateList = StockService.findListDateAfter(date, 2);
+//        if (dateList != null && dateList.size() > 1) {
+//            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
+//        }
         boolean isShowPriceArea = true;//是否显示价格区间
 //        boolean isShowPriceArea = false;//是否显示价格区间
+        List<String> kltList = Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101, KLT_102);//价格区间周期列表
+//        kltList.add(KLT_102);
+
         boolean isShowUpMa = true;//是否显示-超过均线
 //        boolean isShowUpMa = false;//是否显示-超过均线
         boolean isFindKline = true;//是否查询最新k线
-        List<String> kltList = new ArrayList<>();
-        kltList.add(KLT_5);
-        kltList.add(KLT_15);
-        kltList.add(KLT_30);
-        kltList.add(KLT_60);
-        kltList.add(KLT_101);
-        kltList.add(KLT_102);
 
 //        Map<String, String> etfBizMap = ContentEtf.mapEtfIndex;//mapEtfBiz mapEtfIndex    mapEtfAll
-//        Map<String, String> etfBizMap = ContentEtf.mapEtfBiz;//mapEtfBiz mapEtfIndex    mapEtfAll
-        Map<String, String> etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
+        Map<String, String> etfBizMap = ContentEtf.mapEtfBiz;//mapEtfBiz mapEtfIndex    mapEtfAll
+//        Map<String, String> etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
         List<StockAdrCountVo> rs = checkMaDemo(etfBizMap, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
 
         showStockMa(rs, ORDER_FIELD_NET_AREA_DAY_5, isShowPriceArea, isShowUpMa, kltList, spDate);
@@ -124,6 +125,7 @@ public class BizEtfControl {
                 if (kline != null) {
                     stockAdrCountVo.setF3(kline.getZhangDieFu());
                     stockAdrCountVo.setF2(kline.getCloseAmt());
+                    stockAdrCountVo.setDate(date);
                 }
             }
 
@@ -147,7 +149,7 @@ public class BizEtfControl {
         List<StatEtfUpDown> statEtfUpDownList = new ArrayList<>();
         //按照日期，倒序查询
         for (int i = 0; i <= days; i++) {
-            String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
+            String date = DateUtil.getCurDateStrAddDaysByFormat(YYYY_MM_DD, -i);
             Map<String, Object> condition = new HashMap<>();
             condition.put("list", etfBizSet);
             condition.put("date", date);
@@ -156,7 +158,7 @@ public class BizEtfControl {
                 continue;
             }
             List<RankBizDataDiff> rankListDown = rankListUp.stream().filter(e -> e != null).sorted(Comparator.comparing(RankBizDataDiff::getF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());//倒序
-            String curWeekNo = DateUtil.getWeekByYyyyMmDd(date, DateUtil.YYYY_MM_DD);
+            String curWeekNo = DateUtil.getWeekByYyyyMmDd(date, YYYY_MM_DD);
             if (showUp) {
                 if (curWeekNo.equals(DATE_WEEK_5)) {
                 }
@@ -323,12 +325,12 @@ public class BizEtfControl {
                 }
                 if (kltList.contains(KLT_60)) {
                     String upMa60 = stockAdrCountVo.getUpMaDay60();
-                    System.out.print(StringUtils.isNotBlank(upMa60) ?  upMa60 + " " : "       ");
+                    System.out.print(StringUtils.isNotBlank(upMa60) ? upMa60 + " " : "       ");
 //                    System.out.print(StringUtils.isNotBlank(upMa60) ? "[" + upMa60 + " " + "]" : "[       ]");
                 }
                 if (kltList.contains(KLT_101)) {
                     String upMa101 = stockAdrCountVo.getUpMaDay101();
-                    System.out.print(StringUtils.isNotBlank(upMa101) ? upMa101  : "       ");
+                    System.out.print(StringUtils.isNotBlank(upMa101) ? upMa101 : "       ");
 //                    System.out.print(StringUtils.isNotBlank(upMa101) ? "[" + upMa101 + "]" : "[       ]");
                 }
                 if (kltList.contains(KLT_102)) {
@@ -337,14 +339,14 @@ public class BizEtfControl {
 //                    System.out.print(StringUtils.isNotBlank(upMa102) ? "[" + upMa102 + "]" : "[       ]");
                 }
             }
-            System.out.print("涨跌：" + stockAdrCountVo.getF3());
+            System.out.print("[" + stockAdrCountVo.getDate().substring(5) + "]涨跌：" + stockAdrCountVo.getF3());
             //特定日期涨跌
             if (StringUtils.isNotBlank(spDate)) {
                 RankStockCommpanyDb stock = new RankStockCommpanyDb();
                 stock.setF12(stockAdrCountVo.getF12());
                 Kline kline = KlineService.findLast(stock, spDate, KLT_101);
                 if (kline != null) {
-                    System.out.print("[" + spDate.substring(5) + "]：" + kline.getZhangDieFu());
+                    System.out.print("\t[" + spDate.substring(5) + "]：" + kline.getZhangDieFu());
                 }
             }
             System.out.println();

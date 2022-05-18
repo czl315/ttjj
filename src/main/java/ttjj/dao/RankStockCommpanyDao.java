@@ -178,8 +178,8 @@ public class RankStockCommpanyDao {
     /**
      * 查询指定日期之后交易日期列表
      *
-     * @param dateCond
-     * @return
+     * @param dateCond 日期条件
+     * @return 日期列表
      */
     public static List<String> findListDateAfter(DateCond dateCond) {
         SqlSession session = sqlSessionFactory.openSession();
