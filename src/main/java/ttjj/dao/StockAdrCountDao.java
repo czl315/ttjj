@@ -33,6 +33,25 @@ public class StockAdrCountDao {
     }
 
     /**
+     * 更新
+     * @param entity 更新内容和条件
+     * @return 结果
+     */
+    public static int update(StockAdrCount entity) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.update("ttjj.dao.mapper.StockAdrCountMapper.update", entity);
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
      *
      * @param condition
      * @return

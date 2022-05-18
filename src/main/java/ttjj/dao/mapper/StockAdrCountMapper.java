@@ -25,7 +25,8 @@ public interface StockAdrCountMapper {
             ",`f17`, `f18`, `f20`, `f21`, `order_num` ",
             ",`conception`, `ADR_UP_COUNT_5`, `ADR_UP_COUNT_10`, `ADR_UP_COUNT_20`, `ADR_UP_COUNT_40` ",
             ",`ADR_UP_COUNT_60`, `ADR_UP_COUNT_SUM_60`,`NET_AREA_DAY_5`, `NET_AREA_DAY_10`, `NET_AREA_DAY_20`",
-            ", `NET_AREA_DAY_40`, `NET_AREA_DAY_60`, `NET_AREA_DAY_120`, `NET_AREA_DAY_250`",
+            ", `NET_AREA_DAY_40`, `NET_AREA_DAY_60`, `NET_AREA_DAY_120`, `NET_AREA_DAY_250`,`UP_MA_5`",
+            ", `UP_MA_15`, `UP_MA_30`, `UP_MA_60`, `UP_MA_101`,`UP_MA_102`",
             ") VALUES (",
             "#{date},#{type_name},#{f2},#{f3},#{f4}",
             ",#{f5},#{f6},#{f7},#{f8},#{f9}",
@@ -33,7 +34,8 @@ public interface StockAdrCountMapper {
             ",#{f17},#{f18},#{f20},#{f21},#{order_num}",
             ",#{conception},#{ADR_UP_COUNT_5},#{ADR_UP_COUNT_10},#{ADR_UP_COUNT_20},#{ADR_UP_COUNT_40}",
             ",#{ADR_UP_COUNT_60}, #{ADR_UP_COUNT_SUM_60},#{NET_AREA_DAY_5}, #{NET_AREA_DAY_10}, #{NET_AREA_DAY_20}",
-            ",#{NET_AREA_DAY_40}, #{NET_AREA_DAY_60}, #{NET_AREA_DAY_120}, #{NET_AREA_DAY_250}",
+            ",#{NET_AREA_DAY_40}, #{NET_AREA_DAY_60}, #{NET_AREA_DAY_120}, #{NET_AREA_DAY_250},#{UP_MA_5}",
+            ",#{UP_MA_15}, #{UP_MA_30}, #{UP_MA_60}, #{UP_MA_101},#{UP_MA_102}",
             ");",
             "</script>"})
     int insert(StockAdrCount entity);
@@ -64,6 +66,12 @@ public interface StockAdrCountMapper {
             "    <if test='ADR_UP_COUNT_40 != null'>ADR_UP_COUNT_40=#{ADR_UP_COUNT_40},</if>",
             "    <if test='ADR_UP_COUNT_60 != null'>ADR_UP_COUNT_60=#{ADR_UP_COUNT_60},</if>",
             "    <if test='ADR_UP_COUNT_SUM_60 != null'>ADR_UP_COUNT_SUM_60=#{ADR_UP_COUNT_SUM_60},</if>",
+            "    <if test='UP_MA_5 != null'>UP_MA_5=#{UP_MA_5},</if>",
+            "    <if test='UP_MA_15 != null'>UP_MA_15=#{UP_MA_15},</if>",
+            "    <if test='UP_MA_30 != null'>UP_MA_30=#{UP_MA_30},</if>",
+            "    <if test='UP_MA_60 != null'>UP_MA_60=#{UP_MA_60},</if>",
+            "    <if test='UP_MA_101 != null'>UP_MA_101=#{UP_MA_101},</if>",
+            "    <if test='UP_MA_102 != null'>UP_MA_102=#{UP_MA_102},</if>",
             "  </set>",
             "where date=#{date} AND f12=#{f12}",
             "</script>"})

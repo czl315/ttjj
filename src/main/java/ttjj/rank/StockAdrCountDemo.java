@@ -1,13 +1,11 @@
 package ttjj.rank;
 
 import org.apache.commons.lang3.StringUtils;
-import ttjj.dao.RankStockCommpanyDao;
 import ttjj.dao.StockAdrCountDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.db.StockAdrCount;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.StockAdrCountCond;
-import ttjj.dto.DateCond;
 import ttjj.dto.StockAdrCountVo;
 import ttjj.service.KlineService;
 import ttjj.service.StockAdrCountService;
@@ -33,18 +31,123 @@ public class StockAdrCountDemo {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-05-16";
 
-        statStockAdrCount(-1, date,date);//统计股票涨跌次数:0,0为当天
+//        String biz = "医疗服务";//化肥行业 农牧饲渔 航天航空    证券  医疗服务 医疗器械
+//        String biz = "生物制品";//医疗： 医疗服务 医疗器械 中药 生物制品
+        String biz = "能源金属";//科技： 光伏设备  能源金属  风电设备  电池    非金属材料   汽车整车
+//        String biz = "物流行业";//金融： 银行  工程咨询服务
+//        String biz = "酿酒行业";//消费： 酿酒行业
+        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
+
+//        statStockAdrCount(-1, date,date,stockAdrCountList, biz);//统计股票涨跌次数:0,0为当天
 //        statStockAdrCountBatch(10);//统计股票涨跌次数:0,0为当天
 
 //        //先删除，后插入
 //        deleteTodayStAdrCount();
 //        insertStockAdrCount(date);
 
+        //更新-超过均线信息
+        updateUpMa(date, stockAdrCountList);
+
     }
 
     /**
+     * 查询列表-根据条件
      *
+     * @param maDate
+     * @param biz
+     */
+    private static List<StockAdrCount> findListByCondition(String maDate, String biz) {
+        //        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"));
+        List<BigDecimal> orderNumList = null;
+//        List<Boolean> upMaList = Arrays.asList(false,true,true);//判断是否超过均线列表：15,30,60
+        List<Boolean> upMaList = null;//判断是否超过均线列表：15,30,60
+
+        String orderBy = " ADR_UP_COUNT_60 DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
+//        if (maDateInt >= 0 ) {
+//            List<String> dateListBefore = RankStockCommpanyDao.findListDateBefore(new DateCond(date, 20));
+//            maDate = dateListBefore.get(maDateInt);
+//        }
+
+
+//        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"));
+//        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"));
+        BigDecimal adrUpCountSum60Limit = new BigDecimal("0");
+        StockAdrCountCond condition = new StockAdrCountCond();
+        condition.setDate(maDate);
+        condition.setOrderNumList(orderNumList);
+        condition.setADR_UP_COUNT_SUM_60(adrUpCountSum60Limit);
+        condition.setOrderBy(orderBy);
+        if (StringUtils.isNotBlank(biz)) {
+            condition.setType_name(biz);
+        }
+        return StockAdrCountService.findListByCondition(condition);
+    }
+
+    /**
+     * 更新-超过均线信息
      *
+     * @param maDate
+     * @param stockAdrCountList
+     */
+    private static void updateUpMa(String maDate, List<StockAdrCount> stockAdrCountList) {
+        if (stockAdrCountList == null) {
+            System.out.println("更新-超过均线信息:stockAdrCountList==null");
+        }
+        for (StockAdrCount stockAdrCount : stockAdrCountList) {
+            StockAdrCount entity = new StockAdrCount();
+            entity.setF12(stockAdrCount.getF12());
+            entity.setDate(stockAdrCount.getDate());
+
+            boolean isUp = true;//检查上涨
+            List<Integer> maList = new ArrayList<>();
+            maList.add(MA_60);
+
+            //判断是否超过均线列表：15,30,60
+            RankStockCommpanyDb stock = new RankStockCommpanyDb();
+            stock.setF12(stockAdrCount.getF12());
+            //显示信息-上涨均线
+            boolean isMa15 = KlineService.showUpMa(stock, KLT_15, maList, maDate, isUp);//显示信息-上涨均线
+            if (isMa15) {
+                entity.setUP_MA_15(KLT_15 + "(" + MA_60 + ")");
+            } else {
+                entity.setUP_MA_15("");
+            }
+            boolean isMa30 = KlineService.showUpMa(stock, KLT_30, maList, maDate, isUp);//显示信息-上涨均线
+            if (isMa30) {
+                entity.setUP_MA_30(KLT_30 + "(" + MA_60 + ")");
+            }else {
+                entity.setUP_MA_30("");
+            }
+            boolean isMa60 = KlineService.showUpMa(stock, KLT_60, maList, maDate, isUp);//显示信息-上涨均线
+            if (isMa60) {
+                entity.setUP_MA_60(KLT_60 + "(" + MA_60 + ")");
+            }else {
+                entity.setUP_MA_60("");
+            }
+            boolean isMa101 = KlineService.showUpMa(stock, KLT_101, maList, maDate, isUp);//显示信息-上涨均线
+            if (isMa101) {
+                entity.setUP_MA_101(KLT_101 + "(" + MA_60 + ")");
+            }else {
+                entity.setUP_MA_101("");
+            }
+            boolean isMa102 = KlineService.showUpMa(stock, KLT_102, maList, maDate, isUp);//显示信息-上涨均线
+            if (isMa102) {
+                entity.setUP_MA_102(KLT_102 + "(" + MA_60 + ")");
+            }else {
+                entity.setUP_MA_102("");
+            }
+
+            boolean isHasMa = isMa15 || isMa30 || isMa60 || isMa101 || isMa102;
+            if (isHasMa) {
+                //更新
+                System.out.println("更新-超过均线信息:" + stockAdrCount.getF14() + StockAdrCountService.update(entity));
+            } else {
+                System.out.println("更新-超过均线信息:" + stockAdrCount.getF14() + "未超过任何均线，不做处理");
+            }
+        }
+    }
+
+    /**
      * @param date
      */
     private static void insertStockAdrCount(String date) {
@@ -65,7 +168,7 @@ public class StockAdrCountDemo {
             }
 //            String biz = "医疗服务";//银行  航空机场    证券
             String biz = rankBizDataDiff.getF14();
-            System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz );
+            System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz);
             List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
             List<StockAdrCount> stockAdrCountList = StBizStatDemo.showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, reportQuete, isShowPriceArea);//统计涨跌次数
 //            //插入或更新
@@ -102,59 +205,31 @@ public class StockAdrCountDemo {
      *
      * @param days 天数
      */
-    private static void statStockAdrCountBatch(int days,String date) {
+    private static void statStockAdrCountBatch(int days, String date, List<StockAdrCount> stockAdrCountList, String biz) {
         for (int i = 0; i <= days; i++) {
-            statStockAdrCount((i + 1), date, date);
+            statStockAdrCount((i + 1), date, date, stockAdrCountList, biz);
         }
     }
 
     /**
      * 统计股票涨跌次数
      */
-    private static void statStockAdrCount(int maDateInt, String spDate, String date) {
+    private static void statStockAdrCount(int maDateInt, String spDate, String maDate, List<StockAdrCount> stockAdrCountList, String biz) {
         boolean isShowPriceArea = true;//是否显示价格区间
 //        boolean isShowPriceArea = false;//是否显示价格区间
-//        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"));
-        List<BigDecimal> orderNumList = null;
-//        List<Boolean> upMaList = Arrays.asList(false,true,true);//判断是否超过均线列表：15,30,60
-        List<Boolean> upMaList = null;//判断是否超过均线列表：15,30,60
-//        String biz = "医疗服务";//化肥行业 农牧饲渔 航天航空    证券  医疗服务 医疗器械
-//        String biz = "生物制品";//医疗： 医疗服务 医疗器械 中药 生物制品
-//        String biz = "非金属材料";//科技： 光伏设备  能源金属  风电设备  电池    非金属材料
-        String biz = "物流行业";//金融： 银行  工程咨询服务
-//        String biz = "酿酒行业";//消费： 酿酒行业
-        String orderBy = " ADR_UP_COUNT_60 DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
-        String maDate = date;
-        if (maDateInt >= 0 ) {
-            List<String> dateListBefore = RankStockCommpanyDao.findListDateBefore(new DateCond(date, 20));
-            maDate = dateListBefore.get(maDateInt);
-        }
 
         int overCount = 0;//第二天上涨个数
         int downCount = 0;//第二天下跌个数
 
-//        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"));
-//        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"));
-        BigDecimal adrUpCountSum60Limit = new BigDecimal("0");
-        StockAdrCountCond condition = new StockAdrCountCond();
-        condition.setDate(date);
-        condition.setOrderNumList(orderNumList);
-        condition.setADR_UP_COUNT_SUM_60(adrUpCountSum60Limit);
-        condition.setOrderBy(orderBy);
-        if (StringUtils.isNotBlank(biz)) {
-            condition.setType_name(biz);
-        }
-        //            map.put("002432", "");//002432	九安医疗	医疗器械
-        String concepPinYin = "mapGn";
-        if (ConceptionUtil.stConceptionMap.get(biz) != null) {
-            concepPinYin = ConceptionUtil.stConceptionMap.get(biz);
-        }
-
-        List<StockAdrCount> stockAdrCountList = StockAdrCountService.findListByCondition(condition);
         for (StockAdrCount stockAdrCount : stockAdrCountList) {
             StringBuffer sbStockAdrCount = new StringBuffer();
 //            sbStockAdrCount.append(StockUtil.handlerStName(stockAdrCount.getF14())).append("\t");
             String stName = StockUtil.handlerStName(stockAdrCount.getF14());
+            //            map.put("002432", "");//002432	九安医疗	医疗器械
+            String concepPinYin = "mapGn";
+            if (ConceptionUtil.stConceptionMap.get(biz) != null) {
+                concepPinYin = ConceptionUtil.stConceptionMap.get(biz);
+            }
             sbStockAdrCount.append((concepPinYin + ".put(\"" + stockAdrCount.getF12() + "\", \"" + stName + "\");//"));//map  map.put("002432", "");//002432	九安医疗	医疗器械
             sbStockAdrCount.append(StockUtil.formatBizName(stockAdrCount.getType_name())).append("\t");
             sbStockAdrCount.append(stockAdrCount.getADR_UP_COUNT_SUM_60()).append("\t\t");
@@ -173,7 +248,7 @@ public class StockAdrCountDemo {
             if (isShowPriceArea) {
                 Map<String, Boolean> maUpdateMap = new HashMap<>();
                 StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
-                StockDemo.handlerNetMa(stock, maUpdateMap, date, sbPriceArea, new StockAdrCountVo());//处理均线净值
+                StockDemo.handlerNetMa(stock, maUpdateMap, maDate, sbPriceArea, new StockAdrCountVo());//处理均线净值
             }
 
             Map<String, String> zqMap = new HashMap<>();

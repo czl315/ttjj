@@ -67,4 +67,13 @@ public class StockAdrCountService {
     public static List<StockAdrCount> findListByCondition(StockAdrCountCond condition) {
         return StockAdrCountDao.findListByCondition(condition);
     }
+
+    /**
+     * 更新
+     * @param stockAdrCount 更新内容和条件
+     * @return 结果
+     */
+    public static Integer update(StockAdrCount stockAdrCount) {
+        return StockAdrCountDao.update(stockAdrCount);
+    }
 }

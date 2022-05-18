@@ -148,6 +148,30 @@ public class StockAdrCount {
      * NET_AREA_DAY_250
      */
     private BigDecimal NET_AREA_DAY_250;
+    /**
+     * UP_MA_ 超过均线
+     */
+    private String UP_MA_5;
+    /**
+     * UP_MA_15
+     */
+    private String UP_MA_15;
+    /**
+     * UP_MA_30
+     */
+    private String UP_MA_30;
+    /**
+     * UP_MA_60
+     */
+    private String UP_MA_60;
+    /**
+     * UP_MA_101
+     */
+    private String UP_MA_101;
+    /**
+     * UP_MA_102
+     */
+    private String UP_MA_102;
 
     public String getDate() {
         return date;
@@ -419,5 +443,53 @@ public class StockAdrCount {
 
     public void setNET_AREA_DAY_250(BigDecimal NET_AREA_DAY_250) {
         this.NET_AREA_DAY_250 = NET_AREA_DAY_250;
+    }
+
+    public String getUP_MA_5() {
+        return UP_MA_5;
+    }
+
+    public void setUP_MA_5(String UP_MA_5) {
+        this.UP_MA_5 = UP_MA_5;
+    }
+
+    public String getUP_MA_15() {
+        return UP_MA_15;
+    }
+
+    public void setUP_MA_15(String UP_MA_15) {
+        this.UP_MA_15 = UP_MA_15;
+    }
+
+    public String getUP_MA_30() {
+        return UP_MA_30;
+    }
+
+    public void setUP_MA_30(String UP_MA_30) {
+        this.UP_MA_30 = UP_MA_30;
+    }
+
+    public String getUP_MA_60() {
+        return UP_MA_60;
+    }
+
+    public void setUP_MA_60(String UP_MA_60) {
+        this.UP_MA_60 = UP_MA_60;
+    }
+
+    public String getUP_MA_101() {
+        return UP_MA_101;
+    }
+
+    public void setUP_MA_101(String UP_MA_101) {
+        this.UP_MA_101 = UP_MA_101;
+    }
+
+    public String getUP_MA_102() {
+        return UP_MA_102;
+    }
+
+    public void setUP_MA_102(String UP_MA_102) {
+        this.UP_MA_102 = UP_MA_102;
     }
 }
