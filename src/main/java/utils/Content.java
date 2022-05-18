@@ -500,4 +500,29 @@ public class Content {
      * MA_DAY_250 均线-日-
      */
     public static String MA_DAY_250 = "MA_DAY_250";
+
+    /**
+     * ORDER_FIELD_NET_AREA_DAY_5 排序字段
+     */
+    public static String ORDER_FIELD_NET_AREA_DAY_5 = "NET_AREA_DAY_5";
+    /**
+     * ORDER_FIELD_NET_AREA_DAY_10
+     */
+    public static String ORDER_FIELD_NET_AREA_DAY_10 = "NET_AREA_DAY_10";
+    /**
+     * ORDER_FIELD_NET_AREA_DAY_20
+     */
+    public static String ORDER_FIELD_NET_AREA_DAY_20 = "NET_AREA_DAY_20";
+    /**
+     * ORDER_FIELD_NET_AREA_DAY_40
+     */
+    public static String ORDER_FIELD_NET_AREA_DAY_40 = "NET_AREA_DAY_40";
+    /**
+     * ORDER_FIELD_NET_AREA_DAY_60
+     */
+    public static String ORDER_FIELD_NET_AREA_DAY_60 = "NET_AREA_DAY_60";
+    /**
+     * ORDER_FIELD_F3
+     */
+    public static String ORDER_FIELD_F3 = "F3";
 }

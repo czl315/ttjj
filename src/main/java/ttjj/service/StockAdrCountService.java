@@ -47,7 +47,7 @@ public class StockAdrCountService {
         for (StockAdrCount stockAdrCount : list) {
             StockAdrCount entity = StockAdrCountDao.findByCondition(stockAdrCount);
             if (entity != null) {
-                int deleRs = StockAdrCountDao.deleteByDateAndCode(entity);
+                int deleRs = StockAdrCountDao.deleteByCondition(entity);
                 System.out.println("数据已存在，先删除:" + deleRs + ";" );//+ JSON.toJSONString(entity)
             }
             /**

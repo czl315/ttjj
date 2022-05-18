@@ -732,6 +732,24 @@ public class KlineService {
     }
 
     /**
+     * 查询k线
+     * @param stock
+     * @param date
+     * @param klt
+     * @return
+     */
+    public static Kline findLast(RankStockCommpanyDb stock, String date, String klt) {
+        String zqdm = stock.getF12();
+        // 查询今日
+        List<Kline> klines = KlineService.kline(zqdm, 1, klt, false, "", date, "");
+        if (klines == null || klines.size() == 0) {
+            System.out.println(new StringBuffer().append(zqdm).append("，").append(zqdm).append(":k线异常！"));
+            return null;
+        }
+        return klines.get(0);
+    }
+
+    /**
      * @param stock
      * @param klt
      * @param maList

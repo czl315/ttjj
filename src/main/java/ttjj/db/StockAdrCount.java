@@ -29,7 +29,7 @@ public class StockAdrCount {
     /**
      * f2 指数点（当前价格）
      */
-    private Double f2;
+    private BigDecimal f2;
     /**
      * f3 涨跌幅
      */
@@ -37,7 +37,7 @@ public class StockAdrCount {
     /**
      * f4 涨跌数值
      */
-    private Double f4;
+    private BigDecimal f4;
     /**
      * f5 成交量
      */
@@ -49,15 +49,15 @@ public class StockAdrCount {
     /**
      * f7 振幅
      */
-    private Double f7;
+    private BigDecimal f7;
     /**
      * f8 换手
      */
-    private Double f8;
+    private BigDecimal f8;
     /**
      * f9 市盈(动)
      */
-    private Double f9;
+    private BigDecimal f9;
     /**
      * f10 量比
      */
@@ -205,11 +205,11 @@ public class StockAdrCount {
         this.conception = conception;
     }
 
-    public Double getF2() {
+    public BigDecimal getF2() {
         return f2;
     }
 
-    public void setF2(Double f2) {
+    public void setF2(BigDecimal f2) {
         this.f2 = f2;
     }
 
@@ -221,11 +221,11 @@ public class StockAdrCount {
         this.f3 = f3;
     }
 
-    public Double getF4() {
+    public BigDecimal getF4() {
         return f4;
     }
 
-    public void setF4(Double f4) {
+    public void setF4(BigDecimal f4) {
         this.f4 = f4;
     }
 
@@ -245,27 +245,27 @@ public class StockAdrCount {
         this.f6 = f6;
     }
 
-    public Double getF7() {
+    public BigDecimal getF7() {
         return f7;
     }
 
-    public void setF7(Double f7) {
+    public void setF7(BigDecimal f7) {
         this.f7 = f7;
     }
 
-    public Double getF8() {
+    public BigDecimal getF8() {
         return f8;
     }
 
-    public void setF8(Double f8) {
+    public void setF8(BigDecimal f8) {
         this.f8 = f8;
     }
 
-    public Double getF9() {
+    public BigDecimal getF9() {
         return f9;
     }
 
-    public void setF9(Double f9) {
+    public void setF9(BigDecimal f9) {
         this.f9 = f9;
     }
 

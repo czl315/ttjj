@@ -108,7 +108,7 @@ public class BizService {
                 break;
             }
         }
-        System.out.println(rs);
+//        System.out.println(rs);
         if (rs.startsWith("jQuery")) {
             rs = rs.substring(rs.indexOf("{"));
         }

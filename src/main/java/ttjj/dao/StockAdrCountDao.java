@@ -92,7 +92,7 @@ public class StockAdrCountDao {
      * @param condition
      * @return
      */
-    public static int deleteByDateAndCode(StockAdrCount condition) {
+    public static int deleteByCondition(StockAdrCount condition) {
         SqlSession session = sqlSessionFactory.openSession();
         int rs = 0;
         try {

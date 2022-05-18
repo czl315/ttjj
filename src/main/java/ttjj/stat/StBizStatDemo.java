@@ -80,7 +80,7 @@ public class StBizStatDemo {
             }
             String biz = "银行";//银行  航空机场    证券
 //            String biz = rankBizDataDiff.getF14();
-            System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz );
+            System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz);
             List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
             List<StockAdrCount> stockAdrCountList = showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, reportQuete, isShowPriceArea);//统计涨跌次数
 //            System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertListOrUpdate(stockAdrCountList));
@@ -359,14 +359,24 @@ public class StBizStatDemo {
             statRsStAdrCount.setType_name(rankStockCommpanyDb.getType_name());
             statRsStAdrCount.setConception(rankStockCommpanyDb.getConception());
             statRsStAdrCount.setDate(rankStockCommpanyDb.getDate());
-            statRsStAdrCount.setF2(rankStockCommpanyDb.getF2());
+            if (rankStockCommpanyDb.getF2() != null) {
+                statRsStAdrCount.setF2(new BigDecimal(rankStockCommpanyDb.getF2()));
+            }
             statRsStAdrCount.setF3(rankStockCommpanyDb.getF3());
-            statRsStAdrCount.setF4(rankStockCommpanyDb.getF4());
+            if (rankStockCommpanyDb.getF4() != null) {
+                statRsStAdrCount.setF4(new BigDecimal(rankStockCommpanyDb.getF4()));
+            }
             statRsStAdrCount.setF5(rankStockCommpanyDb.getF5());
             statRsStAdrCount.setF6(rankStockCommpanyDb.getF6());
-            statRsStAdrCount.setF7(rankStockCommpanyDb.getF7());
-            statRsStAdrCount.setF8(rankStockCommpanyDb.getF8());
-            statRsStAdrCount.setF9(rankStockCommpanyDb.getF9());
+            if (rankStockCommpanyDb.getF7() != null) {
+                statRsStAdrCount.setF7(new BigDecimal(rankStockCommpanyDb.getF7()));
+            }
+            if (rankStockCommpanyDb.getF8() != null) {
+                statRsStAdrCount.setF8(new BigDecimal(rankStockCommpanyDb.getF8()));
+            }
+            if (rankStockCommpanyDb.getF9() != null) {
+                statRsStAdrCount.setF9(new BigDecimal(rankStockCommpanyDb.getF9()));
+            }
             statRsStAdrCount.setF10(rankStockCommpanyDb.getF10());
             statRsStAdrCount.setF12(rankStockCommpanyDb.getF12());
             statRsStAdrCount.setF14(rankStockCommpanyDb.getF14());
@@ -377,14 +387,14 @@ public class StBizStatDemo {
             statRsStAdrCount.setF20(rankStockCommpanyDb.getF20());
             statRsStAdrCount.setF21(rankStockCommpanyDb.getF21());
 
-            //处理价格区间
-            statRsStAdrCount.setNET_AREA_DAY_5(KlineService.handlerPriceAreaRate(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK));
-            statRsStAdrCount.setNET_AREA_DAY_10(KlineService.handlerPriceAreaRate(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK));
-            statRsStAdrCount.setNET_AREA_DAY_20(KlineService.handlerPriceAreaRate(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK));
-            statRsStAdrCount.setNET_AREA_DAY_40(KlineService.handlerPriceAreaRate(zqdm, MA_40, KLT_101, false, "", date, KLINE_TYPE_STOCK));
-            statRsStAdrCount.setNET_AREA_DAY_60(KlineService.handlerPriceAreaRate(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK));
-            statRsStAdrCount.setNET_AREA_DAY_120(KlineService.handlerPriceAreaRate(zqdm, MA_120, KLT_101, false, "", date, KLINE_TYPE_STOCK));
-            statRsStAdrCount.setNET_AREA_DAY_250(KlineService.handlerPriceAreaRate(zqdm, MA_250, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+//            //处理价格区间
+//            statRsStAdrCount.setNET_AREA_DAY_5(KlineService.handlerPriceAreaRate(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+//            statRsStAdrCount.setNET_AREA_DAY_10(KlineService.handlerPriceAreaRate(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+//            statRsStAdrCount.setNET_AREA_DAY_20(KlineService.handlerPriceAreaRate(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+//            statRsStAdrCount.setNET_AREA_DAY_40(KlineService.handlerPriceAreaRate(zqdm, MA_40, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+//            statRsStAdrCount.setNET_AREA_DAY_60(KlineService.handlerPriceAreaRate(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+//            statRsStAdrCount.setNET_AREA_DAY_120(KlineService.handlerPriceAreaRate(zqdm, MA_120, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+//            statRsStAdrCount.setNET_AREA_DAY_250(KlineService.handlerPriceAreaRate(zqdm, MA_250, KLT_101, false, "", date, KLINE_TYPE_STOCK));
 
             orderNum = orderNum.add(new BigDecimal("1"));
             statRsStAdrCount.setOrder_num(orderNum);
@@ -417,10 +427,6 @@ public class StBizStatDemo {
             maSb.append("业绩报表为空");
         }
     }
-
-
-
-
 
 
     /**

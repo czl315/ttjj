@@ -12,6 +12,10 @@ public class StockAdrCountVo extends StockAdrCount {
     /**
      * upMa 超过均线-
      */
+    private String upMaDay5;
+    /**
+     * upMaDay15
+     */
     private String upMaDay15;
     /**
      * upMaDay10
@@ -29,6 +33,14 @@ public class StockAdrCountVo extends StockAdrCount {
      * upMaDay60
      */
     private String upMaDay102;
+
+    public String getUpMaDay5() {
+        return upMaDay5;
+    }
+
+    public void setUpMaDay5(String upMaDay5) {
+        this.upMaDay5 = upMaDay5;
+    }
 
     public String getUpMaDay15() {
         return upMaDay15;

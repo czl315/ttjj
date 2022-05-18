@@ -119,7 +119,14 @@ public interface StockAdrCountMapper {
     StockAdrCount findByCondition(StockAdrCount condition);
 
     @Delete({"<script>",
-            "DELETE FROM `stock_adr_count` WHERE f12=#{f12} AND date = #{date} LIMIT 1 ",
+            "DELETE FROM `stock_adr_count` WHERE 1=1 ",
+            "   AND date = #{date}  ",
+            "   <if test='f12 != null'> ",
+            "   AND f12=#{f12} ",
+            "   </if> ",
+            "   <if test='type_name != null'> ",
+            "   AND type_name = #{type_name} ",
+            "   </if> ",
             "</script>"})
     int deleteByCondition(StockAdrCount condition);
 

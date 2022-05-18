@@ -84,57 +84,16 @@ public class BizRankDemo {
      */
     private static void updateDbTodayNetCloseByKlt(String date, String klt, String type) {
         List<RankBizDataDiff> fundList = new ArrayList<>();
-        if (type.equals(DB_RANK_BIZ_TYPE_ETF)) {
-            fundList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);
-            for (RankBizDataDiff rankBizDataDiff : fundList) {
-                List<Kline> klines = KlineService.kline(rankBizDataDiff.getF12(), NUM_MAX_99, klt, true, date, date, KLINE_TYPE_ETF);
-                if (klines == null || klines.size() == 0) {
-                    System.out.println("k线为空：" + JSON.toJSONString(rankBizDataDiff));
-                    continue;
-                }
-                handlerTodayNetCloseByKlt(rankBizDataDiff, klines, klt);
-                int rs = BizRankDao.updateEtfNet(rankBizDataDiff);
-                System.out.println("更新今日净值价-etf：" + rs);
+        fundList = BizService.listBiz(date, klt, NUM_MAX_999);
+        for (RankBizDataDiff rankBizDataDiff : fundList) {
+            List<Kline> klines = KlineService.kline(rankBizDataDiff.getF12(), NUM_MAX_99, klt, true, date, date, KLINE_TYPE_ETF);
+            if (klines == null || klines.size() == 0) {
+                System.out.println("k线为空：" + JSON.toJSONString(rankBizDataDiff));
+                continue;
             }
-        }
-        if (type.equals(DB_RANK_BIZ_TYPE_LOF)) {
-            fundList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_LOF, NUM_MAX_999);
-            for (RankBizDataDiff rankBizDataDiff : fundList) {
-                List<Kline> klines = KlineService.kline(rankBizDataDiff.getF12(), NUM_MAX_99, klt, true, date, date, KLINE_TYPE_ETF);
-                if (klines == null || klines.size() == 0) {
-                    System.out.println("k线为空：" + JSON.toJSONString(rankBizDataDiff));
-                    continue;
-                }
-                handlerTodayNetCloseByKlt(rankBizDataDiff, klines, klt);
-                int rs = BizRankDao.updateEtfNet(rankBizDataDiff);
-                System.out.println("更新今日净值价-lof：" + rs);
-            }
-        }
-        if (type.equals(DB_RANK_BIZ_TYPE_HANG_YE)) {
-            fundList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询板块行业列表
-            for (RankBizDataDiff rankBizDataDiff : fundList) {
-                List<Kline> klines = KlineService.kline(rankBizDataDiff.getF12(), NUM_MAX_999, klt, true, date, date, KLINE_TYPE_BAN_KUAI);
-                if (klines == null || klines.size() == 0) {
-                    System.out.println("k线为空：" + JSON.toJSONString(rankBizDataDiff));
-                    continue;
-                }
-                handlerTodayNetCloseByKlt(rankBizDataDiff, klines, klt);
-                int rs = BizRankDao.updateEtfNet(rankBizDataDiff);
-                System.out.println("更新今日净值价-行业：" + rs);
-            }
-        }
-        if (type.equals(DB_RANK_BIZ_TYPE_GAI_NIAN)) {
-            fundList = listConcept(date, DB_RANK_BIZ_TYPE_GAI_NIAN, NUM_MAX_999);//查询主题排名by时间类型、显示个数
-            for (RankBizDataDiff rankBizDataDiff : fundList) {
-                List<Kline> klines = KlineService.kline(rankBizDataDiff.getF12(), NUM_MAX_999, klt, true, date, date, KLINE_TYPE_BAN_KUAI);
-                if (klines == null || klines.size() == 0) {
-                    System.out.println("k线为空：" + JSON.toJSONString(rankBizDataDiff));
-                    continue;
-                }
-                handlerTodayNetCloseByKlt(rankBizDataDiff, klines, klt);
-                int rs = BizRankDao.updateEtfNet(rankBizDataDiff);
-                System.out.println("概念：" + rankBizDataDiff.getF14() + ":" + rankBizDataDiff.getF3() + ",rs：" + rs);
-            }
+            handlerTodayNetCloseByKlt(rankBizDataDiff, klines, klt);
+            int rs = BizRankDao.updateEtfNet(rankBizDataDiff);
+            System.out.println("更新今日净值价-分时-" + klt + "：" + rs);
         }
     }
 
@@ -297,33 +256,11 @@ public class BizRankDemo {
      * @param type
      */
     private static void insertTodayRank(String date, String type) {
-        if (type.equals(DB_RANK_BIZ_TYPE_HANG_YE)) {
-            List<RankBizDataDiff> rankBizDataDiffListBiz = BizService.listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询板块行业列表
-            //db-插入
-            BizRankDao.insertDbBiz(rankBizDataDiffListBiz);//bk-板块
-            System.out.println("bk-板块-保存完成：" + rankBizDataDiffListBiz.size());
+        List<RankBizDataDiff> rankBizDataDiffListBiz = BizService.listBiz(date, type, NUM_MAX_999);//查询板块行业列表
+        //db-插入
+        BizRankDao.insertDbBiz(rankBizDataDiffListBiz);//bk-板块
+        System.out.println(type + "保存完成：" + rankBizDataDiffListBiz.size());
 //            showBizSql(date, rankBizDataDiffListBiz, "bk");//显示sql-业务排行-插入
-        }
-        if (type.equals(DB_RANK_BIZ_TYPE_GAI_NIAN)) {
-            List<RankBizDataDiff> rankBizDataDiffListConcept = listConcept(date, DB_RANK_BIZ_TYPE_GAI_NIAN, NUM_MAX_999);//查询主题排名by时间类型、显示个数
-            //db-插入
-            BizRankDao.insertDbBiz(rankBizDataDiffListConcept);
-            System.out.println("rank-概念-保存完成：" + rankBizDataDiffListConcept.size());
-//            showBizSql(date, rankBizDataDiffListConcept, "gn");//显示业务排行-插入sql
-        }
-
-        if (type.equals(DB_RANK_BIZ_TYPE_ETF)) {
-            List<RankBizDataDiff> rankEtf = BizService.listBiz(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;2022-01-14:614;
-            BizRankDao.insertDbBiz(rankEtf);
-            System.out.println("etf-保存完成：" + rankEtf.size());
-//            showBizSql(date, rankEtf, "etf");//新增插入-etf指数基金场内
-        }
-        if (type.equals(DB_RANK_BIZ_TYPE_LOF)) {
-            List<RankBizDataDiff> lofList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_LOF, NUM_MAX_999);//LOF：158(2022-01-14);
-            BizRankDao.insertDbBiz(lofList);
-            System.out.println("LOF-保存完成：" + lofList.size());
-        }
-
     }
 
 
@@ -1158,8 +1095,6 @@ public class BizRankDemo {
         rs.put(Content.keyRsNetCloseMax, rsNetCloseMax);
         return rs;
     }
-
-
 
 
     /**
