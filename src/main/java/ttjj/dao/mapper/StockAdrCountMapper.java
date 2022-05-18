@@ -72,6 +72,13 @@ public interface StockAdrCountMapper {
             "    <if test='UP_MA_60 != null'>UP_MA_60=#{UP_MA_60},</if>",
             "    <if test='UP_MA_101 != null'>UP_MA_101=#{UP_MA_101},</if>",
             "    <if test='UP_MA_102 != null'>UP_MA_102=#{UP_MA_102},</if>",
+            "    <if test='NET_AREA_DAY_5 != null'>NET_AREA_DAY_5=#{NET_AREA_DAY_5},</if>",
+            "    <if test='NET_AREA_DAY_10 != null'>NET_AREA_DAY_10=#{NET_AREA_DAY_10},</if>",
+            "    <if test='NET_AREA_DAY_20 != null'>NET_AREA_DAY_20=#{NET_AREA_DAY_20},</if>",
+            "    <if test='NET_AREA_DAY_40 != null'>NET_AREA_DAY_40=#{NET_AREA_DAY_40},</if>",
+            "    <if test='NET_AREA_DAY_60 != null'>NET_AREA_DAY_60=#{NET_AREA_DAY_60},</if>",
+            "    <if test='NET_AREA_DAY_120 != null'>NET_AREA_DAY_120=#{NET_AREA_DAY_120},</if>",
+            "    <if test='NET_AREA_DAY_250 != null'>NET_AREA_DAY_250=#{NET_AREA_DAY_250},</if>",
             "  </set>",
             "where date=#{date} AND f12=#{f12}",
             "</script>"})

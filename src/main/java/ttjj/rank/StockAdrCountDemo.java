@@ -30,28 +30,36 @@ public class StockAdrCountDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-05-17";
+        String spDate = "";//
+//        String spDate = "2022-05-18";//是否显示特定日期涨跌
 
-//        String biz = null;//业务类别为空时，插入全部类别
-//        String biz = "医疗服务";//化肥行业 农牧饲渔 航天航空    证券  医疗服务 医疗器械
-        String biz = "中药";//医疗： 医疗服务 医疗器械 中药 生物制品
+        String biz = null;//业务类别为空时，插入全部类别
+//        String biz = "化肥行业";//化肥行业 农牧饲渔 航天航空    证券  医疗服务 医疗器械
+//        String biz = "医疗服务";//医疗： 医疗服务 医疗器械 中药 生物制品
 //        String biz = "能源金属";//科技： 光伏设备  能源金属  风电设备  电池    非金属材料   汽车整车
-//        String biz = "物流行业";//金融： 银行  工程咨询服务
+//        String biz = "证券";//金融： 银行  工程咨询服务 证券
 //        String biz = "酿酒行业";//消费： 酿酒行业
 //        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
 
         //批量插入-从股票表中统计数据-按照业务类别
 //        insertListStatStock(date, biz);
+        List<StockAdrCount> stockAdrCountList = null;
+        List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
+        int stBizCountTemp = 0;
+        for (RankBizDataDiff rankBizDataDiff : bizList) {
+            String bizName = rankBizDataDiff.getF14();
+            System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + bizName);
+            stockAdrCountList = findListByCondition(date, bizName);
+            //更新-价格区间
+            updateNetArea(date, stockAdrCountList);
+            //更新-超过均线信息
+            updateUpMa(date, stockAdrCountList);
+        }
 
-        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
-        String spDate = "";//
-//        String spDate = "2022-05-18";//是否显示特定日期涨跌
-        statStockAdrCount(-1, spDate,date,stockAdrCountList, biz);//统计股票涨跌次数:0,0为当天
+//        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
+//        statStockAdrCount(-1, spDate,date,stockAdrCountList, biz);//统计股票涨跌次数:0,0为当天
 //        statStockAdrCountBatch(10);//统计股票涨跌次数:0,0为当天
 
-//        updateNetArea(date, stockAdrCountList);
-
-        //更新-超过均线信息
-//        updateUpMa(date, stockAdrCountList);
 
     }
 
@@ -71,7 +79,7 @@ public class StockAdrCountDemo {
         BigDecimal mvLimit = NUM_YI_50;
 
 //        按板块查询
-        List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
+        List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
         int limit = NUM_MAX_99;//限定个数
         int stBizCountTemp = 0;
         for (RankBizDataDiff rankBizDataDiff : bizList) {
@@ -87,7 +95,7 @@ public class StockAdrCountDemo {
                     System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertList(stockAdrCountList));
                 } else {
                     System.out.println("业务类别不匹配");
-                    continue;
+                    break;
                 }
             } else {
                 biz = rankBizDataDiff.getF14();
@@ -96,12 +104,15 @@ public class StockAdrCountDemo {
                 stockAdrCountList = StBizStatDemo.showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, "", isShowPriceArea);//统计涨跌次数
                 deleteTodayStAdrCount(biz);//先删除，后插入
                 System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertList(stockAdrCountList));
+                biz = null;
             }
         }
         return stockAdrCountList;
     }
 
     /**
+     * 更新-价格区间
+     *
      * @param date
      * @param stockAdrCountList
      */
@@ -116,16 +127,17 @@ public class StockAdrCountDemo {
             entity.setDate(stockAdrCount.getDate());
 
             //处理价格区间
-            stockAdrCount.setNET_AREA_DAY_5(KlineService.handlerPriceAreaRate(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK));
-            stockAdrCount.setNET_AREA_DAY_10(KlineService.handlerPriceAreaRate(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK));
-            stockAdrCount.setNET_AREA_DAY_20(KlineService.handlerPriceAreaRate(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK));
-            stockAdrCount.setNET_AREA_DAY_40(KlineService.handlerPriceAreaRate(zqdm, MA_40, KLT_101, false, "", date, KLINE_TYPE_STOCK));
-            stockAdrCount.setNET_AREA_DAY_60(KlineService.handlerPriceAreaRate(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+            entity.setNET_AREA_DAY_5(KlineService.handlerPriceAreaRate(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+            entity.setNET_AREA_DAY_10(KlineService.handlerPriceAreaRate(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+            entity.setNET_AREA_DAY_20(KlineService.handlerPriceAreaRate(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+            entity.setNET_AREA_DAY_40(KlineService.handlerPriceAreaRate(zqdm, MA_40, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+            entity.setNET_AREA_DAY_60(KlineService.handlerPriceAreaRate(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK));
 //            stockAdrCount.setNET_AREA_DAY_120(KlineService.handlerPriceAreaRate(zqdm, MA_120, KLT_101, false, "", date, KLINE_TYPE_STOCK));
 //            stockAdrCount.setNET_AREA_DAY_250(KlineService.handlerPriceAreaRate(zqdm, MA_250, KLT_101, false, "", date, KLINE_TYPE_STOCK));
             //更新
-            System.out.println("更新-净值区间:" + stockAdrCount.getF14() + StockAdrCountService.update(entity));
+//            System.out.println("更新-净值区间:" + stockAdrCount.getF14() + StockAdrCountService.update(entity));
         }
+        System.out.println("更新-净值区间-个数:" + stockAdrCountList.size());
     }
 
     /**
@@ -218,11 +230,13 @@ public class StockAdrCountDemo {
             boolean isHasMa = isMa15 || isMa30 || isMa60 || isMa101 || isMa102;
             if (isHasMa) {
                 //更新
-                System.out.println("更新-超过均线信息:" + stockAdrCount.getF14() + StockAdrCountService.update(entity));
+                int rs = StockAdrCountService.update(entity);
+                System.out.println("更新-超过均线信息:" + stockAdrCount.getF14() + ",是否成功：" + rs);
             } else {
-                System.out.println("更新-超过均线信息:" + stockAdrCount.getF14() + "未超过任何均线，不做处理");
+//                System.out.println("更新-超过均线信息:" + stockAdrCount.getF14() + "未超过任何均线，不做处理");
             }
         }
+        System.out.println("更新-超过均线信息:" + stockAdrCountList.size());
     }
 
     /**
@@ -372,7 +386,7 @@ public class StockAdrCountDemo {
                     System.out.print(sbPriceArea.toString());//显示信息-价格区间
                     StringBuffer sbMa = new StringBuffer(sbMa15).append(sbMa30).append(sbMa60).append(sbMa101).append(sbMa102);
                     System.out.print("超均线" + maDate + ":" + sbMa);
-                    if(StringUtils.isNotBlank(spDate)){
+                    if (StringUtils.isNotBlank(spDate)) {
                         BigDecimal maDateF3 = KlineService.showDateF3(maDate, stock);
                         System.out.print("[" + maDate + "]：" + maDateF3 + "\t");
                         BigDecimal spDateF3 = KlineService.showDateF3(spDate, stock);
@@ -393,8 +407,8 @@ public class StockAdrCountDemo {
                     BigDecimal spDateF3 = KlineService.showDateF3(spDate, stock);
                     System.out.print("[" + maDate + "]：" + maDateF3 + "\t");
                     System.out.print("[" + spDate + "]：" + spDateF3);
-                    System.out.println();
                 }
+                System.out.println();
             }
         }
         System.out.println("第二天上涨-下跌比:" + overCount + ":" + downCount);
@@ -406,6 +420,7 @@ public class StockAdrCountDemo {
 
     /**
      * 删除数据-今日
+     *
      * @param biz
      */
     private static void deleteTodayStAdrCount(String biz) {

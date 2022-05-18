@@ -25,7 +25,9 @@ import static utils.Content.*;
 public class BizEtfControl {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-03-28";
+//        String date = "2022-05-17";
+//        String spDate = "";//
+        String spDate = "2022-05-18";//是否显示特定日期涨跌
         boolean isShowPriceArea = true;//是否显示价格区间
 //        boolean isShowPriceArea = false;//是否显示价格区间
         boolean isShowUpMa = true;//是否显示-超过均线
@@ -37,13 +39,14 @@ public class BizEtfControl {
         kltList.add(KLT_30);
         kltList.add(KLT_60);
         kltList.add(KLT_101);
-//        kltList.add(KLT_102);
+        kltList.add(KLT_102);
 
 //        Map<String, String> etfBizMap = ContentEtf.mapEtfIndex;//mapEtfBiz mapEtfIndex    mapEtfAll
 //        Map<String, String> etfBizMap = ContentEtf.mapEtfBiz;//mapEtfBiz mapEtfIndex    mapEtfAll
         Map<String, String> etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
         List<StockAdrCountVo> rs = checkMaDemo(etfBizMap, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
-        showStockMa(rs, ORDER_FIELD_NET_AREA_DAY_5, isShowPriceArea, isShowUpMa, kltList);
+
+        showStockMa(rs, ORDER_FIELD_NET_AREA_DAY_5, isShowPriceArea, isShowUpMa, kltList, spDate);
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
     }
@@ -278,8 +281,9 @@ public class BizEtfControl {
      * @param isShowPriceArea 是否显示价格区间
      * @param isShowUpMa      是否显示-超过均线
      * @param kltList
+     * @param spDate
      */
-    private static void showStockMa(List<StockAdrCountVo> rs, String orderField, boolean isShowPriceArea, boolean isShowUpMa, List<String> kltList) {
+    private static void showStockMa(List<StockAdrCountVo> rs, String orderField, boolean isShowPriceArea, boolean isShowUpMa, List<String> kltList, String spDate) {
         if (rs == null || rs.size() == 0) {
             return;
         }
@@ -304,30 +308,45 @@ public class BizEtfControl {
                 System.out.print("超均线：");//显示信息-价格区间
                 if (kltList.contains(KLT_5)) {
                     String upMa5 = stockAdrCountVo.getUpMaDay5();
-                    System.out.print(StringUtils.isNotBlank(upMa5) ? upMa5 + " " : "       ");
+                    System.out.print(StringUtils.isNotBlank(upMa5) ? upMa5 + "   " : "        ");
+//                    System.out.print(StringUtils.isNotBlank(upMa5) ? "[" + upMa5 + "   " + "]" : "[        ]");
                 }
                 if (kltList.contains(KLT_15)) {
                     String upMa15 = stockAdrCountVo.getUpMaDay15();
                     System.out.print(StringUtils.isNotBlank(upMa15) ? upMa15 + " " : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa15) ? "[" + upMa15 + " " + "]" : "[       ]");
                 }
                 if (kltList.contains(KLT_30)) {
                     String upMa30 = stockAdrCountVo.getUpMaDay30();
                     System.out.print(StringUtils.isNotBlank(upMa30) ? upMa30 + " " : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa30) ? "[" + upMa30 + " " + "]" : "[       ]");
                 }
                 if (kltList.contains(KLT_60)) {
                     String upMa60 = stockAdrCountVo.getUpMaDay60();
-                    System.out.print(StringUtils.isNotBlank(upMa60) ? upMa60 + " " : "       ");
+                    System.out.print(StringUtils.isNotBlank(upMa60) ?  upMa60 + " " : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa60) ? "[" + upMa60 + " " + "]" : "[       ]");
                 }
                 if (kltList.contains(KLT_101)) {
                     String upMa101 = stockAdrCountVo.getUpMaDay101();
-                    System.out.print(StringUtils.isNotBlank(upMa101) ? upMa101 : "       ");
+                    System.out.print(StringUtils.isNotBlank(upMa101) ? upMa101  : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa101) ? "[" + upMa101 + "]" : "[       ]");
                 }
                 if (kltList.contains(KLT_102)) {
                     String upMa102 = stockAdrCountVo.getUpMaDay102();
                     System.out.print(StringUtils.isNotBlank(upMa102) ? upMa102 : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa102) ? "[" + upMa102 + "]" : "[       ]");
                 }
             }
             System.out.print("涨跌：" + stockAdrCountVo.getF3());
+            //特定日期涨跌
+            if (StringUtils.isNotBlank(spDate)) {
+                RankStockCommpanyDb stock = new RankStockCommpanyDb();
+                stock.setF12(stockAdrCountVo.getF12());
+                Kline kline = KlineService.findLast(stock, spDate, KLT_101);
+                if (kline != null) {
+                    System.out.print("[" + spDate.substring(5) + "]：" + kline.getZhangDieFu());
+                }
+            }
             System.out.println();
         }
     }

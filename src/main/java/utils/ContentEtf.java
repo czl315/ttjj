@@ -40,7 +40,7 @@ public class ContentEtf {
 
         mapEtfBiz.put("512800", "银行ETF");//512800	银行ETF	91.44   515290	银行ETF天弘	81.57
         mapEtfBiz.put("512880", "证券ETF");//512880	证券ETF	353.10      512000	券商ETF	237.31      512900	证券ETF基金	88.41
-        mapEtfBiz.put("510230", "金融ETF基金");//159940	金融ETF基金	20.80   510230	金融ETF	41.09
+//        mapEtfBiz.put("510230", "金融ETF基金");//159940	金融ETF基金	20.80   510230	金融ETF	41.09
         mapEtfBiz.put("512200", "房地产ETF");//512200	房地产ETF	17.53
         mapEtfBiz.put("518880", "黄金ETF");//518880	黄金ETF	113.78
         mapEtfBiz.put("516970", "基建50ETF");//516970	基建50ETF	50.27

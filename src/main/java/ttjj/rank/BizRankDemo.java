@@ -84,7 +84,7 @@ public class BizRankDemo {
      */
     private static void updateDbTodayNetCloseByKlt(String date, String klt, String type) {
         List<RankBizDataDiff> fundList = new ArrayList<>();
-        fundList = BizService.listBiz(date, klt, NUM_MAX_999);
+        fundList = BizService.listBiz(date, type, NUM_MAX_999);
         for (RankBizDataDiff rankBizDataDiff : fundList) {
             List<Kline> klines = KlineService.kline(rankBizDataDiff.getF12(), NUM_MAX_99, klt, true, date, date, KLINE_TYPE_ETF);
             if (klines == null || klines.size() == 0) {
@@ -245,7 +245,7 @@ public class BizRankDemo {
             entity.setNET_MIN_CLOS_360(netMap250.get(Content.keyRsNetCloseMin));
             entity.setNET_MAX_CLOS_360(netMap250.get(Content.keyRsNetCloseMax));
             BizRankDao.updateEtfNet(entity);
-            System.out.println("更新-净值：" + rankBizDataDiff.getF3() + ":" + "\t" + rankBizDataDiff.getF223() + ":" + rankBizDataDiff.getF12() + ":" + rankBizDataDiff.getF14());
+            System.out.println("更新-均线：" + rankBizDataDiff.getF3() + ":" + "\t" + rankBizDataDiff.getF223() + ":" + rankBizDataDiff.getF12() + ":" + rankBizDataDiff.getF14());
         }
     }
 
