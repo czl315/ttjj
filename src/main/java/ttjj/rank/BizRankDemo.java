@@ -42,9 +42,11 @@ public class BizRankDemo {
         updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_GAI_NIAN);
         updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
         insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
-        updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_ETF);
-        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
+
         if (!isOnlyGn) {
+            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_ETF);
+            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
+
             insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
             updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_LOF);
             updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
@@ -86,7 +88,7 @@ public class BizRankDemo {
         List<RankBizDataDiff> fundList = new ArrayList<>();
         fundList = BizService.listBiz(date, type, NUM_MAX_999);
         for (RankBizDataDiff rankBizDataDiff : fundList) {
-            List<Kline> klines = KlineService.kline(rankBizDataDiff.getF12(), NUM_MAX_99, klt, true, date, date, KLINE_TYPE_ETF);
+            List<Kline> klines = KlineService.kline(rankBizDataDiff.getF12(), NUM_MAX_99, klt, true, date, date, null);
             if (klines == null || klines.size() == 0) {
                 System.out.println("k线为空：" + JSON.toJSONString(rankBizDataDiff));
                 continue;
@@ -660,20 +662,20 @@ public class BizRankDemo {
                 String zqdm = rankBizDataDiff.getF12();
                 entity.setF12(zqdm);
                 entity.setDate(date);
-                Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, "", date, KLINE_TYPE_ETF);
+                Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, "", date, null);
                 entity.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
 //                entity.setNET_MIN_7(netMap5.get(keyRsMin));
-                Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, "", date, KLINE_TYPE_ETF);
+                Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, "", date, null);
                 entity.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
-                Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, "", date, KLINE_TYPE_ETF);
+                Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, "", date, null);
                 entity.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
-                Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, "", date, KLINE_TYPE_ETF);
+                Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, "", date, null);
                 entity.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
-                Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, "", date, KLINE_TYPE_ETF);
+                Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, "", date, null);
                 entity.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
-                Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, "", date, KLINE_TYPE_ETF);
+                Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, "", date, null);
                 entity.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
-                Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, "", date, KLINE_TYPE_ETF);
+                Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, "", date, null);
                 entity.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
                 BizRankDao.updateEtfNet(entity);
                 System.out.println("更新-etf净值：" + JSON.toJSONString(entity));

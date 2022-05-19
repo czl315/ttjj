@@ -380,10 +380,10 @@ public class StBizStatDemo {
             statRsStAdrCount.setF10(rankStockCommpanyDb.getF10());
             statRsStAdrCount.setF12(rankStockCommpanyDb.getF12());
             statRsStAdrCount.setF14(rankStockCommpanyDb.getF14());
-            statRsStAdrCount.setF15(rankStockCommpanyDb.getF15());
-            statRsStAdrCount.setF16(rankStockCommpanyDb.getF16());
-            statRsStAdrCount.setF17(rankStockCommpanyDb.getF17());
-            statRsStAdrCount.setF18(rankStockCommpanyDb.getF18());
+            statRsStAdrCount.setF15(new BigDecimal(rankStockCommpanyDb.getF15().toString()));
+            statRsStAdrCount.setF16(new BigDecimal(rankStockCommpanyDb.getF16().toString()));
+            statRsStAdrCount.setF17(new BigDecimal(rankStockCommpanyDb.getF17().toString()));
+            statRsStAdrCount.setF18(new BigDecimal(rankStockCommpanyDb.getF18().toString()));
             statRsStAdrCount.setF20(rankStockCommpanyDb.getF20());
             statRsStAdrCount.setF21(rankStockCommpanyDb.getF21());
 

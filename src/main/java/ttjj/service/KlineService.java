@@ -169,7 +169,7 @@ public class KlineService {
 //        url.append(jqueryHttpHead);
         url.append("&secid=");
 
-        if (klineType ==null ||klineType.equals(KLINE_TYPE_STOCK) || StringUtils.isBlank(klineType)) {
+        if (klineType == null || klineType.equals(KLINE_TYPE_STOCK) || StringUtils.isBlank(klineType)) {
             if (zqdm.startsWith("00") || zqdm.startsWith("12") || zqdm.startsWith("13") || zqdm.startsWith("16") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
                 url.append("0." + zqdm);
 //                16XXXX：深交所LOF基金：16打头(前两位均用“16”标识，中间两位为中国证监会信息中心统一规定的基金管理公司代码gg，后两位为该公司发行全部开放式基金的顺序号xx。具体表示为“16ggxx”)
@@ -201,7 +201,7 @@ public class KlineService {
                 url.append("2." + zqdm);
             } else if (zqdm.startsWith("107.")) {
                 url.append(zqdm);//美股
-            } else if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI)||zqdm.startsWith(HTTP_KLINE_TYPE_BK_REFIX)) {//板块
+            } else if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI) || zqdm.startsWith(HTTP_KLINE_TYPE_BK_REFIX)) {//板块
                 if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI)) {//板块
                     url.append(zqdm);//secid: 90.BK0438
                 } else {
@@ -364,10 +364,29 @@ public class KlineService {
 //        http://32.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery112407539208236899613_1633162329750&secid=1.600900&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&beg=0&end=20500101&smplmt=460&lmt=1000000&_=1633162329778
 //        http://59.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery112407992655839121356_1633162556067&secid=1.600900&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&beg=0&end=20500101&smplmt=460&lmt=1000000&_=1633162556089
 //        http://29.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery1124024914966884869072_1633162507065&secid=1.600719&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&beg=0&end=20500101&smplmt=460&lmt=1000000&_=1633162507087
-        int random = RandomUtils.nextInt(40, 99);
-        String jqueryHead = "jQuery112407539208236899613_";
-        if (random > 80) {
-            jqueryHead = "jQuery112407992655839121356_";
+        //http://39.push2.eastmoney.com/api/qt/clist/get?         cb=jQuery112406572021024967467_1652944891287&pn=1&pz=20&po=0&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=6342375825382124|0|1|0|web&fid=f3&fs=m:90+t:2+f:!50&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222&_=1652944891290
+        int random = RandomUtils.nextInt(1, 99);
+        StringBuffer jqueryHead = new StringBuffer("jQuery").append("11240");
+        if (random > 90) {
+            jqueryHead.append("9620860037322811_");
+        } else if (random > 80) {
+            jqueryHead.append("8263766970783568_");
+        } else if (random > 70) {
+            jqueryHead.append("7766798835686965_");
+        } else if (random > 60) {
+            jqueryHead.append("6891659396929999_");
+        } else if (random > 50) {
+            jqueryHead.append("5495671767226189_");
+        } else if (random > 40) {
+            jqueryHead.append("16104730221571373_");
+        } else if (random > 30) {
+            jqueryHead.append("3619626460672556_");
+        } else if (random > 20) {
+            jqueryHead.append("2210297745027332_");
+        } else if (random > 10) {
+            jqueryHead.append("10570957997687747_");
+        } else {
+            jqueryHead.append("04711681234201204_");
         }
         StringBuffer rs = new StringBuffer("http://").append(random).append(requestUrl).append(jqueryHead).append(System.currentTimeMillis());
         return rs.toString();
@@ -609,13 +628,14 @@ public class KlineService {
 
     /**
      * 检查均线
-     *  @param etfBizMap etf列表
+     *
+     * @param etfBizMap etf列表
      * @param klt       均线类型
      * @param maList    均线列表
      * @param date
      * @param isUp
      * @param spDate
-     * @param isShow 是否显示结果
+     * @param isShow    是否显示结果
      */
     public static String checkMa(Map<String, String> etfBizMap, String klt, List<Integer> maList, String date, boolean isUp, String spDate, boolean isShow) {
         StringBuffer sbMa = new StringBuffer();
@@ -733,6 +753,7 @@ public class KlineService {
 
     /**
      * 查询k线
+     *
      * @param stock
      * @param date
      * @param klt
