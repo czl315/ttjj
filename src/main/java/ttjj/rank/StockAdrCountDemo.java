@@ -44,7 +44,13 @@ public class StockAdrCountDemo {
 //        String biz = "证券";//金融： 银行  工程咨询服务 证券
 //        String biz = "酿酒行业";//消费： 酿酒行业
 
-        updateNetAreaAndMa(date, biz);//更新-最新价格、价格区间、均线
+//        List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
+//        int stBizCountTemp = 0;
+//        for (RankBizDataDiff rankBizDataDiff : bizList) {
+//            biz = rankBizDataDiff.getF14();
+//            System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz);
+//            updateNetAreaAndMa(date, biz);//更新-最新价格、价格区间、均线
+//        }
 
 //        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
 
@@ -78,10 +84,10 @@ public class StockAdrCountDemo {
             System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz);
 
             //先删除，后插入
-//            List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
-//            stockAdrCountList = StBizStatDemo.showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, "", isShowPriceArea);//统计涨跌次数
-//            deleteTodayStAdrCount(biz);//先删除，后插入
-//            System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertList(stockAdrCountList));
+            List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
+            stockAdrCountList = StBizStatDemo.showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, "", isShowPriceArea);//统计涨跌次数
+            deleteTodayStAdrCount(biz);//先删除，后插入
+            System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertList(stockAdrCountList));
 
             stockAdrCountList = findListByCondition(date, biz);
             //更新-价格区间
@@ -105,18 +111,18 @@ public class StockAdrCountDemo {
         for (RankBizDataDiff rankBizDataDiff : bizList) {
             if (StringUtils.isNotBlank(biz)) {
                 if (rankBizDataDiff.getF14().equals(biz)) {
-                    System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz);
+//                    System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz);
                     stockAdrCountList = findListByCondition(date, biz);//查询列表-根据条件
                     updateCurPrice(date, stockAdrCountList);//更新-最新价格
                     updateNetArea(date, stockAdrCountList);//更新-价格区间
                     updateUpMa(date, stockAdrCountList);//更新-超过均线信息
                 } else {
-                    System.out.println("业务类别不匹配");
+//                    System.out.println("业务类别不匹配");
                     continue;
                 }
             } else {
                 biz = rankBizDataDiff.getF14();
-                System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz);
+//                System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz);
                 stockAdrCountList = findListByCondition(date, biz);//查询列表-根据条件
                 updateCurPrice(date, stockAdrCountList);//更新-最新价格
                 updateNetArea(date, stockAdrCountList);//更新-价格区间
