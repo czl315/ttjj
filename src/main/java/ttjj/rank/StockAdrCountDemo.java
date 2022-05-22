@@ -53,9 +53,15 @@ public class StockAdrCountDemo {
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
         int stBizCountTemp = 0;
+        int startMapNum = 0;//map的开始，中断后使用，默认可设置为0
         for (RankBizDataDiff rankBizDataDiff : bizList) {
             biz = rankBizDataDiff.getF14();
-            System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz);
+            stBizCountTemp++;
+            if (stBizCountTemp < startMapNum) {
+                System.out.println("已完成:" + biz);
+                continue;//已完成
+            }
+            System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + biz);
             insertListStatStock(date, biz, adrMinList);//批量插入-从股票表中统计数据-按照业务类别
             updateNetAreaAndMa(date, biz);//更新-最新价格、价格区间、均线
         }
@@ -156,7 +162,7 @@ public class StockAdrCountDemo {
         BigDecimal mvLimit = NUM_YI_50;
 
 //        按板块查询
-        System.out.println("-------------------------当前biz：" + biz);
+//        System.out.println("-------------------------当前biz：" + biz);
         List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
         stockAdrCountList = StBizStatDemo.showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, "", isShowPriceArea);//统计涨跌次数
         deleteTodayStAdrCount(date, biz);//先删除，后插入
