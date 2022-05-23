@@ -46,8 +46,10 @@ public class BizEtfControl {
 //        Map<String, String> etfBizMap = ContentEtf.mapEtfIndex;//mapEtfBiz mapEtfIndex    mapEtfAll
 //        Map<String, String> etfBizMap = ContentEtf.mapEtfBiz;//mapEtfBiz mapEtfIndex    mapEtfAll
         Map<String, String> etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
+//        System.out.println(System.currentTimeMillis());
         List<StockAdrCountVo> rs = checkMaDemo(etfBizMap, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
-        showStockMa(rs, ORDER_FIELD_NET_AREA_DAY_5, isShowPriceArea, isShowUpMa, kltList, spDate);
+        showStockMa(rs, ORDER_FIELD_NET_AREA_DAY_5, false, isShowPriceArea, isShowUpMa, kltList, spDate);
+//        showStockMa(rs, ORDER_FIELD_F3, true, isShowPriceArea, isShowUpMa, kltList, spDate);
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
     }
@@ -285,12 +287,12 @@ public class BizEtfControl {
      * @param kltList
      * @param spDate
      */
-    private static void showStockMa(List<StockAdrCountVo> rs, String orderField, boolean isShowPriceArea, boolean isShowUpMa, List<String> kltList, String spDate) {
+    private static void showStockMa(List<StockAdrCountVo> rs, String orderField, boolean isOrderDesc, boolean isShowPriceArea, boolean isShowUpMa, List<String> kltList, String spDate) {
         if (rs == null || rs.size() == 0) {
             return;
         }
         if (StringUtils.isNotBlank(orderField)) {
-            rs = handlerOrder(rs, orderField);//列表-排序：根据字段
+            rs = handlerOrder(rs, orderField, isOrderDesc);//列表-排序：根据字段
         }
         for (StockAdrCountVo stockAdrCountVo : rs) {
             System.out.print(stockAdrCountVo.getF12());
@@ -356,30 +358,56 @@ public class BizEtfControl {
     /**
      * 处理-列表-排序：根据字段
      *
-     * @param rs
-     * @param orderField
+     * @param rs          原始数据
+     * @param orderField  排序字段
+     * @param isOrderDesc 是否倒序
+     * @return 排序结果
      */
-    private static List<StockAdrCountVo> handlerOrder(List<StockAdrCountVo> rs, String orderField) {
+    private static List<StockAdrCountVo> handlerOrder(List<StockAdrCountVo> rs, String orderField, boolean isOrderDesc) {
         if (rs == null) {
             return null;
         }
         if (ORDER_FIELD_NET_AREA_DAY_5.equals(orderField)) {
-            rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_5, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_5, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_5, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
         }
         if (ORDER_FIELD_NET_AREA_DAY_10.equals(orderField)) {
-            rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_10, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_10, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_10, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
         }
         if (ORDER_FIELD_NET_AREA_DAY_20.equals(orderField)) {
-            rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_20, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_20, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_20, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
         }
         if (ORDER_FIELD_NET_AREA_DAY_40.equals(orderField)) {
-            rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_40, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_40, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_40, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
         }
         if (ORDER_FIELD_NET_AREA_DAY_60.equals(orderField)) {
-            rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_60, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_60, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_60, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
         }
         if (ORDER_FIELD_F3.equals(orderField)) {
-            rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_60, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
         }
         return rs;
     }

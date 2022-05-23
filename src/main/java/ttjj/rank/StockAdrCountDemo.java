@@ -63,6 +63,7 @@ public class StockAdrCountDemo {
             }
             System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + biz);
             insertListStatStock(date, biz, adrMinList);//批量插入-从股票表中统计数据-按照业务类别
+//            updateAdrCount(date, biz, adrMinList);
             updateNetAreaAndMa(date, biz);//更新-最新价格、价格区间、均线
         }
 
@@ -74,6 +75,28 @@ public class StockAdrCountDemo {
 //        statStockAdrCountBatch(10);//统计股票涨跌次数:0,0为当天
 
 
+    }
+
+    /**
+     *
+     * @param date
+     * @param biz
+     * @param adrMinList
+     */
+    private static void updateAdrCount(String date, String biz, List<BigDecimal> adrMinList) {
+        List<StockAdrCount> stockAdrCountList = null;
+        List<Integer> daysList = Arrays.asList(MA_60, MA_40, MA_20, MA_10, MA_5);
+        boolean isShowPriceArea = false;//是否显示价格区间
+        long board = DB_RANK_BIZ_F19_BK_MAIN;
+        BigDecimal mvLimit = NUM_YI_50;
+
+//        按板块查询
+//        System.out.println("-------------------------当前biz：" + biz);
+        List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
+        stockAdrCountList = StBizStatDemo.showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, "", isShowPriceArea);//统计涨跌次数
+        for (StockAdrCount stockAdrCount : stockAdrCountList) {
+            System.out.println("更新-涨幅次数统计：" + StockAdrCountService.update(stockAdrCount));
+        }
     }
 
     /**

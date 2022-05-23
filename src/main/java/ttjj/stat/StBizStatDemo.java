@@ -362,7 +362,7 @@ public class StBizStatDemo {
 
             statRsStAdrCount.setType_name(rankStockCommpanyDb.getType_name());
             statRsStAdrCount.setConception(rankStockCommpanyDb.getConception());
-            statRsStAdrCount.setDate(rankStockCommpanyDb.getDate());
+            statRsStAdrCount.setDate(date);
             if (rankStockCommpanyDb.getF2() != null) {
                 statRsStAdrCount.setF2(new BigDecimal(rankStockCommpanyDb.getF2()));
             }
