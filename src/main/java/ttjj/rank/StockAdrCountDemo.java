@@ -1,5 +1,6 @@
 package ttjj.rank;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.StockAdrCountDao;
 import ttjj.db.RankStockCommpanyDb;
@@ -30,11 +31,12 @@ import static utils.Content.*;
 public class StockAdrCountDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-05-20";
+//        String date = "2022-05-23";
         String spDate = "";//
 //        String spDate = "2022-05-18";//是否显示特定日期涨跌
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("4"), new BigDecimal("5"), new BigDecimal("6"), new BigDecimal("7"), new BigDecimal("8"), new BigDecimal("9"));
-
+        List<Integer> daysList = Arrays.asList(TRADE_DAYS_60, TRADE_DAYS_40, TRADE_DAYS_20, TRADE_DAYS_10, TRADE_DAYS_5, TRADE_DAYS_3, TRADE_DAYS_2, TRADE_DAYS_1);
+//        List<Integer> daysList = Arrays.asList(TRADE_DAYS_3,TRADE_DAYS_2,TRADE_DAYS_1);
 
         //插入且更新价格区间、更新
 //        insertListStockAdrCountAndUpdateNetAreaMa(date);
@@ -58,13 +60,15 @@ public class StockAdrCountDemo {
             biz = rankBizDataDiff.getF14();
             stBizCountTemp++;
             if (stBizCountTemp < startMapNum) {
-                System.out.println("已完成:" + biz);
+                System.out.println("已完成," + (stBizCountTemp) + ":" + biz);
                 continue;//已完成
             }
             System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + biz);
-            insertListStatStock(date, biz, adrMinList);//批量插入-从股票表中统计数据-按照业务类别
-//            updateAdrCount(date, biz, adrMinList);
-            updateNetAreaAndMa(date, biz);//更新-最新价格、价格区间、均线
+//            insertListStatStock(date, biz, adrMinList,daysList);//批量插入-从股票表中统计数据-按照业务类别
+            insertListByBiz(date, biz);
+            updateListByBiz(date, biz);
+            updateAdrCount(date, biz, adrMinList, daysList);
+//            updateNetAreaAndMa(date, biz);//更新-最新价格、价格区间、均线
         }
 
 //        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
@@ -78,14 +82,144 @@ public class StockAdrCountDemo {
     }
 
     /**
+     * 插入-根据业务，查询列表
      *
      * @param date
      * @param biz
-     * @param adrMinList
+     * @return
      */
-    private static void updateAdrCount(String date, String biz, List<BigDecimal> adrMinList) {
+    private static List<StockAdrCount> insertListByBiz(String date, String biz) {
         List<StockAdrCount> stockAdrCountList = null;
-        List<Integer> daysList = Arrays.asList(MA_60, MA_40, MA_20, MA_10, MA_5);
+//        按板块查询
+//        System.out.println("-------------------------当前biz：" + biz);
+        List<RankStockCommpanyDb> stList = StockDemo.listRankStockByBiz(NUM_MAX_999, biz);
+        for (RankStockCommpanyDb rankStockCommpanyDb : stList) {
+            StockAdrCount entity = new StockAdrCount();
+            entity.setDate(date);
+            entity.setType_name(rankStockCommpanyDb.getType_name());
+            entity.setConception(rankStockCommpanyDb.getConception());
+            if (rankStockCommpanyDb.getF2() != null) {
+                entity.setF2(new BigDecimal(rankStockCommpanyDb.getF2()));
+            }
+            entity.setF3(rankStockCommpanyDb.getF3());
+            if (rankStockCommpanyDb.getF4() != null) {
+                entity.setF4(new BigDecimal(rankStockCommpanyDb.getF4()));
+            }
+            entity.setF5(rankStockCommpanyDb.getF5());
+            entity.setF6(rankStockCommpanyDb.getF6());
+            if (rankStockCommpanyDb.getF7() != null) {
+                entity.setF7(new BigDecimal(rankStockCommpanyDb.getF7()));
+            }
+            if (rankStockCommpanyDb.getF8() != null) {
+                entity.setF8(new BigDecimal(rankStockCommpanyDb.getF8()));
+            }
+            if (rankStockCommpanyDb.getF9() != null) {
+                entity.setF9(new BigDecimal(rankStockCommpanyDb.getF9()));
+            }
+            entity.setF10(rankStockCommpanyDb.getF10());
+            entity.setF12(rankStockCommpanyDb.getF12());
+            entity.setF14(rankStockCommpanyDb.getF14());
+            if (rankStockCommpanyDb.getF15() != null) {
+                entity.setF15(new BigDecimal(rankStockCommpanyDb.getF15().toString()));
+            }
+            if (rankStockCommpanyDb.getF16() != null) {
+                entity.setF16(new BigDecimal(rankStockCommpanyDb.getF16().toString()));
+            }
+            if (rankStockCommpanyDb.getF17() != null) {
+                entity.setF17(new BigDecimal(rankStockCommpanyDb.getF17().toString()));
+            }
+            if (rankStockCommpanyDb.getF18() != null) {
+                entity.setF18(new BigDecimal(rankStockCommpanyDb.getF18().toString()));
+            }
+            entity.setF20(rankStockCommpanyDb.getF20());
+            entity.setF21(rankStockCommpanyDb.getF21());
+
+            stockAdrCountList.add(entity);
+        }
+
+        System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertList(stockAdrCountList));
+        return stockAdrCountList;
+    }
+
+    /**
+     * 更新-根据业务，批量更新基础信息
+     *
+     * @param date
+     * @param biz
+     * @return
+     */
+    private static List<StockAdrCount> updateListByBiz(String date, String biz) {
+        List<StockAdrCount> stockAdrCountList = null;
+//        按板块查询
+//        System.out.println("-------------------------当前biz：" + biz);
+        List<RankStockCommpanyDb> stList = StockDemo.listRankStockByBiz(NUM_MAX_999, biz);
+        for (RankStockCommpanyDb rankStockCommpanyDb : stList) {
+            StockAdrCount entity = new StockAdrCount();
+            entity.setDate(date);
+            entity.setF12(rankStockCommpanyDb.getF12());
+
+            entity.setType_name(rankStockCommpanyDb.getType_name());
+            entity.setConception(rankStockCommpanyDb.getConception());
+            if (rankStockCommpanyDb.getF2() != null) {
+                entity.setF2(new BigDecimal(rankStockCommpanyDb.getF2()));
+            }
+            entity.setF3(rankStockCommpanyDb.getF3());
+            if (rankStockCommpanyDb.getF4() != null) {
+                entity.setF4(new BigDecimal(rankStockCommpanyDb.getF4()));
+            }
+            entity.setF5(rankStockCommpanyDb.getF5());
+            entity.setF6(rankStockCommpanyDb.getF6());
+            if (rankStockCommpanyDb.getF7() != null) {
+                entity.setF7(new BigDecimal(rankStockCommpanyDb.getF7()));
+            }
+            if (rankStockCommpanyDb.getF8() != null) {
+                entity.setF8(new BigDecimal(rankStockCommpanyDb.getF8()));
+            }
+            if (rankStockCommpanyDb.getF9() != null) {
+                entity.setF9(new BigDecimal(rankStockCommpanyDb.getF9()));
+            }
+            entity.setF10(rankStockCommpanyDb.getF10());
+            entity.setF14(rankStockCommpanyDb.getF14());
+            if (rankStockCommpanyDb.getF15() != null) {
+                entity.setF15(new BigDecimal(rankStockCommpanyDb.getF15().toString()));
+            }
+            if (rankStockCommpanyDb.getF16() != null) {
+                entity.setF16(new BigDecimal(rankStockCommpanyDb.getF16().toString()));
+            }
+            if (rankStockCommpanyDb.getF17() != null) {
+                entity.setF17(new BigDecimal(rankStockCommpanyDb.getF17().toString()));
+            }
+            if (rankStockCommpanyDb.getF18() != null) {
+                entity.setF18(new BigDecimal(rankStockCommpanyDb.getF18().toString()));
+            }
+            entity.setF20(rankStockCommpanyDb.getF20());
+            entity.setF21(rankStockCommpanyDb.getF21());
+
+            stockAdrCountList.add(entity);
+        }
+
+        int rs = 0;
+        for (StockAdrCount stockAdrCount : stockAdrCountList) {
+            int updateRs = StockAdrCountService.update(stockAdrCount);
+            if (updateRs != 1) {
+                System.out.println("更新-失败：" + rs + "" + JSON.toJSONString(stockAdrCount));
+            } else {
+                rs++;
+            }
+        }
+        System.out.println("当前biz：" + biz + ",根据业务，批量更新基础信息成功-涨幅次数统计：" + rs);
+
+        return stockAdrCountList;
+    }
+
+    /**
+     * @param date
+     * @param biz
+     * @param adrMinList
+     * @param daysList+
+     */
+    private static void updateAdrCount(String date, String biz, List<BigDecimal> adrMinList, List<Integer> daysList) {
+        List<StockAdrCount> stockAdrCountList = null;
         boolean isShowPriceArea = false;//是否显示价格区间
         long board = DB_RANK_BIZ_F19_BK_MAIN;
         BigDecimal mvLimit = NUM_YI_50;
@@ -95,7 +229,24 @@ public class StockAdrCountDemo {
         List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
         stockAdrCountList = StBizStatDemo.showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, "", isShowPriceArea);//统计涨跌次数
         for (StockAdrCount stockAdrCount : stockAdrCountList) {
-            System.out.println("更新-涨幅次数统计：" + StockAdrCountService.update(stockAdrCount));
+            StockAdrCount entity = new StockAdrCount();
+            entity.setDate(date);
+            entity.setF12(stockAdrCount.getF12());
+            entity.setADR_UP_COUNT_SUM_60(stockAdrCount.getADR_UP_COUNT_SUM_60());
+            entity.setADR_UP_COUNT_1(stockAdrCount.getADR_UP_COUNT_1());
+            entity.setADR_UP_COUNT_2(stockAdrCount.getADR_UP_COUNT_2());
+            entity.setADR_UP_COUNT_3(stockAdrCount.getADR_UP_COUNT_3());
+            entity.setADR_UP_COUNT_5(stockAdrCount.getADR_UP_COUNT_5());
+            entity.setADR_UP_COUNT_10(stockAdrCount.getADR_UP_COUNT_10());
+            entity.setADR_UP_COUNT_20(stockAdrCount.getADR_UP_COUNT_20());
+            entity.setADR_UP_COUNT_40(stockAdrCount.getADR_UP_COUNT_40());
+            entity.setADR_UP_COUNT_60(stockAdrCount.getADR_UP_COUNT_60());
+//            entity.setADR_UP_COUNT_120(stockAdrCount.getADR_UP_COUNT_120());
+//            entity.setADR_UP_COUNT_250(stockAdrCount.getADR_UP_COUNT_250());
+            int rs = StockAdrCountService.update(entity);
+            if (rs != 1) {
+                System.out.println("更新-涨幅次数统计-失败：" + rs + "" + JSON.toJSONString(entity));
+            }
         }
     }
 
@@ -175,11 +326,11 @@ public class StockAdrCountDemo {
      * @param date       日期
      * @param biz        限定业务
      * @param adrMinList 最低涨幅列表
+     * @param daysList
      * @return 插入数据集
      */
-    private static List<StockAdrCount> insertListStatStock(String date, String biz, List<BigDecimal> adrMinList) {
+    private static List<StockAdrCount> insertListStatStock(String date, String biz, List<BigDecimal> adrMinList, List<Integer> daysList) {
         List<StockAdrCount> stockAdrCountList = null;
-        List<Integer> daysList = Arrays.asList(MA_60, MA_40, MA_20, MA_10, MA_5);
         boolean isShowPriceArea = false;//是否显示价格区间
         long board = DB_RANK_BIZ_F19_BK_MAIN;
         BigDecimal mvLimit = NUM_YI_50;

@@ -470,76 +470,117 @@ public class StBizStatDemo {
             String code = stAdrCount.getCode();
 
 //            BigDecimal score = adrMin.multiply(stAdrCount.getCount());//涨幅得分=上涨幅度*次数
-            BigDecimal score = stAdrCount.getCount();//涨幅得分=上涨次数
+            BigDecimal score = stAdrCount.getCount()!= null ? stAdrCount.getCount() : new BigDecimal("0");//涨幅得分=上涨次数
 //            System.out.println("days:" + days + ",adrMin:" + adrMin + "=" + JSON.toJSONString(stAdrCount));
 //            if ("中国神华".equals(stAdrCount.getName())) {
 //                System.out.println(stAdrCount.getCode() + ":" + stAdrCount.getName() + ":" + ",天数：" + days + ",上涨次数：" + stAdrCount.getCount() + ",涨幅标准：" + adrMin + ",上涨得分：" + score);
 //            }
             if (statRsStAdrCountMap.containsKey(code)) {
                 StockAdrCount stMapDtoOld = statRsStAdrCountMap.get(code);
-                BigDecimal countOld = stMapDtoOld.getADR_UP_COUNT_SUM_60();
-                stMapDtoOld.setADR_UP_COUNT_SUM_60(countOld.add(score));
+                BigDecimal countOld = stMapDtoOld.getADR_UP_COUNT_SUM_60()!= null ? stMapDtoOld.getADR_UP_COUNT_SUM_60() : new BigDecimal("0");
 
-                if (days == MA_5) {
+                if (days == TRADE_DAYS_1) {
+                    BigDecimal countOldTemp = stMapDtoOld.getADR_UP_COUNT_1();
+                    if (countOldTemp != null) {
+                        stMapDtoOld.setADR_UP_COUNT_1(countOldTemp.add(score));
+                    } else {
+                        stMapDtoOld.setADR_UP_COUNT_1(score);
+                    }
+                }
+                if (days == TRADE_DAYS_2) {
+                    BigDecimal countOldTemp = stMapDtoOld.getADR_UP_COUNT_2();
+                    if (countOldTemp != null) {
+                        stMapDtoOld.setADR_UP_COUNT_2(countOldTemp.add(score));
+                    } else {
+                        stMapDtoOld.setADR_UP_COUNT_2(score);
+                    }
+                }
+                if (days == TRADE_DAYS_3) {
+                    BigDecimal countOldTemp = stMapDtoOld.getADR_UP_COUNT_3();
+                    if (countOldTemp != null) {
+                        stMapDtoOld.setADR_UP_COUNT_3(countOldTemp.add(score));
+                    } else {
+                        stMapDtoOld.setADR_UP_COUNT_3(score);
+                    }
+                }
+                if (days == TRADE_DAYS_5) {
                     BigDecimal countOldTemp = stMapDtoOld.getADR_UP_COUNT_5();
                     if (countOldTemp != null) {
                         stMapDtoOld.setADR_UP_COUNT_5(countOldTemp.add(score));
                     } else {
-                        stMapDtoOld.setADR_UP_COUNT_5(score != null ? score : new BigDecimal("0"));
+                        stMapDtoOld.setADR_UP_COUNT_5(score);
                     }
+                    stMapDtoOld.setADR_UP_COUNT_SUM_60(countOld.add(score));//总和：只计算5日+10日+20+40+60
                 }
-                if (days == MA_10) {
+                if (days == TRADE_DAYS_10) {
                     BigDecimal countOldTemp = stMapDtoOld.getADR_UP_COUNT_10();
                     if (countOldTemp != null) {
                         stMapDtoOld.setADR_UP_COUNT_10(countOldTemp.add(score));
                     } else {
-                        stMapDtoOld.setADR_UP_COUNT_10(score != null ? score : new BigDecimal("0"));
+                        stMapDtoOld.setADR_UP_COUNT_10(score);
                     }
+                    stMapDtoOld.setADR_UP_COUNT_SUM_60(countOld.add(score));//总和：只计算5日+10日+20+40+60
                 }
-                if (days == MA_20) {
+                if (days == TRADE_DAYS_20) {
                     BigDecimal countOldTemp = stMapDtoOld.getADR_UP_COUNT_20();
                     if (countOldTemp != null) {
                         stMapDtoOld.setADR_UP_COUNT_20(countOldTemp.add(score));
                     } else {
-                        stMapDtoOld.setADR_UP_COUNT_20(score != null ? score : new BigDecimal("0"));
+                        stMapDtoOld.setADR_UP_COUNT_20(score);
                     }
+                    stMapDtoOld.setADR_UP_COUNT_SUM_60(countOld.add(score));//总和：只计算5日+10日+20+40+60
                 }
-                if (days == MA_40) {
+                if (days == TRADE_DAYS_40) {
                     BigDecimal countOldTemp = stMapDtoOld.getADR_UP_COUNT_40();
                     if (countOldTemp != null) {
                         stMapDtoOld.setADR_UP_COUNT_40(countOldTemp.add(score));
                     } else {
-                        stMapDtoOld.setADR_UP_COUNT_40(score != null ? score : new BigDecimal("0"));
+                        stMapDtoOld.setADR_UP_COUNT_40(score);
                     }
+                    stMapDtoOld.setADR_UP_COUNT_SUM_60(countOld.add(score));//总和：只计算5日+10日+20+40+60
                 }
-                if (days == MA_60) {
+                if (days == TRADE_DAYS_60) {
                     BigDecimal countOldTemp = stMapDtoOld.getADR_UP_COUNT_60();
                     if (countOldTemp != null) {
                         stMapDtoOld.setADR_UP_COUNT_60(countOldTemp.add(score));
                     } else {
-                        stMapDtoOld.setADR_UP_COUNT_60(score != null ? score : new BigDecimal("0"));
+                        stMapDtoOld.setADR_UP_COUNT_60(score);
                     }
+                    stMapDtoOld.setADR_UP_COUNT_SUM_60(countOld.add(score));//总和：只计算5日+10日+20+40+60
                 }
                 statRsStAdrCountMap.put(code, stMapDtoOld);
             } else {
                 StockAdrCount stockAdrCount = new StockAdrCount();
                 stockAdrCount.setF12(code);
-                stockAdrCount.setADR_UP_COUNT_SUM_60(score);
                 //-120, -90,-60, -30, -14, -7
-                if (days == MA_5) {
+                if (days == TRADE_DAYS_1) {
+                    stockAdrCount.setADR_UP_COUNT_1(score);
+                }
+                if (days == TRADE_DAYS_2) {
+                    stockAdrCount.setADR_UP_COUNT_2(score);
+                }
+                if (days == TRADE_DAYS_3) {
+                    stockAdrCount.setADR_UP_COUNT_3(score);
+                }
+                if (days == TRADE_DAYS_5) {
                     stockAdrCount.setADR_UP_COUNT_5(score);
+                    stockAdrCount.setADR_UP_COUNT_SUM_60(score);
                 }
-                if (days == MA_10) {
+                if (days == TRADE_DAYS_10) {
                     stockAdrCount.setADR_UP_COUNT_10(score);
+                    stockAdrCount.setADR_UP_COUNT_SUM_60(score);
                 }
-                if (days == MA_20) {
+                if (days == TRADE_DAYS_20) {
                     stockAdrCount.setADR_UP_COUNT_20(score);
+                    stockAdrCount.setADR_UP_COUNT_SUM_60(score);
                 }
-                if (days == MA_40) {
+                if (days == TRADE_DAYS_40) {
                     stockAdrCount.setADR_UP_COUNT_40(score);
+                    stockAdrCount.setADR_UP_COUNT_SUM_60(score);
                 }
-                if (days == MA_60) {
+                if (days == TRADE_DAYS_60) {
                     stockAdrCount.setADR_UP_COUNT_60(score);
+                    stockAdrCount.setADR_UP_COUNT_SUM_60(score);
                 }
                 statRsStAdrCountMap.put(code, stockAdrCount);
             }

@@ -237,6 +237,50 @@ public class Content {
 
 
     /**
+     * 交易天数：n
+     */
+    public static int TRADE_DAYS_1 = 1;
+    /**
+     * 交易天数：n
+     */
+    public static int TRADE_DAYS_2 = 2;
+    /**
+     * 交易天数：n
+     */
+    public static int TRADE_DAYS_3 = 3;
+    /**
+     * TRADE_DAYS_5 交易天数：n
+     */
+    public static int TRADE_DAYS_5 = 5;
+    /**
+     * TRADE_DAYS_10 交易天数：n
+     */
+    public static int TRADE_DAYS_10 = 10;
+    /**
+     * TRADE_DAYS_15 交易天数：n
+     */
+    public static int TRADE_DAYS_15 = 15;
+    /**
+     * TRADE_DAYS_20 交易天数：n
+     */
+    public static int TRADE_DAYS_20 = 20;
+    /**
+     * TRADE_DAYS_40 交易天数：n
+     */
+    public static int TRADE_DAYS_40 = 40;
+    /**
+     * TRADE_DAYS_60 交易天数：n
+     */
+    public static int TRADE_DAYS_60 = 60;
+    /**
+     * TRADE_DAYS_120 交易天数：n
+     */
+    public static int TRADE_DAYS_120 = 120;
+    /**
+     * TRADE_DAYS_250 交易天数：250，一年
+     */
+    public static int TRADE_DAYS_250 = 250;
+    /**
      * MA_5 均线
      */
     public static int MA_5 = 5;

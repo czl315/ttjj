@@ -96,6 +96,18 @@ public class StockAdrCount {
     private Long f21;
 
     /**
+     * ADR_UP_COUNT_1 涨幅次数之和：1日
+     */
+    private BigDecimal ADR_UP_COUNT_1;
+    /**
+     * ADR_UP_COUNT_2 涨幅次数之和：2日
+     */
+    private BigDecimal ADR_UP_COUNT_2;
+    /**
+     * ADR_UP_COUNT_3 涨幅次数之和：3日
+     */
+    private BigDecimal ADR_UP_COUNT_3;
+    /**
      * ADR_UP_COUNT_7 涨幅次数：5日、10日、20日、40日、60日、近3月涨跌和
      */
     private BigDecimal ADR_UP_COUNT_5;
@@ -491,5 +503,29 @@ public class StockAdrCount {
 
     public void setUP_MA_102(String UP_MA_102) {
         this.UP_MA_102 = UP_MA_102;
+    }
+
+    public BigDecimal getADR_UP_COUNT_1() {
+        return ADR_UP_COUNT_1;
+    }
+
+    public void setADR_UP_COUNT_1(BigDecimal ADR_UP_COUNT_1) {
+        this.ADR_UP_COUNT_1 = ADR_UP_COUNT_1;
+    }
+
+    public BigDecimal getADR_UP_COUNT_2() {
+        return ADR_UP_COUNT_2;
+    }
+
+    public void setADR_UP_COUNT_2(BigDecimal ADR_UP_COUNT_2) {
+        this.ADR_UP_COUNT_2 = ADR_UP_COUNT_2;
+    }
+
+    public BigDecimal getADR_UP_COUNT_3() {
+        return ADR_UP_COUNT_3;
+    }
+
+    public void setADR_UP_COUNT_3(BigDecimal ADR_UP_COUNT_3) {
+        this.ADR_UP_COUNT_3 = ADR_UP_COUNT_3;
     }
 }
