@@ -24,7 +24,7 @@ public class ContentEtf {
         mapEtfBiz.put("515790", "光伏ETF");//515790	光伏ETF	142.07
 //        mapEtfBiz.put("159819", "人工智能ETF");//159819	人工智能ETF	21.60
         mapEtfBiz.put("515050", "5GETF");//159994	5GETF	32.40   515050	5GETF	143.85
-        mapEtfBiz.put("515880", "通信ETF");//515880	通信ETF	27.50
+//        mapEtfBiz.put("515880", "通信ETF");//515880	通信ETF	27.50
 
         mapEtfBiz.put("512170", "医药ETF");//512170	医疗ETF	112.27      512010	医药ETF	49.59
         mapEtfBiz.put("159992", "创新药ETF");//创新药ETF	159992	34.94
