@@ -55,7 +55,7 @@ public class NoticeService {
             String banKuaiCode = banKuai.getF12();
             String banKuaiName = banKuai.getF14();
             stBizCountTemp++;
-            stockList.addAll(StockDemo.listRankStockByBiz(NUM_MAX_999, banKuaiCode));
+            stockList.addAll(BizService.listRankStockByBiz(NUM_MAX_999, banKuaiCode));
 //            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName + "---[" + banKuai.getF3() + "]---" + stockList.size());
         }
 

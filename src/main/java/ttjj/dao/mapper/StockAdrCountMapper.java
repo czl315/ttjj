@@ -60,6 +60,7 @@ public interface StockAdrCountMapper {
             "    <if test='f18 != null'>f18=#{f18},</if>",
             "    <if test='f20 != null'>f20=#{f20},</if>",
             "    <if test='f21 != null'>f21=#{f21},</if>",
+            "    <if test='type_name != null'>type_name=#{type_name},</if>",
             "    <if test='order_num != null'>order_num=#{order_num},</if>",
             "    <if test='conception != null'>conception=#{conception},</if>",
             "    <if test='ADR_UP_COUNT_1 != null'>ADR_UP_COUNT_1=#{ADR_UP_COUNT_1},</if>",

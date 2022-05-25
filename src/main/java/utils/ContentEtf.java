@@ -77,15 +77,15 @@ public class ContentEtf {
     public static Map<String, String> mapEtfIndex = new HashMap<>();
     static {
         mapEtfIndex.put("510050", "上证50ETF");//510050	上证50ETF	549.38
-        mapEtfIndex.put("512910", "中证100ETF");// 512910	中证100ETF	5.41
-        mapEtfIndex.put("510180", "上证180ETF");//510180	上证180ETF	225.14
+//        mapEtfIndex.put("512910", "中证100ETF");// 512910	中证100ETF	5.41
+//        mapEtfIndex.put("510180", "上证180ETF");//510180	上证180ETF	225.14
         mapEtfIndex.put("510300", "沪深300ETF");//510300	沪深300ETF	405.92      510330	300ETF基金	248.51      159919	沪深300ETF	183.06      510310	沪深300ETF易方达	91.71
         mapEtfIndex.put("510500", "中证500ETF");//  510500	中证500ETF	445.48      510510	中证500ETF基金	28.15
         mapEtfIndex.put("512100", "中证1000ETF");//512100	中证1000ETF	12.77
         mapEtfIndex.put("159949", "创业板50ETF");//159949	创业板50ETF	97.37
-        mapEtfIndex.put("159967", "创成长ETF");//创成长ETF	159967	33.83
+//        mapEtfIndex.put("159967", "创成长ETF");//创成长ETF	159967	33.83
         mapEtfIndex.put("588000", "科创板50ETF");//588000	科创50ETF	226.26      588080	科创板50ETF	112.41      588090	科创板ETF	31.32
-        mapEtfIndex.put("159781", "双创50ETF");// 159781	双创50ETF	81.55 588400	双创50ETF	22.27
+//        mapEtfIndex.put("159781", "双创50ETF");// 159781	双创50ETF	81.55 588400	双创50ETF	22.27
     }
 
     /**

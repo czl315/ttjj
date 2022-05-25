@@ -9,6 +9,7 @@ import ttjj.dto.Kline;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.StockAdrCountCond;
 import ttjj.dto.StockAdrCountVo;
+import ttjj.service.BizService;
 import ttjj.service.KlineService;
 import ttjj.service.StockAdrCountService;
 import ttjj.service.StockService;
@@ -42,7 +43,7 @@ public class StockAdrCountDemo {
 //        insertListStockAdrCountAndUpdateNetAreaMa(date);
 
 //        String biz = null;//业务类别为空时，插入全部类别
-        String biz = "煤炭行业";//资源：化肥行业 农牧饲渔 航天航空    证券  医疗服务 医疗器械
+        String bizName = "煤炭行业";//资源：化肥行业 农牧饲渔 航天航空    证券  医疗服务 医疗器械
 //        String biz = "医疗服务";//医疗： 医疗服务 医疗器械 中药 生物制品
 //        String biz = "船舶制造";//科技： 光伏设备  能源金属  风电设备  电池    非金属材料   汽车整车
 //        String biz = "证券";//金融： 银行  工程咨询服务 证券
@@ -57,18 +58,20 @@ public class StockAdrCountDemo {
         int stBizCountTemp = 0;
         int startMapNum = 0;//map的开始，中断后使用，默认可设置为0
         for (RankBizDataDiff rankBizDataDiff : bizList) {
-            biz = rankBizDataDiff.getF14();
+            bizName = rankBizDataDiff.getF14();
+            String bizCode = rankBizDataDiff.getF12();
             stBizCountTemp++;
             if (stBizCountTemp < startMapNum) {
-                System.out.println("已完成," + (stBizCountTemp) + ":" + biz);
+                System.out.println("已完成," + (stBizCountTemp) + ":" + bizName);
                 continue;//已完成
             }
-            System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + biz);
-//            insertListStatStock(date, biz, adrMinList,daysList);//批量插入-从股票表中统计数据-按照业务类别
-            insertListByBiz(date, biz);
-            updateListByBiz(date, biz);
-            updateAdrCount(date, biz, adrMinList, daysList);
-//            updateNetAreaAndMa(date, biz);//更新-最新价格、价格区间、均线
+            System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
+//            insertListStatStock(date, bizName, adrMinList,daysList);//批量插入-从股票表中统计数据-按照业务类别
+//            deleteTodayStAdrCount(date, bizName);//先删除，后插入
+            insertListByBiz(date, bizCode);
+//            updateListByBiz(date, bizCode,bizName);
+//            updateAdrCount(date, bizName, adrMinList, daysList);
+//            updateNetAreaAndMa(date, bizName);//更新-最新价格、价格区间、均线
         }
 
 //        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
@@ -89,10 +92,10 @@ public class StockAdrCountDemo {
      * @return
      */
     private static List<StockAdrCount> insertListByBiz(String date, String biz) {
-        List<StockAdrCount> stockAdrCountList = null;
+        List<StockAdrCount> stockAdrCountList = new ArrayList<>();
 //        按板块查询
 //        System.out.println("-------------------------当前biz：" + biz);
-        List<RankStockCommpanyDb> stList = StockDemo.listRankStockByBiz(NUM_MAX_999, biz);
+        List<RankStockCommpanyDb> stList = BizService.listRankStockByBiz(NUM_MAX_999, biz);
         for (RankStockCommpanyDb rankStockCommpanyDb : stList) {
             StockAdrCount entity = new StockAdrCount();
             entity.setDate(date);
@@ -146,19 +149,19 @@ public class StockAdrCountDemo {
      *
      * @param date
      * @param biz
+     * @param bizName
      * @return
      */
-    private static List<StockAdrCount> updateListByBiz(String date, String biz) {
-        List<StockAdrCount> stockAdrCountList = null;
+    private static List<StockAdrCount> updateListByBiz(String date, String biz, String bizName) {
+        List<StockAdrCount> stockAdrCountList = new ArrayList<>();
 //        按板块查询
 //        System.out.println("-------------------------当前biz：" + biz);
-        List<RankStockCommpanyDb> stList = StockDemo.listRankStockByBiz(NUM_MAX_999, biz);
+        List<RankStockCommpanyDb> stList = BizService.listRankStockByBiz(NUM_MAX_999, biz);
         for (RankStockCommpanyDb rankStockCommpanyDb : stList) {
             StockAdrCount entity = new StockAdrCount();
             entity.setDate(date);
+            entity.setType_name(bizName);
             entity.setF12(rankStockCommpanyDb.getF12());
-
-            entity.setType_name(rankStockCommpanyDb.getType_name());
             entity.setConception(rankStockCommpanyDb.getConception());
             if (rankStockCommpanyDb.getF2() != null) {
                 entity.setF2(new BigDecimal(rankStockCommpanyDb.getF2()));
@@ -195,6 +198,9 @@ public class StockAdrCountDemo {
             entity.setF20(rankStockCommpanyDb.getF20());
             entity.setF21(rankStockCommpanyDb.getF21());
 
+            if (entity.getF3() == null) {
+                System.out.println("rankStockCommpanyDb异常：" + JSON.toJSONString(rankStockCommpanyDb));
+            }
             stockAdrCountList.add(entity);
         }
 
@@ -231,6 +237,7 @@ public class StockAdrCountDemo {
         for (StockAdrCount stockAdrCount : stockAdrCountList) {
             StockAdrCount entity = new StockAdrCount();
             entity.setDate(date);
+            entity.setType_name(biz);
             entity.setF12(stockAdrCount.getF12());
             entity.setADR_UP_COUNT_SUM_60(stockAdrCount.getADR_UP_COUNT_SUM_60());
             entity.setADR_UP_COUNT_1(stockAdrCount.getADR_UP_COUNT_1());
@@ -300,7 +307,7 @@ public class StockAdrCountDemo {
                 if (rankBizDataDiff.getF14().equals(biz)) {
 //                    System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz);
                     stockAdrCountList = findListByCondition(date, biz);//查询列表-根据条件
-                    updateCurPrice(date, stockAdrCountList);//更新-最新价格
+//                    updateCurPrice(date, stockAdrCountList);//更新-最新价格
                     updateNetArea(date, stockAdrCountList);//更新-价格区间
                     updateUpMa(date, stockAdrCountList);//更新-超过均线信息
                 } else {

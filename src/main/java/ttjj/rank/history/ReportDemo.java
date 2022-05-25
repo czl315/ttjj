@@ -56,9 +56,9 @@ public class ReportDemo {
             System.out.println("行业-------------------------------：" + biz.getF14());
             //特定行业
 //            if(biz.getF14().equals("证券")){
-//                stockList.addAll(StockDemo.listRankStockByBiz(NUM_MAX_999, biz.getF12()));
+//                stockList.addAll(BizService.listRankStockByBiz(NUM_MAX_999, biz.getF12()));
 //            }
-            stockList.addAll(StockDemo.listRankStockByBiz(NUM_MAX_999, biz.getF12()));
+            stockList.addAll(BizService.listRankStockByBiz(NUM_MAX_999, biz.getF12()));
         }
 
         //保存业绩报表
