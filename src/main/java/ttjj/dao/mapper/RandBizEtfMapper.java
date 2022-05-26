@@ -58,7 +58,7 @@ public interface RandBizEtfMapper {
 
     @Insert({"<script>",
             "INSERT INTO `bank19`.`rank_st_biz`(",
-            "`rs`,`date`,`type`,`order_num`",
+            "`date`,`type`,`order_num`",//`rs`,
             ",`month`,`weekYear`,`week`",
             ",`f1`,`f2`,`f3`,`f4`",
             ",`f5`,`f6`,`f7`,`f8`,`f9`",
@@ -92,7 +92,7 @@ public interface RandBizEtfMapper {
             ",`f209`",
             ",`f222`,`f223`",
             ") VALUES (",
-            "#{rs},#{date},#{type},#{orderNum}",
+            "#{date},#{type},#{orderNum}",//#{rs}
             ",#{month},#{weekYear},#{week}",
             ",#{f1},#{f2},#{f3},#{f4}",
             ",#{f5},#{f6},#{f7},#{f8},#{f9}",
