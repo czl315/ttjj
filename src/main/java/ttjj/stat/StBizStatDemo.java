@@ -327,12 +327,6 @@ public class StBizStatDemo {
                 marketValue = rankStockCommpanyDb.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
             }
 
-//            map.put("002432", "");//002432	九安医疗	医疗器械
-            String concepPinYin = "mapGn";
-            if (ConceptionUtil.stConceptionMap.get(conpetions) != null) {
-                concepPinYin = ConceptionUtil.stConceptionMap.get(conpetions);
-            }
-            System.out.print(concepPinYin + ".put(\"" + zqdm + "\", \"" + stName + "\");//");//map  map.put("002432", "");//002432	九安医疗	医疗器械
 //            sb.append(stCode).append("\t");
 //            sb.append(stName).append("\t");
             sb.append(stAdrCount).append("\t");
@@ -340,8 +334,14 @@ public class StBizStatDemo {
             sb.append(adr).append("\t");
             sb.append(marketValue).append("\t");
             sb.append(liangBi).append("\t");
-            System.out.print(sb);
+            //            map.put("002432", "");//002432	九安医疗	医疗器械
+            String concepPinYin = "mapGn";
+            if (ConceptionUtil.stConceptionMap.get(conpetions) != null) {
+                concepPinYin = ConceptionUtil.stConceptionMap.get(conpetions);
+            }
+//            System.out.print(concepPinYin + ".put(\"" + zqdm + "\", \"" + stName + "\");//");//map  map.put("002432", "");//002432	九安医疗	医疗器械
 //                System.out.println("mapTemp.put(\"" + stCode + "\", \"" + stName.replace(" ","") + "\");//" + stCode + " " + stName + " " + stAdrCount + " " + biz + " ");
+//            System.out.print(sb);
 
             RankStockCommpanyDb stock = new RankStockCommpanyDb();
             stock.setF12(statRsStAdrCount.getF12());
@@ -358,7 +358,7 @@ public class StBizStatDemo {
             if (StringUtils.isNotBlank(reportQuete)) {
                 handlerReport(maSb, stock, reportQuete);
             }
-            System.out.println();
+//            System.out.println();
 
             statRsStAdrCount.setType_name(rankStockCommpanyDb.getType_name());
             statRsStAdrCount.setConception(rankStockCommpanyDb.getConception());
