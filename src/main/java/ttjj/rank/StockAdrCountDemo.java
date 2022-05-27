@@ -32,7 +32,7 @@ import static utils.Content.*;
 public class StockAdrCountDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-05-20";
+//        String date = "2022-05-26";
         String spDate = "";//        String spDate = "2022-05-18";//是否显示特定日期涨跌
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("4"), new BigDecimal("5"), new BigDecimal("6"), new BigDecimal("7"), new BigDecimal("8"), new BigDecimal("9"), new BigDecimal("9.9"));
         List<Integer> daysList = Arrays.asList(TRADE_DAYS_60, TRADE_DAYS_40, TRADE_DAYS_20, TRADE_DAYS_10, TRADE_DAYS_5, TRADE_DAYS_3, TRADE_DAYS_2, TRADE_DAYS_1);
@@ -44,8 +44,8 @@ public class StockAdrCountDemo {
         //插入且更新价格区间、更新
 //        insertListStockAdrCountAndUpdateNetAreaMa(date);
 
-//        String spBizName = null;//业务类别为空时，插入全部类别
-        String spBizName = "采掘行业";//资源：煤炭行业   化肥行业 农牧饲渔 航天航空    采掘行业  医疗服务 医疗器械
+        String spBizName = null;//业务类别为空时，插入全部类别
+//        String spBizName = "采掘行业";//资源：煤炭行业   化肥行业 农牧饲渔 航天航空    采掘行业  医疗服务 医疗器械
 //        String spBizName = "医疗服务";//医疗： 医疗服务 医疗器械 中药 生物制品
 //        String spBizName = "船舶制造";//科技： 光伏设备  能源金属  风电设备  电池    非金属材料   汽车整车
 //        String spBizName = "证券";//金融： 银行  工程咨询服务 证券
@@ -55,13 +55,13 @@ public class StockAdrCountDemo {
         int stBizCountTemp = 0;
         int startMapNum = 0;//map的开始，中断后使用，默认可设置为0
         for (RankBizDataDiff rankBizDataDiff : bizList) {
-            String bizName = rankBizDataDiff.getF14();
             String bizCode = rankBizDataDiff.getF12();
             //保存-特定业务处理
             if (saveBizSp(date, spBizName, bizCode, adrMinList, daysList, adrUpCountSum60Limit,mvLimit)) {
                 break;
             }
 
+            String bizName = rankBizDataDiff.getF14();
             stBizCountTemp++;
             if (stBizCountTemp < startMapNum) {
                 System.out.println("已完成," + (stBizCountTemp) + ":" + bizName);
@@ -71,9 +71,9 @@ public class StockAdrCountDemo {
 //            insertListStatStock(date, bizName, adrMinList,daysList);//批量插入-从股票表中统计数据-按照业务类别
 //            deleteTodayStAdrCount(date, bizName);//删除
 //            insertListByBiz(date, bizCode, bizName);
-//            updateListByBiz(date, bizCode,bizName);
-            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
-//            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit);//更新-最新价格、价格区间、均线
+            updateListByBiz(date, bizCode,bizName);
+//            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
+//            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit,mvLimit);//更新-最新价格、价格区间、均线
         }
 
 //        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
@@ -123,9 +123,16 @@ public class StockAdrCountDemo {
 //        System.out.println("-------------------------当前biz：" + biz);
         List<RankStockCommpanyDb> stList = BizService.listRankStockByBiz(NUM_MAX_999, biz);
         for (RankStockCommpanyDb rankStockCommpanyDb : stList) {
+            //只更新主板板块
+            if (rankStockCommpanyDb.getF139() != DB_RANK_BIZ_F139_BK_MAIN) {
+//                    System.out.println("暂不更新（非主板）！" + JSON.toJSONString(entity));
+                continue;
+            }
+
             StockAdrCount entity = new StockAdrCount();
             entity.setDate(date);
             entity.setType_name(bizName);
+            entity.setF139(rankStockCommpanyDb.getF139());
             entity.setConception(rankStockCommpanyDb.getConception());
             if (rankStockCommpanyDb.getF2() != null) {
                 entity.setF2(new BigDecimal(rankStockCommpanyDb.getF2()));
@@ -184,9 +191,15 @@ public class StockAdrCountDemo {
 //        System.out.println("-------------------------当前biz：" + biz);
         List<RankStockCommpanyDb> stList = BizService.listRankStockByBiz(NUM_MAX_999, biz);
         for (RankStockCommpanyDb rankStockCommpanyDb : stList) {
+            //只更新主板板块
+            if (rankStockCommpanyDb.getF139() != DB_RANK_BIZ_F139_BK_MAIN) {
+//                    System.out.println("暂不更新（非主板）！" + JSON.toJSONString(entity));
+                continue;
+            }
             StockAdrCount entity = new StockAdrCount();
             entity.setDate(date);
             entity.setType_name(bizName);
+            entity.setF139(rankStockCommpanyDb.getF139());
             entity.setF12(rankStockCommpanyDb.getF12());
             entity.setConception(rankStockCommpanyDb.getConception());
             if (rankStockCommpanyDb.getF2() != null) {
@@ -272,7 +285,6 @@ public class StockAdrCountDemo {
             }
             StockAdrCount entity = new StockAdrCount();
             entity.setDate(date);
-            entity.setType_name(biz);
             entity.setF12(stockAdrCount.getF12());
             entity.setADR_UP_COUNT_SUM_60(adrUpCountSum60);
             entity.setADR_UP_COUNT_1(stockAdrCount.getADR_UP_COUNT_1());

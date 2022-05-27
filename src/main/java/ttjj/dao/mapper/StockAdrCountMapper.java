@@ -28,6 +28,7 @@ public interface StockAdrCountMapper {
             ",`ADR_UP_COUNT_60`, `ADR_UP_COUNT_SUM_60`,`NET_AREA_DAY_5`, `NET_AREA_DAY_10`, `NET_AREA_DAY_20`",
             ", `NET_AREA_DAY_40`, `NET_AREA_DAY_60`, `NET_AREA_DAY_120`, `NET_AREA_DAY_250`,`UP_MA_5`",
             ", `UP_MA_15`, `UP_MA_30`, `UP_MA_60`, `UP_MA_101`,`UP_MA_102`",
+            ", `f139`",
             ") VALUES (",
             "#{date},#{type_name},#{f2},#{f3},#{f4}",
             ",#{f5},#{f6},#{f7},#{f8},#{f9}",
@@ -38,6 +39,7 @@ public interface StockAdrCountMapper {
             ",#{ADR_UP_COUNT_60}, #{ADR_UP_COUNT_SUM_60},#{NET_AREA_DAY_5}, #{NET_AREA_DAY_10}, #{NET_AREA_DAY_20}",
             ",#{NET_AREA_DAY_40}, #{NET_AREA_DAY_60}, #{NET_AREA_DAY_120}, #{NET_AREA_DAY_250},#{UP_MA_5}",
             ",#{UP_MA_15}, #{UP_MA_30}, #{UP_MA_60}, #{UP_MA_101},#{UP_MA_102}",
+            ",#{f139}",
             ");",
             "</script>"})
     int insert(StockAdrCount entity);
@@ -60,6 +62,7 @@ public interface StockAdrCountMapper {
             "    <if test='f18 != null'>f18=#{f18},</if>",
             "    <if test='f20 != null'>f20=#{f20},</if>",
             "    <if test='f21 != null'>f21=#{f21},</if>",
+            "    <if test='f139 != null'>f139=#{f139},</if>",
             "    <if test='type_name != null'>type_name=#{type_name},</if>",
             "    <if test='order_num != null'>order_num=#{order_num},</if>",
             "    <if test='conception != null'>conception=#{conception},</if>",

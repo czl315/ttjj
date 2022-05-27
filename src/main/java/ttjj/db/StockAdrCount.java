@@ -94,6 +94,10 @@ public class StockAdrCount {
      * f21 流通市值
      */
     private Long f21;
+    /**
+     * f139 2-A股主板(00XXXX/60XXXX);3-B股(200XXX/900XXX);5-创业板(30XXXX);32-科创板(688XXX);33-存托凭证(689XXX,689是科创板专门为CDR存托凭证公司)
+     */
+    private Long f139;
 
     /**
      * ADR_UP_COUNT_1 涨幅次数之和：1日
@@ -527,5 +531,13 @@ public class StockAdrCount {
 
     public void setADR_UP_COUNT_3(BigDecimal ADR_UP_COUNT_3) {
         this.ADR_UP_COUNT_3 = ADR_UP_COUNT_3;
+    }
+
+    public Long getF139() {
+        return f139;
+    }
+
+    public void setF139(Long f139) {
+        this.f139 = f139;
     }
 }
