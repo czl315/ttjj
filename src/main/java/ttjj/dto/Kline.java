@@ -13,6 +13,10 @@ public class Kline {
      */
     private String ktime;
     /**
+     * date 日期
+     */
+    private String date;
+    /**
      * month
      */
     private String month;
@@ -24,6 +28,10 @@ public class Kline {
      * week
      */
     private String week;
+    /**
+     * type 类型：bk-板块；gn-概念；etf；
+     */
+    private String type;
     /**
      * zqdm 证券代码
      */
@@ -568,5 +576,21 @@ public class Kline {
 
     public void setWeek(String week) {
         this.week = week;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

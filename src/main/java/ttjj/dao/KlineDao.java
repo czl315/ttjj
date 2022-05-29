@@ -71,4 +71,23 @@ public class KlineDao {
         }
         return rs;
     }
+
+    /**
+     * 删除-根据条件
+     * @param condition 条件
+     * @return 删除个数
+     */
+    public static int deleteByCondition(Kline condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.delete("ttjj.dao.mapper.KlineMapper.deleteByCondition", condition);
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
 }

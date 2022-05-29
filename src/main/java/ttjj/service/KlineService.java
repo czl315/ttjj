@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
+import ttjj.dao.KlineDao;
 import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.DateCond;
@@ -35,6 +36,31 @@ public class KlineService {
 
 
 //        findNetMinMaxAvgDemo();// 查询最小净值、最大净值、均值
+    }
+
+    /**
+     * 插入k线
+     * @param entity
+     * @return
+     */
+    public static Integer insert(Kline entity) {
+        Integer rs = 0;
+        if (entity == null) {
+            return rs;
+        }
+        /**
+         * 插入数据库-K线
+         */
+        return KlineDao.insert(entity);
+    }
+
+    /**
+     * 删除-根据条件
+     * @param condition 条件
+     * @return 删除个数
+     */
+    public static Integer deleteByCondition(Kline condition) {
+        return KlineDao.deleteByCondition(condition);
     }
 
     /**
@@ -846,13 +872,14 @@ public class KlineService {
 
     /**
      * 获取-secid
+     *
      * @return
      */
     public static String getSecid(String zqdm) {
         StringBuffer sb = new StringBuffer();
         if (zqdm.startsWith("00") || zqdm.startsWith("12") || zqdm.startsWith("13") || zqdm.startsWith("16") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
             sb.append("0." + zqdm);
-        }else if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI) || zqdm.startsWith(HTTP_KLINE_TYPE_BK_REFIX)) {//板块
+        } else if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI) || zqdm.startsWith(HTTP_KLINE_TYPE_BK_REFIX)) {//板块
             //secid: 90.BK0438
             if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI)) {//板块
                 sb.append(zqdm);

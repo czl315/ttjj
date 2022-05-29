@@ -3,7 +3,6 @@ package ttjj.rank;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.BizRankDao;
 import ttjj.dto.Kline;
@@ -29,7 +28,7 @@ import static utils.Content.*;
 public class BizRankDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//                String date = "2022-05-13";
+//        String date = "2022-05-27";
         boolean isOnlyGn = true;
 //        boolean isOnlyGn = false;
 
@@ -43,18 +42,10 @@ public class BizRankDemo {
         updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
         insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
 
-        if (!isOnlyGn) {
-            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_ETF);
-            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
-
-            insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
-            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_LOF);
-            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
-
-            updateFundFlowBk(date);//更新当日资金流信息-板块
-            updateFundFlowGn(date);//更新当日资金流信息-概念
-            updateFundFlowEtf(date);////更新当日资金流信息-etf
-        }
+        //遍历板块，插入K线
+        List<RankBizDataDiff> boardList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询板块行业列表
+//        saveKlineByType(boardList, date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE, true);
+        saveKlineByType(boardList, date, KLT_60, DB_RANK_BIZ_TYPE_HANG_YE, true);
 
 
 //        /**
@@ -76,6 +67,47 @@ public class BizRankDemo {
 //        String begDate = "2018-01-01";//查询新增交易的开始时间
 //        String endDate = "2018-12-31";
 //        insertHisDbBanKuai(begDate, endDate);//新增历史数据
+    }
+
+    /**
+     * 遍历板块，插入K线
+     *
+     * @param bizList  行业列表
+     * @param date     日期
+     * @param klt      周期类型
+     * @param isDelete 是否先删除
+     */
+    private static void saveKlineByType(List<RankBizDataDiff> bizList, String date, String klt, String type, boolean isDelete) {
+        for (RankBizDataDiff rankBizDataDiff : bizList) {
+            String zqdm = rankBizDataDiff.getF12();
+            String zqmc = rankBizDataDiff.getF14();
+            List<Kline> klines = KlineService.kline(zqdm, 1000, klt, true, date, date, null);
+            System.out.println(",开始日期:" + date + "，结束日期:" + date + "，周期:" + klt + "，klines.size():" + klines.size() + ",zqmc:" + zqmc);
+            //        System.out.println("klines:"+JSON.toJSONString(klines));
+            //是否先删除
+            if (isDelete) {
+                Kline condition = new Kline();
+                condition.setDate(date);
+                condition.setZqdm(zqdm);
+                condition.setType(type);
+                condition.setKlt(klt);
+                int rs = KlineService.deleteByCondition(condition);
+                System.out.println(zqdm + "," + date + ",删除结果：" + rs);
+            }
+
+            for (Kline kline : klines) {
+                if (klt == KLT_5 || klt == KLT_15 || klt == KLT_30 || klt == KLT_60) {
+                    kline.setKtime(kline.getKtime().substring(11));//只设置当天具体时间，去掉日期
+                }
+                kline.setDate(date);
+                kline.setType(type);
+                kline.setRs(null);
+                /**
+                 * 插入数据库-K线
+                 */
+                KlineService.insert(kline);
+            }
+        }
     }
 
     /**

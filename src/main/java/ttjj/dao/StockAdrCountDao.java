@@ -88,9 +88,9 @@ public class StockAdrCountDao {
     }
 
     /**
-     * 删除-根据
-     * @param condition
-     * @return
+     * 删除-根据条件
+     * @param condition 条件
+     * @return 删除个数
      */
     public static int deleteByCondition(StockAdrCount condition) {
         SqlSession session = sqlSessionFactory.openSession();

@@ -1,5 +1,6 @@
 package ttjj.dao.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -26,8 +27,9 @@ public interface KlineMapper {
             " `NET_MIN_CLOS_5`,`NET_MIN_CLOS_10`, `NET_MIN_CLOS_20`, `NET_MIN_CLOS_30`, `NET_MIN_CLOS_60`,`NET_MIN_CLOS_120`,`NET_MIN_CLOS_250`, ",
             " `NET_MAX_CLOS_5`,`NET_MAX_CLOS_10`, `NET_MAX_CLOS_20`, `NET_MAX_CLOS_30`, `NET_MAX_CLOS_60`,`NET_MAX_CLOS_120`,`NET_MAX_CLOS_250`, ",
             " `NET_MA_5`,`NET_MA_10`, `NET_MA_20`, `NET_MA_30`, `NET_MA_60`,`NET_MA_120`,`NET_MA_250`, ",
-            " `month`,`weekYear`,`week`,",
-            " `huanShouLv` ",
+            " `month`,`weekYear`,`week`",
+            ",`date`,`type`",
+            ",`huanShouLv` ",
             ") VALUES (",
             " #{ktime},#{zqdm}, #{zqmc}, #{klt}, #{rs}, ",
             " #{openAmt},#{closeAmt}, #{closeLastAmt}, #{maxAmt}, #{minAmt}, ",
@@ -37,8 +39,9 @@ public interface KlineMapper {
             " #{NET_MIN_CLOS_5},#{NET_MIN_CLOS_10}, #{NET_MIN_CLOS_20}, #{NET_MIN_CLOS_30}, #{NET_MIN_CLOS_60},#{NET_MIN_CLOS_120},#{NET_MIN_CLOS_250}, ",
             " #{NET_MAX_CLOS_5},#{NET_MAX_CLOS_10}, #{NET_MAX_CLOS_20}, #{NET_MAX_CLOS_30}, #{NET_MAX_CLOS_60},#{NET_MAX_CLOS_120},#{NET_MAX_CLOS_250}, ",
             " #{NET_MA_5},#{NET_MA_10}, #{NET_MA_20}, #{NET_MA_30}, #{NET_MA_60},#{NET_MA_120},#{NET_MA_250}, ",
-            " #{month},#{weekYear},#{week},",
-            " #{huanShouLv} ",
+            " #{month},#{weekYear},#{week}",
+            ",#{date},#{type}",
+            ",#{huanShouLv} ",
             ");",
             "</script>"})
     void insert(Kline entity);
@@ -81,6 +84,8 @@ public interface KlineMapper {
             "    <if test='NET_MA_60 != null'>NET_MA_60=#{NET_MA_60},</if>",
             "    <if test='NET_MA_120 != null'>NET_MA_120=#{NET_MA_120},</if>",
             "    <if test='NET_MA_250 != null'>NET_MA_250=#{NET_MA_250},</if>",
+            "    <if test='NET_MA_250 != null'>NET_MA_250=#{NET_MA_250},</if>",
+            "    <if test='type != null'>type=#{type},</if>",
             "  </set>",
             "where ktime=#{ktime} AND zqdm=#{zqdm} AND klt=#{klt}",
             "</script>"})
@@ -124,4 +129,13 @@ public interface KlineMapper {
             "</script>"})
     List<StatRsStAdrCountKline> findListStatStAdrCount(StatCondStAdrCountKline condition);
 
+    @Delete({"<script>",
+            "DELETE FROM `kline` WHERE 1=1 ",
+            "   AND date = #{date}  ",
+            "   <if test='type != null'> AND type=#{type}</if> ",
+            "   <if test='zqdm != null'> AND zqdm=#{zqdm}</if> ",
+            "   <if test='klt != null'> AND klt=#{klt}</if> ",
+            " LIMIT 100 ",
+            "</script>"})
+    int deleteByCondition(Kline condition);
 }
