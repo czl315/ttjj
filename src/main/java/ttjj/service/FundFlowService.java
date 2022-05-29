@@ -31,23 +31,21 @@ import static utils.Content.*;
  */
 public class FundFlowService {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-05-27";
+//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        String date = "2022-05-27";
         BigDecimal unit = new BigDecimal("100000000");
         String limitStartTime = null;
-        String zqdm = "90.BK0433";//万科Ａ:000002  中航沈飞:600760  广发证券-000776 片仔癀：600436  分众传媒:002027  招商银行:600036 通威股份-600438
+        String zqdm = "BK0433";//万科Ａ:000002  中航沈飞:600760  广发证券-000776 片仔癀：600436  分众传媒:002027  招商银行:600036 通威股份-600438
         //石油行业:90.BK0464
         //上证50ETF:510050    券商ETF：512000 159995:芯片
 //        String limitStartTime = "2021-11-12 10:00";
 //        String limitStartTime = "2021-11-12 10:50";
 //        fundFlowHandler(zqdm, limitStartTime);//查询资金流向，判断买卖信号
 
-        String fundFlowRs = httpFundFlowRs(zqdm);
-        List<FundFlow> rsList = parse(fundFlowRs);
-        rsList = handlerFundFlowByMinute(rsList, MINUTE_15);
+        List<FundFlow> rsList = parse(httpFundFlowRs(zqdm));//获取-资金流向的对象结果
+        rsList = handlerFundFlowByMinute(rsList, MINUTE_15);//计算分钟级别资金流向
+        RankBizDataDiff biz = BizService.findBiz(zqdm, date, null);
 
-        RankBizDataDiff biz = BizService.findBiz(zqdm.replace("90.",""), date, null);
-//        RankBizDataDiff biz = BizRankDao.findEtfLast()
         BigDecimal marketValueBk = biz.getF20();
 
         BigDecimal mainNetIn = new BigDecimal("0");
@@ -385,10 +383,7 @@ public class FundFlowService {
         urlParam.append("&fields1=f1,f2,f3,f7");//
         urlParam.append("&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64,f65");//
         urlParam.append("&ut=b2884a393a59ad64002292a3e90d46a5");//
-//        urlParam.append("&secid=" + zqdm + "");//股票代码
-        urlParam.append("&secid=");
-
-        urlParam.append(KlineService.getSecid(zqdm));
+        urlParam.append("&secid=").append(KlineService.getSecid(zqdm));
 
         urlParam.append("&_=" + (curTime + 1));//
 //        System.out.println("请求url:");

@@ -852,9 +852,14 @@ public class KlineService {
         StringBuffer sb = new StringBuffer();
         if (zqdm.startsWith("00") || zqdm.startsWith("12") || zqdm.startsWith("13") || zqdm.startsWith("16") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
             sb.append("0." + zqdm);
-        }else if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI)) {//板块
-            sb.append(zqdm);//secid: 90.BK0438
-        }else if (zqdm.startsWith("107.")) {
+        }else if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI) || zqdm.startsWith(HTTP_KLINE_TYPE_BK_REFIX)) {//板块
+            //secid: 90.BK0438
+            if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI)) {//板块
+                sb.append(zqdm);
+            } else {
+                sb.append(HTTP_KLINE_SECID_PREFIX_BANKUAI + zqdm);
+            }
+        } else if (zqdm.startsWith("107.")) {
             sb.append(zqdm);//美股
         } else {
             sb.append("1." + zqdm);

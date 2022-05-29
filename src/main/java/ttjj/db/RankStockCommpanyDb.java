@@ -93,7 +93,7 @@ public class RankStockCommpanyDb {
      */
     private String f12;
     /**
-     * f13 ？1-沪市；0-深市
+     * f13 类型：1-沪市；0-深市；90-板块或概念
      */
     private Long f13;
     /**
