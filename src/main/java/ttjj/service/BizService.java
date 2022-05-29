@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
+import ttjj.dao.BizRankDao;
 import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.CondStLikeConception;
@@ -131,6 +132,20 @@ public class BizService {
         }
 
         return null;
+    }
+
+    /**
+     * 查询业务-根据条件：编码、日期、业务类型
+     * @param zqdm 编码
+     * @param date 日期
+     * @param type 类型
+     * @return 查询结果
+     */
+    public static RankBizDataDiff findBiz(String zqdm, String date, String type) {
+        RankBizDataDiff condition = new RankBizDataDiff();
+        condition.setF12(zqdm);
+        condition.setDate(date);
+        return BizRankDao.findBiz(condition);
     }
 
     /**

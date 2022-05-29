@@ -88,6 +88,7 @@ public interface StockAdrCountMapper {
             "    <if test='NET_AREA_DAY_60 != null'>NET_AREA_DAY_60=#{NET_AREA_DAY_60},</if>",
             "    <if test='NET_AREA_DAY_120 != null'>NET_AREA_DAY_120=#{NET_AREA_DAY_120},</if>",
             "    <if test='NET_AREA_DAY_250 != null'>NET_AREA_DAY_250=#{NET_AREA_DAY_250},</if>",
+            "    <if test='UPDATE_TIME != null'>UPDATE_TIME=#{UPDATE_TIME},</if>",
             "  </set>",
             "where date=#{date} AND f12=#{f12}",
             "</script>"})

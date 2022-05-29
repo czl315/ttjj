@@ -281,6 +281,38 @@ public class Content {
      */
     public static int TRADE_DAYS_250 = 250;
     /**
+     * MINUTE_1 周期-分钟：n
+     */
+    public static int MINUTE_1 = 1;
+    /**
+     * MINUTE_2
+     */
+    public static int MINUTE_2 = 2;
+    /**
+     * MINUTE_3
+     */
+    public static int MINUTE_3 = 3;
+    /**
+     * 周期-分钟：n
+     */
+    public static int MINUTE_5 = 5;
+    /**
+     * MINUTE_15
+     */
+    public static int MINUTE_15 = 15;
+    /**
+     * MINUTE_30
+     */
+    public static int MINUTE_30 = 30;
+    /**
+     * MINUTE_60
+     */
+    public static int MINUTE_60 = 60;
+    /**
+     * MINUTE_120
+     */
+    public static int MINUTE_120 = 120;
+    /**
      * MA_5 均线
      */
     public static int MA_5 = 5;

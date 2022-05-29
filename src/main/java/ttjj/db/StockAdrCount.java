@@ -1,6 +1,7 @@
 package ttjj.db;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 股票涨跌次数
@@ -188,6 +189,19 @@ public class StockAdrCount {
      * UP_MA_102
      */
     private String UP_MA_102;
+
+    /**
+     * UPDATE_TIME
+     */
+    private Date UPDATE_TIME;
+
+    public Date getUPDATE_TIME() {
+        return UPDATE_TIME;
+    }
+
+    public void setUPDATE_TIME(Date UPDATE_TIME) {
+        this.UPDATE_TIME = UPDATE_TIME;
+    }
 
     public String getDate() {
         return date;

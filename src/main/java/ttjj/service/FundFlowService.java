@@ -8,16 +8,19 @@ import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.BizRankDao;
 import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
+import ttjj.dto.FundFlow;
 import ttjj.dto.Kline;
 import ttjj.dto.RankBizDataDiff;
-import ttjj.rank.FupanDemo;
 import utils.DateUtil;
 import utils.HttpUtil;
-import utils.ToBuyMap;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import static utils.ContHttpRs.*;
 import static utils.Content.*;
 
 /**
@@ -28,20 +31,55 @@ import static utils.Content.*;
  */
 public class FundFlowService {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2021-11-01";
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-05-27";
+        BigDecimal unit = new BigDecimal("100000000");
         String limitStartTime = null;
-        String zqdm = "601633";//万科Ａ:000002  中航沈飞:600760  广发证券-000776 片仔癀：600436  分众传媒:002027  招商银行:600036 通威股份-600438
+        String zqdm = "90.BK0433";//万科Ａ:000002  中航沈飞:600760  广发证券-000776 片仔癀：600436  分众传媒:002027  招商银行:600036 通威股份-600438
+        //石油行业:90.BK0464
         //上证50ETF:510050    券商ETF：512000 159995:芯片
 //        String limitStartTime = "2021-11-12 10:00";
 //        String limitStartTime = "2021-11-12 10:50";
-        fundFlowHandler(zqdm, limitStartTime);//查询资金流向，判断买卖信号
+//        fundFlowHandler(zqdm, limitStartTime);//查询资金流向，判断买卖信号
+
+        String fundFlowRs = httpFundFlowRs(zqdm);
+        List<FundFlow> rsList = parse(fundFlowRs);
+        rsList = handlerFundFlowByMinute(rsList, MINUTE_15);
+
+        RankBizDataDiff biz = BizService.findBiz(zqdm.replace("90.",""), date, null);
+//        RankBizDataDiff biz = BizRankDao.findEtfLast()
+        BigDecimal marketValueBk = biz.getF20();
+
+        BigDecimal mainNetIn = new BigDecimal("0");
+        BigDecimal smallNetIn = new BigDecimal("0");
+        BigDecimal midNetIn = new BigDecimal("0");
+        BigDecimal bigNetIn = new BigDecimal("0");
+        BigDecimal superBigNetIn = new BigDecimal("0");
+        for (FundFlow fundFlow : rsList) {
+//            System.out.println(JSON.toJSONString(fundFlow));
+//            System.out.println("时间:" + fundFlow.getKtime() + ",主力净流入:" + fundFlow.getMainNetIn());
+            //万分比
+            BigDecimal flowRateBk = fundFlow.getMainNetIn().divide(marketValueBk, 8, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000")).setScale(2, BigDecimal.ROUND_HALF_UP);
+            System.out.println("时间:" + fundFlow.getKtime() + ",主力净流入:" + fundFlow.getMainNetIn().divide(unit, 2, BigDecimal.ROUND_HALF_UP) + "," + "流入市值比：[" + flowRateBk + "]");
+            mainNetIn = mainNetIn.add(fundFlow.getMainNetIn());
+            smallNetIn = smallNetIn.add(fundFlow.getSmallNetIn());
+            midNetIn = midNetIn.add(fundFlow.getMidNetIn());
+            bigNetIn = bigNetIn.add(fundFlow.getBigNetIn());
+            superBigNetIn = superBigNetIn.add(fundFlow.getSuperBigNetIn());
+
+        }
+        System.out.println("mainNetIn:" + mainNetIn.divide(unit, 2, BigDecimal.ROUND_HALF_UP));
+        System.out.println("superBigNetIn:" + superBigNetIn.divide(unit, 2, BigDecimal.ROUND_HALF_UP));
+        System.out.println("bigNetIn:" + bigNetIn.divide(unit, 2, BigDecimal.ROUND_HALF_UP));
+        System.out.println("midNetIn:" + midNetIn.divide(unit, 2, BigDecimal.ROUND_HALF_UP));
+        System.out.println("smallNetIn:" + smallNetIn.divide(unit, 2, BigDecimal.ROUND_HALF_UP));
 
         //净值
-        System.out.println(KlineService.handlerAvgLine("5日价格", KlineService.findNetMinMaxAvg(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-        System.out.println(KlineService.handlerAvgLine("10日价格", KlineService.findNetMinMaxAvg(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-        System.out.println(KlineService.handlerAvgLine("20日价格", KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-        System.out.println(KlineService.handlerAvgLine("60日价格", KlineService.findNetMinMaxAvg(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-        System.out.println();
+//        System.out.println(KlineService.handlerAvgLine("5日价格", KlineService.findNetMinMaxAvg(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+//        System.out.println(KlineService.handlerAvgLine("10日价格", KlineService.findNetMinMaxAvg(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+//        System.out.println(KlineService.handlerAvgLine("20日价格", KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+//        System.out.println(KlineService.handlerAvgLine("60日价格", KlineService.findNetMinMaxAvg(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
+//        System.out.println();
 
 //        Set<String> toBuySet = ToBuyMap.stockMap.keySet();
 //        Set<String> toBuySet = ToBuyMap.banks.keySet();
@@ -49,6 +87,100 @@ public class FundFlowService {
 //        for (String code : toBuySet) {
 //            fundFlowHandler(code, limitStartTime);//查询资金流向，判断买卖信号
 //        }
+    }
+
+    /**
+     * 计算分钟级别资金流向-根据类型
+     *
+     * @param rsList     资金流向结果列表，每分钟
+     * @param minuteType 周期类型
+     * @return 金流向结果列表
+     */
+    private static List<FundFlow> handlerFundFlowByMinute(List<FundFlow> rsList, int minuteType) {
+        List<FundFlow> rs = new ArrayList<>();
+        if (rsList == null) {
+            return null;
+        }
+
+        BigDecimal mainNetIn = new BigDecimal("0");
+        BigDecimal smallNetIn = new BigDecimal("0");
+        BigDecimal midNetIn = new BigDecimal("0");
+        BigDecimal bigNetIn = new BigDecimal("0");
+        BigDecimal superBigNetIn = new BigDecimal("0");
+        for (FundFlow fundFlow : rsList) {
+//            System.out.println(JSON.toJSONString(fundFlow));
+            //根据周期类型，对时间最后两位进行取余，如果取余为0，则将累计的结果重新设值,然后重置
+            String ktime = fundFlow.getKtime();
+
+
+            //一般情况取余处理即可，60分钟需要特殊处理
+            if (minuteType == MINUTE_60) {
+                if (ktime.endsWith("10:30") || ktime.endsWith("11:30") || ktime.endsWith("14:00") || ktime.endsWith("15:00")) {
+                    FundFlow newRs = new FundFlow();
+//                System.out.println(ktimeMinuteInt);
+
+                    //累计的结果 = 新值-旧值
+                    mainNetIn = fundFlow.getMainNetIn().subtract(mainNetIn);
+                    smallNetIn = fundFlow.getSmallNetIn().subtract(smallNetIn);
+                    midNetIn = fundFlow.getMidNetIn().subtract(midNetIn);
+                    bigNetIn = fundFlow.getBigNetIn().subtract(bigNetIn);
+                    superBigNetIn = fundFlow.getSuperBigNetIn().subtract(superBigNetIn);
+
+                    newRs.setKtime(fundFlow.getKtime());
+                    newRs.setCode(fundFlow.getCode());
+                    newRs.setName(fundFlow.getName());
+                    newRs.setMainNetIn(mainNetIn);
+                    newRs.setSmallNetIn(smallNetIn);
+                    newRs.setMidNetIn(midNetIn);
+                    newRs.setBigNetIn(bigNetIn);
+                    newRs.setSuperBigNetIn(superBigNetIn);
+
+                    rs.add(newRs);
+
+                    //将此时的值设定为起始值
+                    mainNetIn = fundFlow.getMainNetIn();
+                    smallNetIn = fundFlow.getSmallNetIn();
+                    midNetIn = fundFlow.getMidNetIn();
+                    bigNetIn = fundFlow.getBigNetIn();
+                    superBigNetIn = fundFlow.getSuperBigNetIn();
+                }
+            } else {
+                String ktimeMinute = ktime.substring(fundFlow.getKtime().length() - 2);
+                int ktimeMinuteInt = Integer.valueOf(ktimeMinute);
+                if (ktimeMinuteInt % minuteType == 0) {
+                    FundFlow newRs = new FundFlow();
+//                System.out.println(ktimeMinuteInt);
+
+                    //累计的结果 = 新值-旧值
+                    mainNetIn = fundFlow.getMainNetIn().subtract(mainNetIn);
+                    smallNetIn = fundFlow.getSmallNetIn().subtract(smallNetIn);
+                    midNetIn = fundFlow.getMidNetIn().subtract(midNetIn);
+                    bigNetIn = fundFlow.getBigNetIn().subtract(bigNetIn);
+                    superBigNetIn = fundFlow.getSuperBigNetIn().subtract(superBigNetIn);
+
+                    newRs.setKtime(fundFlow.getKtime());
+                    newRs.setCode(fundFlow.getCode());
+                    newRs.setName(fundFlow.getName());
+                    newRs.setMainNetIn(mainNetIn);
+                    newRs.setSmallNetIn(smallNetIn);
+                    newRs.setMidNetIn(midNetIn);
+                    newRs.setBigNetIn(bigNetIn);
+                    newRs.setSuperBigNetIn(superBigNetIn);
+
+                    rs.add(newRs);
+
+                    //将此时的值设定为起始值
+                    mainNetIn = fundFlow.getMainNetIn();
+                    smallNetIn = fundFlow.getSmallNetIn();
+                    midNetIn = fundFlow.getMidNetIn();
+                    bigNetIn = fundFlow.getBigNetIn();
+                    superBigNetIn = fundFlow.getSuperBigNetIn();
+
+                }
+            }
+
+        }
+        return rs;
     }
 
     /**
@@ -77,7 +209,7 @@ public class FundFlowService {
         RankStockCommpanyDb stock = findMarketValue(zqdm);
         if (stock != null) {
             marketValue = stock.getF20();
-        }else{
+        } else {
             return null;
         }
 
@@ -200,6 +332,7 @@ public class FundFlowService {
         return null;
     }
 
+
     /**
      * 查询证券的市值-从数据库中(股票或etf)-最新的
      *
@@ -255,15 +388,8 @@ public class FundFlowService {
 //        urlParam.append("&secid=" + zqdm + "");//股票代码
         urlParam.append("&secid=");
 
-        if (zqdm.startsWith("00") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
-            urlParam.append("0." + zqdm);
-        } else if (zqdm.startsWith("93")) {
-            //2.931643
-            urlParam.append("2." + zqdm);
-        } else {
-            //zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("000")|| zhiShu.startsWith("11")|| zhiShu.startsWith("12")
-            urlParam.append("1." + zqdm);
-        }
+        urlParam.append(KlineService.getSecid(zqdm));
+
         urlParam.append("&_=" + (curTime + 1));//
 //        System.out.println("请求url:");
 //        System.out.println(url + "?" + urlParam);
@@ -291,6 +417,65 @@ public class FundFlowService {
         rs = rs.replace("});", "}");
 //        System.out.println("rs:" + rs);
 
+        return rs;
+    }
+
+    /**
+     * 获取-资金流向的对象结果，根据资金流向转换
+     *
+     * @param fundFlowRs 资金流向http查询结果
+     * @return 资金流向对象结果
+     */
+    public static List<FundFlow> parse(String fundFlowRs) {
+        List<FundFlow> rs = new ArrayList<>();
+
+        //{"rc":0,"rt":21,"svr":182482236,"lt":1,"full":0,"dlmkts":"","data":{"code":"BK0464","market":90,"name":"石油行业","tradePeriods":{"pre":null,"after":null,"periods":[{"b":202205270930,"e":202205271130},{"b":202205271300,"e":202205271500}]},
+        //  "klines":["2022-05-27 09:31,9706708.0,-4195368.0,-5511340.0,6747405.0,2959303.0","2022-05-27 09:32,13862440.0,-4179670.0,-9682770.0,3219155.0,10643285.0"]}}
+        JSONObject jsonRs = JSON.parseObject(fundFlowRs);
+        JSONObject jsonRsData = JSON.parseObject(jsonRs.getString(RS_KEY_DATA));
+        String code = "";
+        if (jsonRsData.containsKey(RS_KEY_CODE)) {
+            code = jsonRsData.getString(RS_KEY_CODE);
+        }
+        String name = null;
+        if (jsonRsData.containsKey(RS_KEY_NAME)) {
+            name = jsonRsData.getString(RS_KEY_NAME);
+        }
+
+        if (jsonRsData == null || !jsonRsData.containsKey(RS_KEY_KLINES)) {
+            System.out.println("数据异常[资金流向]：" + rs + ",zqmc:" + name);
+            return null;
+        }
+
+        JSONArray klines = JSON.parseArray(jsonRsData.getString(RS_KEY_KLINES));
+        if (klines != null) {
+            for (Object klineObj : klines) {
+                FundFlow fundFlow = new FundFlow();
+                String klineString = (String) klineObj;
+                String[] klineArray = klineString.split(",");
+                //  日期时间，主力净流入,小单净流入,中单净流入,大单净流入,超大单净流入
+                //"2021-10-27 09:31,-3737368.0,3689243.0,48125.0,-3680116.0,-57252.0",
+                String dateTime = klineArray[0];
+//                if (klineArray[0].contains(":") && klineArray[0].length() == 16) {
+//                    dateTime = klineArray[0] + ":00";
+//                }
+                BigDecimal mainNetIn = new BigDecimal(klineArray[1]);
+                BigDecimal smallNetIn = new BigDecimal(klineArray[2]);
+                BigDecimal midNetIn = new BigDecimal(klineArray[3]);
+                BigDecimal bigNetIn = new BigDecimal(klineArray[4]);
+                BigDecimal superBigNetIn = new BigDecimal(klineArray[5]);
+
+                fundFlow.setCode(code);
+                fundFlow.setCode(name);
+                fundFlow.setKtime(dateTime);
+                fundFlow.setMainNetIn(mainNetIn);
+                fundFlow.setSmallNetIn(smallNetIn);
+                fundFlow.setMidNetIn(midNetIn);
+                fundFlow.setBigNetIn(bigNetIn);
+                fundFlow.setSuperBigNetIn(superBigNetIn);
+                rs.add(fundFlow);
+            }
+        }
         return rs;
     }
 }

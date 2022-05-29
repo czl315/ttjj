@@ -34,6 +34,23 @@ public interface RandBizEtfMapper {
     RankBizDataDiff findEtfLast(RankBizDataDiff condition);
 
     /**
+     * 查询业务-根据条件：编码、日期、业务类型
+     * @param condition 查询条件
+     * @return 查询结果
+     */
+    @Select({"<script>",
+            "   SELECT ",
+            "       * ",
+            "   FROM rank_st_biz ",
+            "   WHERE 1=1  ",
+            "       <if test='date != null'> AND date = #{date}</if> ",
+            "       <if test='f12 != null'> AND f12 = #{f12}</if> ",
+//            "   ORDER BY rank_st_biz.date DESC ",
+//            "   LIMIT 1 ",
+            "</script>"})
+    RankBizDataDiff findBiz(RankBizDataDiff condition);
+
+    /**
      * 列表查询-行业etf-排序：涨跌幅
      *
      * @param condition

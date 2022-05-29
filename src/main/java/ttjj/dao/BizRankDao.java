@@ -99,6 +99,25 @@ public class BizRankDao {
     }
 
     /**
+     * 查询业务-根据条件：编码、日期、业务类型
+     * @param condition 查询条件
+     * @return 查询结果
+     */
+    public static RankBizDataDiff findBiz(RankBizDataDiff condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        RankBizDataDiff rs = null;
+        try {
+            rs = session.selectOne("ttjj.dao.mapper.RandBizEtfMapper.findBiz", condition);
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
      * 列表查询-行业etf-排序：涨跌幅
      * @param condition
      * @return
