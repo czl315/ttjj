@@ -21,13 +21,14 @@ import java.util.List;
 import java.util.Map;
 
 import static utils.Content.*;
+import static utils.ContentUrl.KLINE_HTTP_HEAD;
 
 /**
  * @author chenzhilong
  * @date 2021/7/26
  */
 public class KlineService {
-    static String KLINE_HTTP_HEAD = ".push2his.eastmoney.com/api/qt/stock/kline/get?cb=";
+
 
     public static void main(String[] args) {
 
@@ -40,6 +41,7 @@ public class KlineService {
 
     /**
      * 插入k线
+     *
      * @param entity
      * @return
      */
@@ -56,6 +58,7 @@ public class KlineService {
 
     /**
      * 删除-根据条件
+     *
      * @param condition 条件
      * @return 删除个数
      */
@@ -350,22 +353,22 @@ public class KlineService {
         url.append("&_=" + curTime);
 
         StringBuffer urlParam = new StringBuffer();
-//        urlParam.append("&StartDate=").append(startDate);
-//        System.out.println("请求url:" + randomHttpHead(KLINE_HTTP_HEAD) + url.toString());
+        String httpHead = KLINE_HTTP_HEAD;
+//        System.out.println("请求url:" + HttpUtil.randomHttpHead(httpHead) + url.toString());
         String rs = "";
         try {
-            rs = HttpUtil.sendGet(randomHttpHead(KLINE_HTTP_HEAD) + url.toString(), urlParam.toString(), "");
+            rs = HttpUtil.sendGet(HttpUtil.randomHttpHead(httpHead) + url.toString(), urlParam.toString(), "");
         } catch (Exception e) {
-            System.out.println("/** http重试 **/");
-            rs = HttpUtil.sendGet(randomHttpHead(KLINE_HTTP_HEAD) + url.toString(), urlParam.toString(), "");
+            System.out.println("/** http重试 **/" + e);
+            rs = HttpUtil.sendGet(HttpUtil.randomHttpHead(httpHead) + url.toString(), urlParam.toString(), "");
         }
 
         /**
          * 如果返回异常，n次重试
          */
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             if (StringUtils.isBlank(rs)) {
-                rs = HttpUtil.sendGet(randomHttpHead(KLINE_HTTP_HEAD) + url.toString(), urlParam.toString(), "");
+                rs = HttpUtil.sendGet(HttpUtil.randomHttpHead(httpHead) + url.toString(), urlParam.toString(), "");
             } else {
                 break;
             }
@@ -380,43 +383,6 @@ public class KlineService {
         return rs;
     }
 
-    /**
-     * 获取请求头地址
-     *
-     * @param requestUrl
-     */
-    private static String randomHttpHead(String requestUrl) {
-        //        url.append("http://96.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery331093188916841208381602168987937");
-//        http://32.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery112407539208236899613_1633162329750&secid=1.600900&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&beg=0&end=20500101&smplmt=460&lmt=1000000&_=1633162329778
-//        http://59.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery112407992655839121356_1633162556067&secid=1.600900&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&beg=0&end=20500101&smplmt=460&lmt=1000000&_=1633162556089
-//        http://29.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery1124024914966884869072_1633162507065&secid=1.600719&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1%2Cf2%2Cf3%2Cf4%2Cf5%2Cf6&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61&klt=101&fqt=1&beg=0&end=20500101&smplmt=460&lmt=1000000&_=1633162507087
-        //http://39.push2.eastmoney.com/api/qt/clist/get?         cb=jQuery112406572021024967467_1652944891287&pn=1&pz=20&po=0&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=6342375825382124|0|1|0|web&fid=f3&fs=m:90+t:2+f:!50&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222&_=1652944891290
-        int random = RandomUtils.nextInt(1, 99);
-        StringBuffer jqueryHead = new StringBuffer("jQuery").append("11240");
-        if (random > 90) {
-            jqueryHead.append("9620860037322811_");
-        } else if (random > 80) {
-            jqueryHead.append("8263766970783568_");
-        } else if (random > 70) {
-            jqueryHead.append("7766798835686965_");
-        } else if (random > 60) {
-            jqueryHead.append("6891659396929999_");
-        } else if (random > 50) {
-            jqueryHead.append("5495671767226189_");
-        } else if (random > 40) {
-            jqueryHead.append("16104730221571373_");
-        } else if (random > 30) {
-            jqueryHead.append("3619626460672556_");
-        } else if (random > 20) {
-            jqueryHead.append("2210297745027332_");
-        } else if (random > 10) {
-            jqueryHead.append("10570957997687747_");
-        } else {
-            jqueryHead.append("04711681234201204_");
-        }
-        StringBuffer rs = new StringBuffer("http://").append(random).append(requestUrl).append(jqueryHead).append(System.currentTimeMillis());
-        return rs.toString();
-    }
 
     /**
      * 查询最小净值、最大净值

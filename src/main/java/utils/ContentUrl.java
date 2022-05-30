@@ -20,5 +20,10 @@ public class ContentUrl {
      */
     public static String URL_DATA_CENTER = "https://datacenter-web.eastmoney.com/api/data/v1/get";
 
+    /**
+     * KLINE_HTTP_HEAD K线历史-天
+     */
+    public static String KLINE_HTTP_HEAD = ".push2his.eastmoney.com/api/qt/stock/kline/get?cb=";
+
 
 }
