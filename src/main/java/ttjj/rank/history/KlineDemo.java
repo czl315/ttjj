@@ -272,6 +272,7 @@ public class KlineDemo {
             return;
         }
         for (Kline kline : klines) {
+            kline.setDate(endDate);
             if (KLT_101.equals(klt)) {
                 kline.setMonth(DateUtil.getYearMonth(endDate, DateUtil.YYYY_MM_DD));
                 kline.setWeekYear(DateUtil.getYearWeek(endDate, DateUtil.YYYY_MM_DD));

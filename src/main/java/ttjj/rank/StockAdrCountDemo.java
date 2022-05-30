@@ -46,7 +46,7 @@ public class StockAdrCountDemo {
 //        insertListStockAdrCountAndUpdateNetAreaMa(date);
 
         String spBizName = null;//业务类别为空时，插入全部类别
-//        String spBizName = "半导体";//科技： 光伏设备  能源金属  风电设备  电池    非金属材料   汽车整车
+//        String spBizName = "光伏设备";//科技： 光伏设备  能源金属  风电设备    半导体  电池    非金属材料   汽车整车
 //        String spBizName = "采掘行业";//资源：煤炭行业   化肥行业 农牧饲渔 航天航空    采掘行业  医疗服务 医疗器械
 //        String spBizName = "医疗服务";//医疗： 医疗服务 医疗器械 中药 生物制品
 //        String spBizName = "证券";//金融： 银行  工程咨询服务 证券
