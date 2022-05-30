@@ -860,4 +860,13 @@ public class KlineService {
         return sb.toString();
     }
 
+    /**
+     * 更新
+     * @param entity 更新内容和条件
+     * @return 结果
+     */
+    public static Integer update(Kline entity) {
+        return KlineDao.updateNet(entity);
+    }
+
 }

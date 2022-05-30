@@ -47,6 +47,9 @@ public class BizRankDemo {
         saveKlineByType(boardList, date, KLT_60, DB_RANK_BIZ_TYPE_HANG_YE, true);
         saveKlineByType(boardList, date, KLT_101, DB_RANK_BIZ_TYPE_HANG_YE, true);
 
+        //TODO 更新资金流向
+        updateFundFlow(boardList, date, KLT_60, DB_RANK_BIZ_TYPE_HANG_YE);
+
 
         if (!isOnlyGn) {
             updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE);
@@ -83,6 +86,35 @@ public class BizRankDemo {
 //        String begDate = "2018-01-01";//查询新增交易的开始时间
 //        String endDate = "2018-12-31";
 //        insertHisDbBanKuai(begDate, endDate);//新增历史数据
+    }
+
+    /**
+     * 更新资金流向
+     * @param bizList 类型列表
+     * @param date 日期
+     * @param klt 周期
+     * @param type 业务类型
+     */
+    private static void updateFundFlow(List<RankBizDataDiff> bizList, String date, String klt, String type) {
+        for (RankBizDataDiff rankBizDataDiff : bizList) {
+            String zqdm = rankBizDataDiff.getF12();
+//            String zqmc = rankBizDataDiff.getF14();
+
+                Kline kline = new Kline();
+                String ktime ="";
+                if (klt == KLT_5 || klt == KLT_15 || klt == KLT_30 || klt == KLT_60) {
+                    kline.setKtime(kline.getKtime().substring(11));//只设置当天具体时间，去掉日期
+                }
+                kline.setZqdm(zqdm);
+                kline.setDate(date);
+                kline.setType(type);
+                kline.setKlt(klt);
+                kline.setKtime(ktime);
+                /**
+                 * K线
+                 */
+                KlineService.update(kline);
+        }
     }
 
     /**
