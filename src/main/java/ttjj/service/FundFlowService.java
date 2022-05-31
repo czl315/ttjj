@@ -57,13 +57,13 @@ public class FundFlowService {
 //            System.out.println(JSON.toJSONString(fundFlow));
 //            System.out.println("时间:" + fundFlow.getKtime() + ",主力净流入:" + fundFlow.getMainNetIn());
             //万分比
-            BigDecimal flowRateBk = fundFlow.getMainNetIn().divide(marketValueBk, 8, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000")).setScale(2, BigDecimal.ROUND_HALF_UP);
-            System.out.println("时间:" + fundFlow.getKtime() + ",主力净流入:" + fundFlow.getMainNetIn().divide(unit, 2, BigDecimal.ROUND_HALF_UP) + "," + "流入市值比：[" + flowRateBk + "]");
-            mainNetIn = mainNetIn.add(fundFlow.getMainNetIn());
-            smallNetIn = smallNetIn.add(fundFlow.getSmallNetIn());
-            midNetIn = midNetIn.add(fundFlow.getMidNetIn());
-            bigNetIn = bigNetIn.add(fundFlow.getBigNetIn());
-            superBigNetIn = superBigNetIn.add(fundFlow.getSuperBigNetIn());
+            BigDecimal flowRateBk = fundFlow.getFlowInMain().divide(marketValueBk, 8, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000")).setScale(2, BigDecimal.ROUND_HALF_UP);
+            System.out.println("时间:" + fundFlow.getKtime() + ",主力净流入:" + fundFlow.getFlowInMain().divide(unit, 2, BigDecimal.ROUND_HALF_UP) + "," + "流入市值比：[" + flowRateBk + "]");
+            mainNetIn = mainNetIn.add(fundFlow.getFlowInMain());
+            smallNetIn = smallNetIn.add(fundFlow.getFlowInSmall());
+            midNetIn = midNetIn.add(fundFlow.getFlowInMid());
+            bigNetIn = bigNetIn.add(fundFlow.getFlowInBig());
+            superBigNetIn = superBigNetIn.add(fundFlow.getFlowInSuperBig());
 
         }
         System.out.println("mainNetIn:" + mainNetIn.divide(unit, 2, BigDecimal.ROUND_HALF_UP));
@@ -94,7 +94,7 @@ public class FundFlowService {
      * @param minuteType 周期类型
      * @return 金流向结果列表
      */
-    private static List<FundFlow> handlerFundFlowByMinute(List<FundFlow> rsList, int minuteType) {
+    public static List<FundFlow> handlerFundFlowByMinute(List<FundFlow> rsList, int minuteType) {
         List<FundFlow> rs = new ArrayList<>();
         if (rsList == null) {
             return null;
@@ -118,29 +118,29 @@ public class FundFlowService {
 //                System.out.println(ktimeMinuteInt);
 
                     //累计的结果 = 新值-旧值
-                    mainNetIn = fundFlow.getMainNetIn().subtract(mainNetIn);
-                    smallNetIn = fundFlow.getSmallNetIn().subtract(smallNetIn);
-                    midNetIn = fundFlow.getMidNetIn().subtract(midNetIn);
-                    bigNetIn = fundFlow.getBigNetIn().subtract(bigNetIn);
-                    superBigNetIn = fundFlow.getSuperBigNetIn().subtract(superBigNetIn);
+                    mainNetIn = fundFlow.getFlowInMain().subtract(mainNetIn);
+                    smallNetIn = fundFlow.getFlowInSmall().subtract(smallNetIn);
+                    midNetIn = fundFlow.getFlowInMid().subtract(midNetIn);
+                    bigNetIn = fundFlow.getFlowInBig().subtract(bigNetIn);
+                    superBigNetIn = fundFlow.getFlowInSuperBig().subtract(superBigNetIn);
 
                     newRs.setKtime(fundFlow.getKtime());
                     newRs.setCode(fundFlow.getCode());
                     newRs.setName(fundFlow.getName());
-                    newRs.setMainNetIn(mainNetIn);
-                    newRs.setSmallNetIn(smallNetIn);
-                    newRs.setMidNetIn(midNetIn);
-                    newRs.setBigNetIn(bigNetIn);
-                    newRs.setSuperBigNetIn(superBigNetIn);
+                    newRs.setFlowInMain(mainNetIn);
+                    newRs.setFlowInSmall(smallNetIn);
+                    newRs.setFlowInMid(midNetIn);
+                    newRs.setFlowInBig(bigNetIn);
+                    newRs.setFlowInSuperBig(superBigNetIn);
 
                     rs.add(newRs);
 
                     //将此时的值设定为起始值
-                    mainNetIn = fundFlow.getMainNetIn();
-                    smallNetIn = fundFlow.getSmallNetIn();
-                    midNetIn = fundFlow.getMidNetIn();
-                    bigNetIn = fundFlow.getBigNetIn();
-                    superBigNetIn = fundFlow.getSuperBigNetIn();
+                    mainNetIn = fundFlow.getFlowInMain();
+                    smallNetIn = fundFlow.getFlowInSmall();
+                    midNetIn = fundFlow.getFlowInMid();
+                    bigNetIn = fundFlow.getFlowInBig();
+                    superBigNetIn = fundFlow.getFlowInSuperBig();
                 }
             } else {
                 String ktimeMinute = ktime.substring(fundFlow.getKtime().length() - 2);
@@ -150,29 +150,29 @@ public class FundFlowService {
 //                System.out.println(ktimeMinuteInt);
 
                     //累计的结果 = 新值-旧值
-                    mainNetIn = fundFlow.getMainNetIn().subtract(mainNetIn);
-                    smallNetIn = fundFlow.getSmallNetIn().subtract(smallNetIn);
-                    midNetIn = fundFlow.getMidNetIn().subtract(midNetIn);
-                    bigNetIn = fundFlow.getBigNetIn().subtract(bigNetIn);
-                    superBigNetIn = fundFlow.getSuperBigNetIn().subtract(superBigNetIn);
+                    mainNetIn = fundFlow.getFlowInMain().subtract(mainNetIn);
+                    smallNetIn = fundFlow.getFlowInSmall().subtract(smallNetIn);
+                    midNetIn = fundFlow.getFlowInMid().subtract(midNetIn);
+                    bigNetIn = fundFlow.getFlowInBig().subtract(bigNetIn);
+                    superBigNetIn = fundFlow.getFlowInSuperBig().subtract(superBigNetIn);
 
                     newRs.setKtime(fundFlow.getKtime());
                     newRs.setCode(fundFlow.getCode());
                     newRs.setName(fundFlow.getName());
-                    newRs.setMainNetIn(mainNetIn);
-                    newRs.setSmallNetIn(smallNetIn);
-                    newRs.setMidNetIn(midNetIn);
-                    newRs.setBigNetIn(bigNetIn);
-                    newRs.setSuperBigNetIn(superBigNetIn);
+                    newRs.setFlowInMain(mainNetIn);
+                    newRs.setFlowInSmall(smallNetIn);
+                    newRs.setFlowInMid(midNetIn);
+                    newRs.setFlowInBig(bigNetIn);
+                    newRs.setFlowInSuperBig(superBigNetIn);
 
                     rs.add(newRs);
 
                     //将此时的值设定为起始值
-                    mainNetIn = fundFlow.getMainNetIn();
-                    smallNetIn = fundFlow.getSmallNetIn();
-                    midNetIn = fundFlow.getMidNetIn();
-                    bigNetIn = fundFlow.getBigNetIn();
-                    superBigNetIn = fundFlow.getSuperBigNetIn();
+                    mainNetIn = fundFlow.getFlowInMain();
+                    smallNetIn = fundFlow.getFlowInSmall();
+                    midNetIn = fundFlow.getFlowInMid();
+                    bigNetIn = fundFlow.getFlowInBig();
+                    superBigNetIn = fundFlow.getFlowInSuperBig();
 
                 }
             }
@@ -463,11 +463,11 @@ public class FundFlowService {
                 fundFlow.setCode(code);
                 fundFlow.setCode(name);
                 fundFlow.setKtime(dateTime);
-                fundFlow.setMainNetIn(mainNetIn);
-                fundFlow.setSmallNetIn(smallNetIn);
-                fundFlow.setMidNetIn(midNetIn);
-                fundFlow.setBigNetIn(bigNetIn);
-                fundFlow.setSuperBigNetIn(superBigNetIn);
+                fundFlow.setFlowInMain(mainNetIn);
+                fundFlow.setFlowInSmall(smallNetIn);
+                fundFlow.setFlowInMid(midNetIn);
+                fundFlow.setFlowInBig(bigNetIn);
+                fundFlow.setFlowInSuperBig(superBigNetIn);
                 rs.add(fundFlow);
             }
         }

@@ -188,6 +188,7 @@ public class KlineDemo {
         }
 
         Kline kline = new Kline();
+        kline.setType(DB_RANK_BIZ_TYPE_ZS);
         kline.setKlt(klt);
         kline.setRs(klineRs);
         kline.setZqmc(zqmc);
@@ -273,6 +274,7 @@ public class KlineDemo {
         }
         for (Kline kline : klines) {
             kline.setDate(endDate);
+            kline.setType(DB_RANK_BIZ_TYPE_ZS);
             if (KLT_101.equals(klt)) {
                 kline.setMonth(DateUtil.getYearMonth(endDate, DateUtil.YYYY_MM_DD));
                 kline.setWeekYear(DateUtil.getYearWeek(endDate, DateUtil.YYYY_MM_DD));

@@ -33,7 +33,7 @@ import static utils.Content.*;
 public class StockAdrCountDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-05-26";
+//        String date = "2022-05-31";
         String spDate = "";//        String spDate = "2022-05-18";//是否显示特定日期涨跌
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("4"), new BigDecimal("5"), new BigDecimal("6"), new BigDecimal("7"), new BigDecimal("8"), new BigDecimal("9"), new BigDecimal("9.9"));
         List<Integer> daysList = Arrays.asList(TRADE_DAYS_60, TRADE_DAYS_40, TRADE_DAYS_20, TRADE_DAYS_10, TRADE_DAYS_5, TRADE_DAYS_3, TRADE_DAYS_2, TRADE_DAYS_1);
@@ -46,10 +46,10 @@ public class StockAdrCountDemo {
 //        insertListStockAdrCountAndUpdateNetAreaMa(date);
 
         String spBizName = null;//业务类别为空时，插入全部类别
+//        String spBizName = "房地产开发";//金融： 银行  工程咨询服务 证券 房地产开发
 //        String spBizName = "光伏设备";//科技： 光伏设备  能源金属  风电设备    半导体  电池    非金属材料   汽车整车
 //        String spBizName = "采掘行业";//资源：煤炭行业   化肥行业 农牧饲渔 航天航空    采掘行业  医疗服务 医疗器械
 //        String spBizName = "医疗服务";//医疗： 医疗服务 医疗器械 中药 生物制品
-//        String spBizName = "证券";//金融： 银行  工程咨询服务 证券
 //        String spBizName = "酿酒行业";//消费： 酿酒行业
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
@@ -73,7 +73,7 @@ public class StockAdrCountDemo {
             deleteTodayStAdrCount(date, bizName);//删除
             insertListByBiz(date, bizCode, bizName);
 //            updateListByBiz(date, bizCode, bizName);
-            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
+//            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
             updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit,mvLimit);//更新-最新价格、价格区间、均线
         }
 
@@ -257,7 +257,7 @@ public class StockAdrCountDemo {
                 rs++;
             }
         }
-        System.out.println("当前biz：" + biz + ",根据业务，批量更新基础信息成功-涨幅次数统计：" + rs);
+        System.out.println("当前biz：" + bizName + ",根据业务，批量更新基础信息成功-涨幅次数统计：" + rs);
 
         return stockAdrCountList;
     }

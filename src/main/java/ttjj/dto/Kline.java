@@ -145,6 +145,27 @@ public class Kline {
     private BigDecimal NET_MA_120;
     private BigDecimal NET_MA_250;
 
+    /**
+     *  主力净流入
+     */
+    private BigDecimal flowInMain;
+    /**
+     *  小单净流入
+     */
+    private BigDecimal flowInSmall;
+    /**
+     *  中单净流入
+     */
+    private BigDecimal flowInMid;
+    /**
+     *  大单净流入
+     */
+    private BigDecimal flowInBig;
+    /**
+     *  超大单净流入
+     */
+    private BigDecimal flowInSuperBig;
+
     public String getKtime() {
         return ktime;
     }
@@ -592,5 +613,45 @@ public class Kline {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public BigDecimal getFlowInMain() {
+        return flowInMain;
+    }
+
+    public void setFlowInMain(BigDecimal flowInMain) {
+        this.flowInMain = flowInMain;
+    }
+
+    public BigDecimal getFlowInSmall() {
+        return flowInSmall;
+    }
+
+    public void setFlowInSmall(BigDecimal flowInSmall) {
+        this.flowInSmall = flowInSmall;
+    }
+
+    public BigDecimal getFlowInMid() {
+        return flowInMid;
+    }
+
+    public void setFlowInMid(BigDecimal flowInMid) {
+        this.flowInMid = flowInMid;
+    }
+
+    public BigDecimal getFlowInBig() {
+        return flowInBig;
+    }
+
+    public void setFlowInBig(BigDecimal flowInBig) {
+        this.flowInBig = flowInBig;
+    }
+
+    public BigDecimal getFlowInSuperBig() {
+        return flowInSuperBig;
+    }
+
+    public void setFlowInSuperBig(BigDecimal flowInSuperBig) {
+        this.flowInSuperBig = flowInSuperBig;
     }
 }

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.BizRankDao;
+import ttjj.dto.FundFlow;
 import ttjj.dto.Kline;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.StatEtfUpDown;
@@ -21,6 +22,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static utils.Content.*;
+import static utils.DateUtil.HH_MM_SS;
 
 /**
  * 主题排行
@@ -29,26 +31,35 @@ public class BizRankDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-05-27";
-        boolean isOnlyGn = true;
-//        boolean isOnlyGn = false;
+//        boolean isOnlyGn = true;
+        boolean isOnlyGn = false;
 
         deleteTodayBiz();//删除数据-今日
         insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
         updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_HANG_YE);
+
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
         updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
+
+        insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
+
+
 
         //遍历板块，插入K线
         List<RankBizDataDiff> boardList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询板块行业列表
+
         saveKlineByType(boardList, date, KLT_5, DB_RANK_BIZ_TYPE_HANG_YE, true);
         saveKlineByType(boardList, date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE, true);
         saveKlineByType(boardList, date, KLT_30, DB_RANK_BIZ_TYPE_HANG_YE, true);
         saveKlineByType(boardList, date, KLT_60, DB_RANK_BIZ_TYPE_HANG_YE, true);
         saveKlineByType(boardList, date, KLT_101, DB_RANK_BIZ_TYPE_HANG_YE, true);
 
-        //TODO 更新资金流向
+        // 更新资金流向
+        updateFundFlow(boardList, date, KLT_5, DB_RANK_BIZ_TYPE_HANG_YE);
+        updateFundFlow(boardList, date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE);
+        updateFundFlow(boardList, date, KLT_30, DB_RANK_BIZ_TYPE_HANG_YE);
         updateFundFlow(boardList, date, KLT_60, DB_RANK_BIZ_TYPE_HANG_YE);
+        updateFundFlow(boardList, date, KLT_101, DB_RANK_BIZ_TYPE_HANG_YE);
 
 
         if (!isOnlyGn) {
@@ -90,30 +101,47 @@ public class BizRankDemo {
 
     /**
      * 更新资金流向
+     *
      * @param bizList 类型列表
-     * @param date 日期
-     * @param klt 周期
-     * @param type 业务类型
+     * @param date    日期
+     * @param klt     周期
+     * @param type    业务类型
      */
     private static void updateFundFlow(List<RankBizDataDiff> bizList, String date, String klt, String type) {
+
         for (RankBizDataDiff rankBizDataDiff : bizList) {
             String zqdm = rankBizDataDiff.getF12();
 //            String zqmc = rankBizDataDiff.getF14();
 
+            int rs = 0;
+            List<FundFlow> rsList = FundFlowService.parse(FundFlowService.httpFundFlowRs(zqdm));//获取-资金流向的对象结果
+            rsList = FundFlowService.handlerFundFlowByMinute(rsList, Integer.valueOf(klt));//计算分钟级别资金流向
+            for (FundFlow fundFlow : rsList) {
                 Kline kline = new Kline();
-                String ktime ="";
+                String ktime = fundFlow.getKtime();
                 if (klt == KLT_5 || klt == KLT_15 || klt == KLT_30 || klt == KLT_60) {
-                    kline.setKtime(kline.getKtime().substring(11));//只设置当天具体时间，去掉日期
+                    kline.setKtime(DateUtil.getForMatTime(HH_MM_SS, ktime));//只设置当天具体时间，去掉日期
                 }
                 kline.setZqdm(zqdm);
                 kline.setDate(date);
                 kline.setType(type);
                 kline.setKlt(klt);
-                kline.setKtime(ktime);
-                /**
-                 * K线
-                 */
-                KlineService.update(kline);
+
+                kline.setFlowInMain(fundFlow.getFlowInMain());
+                kline.setFlowInSuperBig(fundFlow.getFlowInSuperBig());
+                kline.setFlowInBig(fundFlow.getFlowInBig());
+                kline.setFlowInMid(fundFlow.getFlowInMid());
+                kline.setFlowInSmall(fundFlow.getFlowInSmall());
+                int updateRs = KlineService.update(kline);
+                if (updateRs != 1) {
+                    System.out.println("K线-资金流入-更新失败：" + JSON.toJSONString(kline));
+                } else {
+                    rs = rs + updateRs;
+                }
+            }
+            System.out.println("K线-资金流入-更新个数：" + rs);
+
+
         }
     }
 

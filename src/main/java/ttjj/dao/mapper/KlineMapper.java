@@ -85,9 +85,18 @@ public interface KlineMapper {
             "    <if test='NET_MA_120 != null'>NET_MA_120=#{NET_MA_120},</if>",
             "    <if test='NET_MA_250 != null'>NET_MA_250=#{NET_MA_250},</if>",
             "    <if test='NET_MA_250 != null'>NET_MA_250=#{NET_MA_250},</if>",
-            "    <if test='type != null'>type=#{type},</if>",
+            "    <if test='flowInMain != null'>flowInMain=#{flowInMain},</if>",
+            "    <if test='flowInSmall != null'>flowInSmall=#{flowInSmall},</if>",
+            "    <if test='flowInMid != null'>flowInMid=#{flowInMid},</if>",
+            "    <if test='flowInBig != null'>flowInBig=#{flowInBig},</if>",
+            "    <if test='flowInSuperBig != null'>flowInSuperBig=#{flowInSuperBig},</if>",
             "  </set>",
-            "where ktime=#{ktime} AND zqdm=#{zqdm} AND klt=#{klt}",
+            "where 1=1  ",
+            "   AND date = #{date}  ",
+            "   AND zqdm=#{zqdm} ",
+            "   AND klt=#{klt}",
+            "   <if test='type != null'> AND type=#{type}</if> ",
+            "   <if test='ktime != null'> AND ktime=#{ktime}</if> ",
             "</script>"})
     void updateNet(Kline entity);
 

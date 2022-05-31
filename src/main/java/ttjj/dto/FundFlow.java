@@ -21,25 +21,25 @@ public class FundFlow {
      */
     private String name;
     /**
-     * mainIn 主力净流入
+     *  主力净流入
      */
-    private BigDecimal mainNetIn;
+    private BigDecimal flowInMain;
     /**
-     * smallNetIn 小单净流入
+     *  小单净流入
      */
-    private BigDecimal smallNetIn;
+    private BigDecimal flowInSmall;
     /**
-     * midNetIn 中单净流入
+     *  中单净流入
      */
-    private BigDecimal midNetIn;
+    private BigDecimal flowInMid;
     /**
-     * bigNetIn 大单净流入
+     *  大单净流入
      */
-    private BigDecimal bigNetIn;
+    private BigDecimal flowInBig;
     /**
-     * superBigNetIn 超大单净流入
+     *  超大单净流入
      */
-    private BigDecimal superBigNetIn;
+    private BigDecimal flowInSuperBig;
 
     public String getKtime() {
         return ktime;
@@ -47,46 +47,6 @@ public class FundFlow {
 
     public void setKtime(String ktime) {
         this.ktime = ktime;
-    }
-
-    public BigDecimal getMainNetIn() {
-        return mainNetIn;
-    }
-
-    public void setMainNetIn(BigDecimal mainNetIn) {
-        this.mainNetIn = mainNetIn;
-    }
-
-    public BigDecimal getSmallNetIn() {
-        return smallNetIn;
-    }
-
-    public void setSmallNetIn(BigDecimal smallNetIn) {
-        this.smallNetIn = smallNetIn;
-    }
-
-    public BigDecimal getMidNetIn() {
-        return midNetIn;
-    }
-
-    public void setMidNetIn(BigDecimal midNetIn) {
-        this.midNetIn = midNetIn;
-    }
-
-    public BigDecimal getBigNetIn() {
-        return bigNetIn;
-    }
-
-    public void setBigNetIn(BigDecimal bigNetIn) {
-        this.bigNetIn = bigNetIn;
-    }
-
-    public BigDecimal getSuperBigNetIn() {
-        return superBigNetIn;
-    }
-
-    public void setSuperBigNetIn(BigDecimal superBigNetIn) {
-        this.superBigNetIn = superBigNetIn;
     }
 
     public String getCode() {
@@ -103,5 +63,45 @@ public class FundFlow {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public BigDecimal getFlowInMain() {
+        return flowInMain;
+    }
+
+    public void setFlowInMain(BigDecimal flowInMain) {
+        this.flowInMain = flowInMain;
+    }
+
+    public BigDecimal getFlowInSmall() {
+        return flowInSmall;
+    }
+
+    public void setFlowInSmall(BigDecimal flowInSmall) {
+        this.flowInSmall = flowInSmall;
+    }
+
+    public BigDecimal getFlowInMid() {
+        return flowInMid;
+    }
+
+    public void setFlowInMid(BigDecimal flowInMid) {
+        this.flowInMid = flowInMid;
+    }
+
+    public BigDecimal getFlowInBig() {
+        return flowInBig;
+    }
+
+    public void setFlowInBig(BigDecimal flowInBig) {
+        this.flowInBig = flowInBig;
+    }
+
+    public BigDecimal getFlowInSuperBig() {
+        return flowInSuperBig;
+    }
+
+    public void setFlowInSuperBig(BigDecimal flowInSuperBig) {
+        this.flowInSuperBig = flowInSuperBig;
     }
 }

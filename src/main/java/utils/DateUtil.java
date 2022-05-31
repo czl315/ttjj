@@ -12,6 +12,7 @@ import java.util.Date;
 public class DateUtil {
     public static String YYYY_MM_DD = "yyyy-MM-dd";
     public static String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
+    public static String HH_MM_SS = "HH:mm:ss";
     public static String YYYYMMDD = "yyyyMMdd";
 
     public static void main(String[] args) {
@@ -25,7 +26,7 @@ public class DateUtil {
 //        System.out.println(getWeek(new Date()));
 //        System.out.println(getWeekByYyyyMmDd("2021-08-29",DateUtil.YYYY_MM_DD));
 //        System.out.println(getYearWeek("2021-08-29", DateUtil.YYYY_MM_DD));
-        System.out.println(getAddDays(YYYY_MM_DD,"2022-05-01",-1));
+        System.out.println(getAddDays(YYYY_MM_DD, "2022-05-01", -1));
 
 //        //获取格式化日期
 //        String date = getDateStrAddDaysByFormat(YYYY_MM_DD, 2021, 2, 28, -1);
@@ -253,6 +254,7 @@ public class DateUtil {
 
     /**
      * 指定日期增加n天的日期
+     *
      * @param format
      * @param dateStr
      * @param addDays
@@ -269,5 +271,25 @@ public class DateUtil {
         cal.setTime(date);
         cal.add(Calendar.DATE, addDays);//加一天
         return new SimpleDateFormat(format).format(cal.getTime());
+    }
+
+    /**
+     * 获得格式化时间
+     *
+     * @param format
+     * @param dateStr
+     * @return
+     */
+    public static String getForMatTime(String format, String dateStr) {
+        StringBuffer rs = new StringBuffer();
+        if (HH_MM_SS.equals(format) && dateStr.length() > 11) {
+            rs.append(dateStr.substring(11));
+            if (rs.length() == 5) {
+                rs.append(":00");
+            }
+        } else {
+            return dateStr;
+        }
+        return rs.toString();
     }
 }

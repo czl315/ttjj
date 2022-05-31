@@ -197,6 +197,10 @@ public class Content {
      */
     public static String DB_RANK_BIZ_TYPE_LOF = "LOF";
     /**
+     * DB_RANK_BIZ_TYPE_ZS 指数
+     */
+    public static String DB_RANK_BIZ_TYPE_ZS = "zs";
+    /**
      * DB_RANK_BIZ_F12_BAN_KUAI f13类型-板块
      */
     public static long DB_RANK_BIZ_F12_BAN_KUAI = 90;
