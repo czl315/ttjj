@@ -30,51 +30,29 @@ import static utils.DateUtil.HH_MM_SS;
 public class BizRankDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-05-27";
-//        boolean isOnlyGn = true;
-        boolean isOnlyGn = false;
+//        String date = "2022-05-31";
+        boolean isOnlyGn = true;
+//        boolean isOnlyGn = false;
 
-        deleteTodayBiz();//删除数据-今日
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_HANG_YE);
-        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_HANG_YE);
-
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
-        updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_GAI_NIAN);
-
-        insertTodayRank(date, DB_RANK_BIZ_TYPE_ETF);
-
-
-
-        //遍历板块，插入K线
-        List<RankBizDataDiff> boardList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询板块行业列表
-
-        saveKlineByType(boardList, date, KLT_5, DB_RANK_BIZ_TYPE_HANG_YE, true);
-        saveKlineByType(boardList, date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE, true);
-        saveKlineByType(boardList, date, KLT_30, DB_RANK_BIZ_TYPE_HANG_YE, true);
-        saveKlineByType(boardList, date, KLT_60, DB_RANK_BIZ_TYPE_HANG_YE, true);
-        saveKlineByType(boardList, date, KLT_101, DB_RANK_BIZ_TYPE_HANG_YE, true);
-
-        // 更新资金流向
-        updateFundFlow(boardList, date, KLT_5, DB_RANK_BIZ_TYPE_HANG_YE);
-        updateFundFlow(boardList, date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE);
-        updateFundFlow(boardList, date, KLT_30, DB_RANK_BIZ_TYPE_HANG_YE);
-        updateFundFlow(boardList, date, KLT_60, DB_RANK_BIZ_TYPE_HANG_YE);
-        updateFundFlow(boardList, date, KLT_101, DB_RANK_BIZ_TYPE_HANG_YE);
-
+        String bizType = DB_RANK_BIZ_TYPE_HANG_YE;
+//        String bizType = DB_RANK_BIZ_TYPE_GAI_NIAN;
+//        String bizType = DB_RANK_BIZ_TYPE_ETF;
+        List<RankBizDataDiff> bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
+        saveBizAndKline(date, bizType, bizList);//保存业务和k线
 
         if (!isOnlyGn) {
-            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_HANG_YE);
-            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_GAI_NIAN);
-            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_ETF);
-            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF);
 
-            insertTodayRank(date, DB_RANK_BIZ_TYPE_LOF);
-            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_LOF);
-            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF);
+            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_GAI_NIAN, bizList);
+            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_ETF, bizList);
+            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF, bizList);
 
-            updateFundFlowBk(date);//更新当日资金流信息-板块
-            updateFundFlowGn(date);//更新当日资金流信息-概念
-            updateFundFlowEtf(date);////更新当日资金流信息-etf
+            insertTodayRank(DB_RANK_BIZ_TYPE_LOF, bizList);
+            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_LOF, bizList);
+            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF, bizList);
+
+//            updateFundFlowBk(date);//更新当日资金流信息-板块
+//            updateFundFlowGn(date);//更新当日资金流信息-概念
+//            updateFundFlowEtf(date);////更新当日资金流信息-etf
         }
 
 
@@ -97,6 +75,110 @@ public class BizRankDemo {
 //        String begDate = "2018-01-01";//查询新增交易的开始时间
 //        String endDate = "2018-12-31";
 //        insertHisDbBanKuai(begDate, endDate);//新增历史数据
+    }
+
+    /**
+     * 保存业务和k线
+     *
+     * @param date    日期
+     * @param bizType 业务
+     * @param bizList 对象列表
+     */
+    private static void saveBizAndKline(String date, String bizType, List<RankBizDataDiff> bizList) {
+
+        deleteTodayBiz(date, bizType);//删除数据-今日
+        insertTodayRank(bizType, bizList);
+        updateDbTodayEtfMa(date, bizType, bizList);
+        updateDbTodayNetCloseByKlt(date, KLT_15, bizType, bizList);
+
+        //遍历板块，插入K线
+        saveKlineByType(bizList, date, KLT_5, bizType, true);
+        saveKlineByType(bizList, date, KLT_15, bizType, true);
+        saveKlineByType(bizList, date, KLT_30, bizType, true);
+        saveKlineByType(bizList, date, KLT_60, bizType, true);
+        saveKlineByType(bizList, date, KLT_101, bizType, true);
+
+        // 更新-k线-资金流向
+        updateFundFlow(bizList, date, KLT_5, bizType);
+        updateFundFlow(bizList, date, KLT_15, bizType);
+        updateFundFlow(bizList, date, KLT_30, bizType);
+        updateFundFlow(bizList, date, KLT_60, bizType);
+        updateFundFlow(bizList, date, KLT_101, bizType);
+
+        //更新-k线-净值-只更新日k线-价格区间
+        updateNet(bizList, date, KLT_101, bizType);
+    }
+
+    /**
+     * 更新-k线-净值
+     *
+     * @param date    日期
+     * @param bizList 更新列表
+     */
+    private static void updateNet(List<RankBizDataDiff> bizList, String date, String klt, String type) {
+        int updateRs = 0;//更新成功个数
+        if (bizList == null) {
+            System.out.println("更新-净值区间:bizList==null");
+            return;
+        }
+        for (RankBizDataDiff biz : bizList) {
+            Kline entity = new Kline();
+            String zqdm = biz.getF12();
+            entity.setZqdm(zqdm);
+            entity.setDate(date);
+            entity.setKlt(klt);
+            entity.setType(type);
+
+            //处理价格区间
+            //计算净值
+            Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, "", date, null);
+            entity.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
+            entity.setNET_MIN_5(netMap5.get(Content.keyRsMin));
+            entity.setNET_MAX_5(netMap5.get(Content.keyRsMax));
+            entity.setNET_MIN_CLOS_5(netMap5.get(Content.keyRsNetCloseMin));
+            entity.setNET_MAX_CLOS_5(netMap5.get(Content.keyRsNetCloseMax));
+            Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, "", date, null);
+            entity.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
+            entity.setNET_MIN_10(netMap10.get(Content.keyRsMin));
+            entity.setNET_MAX_10(netMap10.get(Content.keyRsMax));
+            entity.setNET_MIN_CLOS_10(netMap10.get(Content.keyRsNetCloseMin));
+            entity.setNET_MAX_CLOS_10(netMap10.get(Content.keyRsNetCloseMax));
+            Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, "", date, null);
+            entity.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
+            entity.setNET_MIN_20(netMap20.get(Content.keyRsMin));
+            entity.setNET_MAX_20(netMap20.get(Content.keyRsMax));
+            entity.setNET_MIN_CLOS_20(netMap20.get(Content.keyRsNetCloseMin));
+            entity.setNET_MAX_CLOS_20(netMap20.get(Content.keyRsNetCloseMax));
+            Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, "", date, null);
+            entity.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
+            entity.setNET_MIN_30(netMap30.get(Content.keyRsMin));
+            entity.setNET_MAX_30(netMap30.get(Content.keyRsMax));
+            entity.setNET_MIN_CLOS_30(netMap30.get(Content.keyRsNetCloseMin));
+            entity.setNET_MAX_CLOS_30(netMap30.get(Content.keyRsNetCloseMax));
+            Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, "", date, null);
+            entity.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
+            entity.setNET_MIN_60(netMap60.get(Content.keyRsMin));
+            entity.setNET_MAX_60(netMap60.get(Content.keyRsMax));
+            entity.setNET_MIN_CLOS_60(netMap60.get(Content.keyRsNetCloseMin));
+            entity.setNET_MAX_CLOS_60(netMap60.get(Content.keyRsNetCloseMax));
+            Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, "", date, null);
+            entity.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
+            entity.setNET_MIN_120(netMap120.get(Content.keyRsMin));
+            entity.setNET_MAX_120(netMap120.get(Content.keyRsMax));
+            entity.setNET_MIN_CLOS_120(netMap120.get(Content.keyRsNetCloseMin));
+            entity.setNET_MAX_CLOS_120(netMap120.get(Content.keyRsNetCloseMax));
+            Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, "", date, null);
+            entity.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
+            entity.setNET_MIN_250(netMap250.get(Content.keyRsMin));
+            entity.setNET_MAX_250(netMap250.get(Content.keyRsMax));
+            entity.setNET_MIN_CLOS_250(netMap250.get(Content.keyRsNetCloseMin));
+            entity.setNET_MAX_CLOS_250(netMap250.get(Content.keyRsNetCloseMax));
+
+
+            //更新
+            updateRs += KlineService.update(entity);
+        }
+        System.out.println("更新-净值-个数:" + bizList.size() + ",更新成功：" + updateRs);
     }
 
     /**
@@ -191,11 +273,10 @@ public class BizRankDemo {
      *
      * @param date
      * @param klt
+     * @param bizList
      */
-    private static void updateDbTodayNetCloseByKlt(String date, String klt, String type) {
-        List<RankBizDataDiff> fundList = new ArrayList<>();
-        fundList = BizService.listBiz(date, type, NUM_MAX_999);
-        for (RankBizDataDiff rankBizDataDiff : fundList) {
+    private static void updateDbTodayNetCloseByKlt(String date, String klt, String type, List<RankBizDataDiff> bizList) {
+        for (RankBizDataDiff rankBizDataDiff : bizList) {
             List<Kline> klines = KlineService.kline(rankBizDataDiff.getF12(), NUM_MAX_99, klt, true, date, date, null);
             if (klines == null || klines.size() == 0) {
                 System.out.println("k线为空：" + JSON.toJSONString(rankBizDataDiff));
@@ -292,21 +373,30 @@ public class BizRankDemo {
 
     /**
      * 删除数据-今日
+     *
+     * @param date
+     * @param bizType
      */
-    private static void deleteTodayBiz() {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-        int rs = BizRankDao.deleteByDate(date);
+    private static void deleteTodayBiz(String date, String bizType) {
+        String today = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        if (!today.equals(date)) {
+            System.out.println("不是删除今日数据，请注意！");
+            return;
+        }
+        RankBizDataDiff entity = new RankBizDataDiff();
+        entity.setDate(date);
+        entity.setType(bizType);
+        int rs = BizRankDao.deleteByDate(entity);
         System.out.println("日期：" + date + "，删除结果：" + rs);
     }
 
     /**
      * @param date
      * @param fundType
+     * @param bizList
      */
-    private static void updateDbTodayEtfMa(String date, String fundType) {
-        List<RankBizDataDiff> fundList = new ArrayList<>();
-        fundList = BizService.listBiz(date, fundType, NUM_MAX_999);
-        for (RankBizDataDiff rankBizDataDiff : fundList) {
+    private static void updateDbTodayEtfMa(String date, String fundType, List<RankBizDataDiff> bizList) {
+        for (RankBizDataDiff rankBizDataDiff : bizList) {
             String klt = KLT_101;
             RankBizDataDiff entity = new RankBizDataDiff();
             String zqdm = rankBizDataDiff.getF12();
@@ -362,14 +452,13 @@ public class BizRankDemo {
     /**
      * 保存-板块、概念、etf
      *
-     * @param date
      * @param type
+     * @param bizList
      */
-    private static void insertTodayRank(String date, String type) {
-        List<RankBizDataDiff> rankBizDataDiffListBiz = BizService.listBiz(date, type, NUM_MAX_999);//查询板块行业列表
+    private static void insertTodayRank(String type, List<RankBizDataDiff> bizList) {
         //db-插入
-        BizRankDao.insertDbBiz(rankBizDataDiffListBiz);//bk-板块
-        System.out.println(type + "保存完成：" + rankBizDataDiffListBiz.size());
+        BizRankDao.insertDbBiz(bizList);//bk-板块
+        System.out.println(type + "保存完成：" + bizList.size());
 //            showBizSql(date, rankBizDataDiffListBiz, "bk");//显示sql-业务排行-插入
     }
 

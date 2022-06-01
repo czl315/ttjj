@@ -138,14 +138,14 @@ public class BizRankDao {
 
     /**
      * 删除-根据日期
-     * @param date
+     * @param entity
      * @return
      */
-    public static int deleteByDate(String date) {
+    public static int deleteByDate(RankBizDataDiff entity) {
         SqlSession session = sqlSessionFactory.openSession();
         int rs = 0;
         try {
-            rs = session.delete("ttjj.dao.mapper.RandBizEtfMapper.deleteByDate", date);
+            rs = session.delete("ttjj.dao.mapper.RandBizEtfMapper.deleteByDate", entity);
             session.commit();
         } catch (Exception e) {
             e.printStackTrace();

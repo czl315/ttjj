@@ -35,6 +35,7 @@ public interface RandBizEtfMapper {
 
     /**
      * 查询业务-根据条件：编码、日期、业务类型
+     *
      * @param condition 查询条件
      * @return 查询结果
      */
@@ -233,9 +234,12 @@ public interface RandBizEtfMapper {
     void updateDate(RankBizDataDiff entity);
 
     @Delete({"<script>",
-            "DELETE FROM `rank_st_biz` WHERE `date` = #{date} LIMIT 9999 ",
+            "DELETE FROM `rank_st_biz` WHERE 1=1 ",
+            "   AND `date` = #{date} ",
+            "   <if test='type != null'> AND rank_st_biz.type = #{type} </if> ",
+            "LIMIT 9999 ",
             "</script>"})
-    int deleteByDate(String date);
+    int deleteByDate(RankBizDataDiff entity);
 
     /**
      * 查询-涨跌次数
@@ -253,7 +257,7 @@ public interface RandBizEtfMapper {
             " FROM ",
             "   `rank_st_biz` rank_st_biz ",
             " WHERE 1=1 ",
-            "   <if test='adrMin != null'> ",
+            "   <if test='type != null'> ",
             "   AND rank_st_biz.type = #{type}  ",
             "   </if> ",
             "   <if test='adrMin != null'> ",

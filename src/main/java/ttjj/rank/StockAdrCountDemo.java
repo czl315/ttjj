@@ -70,11 +70,11 @@ public class StockAdrCountDemo {
             }
             System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
 //            insertListStatStock(date, bizName, adrMinList,daysList);//批量插入-从股票表中统计数据-按照业务类别
-            deleteTodayStAdrCount(date, bizName);//删除
-            insertListByBiz(date, bizCode, bizName);
-//            updateListByBiz(date, bizCode, bizName);
+//            deleteTodayStAdrCount(date, bizName);//删除
+//            insertListByBiz(date, bizCode, bizName);
+            updateListByBiz(date, bizCode, bizName);
 //            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
-            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit,mvLimit);//更新-最新价格、价格区间、均线
+//            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit,mvLimit);//更新-最新价格、价格区间、均线
         }
 
 //        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
@@ -110,7 +110,7 @@ public class StockAdrCountDemo {
         //                insertListByBiz(date, bizCode);
         updateListByBiz(date, bizCode, spBizName);
         updateAdrCount(date, spBizName, adrMinList, daysList, adrUpCountSum60Limit);
-        updateNetAreaAndMa(date, spBizName, adrUpCountSum60Limit,mvLimit);//更新-最新价格、价格区间、均线
+        updateNetAreaAndMa(date, spBizName, adrUpCountSum60Limit, mvLimit);//更新-最新价格、价格区间、均线
         return true;
     }
 
@@ -765,6 +765,11 @@ public class StockAdrCountDemo {
      * @param biz
      */
     private static void deleteTodayStAdrCount(String date, String biz) {
+        String today = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        if (!today.equals(date)) {
+            System.out.println("不是删除今日数据，请注意！");
+            return;
+        }
         StockAdrCount condition = new StockAdrCount();
         condition.setDate(date);
         condition.setType_name(biz);
