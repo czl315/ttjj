@@ -5,7 +5,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.KlineDao;
+import ttjj.dto.FundFlow;
 import ttjj.dto.Kline;
+import ttjj.dto.RankBizDataDiff;
+import ttjj.service.BizService;
+import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
 import utils.Content;
 import utils.DateUtil;
@@ -34,9 +38,52 @@ public class KlineDemo {
         String klineType = KLINE_TYPE_INDEX;
         addZhishuKline(isAddMinuteKline, klt, lmt, addDaysMax, year, month, day, klineType);
 
+//        updateHisDateKlineFundFlow(DB_RANK_BIZ_TYPE_HANG_YE);//更新历史日期-资金流向
+
 ////        // 查询k线
 //        findKline();
 
+    }
+
+    /**
+     * 更新历史日期-资金流向
+     */
+    private static void updateHisDateKlineFundFlow(String bizType) {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        List<RankBizDataDiff> bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
+        for (RankBizDataDiff rankBizDataDiff : bizList) {
+            String zqdm = rankBizDataDiff.getF12();
+            String zqmc = rankBizDataDiff.getF14();
+            String klt = KLT_101;
+            List<FundFlow> fundFlowList = FundFlowService.httpFundFlowHisDay(zqdm, klt);
+            fundFlowList = fundFlowList.stream().filter(e -> e != null).sorted(Comparator.comparing(FundFlow::getKtime, Comparator.nullsFirst(String::compareTo)).reversed()).collect(Collectors.toList());
+            int rs = 0;
+            int limitCount = 10;
+            for (FundFlow fundFlow : fundFlowList) {
+                if (--limitCount <= 0) {//限定个数
+                    break;
+                }
+                Kline kline = new Kline();
+                kline.setKtime(fundFlow.getKtime());//只设置当天具体时间，去掉日期
+                kline.setZqdm(rankBizDataDiff.getF12());
+                kline.setDate(fundFlow.getKtime());
+                kline.setType(bizType);
+                kline.setKlt(klt);
+
+                kline.setFlowInMain(fundFlow.getFlowInMain());
+                kline.setFlowInSuperBig(fundFlow.getFlowInSuperBig());
+                kline.setFlowInBig(fundFlow.getFlowInBig());
+                kline.setFlowInMid(fundFlow.getFlowInMid());
+                kline.setFlowInSmall(fundFlow.getFlowInSmall());
+                int updateRs = KlineService.update(kline);
+                if (updateRs != 1) {
+                    System.out.println("K线-资金流入历史日期-更新失败：" + JSON.toJSONString(kline));
+                } else {
+                    rs = rs + updateRs;
+                }
+            }
+            System.out.println("K线-资金流入历史日期-更新个数：" + rs + ",zqmc:" + zqmc);
+        }
     }
 
     private static void findKline() {

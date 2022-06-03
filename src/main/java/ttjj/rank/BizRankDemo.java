@@ -701,27 +701,6 @@ public class BizRankDemo {
     }
 
     /**
-     * 更新当日资金流信息-概念
-     *
-     * @param date
-     */
-    private static void updateFundFlowGn(String date) {
-        List<RankBizDataDiff> rankList = listConcept(date, DB_RANK_BIZ_TYPE_GAI_NIAN, NUM_MAX_999);//查询主题排名by时间类型、显示个数
-        for (RankBizDataDiff etf : rankList) {
-            String stCode = etf.getF12();
-            String rsFundFlow = FundFlowService.httpFundFlowRs(stCode);
-
-            RankBizDataDiff entityDb = new RankBizDataDiff();
-            entityDb.setF12(stCode);
-            entityDb.setDate(date);
-
-            entityDb.setFundFlow(rsFundFlow);
-            int updateRs = BizRankDao.updateEtfNet(entityDb);
-            System.out.println("更新资金流向-概念-结果：" + updateRs + "," + etf.getF14());
-        }
-    }
-
-    /**
      * 更新当日资金流信息-板块
      *
      * @param date

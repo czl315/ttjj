@@ -13,6 +13,10 @@ public class FundFlow {
      */
     private String ktime;
     /**
+     * date 日期
+     */
+    private String date;
+    /**
      * code
      */
     private String code;
@@ -103,5 +107,13 @@ public class FundFlow {
 
     public void setFlowInSuperBig(BigDecimal flowInSuperBig) {
         this.flowInSuperBig = flowInSuperBig;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

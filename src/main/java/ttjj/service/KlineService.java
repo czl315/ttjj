@@ -362,7 +362,6 @@ public class KlineService {
             System.out.println("/** http重试 **/" + e);
             rs = HttpUtil.sendGet(HttpUtil.randomHttpHead(httpHead) + url.toString(), urlParam.toString(), "");
         }
-
         /**
          * 如果返回异常，n次重试
          */

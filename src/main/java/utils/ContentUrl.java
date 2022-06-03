@@ -24,6 +24,11 @@ public class ContentUrl {
      * KLINE_HTTP_HEAD K线历史-天
      */
     public static String KLINE_HTTP_HEAD = ".push2his.eastmoney.com/api/qt/stock/kline/get?cb=";
+    /**
+     * 查询(http)-资金流向-历史日期
+     * https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?cb=jQuery112305250574768837943_1654268615719&lmt=0&klt=101&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&ut=b2884a393a59ad64002292a3e90d46a5&secid=90.BK0451&_=1654268615720
+     */
+    public static String HTTP_HEAD_FFLOW_DAY = "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?cb=";
 
 
 }
