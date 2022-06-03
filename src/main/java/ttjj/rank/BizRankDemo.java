@@ -30,26 +30,32 @@ import static utils.DateUtil.HH_MM_SS;
 public class BizRankDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-05-31";
+//        String date = "2022-05-24";
         boolean isOnlyGn = true;
 //        boolean isOnlyGn = false;
+//        boolean isDelAndAddBiz = true;//是否删除后插入
+        boolean isDelAndAddBiz = false;//是否删除后插入
+//        boolean isUpdateDayMa = true;//是否更新日均线
+        boolean isUpdateDayMa = false;//是否更新日均线
+//        boolean isUpdateDay15MinuteNet = true;//是否更新当日15分钟净值
+        boolean isUpdateDay15MinuteNet = false;//是否更新当日15分钟净值
 
-        String bizType = DB_RANK_BIZ_TYPE_HANG_YE;
-//        String bizType = DB_RANK_BIZ_TYPE_GAI_NIAN;
-//        String bizType = DB_RANK_BIZ_TYPE_ETF;
-        List<RankBizDataDiff> bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
-        saveBizAndKline(date, bizType, bizList);//保存业务和k线
+        String bizType = "";
+        List<RankBizDataDiff> bizList = new ArrayList<>();
+
+        bizType = DB_RANK_BIZ_TYPE_HANG_YE;
+        bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
+        saveBizAndKline(date, bizType, bizList, isDelAndAddBiz,isUpdateDayMa,isUpdateDay15MinuteNet);//保存业务和k线
+
+//        bizType = DB_RANK_BIZ_TYPE_GAI_NIAN;
+//        bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
+//        saveBizAndKline(date, bizType, bizList, isDelAndAddBiz, isUpdateDayMa, isUpdateDay15MinuteNet);//保存业务和k线
+
+//        bizType = DB_RANK_BIZ_TYPE_ETF;
+//        bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
+//        saveBizAndKline(date, bizType, bizList, isDelAndAddBiz, isUpdateDayMa, isUpdateDay15MinuteNet);//保存业务和k线
 
         if (!isOnlyGn) {
-
-            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_GAI_NIAN, bizList);
-            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_ETF, bizList);
-            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_ETF, bizList);
-
-            insertTodayRank(DB_RANK_BIZ_TYPE_LOF, bizList);
-            updateDbTodayNetCloseByKlt(date, KLT_15, DB_RANK_BIZ_TYPE_LOF, bizList);
-            updateDbTodayEtfMa(date, DB_RANK_BIZ_TYPE_LOF, bizList);
-
 //            updateFundFlowBk(date);//更新当日资金流信息-板块
 //            updateFundFlowGn(date);//更新当日资金流信息-概念
 //            updateFundFlowEtf(date);////更新当日资金流信息-etf
@@ -79,17 +85,24 @@ public class BizRankDemo {
 
     /**
      * 保存业务和k线
-     *
-     * @param date    日期
-     * @param bizType 业务
-     * @param bizList 对象列表
+     *  @param date           日期
+     * @param bizType        业务
+     * @param bizList        对象列表
+     * @param isDelAndAddBiz 是否删除后插入
+     * @param isUpdateDayMa 是否更新日均线
+     * @param isUpdateDay15MinuteNet 是否更新当日15分钟净值
      */
-    private static void saveBizAndKline(String date, String bizType, List<RankBizDataDiff> bizList) {
-
-        deleteTodayBiz(date, bizType);//删除数据-今日
-        insertTodayRank(bizType, bizList);
-        updateDbTodayEtfMa(date, bizType, bizList);
-        updateDbTodayNetCloseByKlt(date, KLT_15, bizType, bizList);
+    private static void saveBizAndKline(String date, String bizType, List<RankBizDataDiff> bizList, boolean isDelAndAddBiz, boolean isUpdateDayMa, boolean isUpdateDay15MinuteNet) {
+        if (isDelAndAddBiz) {
+            deleteTodayBiz(date, bizType);//删除数据-今日
+            insertTodayRank(bizType, bizList);
+        }
+        if (isUpdateDayMa) {
+            updateDbTodayEtfMa(date, bizType, bizList);
+        }
+        if (isUpdateDay15MinuteNet) {
+            updateDbTodayNetCloseByKlt(date, KLT_15, bizType, bizList);
+        }
 
         //遍历板块，插入K线
         saveKlineByType(bizList, date, KLT_5, bizType, true);
@@ -193,7 +206,7 @@ public class BizRankDemo {
 
         for (RankBizDataDiff rankBizDataDiff : bizList) {
             String zqdm = rankBizDataDiff.getF12();
-//            String zqmc = rankBizDataDiff.getF14();
+            String zqmc = rankBizDataDiff.getF14();
 
             int rs = 0;
             List<FundFlow> rsList = FundFlowService.parse(FundFlowService.httpFundFlowRs(zqdm));//获取-资金流向的对象结果
@@ -221,9 +234,7 @@ public class BizRankDemo {
                     rs = rs + updateRs;
                 }
             }
-            System.out.println("K线-资金流入-更新个数：" + rs);
-
-
+            System.out.println("K线-资金流入-更新个数：" + rs + ",zqmc:" + zqmc);
         }
     }
 
@@ -253,6 +264,7 @@ public class BizRankDemo {
                 System.out.println(zqdm + "," + date + ",删除结果：" + rs);
             }
 
+            int saveRs = 0;
             for (Kline kline : klines) {
                 if (klt == KLT_5 || klt == KLT_15 || klt == KLT_30 || klt == KLT_60) {
                     kline.setKtime(kline.getKtime().substring(11));//只设置当天具体时间，去掉日期
@@ -263,13 +275,14 @@ public class BizRankDemo {
                 /**
                  * 插入数据库-K线
                  */
-                KlineService.insert(kline);
+                saveRs += KlineService.insert(kline);
             }
+            System.out.println(zqdm + "," + date + ",插入K线：" + saveRs);
         }
     }
 
     /**
-     * 更新今日净值价-根据周期
+     * 更新今日15分钟净值价-根据周期
      *
      * @param date
      * @param klt

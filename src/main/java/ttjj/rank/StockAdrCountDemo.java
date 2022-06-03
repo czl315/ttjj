@@ -40,7 +40,7 @@ public class StockAdrCountDemo {
 //        List<Integer> daysList = Arrays.asList(TRADE_DAYS_3,TRADE_DAYS_2,TRADE_DAYS_1);
 //        BigDecimal adrUpCountSum60Limit = new BigDecimal("200");//涨幅次数限定，过滤杂毛
         BigDecimal adrUpCountSum60Limit = null;//涨幅次数限定，过滤杂毛
-        BigDecimal mvLimit = NUM_YI_50;
+        BigDecimal mvLimit = NUM_YI_50;//NUM_YI_1000
 
         //插入且更新价格区间、更新
 //        insertListStockAdrCountAndUpdateNetAreaMa(date);
@@ -50,7 +50,7 @@ public class StockAdrCountDemo {
 //        String spBizName = "光伏设备";//科技： 光伏设备  能源金属  风电设备    半导体  电池    非金属材料   汽车整车
 //        String spBizName = "采掘行业";//资源：煤炭行业   化肥行业 农牧饲渔 航天航空    采掘行业  医疗服务 医疗器械
 //        String spBizName = "医疗服务";//医疗： 医疗服务 医疗器械 中药 生物制品
-//        String spBizName = "酿酒行业";//消费： 酿酒行业
+//        String spBizName = "物流行业";//消费： 酿酒行业
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
         int stBizCountTemp = 0;
@@ -70,11 +70,11 @@ public class StockAdrCountDemo {
             }
             System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
 //            insertListStatStock(date, bizName, adrMinList,daysList);//批量插入-从股票表中统计数据-按照业务类别
-//            deleteTodayStAdrCount(date, bizName);//删除
-//            insertListByBiz(date, bizCode, bizName);
-            updateListByBiz(date, bizCode, bizName);
-//            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
-//            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit,mvLimit);//更新-最新价格、价格区间、均线
+            deleteTodayStAdrCount(date, bizName);//删除
+            insertListByBiz(date, bizCode, bizName);
+//            updateListByBiz(date, bizCode, bizName);
+            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
+            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit,mvLimit);//更新-最新价格、价格区间、均线
         }
 
 //        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);

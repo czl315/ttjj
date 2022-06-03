@@ -26,9 +26,9 @@ import static utils.DateUtil.YYYY_MM_DD;
 public class BizEtfControl {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-        String spDate = "";//
-//        String date = "2022-05-16";
+//        String date = "2022-06-01";
 //        spDate = DateUtil.getAddDays(YYYY_MM_DD, date, 1);//是否显示特定日期涨跌   "2022-05-18"
+        String spDate = "";//
 //        List<String> dateList = StockService.findListDateAfter(date, 2);
 //        if (dateList != null && dateList.size() > 1) {
 //            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
@@ -43,9 +43,9 @@ public class BizEtfControl {
 //        boolean isShowUpMa = false;//是否显示-超过均线
         boolean isFindKline = true;//是否查询最新k线
 
-        Map<String, String> etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
+//        Map<String, String> etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
 //        Map<String, String> etfBizMap = ContentEtf.mapEtfIndex;//mapEtfBiz mapEtfIndex    mapEtfAll
-//        Map<String, String> etfBizMap = ContentEtf.mapEtfBiz;//mapEtfBiz mapEtfIndex    mapEtfAll
+        Map<String, String> etfBizMap = ContentEtf.mapEtfBiz;//mapEtfBiz mapEtfIndex    mapEtfAll
 //        System.out.println(System.currentTimeMillis());
         List<StockAdrCountVo> rs = checkMaDemo(etfBizMap, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
         showStockMa(rs, ORDER_FIELD_NET_AREA_DAY_5, false, isShowPriceArea, isShowUpMa, kltList, spDate);

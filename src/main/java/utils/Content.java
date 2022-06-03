@@ -452,14 +452,19 @@ public class Content {
      * NUM_MAX_99 数量上限-99
      */
     public static int NUM_MAX_99 = 99;
+
     /**
-     * NUM_YI_30 数字-亿
+     * NUM_YI_1000
      */
-    public static BigDecimal NUM_YI_30 = new BigDecimal("100000000").multiply(new BigDecimal("30"));
+    public static BigDecimal NUM_YI_1000 = new BigDecimal("100000000").multiply(new BigDecimal("1000"));
     /**
      * NUM_YI_50 数字-亿
      */
     public static BigDecimal NUM_YI_50 = new BigDecimal("100000000").multiply(new BigDecimal("50"));
+    /**
+     * NUM_YI_30 数字-亿
+     */
+    public static BigDecimal NUM_YI_30 = new BigDecimal("100000000").multiply(new BigDecimal("30"));
     /**
      * NUM_YI_0
      */
