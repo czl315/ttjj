@@ -32,8 +32,8 @@ import static utils.Content.*;
  */
 public class StockAdrCountDemo {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-06-02";
+//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        String date = "2022-06-02";
         String spDate = "";//        String spDate = "2022-05-18";//是否显示特定日期涨跌
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("4"), new BigDecimal("5"), new BigDecimal("6"), new BigDecimal("7"), new BigDecimal("8"), new BigDecimal("9"), new BigDecimal("9.9"));
         List<Integer> daysList = Arrays.asList(TRADE_DAYS_60, TRADE_DAYS_40, TRADE_DAYS_20, TRADE_DAYS_10, TRADE_DAYS_5, TRADE_DAYS_3, TRADE_DAYS_2, TRADE_DAYS_1);
@@ -70,11 +70,11 @@ public class StockAdrCountDemo {
             }
             System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
 //            insertListStatStock(date, bizName, adrMinList,daysList);//批量插入-从股票表中统计数据-按照业务类别
-            deleteTodayStAdrCount(date, bizName);//删除
-            insertListByBiz(date, bizCode, bizName);
-//            updateListByBiz(date, bizCode, bizName);
-            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
-            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit,mvLimit);//更新-最新价格、价格区间、均线
+//            deleteTodayStAdrCount(date, bizName);//删除
+//            insertListByBiz(date, bizCode, bizName);
+            updateListByBiz(date, bizCode, bizName);
+//            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
+//            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit,mvLimit);//更新-最新价格、价格区间、均线
         }
 
 //        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
@@ -174,6 +174,7 @@ public class StockAdrCountDemo {
             }
             entity.setF20(rankStockCommpanyDb.getF20());
             entity.setF21(rankStockCommpanyDb.getF21());
+            entity.setF62(rankStockCommpanyDb.getF62());
 
             stockAdrCountList.add(entity);
         }
@@ -240,6 +241,7 @@ public class StockAdrCountDemo {
                 entity.setF18(new BigDecimal(rankStockCommpanyDb.getF18().toString()));
             }
             entity.setF20(rankStockCommpanyDb.getF20());
+            entity.setF62(rankStockCommpanyDb.getF62());
             entity.setF21(rankStockCommpanyDb.getF21());
 
             if (entity.getF3() == null) {

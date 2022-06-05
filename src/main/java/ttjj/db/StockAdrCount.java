@@ -96,6 +96,10 @@ public class StockAdrCount {
      */
     private Long f21;
     /**
+     * f62 主力净流入
+     */
+    private BigDecimal f62;
+    /**
      * f139 2-A股主板(00XXXX/60XXXX);3-B股(200XXX/900XXX);5-创业板(30XXXX);32-科创板(688XXX);33-存托凭证(689XXX,689是科创板专门为CDR存托凭证公司)
      */
     private Long f139;
@@ -553,5 +557,13 @@ public class StockAdrCount {
 
     public void setF139(Long f139) {
         this.f139 = f139;
+    }
+
+    public BigDecimal getF62() {
+        return f62;
+    }
+
+    public void setF62(BigDecimal f62) {
+        this.f62 = f62;
     }
 }
