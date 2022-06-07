@@ -261,7 +261,7 @@ public class BizRankDemo {
                 condition.setType(type);
                 condition.setKlt(klt);
                 int rs = KlineService.deleteByCondition(condition);
-                System.out.println(zqdm + "," + date + ",删除结果：" + rs);
+//                System.out.println(zqdm + "," + date + ",删除结果：" + rs);
             }
 
             int saveRs = 0;
@@ -277,7 +277,7 @@ public class BizRankDemo {
                  */
                 saveRs += KlineService.insert(kline);
             }
-            System.out.println(zqdm + "," + date + ",插入K线：" + saveRs);
+//            System.out.println(zqdm + "," + date + ",插入K线：" + saveRs);
         }
     }
 

@@ -20,7 +20,7 @@ public class ContentEtf {
     static {
         mapEtfBiz.put("159995", "芯片ETF");//159995	芯片ETF	183.65 512760	芯片ETF	133.52   512480	半导体ETF	101.98
         mapEtfBiz.put("515030", "新能源车ETF");//515030	新能源车ETF	96.78       515700	新能车ETF	57.64
-        mapEtfBiz.put("515000", "科技ETF");//515000	科技ETF	49.63
+//        mapEtfBiz.put("515000", "科技ETF");//515000	科技ETF	49.63
         mapEtfBiz.put("515790", "光伏ETF");//515790	光伏ETF	142.07
 //        mapEtfBiz.put("159819", "人工智能ETF");//159819	人工智能ETF	21.60
         mapEtfBiz.put("515050", "5GETF");//159994	5GETF	32.40   515050	5GETF	143.85

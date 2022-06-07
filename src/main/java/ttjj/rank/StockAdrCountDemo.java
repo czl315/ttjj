@@ -32,8 +32,8 @@ import static utils.Content.*;
  */
 public class StockAdrCountDemo {
     public static void main(String[] args) {
-//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-        String date = "2022-06-02";
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-06-02";
         String spDate = "";//        String spDate = "2022-05-18";//是否显示特定日期涨跌
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("4"), new BigDecimal("5"), new BigDecimal("6"), new BigDecimal("7"), new BigDecimal("8"), new BigDecimal("9"), new BigDecimal("9.9"));
         List<Integer> daysList = Arrays.asList(TRADE_DAYS_60, TRADE_DAYS_40, TRADE_DAYS_20, TRADE_DAYS_10, TRADE_DAYS_5, TRADE_DAYS_3, TRADE_DAYS_2, TRADE_DAYS_1);
@@ -43,14 +43,12 @@ public class StockAdrCountDemo {
         BigDecimal mvLimit = NUM_YI_50;//NUM_YI_1000
 
         //插入且更新价格区间、更新
-//        insertListStockAdrCountAndUpdateNetAreaMa(date);
-
         String spBizName = null;//业务类别为空时，插入全部类别
-//        String spBizName = "房地产开发";//金融： 银行  工程咨询服务 证券 房地产开发
-//        String spBizName = "光伏设备";//科技： 光伏设备  能源金属  风电设备    半导体  电池    非金属材料   汽车整车
-//        String spBizName = "采掘行业";//资源：煤炭行业   化肥行业 农牧饲渔 航天航空    采掘行业  医疗服务 医疗器械
+//        String spBizName = "电机";//科技： 光伏设备  能源金属  风电设备    半导体  电池    非金属材料   汽车整车
+//        String spBizName = "";//资源：能源金属 煤炭行业   化肥行业 农牧饲渔 航天航空    采掘行业  医疗服务 医疗器械
 //        String spBizName = "医疗服务";//医疗： 医疗服务 医疗器械 中药 生物制品
 //        String spBizName = "物流行业";//消费： 酿酒行业
+//        String spBizName = "房地产开发";//金融： 银行  工程咨询服务 证券 房地产开发
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
         int stBizCountTemp = 0;
@@ -70,19 +68,19 @@ public class StockAdrCountDemo {
             }
             System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
 //            insertListStatStock(date, bizName, adrMinList,daysList);//批量插入-从股票表中统计数据-按照业务类别
-//            deleteTodayStAdrCount(date, bizName);//删除
-//            insertListByBiz(date, bizCode, bizName);
-            updateListByBiz(date, bizCode, bizName);
-//            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
-//            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit,mvLimit);//更新-最新价格、价格区间、均线
+            deleteTodayStAdrCount(date, bizName);//删除
+            insertListByBiz(date, bizCode, bizName);
+//            updateListByBiz(date, bizCode, bizName);
+            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
+            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit,mvLimit);//更新-最新价格、价格区间、均线
         }
 
 //        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
 
 
-//        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
-//        statStockAdrCount(-1, spDate,date,stockAdrCountList, biz);//统计股票涨跌次数:0,0为当天
-//        statStockAdrCountBatch(10);//统计股票涨跌次数:0,0为当天
+//        List<StockAdrCount> stockAdrCountList = findListByCondition(date, spBizName, adrUpCountSum60Limit, mvLimit);
+//        statStockAdrCount(spDate,date,stockAdrCountList, spBizName);//统计股票涨跌次数:0,0为当天
+//        statStockAdrCountBatch(0);//统计股票涨跌次数:0,0为当天
 
 
     }
@@ -626,14 +624,14 @@ public class StockAdrCountDemo {
      */
     private static void statStockAdrCountBatch(int days, String date, List<StockAdrCount> stockAdrCountList, String biz) {
         for (int i = 0; i <= days; i++) {
-            statStockAdrCount((i + 1), date, date, stockAdrCountList, biz);
+            statStockAdrCount(date, date, stockAdrCountList, biz);
         }
     }
 
     /**
      * 统计股票涨跌次数
      */
-    private static void statStockAdrCount(int maDateInt, String spDate, String maDate, List<StockAdrCount> stockAdrCountList, String biz) {
+    private static void statStockAdrCount(String spDate, String maDate, List<StockAdrCount> stockAdrCountList, String biz) {
         boolean isShowPriceArea = true;//是否显示价格区间
 //        boolean isShowPriceArea = false;//是否显示价格区间
 
@@ -770,7 +768,7 @@ public class StockAdrCountDemo {
         String today = DateUtil.getToday(DateUtil.YYYY_MM_DD);
         if (!today.equals(date)) {
             System.out.println("不是删除今日数据，请注意！");
-//            return;
+            return;
         }
         StockAdrCount condition = new StockAdrCount();
         condition.setDate(date);
