@@ -33,8 +33,8 @@ public class BizRankDemo {
 //        String date = "2022-05-24";
         boolean isOnlyGn = true;
 //        boolean isOnlyGn = false;
-//        boolean isDelAndAddBiz = true;//是否删除后插入
-        boolean isDelAndAddBiz = false;//是否删除后插入
+        boolean isDelAndAddBiz = true;//是否删除后插入
+//        boolean isDelAndAddBiz = false;//是否删除后插入
 //        boolean isUpdateDayMa = true;//是否更新日均线
         boolean isUpdateDayMa = false;//是否更新日均线
 //        boolean isUpdateDay15MinuteNet = true;//是否更新当日15分钟净值

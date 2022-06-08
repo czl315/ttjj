@@ -44,10 +44,10 @@ public class StockAdrCountDemo {
 
         //插入且更新价格区间、更新
         String spBizName = null;//业务类别为空时，插入全部类别
-//        String spBizName = "电机";//科技： 光伏设备  能源金属  风电设备    半导体  电池    非金属材料   汽车整车
+//        String spBizName = "中药";//科技： 光伏设备  能源金属  风电设备    半导体  电池    非金属材料   汽车整车
+//        String spBizName = "贸易行业";//消费： 酿酒行业  贸易行业 物流行业
 //        String spBizName = "";//资源：能源金属 煤炭行业   化肥行业 农牧饲渔 航天航空    采掘行业  医疗服务 医疗器械
 //        String spBizName = "医疗服务";//医疗： 医疗服务 医疗器械 中药 生物制品
-//        String spBizName = "物流行业";//消费： 酿酒行业
 //        String spBizName = "房地产开发";//金融： 银行  工程咨询服务 证券 房地产开发
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
