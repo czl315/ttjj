@@ -281,7 +281,8 @@ public class StockAdrCountDemo {
 //        按板块查询
 //        System.out.println("-------------------------当前biz：" + biz);
         List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
-        stockAdrCountList = StBizStatDemo.showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, "", isShowPriceArea);//统计涨跌次数
+        String endDate = StBizStatDemo.findBegDate(date, 2);//只统计今天之前的数据
+        stockAdrCountList = StBizStatDemo.showAdrCount(endDate, stList, board, mvLimit, adrMinList, daysList, biz, "", isShowPriceArea);//统计涨跌次数
         for (StockAdrCount stockAdrCount : stockAdrCountList) {
             BigDecimal adrUpCountSum60 = stockAdrCount.getADR_UP_COUNT_SUM_60();
             //涨幅次数限定，过滤杂毛

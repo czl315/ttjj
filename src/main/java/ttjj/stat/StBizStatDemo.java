@@ -595,7 +595,7 @@ public class StBizStatDemo {
      * @param days    n天之前
      * @return 计算结果日期
      */
-    private static String findBegDate(String endDate, Integer days) {
+    public static String findBegDate(String endDate, Integer days) {
         List<String> dateList = StockService.findListDateBefore(endDate, days);//查询n个交易日之前的日期
         if (dateList != null) {
 //            System.out.println("findBegDate.：" + dateList.get(days - 1));

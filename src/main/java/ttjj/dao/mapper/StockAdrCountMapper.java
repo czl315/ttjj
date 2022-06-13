@@ -28,7 +28,7 @@ public interface StockAdrCountMapper {
             ",`ADR_UP_COUNT_60`, `ADR_UP_COUNT_SUM_60`,`NET_AREA_DAY_5`, `NET_AREA_DAY_10`, `NET_AREA_DAY_20`",
             ", `NET_AREA_DAY_40`, `NET_AREA_DAY_60`, `NET_AREA_DAY_120`, `NET_AREA_DAY_250`,`UP_MA_5`",
             ", `UP_MA_15`, `UP_MA_30`, `UP_MA_60`, `UP_MA_101`,`UP_MA_102`",
-            ", `f139`",
+            ", `f139`, `f62`",
             ") VALUES (",
             "#{date},#{type_name},#{f2},#{f3},#{f4}",
             ",#{f5},#{f6},#{f7},#{f8},#{f9}",
@@ -39,7 +39,7 @@ public interface StockAdrCountMapper {
             ",#{ADR_UP_COUNT_60}, #{ADR_UP_COUNT_SUM_60},#{NET_AREA_DAY_5}, #{NET_AREA_DAY_10}, #{NET_AREA_DAY_20}",
             ",#{NET_AREA_DAY_40}, #{NET_AREA_DAY_60}, #{NET_AREA_DAY_120}, #{NET_AREA_DAY_250},#{UP_MA_5}",
             ",#{UP_MA_15}, #{UP_MA_30}, #{UP_MA_60}, #{UP_MA_101},#{UP_MA_102}",
-            ",#{f139}",
+            ",#{f139},#{f62}",
             ");",
             "</script>"})
     int insert(StockAdrCount entity);
