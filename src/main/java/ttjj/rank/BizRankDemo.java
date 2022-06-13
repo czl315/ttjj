@@ -47,15 +47,14 @@ public class BizRankDemo {
         bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
         saveBizAndKline(date, bizType, bizList, isDelAndAddBiz,isUpdateDayMa,isUpdateDay15MinuteNet);//保存业务和k线
 
-//        bizType = DB_RANK_BIZ_TYPE_GAI_NIAN;
-//        bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
-//        saveBizAndKline(date, bizType, bizList, isDelAndAddBiz, isUpdateDayMa, isUpdateDay15MinuteNet);//保存业务和k线
-
-//        bizType = DB_RANK_BIZ_TYPE_ETF;
-//        bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
-//        saveBizAndKline(date, bizType, bizList, isDelAndAddBiz, isUpdateDayMa, isUpdateDay15MinuteNet);//保存业务和k线
-
         if (!isOnlyGn) {
+            bizType = DB_RANK_BIZ_TYPE_GAI_NIAN;
+            bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
+            saveBizAndKline(date, bizType, bizList, isDelAndAddBiz, isUpdateDayMa, isUpdateDay15MinuteNet);//保存业务和k线
+            bizType = DB_RANK_BIZ_TYPE_ETF;
+            bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
+            saveBizAndKline(date, bizType, bizList, isDelAndAddBiz, isUpdateDayMa, isUpdateDay15MinuteNet);//保存业务和k线
+
 //            updateFundFlowBk(date);//更新当日资金流信息-板块
 //            updateFundFlowGn(date);//更新当日资金流信息-概念
 //            updateFundFlowEtf(date);////更新当日资金流信息-etf

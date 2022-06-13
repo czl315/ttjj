@@ -48,7 +48,7 @@ public class StockAdrCountDemo {
 //        String spBizName = "贸易行业";//消费： 酿酒行业  贸易行业 物流行业
 //        String spBizName = "";//资源：能源金属 煤炭行业   化肥行业 农牧饲渔 航天航空    采掘行业  医疗服务 医疗器械
 //        String spBizName = "医疗服务";//医疗： 医疗服务 医疗器械 中药 生物制品
-//        String spBizName = "房地产开发";//金融： 银行  工程咨询服务 证券 房地产开发
+//        String spBizName = "工程建设";//金融： 银行  工程咨询服务 证券 房地产开发
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
         int stBizCountTemp = 0;
@@ -768,7 +768,7 @@ public class StockAdrCountDemo {
         String today = DateUtil.getToday(DateUtil.YYYY_MM_DD);
         if (!today.equals(date)) {
             System.out.println("不是删除今日数据，请注意！");
-            return;
+//            return;
         }
         StockAdrCount condition = new StockAdrCount();
         condition.setDate(date);
