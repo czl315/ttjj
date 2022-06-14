@@ -13,6 +13,7 @@ import ttjj.service.BizService;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
 import utils.Content;
+import utils.ContentEtf;
 import utils.DateUtil;
 import utils.HttpUtil;
 
@@ -53,6 +54,10 @@ public class BizRankDemo {
             saveBizAndKline(date, bizType, bizList, isDelAndAddBiz, isUpdateDayMa, isUpdateDay15MinuteNet);//保存业务和k线
             bizType = DB_RANK_BIZ_TYPE_ETF;
             bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
+            if (DB_RANK_BIZ_TYPE_ETF.equals(bizType)) {
+                //过滤etf
+                bizList = handlerEtfList(bizList, bizType);
+            }
             saveBizAndKline(date, bizType, bizList, isDelAndAddBiz, isUpdateDayMa, isUpdateDay15MinuteNet);//保存业务和k线
 
 //            updateFundFlowBk(date);//更新当日资金流信息-板块
@@ -83,12 +88,36 @@ public class BizRankDemo {
     }
 
     /**
+     * 过滤etf
+     *
+     * @param bizList 原始数据
+     * @param bizType 类型
+     * @return 过滤后数据
+     */
+    private static List<RankBizDataDiff> handlerEtfList(List<RankBizDataDiff> bizList, String bizType) {
+        List<RankBizDataDiff> rs = new ArrayList<>();
+        if (DB_RANK_BIZ_TYPE_ETF.equals(bizType)) {
+            //过滤etf
+            for (RankBizDataDiff biz : bizList) {
+                String code = biz.getF12();
+                if (ContentEtf.mapEtfBiz.keySet().contains(code)) {
+                    rs.add(biz);
+                }
+            }
+            return rs;
+        } else {
+            return bizList;
+        }
+    }
+
+    /**
      * 保存业务和k线
-     *  @param date           日期
-     * @param bizType        业务
-     * @param bizList        对象列表
-     * @param isDelAndAddBiz 是否删除后插入
-     * @param isUpdateDayMa 是否更新日均线
+     *
+     * @param date                   日期
+     * @param bizType                业务
+     * @param bizList                对象列表
+     * @param isDelAndAddBiz         是否删除后插入
+     * @param isUpdateDayMa          是否更新日均线
      * @param isUpdateDay15MinuteNet 是否更新当日15分钟净值
      */
     private static void saveBizAndKline(String date, String bizType, List<RankBizDataDiff> bizList, boolean isDelAndAddBiz, boolean isUpdateDayMa, boolean isUpdateDay15MinuteNet) {
