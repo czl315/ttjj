@@ -45,10 +45,28 @@ public class BizEtfControl {
 
 //        Map<String, String> etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
 //        Map<String, String> etfBizMap = ContentEtf.mapEtfIndex;//mapEtfBiz mapEtfIndex    mapEtfAll
-        Map<String, String> etfBizMap = ContentEtf.mapEtfBiz;//mapEtfBiz mapEtfIndex    mapEtfAll
-//        System.out.println(System.currentTimeMillis());
-        List<StockAdrCountVo> rs = checkMaDemo(etfBizMap, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
-        showStockMa(rs, ORDER_FIELD_NET_AREA_DAY_5, false, isShowPriceArea, isShowUpMa, kltList, spDate);
+//        Map<String, String> etfBizMap = ContentEtf.mapEtfBiz;//mapEtfBiz mapEtfIndex    mapEtfAll
+//        List<StockAdrCountVo> rs = checkMaDemo(etfBizMap, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+//        showStockMa(rs, ORDER_FIELD_NET_AREA_DAY_5, false, isShowPriceArea, isShowUpMa, kltList, spDate);
+
+        String orderField = ORDER_FIELD_NET_AREA_DAY_5;
+        List<StockAdrCountVo> rs =null;
+        System.out.println("资源：");
+        rs = checkMaDemo(ContentEtf.mapEtfZiYuan, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
+        System.out.println("科技：");
+        rs = checkMaDemo(ContentEtf.mapEtfKeJi, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
+        System.out.println("医疗：");
+        rs = checkMaDemo(ContentEtf.mapEtfYiLiao, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
+        System.out.println("消费：");
+        rs = checkMaDemo(ContentEtf.mapEtfXiaoFei, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
+        System.out.println("金融：");
+        rs = checkMaDemo(ContentEtf.mapEtfJinRong, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
+
 //        showStockMa(rs, ORDER_FIELD_F3, true, isShowPriceArea, isShowUpMa, kltList, spDate);
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅

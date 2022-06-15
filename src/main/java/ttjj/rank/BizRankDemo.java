@@ -272,6 +272,7 @@ public class BizRankDemo {
      * @param bizList  行业列表
      * @param date     日期
      * @param klt      周期类型
+     * @param type     类型
      * @param isDelete 是否先删除
      */
     private static void saveKlineByType(List<RankBizDataDiff> bizList, String date, String klt, String type, boolean isDelete) {
