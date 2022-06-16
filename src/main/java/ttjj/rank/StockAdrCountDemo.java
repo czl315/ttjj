@@ -73,13 +73,16 @@ public class StockAdrCountDemo {
 //            updateListByBiz(date, bizCode, bizName);
             updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
             updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit,mvLimit);//更新-最新价格、价格区间、均线
+
+//            List<StockAdrCount> stockAdrCountList = findListByCondition(date, bizName, adrUpCountSum60Limit, mvLimit);
+//            statStockAdrCount(spDate,date,stockAdrCountList, bizName);//统计股票涨跌次数:0,0为当天
         }
 
 //        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
 
 
-//        List<StockAdrCount> stockAdrCountList = findListByCondition(date, spBizName, adrUpCountSum60Limit, mvLimit);
-//        statStockAdrCount(spDate,date,stockAdrCountList, spBizName);//统计股票涨跌次数:0,0为当天
+
+
 //        statStockAdrCountBatch(0);//统计股票涨跌次数:0,0为当天
 
 

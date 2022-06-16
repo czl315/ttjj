@@ -50,7 +50,13 @@ public class BizEtfControl {
 //        showStockMa(rs, ORDER_FIELD_NET_AREA_DAY_5, false, isShowPriceArea, isShowUpMa, kltList, spDate);
 
         String orderField = ORDER_FIELD_NET_AREA_DAY_5;
-        List<StockAdrCountVo> rs =null;
+        List<StockAdrCountVo> rs = null;
+        System.out.println("金融：");
+        rs = checkMaDemo(ContentEtf.mapEtfJinRong, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
+        System.out.println("消费：");
+        rs = checkMaDemo(ContentEtf.mapEtfXiaoFei, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
         System.out.println("资源：");
         rs = checkMaDemo(ContentEtf.mapEtfZiYuan, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
         showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
@@ -59,12 +65,6 @@ public class BizEtfControl {
         showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
         System.out.println("医疗：");
         rs = checkMaDemo(ContentEtf.mapEtfYiLiao, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
-        showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
-        System.out.println("消费：");
-        rs = checkMaDemo(ContentEtf.mapEtfXiaoFei, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
-        showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
-        System.out.println("金融：");
-        rs = checkMaDemo(ContentEtf.mapEtfJinRong, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
         showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
 
 //        showStockMa(rs, ORDER_FIELD_F3, true, isShowPriceArea, isShowUpMa, kltList, spDate);
