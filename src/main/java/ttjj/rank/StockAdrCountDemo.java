@@ -117,6 +117,7 @@ public class StockAdrCountDemo {
 
     /**
      * 插入-根据业务，查询列表
+     * 股票状态过滤：退市、退市整理、未上市、st
      *
      * @param date
      * @param biz
@@ -132,6 +133,24 @@ public class StockAdrCountDemo {
             //只更新主板板块
             if (rankStockCommpanyDb.getF139() != DB_RANK_BIZ_F139_BK_MAIN) {
 //                    System.out.println("暂不更新（非主板）！" + JSON.toJSONString(entity));
+                continue;
+            }
+            // 股票状态过滤：退市、退市整理、未上市、st
+            Long stStatus = rankStockCommpanyDb.getF148();
+            if (DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED == stStatus || DB_RANK_BIZ_F148_STOCK_STATUS_DELISTING == stStatus) {
+//                    System.out.println("均线价格暂不更新（退市）！" + JSON.toJSONString(entity));
+                continue;
+            }
+            if (DB_RANK_BIZ_F148_STOCK_STATUS_UNLISTED == stStatus) {
+//                    System.out.println("均线价格暂不更新（未上市）！" + JSON.toJSONString(entity));
+                continue;
+            }
+            if (DB_RANK_BIZ_F148_STOCK_STATUS_SUSPENSION == stStatus) {
+//                    System.out.println("均线价格暂不更新（暂停上市）！" + JSON.toJSONString(entity));
+                continue;
+            }
+            if (DB_RANK_BIZ_F148_STOCK_STATUS_ST == stStatus) {
+//                    System.out.println("均线价格暂不更新（ST股）！" + JSON.toJSONString(entity));
                 continue;
             }
 

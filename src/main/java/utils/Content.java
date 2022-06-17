@@ -218,6 +218,10 @@ public class Content {
      */
     public static long DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED = 2;
     /**
+     * DB_RANK_BIZ_F148_STOCK_STATUS_DELISTING 退市整理
+     */
+    public static long DB_RANK_BIZ_F148_STOCK_STATUS_DELISTING = 2048;
+    /**
      * DB_RANK_BIZ_F148_STOCK_STATUS_ST f148 状态：4-ST股；
      */
     public static long DB_RANK_BIZ_F148_STOCK_STATUS_ST = 4;
