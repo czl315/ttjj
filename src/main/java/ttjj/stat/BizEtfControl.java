@@ -66,6 +66,9 @@ public class BizEtfControl {
         System.out.println("医疗：");
         rs = checkMaDemo(ContentEtf.mapEtfYiLiao, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
         showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
+        System.out.println("指数：");
+        rs = checkMaDemo(ContentEtf.mapEtfIndex, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
 
 //        showStockMa(rs, ORDER_FIELD_F3, true, isShowPriceArea, isShowUpMa, kltList, spDate);
 
