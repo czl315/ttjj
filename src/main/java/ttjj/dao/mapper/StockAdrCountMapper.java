@@ -124,8 +124,9 @@ public interface StockAdrCountMapper {
             "       <if test='orderBy != null '> ",
             "        ORDER BY  ${orderBy} ",
             "       </if> ",
-//            "   ORDER BY stock_adr_count.ADR_UP_COUNT_SUM_60 DESC ",
-//            "   ORDER BY stock_adr_count.ADR_UP_COUNT_60 DESC ",
+            "       <if test='limitCount != null '> ",
+            "        LIMIT #{limitCount} ",
+            "       </if> ",
             "</script>"})
     List<StockAdrCount> findListByCondition(StockAdrCountCond condition);
 

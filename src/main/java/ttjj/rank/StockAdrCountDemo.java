@@ -68,19 +68,17 @@ public class StockAdrCountDemo {
             }
             System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
 //            insertListStatStock(date, bizName, adrMinList,daysList);//批量插入-从股票表中统计数据-按照业务类别
-            deleteTodayStAdrCount(date, bizName);//删除
-            insertListByBiz(date, bizCode, bizName);
-//            updateListByBiz(date, bizCode, bizName);
+//            deleteTodayStAdrCount(date, bizName);//删除
+//            insertListByBiz(date, bizCode, bizName);
+            updateListByBiz(date, bizCode, bizName);
             updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
             updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit,mvLimit);//更新-最新价格、价格区间、均线
 
-//            List<StockAdrCount> stockAdrCountList = findListByCondition(date, bizName, adrUpCountSum60Limit, mvLimit);
-//            statStockAdrCount(spDate,date,stockAdrCountList, bizName);//统计股票涨跌次数:0,0为当天
+//            List<StockAdrCount> stockAdrCountList = findListByCondition(date, bizName, adrUpCountSum60Limit, mvLimit, 2);
+//            statStockAdrCount(spDate, date, stockAdrCountList, bizName);//统计股票涨跌次数:0,0为当天
         }
 
 //        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
-
-
 
 
 //        statStockAdrCountBatch(0);//统计股票涨跌次数:0,0为当天
@@ -388,7 +386,7 @@ public class StockAdrCountDemo {
             deleteTodayStAdrCount(date, biz);//先删除，后插入
             System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertList(stockAdrCountList));
 
-            stockAdrCountList = findListByCondition(date, biz, adrUpCountSum60Limit, mvLimit);
+            stockAdrCountList = findListByCondition(date, biz, adrUpCountSum60Limit, mvLimit, null);
             //更新-价格区间
             updateNetArea(date, stockAdrCountList);
             //更新-超过均线信息
@@ -404,7 +402,7 @@ public class StockAdrCountDemo {
      * @param mvLimit
      */
     private static void updateNetAreaAndMa(String date, String biz, BigDecimal adrUpCountSum60Limit, BigDecimal mvLimit) {
-        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz, adrUpCountSum60Limit, mvLimit);//查询列表-根据条件
+        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz, adrUpCountSum60Limit, mvLimit, null);//查询列表-根据条件
         updateNetArea(date, stockAdrCountList);//更新-价格区间
         updateUpMa(date, stockAdrCountList);//更新-超过均线信息
     }
@@ -508,14 +506,15 @@ public class StockAdrCountDemo {
      * @param biz                  业务
      * @param adrUpCountSum60Limit 涨幅次数限定
      * @param mvLimit              市值限定
+     * @param limitCount           限定查询个数
      */
-    private static List<StockAdrCount> findListByCondition(String maDate, String biz, BigDecimal adrUpCountSum60Limit, BigDecimal mvLimit) {
+    private static List<StockAdrCount> findListByCondition(String maDate, String biz, BigDecimal adrUpCountSum60Limit, BigDecimal mvLimit, Integer limitCount) {
         //        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"));
         List<BigDecimal> orderNumList = null;
 //        List<Boolean> upMaList = Arrays.asList(false,true,true);//判断是否超过均线列表：15,30,60
         List<Boolean> upMaList = null;//判断是否超过均线列表：15,30,60
 
-        String orderBy = " ADR_UP_COUNT_60 DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
+        String orderBy = " ADR_UP_COUNT_SUM_60 DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
 //        if (maDateInt >= 0 ) {
 //            List<String> dateListBefore = RankStockCommpanyDao.findListDateBefore(new DateCond(date, 20));
 //            maDate = dateListBefore.get(maDateInt);
@@ -529,6 +528,7 @@ public class StockAdrCountDemo {
         condition.setOrderNumList(orderNumList);
         condition.setADR_UP_COUNT_SUM_60(adrUpCountSum60Limit);
         condition.setOrderBy(orderBy);
+        condition.setLimitCount(limitCount);
         if (StringUtils.isNotBlank(biz)) {
             condition.setType_name(biz);
         }
@@ -661,6 +661,10 @@ public class StockAdrCountDemo {
         int overCount = 0;//第二天上涨个数
         int downCount = 0;//第二天下跌个数
 
+        StringBuffer bizInfo = new StringBuffer();
+        bizInfo.append("/**" + biz + "**/");
+        System.out.println(bizInfo);
+
         for (StockAdrCount stockAdrCount : stockAdrCountList) {
             StringBuffer sbStockAdrCount = new StringBuffer();
 //            sbStockAdrCount.append(StockUtil.handlerStName(stockAdrCount.getF14())).append("\t");
@@ -775,7 +779,7 @@ public class StockAdrCountDemo {
                 System.out.println();
             }
         }
-        System.out.println("第二天上涨-下跌比:" + overCount + ":" + downCount);
+//        System.out.println("第二天上涨-下跌比:" + overCount + ":" + downCount);
         System.out.println();
 
 //        StockStatDemo.checkMaDemo(zqMap, date);

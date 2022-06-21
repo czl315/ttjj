@@ -22,6 +22,20 @@ public class StockAdrCountCond extends StockAdrCount {
      */
     private String orderBy;
 
+    /**
+     * limitCount 限定查询个数
+     */
+    private Integer limitCount;
+
+    public Integer getLimitCount() {
+        return limitCount;
+    }
+
+    public void setLimitCount(Integer limitCount) {
+        this.limitCount = limitCount;
+    }
+
+
     public List<BigDecimal> getOrderNumList() {
         return orderNumList;
     }
