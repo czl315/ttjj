@@ -44,23 +44,6 @@ public class StockService {
             return false;
         }
 
-        // 股票状态
-        if (DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED == entity.getF148()) {
-//                    System.out.println("均线价格暂不更新（退市）！" + JSON.toJSONString(entity));
-            return false;
-        }
-        if (DB_RANK_BIZ_F148_STOCK_STATUS_UNLISTED == entity.getF148()) {
-//                    System.out.println("均线价格暂不更新（未上市）！" + JSON.toJSONString(entity));
-            return false;
-        }
-        if (DB_RANK_BIZ_F148_STOCK_STATUS_SUSPENSION == entity.getF148()) {
-//                    System.out.println("均线价格暂不更新（暂停上市）！" + JSON.toJSONString(entity));
-            return false;
-        }
-        if (DB_RANK_BIZ_F148_STOCK_STATUS_ST == entity.getF148()) {
-//                    System.out.println("均线价格暂不更新（ST股）！" + JSON.toJSONString(entity));
-            return false;
-        }
         //只更新主板板块的价格
         if (entity.getF139() != DB_RANK_BIZ_F139_BK_MAIN) {
 //                    System.out.println("均线价格暂不更新（非主板）！" + JSON.toJSONString(entity));
@@ -71,6 +54,26 @@ public class StockService {
 //                    System.out.println("均线价格暂不更新（100亿以下）！" + JSON.toJSONString(entity));
             return false;
         }
+
+        // 股票状态过滤：退市、退市整理、未上市、st
+        Long stStatus = entity.getF148();
+        if (DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED == stStatus || DB_RANK_BIZ_F148_STOCK_STATUS_DELISTING == stStatus) {
+//                    System.out.println("均线价格暂不更新（退市、退市整理）！" + JSON.toJSONString(entity));
+            return false;
+        }
+        if (DB_RANK_BIZ_F148_STOCK_STATUS_UNLISTED == stStatus) {
+//                    System.out.println("均线价格暂不更新（未上市）！" + JSON.toJSONString(entity));
+            return false;
+        }
+        if (DB_RANK_BIZ_F148_STOCK_STATUS_SUSPENSION == stStatus) {
+//                    System.out.println("均线价格暂不更新（暂停上市）！" + JSON.toJSONString(entity));
+            return false;
+        }
+        if (DB_RANK_BIZ_F148_STOCK_STATUS_ST == stStatus) {
+//                    System.out.println("均线价格暂不更新（ST股）！" + JSON.toJSONString(entity));
+            return false;
+        }
+
         return true;
     }
 
