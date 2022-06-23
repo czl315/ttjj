@@ -14,6 +14,7 @@ import ttjj.dto.Asset;
 import ttjj.dto.AssetPosition;
 import ttjj.dto.Kline;
 import ttjj.dto.StockAdrCountVo;
+import ttjj.rank.history.KlineDemo;
 import ttjj.rank.history.StockTradeDemo;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
 import static utils.Content.*;
 
 /**
- * 上证指数
+ * 复盘和仓位
  *
  * @author chenzhilong
  * @date 2020/10/7
@@ -40,11 +41,9 @@ public class FupanDemo {
         String klt = KLT_101;//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
         String dateType = Content.DAYS_1;//1：一天;7:周;30:月;
 
-//        insertOrUpdate(date, klt, dateType);//保存复盘和仓位
-
-//        KlineDemo.main(null);
-
-        checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
+        insertOrUpdate(date, klt, dateType,ContentCookie.COOKIE_DFCF);//保存复盘和仓位
+        KlineDemo.main(null);
+//        checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
 
 //        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 
@@ -263,11 +262,13 @@ public class FupanDemo {
     }
 
     /**
-     * @param date
-     * @param klt
-     * @param dateType
+     * 保存或更新我的复盘和持仓
+     * @param date 日期
+     * @param klt 周期
+     * @param dateType 日期类型
+     * @param cookie 登录key
      */
-    private static void insertOrUpdate(String date, String klt, String dateType) {
+    private static void insertOrUpdate(String date, String klt, String dateType, String cookie) {
         boolean updateDaPanKline = true;//显示-大盘指数
 //        boolean updateDaPanKline = false;//不显示-大盘指数
         boolean updateMyStock = true;//显示-我的股票
@@ -283,19 +284,18 @@ public class FupanDemo {
         boolean updateMyTtjj = false;//不显示-我的基金
 
         if (updateDaPanKline) {
-            String cookie = "";
             //k线
             int count = 1;
 
-            FuPanDao.updateDb(findFupanPointByKline(cookie, HS_300_000300, count, klt, dateType, date));//沪深300
-            FuPanDao.updateDb(findFupanPointByKline(cookie, CYB_50_399673, count, klt, dateType, date));//创业板50
-            FuPanDao.updateDb(findFupanPointByKline(cookie, ZZ_500_000905, count, klt, dateType, date));//中证500
-            FuPanDao.updateDb(findFupanPointByKline(cookie, SH_50_000016, count, klt, dateType, date));//上证50
-            FuPanDao.updateDb(findFupanPointByKline(cookie, SHANG_HAI, count, klt, dateType, date));//上证
-            FuPanDao.updateDb(findFupanPointByKline(cookie, SHEN_ZHEN, count, klt, dateType, date));//深证成指
-            FuPanDao.updateDb(findFupanPointByKline(cookie, CYB, count, klt, dateType, date));//创业板
-            FuPanDao.updateDb(findFupanPointByKline(cookie, KCB_50, count, klt, dateType, date));
-            System.out.println();
+//            FuPanDao.updateDb(findFupanPointByKline(cookie, HS_300_000300, count, klt, dateType, date));//沪深300
+//            FuPanDao.updateDb(findFupanPointByKline(cookie, CYB_50_399673, count, klt, dateType, date));//创业板50
+//            FuPanDao.updateDb(findFupanPointByKline(cookie, ZZ_500_000905, count, klt, dateType, date));//中证500
+//            FuPanDao.updateDb(findFupanPointByKline(cookie, SH_50_000016, count, klt, dateType, date));//上证50
+//            FuPanDao.updateDb(findFupanPointByKline(cookie, SHANG_HAI, count, klt, dateType, date));//上证
+//            FuPanDao.updateDb(findFupanPointByKline(cookie, SHEN_ZHEN, count, klt, dateType, date));//深证成指
+//            FuPanDao.updateDb(findFupanPointByKline(cookie, CYB, count, klt, dateType, date));//创业板
+//            FuPanDao.updateDb(findFupanPointByKline(cookie, KCB_50, count, klt, dateType, date));
+//            System.out.println();
 
 //            for (int i = 0; i < 100; i++) {
 //                date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
@@ -309,13 +309,13 @@ public class FupanDemo {
 
         if (updateMyStock) {
             //显示股票每日收益
-            Fupan FupanMyStock = queryAssetByDfcfStock(ContentCookie.COOKIE_DFCF, dateType);
+            Fupan FupanMyStock = queryAssetByDfcfStock(cookie, dateType);
             FuPanDao.updateDb(FupanMyStock);
         }
 
         if (updateMyStockAssetPosition) {
             //更新-我的股票-资产持仓
-            Fupan fupanMyStockAssetPosition = queryMyStockAssetPosition(ContentCookie.COOKIE_DFCF, dateType, date);
+            Fupan fupanMyStockAssetPosition = queryMyStockAssetPosition(cookie, dateType, date);
 
             FuPanDao.updateMyStockAssetPosition(fupanMyStockAssetPosition);
         }
@@ -325,7 +325,7 @@ public class FupanDemo {
         if (findDbMyPositionByDate) {
             String findDate = date;//查询日期
             String period = "1";
-            assetPositionList = findDbMyPositionByDate(findDate, period, dateType);
+            assetPositionList = findDbMyPositionByDate(findDate, period, dateType,cookie);
         }
 
         //  更新我的持仓盈亏明细
@@ -705,14 +705,15 @@ public class FupanDemo {
      * @param date
      * @param period
      * @param dateType
+     * @param cookie
      * @return
      */
-    private static List<AssetPositionDb> findDbMyPositionByDate(String date, String period, String dateType) {
+    private static List<AssetPositionDb> findDbMyPositionByDate(String date, String period, String dateType, String cookie) {
 //        Fupan condition = new Fupan();
 //        condition.setCode(date);
 //        condition.setPeriod(period);
 //        Fupan fupanDb = FuPanDao.findDbByDate(condition);
-        String assetPositionRs = queryMyStockAssetPositionByDfcf(ContentCookie.COOKIE_DFCF, dateType, date);
+        String assetPositionRs = queryMyStockAssetPositionByDfcf(cookie, dateType, date);
         System.out.println("findDbMyPositionByDate:" + assetPositionRs);
 
         JSONObject assetPositionRsJsonObject = JSON.parseObject(assetPositionRs);

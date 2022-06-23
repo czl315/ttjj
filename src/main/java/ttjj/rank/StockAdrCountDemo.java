@@ -44,10 +44,10 @@ public class StockAdrCountDemo {
 
         //插入且更新价格区间、更新
         String spBizName = null;//业务类别为空时，插入全部类别
-//        String spBizName = "中药";//科技： 光伏设备  能源金属  风电设备    半导体  电池    非金属材料   汽车整车
+//        spBizName = "电子元件";//科技： 光伏设备  能源金属  风电设备    半导体  电池    非金属材料   汽车整车
 //        String spBizName = "贸易行业";//消费： 酿酒行业  贸易行业 物流行业
 //        String spBizName = "钢铁行业";//资源：能源金属 煤炭行业   化肥行业 农牧饲渔 航天航空    采掘行业  医疗服务 医疗器械
-//        String spBizName = "医疗服务";//医疗： 医疗服务 医疗器械 中药 生物制品
+//        spBizName = "中药";//医疗： 医疗服务 医疗器械 中药 生物制品
 //        String spBizName = "证券";//金融： 银行  工程咨询服务 证券 房地产开发
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
@@ -70,7 +70,7 @@ public class StockAdrCountDemo {
 //            insertListStatStock(date, bizName, adrMinList,daysList);//批量插入-从股票表中统计数据-按照业务类别
 //            deleteTodayStAdrCount(date, bizName);//删除
 //            insertListByBiz(date, bizCode, bizName, mvLimit);
-            updateListByBiz(date, bizCode, bizName , mvLimit);
+            updateListByBiz(date, bizCode, bizName, mvLimit);
 //            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
 //            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit, mvLimit);//更新-最新价格、价格区间、均线
 
@@ -247,7 +247,11 @@ public class StockAdrCountDemo {
             entity.setF21(rankStockCommpanyDb.getF21());
 
             if (entity.getF3() == null) {
-                System.out.println("rankStockCommpanyDb异常：" + JSON.toJSONString(rankStockCommpanyDb));
+                if (rankStockCommpanyDb.getF107().equals(F107_STOCK_STATUS_STOP)) {
+//                    System.out.println("rankStockCommpanyDb异常（停牌）：" + JSON.toJSONString(rankStockCommpanyDb));
+                } else {
+                    System.out.println("rankStockCommpanyDb异常：" + JSON.toJSONString(rankStockCommpanyDb));
+                }
             }
             stockAdrCountList.add(entity);
         }
@@ -261,7 +265,7 @@ public class StockAdrCountDemo {
                 rs++;
             }
         }
-        System.out.println("当前biz：" + bizName + ",根据业务，批量更新基础信息成功-涨幅次数统计：" + rs+ "：" + stList.size());
+        System.out.println("当前biz：" + bizName + ",根据业务，批量更新基础信息成功-涨幅次数统计：" + rs + "：" + stList.size());
 
         return stockAdrCountList;
     }
@@ -296,6 +300,7 @@ public class StockAdrCountDemo {
             StockAdrCount entity = new StockAdrCount();
             entity.setDate(date);
             entity.setF12(stockAdrCount.getF12());
+            entity.setF14(stockAdrCount.getF14());
             entity.setADR_UP_COUNT_SUM_60(adrUpCountSum60);
             entity.setADR_UP_COUNT_1(stockAdrCount.getADR_UP_COUNT_1());
             entity.setADR_UP_COUNT_2(stockAdrCount.getADR_UP_COUNT_2());
@@ -542,6 +547,7 @@ public class StockAdrCountDemo {
             //判断是否超过均线列表：15,30,60
             RankStockCommpanyDb stock = new RankStockCommpanyDb();
             stock.setF12(stockAdrCount.getF12());
+            stock.setF14(stockAdrCount.getF14());
             //显示信息-上涨均线
             boolean isMa15 = KlineService.showUpMa(stock, KLT_15, maList, maDate, isUp);//显示信息-上涨均线
             if (isMa15) {

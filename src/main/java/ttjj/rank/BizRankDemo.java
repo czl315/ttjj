@@ -48,8 +48,6 @@ public class BizRankDemo {
         bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
         saveBizAndKline(date, bizType, bizList, isDelAndAddBiz,isUpdateDayMa,isUpdateDay15MinuteNet);//保存业务和k线
 
-
-
         if (!isOnlyGn) {
             bizType = DB_RANK_BIZ_TYPE_GAI_NIAN;
             bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表

@@ -777,9 +777,7 @@ public class KlineService {
         // 查询今日价格
         List<Kline> klines = KlineService.kline(zqdm, 1, KLT_101, true, date, date, "");
         if (klines == null || klines.size() == 0) {
-            StringBuffer sbError = new StringBuffer();
-            sbError.append(zqdm).append("，").append(zqmc).append(":k线异常！");
-            System.out.println(sbError);
+//            System.out.println(new StringBuffer().append(zqdm).append("，").append(zqmc).append(":k线null！"));
             return isUpMa;
         }
         Kline todayKline = klines.get(0);

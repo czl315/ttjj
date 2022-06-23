@@ -214,6 +214,10 @@ public class Content {
     public static long DB_RANK_BIZ_F139_BK_MAIN = 2;
 
     /**
+     * DB_STOCK_F107_STOCK_STATUS_STOP F107:5 停牌
+     */
+    public static long F107_STOCK_STATUS_STOP = 5;
+    /**
      * DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED f148 状态：2-退市或停牌;
      */
     public static long DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED = 2;

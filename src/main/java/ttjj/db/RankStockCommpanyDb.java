@@ -312,7 +312,7 @@ public class RankStockCommpanyDb {
      */
     private Long f105;
     /**
-     * f107 5-闭市
+     * f107 5-停牌
      */
     private Long f107;
     /**
