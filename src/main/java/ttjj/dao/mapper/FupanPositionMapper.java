@@ -1,14 +1,11 @@
 package ttjj.dao.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import ttjj.db.AssetPositionDb;
-import ttjj.dto.RankBizDataDiff;
-import ttjj.dto.RankStComTjCond;
-import ttjj.dto.RankStComTjRs;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -116,4 +113,12 @@ public interface FupanPositionMapper {
             "       AND fupan_position.date=#{date} ",
             "</script>"})
     List<AssetPositionDb> listMyPositionByDate(String date);
+
+    @Delete({"<script>",
+            "DELETE FROM `fupan_position` WHERE 1=1 ",
+            "   AND date = #{date}  ",
+            "   <if test='zqdm != null'> AND zqdm=#{zqdm}</if> ",
+            " LIMIT 1 ",
+            "</script>"})
+    int delete(AssetPositionDb condition);
 }

@@ -37,6 +37,24 @@ public class FupanPositionDao {
     }
 
     /**
+     * 删除我的持仓
+     * @param assetPosition
+     */
+    public static int  deletePosition(AssetPositionDb assetPosition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        int rs = 0;
+        try {
+            rs = session.delete("ttjj.dao.mapper.FupanPositionMapper.delete", assetPosition);
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
      * 更新复盘仓位
      * @param entity
      * @return
