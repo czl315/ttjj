@@ -86,7 +86,7 @@ public class BizEtfControl {
      * @param isFindKline
      * @param kltList
      */
-    private static List<StockAdrCountVo> checkMaDemo(Map<String, String> etfBizMap, String date, boolean isShowPriceArea, boolean isShowUpMa, boolean isFindKline, List<String> kltList) {
+    public static List<StockAdrCountVo> checkMaDemo(Map<String, String> etfBizMap, String date, boolean isShowPriceArea, boolean isShowUpMa, boolean isFindKline, List<String> kltList) {
         List<StockAdrCountVo> rs = new ArrayList<>();
         boolean isUp = true;//检查上涨
 //        boolean isUp = false;
@@ -308,7 +308,7 @@ public class BizEtfControl {
      * @param kltList
      * @param spDate
      */
-    private static void showStockMa(List<StockAdrCountVo> rs, String orderField, boolean isOrderDesc, boolean isShowPriceArea, boolean isShowUpMa, List<String> kltList, String spDate) {
+    public static void showStockMa(List<StockAdrCountVo> rs, String orderField, boolean isOrderDesc, boolean isShowPriceArea, boolean isShowUpMa, List<String> kltList, String spDate) {
         if (rs == null || rs.size() == 0) {
             return;
         }

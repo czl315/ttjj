@@ -13,14 +13,12 @@ import ttjj.db.StockTradeDb;
 import ttjj.dto.Asset;
 import ttjj.dto.AssetPosition;
 import ttjj.dto.Kline;
-import ttjj.rank.history.KlineDemo;
+import ttjj.dto.StockAdrCountVo;
 import ttjj.rank.history.StockTradeDemo;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
-import utils.Content;
-import utils.ContentCookie;
-import utils.DateUtil;
-import utils.HttpUtil;
+import ttjj.stat.BizEtfControl;
+import utils.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -28,8 +26,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static ttjj.dao.FupanPositionDao.insertDbFupanPosition;
-import static ttjj.dao.FupanPositionDao.listMyPositionByDate;
 import static utils.Content.*;
 
 /**
@@ -41,12 +37,14 @@ import static utils.Content.*;
 public class FupanDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2021-11-01";
-
         String klt = KLT_101;//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
         String dateType = Content.DAYS_1;//1：一天;7:周;30:月;
-        insertOrUpdate(date, klt, dateType);//保存复盘和仓位
 
-        KlineDemo.main(null);
+//        insertOrUpdate(date, klt, dateType);//保存复盘和仓位
+
+//        KlineDemo.main(null);
+
+        checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
 
 //        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 
@@ -55,12 +53,43 @@ public class FupanDemo {
     }
 
     /**
+     * 检查我的持仓：超过均线、价格区间、今日涨跌
+     *
+     * @param date
+     */
+    private static void checkMaByMyPosition(String date) {
+        List<AssetPositionDb> rs = FupanPositionDao.listMyPositionByDate(date);//我的持仓
+
+        boolean isShowPriceArea = true;//是否显示价格区间
+        boolean isFindKline = true;//是否查询最新k线
+        boolean isShowUpMa = true;//检查上涨
+//        boolean isUp = false;
+        List<Integer> maList = new ArrayList<>();
+//        maList.add(MA_30);
+        maList.add(MA_60);
+        List<String> kltList = Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101);//价格区间周期列表
+//        kltList.add(KLT_5);
+//        kltList.add(KLT_102);
+        String spDate = null;
+
+        Map<String, String> zqMap = new HashMap<>();
+        for (AssetPositionDb myPosition : rs) {
+            String zqdm = myPosition.getZqdm();
+            String zqmc = myPosition.getZqmc();
+            zqMap.put(zqdm, zqmc);
+        }
+        List<StockAdrCountVo> stockAdrCountVoRs = BizEtfControl.checkMaDemo(zqMap, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        String orderField = ORDER_FIELD_NET_AREA_DAY_5;
+        BizEtfControl.showStockMa(stockAdrCountVoRs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
+    }
+
+    /**
      * 查询资金流向，判断买卖信号
      *
      * @param date
      */
     private static void checkFundFlowByMyPosition(String date) {
-        List<AssetPositionDb> rs = listMyPositionByDate(date);
+        List<AssetPositionDb> rs = FupanPositionDao.listMyPositionByDate(date);//我的持仓
         for (AssetPositionDb myPosition : rs) {
             String zqdm = myPosition.getZqdm();
 //            if (zqdm.equals("754212")) {
@@ -106,7 +135,7 @@ public class FupanDemo {
      * @param date
      */
     private static void listMyPosition(String date, String klt) {
-        List<AssetPositionDb> rs = listMyPositionByDate(date);
+        List<AssetPositionDb> rs = FupanPositionDao.listMyPositionByDate(date);
         for (AssetPositionDb myPosition : rs) {
 //            System.out.println(JSON.toJSONString(myPosition));
             BigDecimal zxsz = myPosition.getZxsz();
@@ -308,7 +337,8 @@ public class FupanDemo {
                     System.out.println("新发债券不插入我的持仓：" + assetPosition.getZqmc());
                     continue;
                 }
-                insertDbFupanPosition(assetPosition);//插入-我的持仓明细
+                FupanPositionDao.deletePosition(assetPosition);
+                FupanPositionDao.insertDbFupanPosition(assetPosition);//插入-我的持仓明细
 
                 //更新当日k线参数
                 List<Kline> klineList = KlineService.kline(assetPosition.getZqdm(), 1, klt, true, date, date, KLINE_TYPE_STOCK);
@@ -417,6 +447,7 @@ public class FupanDemo {
         }
 
     }
+
 
     /**
      * 检查是否：XX发债，7XXXXX开头的

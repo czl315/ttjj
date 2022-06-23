@@ -30,6 +30,30 @@ public class StockUtil {
     }
 
     /**
+     * 格式化名称
+     * @param name
+     * @return
+     */
+    public static String formatName(String name) {
+        if (name.length() <= 2) {
+            name = name + "    ";
+        }
+        if (name.length() > 2 && name.length() < 4) {
+            name = name + "  ";
+        }
+        if (name.startsWith("*ST")) {
+            name = name + " ";
+        }
+        if (name.startsWith("ST")) {
+            name = name + " ";
+        }
+        if (name.startsWith("A")) {
+            name = name + "  ";
+        }
+        return name;
+    }
+
+    /**
      * 格式化-涨跌幅
      * @param f3
      * @return
