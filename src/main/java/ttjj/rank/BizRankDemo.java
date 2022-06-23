@@ -64,6 +64,12 @@ public class BizRankDemo {
             }
             saveBizAndKline(date, bizType, bizList, isDelAndAddBiz, isUpdateDayMa, isUpdateDay15MinuteNet);//保存业务和k线
 
+            //插入当日所有etf
+            bizType = DB_RANK_BIZ_TYPE_ETF;
+            deleteTodayBiz(date, bizType);//删除数据-今日
+            bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询列表
+            insertTodayRank(bizType, bizList);
+
 //            updateFundFlowBk(date);//更新当日资金流信息-板块
 //            updateFundFlowGn(date);//更新当日资金流信息-概念
 //            updateFundFlowEtf(date);////更新当日资金流信息-etf

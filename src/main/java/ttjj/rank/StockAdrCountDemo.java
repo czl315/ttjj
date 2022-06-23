@@ -66,16 +66,16 @@ public class StockAdrCountDemo {
                 System.out.println("已完成," + (stBizCountTemp) + ":" + bizName);
                 continue;//已完成
             }
-//            System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
+            System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
 //            insertListStatStock(date, bizName, adrMinList,daysList);//批量插入-从股票表中统计数据-按照业务类别
 //            deleteTodayStAdrCount(date, bizName);//删除
 //            insertListByBiz(date, bizCode, bizName, mvLimit);
-//            updateListByBiz(date, bizCode, bizName , mvLimit);
+            updateListByBiz(date, bizCode, bizName , mvLimit);
 //            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
 //            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit, mvLimit);//更新-最新价格、价格区间、均线
 
-            List<StockAdrCount> stockAdrCountList = findListByCondition(date, bizName, adrUpCountSum60Limit, mvLimit, 1);
-            statStockAdrCount(spDate, date, stockAdrCountList, bizName);//统计股票涨跌次数:0,0为当天
+//            List<StockAdrCount> stockAdrCountList = findListByCondition(date, bizName, adrUpCountSum60Limit, mvLimit, 1);
+//            statStockAdrCount(spDate, date, stockAdrCountList, bizName);//统计股票涨跌次数:0,0为当天
         }
 
 //        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
@@ -180,7 +180,7 @@ public class StockAdrCountDemo {
             stockAdrCountList.add(entity);
         }
 
-        System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertList(stockAdrCountList));
+        System.out.println(bizName + ",涨幅次数统计,插入成功/总数量：" + StockAdrCountService.insertList(stockAdrCountList) + "：" + stList.size());
         return stockAdrCountList;
     }
 
@@ -261,7 +261,7 @@ public class StockAdrCountDemo {
                 rs++;
             }
         }
-        System.out.println("当前biz：" + bizName + ",根据业务，批量更新基础信息成功-涨幅次数统计：" + rs);
+        System.out.println("当前biz：" + bizName + ",根据业务，批量更新基础信息成功-涨幅次数统计：" + rs+ "：" + stList.size());
 
         return stockAdrCountList;
     }

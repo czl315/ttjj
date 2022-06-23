@@ -873,106 +873,142 @@ public class ContMapStBoardAdrCount {
     }
 
     /**
+     * 资源
+     */
+    public static Map<String, String> ziYuan = new HashMap<>();
+
+    static {
+        ziYuan.putAll(meiTanHangYe);
+        ziYuan.putAll(hangYunGangKou);
+        ziYuan.putAll(huaFeiHangYe);
+        ziYuan.putAll(nongYaoShouYao);
+        ziYuan.putAll(gangTieHangYe);
+        ziYuan.putAll(huaXueYuanLiao);
+        ziYuan.putAll(caiJueHangYe);
+        ziYuan.putAll(ranQi);
+        ziYuan.putAll(nongMuSiYu);//农牧饲渔
+        ziYuan.putAll(feiJinShuCaiLiao);
+        ziYuan.putAll(zaoZhiYinShua);
+        ziYuan.putAll(shiYouHangYe);
+        ziYuan.putAll(huaQianHangYe);
+        ziYuan.putAll(youSeJinShu);
+        ziYuan.putAll(huaXueZhiPin);
+        ziYuan.putAll(boLiBoQian);
+        ziYuan.putAll(baoZhuangCaiLiao);
+        ziYuan.putAll(suLiaoZhiPin);
+        ziYuan.putAll(xiangJiaoZhiPin);
+    }
+
+    /**
+     * 金融
+     */
+    public static Map<String, String> jinRong = new HashMap<>();
+
+    static {
+        jinRong.putAll(yinHang);//银行
+        jinRong.putAll(fangDiChanKaiFa);
+        jinRong.putAll(gongChengJianShe);
+        jinRong.putAll(shuiNiJianCai);
+        jinRong.putAll(guiJinShu);
+        jinRong.putAll(tieLuGongLu);//铁路公路
+        jinRong.putAll(gongChengZiXunFuWu);
+        jinRong.putAll(fangDiChanFuWu);
+        jinRong.putAll(gongYongShiYe);
+        jinRong.putAll(xiaoJinShu);
+        jinRong.putAll(baoXian);
+        jinRong.putAll(zhuBaoShouShi);
+        jinRong.putAll(zongHeHangYe);
+        jinRong.putAll(zhuangXiuJianCai);
+        jinRong.putAll(zhengQuan);
+        jinRong.putAll(duoYuanJinRong);
+        jinRong.putAll(gongChengJiXie);
+    }
+
+    /**
+     * 消费
+     */
+    public static Map<String, String> xiaoFei = new HashMap<>();
+
+    static {
+        xiaoFei.putAll(shangYeBaiHuo);//商业百货
+        xiaoFei.putAll(lvYouJiuDian);
+        xiaoFei.putAll(lvYou_hangKongJiChang);
+        xiaoFei.putAll(wuLiuHangYe);
+        xiaoFei.putAll(jiaDianHangYe);
+        xiaoFei.putAll(shiPinYinLiao);
+        xiaoFei.putAll(niangJiuHangYe);
+        xiaoFei.putAll(maoYiHangYe);
+        xiaoFei.putAll(fangZhiFuZhuang);
+        xiaoFei.putAll(jiaYongQingGong);
+        xiaoFei.putAll(qiCheFuWu);
+        xiaoFei.putAll(zhuangXiuZhuangShi);
+        xiaoFei.putAll(meiRongHuLi);
+        xiaoFei.putAll(wenHuaChuanMei);
+        xiaoFei.putAll(youXi);
+    }
+
+    /**
+     * keJi 科技
+     */
+    public static Map<String, String> keJi = new HashMap<>();
+
+    static {
+        keJi.putAll(dianLiHangYe);//电力行业
+        keJi.putAll(jiaoYunSheBei);
+        keJi.putAll(dianZiHuaXuePin);
+        keJi.putAll(tongXinFuWu);
+        keJi.putAll(jiaoYu);
+        keJi.putAll(zhuanYeFuWu);
+        keJi.putAll(huanBaoHangYe);
+        keJi.putAll(tongYongSheBei);
+        keJi.putAll(nengYuanJinShu);
+        keJi.putAll(huLianWangFuWu);
+        keJi.putAll(tongXinSheBei);
+        keJi.putAll(qiCheLingBuJian);
+        keJi.putAll(qiCheZhengChe);
+        keJi.putAll(zhuanYongSheBei);
+        keJi.putAll(chuanBoZhiZao);
+        keJi.putAll(dianWangSheBei);
+        keJi.putAll(yiQiYiBiao);
+        keJi.putAll(jiSuanJiSheBei);
+        keJi.putAll(ruanJianKaiFa);
+        keJi.putAll(guangFuSheBei);
+        keJi.putAll(dianZiYuanJian);
+        keJi.putAll(dianJi);
+        keJi.putAll(dianYuanSheBei);
+        keJi.putAll(banDaoTi);
+        keJi.putAll(hangTianHangKong);
+        keJi.putAll(guangXueGuangDianZi);
+        keJi.putAll(xiaoFeiDianZi);
+        keJi.putAll(dianChi);
+        keJi.putAll(fengDianSheBei);
+    }
+
+    /**
+     * yiLiao 医疗
+     */
+    public static Map<String, String> yiLiao = new HashMap<>();
+
+    static {
+        yiLiao.putAll(yiYaoShangYe);
+        yiLiao.putAll(huaXueZhiYao);
+        yiLiao.putAll(zhongYao);
+        yiLiao.putAll(yiLiaoQiXie);
+        yiLiao.putAll(shengWuZhiPin);
+        yiLiao.putAll(yiLiaoFuWu);
+    }
+
+    /**
      * all
      */
     public static Map<String, String> all = new HashMap<>();
 
     static {
-        all.putAll(meiTanHangYe);
-        all.putAll(fangDiChanKaiFa);
-        all.putAll(gongChengJianShe);
-        all.putAll(yinHang);//银行
-        all.putAll(shangYeBaiHuo);
-        all.putAll(lvYouJiuDian);
-        all.putAll(hangYunGangKou);
-        all.putAll(shuiNiJianCai);
-        all.putAll(guiJinShu);
-        all.putAll(huaFeiHangYe);
-
-        all.putAll(tieLuGongLu);
-        all.putAll(nongYaoShouYao);
-        all.putAll(gongChengZiXunFuWu);
-        all.putAll(lvYou_hangKongJiChang);
-        all.putAll(wuLiuHangYe);
-        all.putAll(gangTieHangYe);
-        all.putAll(nongMuSiYu);
-        all.putAll(fangDiChanFuWu);
-        all.putAll(gongYongShiYe);
-
-        all.putAll(huaXueYuanLiao);
-        all.putAll(caiJueHangYe);
-        all.putAll(ranQi);
-        all.putAll(dianLiHangYe);
-        all.putAll(feiJinShuCaiLiao);
-        all.putAll(zaoZhiYinShua);
-        all.putAll(jiaDianHangYe);
-        all.putAll(shiPinYinLiao);
-        all.putAll(jiaoYunSheBei);
-        all.putAll(xiaoJinShu);
-
-        all.putAll(baoXian);
-        all.putAll(zhuBaoShouShi);
-        all.putAll(yiYaoShangYe);
-        all.putAll(maoYiHangYe);
-        all.putAll(niangJiuHangYe);
-        all.putAll(huaXueZhiYao);
-        all.putAll(shiYouHangYe);
-        all.putAll(huaQianHangYe);
-        all.putAll(fangZhiFuZhuang);
-        all.putAll(zhongYao);
-        all.putAll(zongHeHangYe);
-
-        all.putAll(jiaYongQingGong);
-        all.putAll(dianZiHuaXuePin);
-        all.putAll(youSeJinShu);
-        all.putAll(huaXueZhiPin);
-        all.putAll(qiCheFuWu);
-        all.putAll(zhuangXiuJianCai);
-        all.putAll(tongXinFuWu);
-        all.putAll(zhuangXiuZhuangShi);
-        all.putAll(boLiBoQian);
-        all.putAll(zhengQuan);
-
-        all.putAll(jiaoYu);
-        all.putAll(meiRongHuLi);
-        all.putAll(wenHuaChuanMei);
-        all.putAll(duoYuanJinRong);
-        all.putAll(yiLiaoQiXie);
-        all.putAll(shengWuZhiPin);
-        all.putAll(zhuanYeFuWu);
-        all.putAll(huanBaoHangYe);
-        all.putAll(yiLiaoFuWu);
-        all.putAll(tongYongSheBei);
-
-        all.putAll(baoZhuangCaiLiao);
-        all.putAll(nengYuanJinShu);
-        all.putAll(huLianWangFuWu);
-        all.putAll(tongXinSheBei);
-        all.putAll(qiCheLingBuJian);
-        all.putAll(qiCheZhengChe);
-        all.putAll(zhuanYongSheBei);
-        all.putAll(gongChengJiXie);
-        all.putAll(suLiaoZhiPin);
-        all.putAll(chuanBoZhiZao);
-
-        all.putAll(xiangJiaoZhiPin);
-        all.putAll(dianWangSheBei);
-        all.putAll(yiQiYiBiao);
-        all.putAll(jiSuanJiSheBei);
-        all.putAll(ruanJianKaiFa);
-        all.putAll(guangFuSheBei);
-        all.putAll(youXi);
-        all.putAll(dianZiYuanJian);
-        all.putAll(dianJi);
-        all.putAll(dianYuanSheBei);
-
-        all.putAll(banDaoTi);
-        all.putAll(hangTianHangKong);
-        all.putAll(guangXueGuangDianZi);
-        all.putAll(xiaoFeiDianZi);
-        all.putAll(dianChi);
-        all.putAll(fengDianSheBei);
-
+        all.putAll(xiaoFei);//消费
+        all.putAll(jinRong);//金融
+        all.putAll(ziYuan);//资源
+        all.putAll(keJi);//科技
+        all.putAll(yiLiao);//医疗
     }
 
     public static void main(String[] args) {
