@@ -42,8 +42,8 @@ public class FupanDemo {
         String dateType = Content.DAYS_1;//1：一天;7:周;30:月;
 
         insertOrUpdate(date, klt, dateType,ContentCookie.COOKIE_DFCF);//保存复盘和仓位
-        KlineDemo.main(null);
 //        checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
+        KlineDemo.main(null);
 
 //        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 
