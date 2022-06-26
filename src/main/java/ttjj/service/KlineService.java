@@ -144,7 +144,7 @@ public class KlineService {
             for (Object klineObj : klines) {
                 Kline kline = new Kline();
                 String klineString = (String) klineObj;
-                kline.setRs(klineString);
+//                kline.setRs(klineString);
                 kline.setKlt(klt);
                 String[] klineArray = klineString.split(",");
                 //  日期，开盘，收盘,最高，最低，成交量，成交额，振幅，涨跌幅，涨跌额，换手率
@@ -169,7 +169,7 @@ public class KlineService {
                 kline.setCloseLastAmt(lastCloseAmt);
                 kline.setZqdm(szzzMonthDataJson.getString("code"));
                 kline.setZqmc(szzzMonthDataJson.getString("name"));
-                kline.setRs(rs);
+//                kline.setRs(rs);
 
                 klineRs.add(kline);
             }

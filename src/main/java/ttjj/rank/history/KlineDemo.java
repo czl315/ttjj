@@ -27,8 +27,8 @@ import static utils.Content.*;
 public class KlineDemo {
     public static void main(String[] args) {
         //  插入常用指数k线
-        boolean isAddMinuteKline = true;//是否添加分钟级别K线
-//        boolean isAddMinuteKline = false;//是否添加分钟级别K线
+//        boolean isAddMinuteKline = true;//是否添加分钟级别K线
+        boolean isAddMinuteKline = false;//是否添加分钟级别K线
         String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1;
         int addDaysMax = 0;//最多增加的天数
@@ -237,7 +237,7 @@ public class KlineDemo {
         Kline kline = new Kline();
         kline.setType(DB_RANK_BIZ_TYPE_ZS);
         kline.setKlt(klt);
-        kline.setRs(klineRs);
+//        kline.setRs(klineRs);
         kline.setZqmc(zqmc);
         kline.setZqdm(zqdm);
         kline.setKtime(endDate);
@@ -425,7 +425,7 @@ public class KlineDemo {
 
         Kline kline = new Kline();
         kline.setKlt(klt);
-        kline.setRs(klineRs);
+//        kline.setRs(klineRs);
         kline.setZqmc(zqmc);
         kline.setZqdm(zqdm);
         kline.setKtime(begDate);
