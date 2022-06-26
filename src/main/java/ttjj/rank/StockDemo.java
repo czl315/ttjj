@@ -328,7 +328,7 @@ public class StockDemo {
             }
 
             if (entity.getF139() == DB_RANK_BIZ_F139_BK_MAIN) {
-                String rsFundFlow = FundFlowService.httpFundFlowRs(stCode);
+//                String rsFundFlow = FundFlowService.httpFundFlowRs(stCode);
 
                 RankStockCommpanyDb entityDb = new RankStockCommpanyDb();
                 entityDb.setF12(stCode);

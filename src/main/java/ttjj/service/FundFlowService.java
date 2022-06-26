@@ -478,51 +478,13 @@ public class FundFlowService {
 
     /**
      * 查询(http)-资金流向-历史日期
+     *
      * @param zqdm 证券代码
      * @param klt  周期
      * @return 历史资金流向列表
      */
     public static List<FundFlow> httpFundFlowHisDay(String zqdm, String klt) {
-        long curTime = System.currentTimeMillis();
-        StringBuffer url = new StringBuffer();
-//        url.append(jqueryHttpHead);
-        String httpHead = HTTP_HEAD_FFLOW_DAY;
-        //https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?cb=jQuery112305250574768837943_1654268615719&lmt=0&klt=101&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&ut=b2884a393a59ad64002292a3e90d46a5&secid=90.BK0451&_=1654268615720
-        StringBuffer urlParam = new StringBuffer();
-        urlParam.append("&lmt=0");//
-        urlParam.append("&klt=").append(klt);//
-        urlParam.append("&fields1=f1,f2,f3,f7");//
-        urlParam.append("&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64,f65");//
-        urlParam.append("&ut=b2884a393a59ad64002292a3e90d46a5");//
-        urlParam.append("&secid=").append(KlineService.getSecid(zqdm));
-
-        urlParam.append("&_=" + (curTime + 1));//
-
-//        System.out.println("请求url:" + HttpUtil.randomHttpHead(httpHead) + url.toString());
-        String rs = "";
-        try {
-            rs = HttpUtil.sendGet(HttpUtil.randomHttpHead(httpHead) + url.toString(), urlParam.toString(), "");
-        } catch (Exception e) {
-            System.out.println("/** http重试 **/" + e);
-            rs = HttpUtil.sendGet(HttpUtil.randomHttpHead(httpHead) + url.toString(), urlParam.toString(), "");
-        }
-        /**
-         * 如果返回异常，n次重试
-         */
-        for (int i = 0; i < 10; i++) {
-            if (StringUtils.isBlank(rs)) {
-                rs = HttpUtil.sendGet(HttpUtil.randomHttpHead(httpHead) + url.toString(), urlParam.toString(), "");
-            } else {
-                break;
-            }
-        }
-//        System.out.println("rs:" + rs);
-        rs = rs.substring(rs.indexOf("({"));
-        rs = rs.replace("({", "{");
-        rs = rs.replace("});", "}");
-//        System.out.println("rs:" + rs);
-
-
+        String rs = httpFundFlowHisDayRs(zqdm, klt);
 
         //{"rc":0,"rt":21,"svr":182482236,"lt":1,"full":0,"dlmkts":"","data":{"code":"BK0464","market":90,"name":"石油行业","tradePeriods":{"pre":null,"after":null,"periods":[{"b":202205270930,"e":202205271130},{"b":202205271300,"e":202205271500}]},
         //  "klines":["2022-05-27 09:31,9706708.0,-4195368.0,-5511340.0,6747405.0,2959303.0","2022-05-27 09:32,13862440.0,-4179670.0,-9682770.0,3219155.0,10643285.0"]}}
@@ -575,5 +537,113 @@ public class FundFlowService {
         }
 
         return fundFlowRs;
+    }
+
+    /**
+     * 查询(http)-资金流向-历史日期
+     *
+     * @param zqdm 证券代码
+     * @param klt  周期
+     * @param date 日期
+     * @return 历史当天资金流向
+     */
+    public static FundFlow findFundFlowHisDay(String zqdm, String klt, String date) {
+        String rs = httpFundFlowHisDayRs(zqdm, klt);
+        JSONObject jsonRs = JSON.parseObject(rs);
+        JSONObject jsonRsData = JSON.parseObject(jsonRs.getString(RS_KEY_DATA));
+        String code = "";
+        if (jsonRsData.containsKey(RS_KEY_CODE)) {
+            code = jsonRsData.getString(RS_KEY_CODE);
+        }
+        String name = null;
+        if (jsonRsData.containsKey(RS_KEY_NAME)) {
+            name = jsonRsData.getString(RS_KEY_NAME);
+        }
+
+        if (jsonRsData == null || !jsonRsData.containsKey(RS_KEY_KLINES)) {
+            System.out.println("数据异常[资金流向历史日期]：" + rs + ",zqmc:" + name);
+            return null;
+        }
+
+        JSONArray klines = JSON.parseArray(jsonRsData.getString(RS_KEY_KLINES));
+        FundFlow fundFlow = null;
+        if (klines != null) {
+            for (Object klineObj : klines) {
+                String klineString = (String) klineObj;
+                String[] klineArray = klineString.split(",");
+                //  日期时间，主力净流入,小单净流入,中单净流入,大单净流入,超大单净流入
+                //"2021-10-27 09:31,-3737368.0,3689243.0,48125.0,-3680116.0,-57252.0",
+                String dateTime = klineArray[0];
+                if (date.equals(dateTime)) {//只查询指定日期的
+                    BigDecimal mainNetIn = new BigDecimal(klineArray[1]);
+                    BigDecimal smallNetIn = new BigDecimal(klineArray[2]);
+                    BigDecimal midNetIn = new BigDecimal(klineArray[3]);
+                    BigDecimal bigNetIn = new BigDecimal(klineArray[4]);
+                    BigDecimal superBigNetIn = new BigDecimal(klineArray[5]);
+
+                    fundFlow.setCode(code);
+                    fundFlow.setCode(name);
+                    fundFlow.setKtime(dateTime);
+                    fundFlow.setDate(dateTime);
+                    fundFlow.setFlowInMain(mainNetIn);
+                    fundFlow.setFlowInSmall(smallNetIn);
+                    fundFlow.setFlowInMid(midNetIn);
+                    fundFlow.setFlowInBig(bigNetIn);
+                    fundFlow.setFlowInSuperBig(superBigNetIn);
+                }
+            }
+        }
+
+        return fundFlow;
+    }
+
+    /**
+     * 查询(http)-资金流向-历史日期
+     *
+     * @param zqdm 证券代码
+     * @param klt  周期
+     * @return 历史资金流向列表
+     */
+    public static String httpFundFlowHisDayRs(String zqdm, String klt) {
+        long curTime = System.currentTimeMillis();
+        StringBuffer url = new StringBuffer();
+//        url.append(jqueryHttpHead);
+        String httpHead = HTTP_HEAD_FFLOW_DAY;
+        //https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get?cb=jQuery112305250574768837943_1654268615719&lmt=0&klt=101&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&ut=b2884a393a59ad64002292a3e90d46a5&secid=90.BK0451&_=1654268615720
+        StringBuffer urlParam = new StringBuffer();
+        urlParam.append("&lmt=0");//
+        urlParam.append("&klt=").append(klt);//
+        urlParam.append("&fields1=f1,f2,f3,f7");//
+        urlParam.append("&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64,f65");//
+        urlParam.append("&ut=b2884a393a59ad64002292a3e90d46a5");//
+        urlParam.append("&secid=").append(KlineService.getSecid(zqdm));
+
+        urlParam.append("&_=" + (curTime + 1));//
+
+//        System.out.println("请求url:" + HttpUtil.randomHttpHead(httpHead) + url.toString());
+        String rs = "";
+        try {
+            rs = HttpUtil.sendGet(HttpUtil.randomHttpHead(httpHead) + url.toString(), urlParam.toString(), "");
+        } catch (Exception e) {
+            System.out.println("/** http重试 **/" + e);
+            rs = HttpUtil.sendGet(HttpUtil.randomHttpHead(httpHead) + url.toString(), urlParam.toString(), "");
+        }
+        /**
+         * 如果返回异常，n次重试
+         */
+        for (int i = 0; i < 10; i++) {
+            if (StringUtils.isBlank(rs)) {
+                rs = HttpUtil.sendGet(HttpUtil.randomHttpHead(httpHead) + url.toString(), urlParam.toString(), "");
+            } else {
+                break;
+            }
+        }
+//        System.out.println("rs:" + rs);
+        rs = rs.substring(rs.indexOf("({"));
+        rs = rs.replace("({", "{");
+        rs = rs.replace("});", "}");
+//        System.out.println("rs:" + rs);
+
+        return rs;
     }
 }

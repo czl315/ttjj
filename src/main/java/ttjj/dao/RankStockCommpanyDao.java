@@ -19,6 +19,25 @@ public class RankStockCommpanyDao {
     static boolean showTime = false;//显示花费时间;
 
     /**
+     * 查询一条
+     * @param condition
+     * @return
+     */
+    public static RankStockCommpanyDb find(RankStockCommpanyDb condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        RankStockCommpanyDb rs = null;
+        try {
+            rs = session.selectOne("ttjj.dao.mapper.RankStockCommpanyMapper.find", condition);
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
      * 查询股票-从数据库中-最新的一条
      *
      * @param condition

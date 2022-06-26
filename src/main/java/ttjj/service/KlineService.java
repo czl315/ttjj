@@ -3,22 +3,23 @@ package ttjj.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.KlineDao;
 import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.DateCond;
 import ttjj.dto.Kline;
+import ttjj.dto.StockAdrCountVo;
+import ttjj.rank.StockDemo;
 import utils.Content;
+import utils.EtfUtil;
 import utils.HttpUtil;
+import utils.StockUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static utils.Content.*;
 import static utils.ContentUrl.KLINE_HTTP_HEAD;
@@ -642,9 +643,9 @@ public class KlineService {
             }
             Kline todayKline = klines.get(0);
             BigDecimal curAmt = todayKline.getCloseAmt();
-            BigDecimal openAmt = todayKline.getOpenAmt();
             BigDecimal yesterdayCloseAmt = todayKline.getCloseLastAmt();
-            BigDecimal zhangDieFu = todayKline.getZhangDieFu();
+//            BigDecimal openAmt = todayKline.getOpenAmt();
+//            BigDecimal zhangDieFu = todayKline.getZhangDieFu();
 
             StringBuffer sbDay = new StringBuffer();
 //            sbDay.append("\t").append(zqdm).append("，");
@@ -864,6 +865,259 @@ public class KlineService {
      */
     public static Integer update(Kline entity) {
         return KlineDao.updateNet(entity);
+    }
+
+    /**
+     * 检查均线
+     *
+     * @param etfBizMap
+     * @param date
+     * @param isShowPriceArea 是否显示价格区间
+     * @param isShowUpMa
+     * @param isFindKline
+     * @param kltList
+     */
+    public static List<StockAdrCountVo> checkMaDemo(Map<String, String> etfBizMap, String date, boolean isShowPriceArea, boolean isShowUpMa, boolean isFindKline, List<String> kltList) {
+        List<StockAdrCountVo> rs = new ArrayList<>();
+        boolean isUp = true;//检查上涨
+//        boolean isUp = false;
+
+        List<Integer> maList = new ArrayList<>();
+//        maList.add(MA_30);
+        maList.add(MA_60);
+
+        for (String zqdm : etfBizMap.keySet()) {
+            StockAdrCountVo stockAdrCountVo = new StockAdrCountVo();
+            String zqmc = etfBizMap.get(zqdm);
+            Map<String, String> etfBizMapSub = new HashMap<>();
+            etfBizMapSub.put(zqdm, zqmc);
+            stockAdrCountVo.setF12(zqdm);
+            stockAdrCountVo.setF14(zqmc);
+
+
+            RankStockCommpanyDb stock = new RankStockCommpanyDb();
+            stock.setF12(zqdm);
+            //净值
+            if (isShowPriceArea) {
+                StringBuffer sbPriceArea = new StringBuffer();
+                Map<String, Boolean> maUpdateMap = new HashMap<>();
+                StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
+                StockDemo.handlerNetMa(stock, maUpdateMap, date, sbPriceArea, stockAdrCountVo);//处理均线净值
+            }
+
+            if (isShowUpMa) {
+                for (String klt : kltList) {
+                    if (KLT_5.equals(klt)) {
+                        String upMa5 = KlineService.checkMa(etfBizMapSub, KLT_5, maList, date, isUp, null, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+                        stockAdrCountVo.setUpMaDay5(upMa5);
+                    }
+                    if (KLT_15.equals(klt)) {
+                        String upMa15 = KlineService.checkMa(etfBizMapSub, KLT_15, maList, date, isUp, null, false);
+                        stockAdrCountVo.setUpMaDay15(upMa15);
+                    }
+                    if (KLT_30.equals(klt)) {
+                        String upMa30 = KlineService.checkMa(etfBizMapSub, KLT_30, maList, date, isUp, null, false);
+                        stockAdrCountVo.setUpMaDay30(upMa30);
+                    }
+                    if (KLT_60.equals(klt)) {
+                        String upMa60 = KlineService.checkMa(etfBizMapSub, KLT_60, maList, date, isUp, null, false);
+                        stockAdrCountVo.setUpMaDay60(upMa60);
+                    }
+                    if (KLT_101.equals(klt)) {
+                        String upMa101 = KlineService.checkMa(etfBizMapSub, KLT_101, maList, date, isUp, null, false);
+                        stockAdrCountVo.setUpMaDay101(upMa101);
+                    }
+                    if (KLT_102.equals(klt)) {
+                        String upMa102 = KlineService.checkMa(etfBizMapSub, KLT_102, maList, date, isUp, null, false);
+                        stockAdrCountVo.setUpMaDay102(upMa102);
+                    }
+                }
+
+
+            }
+            if (isFindKline) {
+                //实时查询，http
+                Kline kline = KlineService.findLast(stock, date, KLT_101);
+                if (kline != null) {
+                    stockAdrCountVo.setF3(kline.getZhangDieFu());
+                    stockAdrCountVo.setF2(kline.getCloseAmt());
+                    stockAdrCountVo.setDate(date);
+                }
+
+                //从数据库查询：市值
+                RankStockCommpanyDb stockCondition = new RankStockCommpanyDb();
+                stockCondition.setDate(date);
+                stockCondition.setF12(zqdm);
+                RankStockCommpanyDb stockToday = RankStockCommpanyDao.find(stockCondition);
+                stockAdrCountVo.setF20(stockToday.getF20());
+                stockAdrCountVo.setF21(stockToday.getF21());
+                stockAdrCountVo.setF62(stockToday.getF62());
+
+                //查询主力净流入(实时查询)
+//                FundFlow fundFlow = FundFlowService.findFundFlowHisDay(zqdm,KLT_101,date);
+//                stockAdrCountVo.setF62(fundFlow.getFlowInMain());
+//                BigDecimal flowRateBk = flowInMain.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(4, BigDecimal.ROUND_HALF_UP));
+            }
+
+            rs.add(stockAdrCountVo);
+        }
+        return rs;
+
+    }
+
+    /**
+     * 显示均线信息
+     *  @param rs              统计信息
+     * @param orderField
+     * @param isShowPriceArea 是否显示价格区间
+     * @param isShowUpMa      是否显示-超过均线
+     * @param isShowFlowIn 是否显示-主力净流入市值比
+     * @param kltList
+     * @param spDate
+     */
+    public static void showStockMa(List<StockAdrCountVo> rs, String orderField, boolean isOrderDesc, boolean isShowPriceArea, boolean isShowUpMa, boolean isShowFlowIn, List<String> kltList, String spDate) {
+        if (rs == null || rs.size() == 0) {
+            return;
+        }
+        if (StringUtils.isNotBlank(orderField)) {
+            rs = handlerOrder(rs, orderField, isOrderDesc);//列表-排序：根据字段
+        }
+        for (StockAdrCountVo stockAdrCountVo : rs) {
+            System.out.print(stockAdrCountVo.getF12());
+            System.out.print("\t");
+            System.out.print(EtfUtil.handlerEtfName(stockAdrCountVo.getF14()));
+            System.out.print("\t");
+            if (isShowPriceArea) {
+                System.out.print("5日:" + stockAdrCountVo.getNET_AREA_DAY_5() + "\t");//显示信息-价格区间
+                System.out.print("10日:" + stockAdrCountVo.getNET_AREA_DAY_10() + "\t");//显示信息-价格区间
+                System.out.print("20日:" + stockAdrCountVo.getNET_AREA_DAY_20() + "\t");//显示信息-价格区间
+                System.out.print("40日:" + stockAdrCountVo.getNET_AREA_DAY_40() + "\t");//显示信息-价格区间
+                System.out.print("60日:" + stockAdrCountVo.getNET_AREA_DAY_60() + "\t");//显示信息-价格区间
+//                System.out.print("120日:"+stockAdrCountVo.getNET_AREA_DAY_120() + "\t");//显示信息-价格区间
+//                System.out.print("250日:"+stockAdrCountVo.getNET_AREA_DAY_250() + "\t");//显示信息-价格区间
+            }
+            if (isShowUpMa) {
+                System.out.print("超均线：");//显示信息-价格区间
+                if (kltList.contains(KLT_5)) {
+                    String upMa5 = stockAdrCountVo.getUpMaDay5();
+                    System.out.print(StringUtils.isNotBlank(upMa5) ? upMa5 + "   " : "        ");
+//                    System.out.print(StringUtils.isNotBlank(upMa5) ? "[" + upMa5 + "   " + "]" : "[        ]");
+                }
+                if (kltList.contains(KLT_15)) {
+                    String upMa15 = stockAdrCountVo.getUpMaDay15();
+                    System.out.print(StringUtils.isNotBlank(upMa15) ? upMa15 + " " : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa15) ? "[" + upMa15 + " " + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_30)) {
+                    String upMa30 = stockAdrCountVo.getUpMaDay30();
+                    System.out.print(StringUtils.isNotBlank(upMa30) ? upMa30 + " " : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa30) ? "[" + upMa30 + " " + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_60)) {
+                    String upMa60 = stockAdrCountVo.getUpMaDay60();
+                    System.out.print(StringUtils.isNotBlank(upMa60) ? upMa60 + " " : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa60) ? "[" + upMa60 + " " + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_101)) {
+                    String upMa101 = stockAdrCountVo.getUpMaDay101();
+                    System.out.print(StringUtils.isNotBlank(upMa101) ? upMa101 : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa101) ? "[" + upMa101 + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_102)) {
+                    String upMa102 = stockAdrCountVo.getUpMaDay102();
+                    System.out.print(StringUtils.isNotBlank(upMa102) ? upMa102 : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa102) ? "[" + upMa102 + "]" : "[       ]");
+                }
+            }
+
+            //证券信息：涨幅，助力净流入，流市比
+            StringBuffer sbStockInfo = new StringBuffer();
+            sbStockInfo.append("[").append(stockAdrCountVo.getDate().substring(5)).append("]");
+            sbStockInfo.append("涨跌：").append(stockAdrCountVo.getF3());
+            sbStockInfo.append("\t");
+            System.out.print(sbStockInfo);
+
+            if(isShowFlowIn){
+                BigDecimal flowInMian = stockAdrCountVo.getF62();
+                BigDecimal marketValue = stockAdrCountVo.getF21();
+                BigDecimal flowRate = flowInMian.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
+                StringBuffer sbFlowMian = new StringBuffer();
+                sbFlowMian.append("主力净流入：").append("[").append(StockUtil.formatDouble(flowInMian.divide(NUM_YI_1, 2, BigDecimal.ROUND_HALF_UP),5)).append("]").append(",");
+                sbFlowMian.append("\t");
+                sbFlowMian.append("流入市值比：").append("[").append(flowRate).append("]").append(",");
+                sbFlowMian.append("\t");
+                System.out.print(sbFlowMian);
+            }
+
+            //特定日期涨跌
+            if (StringUtils.isNotBlank(spDate)) {
+                RankStockCommpanyDb stock = new RankStockCommpanyDb();
+                stock.setF12(stockAdrCountVo.getF12());
+                Kline kline = KlineService.findLast(stock, spDate, KLT_101);
+                if (kline != null) {
+                    System.out.print("\t[" + spDate.substring(5) + "]：" + kline.getZhangDieFu());
+                }
+            }
+
+            System.out.println();
+        }
+    }
+
+    /**
+     * 处理-列表-排序：根据字段
+     *
+     * @param rs          原始数据handlerOrder
+     * @param orderField  排序字段
+     * @param isOrderDesc 是否倒序
+     * @return 排序结果
+     */
+    private static List<StockAdrCountVo> handlerOrder(List<StockAdrCountVo> rs, String orderField, boolean isOrderDesc) {
+        if (rs == null) {
+            return null;
+        }
+        if (ORDER_FIELD_NET_AREA_DAY_5.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_5, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_5, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+        if (ORDER_FIELD_NET_AREA_DAY_10.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_10, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_10, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+        if (ORDER_FIELD_NET_AREA_DAY_20.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_20, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_20, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+        if (ORDER_FIELD_NET_AREA_DAY_40.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_40, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_40, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+        if (ORDER_FIELD_NET_AREA_DAY_60.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_60, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getNET_AREA_DAY_60, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+        if (ORDER_FIELD_F3.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+        return rs;
     }
 
 }

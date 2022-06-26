@@ -31,6 +31,7 @@ public class StockUtil {
 
     /**
      * 格式化名称
+     *
      * @param name
      * @return
      */
@@ -55,6 +56,7 @@ public class StockUtil {
 
     /**
      * 格式化-涨跌幅
+     *
      * @param f3
      * @return
      */
@@ -71,6 +73,31 @@ public class StockUtil {
         }
         return f3Str;
     }
+
+    /**
+     * 格式化数字，根据长度
+     *
+     * @param number 输入值
+     * @param length 长度
+     * @return 格式化结果
+     */
+    public static String formatDouble(BigDecimal number, int length) {
+        StringBuffer rs = new StringBuffer();
+        if (number == null) {
+            for (int i = 0; i < length; i++) {
+                rs.append(" ");
+            }
+            return rs.toString();
+        }
+        String numberStr = number.toString();
+        int kong = length - numberStr.length();
+        rs.append(numberStr);
+        for (int i = 0; i < kong; i++) {
+            rs.append(" ");
+        }
+        return rs.toString();
+    }
+
     /**
      * 格式化名称-业务
      *

@@ -1,9 +1,14 @@
 package utils;
 
+import ttjj.dto.StockAdrCountVo;
 import ttjj.service.KlineService;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static utils.Content.*;
 
 /**
  * ContMapStZiYuan-业务板块
@@ -897,6 +902,7 @@ public class ContMapStBoardAdrCount {
         ziYuan.putAll(baoZhuangCaiLiao);
         ziYuan.putAll(suLiaoZhiPin);
         ziYuan.putAll(xiangJiaoZhiPin);
+        ziYuan.putAll(maoYiHangYe);//贸易行业
     }
 
     /**
@@ -922,6 +928,7 @@ public class ContMapStBoardAdrCount {
         jinRong.putAll(zhengQuan);
         jinRong.putAll(duoYuanJinRong);
         jinRong.putAll(gongChengJiXie);
+        jinRong.putAll(zhuangXiuZhuangShi);//装修装饰
     }
 
     /**
@@ -937,11 +944,9 @@ public class ContMapStBoardAdrCount {
         xiaoFei.putAll(jiaDianHangYe);
         xiaoFei.putAll(shiPinYinLiao);
         xiaoFei.putAll(niangJiuHangYe);
-        xiaoFei.putAll(maoYiHangYe);
         xiaoFei.putAll(fangZhiFuZhuang);
         xiaoFei.putAll(jiaYongQingGong);
         xiaoFei.putAll(qiCheFuWu);
-        xiaoFei.putAll(zhuangXiuZhuangShi);
         xiaoFei.putAll(meiRongHuLi);
         xiaoFei.putAll(wenHuaChuanMei);
         xiaoFei.putAll(youXi);
@@ -1012,10 +1017,24 @@ public class ContMapStBoardAdrCount {
     }
 
     public static void main(String[] args) {
-        String spDate = null;
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-05-06";
+//        String date = "2022-06-24";
+        String spDate = null;
 //        spDate = "2022-05-09";//特定日期：下一交易日
-        KlineService.checkMaDemo(baoXian, date, spDate);// all   huaGong   huaGong_linHuaGong    yinHang
+        boolean isShowPriceArea = true;//是否显示价格区间
+//        boolean isShowPriceArea = false;//是否显示价格区间
+        List<String> kltList = Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101);//价格区间周期列表
+//        kltList.add(KLT_5);
+//        kltList.add(KLT_102);
+        boolean isShowUpMa = true;//是否显示-超过均线
+//        boolean isShowUpMa = false;//是否显示-超过均线
+        boolean isShowFlowIn = true;//是否显示-主力净流入市值比
+//        boolean isShowFlowIn = false;//是否显示-主力净流入市值比
+        boolean isFindKline = true;//是否查询最新k线
+        List<StockAdrCountVo> rs = null;
+        rs = KlineService.checkMaDemo(lvYou_hangKongJiChang, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        String orderField = ORDER_FIELD_NET_AREA_DAY_5;
+        KlineService.showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa,isShowFlowIn, kltList, spDate);
+//        KlineService.checkMaDemo(lvYouJiuDian, date, spDate);// all   huaGong   huaGong_linHuaGong    yinHang
     }
 }

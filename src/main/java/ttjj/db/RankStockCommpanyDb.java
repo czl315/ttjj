@@ -128,7 +128,7 @@ public class RankStockCommpanyDb {
     /**
      * f21 流通市值
      */
-    private Long f21;
+    private BigDecimal f21;
     /**
      * f22 -1；0；1；2
      */
@@ -1192,11 +1192,11 @@ public class RankStockCommpanyDb {
         this.f20 = f20;
     }
 
-    public Long getF21() {
+    public BigDecimal getF21() {
         return f21;
     }
 
-    public void setF21(Long f21) {
+    public void setF21(BigDecimal f21) {
         this.f21 = f21;
     }
 

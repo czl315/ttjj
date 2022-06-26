@@ -18,7 +18,6 @@ import ttjj.rank.history.KlineDemo;
 import ttjj.rank.history.StockTradeDemo;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
-import ttjj.stat.BizEtfControl;
 import utils.*;
 
 import java.math.BigDecimal;
@@ -77,9 +76,9 @@ public class FupanDemo {
             String zqmc = myPosition.getZqmc();
             zqMap.put(zqdm, zqmc);
         }
-        List<StockAdrCountVo> stockAdrCountVoRs = BizEtfControl.checkMaDemo(zqMap, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        List<StockAdrCountVo> stockAdrCountVoRs = KlineService.checkMaDemo(zqMap, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
         String orderField = ORDER_FIELD_NET_AREA_DAY_5;
-        BizEtfControl.showStockMa(stockAdrCountVoRs, orderField, false, isShowPriceArea, isShowUpMa, kltList, spDate);
+        KlineService.showStockMa(stockAdrCountVoRs, orderField, false, isShowPriceArea, isShowUpMa, true, kltList, spDate);
     }
 
     /**
