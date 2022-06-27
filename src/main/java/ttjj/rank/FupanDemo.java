@@ -42,7 +42,7 @@ public class FupanDemo {
 
         insertOrUpdate(date, klt, dateType,ContentCookie.COOKIE_DFCF);//保存复盘和仓位
 //        checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
-        KlineDemo.main(null);
+//        KlineDemo.main(null);
 
 //        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 

@@ -48,18 +48,18 @@ public class BizRankDemo {
         bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
         saveBizAndKline(date, bizType, bizList, isDelAndAddBiz,isUpdateDayMa,isUpdateDay15MinuteNet);//保存业务和k线
 
+        //etf
+        bizType = DB_RANK_BIZ_TYPE_ETF;
+        bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
+        if (DB_RANK_BIZ_TYPE_ETF.equals(bizType)) {
+            //过滤etf
+            bizList = handlerEtfList(bizList, bizType);
+        }
+        saveBizAndKline(date, bizType, bizList, isDelAndAddBiz, isUpdateDayMa, isUpdateDay15MinuteNet);//保存业务和k线
+
         if (!isOnlyGn) {
             bizType = DB_RANK_BIZ_TYPE_GAI_NIAN;
             bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
-            saveBizAndKline(date, bizType, bizList, isDelAndAddBiz, isUpdateDayMa, isUpdateDay15MinuteNet);//保存业务和k线
-
-            //etf
-            bizType = DB_RANK_BIZ_TYPE_ETF;
-            bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
-            if (DB_RANK_BIZ_TYPE_ETF.equals(bizType)) {
-                //过滤etf
-                bizList = handlerEtfList(bizList, bizType);
-            }
             saveBizAndKline(date, bizType, bizList, isDelAndAddBiz, isUpdateDayMa, isUpdateDay15MinuteNet);//保存业务和k线
 
             //插入当日所有etf
@@ -108,7 +108,7 @@ public class BizRankDemo {
             //过滤etf
             for (RankBizDataDiff biz : bizList) {
                 String code = biz.getF12();
-                if (ContentEtf.mapEtfBiz.keySet().contains(code)) {
+                if (ContentEtf.mapEtfAll.keySet().contains(code)) {
                     rs.add(biz);
                 }
             }

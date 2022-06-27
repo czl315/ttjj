@@ -9,6 +9,7 @@ import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.DateCond;
 import ttjj.dto.Kline;
+import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.StockAdrCountVo;
 import ttjj.rank.StockDemo;
 import utils.Content;
@@ -860,6 +861,7 @@ public class KlineService {
 
     /**
      * 更新
+     *
      * @param entity 更新内容和条件
      * @return 结果
      */
@@ -949,9 +951,18 @@ public class KlineService {
                 stockCondition.setDate(date);
                 stockCondition.setF12(zqdm);
                 RankStockCommpanyDb stockToday = RankStockCommpanyDao.find(stockCondition);
-                stockAdrCountVo.setF20(stockToday.getF20());
-                stockAdrCountVo.setF21(stockToday.getF21());
-                stockAdrCountVo.setF62(stockToday.getF62());
+                if (stockToday != null) {
+                    stockAdrCountVo.setF20(stockToday.getF20());
+                    stockAdrCountVo.setF21(stockToday.getF21());
+                    stockAdrCountVo.setF62(stockToday.getF62());
+                } else {
+                    RankBizDataDiff biz = BizService.findBiz(zqdm, date, null);
+                    if (biz != null) {
+                        stockAdrCountVo.setF20(biz.getF20());
+                        stockAdrCountVo.setF21(biz.getF21());
+                        stockAdrCountVo.setF62(biz.getF62());
+                    }
+                }
 
                 //查询主力净流入(实时查询)
 //                FundFlow fundFlow = FundFlowService.findFundFlowHisDay(zqdm,KLT_101,date);
@@ -967,11 +978,12 @@ public class KlineService {
 
     /**
      * 显示均线信息
-     *  @param rs              统计信息
+     *
+     * @param rs              统计信息
      * @param orderField
      * @param isShowPriceArea 是否显示价格区间
      * @param isShowUpMa      是否显示-超过均线
-     * @param isShowFlowIn 是否显示-主力净流入市值比
+     * @param isShowFlowIn    是否显示-主力净流入市值比
      * @param kltList
      * @param spDate
      */
@@ -1037,16 +1049,19 @@ public class KlineService {
             sbStockInfo.append("\t");
             System.out.print(sbStockInfo);
 
-            if(isShowFlowIn){
+            if (isShowFlowIn) {
                 BigDecimal flowInMian = stockAdrCountVo.getF62();
                 BigDecimal marketValue = stockAdrCountVo.getF21();
-                BigDecimal flowRate = flowInMian.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
-                StringBuffer sbFlowMian = new StringBuffer();
-                sbFlowMian.append("主力净流入：").append("[").append(StockUtil.formatDouble(flowInMian.divide(NUM_YI_1, 2, BigDecimal.ROUND_HALF_UP),5)).append("]").append(",");
-                sbFlowMian.append("\t");
-                sbFlowMian.append("流入市值比：").append("[").append(flowRate).append("]").append(",");
-                sbFlowMian.append("\t");
-                System.out.print(sbFlowMian);
+                BigDecimal flowRate = null;
+                if (flowInMian != null) {
+                    StringBuffer sbFlowMian = new StringBuffer();
+                    flowRate = flowInMian.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
+                    sbFlowMian.append("主力净流入：").append("[").append(StockUtil.formatDouble(flowInMian.divide(NUM_YI_1, 2, BigDecimal.ROUND_HALF_UP), 5)).append("]").append(",");
+                    sbFlowMian.append("\t");
+                    sbFlowMian.append("流入市值比：").append("[").append(flowRate).append("]").append(",");
+                    sbFlowMian.append("\t");
+                    System.out.print(sbFlowMian);
+                }
             }
 
             //特定日期涨跌
