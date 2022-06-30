@@ -115,6 +115,7 @@ public class StockStatDemo {
     public static void checkMaDemo(Map<String, String> zqMap, String date) {
 //        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//                        String date = "2022-02-15";
         boolean isUp = true;//检查上涨
+        boolean isDown = true;//检查
 //        boolean isUp = false;
 
         List<Integer> maList = new ArrayList<>();
@@ -122,11 +123,11 @@ public class StockStatDemo {
         maList.add(MA_60);
 
 //        KlineService.checkMa(zqMap, KLT_5, maList, date, isUp,null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_15, maList, date, isUp, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_30, maList, date, isUp, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_60, maList, date, isUp, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_101, maList, date, isUp, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_102, maList, date, isUp, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_15, maList, date, isUp, isDown, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_30, maList, date, isUp, isDown, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_60, maList, date, isUp, isDown, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_101, maList, date, isUp, isDown, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_102, maList, date, isUp, isDown, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
     }
 
     /**
@@ -427,7 +428,7 @@ public class StockStatDemo {
 //                        StringBuffer maSb = new StringBuffer("20日:").append(curPriceArea);
                     Map<String, String> stockMap = new HashMap<>();//
                     stockMap.put(zqdm, zqmc);
-                    KlineService.checkMa(stockMap, checkMaType, maList, date, true, null, true);// 检查均线
+                    KlineService.checkMa(stockMap, checkMaType, maList, date, true, false, null, true);// 检查均线
                 }
             }
         }

@@ -36,7 +36,9 @@ public class BizEtfControl {
 
         boolean isShowUpMa = true;//是否显示-超过均线
 //        boolean isShowUpMa = false;//是否显示-超过均线
+        boolean isShowDownMa = true;//是否显示-跌落均线
         boolean isFindKline = true;//是否查询最新k线
+        boolean isShowFlowIn = true;//是否显示资金流入
 
 //        Map<String, String> etfBizMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
 //        Map<String, String> etfBizMap = ContentEtf.mapEtfIndex;//mapEtfBiz mapEtfIndex    mapEtfAll
@@ -48,23 +50,23 @@ public class BizEtfControl {
         boolean isOrderDesc = false;//是否倒序
         List<StockAdrCountVo> rs = null;
         System.out.println("金融：");
-        rs = KlineService.checkMaDemo(ContentEtf.mapEtfJinRong, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
-        KlineService.showStockMa(rs, orderField, isOrderDesc, isShowPriceArea, isShowUpMa, true, kltList, spDate);
+        rs = KlineService.checkMaDemo(ContentEtf.mapEtfJinRong, date, isShowPriceArea, isShowUpMa,isShowDownMa, isFindKline, kltList);
+        KlineService.showStockMa(rs, orderField, isOrderDesc, isShowPriceArea, isShowUpMa,isShowDownMa, isShowFlowIn, kltList, spDate);
         System.out.println("消费：");
-        rs = KlineService.checkMaDemo(ContentEtf.mapEtfXiaoFei, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
-        KlineService.showStockMa(rs, orderField, isOrderDesc, isShowPriceArea, isShowUpMa, true, kltList, spDate);
+        rs = KlineService.checkMaDemo(ContentEtf.mapEtfXiaoFei, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        KlineService.showStockMa(rs, orderField, isOrderDesc, isShowPriceArea, isShowUpMa,isShowDownMa, isShowFlowIn,  kltList, spDate);
         System.out.println("资源：");
-        rs = KlineService.checkMaDemo(ContentEtf.mapEtfZiYuan, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
-        KlineService.showStockMa(rs, orderField, isOrderDesc, isShowPriceArea, isShowUpMa, true, kltList, spDate);
+        rs = KlineService.checkMaDemo(ContentEtf.mapEtfZiYuan, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        KlineService.showStockMa(rs, orderField, isOrderDesc, isShowPriceArea, isShowUpMa,isShowDownMa, isShowFlowIn,  kltList, spDate);
         System.out.println("科技：");
-        rs = KlineService.checkMaDemo(ContentEtf.mapEtfKeJi, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
-        KlineService.showStockMa(rs, orderField, isOrderDesc, isShowPriceArea, isShowUpMa, true, kltList, spDate);
+        rs = KlineService.checkMaDemo(ContentEtf.mapEtfKeJi, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        KlineService.showStockMa(rs, orderField, isOrderDesc, isShowPriceArea, isShowUpMa,isShowDownMa, isShowFlowIn,  kltList, spDate);
         System.out.println("医疗：");
-        rs = KlineService.checkMaDemo(ContentEtf.mapEtfYiLiao, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
-        KlineService.showStockMa(rs, orderField, isOrderDesc, isShowPriceArea, isShowUpMa, true, kltList, spDate);
+        rs = KlineService.checkMaDemo(ContentEtf.mapEtfYiLiao, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        KlineService.showStockMa(rs, orderField, isOrderDesc, isShowPriceArea, isShowUpMa,isShowDownMa, isShowFlowIn,  kltList, spDate);
         System.out.println("指数：");
-        rs = KlineService.checkMaDemo(ContentEtf.mapEtfIndex, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
-        KlineService.showStockMa(rs, orderField, isOrderDesc, isShowPriceArea, isShowUpMa, true, kltList, spDate);
+        rs = KlineService.checkMaDemo(ContentEtf.mapEtfIndex, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        KlineService.showStockMa(rs, orderField, isOrderDesc, isShowPriceArea, isShowUpMa,isShowDownMa, isShowFlowIn,  kltList, spDate);
 
 //        showStockMa(rs, ORDER_FIELD_F3, true, isShowPriceArea, isShowUpMa, kltList, spDate);
 

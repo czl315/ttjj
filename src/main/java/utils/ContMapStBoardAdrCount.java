@@ -1032,9 +1032,9 @@ public class ContMapStBoardAdrCount {
 //        boolean isShowFlowIn = false;//是否显示-主力净流入市值比
         boolean isFindKline = true;//是否查询最新k线
         List<StockAdrCountVo> rs = null;
-        rs = KlineService.checkMaDemo(lvYou_hangKongJiChang, date, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        rs = KlineService.checkMaDemo(lvYou_hangKongJiChang, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList);
         String orderField = ORDER_FIELD_NET_AREA_DAY_5;
-        KlineService.showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa,isShowFlowIn, kltList, spDate);
+        KlineService.showStockMa(rs, orderField, false, isShowPriceArea, isShowUpMa,isShowFlowIn, true, kltList, spDate);
 //        KlineService.checkMaDemo(lvYouJiuDian, date, spDate);// all   huaGong   huaGong_linHuaGong    yinHang
     }
 }

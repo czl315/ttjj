@@ -34,6 +34,31 @@ public class StockAdrCountVo extends StockAdrCount {
      */
     private String upMaDay102;
 
+    /**
+     * maDownDay5 跌落均线
+     */
+    private String maDownDay5;
+    /**
+     * maDownDay15
+     */
+    private String maDownDay15;
+    /**
+     * maDownDay10
+     */
+    private String maDownDay30;
+    /**
+     * maDownDay20
+     */
+    private String maDownDay60;
+    /**
+     * maDownDay40
+     */
+    private String maDownDay101;
+    /**
+     * maDownDay60
+     */
+    private String maDownDay102;
+
     public String getUpMaDay5() {
         return upMaDay5;
     }
@@ -80,5 +105,53 @@ public class StockAdrCountVo extends StockAdrCount {
 
     public void setUpMaDay102(String upMaDay102) {
         this.upMaDay102 = upMaDay102;
+    }
+
+    public String getMaDownDay5() {
+        return maDownDay5;
+    }
+
+    public void setMaDownDay5(String maDownDay5) {
+        this.maDownDay5 = maDownDay5;
+    }
+
+    public String getMaDownDay15() {
+        return maDownDay15;
+    }
+
+    public void setMaDownDay15(String maDownDay15) {
+        this.maDownDay15 = maDownDay15;
+    }
+
+    public String getMaDownDay30() {
+        return maDownDay30;
+    }
+
+    public void setMaDownDay30(String maDownDay30) {
+        this.maDownDay30 = maDownDay30;
+    }
+
+    public String getMaDownDay60() {
+        return maDownDay60;
+    }
+
+    public void setMaDownDay60(String maDownDay60) {
+        this.maDownDay60 = maDownDay60;
+    }
+
+    public String getMaDownDay101() {
+        return maDownDay101;
+    }
+
+    public void setMaDownDay101(String maDownDay101) {
+        this.maDownDay101 = maDownDay101;
+    }
+
+    public String getMaDownDay102() {
+        return maDownDay102;
+    }
+
+    public void setMaDownDay102(String maDownDay102) {
+        this.maDownDay102 = maDownDay102;
     }
 }

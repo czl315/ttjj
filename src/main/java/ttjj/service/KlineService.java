@@ -605,6 +605,7 @@ public class KlineService {
     public static void checkMaDemo(Map<String, String> zqMap, String date, String spDate) {
 //        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//                        String date = "2022-02-15";
         boolean isUp = true;//检查上涨
+        boolean isDown = true;//检查下跌
 //        boolean isUp = false;
 
         List<Integer> maList = new ArrayList<>();
@@ -612,25 +613,26 @@ public class KlineService {
         maList.add(MA_60);
 
 //        KlineService.checkMa(zqMap, KLT_5, maList, date, isUp);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_15, maList, date, isUp, spDate, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_30, maList, date, isUp, spDate, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_60, maList, date, isUp, spDate, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_101, maList, date, isUp, spDate, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-        KlineService.checkMa(zqMap, KLT_102, maList, date, isUp, spDate, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_15, maList, date, isUp, isDown, spDate, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_30, maList, date, isUp, isDown, spDate, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_60, maList, date, isUp, isDown, spDate, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_101, maList, date, isUp, isDown, spDate, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_102, maList, date, isUp, isDown, spDate, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
     }
 
     /**
      * 检查均线
      *
-     * @param etfBizMap etf列表
-     * @param klt       均线类型
-     * @param maList    均线列表
+     * @param etfBizMap   etf列表
+     * @param klt         均线类型
+     * @param maList      均线列表
      * @param date
      * @param isUp
+     * @param isCheckDown 是否检查下跌
      * @param spDate
-     * @param isShow    是否显示结果
+     * @param isShow      是否显示结果
      */
-    public static String checkMa(Map<String, String> etfBizMap, String klt, List<Integer> maList, String date, boolean isUp, String spDate, boolean isShow) {
+    public static String checkMa(Map<String, String> etfBizMap, String klt, List<Integer> maList, String date, boolean isUp, boolean isCheckDown, String spDate, boolean isShow) {
         StringBuffer sbMa = new StringBuffer();
         for (String zqdm : etfBizMap.keySet()) {
             String zqmc = etfBizMap.get(zqdm);
@@ -690,26 +692,11 @@ public class KlineService {
                 //涨破均线，买出信号
                 if (isUp && yesterdayCloseAmt.compareTo(curMaAmt) < 0 && curAmt.compareTo(curMaAmt) >= 0) {
 //                    sbMa.append("，昨日价低于均线但是当前价涨破均线，买入信号！！！！！！");
-//                    System.out.print(KlineService.handlerAvgLine("5日:", KlineService.findNetMinMaxAvg(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-//                    System.out.print(KlineService.handlerAvgLine("10日:", KlineService.findNetMinMaxAvg(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-//                    System.out.print(KlineService.handlerAvgLine("20日:", KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-//                    System.out.print(KlineService.handlerAvgLine("60日:", KlineService.findNetMinMaxAvg(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
                     sbMa.append(klt + "(" + maType + ")");
-//                    System.out.print(sbMa);
-//                    System.out.print(sbDay);
-//                    System.out.println(KlineService.handlerAvgLine("120日价格", KlineService.findNetMinMaxAvg(zqdm, MA_120, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-//                    System.out.println(KlineService.handlerAvgLine("250日价格", KlineService.findNetMinMaxAvg(zqdm, MA_250, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-//                    System.out.println();
                 }
-                if (!isUp && yesterdayCloseAmt.compareTo(curMaAmt) >= 0 && curAmt.compareTo(curMaAmt) < 0) {
-                    sbMa.append("，昨日价高于均线但是当前价跌破均线，卖出信号！！！");
-                    System.out.println(sbMa);
-                    System.out.print(KlineService.handlerAvgLine("5日", KlineService.findNetMinMaxAvg(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-                    System.out.print(KlineService.handlerAvgLine("10日", KlineService.findNetMinMaxAvg(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-                    System.out.print(KlineService.handlerAvgLine("20日", KlineService.findNetMinMaxAvg(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-                    System.out.print(KlineService.handlerAvgLine("60日", KlineService.findNetMinMaxAvg(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK)));
-                    System.out.println();
-                    System.out.print(sbDay);
+                if (isCheckDown && yesterdayCloseAmt.compareTo(curMaAmt) >= 0 && curAmt.compareTo(curMaAmt) < 0) {
+//                    sbMa.append("，昨日价高于均线但是当前价跌破均线，卖出信号！！！");
+                    sbMa.append("-").append(klt).append("(").append(maType).append(")");
                 }
             }
         }
@@ -872,14 +859,15 @@ public class KlineService {
     /**
      * 检查均线
      *
-     * @param etfBizMap
-     * @param date
+     * @param etfBizMap       证券列表
+     * @param date            日期
      * @param isShowPriceArea 是否显示价格区间
-     * @param isShowUpMa
-     * @param isFindKline
-     * @param kltList
+     * @param isShowUpMa      是否显示超过均线
+     * @param isShowDownMa    是否显示跌落均线
+     * @param isFindKline     查询当日k线
+     * @param kltList         周期列表
      */
-    public static List<StockAdrCountVo> checkMaDemo(Map<String, String> etfBizMap, String date, boolean isShowPriceArea, boolean isShowUpMa, boolean isFindKline, List<String> kltList) {
+    public static List<StockAdrCountVo> checkMaDemo(Map<String, String> etfBizMap, String date, boolean isShowPriceArea, boolean isShowUpMa, boolean isShowDownMa, boolean isFindKline, List<String> kltList) {
         List<StockAdrCountVo> rs = new ArrayList<>();
         boolean isUp = true;//检查上涨
 //        boolean isUp = false;
@@ -908,35 +896,70 @@ public class KlineService {
             }
 
             if (isShowUpMa) {
+                boolean isCheckMaDown = false;
                 for (String klt : kltList) {
                     if (KLT_5.equals(klt)) {
-                        String upMa5 = KlineService.checkMa(etfBizMapSub, KLT_5, maList, date, isUp, null, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+                        String upMa5 = KlineService.checkMa(etfBizMapSub, KLT_5, maList, date, isUp, isCheckMaDown, null, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
                         stockAdrCountVo.setUpMaDay5(upMa5);
                     }
                     if (KLT_15.equals(klt)) {
-                        String upMa15 = KlineService.checkMa(etfBizMapSub, KLT_15, maList, date, isUp, null, false);
+                        String upMa15 = KlineService.checkMa(etfBizMapSub, KLT_15, maList, date, isUp, isCheckMaDown, null, false);
                         stockAdrCountVo.setUpMaDay15(upMa15);
                     }
                     if (KLT_30.equals(klt)) {
-                        String upMa30 = KlineService.checkMa(etfBizMapSub, KLT_30, maList, date, isUp, null, false);
+                        String upMa30 = KlineService.checkMa(etfBizMapSub, KLT_30, maList, date, isUp, isCheckMaDown, null, false);
                         stockAdrCountVo.setUpMaDay30(upMa30);
                     }
                     if (KLT_60.equals(klt)) {
-                        String upMa60 = KlineService.checkMa(etfBizMapSub, KLT_60, maList, date, isUp, null, false);
+                        String upMa60 = KlineService.checkMa(etfBizMapSub, KLT_60, maList, date, isUp, isCheckMaDown, null, false);
                         stockAdrCountVo.setUpMaDay60(upMa60);
                     }
                     if (KLT_101.equals(klt)) {
-                        String upMa101 = KlineService.checkMa(etfBizMapSub, KLT_101, maList, date, isUp, null, false);
+                        String upMa101 = KlineService.checkMa(etfBizMapSub, KLT_101, maList, date, isUp, isCheckMaDown, null, false);
                         stockAdrCountVo.setUpMaDay101(upMa101);
                     }
                     if (KLT_102.equals(klt)) {
-                        String upMa102 = KlineService.checkMa(etfBizMapSub, KLT_102, maList, date, isUp, null, false);
+                        String upMa102 = KlineService.checkMa(etfBizMapSub, KLT_102, maList, date, isUp, isCheckMaDown, null, false);
                         stockAdrCountVo.setUpMaDay102(upMa102);
                     }
                 }
 
 
             }
+
+            //是否显示跌落均线
+            if (isShowDownMa) {
+                boolean isCheckMaUp = false;
+                for (String klt : kltList) {
+                    if (KLT_5.equals(klt)) {
+                        String upMa5 = KlineService.checkMa(etfBizMapSub, KLT_5, maList, date, isCheckMaUp, isShowDownMa, null, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+                        stockAdrCountVo.setMaDownDay5(upMa5);
+                    }
+                    if (KLT_15.equals(klt)) {
+                        String upMa15 = KlineService.checkMa(etfBizMapSub, KLT_15, maList, date, isCheckMaUp, isShowDownMa, null, false);
+                        stockAdrCountVo.setMaDownDay15(upMa15);
+                    }
+                    if (KLT_30.equals(klt)) {
+                        String upMa30 = KlineService.checkMa(etfBizMapSub, KLT_30, maList, date, isCheckMaUp, isShowDownMa, null, false);
+                        stockAdrCountVo.setMaDownDay30(upMa30);
+                    }
+                    if (KLT_60.equals(klt)) {
+                        String upMa60 = KlineService.checkMa(etfBizMapSub, KLT_60, maList, date, isCheckMaUp, isShowDownMa, null, false);
+                        stockAdrCountVo.setMaDownDay60(upMa60);
+                    }
+                    if (KLT_101.equals(klt)) {
+                        String upMa101 = KlineService.checkMa(etfBizMapSub, KLT_101, maList, date, isCheckMaUp, isShowDownMa, null, false);
+                        stockAdrCountVo.setMaDownDay101(upMa101);
+                    }
+                    if (KLT_102.equals(klt)) {
+                        String upMa102 = KlineService.checkMa(etfBizMapSub, KLT_102, maList, date, isCheckMaUp, isShowDownMa, null, false);
+                        stockAdrCountVo.setMaDownDay102(upMa102);
+                    }
+                }
+
+
+            }
+
             if (isFindKline) {
                 //实时查询，http
                 Kline kline = KlineService.findLast(stock, date, KLT_101);
@@ -978,16 +1001,16 @@ public class KlineService {
 
     /**
      * 显示均线信息
-     *
-     * @param rs              统计信息
+     *  @param rs              统计信息
      * @param orderField
      * @param isShowPriceArea 是否显示价格区间
      * @param isShowUpMa      是否显示-超过均线
      * @param isShowFlowIn    是否显示-主力净流入市值比
+     * @param isShowDownMa
      * @param kltList
      * @param spDate
      */
-    public static void showStockMa(List<StockAdrCountVo> rs, String orderField, boolean isOrderDesc, boolean isShowPriceArea, boolean isShowUpMa, boolean isShowFlowIn, List<String> kltList, String spDate) {
+    public static void showStockMa(List<StockAdrCountVo> rs, String orderField, boolean isOrderDesc, boolean isShowPriceArea, boolean isShowUpMa, boolean isShowDownMa,boolean isShowFlowIn, List<String> kltList, String spDate) {
         if (rs == null || rs.size() == 0) {
             return;
         }
@@ -1038,6 +1061,40 @@ public class KlineService {
                 if (kltList.contains(KLT_102)) {
                     String upMa102 = stockAdrCountVo.getUpMaDay102();
                     System.out.print(StringUtils.isNotBlank(upMa102) ? upMa102 : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa102) ? "[" + upMa102 + "]" : "[       ]");
+                }
+            }
+
+            if (isShowDownMa) {
+                System.out.print("跌落均线：");//显示信息-价格区间
+                if (kltList.contains(KLT_5)) {
+                    String upMa5 = stockAdrCountVo.getMaDownDay5();
+                    System.out.print(StringUtils.isNotBlank(upMa5) ? upMa5 + "    " : "         ");
+//                    System.out.print(StringUtils.isNotBlank(upMa5) ? "[" + upMa5 + "   " + "]" : "[        ]");
+                }
+                if (kltList.contains(KLT_15)) {
+                    String upMa15 = stockAdrCountVo.getMaDownDay15();
+                    System.out.print(StringUtils.isNotBlank(upMa15) ? upMa15 + "  " : "        ");
+//                    System.out.print(StringUtils.isNotBlank(upMa15) ? "[" + upMa15 + " " + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_30)) {
+                    String upMa30 = stockAdrCountVo.getMaDownDay30();
+                    System.out.print(StringUtils.isNotBlank(upMa30) ? upMa30 + "  " : "        ");
+//                    System.out.print(StringUtils.isNotBlank(upMa30) ? "[" + upMa30 + " " + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_60)) {
+                    String upMa60 = stockAdrCountVo.getMaDownDay60();
+                    System.out.print(StringUtils.isNotBlank(upMa60) ? upMa60 + "  " : "        ");
+//                    System.out.print(StringUtils.isNotBlank(upMa60) ? "[" + upMa60 + " " + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_101)) {
+                    String upMa101 = stockAdrCountVo.getMaDownDay101();
+                    System.out.print(StringUtils.isNotBlank(upMa101) ? upMa101 : "        ");
+//                    System.out.print(StringUtils.isNotBlank(upMa101) ? "[" + upMa101 + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_102)) {
+                    String upMa102 = stockAdrCountVo.getMaDownDay102();
+                    System.out.print(StringUtils.isNotBlank(upMa102) ? upMa102 : "        ");
 //                    System.out.print(StringUtils.isNotBlank(upMa102) ? "[" + upMa102 + "]" : "[       ]");
                 }
             }
