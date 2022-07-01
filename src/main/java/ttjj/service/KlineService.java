@@ -696,7 +696,8 @@ public class KlineService {
                 }
                 if (isCheckDown && yesterdayCloseAmt.compareTo(curMaAmt) >= 0 && curAmt.compareTo(curMaAmt) < 0) {
 //                    sbMa.append("，昨日价高于均线但是当前价跌破均线，卖出信号！！！");
-                    sbMa.append("-").append(klt).append("(").append(maType).append(")");
+//                    sbMa.append("-");
+                    sbMa.append(klt).append("(").append(maType).append(")");
                 }
             }
         }
