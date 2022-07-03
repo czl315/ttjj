@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static utils.Content.KLINE_TYPE_STOCK;
+import static utils.Content.*;
 
 /**
  * @author chenzhilong
@@ -25,10 +25,11 @@ import static utils.Content.KLINE_TYPE_STOCK;
 public class ReportService {
     public static void main(String[] args) {
         // 查询业绩报表
-        String stCode = "688699";
-        List<Report> rs = listHttpReportByStCode(stCode);
+        String stCode = "688690";
+        String reportName = REPORT_NAME_RPT_FCI_PERFORMANCEE;
+        List<Report> rs = listHttpReportByStCode(stCode,reportName);
         String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0);// String today = "2021-09-17";
-        String qDate = "2021Q4";//报表周期
+        String qDate = "2022Q2";//报表周期
         for (Report report : rs) {
             //是否有2021三季报
             if (report.getQDATE().equals(qDate)) {
@@ -53,9 +54,11 @@ public class ReportService {
     /**
      * 查询业绩报表-根据证券编码
      *
-     * @param stCode
+     * @param stCode     证券编码
+     * @param reportName 报表类型
+     * @return
      */
-    public static List<Report> listHttpReportByStCode(String stCode) {
+    public static List<Report> listHttpReportByStCode(String stCode, String reportName) {
         List<Report> rsList = new ArrayList<>();
         long curTime = System.currentTimeMillis();
         //http://datacenter-web.eastmoney.com/api/data/get?callback=jQuery112306952726494784089_1635304353564&st=REPORTDATE&sr=-1&ps=50&p=1&sty=ALL&filter=(SECURITY_CODE%3D%22603099%22)&token=894050c76af8597a853f5b408b759f5d&type=RPT_LICO_FN_CPD
@@ -68,11 +71,12 @@ public class ReportService {
         StringBuffer urlParam = new StringBuffer();
         urlParam.append("callback=jQuery11230830685936435" + RandomUtils.nextInt(1000, 9999) + "_");
         urlParam.append(curTime);
-        urlParam.append("&sortColumns=UPDATE_DATE%2CSECURITY_CODE");//&sortColumns=UPDATE_DATE%2CSECURITY_CODE 排序字段
+//        urlParam.append("&sortColumns=UPDATE_DATE%2CSECURITY_CODE");//&sortColumns=UPDATE_DATE%2CSECURITY_CODE 排序字段
+//        urlParam.append("&sortColumns=NOTICE_DATE");//排序字段
         urlParam.append("&sortTypes=-1%2C-1");//&sortTypes=-1%2C-1
         urlParam.append("&pageSize=50");//&pageSize=50
         urlParam.append("&pageNumber=1");//&pageNumber=1
-        urlParam.append("&reportName=RPT_LICO_FN_CPD");//&reportName=RPT_FCI_PERFORMANCEE   RPT_LICO_FN_CPD:业绩报表
+        urlParam.append("&reportName=").append(reportName);//&reportName=RPT_FCI_PERFORMANCEE   RPT_LICO_FN_CPD:业绩报表
         urlParam.append("&columns=ALL");//&columns=ALL
         //&filter=(SECURITY_TYPE_CODE+in+(%22058001001%22%2C%22058001008%22))(TRADE_MARKET_CODE!%3D%22069001017%22)(REPORT_DATE%3D%272021-12-31%27)
         //&filter: (SECURITY_TYPE_CODE in ("058001001","058001008"))(TRADE_MARKET_CODE!="069001017")(REPORT_DATE='2021-12-31')  沪深A股

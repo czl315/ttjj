@@ -626,4 +626,17 @@ public class Content {
      * ORDER_FIELD_F3
      */
     public static String ORDER_FIELD_F3 = "F3";
+
+    /**
+     * 报表数据-业绩快报
+     */
+    public static String REPORT_NAME_RPT_FCI_PERFORMANCEE = "RPT_FCI_PERFORMANCEE";
+    /**
+     * 报表数据-业绩报表
+     */
+    public static String REPORT_NAME_RPT_LICO_FN_CPD = "RPT_LICO_FN_CPD";
+    /**
+     * 报表数据-业绩预告
+     */
+    public static String REPORT_NAME_RPT_PUBLIC_OP_NEWPREDICT = "RPT_PUBLIC_OP_NEWPREDICT";
 }

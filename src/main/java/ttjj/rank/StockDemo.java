@@ -402,7 +402,7 @@ public class StockDemo {
                 }
                 if (entity.getF139() == DB_RANK_BIZ_F139_BK_MAIN) {
 //                    System.out.println("股票---------------------" + entity.getF14() + ":"+ entity.getF3() + JSON.toJSONString(entity));
-                    List<Report> rsReport = ReportService.listHttpReportByStCode(stCode);
+                    List<Report> rsReport = ReportService.listHttpReportByStCode(stCode,REPORT_NAME_RPT_LICO_FN_CPD);
                     for (Report report : rsReport) {
                         //是否有2021三季报
                         if (report.getQDATE().equals(quarter)) {
@@ -949,7 +949,7 @@ public class StockDemo {
 
                     //  季报
                     if (isReport) {
-                        List<Report> rsReport = ReportService.listHttpReportByStCode(stCode);
+                        List<Report> rsReport = ReportService.listHttpReportByStCode(stCode,REPORT_NAME_RPT_LICO_FN_CPD);
                         String startDate = "20210701";
                         String qDate = "2021Q3";
                         for (Report report : rsReport) {

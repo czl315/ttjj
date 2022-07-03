@@ -45,8 +45,90 @@ import java.math.BigDecimal;
  * @date 2021-10-27 11:56
  */
 public class Report {
-        private String REPORT_DATE;
-        private BigDecimal TOTAL_OPERATE_INCOME_SQ;
+    /**
+     * REPORT_NAME 报告类型
+     */
+    private String REPORT_TYPE;
+
+    /** 预报特殊字段-开始 **/
+    /**
+     * PREDICT_FINANCE_CODE 预测指标-编码
+     * "PREDICT_FINANCE_CODE": "006",
+     */
+    private String PREDICT_FINANCE_CODE;
+    /**
+     * PREDICT_FINANCE 预测指标-名称
+     * "PREDICT_FINANCE": "营业收入","PREDICT_FINANCE": "扣除非经常性损益后的净利润",
+     */
+    private String PREDICT_FINANCE;
+    /**
+     * 预测数值(元)-下限
+     * "PREDICT_AMT_LOWER": 290000000,
+     */
+    private BigDecimal PREDICT_AMT_LOWER;
+    /**
+     * 预测数值(元)-上限
+     * "PREDICT_AMT_UPPER": 290000000,
+     */
+    private BigDecimal PREDICT_AMT_UPPER;
+    /**
+     * "FORECAST_JZ": 290000000,
+     */
+    private BigDecimal FORECAST_JZ;
+    /**
+     * 业绩变动幅度-下限
+     * "ADD_AMP_LOWER": 75.1,
+     */
+    private BigDecimal ADD_AMP_LOWER;
+    /**
+     * 业绩变动幅度-上限
+     * "ADD_AMP_UPPER": 75.1,
+     */
+    private BigDecimal ADD_AMP_UPPER;
+    /**
+     * 预告-增长-？
+     * "INCREASE_JZ": 75.1,
+     */
+    private BigDecimal INCREASE_JZ;
+
+    /**
+     * 预报-业绩变动-概述
+     */
+    private String PREDICT_CONTENT;
+    /**
+     * 预报-业绩变动-原因(字段较多，不建议保存)
+     */
+    private String CHANGE_REASON_EXPLAIN;
+    /**
+     * 预告-类型
+     * "PREDICT_TYPE": "预增",
+     */
+    private String PREDICT_TYPE;
+    /**
+     * "FORECAST_STATE": "increase",
+     */
+    private String FORECAST_STATE;
+    /**
+     * 是否最新
+     * "IS_LATEST": "T"
+     */
+    private String IS_LATEST;
+    /**
+     * "PREYEAR_SAME_PERIOD": 165619400,
+     */
+    private BigDecimal PREYEAR_SAME_PERIOD;
+
+/** 预报特殊字段-结束 **/
+
+
+
+
+
+    /**
+     * REPORT_DATE 报表日期
+     */
+    private String REPORT_DATE;
+    private BigDecimal TOTAL_OPERATE_INCOME_SQ;
         private BigDecimal PARENT_NETPROFIT_SQ;
 
 
@@ -564,5 +646,125 @@ public class Report {
 
     public void setSJLHZ(BigDecimal SJLHZ) {
         this.SJLHZ = SJLHZ;
+    }
+
+    public String getPREDICT_FINANCE_CODE() {
+        return PREDICT_FINANCE_CODE;
+    }
+
+    public void setPREDICT_FINANCE_CODE(String PREDICT_FINANCE_CODE) {
+        this.PREDICT_FINANCE_CODE = PREDICT_FINANCE_CODE;
+    }
+
+    public String getPREDICT_FINANCE() {
+        return PREDICT_FINANCE;
+    }
+
+    public void setPREDICT_FINANCE(String PREDICT_FINANCE) {
+        this.PREDICT_FINANCE = PREDICT_FINANCE;
+    }
+
+    public BigDecimal getPREDICT_AMT_LOWER() {
+        return PREDICT_AMT_LOWER;
+    }
+
+    public void setPREDICT_AMT_LOWER(BigDecimal PREDICT_AMT_LOWER) {
+        this.PREDICT_AMT_LOWER = PREDICT_AMT_LOWER;
+    }
+
+    public BigDecimal getPREDICT_AMT_UPPER() {
+        return PREDICT_AMT_UPPER;
+    }
+
+    public void setPREDICT_AMT_UPPER(BigDecimal PREDICT_AMT_UPPER) {
+        this.PREDICT_AMT_UPPER = PREDICT_AMT_UPPER;
+    }
+
+    public BigDecimal getFORECAST_JZ() {
+        return FORECAST_JZ;
+    }
+
+    public void setFORECAST_JZ(BigDecimal FORECAST_JZ) {
+        this.FORECAST_JZ = FORECAST_JZ;
+    }
+
+    public BigDecimal getADD_AMP_LOWER() {
+        return ADD_AMP_LOWER;
+    }
+
+    public void setADD_AMP_LOWER(BigDecimal ADD_AMP_LOWER) {
+        this.ADD_AMP_LOWER = ADD_AMP_LOWER;
+    }
+
+    public BigDecimal getADD_AMP_UPPER() {
+        return ADD_AMP_UPPER;
+    }
+
+    public void setADD_AMP_UPPER(BigDecimal ADD_AMP_UPPER) {
+        this.ADD_AMP_UPPER = ADD_AMP_UPPER;
+    }
+
+    public BigDecimal getINCREASE_JZ() {
+        return INCREASE_JZ;
+    }
+
+    public void setINCREASE_JZ(BigDecimal INCREASE_JZ) {
+        this.INCREASE_JZ = INCREASE_JZ;
+    }
+
+    public String getPREDICT_CONTENT() {
+        return PREDICT_CONTENT;
+    }
+
+    public void setPREDICT_CONTENT(String PREDICT_CONTENT) {
+        this.PREDICT_CONTENT = PREDICT_CONTENT;
+    }
+
+    public String getCHANGE_REASON_EXPLAIN() {
+        return CHANGE_REASON_EXPLAIN;
+    }
+
+    public void setCHANGE_REASON_EXPLAIN(String CHANGE_REASON_EXPLAIN) {
+        this.CHANGE_REASON_EXPLAIN = CHANGE_REASON_EXPLAIN;
+    }
+
+    public String getPREDICT_TYPE() {
+        return PREDICT_TYPE;
+    }
+
+    public void setPREDICT_TYPE(String PREDICT_TYPE) {
+        this.PREDICT_TYPE = PREDICT_TYPE;
+    }
+
+    public String getFORECAST_STATE() {
+        return FORECAST_STATE;
+    }
+
+    public void setFORECAST_STATE(String FORECAST_STATE) {
+        this.FORECAST_STATE = FORECAST_STATE;
+    }
+
+    public String getIS_LATEST() {
+        return IS_LATEST;
+    }
+
+    public void setIS_LATEST(String IS_LATEST) {
+        this.IS_LATEST = IS_LATEST;
+    }
+
+    public BigDecimal getPREYEAR_SAME_PERIOD() {
+        return PREYEAR_SAME_PERIOD;
+    }
+
+    public void setPREYEAR_SAME_PERIOD(BigDecimal PREYEAR_SAME_PERIOD) {
+        this.PREYEAR_SAME_PERIOD = PREYEAR_SAME_PERIOD;
+    }
+
+    public String getREPORT_TYPE() {
+        return REPORT_TYPE;
+    }
+
+    public void setREPORT_TYPE(String REPORT_TYPE) {
+        this.REPORT_TYPE = REPORT_TYPE;
     }
 }

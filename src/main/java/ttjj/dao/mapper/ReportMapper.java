@@ -21,6 +21,9 @@ public interface ReportMapper {
                 " `ASSIGNDSCRPT`,`PAYYEAR`, `PUBLISHNAME`, `ZXGXL`, `NOTICE_DATE`, ",
                 " `ORG_CODE`,`TRADE_MARKET_ZJG`, `ISNEW`, `QDATE`, `DATATYPE`, ",
                 " `DATAYEAR`,`DATEMMDD`, `EITIME`, `SECUCODE` ",
+                " ,`REPORT_TYPE`,`PREDICT_FINANCE_CODE`,`PREDICT_FINANCE`,`PREDICT_AMT_LOWER`,`PREDICT_AMT_UPPER` ",
+                " ,`FORECAST_JZ`,`ADD_AMP_LOWER`,`ADD_AMP_UPPER`,`INCREASE_JZ`,`PREDICT_CONTENT` ",
+                " ,`CHANGE_REASON_EXPLAIN`,`PREDICT_TYPE`,`FORECAST_STATE`,`IS_LATEST`,`PREYEAR_SAME_PERIOD` ",
             ") VALUES (",
                 " #{SECURITY_CODE},#{SECURITY_NAME_ABBR}, #{TRADE_MARKET_CODE}, #{TRADE_MARKET}, #{SECURITY_TYPE_CODE}, ",
                 " #{SECURITY_TYPE},#{UPDATE_DATE}, #{REPORT_DATE}, #{BASIC_EPS}, #{DEDUCT_BASIC_EPS}, ",
@@ -30,6 +33,9 @@ public interface ReportMapper {
                 " #{ASSIGNDSCRPT},#{PAYYEAR}, #{PUBLISHNAME}, #{ZXGXL}, #{NOTICE_DATE}, ",
                 " #{ORG_CODE},#{TRADE_MARKET_ZJG}, #{ISNEW}, #{QDATE}, #{DATATYPE}, ",
                 " #{DATAYEAR},#{DATEMMDD}, #{EITIME}, #{SECUCODE} ",
+                " ,#{REPORT_TYPE},#{PREDICT_FINANCE_CODE},#{PREDICT_FINANCE},#{PREDICT_AMT_LOWER},#{PREDICT_AMT_UPPER} ",
+                " ,#{FORECAST_JZ},#{ADD_AMP_LOWER},#{ADD_AMP_UPPER},#{INCREASE_JZ},#{PREDICT_CONTENT} ",
+                " ,#{CHANGE_REASON_EXPLAIN},#{PREDICT_TYPE},#{FORECAST_STATE},#{IS_LATEST},#{PREYEAR_SAME_PERIOD} ",
             ");",
             "</script>"})
     void insert(Report entity);
@@ -39,6 +45,20 @@ public interface ReportMapper {
      * @param condition
      * @return
      */
-    @Select("select * from report where SECURITY_CODE=#{SECURITY_CODE} AND QDATE=#{QDATE}")
+    @Select({"<script>",
+            "select * from report ",
+            "   WHERE 1=1  ",
+            "   AND SECURITY_CODE=#{SECURITY_CODE} ",
+            "   <if test='QDATE != null'> ",
+            "   AND QDATE=#{QDATE}",
+            "   </if> ",
+            "   <if test='REPORT_DATE != null'> ",
+            "   AND REPORT_DATE=#{REPORT_DATE}",
+            "   </if> ",
+            "   <if test='PREDICT_FINANCE_CODE != null'> ",
+            "   AND PREDICT_FINANCE_CODE=#{PREDICT_FINANCE_CODE}",
+            "   </if> ",
+            "   LIMIT 1 ",
+            "</script>"})
     Report findByCondition(Report condition);
 }

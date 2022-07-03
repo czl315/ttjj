@@ -13,8 +13,7 @@ import utils.DateUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import static utils.Content.DB_RANK_BIZ_TYPE_HANG_YE;
-import static utils.Content.NUM_MAX_999;
+import static utils.Content.*;
 
 
 /**
@@ -29,7 +28,9 @@ public class ReportDemo {
         // String date = "2021-09-24";
         int indexBeg = 0;//行业序号：从0开始
         int indexEnd = NUM_MAX_999;//行业序号-结束
-        String reportQuete = "2022Q1";
+        String reportQuete = "2022Q2";
+        String reportDate = "2022-06-30 00:00:00";
+        String reportName = REPORT_NAME_RPT_PUBLIC_OP_NEWPREDICT;
 
         //查询所有行业列表
         List<RankBizDataDiff> bizList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询所有行业列表
@@ -55,7 +56,7 @@ public class ReportDemo {
 
             System.out.println("行业-------------------------------：" + biz.getF14());
             //特定行业
-//            if(biz.getF14().equals("证券")){
+//            if (biz.getF14().equals("物流行业")) {
 //                stockList.addAll(BizService.listRankStockByBiz(NUM_MAX_999, biz.getF12()));
 //            }
             stockList.addAll(BizService.listRankStockByBiz(NUM_MAX_999, biz.getF12()));
@@ -63,7 +64,7 @@ public class ReportDemo {
 
         //保存业绩报表
         for (RankStockCommpanyDb rankStockCommpanyDb : stockList) {
-            insertOrUpdateReport(rankStockCommpanyDb.getF12(),reportQuete);
+            insertOrUpdateReport(rankStockCommpanyDb.getF12(), reportQuete, reportDate, reportName);
         }
     }
 
@@ -71,7 +72,7 @@ public class ReportDemo {
      * 保存业绩报告
      */
     private static void insertReport(String stCode) {
-        List<Report> rs = ReportService.listHttpReportByStCode(stCode);//查询业绩报表-根据证券编码
+        List<Report> rs = ReportService.listHttpReportByStCode(stCode, REPORT_NAME_RPT_LICO_FN_CPD);//查询业绩报表-根据证券编码
         for (Report entity : rs) {
             int insertYes = ReportDao.insert(entity);//插入数据库
             System.out.println("保存成功标志：" + insertYes + "," + entity.getSECURITY_NAME_ABBR());
@@ -84,10 +85,11 @@ public class ReportDemo {
      * @param stCode      证券代码
      * @param reportQuete 报表季度
      */
-    private static void insertOrUpdateReport(String stCode, String reportQuete) {
-        List<Report> rs = ReportService.listHttpReportByStCode(stCode);//查询业绩报表-根据证券编码
+    private static void insertOrUpdateReport(String stCode, String reportQuete, String reportDate, String reportName) {
+        List<Report> rs = ReportService.listHttpReportByStCode(stCode, reportName);//查询业绩报表-根据证券编码
         for (Report entity : rs) {
-            if(!entity.getQDATE().equals(reportQuete)){
+//            if(!reportQuete.equals(entity.getQDATE())){
+            if (!reportDate.equals(entity.getREPORT_DATE())) {
 //                System.out.println("非报告期，跳过");
                 continue;
             }
@@ -95,6 +97,7 @@ public class ReportDemo {
             Report existEntity = ReportDao.findByCondition(entity);
             if (existEntity == null) {
                 System.out.println("记录不存在，查询条件" + JSON.toJSONString(entity));
+                entity.setCHANGE_REASON_EXPLAIN(null);//字段较多，不建议保存
                 int insertYes = ReportDao.insert(entity);//插入数据库
                 System.out.println("插入成功标志：" + insertYes + "," + entity.getSECURITY_NAME_ABBR());
                 continue;
