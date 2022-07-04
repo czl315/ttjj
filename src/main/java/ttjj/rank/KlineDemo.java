@@ -1,4 +1,4 @@
-package ttjj.rank.history;
+package ttjj.rank;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -26,8 +26,19 @@ import static utils.Content.*;
  */
 public class KlineDemo {
     public static void main(String[] args) {
+
+        addZs();
         //  插入常用指数k线
-//        boolean isAddMinuteKline = true;//是否添加分钟级别K线
+
+//        updateHisDateKlineFundFlow(DB_RANK_BIZ_TYPE_HANG_YE);//更新历史日期-资金流向
+
+////        // 查询k线
+//        findKline();
+
+    }
+
+    private static void addZs() {
+        //        boolean isAddMinuteKline = true;//是否添加分钟级别K线
         boolean isAddMinuteKline = false;//是否添加分钟级别K线
         String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1;
@@ -37,12 +48,6 @@ public class KlineDemo {
         int day = DateUtil.getCurDay();//DateUtil.getCurDay()
         String klineType = KLINE_TYPE_INDEX;
         addZhishuKline(isAddMinuteKline, klt, lmt, addDaysMax, year, month, day, klineType);
-
-//        updateHisDateKlineFundFlow(DB_RANK_BIZ_TYPE_HANG_YE);//更新历史日期-资金流向
-
-////        // 查询k线
-//        findKline();
-
     }
 
     /**
