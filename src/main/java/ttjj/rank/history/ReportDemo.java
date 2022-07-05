@@ -98,6 +98,7 @@ public class ReportDemo {
             if (existEntity == null) {
                 System.out.println("记录不存在，查询条件" + JSON.toJSONString(entity));
                 entity.setCHANGE_REASON_EXPLAIN(null);//字段较多，不建议保存
+                entity.setREPORT_TYPE(reportName);
                 int insertYes = ReportDao.insert(entity);//插入数据库
                 System.out.println("插入成功标志：" + insertYes + "," + entity.getSECURITY_NAME_ABBR());
                 continue;

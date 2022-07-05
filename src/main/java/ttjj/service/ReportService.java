@@ -100,7 +100,7 @@ public class ReportService {
 //        urlParam.append("&token=894050c76af8597a853f5b408b759f5d");//token
 //        urlParam.append("&type=RPT_LICO_FN_CPD");//报表配置
 //        System.out.println("请求url:");
-        System.out.println(url +"?"+ urlParam.toString());
+//        System.out.println(url +"?"+ urlParam.toString());
         String rs = "";
         try {
             rs = HttpUtil.sendGet(url.toString(), urlParam.toString(), "");
@@ -119,7 +119,7 @@ public class ReportService {
                 break;
             }
         }
-        System.out.println("rs:" + rs);
+//        System.out.println("rs:" + rs);
         rs = rs.substring(rs.indexOf("({"));
         rs = rs.replace("({", "{");
         rs = rs.replace("});", "}");
