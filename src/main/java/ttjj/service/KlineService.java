@@ -205,12 +205,6 @@ public class KlineService {
                 url.append("0." + zqdm);
 //                16XXXX：深交所LOF基金：16打头(前两位均用“16”标识，中间两位为中国证监会信息中心统一规定的基金管理公司代码gg，后两位为该公司发行全部开放式基金的顺序号xx。具体表示为“16ggxx”)
                 //指数 zqdm.startsWith("159") || zqdm.startsWith("399") ||
-//                Map<String, String> zhishuMap = Content.getZhishuMap();
-//                if (zhishuMap.keySet().contains(zqdm) && !zqdm.startsWith("399")) {
-//                    url.append("1." + zqdm);
-//                } else {
-//                    url.append("0." + zqdm);
-//                }
                 //159开头
                 //  11XXXX：债券；12XXXX：可转换债券；13XXXX：国债回购
                 //  上海证券交易所决定为交易型货币市场基金、债券ETF等上市交易的固定收益类基金产品分配511000-511999专用证券代码段。
@@ -249,31 +243,6 @@ public class KlineService {
             if (zqdm.startsWith("000") || zqdm.startsWith("5") || zqdm.startsWith("6") || zqdm.startsWith("11") || zqdm.startsWith("12")) {
                 //zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("000")|| zhiShu.startsWith("11")|| zhiShu.startsWith("12")
                 url.append("1." + zqdm);
-
-                //指数 zqdm.startsWith("159") || zqdm.startsWith("399") ||
-//                Map<String, String> zhishuMap = Content.getZhishuMap();
-//                if (zhishuMap.keySet().contains(zqdm) && !zqdm.startsWith("399")) {
-//                    url.append("1." + zqdm);
-//                } else {
-//                    url.append("0." + zqdm);
-//                }
-                //159开头
-                //  110、120开头是可转债
-                //001×××国债现货;110×××120×××企业债券;129×××100×××可转换债券;201×××国债回购;310×××国债期货;500×××550×××基金;600×××A股;700×××配股;710×××转配股;701×××转配股再配股;711×××转配股再转配股;720×××红利;730×××新股申购;735×××新基金申购;737×××新股配售;900×××B股。
-                //  上海证券交易所决定为交易型货币市场基金、债券ETF等上市交易的固定收益类基金产品分配511000-511999专用证券代码段。
-                //沪市A股票代码是以60开头 沪市主板股票代码:600、601、603、605。
-                //深市A股票代码是以00开头 深市主板股票代码:000开头。深市中小板股票代码:002开头。
-                //  创业板股票代码:300开头。科创板股票代码:688开头。
-                //    B股代码是以900开头
-                //    新股申购的代码是以730开头
-                //    配股代码以700开头
-                //    B股代码是以200开头
-                //    新股申购的代码是以00开头
-                //    配股代码以080开头
-                //S开头表示未进行股改，
-                //ST开头表示连续两年股东收益为负等原因，
-                //*ST开头表示有退市风险
-                //XD表示分红等
             } else if (zqdm.startsWith("39") || zqdm.startsWith("47") || zqdm.startsWith("48") || zqdm.startsWith("97") || zqdm.startsWith("98")) {
                 //  39开头、47开头、48开头、97开头、98开头
                 url.append("0." + zqdm);
@@ -374,8 +343,6 @@ public class KlineService {
                 break;
             }
         }
-
-        //jQuery33103254362175743777_1629614861227({"rc":0,"rt":17,"svr":181669733,"lt":1,"full":0,"data":{"code":"000300","market":1,"name":"沪深300","decimal":2,"dktotal":4044,"preKPrice":0.0,"klines":[]}});
         rs = rs.substring(rs.indexOf("({"));
         rs = rs.replace("({", "{");
         rs = rs.replace("});", "}");
@@ -1002,7 +969,8 @@ public class KlineService {
 
     /**
      * 显示均线信息
-     *  @param rs              统计信息
+     *
+     * @param rs              统计信息
      * @param orderField
      * @param isShowPriceArea 是否显示价格区间
      * @param isShowUpMa      是否显示-超过均线
@@ -1011,7 +979,7 @@ public class KlineService {
      * @param kltList
      * @param spDate
      */
-    public static void showStockMa(List<StockAdrCountVo> rs, String orderField, boolean isOrderDesc, boolean isShowPriceArea, boolean isShowUpMa, boolean isShowDownMa,boolean isShowFlowIn, List<String> kltList, String spDate) {
+    public static void showStockMa(List<StockAdrCountVo> rs, String orderField, boolean isOrderDesc, boolean isShowPriceArea, boolean isShowUpMa, boolean isShowDownMa, boolean isShowFlowIn, List<String> kltList, String spDate) {
         if (rs == null || rs.size() == 0) {
             return;
         }
@@ -1191,6 +1159,62 @@ public class KlineService {
             }
         }
         return rs;
+    }
+
+    /**
+     * 遍历板块，插入K线
+     *
+     * @param bizList  行业列表
+     * @param date     日期
+     * @param klt      周期类型
+     * @param type     类型
+     * @param isDelete 是否先删除
+     */
+    public static void saveKlineByType(List<RankBizDataDiff> bizList, String date, String klt, String type, boolean isDelete) {
+        Map<String, String> mapZq = new HashMap<>();
+        for (RankBizDataDiff rankBizDataDiff : bizList) {
+            mapZq.put(rankBizDataDiff.getF12(), rankBizDataDiff.getF14());
+        }
+        saveKlineByType(mapZq, date, klt, type, isDelete);
+    }
+
+    public static void saveKlineByType(Map<String, String> mapZq, String date, String klt, String type, boolean isDelete) {
+        for (String zqdm : mapZq.keySet()) {
+            String zqmc = mapZq.get(zqdm);
+            List<Kline> klines = null;
+            if (DB_RANK_BIZ_TYPE_ZS.equals(type)) {
+                klines = KlineService.kline(zqdm, NUM_MAX_999, klt, true, date, date, KLINE_TYPE_INDEX);
+            } else {
+                klines = KlineService.kline(zqdm, NUM_MAX_999, klt, true, date, date, null);
+            }
+            System.out.println(",开始日期:" + date + "，结束日期:" + date + "，周期:" + klt + "，klines.size():" + klines.size() + ",zqmc:" + zqmc);
+            //        System.out.println("klines:"+JSON.toJSONString(klines));
+            //是否先删除
+            if (isDelete) {
+                Kline condition = new Kline();
+                condition.setDate(date);
+                condition.setZqdm(zqdm);
+                condition.setType(type);
+                condition.setKlt(klt);
+                int rs = KlineService.deleteByCondition(condition);
+//                System.out.println(zqdm + "," + date + ",删除结果：" + rs);
+            }
+
+            int saveRs = 0;
+            for (Kline kline : klines) {
+                if (klt == KLT_5 || klt == KLT_15 || klt == KLT_30 || klt == KLT_60) {
+                    kline.setKtime(kline.getKtime().substring(11));//只设置当天具体时间，去掉日期
+                }
+                kline.setDate(date);
+                kline.setType(type);
+                kline.setRs(null);
+                /**
+                 * 插入数据库-K线
+                 */
+                saveRs += KlineService.insert(kline);
+            }
+//            System.out.println(zqdm + "," + date + ",插入K线：" + saveRs);
+        }
     }
 
 }
