@@ -29,12 +29,19 @@ public class KlineDemo {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
         Map<String, String> zhishuMap = Content.getZhishuMap();//        Map<String, String>  zhishuMap = new HashMap<>();zhishuMap.put("000001","上证指数");//特定测试
 
+        String bizType = DB_RANK_BIZ_TYPE_ZS;
         //保存指数k线：5分钟-天
-//        KlineService.saveKlineByType(zhishuMap, date, KLT_5, DB_RANK_BIZ_TYPE_ZS, true);
-//        KlineService.saveKlineByType(zhishuMap, date, KLT_15, DB_RANK_BIZ_TYPE_ZS, true);
-//        KlineService.saveKlineByType(zhishuMap, date, KLT_30, DB_RANK_BIZ_TYPE_ZS, true);
-//        KlineService.saveKlineByType(zhishuMap, date, KLT_60, DB_RANK_BIZ_TYPE_ZS, true);
-//        KlineService.saveKlineByType(zhishuMap, date, KLT_101, DB_RANK_BIZ_TYPE_ZS, true);
+        KlineService.saveKlineByType(zhishuMap, date, KLT_5, DB_RANK_BIZ_TYPE_ZS, true);
+        KlineService.saveKlineByType(zhishuMap, date, KLT_15, DB_RANK_BIZ_TYPE_ZS, true);
+        KlineService.saveKlineByType(zhishuMap, date, KLT_30, DB_RANK_BIZ_TYPE_ZS, true);
+        KlineService.saveKlineByType(zhishuMap, date, KLT_60, DB_RANK_BIZ_TYPE_ZS, true);
+        KlineService.saveKlineByType(zhishuMap, date, KLT_101, DB_RANK_BIZ_TYPE_ZS, true);
+        // 更新-k线-资金流向
+        KlineService.updateFundFlow(zhishuMap, date, KLT_5, bizType);
+        KlineService.updateFundFlow(zhishuMap, date, KLT_15, bizType);
+        KlineService.updateFundFlow(zhishuMap, date, KLT_30, bizType);
+        KlineService.updateFundFlow(zhishuMap, date, KLT_60, bizType);
+        KlineService.updateFundFlow(zhishuMap, date, KLT_101, bizType);
 
         //更新均线价格
         for (String zqdm : zhishuMap.keySet()) {

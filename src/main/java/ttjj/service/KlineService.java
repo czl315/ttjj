@@ -7,15 +7,9 @@ import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.KlineDao;
 import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
-import ttjj.dto.DateCond;
-import ttjj.dto.Kline;
-import ttjj.dto.RankBizDataDiff;
-import ttjj.dto.StockAdrCountVo;
+import ttjj.dto.*;
 import ttjj.rank.StockDemo;
-import utils.Content;
-import utils.EtfUtil;
-import utils.HttpUtil;
-import utils.StockUtil;
+import utils.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -24,6 +18,7 @@ import java.util.stream.Collectors;
 
 import static utils.Content.*;
 import static utils.ContentUrl.KLINE_HTTP_HEAD;
+import static utils.DateUtil.HH_MM_SS;
 
 /**
  * @author chenzhilong
@@ -795,8 +790,17 @@ public class KlineService {
      *
      * @return
      */
-    public static String getSecid(String zqdm) {
+    public static String getSecid(String zqdm, String type) {
         StringBuffer sb = new StringBuffer();
+        if (DB_RANK_BIZ_TYPE_ZS.equals(type)) {
+            // 指数
+            if (zqdm.startsWith("399")) {
+                sb.append("0." + zqdm);
+            } else {
+                sb.append("1." + zqdm);
+            }
+            return sb.toString();
+        }
         if (zqdm.startsWith("00") || zqdm.startsWith("12") || zqdm.startsWith("13") || zqdm.startsWith("16") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
             sb.append("0." + zqdm);
         } else if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI) || zqdm.startsWith(HTTP_KLINE_TYPE_BK_REFIX)) {//板块
@@ -1214,6 +1218,91 @@ public class KlineService {
                 saveRs += KlineService.insert(kline);
             }
 //            System.out.println(zqdm + "," + date + ",插入K线：" + saveRs);
+        }
+    }
+
+    /**
+     * 更新资金流向
+     *
+     * @param bizList 类型列表
+     * @param date    日期
+     * @param klt     周期
+     * @param type    业务类型
+     */
+    public static void updateFundFlow(List<RankBizDataDiff> bizList, String date, String klt, String type) {
+        for (RankBizDataDiff rankBizDataDiff : bizList) {
+            String zqdm = rankBizDataDiff.getF12();
+            String zqmc = rankBizDataDiff.getF14();
+
+            int rs = 0;
+            List<FundFlow> rsList = FundFlowService.parse(FundFlowService.httpFundFlowRs(zqdm, null));//获取-资金流向的对象结果
+            rsList = FundFlowService.handlerFundFlowByMinute(rsList, Integer.valueOf(klt));//计算分钟级别资金流向
+            for (FundFlow fundFlow : rsList) {
+                Kline kline = new Kline();
+                String ktime = fundFlow.getKtime();
+                if (klt == KLT_5 || klt == KLT_15 || klt == KLT_30 || klt == KLT_60) {
+                    kline.setKtime(DateUtil.getForMatTime(HH_MM_SS, ktime));//只设置当天具体时间，去掉日期
+                }
+                kline.setZqdm(zqdm);
+                kline.setDate(date);
+                kline.setType(type);
+                kline.setKlt(klt);
+
+                kline.setFlowInMain(fundFlow.getFlowInMain());
+                kline.setFlowInSuperBig(fundFlow.getFlowInSuperBig());
+                kline.setFlowInBig(fundFlow.getFlowInBig());
+                kline.setFlowInMid(fundFlow.getFlowInMid());
+                kline.setFlowInSmall(fundFlow.getFlowInSmall());
+                int updateRs = KlineService.update(kline);
+                if (updateRs != 1) {
+                    System.out.println("K线-资金流入-更新失败：" + JSON.toJSONString(kline));
+                } else {
+                    rs = rs + updateRs;
+                }
+            }
+            System.out.println("K线-资金流入-更新个数：" + rs + ",zqmc:" + zqmc);
+        }
+    }
+
+    /**
+     * 更新资金流向
+     *
+     * @param mapZq 证券
+     * @param date  日期
+     * @param klt   周期
+     * @param type  业务类型
+     */
+    public static void updateFundFlow(Map<String, String> mapZq, String date, String klt, String type) {
+        for (String zqdm : mapZq.keySet()) {
+            String zqmc = mapZq.get(zqdm);
+
+            int rs = 0;
+            List<FundFlow> rsList = FundFlowService.parse(FundFlowService.httpFundFlowRs(zqdm, type));//获取-资金流向的对象结果
+            rsList = FundFlowService.handlerFundFlowByMinute(rsList, Integer.valueOf(klt));//计算分钟级别资金流向
+            for (FundFlow fundFlow : rsList) {
+                Kline kline = new Kline();
+                String ktime = fundFlow.getKtime();
+                if (klt == KLT_5 || klt == KLT_15 || klt == KLT_30 || klt == KLT_60) {
+                    kline.setKtime(DateUtil.getForMatTime(HH_MM_SS, ktime));//只设置当天具体时间，去掉日期
+                }
+                kline.setZqdm(zqdm);
+                kline.setDate(date);
+                kline.setType(type);
+                kline.setKlt(klt);
+
+                kline.setFlowInMain(fundFlow.getFlowInMain());
+                kline.setFlowInSuperBig(fundFlow.getFlowInSuperBig());
+                kline.setFlowInBig(fundFlow.getFlowInBig());
+                kline.setFlowInMid(fundFlow.getFlowInMid());
+                kline.setFlowInSmall(fundFlow.getFlowInSmall());
+                int updateRs = KlineService.update(kline);
+                if (updateRs != 1) {
+                    System.out.println("K线-资金流入-更新失败：" + JSON.toJSONString(kline));
+                } else {
+                    rs = rs + updateRs;
+                }
+            }
+            System.out.println("K线-资金流入-更新个数：" + rs + ",zqmc:" + zqmc);
         }
     }
 

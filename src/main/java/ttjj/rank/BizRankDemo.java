@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.BizRankDao;
-import ttjj.dto.FundFlow;
 import ttjj.dto.Kline;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.StatEtfUpDown;
@@ -23,7 +22,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static utils.Content.*;
-import static utils.DateUtil.HH_MM_SS;
 
 /**
  * 主题排行
@@ -148,11 +146,11 @@ public class BizRankDemo {
         saveKlineByType(bizList, date, KLT_101, bizType, true);
 
         // 更新-k线-资金流向
-        updateFundFlow(bizList, date, KLT_5, bizType);
-        updateFundFlow(bizList, date, KLT_15, bizType);
-        updateFundFlow(bizList, date, KLT_30, bizType);
-        updateFundFlow(bizList, date, KLT_60, bizType);
-        updateFundFlow(bizList, date, KLT_101, bizType);
+        KlineService.updateFundFlow(bizList, date, KLT_5, bizType);
+        KlineService.updateFundFlow(bizList, date, KLT_15, bizType);
+        KlineService.updateFundFlow(bizList, date, KLT_30, bizType);
+        KlineService.updateFundFlow(bizList, date, KLT_60, bizType);
+        KlineService.updateFundFlow(bizList, date, KLT_101, bizType);
 
         //更新-k线-净值-只更新日k线-价格区间
         updateNet(bizList, date, KLT_101, bizType);
@@ -230,49 +228,7 @@ public class BizRankDemo {
         System.out.println("更新-净值-个数:" + bizList.size() + ",更新成功：" + updateRs);
     }
 
-    /**
-     * 更新资金流向
-     *
-     * @param bizList 类型列表
-     * @param date    日期
-     * @param klt     周期
-     * @param type    业务类型
-     */
-    private static void updateFundFlow(List<RankBizDataDiff> bizList, String date, String klt, String type) {
 
-        for (RankBizDataDiff rankBizDataDiff : bizList) {
-            String zqdm = rankBizDataDiff.getF12();
-            String zqmc = rankBizDataDiff.getF14();
-
-            int rs = 0;
-            List<FundFlow> rsList = FundFlowService.parse(FundFlowService.httpFundFlowRs(zqdm));//获取-资金流向的对象结果
-            rsList = FundFlowService.handlerFundFlowByMinute(rsList, Integer.valueOf(klt));//计算分钟级别资金流向
-            for (FundFlow fundFlow : rsList) {
-                Kline kline = new Kline();
-                String ktime = fundFlow.getKtime();
-                if (klt == KLT_5 || klt == KLT_15 || klt == KLT_30 || klt == KLT_60) {
-                    kline.setKtime(DateUtil.getForMatTime(HH_MM_SS, ktime));//只设置当天具体时间，去掉日期
-                }
-                kline.setZqdm(zqdm);
-                kline.setDate(date);
-                kline.setType(type);
-                kline.setKlt(klt);
-
-                kline.setFlowInMain(fundFlow.getFlowInMain());
-                kline.setFlowInSuperBig(fundFlow.getFlowInSuperBig());
-                kline.setFlowInBig(fundFlow.getFlowInBig());
-                kline.setFlowInMid(fundFlow.getFlowInMid());
-                kline.setFlowInSmall(fundFlow.getFlowInSmall());
-                int updateRs = KlineService.update(kline);
-                if (updateRs != 1) {
-                    System.out.println("K线-资金流入-更新失败：" + JSON.toJSONString(kline));
-                } else {
-                    rs = rs + updateRs;
-                }
-            }
-            System.out.println("K线-资金流入-更新个数：" + rs + ",zqmc:" + zqmc);
-        }
-    }
 
     /**
      * 遍历板块，插入K线
@@ -746,7 +702,7 @@ public class BizRankDemo {
         List<RankBizDataDiff> rankList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询板块行业列表
         for (RankBizDataDiff etf : rankList) {
             String stCode = etf.getF12();
-            String rsFundFlow = FundFlowService.httpFundFlowRs(stCode);
+            String rsFundFlow = FundFlowService.httpFundFlowRs(stCode,null);
 
             RankBizDataDiff entityDb = new RankBizDataDiff();
             entityDb.setF12(stCode);
@@ -767,7 +723,7 @@ public class BizRankDemo {
         List<RankBizDataDiff> rankEtf = BizService.listBiz(date, "etf", 999);//2021-04-16:425;
         for (RankBizDataDiff etf : rankEtf) {
             String stCode = etf.getF12();
-            String rsFundFlow = FundFlowService.httpFundFlowRs(stCode);
+            String rsFundFlow = FundFlowService.httpFundFlowRs(stCode, null);
 
             RankBizDataDiff entityDb = new RankBizDataDiff();
             entityDb.setF12(stCode);
