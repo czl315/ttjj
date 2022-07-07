@@ -71,8 +71,10 @@ public class StockAdrCountDemo {
 //            deleteTodayStAdrCount(date, bizName);//删除
 //            insertListByBiz(date, bizCode, bizName, mvLimit);
             updateListByBiz(date, bizCode, bizName, mvLimit);
-//            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
-//            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit, mvLimit);//更新-最新价格、价格区间、均线
+            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
+            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit, mvLimit);//更新-最新价格、价格区间、均线
+
+//            updateAdrCountByDay(date, bizName, adrMinList);
 
 //            List<StockAdrCount> stockAdrCountList = findListByCondition(date, bizName, adrUpCountSum60Limit, mvLimit, 1);
 //            statStockAdrCount(spDate, date, stockAdrCountList, bizName);//统计股票涨跌次数:0,0为当天
@@ -289,7 +291,7 @@ public class StockAdrCountDemo {
 //        按板块查询
 //        System.out.println("-------------------------当前biz：" + biz);
         List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
-        String endDate = StBizStatDemo.findBegDate(date, 2);//只统计今天之前的数据
+        String endDate = StockService.findBegDate(date, 2);//只统计今天之前的数据
         stockAdrCountList = StBizStatDemo.showAdrCount(endDate, stList, board, mvLimit, adrMinList, daysList, biz, "", isShowPriceArea);//统计涨跌次数
         for (StockAdrCount stockAdrCount : stockAdrCountList) {
             BigDecimal adrUpCountSum60 = stockAdrCount.getADR_UP_COUNT_SUM_60();

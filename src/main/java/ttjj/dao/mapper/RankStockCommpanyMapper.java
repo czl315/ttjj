@@ -531,7 +531,7 @@ public interface RankStockCommpanyMapper {
             "   ,rank_st_biz_com.type_name type_name ",
             "   ,rank_st_biz_com.f139 ",
             "   ,COUNT(1) count ",
-            "   ,ROUND(((SELECT t2.f2 FROM rank_st_biz_com t2 WHERE t2.date=#{endDate} AND t2.f12 = rank_st_biz_com.f12)-(SELECT t2.f18 FROM rank_st_biz_com t2 WHERE t2.date=#{begDate} AND t2.f12 = rank_st_biz_com.f12))/(SELECT t2.f18 FROM rank_st_biz_com t2 WHERE t2.date=#{begDate} AND t2.f12 = rank_st_biz_com.f12)*100,2)  adrSum ",
+//            "   ,ROUND(((SELECT t2.f2 FROM rank_st_biz_com t2 WHERE t2.date=#{endDate} AND t2.f12 = rank_st_biz_com.f12)-(SELECT t2.f18 FROM rank_st_biz_com t2 WHERE t2.date=#{begDate} AND t2.f12 = rank_st_biz_com.f12))/(SELECT t2.f18 FROM rank_st_biz_com t2 WHERE t2.date=#{begDate} AND t2.f12 = rank_st_biz_com.f12)*100,2)  adrSum ",
             " FROM ",
             "   `rank_st_biz_com` rank_st_biz_com ",
             " WHERE 1=1 ",

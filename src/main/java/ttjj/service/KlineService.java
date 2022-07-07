@@ -1306,4 +1306,149 @@ public class KlineService {
         }
     }
 
+    /**
+     * 查询并显示突破均线信息
+     * @param condMa 均线条件
+     */
+    public static void showStockMa(CondMa condMa) {
+
+        String date = condMa.getDate();
+        String spDate = condMa.getSpDate();
+        boolean isShowPriceArea = condMa.getShowPriceArea();
+        boolean isShowUpMa = condMa.getShowUpMa();
+        boolean isFindKline = condMa.getFindKline();
+        List<String> kltList = condMa.getKltList();
+        String orderField = condMa.getOrderField();
+        boolean isOrderDesc = condMa.getOrderDesc();
+        boolean isShowDownMa = condMa.getShowDownMa();
+        boolean isShowFlowIn = condMa.getShowFlowIn();
+        Map<String, String> mapSt = condMa.getMapStock();
+
+        List<StockAdrCountVo> rs = KlineService.checkMaDemo(mapSt, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+
+        if (rs == null || rs.size() == 0) {
+            return;
+        }
+        if (StringUtils.isNotBlank(orderField)) {
+            rs = handlerOrder(rs, orderField, isOrderDesc);//列表-排序：根据字段
+        }
+        for (StockAdrCountVo stockAdrCountVo : rs) {
+            System.out.print(stockAdrCountVo.getF12());
+            System.out.print("\t");
+            System.out.print(EtfUtil.handlerEtfName(stockAdrCountVo.getF14()));
+            System.out.print("\t");
+            if (isShowPriceArea) {
+                System.out.print("5日:" + stockAdrCountVo.getNET_AREA_DAY_5() + "\t");//显示信息-价格区间
+                System.out.print("10日:" + stockAdrCountVo.getNET_AREA_DAY_10() + "\t");//显示信息-价格区间
+                System.out.print("20日:" + stockAdrCountVo.getNET_AREA_DAY_20() + "\t");//显示信息-价格区间
+                System.out.print("40日:" + stockAdrCountVo.getNET_AREA_DAY_40() + "\t");//显示信息-价格区间
+                System.out.print("60日:" + stockAdrCountVo.getNET_AREA_DAY_60() + "\t");//显示信息-价格区间
+//                System.out.print("120日:"+stockAdrCountVo.getNET_AREA_DAY_120() + "\t");//显示信息-价格区间
+//                System.out.print("250日:"+stockAdrCountVo.getNET_AREA_DAY_250() + "\t");//显示信息-价格区间
+            }
+            if (isShowUpMa) {
+                System.out.print("超均线：");//显示信息-价格区间
+                if (kltList.contains(KLT_5)) {
+                    String upMa5 = stockAdrCountVo.getUpMaDay5();
+                    System.out.print(StringUtils.isNotBlank(upMa5) ? upMa5 + "   " : "        ");
+//                    System.out.print(StringUtils.isNotBlank(upMa5) ? "[" + upMa5 + "   " + "]" : "[        ]");
+                }
+                if (kltList.contains(KLT_15)) {
+                    String upMa15 = stockAdrCountVo.getUpMaDay15();
+                    System.out.print(StringUtils.isNotBlank(upMa15) ? upMa15 + " " : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa15) ? "[" + upMa15 + " " + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_30)) {
+                    String upMa30 = stockAdrCountVo.getUpMaDay30();
+                    System.out.print(StringUtils.isNotBlank(upMa30) ? upMa30 + " " : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa30) ? "[" + upMa30 + " " + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_60)) {
+                    String upMa60 = stockAdrCountVo.getUpMaDay60();
+                    System.out.print(StringUtils.isNotBlank(upMa60) ? upMa60 + " " : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa60) ? "[" + upMa60 + " " + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_101)) {
+                    String upMa101 = stockAdrCountVo.getUpMaDay101();
+                    System.out.print(StringUtils.isNotBlank(upMa101) ? upMa101 : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa101) ? "[" + upMa101 + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_102)) {
+                    String upMa102 = stockAdrCountVo.getUpMaDay102();
+                    System.out.print(StringUtils.isNotBlank(upMa102) ? upMa102 : "       ");
+//                    System.out.print(StringUtils.isNotBlank(upMa102) ? "[" + upMa102 + "]" : "[       ]");
+                }
+            }
+
+
+            if (isShowDownMa) {
+                System.out.print("跌落均线：");//显示信息-价格区间
+                if (kltList.contains(KLT_5)) {
+                    String upMa5 = stockAdrCountVo.getMaDownDay5();
+                    System.out.print(StringUtils.isNotBlank(upMa5) ? upMa5 + "    " : "         ");
+//                    System.out.print(StringUtils.isNotBlank(upMa5) ? "[" + upMa5 + "   " + "]" : "[        ]");
+                }
+                if (kltList.contains(KLT_15)) {
+                    String upMa15 = stockAdrCountVo.getMaDownDay15();
+                    System.out.print(StringUtils.isNotBlank(upMa15) ? upMa15 + "  " : "        ");
+//                    System.out.print(StringUtils.isNotBlank(upMa15) ? "[" + upMa15 + " " + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_30)) {
+                    String upMa30 = stockAdrCountVo.getMaDownDay30();
+                    System.out.print(StringUtils.isNotBlank(upMa30) ? upMa30 + "  " : "        ");
+//                    System.out.print(StringUtils.isNotBlank(upMa30) ? "[" + upMa30 + " " + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_60)) {
+                    String upMa60 = stockAdrCountVo.getMaDownDay60();
+                    System.out.print(StringUtils.isNotBlank(upMa60) ? upMa60 + "  " : "        ");
+//                    System.out.print(StringUtils.isNotBlank(upMa60) ? "[" + upMa60 + " " + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_101)) {
+                    String upMa101 = stockAdrCountVo.getMaDownDay101();
+                    System.out.print(StringUtils.isNotBlank(upMa101) ? upMa101 : "        ");
+//                    System.out.print(StringUtils.isNotBlank(upMa101) ? "[" + upMa101 + "]" : "[       ]");
+                }
+                if (kltList.contains(KLT_102)) {
+                    String upMa102 = stockAdrCountVo.getMaDownDay102();
+                    System.out.print(StringUtils.isNotBlank(upMa102) ? upMa102 : "        ");
+//                    System.out.print(StringUtils.isNotBlank(upMa102) ? "[" + upMa102 + "]" : "[       ]");
+                }
+            }
+
+            //证券信息：涨幅，助力净流入，流市比
+            StringBuffer sbStockInfo = new StringBuffer();
+            sbStockInfo.append("[").append(stockAdrCountVo.getDate().substring(5)).append("]");
+            sbStockInfo.append("涨跌：").append(stockAdrCountVo.getF3());
+            sbStockInfo.append("\t");
+            System.out.print(sbStockInfo);
+
+
+            if (isShowFlowIn) {
+                BigDecimal flowInMian = stockAdrCountVo.getF62();
+                BigDecimal marketValue = stockAdrCountVo.getF21();
+                BigDecimal flowRate = null;
+                if (flowInMian != null) {
+                    StringBuffer sbFlowMian = new StringBuffer();
+                    flowRate = flowInMian.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
+                    sbFlowMian.append("主力净流入：").append("[").append(StockUtil.formatDouble(flowInMian.divide(NUM_YI_1, 2, BigDecimal.ROUND_HALF_UP), 5)).append("]").append(",");
+                    sbFlowMian.append("\t");
+                    sbFlowMian.append("流入市值比：").append("[").append(flowRate).append("]").append(",");
+                    sbFlowMian.append("\t");
+                    System.out.print(sbFlowMian);
+                }
+            }
+
+            //特定日期涨跌
+            if (StringUtils.isNotBlank(spDate)) {
+                RankStockCommpanyDb stock = new RankStockCommpanyDb();
+                stock.setF12(stockAdrCountVo.getF12());
+                Kline kline = KlineService.findLast(stock, spDate, KLT_101);
+                if (kline != null) {
+                    System.out.print("\t[" + spDate.substring(5) + "]：" + kline.getZhangDieFu());
+                }
+            }
+
+            System.out.println();
+        }
+    }
 }
