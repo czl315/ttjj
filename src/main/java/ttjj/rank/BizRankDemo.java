@@ -40,7 +40,7 @@ public class BizRankDemo {
         boolean isUpdateDay15MinuteNet = false;//是否更新当日15分钟净值
 
         String bizType = "";
-        List<RankBizDataDiff> bizList = new ArrayList<>();
+        List<RankBizDataDiff> bizList = null;
 
         bizType = DB_RANK_BIZ_TYPE_HANG_YE;
         bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
