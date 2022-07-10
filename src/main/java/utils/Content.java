@@ -626,6 +626,14 @@ public class Content {
      * ORDER_FIELD_F3
      */
     public static String ORDER_FIELD_F3 = "F3";
+    /**
+     * ORDER_FIELD_MAXDOWN
+     */
+    public static String ORDER_FIELD_MAXDOWN = "maxDown";
+    /**
+     * ORDER_FIELD_MINRISE
+     */
+    public static String ORDER_FIELD_MINRISE = "minRise";
 
     /**
      * 报表数据-业绩快报

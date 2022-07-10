@@ -29,10 +29,10 @@ public class ContentEtf {
 //        mapEtfKeJi.put("515880", "通信ETF");//515880	通信ETF	27.50
 
         mapEtfKeJi.put("513050", "中概互联网ETF");//513050	中概互联网ETF	315.74
-        mapEtfKeJi.put("159920", "恒生ETF");//159920	恒生ETF	96.60
+//        mapEtfKeJi.put("159920", "恒生ETF");//159920	恒生ETF	96.60
         mapEtfKeJi.put("513330", "恒生互联网ETF");//513330	恒生互联网ETF	137.99      513180	恒生科技指数ETF	34.31
         mapEtfKeJi.put("513100", "纳指ETF");//513100	纳指ETF	29.78
-        mapEtfKeJi.put("513500", "标普500ETF");//513500	标普500ETF	45.90
+//        mapEtfKeJi.put("513500", "标普500ETF");//513500	标普500ETF	45.90
 
         mapEtfKeJi.put("512660", "军工ETF");//512660	军工ETF	151.61      512680	中证军工ETF	40.29
 //        mapEtfKeJi.put("515150", "一带一路ETF");//515150	一带一路ETF	12.84

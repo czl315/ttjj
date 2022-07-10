@@ -10,10 +10,7 @@ import ttjj.dao.FupanPositionDao;
 import ttjj.db.AssetPositionDb;
 import ttjj.db.Fupan;
 import ttjj.db.StockTradeDb;
-import ttjj.dto.Asset;
-import ttjj.dto.AssetPosition;
-import ttjj.dto.Kline;
-import ttjj.dto.StockAdrCountVo;
+import ttjj.dto.*;
 import ttjj.rank.history.StockTradeDemo;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
@@ -36,10 +33,8 @@ import static utils.Content.*;
 public class FupanDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2021-11-01";
-        String klt = KLT_101;//klt=101:日;102:周;103:月;104:3月;105:6月;106:12月
-        String dateType = Content.DAYS_1;//1：一天;7:周;30:月;
 
-        insertOrUpdate(date, klt, dateType,ContentCookie.COOKIE_DFCF);//保存复盘和仓位
+        insertOrUpdate(date, KLT_101, DAYS_1,ContentCookie.COOKIE_DFCF);//保存复盘和仓位
 //        checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
 //        KlineDemo.main(null);
 
@@ -56,28 +51,26 @@ public class FupanDemo {
      */
     private static void checkMaByMyPosition(String date) {
         List<AssetPositionDb> rs = FupanPositionDao.listMyPositionByDate(date);//我的持仓
-
-        boolean isShowPriceArea = true;//是否显示价格区间
-        boolean isFindKline = true;//是否查询最新k线
-        boolean isShowUpMa = true;//检查上涨
-//        boolean isUp = false;
-        List<Integer> maList = new ArrayList<>();
-//        maList.add(MA_30);
-        maList.add(MA_60);
-        List<String> kltList = Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101);//价格区间周期列表
-//        kltList.add(KLT_5);
-//        kltList.add(KLT_102);
-        String spDate = null;
-
-        Map<String, String> zqMap = new HashMap<>();
-        for (AssetPositionDb myPosition : rs) {
-            String zqdm = myPosition.getZqdm();
-            String zqmc = myPosition.getZqmc();
-            zqMap.put(zqdm, zqmc);
+        Map<String, String> mapMyPosition = new HashMap<>();
+        for (AssetPositionDb assetPositionDb : rs) {
+            mapMyPosition.put(assetPositionDb.getZqdm(),assetPositionDb.getZqmc());
         }
-        List<StockAdrCountVo> stockAdrCountVoRs = KlineService.checkMaDemo(zqMap, date, isShowPriceArea, isShowUpMa, isShowUpMa, isFindKline, kltList);
-        String orderField = ORDER_FIELD_NET_AREA_DAY_5;
-        KlineService.showStockMa(stockAdrCountVoRs, orderField, false, isShowPriceArea, isShowUpMa, true, true, kltList, spDate);
+
+        CondMa condMa = new CondMa();
+        condMa.setDate(date);
+        condMa.setSpDate(null);
+        condMa.setShowPriceArea(true);//是否显示价格区间
+        condMa.setKltList(Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101));//价格区间周期列表
+        condMa.setShowUpMa(true);//是否显示-超过均线
+        condMa.setShowDownMa(true);//是否显示-跌落均线
+        condMa.setFindKline(true);//是否查询最新k线
+        condMa.setShowFlowIn(false);//是否显示资金流入
+        condMa.setOrderField(ORDER_FIELD_NET_AREA_DAY_5);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3   ORDER_FIELD_MAXDOWN ORDER_FIELD_MINRISE
+        condMa.setOrderDesc(false);//是否倒序
+
+        System.out.println("我的持仓：");
+        condMa.setMapStock(mapMyPosition);
+        KlineService.showStockMa(condMa);
     }
 
     /**

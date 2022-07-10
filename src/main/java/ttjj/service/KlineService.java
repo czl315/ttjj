@@ -936,9 +936,20 @@ public class KlineService {
                 //实时查询，http
                 Kline kline = KlineService.findLast(stock, date, KLT_101);
                 if (kline != null) {
-                    stockAdrCountVo.setF3(kline.getZhangDieFu());
-                    stockAdrCountVo.setF2(kline.getCloseAmt());
+                    BigDecimal curAmt = kline.getCloseAmt();
+                    BigDecimal maxAmt = kline.getMaxAmt();
+                    BigDecimal minAmt = kline.getMinAmt();
                     stockAdrCountVo.setDate(date);
+                    stockAdrCountVo.setF3(kline.getZhangDieFu());
+                    stockAdrCountVo.setF2(curAmt);
+                    stockAdrCountVo.setF15(maxAmt);
+                    stockAdrCountVo.setF16(minAmt);
+                    if (curAmt != null && curAmt.compareTo(new BigDecimal("0")) > 0) {
+                        BigDecimal maxDown = maxAmt.subtract(curAmt).divide(curAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
+                        BigDecimal minRise = curAmt.subtract(minAmt).divide(minAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
+                        stockAdrCountVo.setMaxDown(maxDown);
+                        stockAdrCountVo.setMinRise(minRise);
+                    }
                 }
 
                 //从数据库查询：市值
@@ -1162,6 +1173,20 @@ public class KlineService {
                 rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
             }
         }
+        if (ORDER_FIELD_MAXDOWN.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getMaxDown, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getMaxDown, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+        if (ORDER_FIELD_MINRISE.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getMinRise, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getMinRise, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
         return rs;
     }
 
@@ -1308,6 +1333,7 @@ public class KlineService {
 
     /**
      * 查询并显示突破均线信息
+     *
      * @param condMa 均线条件
      */
     public static void showStockMa(CondMa condMa) {
@@ -1380,7 +1406,6 @@ public class KlineService {
                 }
             }
 
-
             if (isShowDownMa) {
                 System.out.print("跌落均线：");//显示信息-价格区间
                 if (kltList.contains(KLT_5)) {
@@ -1418,10 +1443,12 @@ public class KlineService {
             //证券信息：涨幅，助力净流入，流市比
             StringBuffer sbStockInfo = new StringBuffer();
             sbStockInfo.append("[").append(stockAdrCountVo.getDate().substring(5)).append("]");
-            sbStockInfo.append("涨跌：").append(stockAdrCountVo.getF3());
+            sbStockInfo.append("涨跌：").append(StockUtil.formatDouble(stockAdrCountVo.getF3(), 5)).append(" ");
+            sbStockInfo.append("最高回撤：").append(stockAdrCountVo.getMaxDown()).append(" ");
+            sbStockInfo.append("最低上涨：").append(stockAdrCountVo.getMinRise()).append(" ");
+
             sbStockInfo.append("\t");
             System.out.print(sbStockInfo);
-
 
             if (isShowFlowIn) {
                 BigDecimal flowInMian = stockAdrCountVo.getF62();

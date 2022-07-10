@@ -2,6 +2,8 @@ package ttjj.dto;
 
 import ttjj.db.StockAdrCount;
 
+import java.math.BigDecimal;
+
 /**
  * 股票涨跌次数
  *
@@ -9,6 +11,14 @@ import ttjj.db.StockAdrCount;
  * @date 2022-05-09 23:47
  */
 public class StockAdrCountVo extends StockAdrCount {
+    /**
+     * maxDown 最高回撤
+     */
+    private BigDecimal maxDown;
+    /**
+     * minRise 最低上涨
+     */
+    private BigDecimal minRise;
     /**
      * upMa 超过均线-
      */
@@ -153,5 +163,21 @@ public class StockAdrCountVo extends StockAdrCount {
 
     public void setMaDownDay102(String maDownDay102) {
         this.maDownDay102 = maDownDay102;
+    }
+
+    public BigDecimal getMaxDown() {
+        return maxDown;
+    }
+
+    public void setMaxDown(BigDecimal maxDown) {
+        this.maxDown = maxDown;
+    }
+
+    public BigDecimal getMinRise() {
+        return minRise;
+    }
+
+    public void setMinRise(BigDecimal minRise) {
+        this.minRise = minRise;
     }
 }

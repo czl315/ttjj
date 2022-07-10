@@ -31,22 +31,23 @@ public class KlineDemo {
 
         String bizType = DB_RANK_BIZ_TYPE_ZS;
         //保存指数k线：5分钟-天
-        KlineService.saveKlineByType(zhishuMap, date, KLT_5, DB_RANK_BIZ_TYPE_ZS, true);
-        KlineService.saveKlineByType(zhishuMap, date, KLT_15, DB_RANK_BIZ_TYPE_ZS, true);
-        KlineService.saveKlineByType(zhishuMap, date, KLT_30, DB_RANK_BIZ_TYPE_ZS, true);
-        KlineService.saveKlineByType(zhishuMap, date, KLT_60, DB_RANK_BIZ_TYPE_ZS, true);
-        KlineService.saveKlineByType(zhishuMap, date, KLT_101, DB_RANK_BIZ_TYPE_ZS, true);
+        KlineService.saveKlineByType(zhishuMap, date, KLT_5, bizType, true);
+        KlineService.saveKlineByType(zhishuMap, date, KLT_15, bizType, true);
+        KlineService.saveKlineByType(zhishuMap, date, KLT_30, bizType, true);
+        KlineService.saveKlineByType(zhishuMap, date, KLT_60, bizType, true);
+        KlineService.saveKlineByType(zhishuMap, date, KLT_101, bizType, true);
         // 更新-k线-资金流向
         KlineService.updateFundFlow(zhishuMap, date, KLT_5, bizType);
         KlineService.updateFundFlow(zhishuMap, date, KLT_15, bizType);
         KlineService.updateFundFlow(zhishuMap, date, KLT_30, bizType);
         KlineService.updateFundFlow(zhishuMap, date, KLT_60, bizType);
         KlineService.updateFundFlow(zhishuMap, date, KLT_101, bizType);
-
         //更新均线价格
         for (String zqdm : zhishuMap.keySet()) {
             updateNetByDate(zqdm, KLT_101, true, date, date, DB_RANK_BIZ_TYPE_ZS);
         }
+
+//        KlineService.saveKlineByType(zhishuMap, date, KLT_102, bizType, true);
 
         //  插入常用指数k线
 //        addZs();
