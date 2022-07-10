@@ -27,9 +27,16 @@ import static utils.Content.*;
 public class KlineDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-        Map<String, String> zhishuMap = Content.getZhishuMap();//        Map<String, String>  zhishuMap = new HashMap<>();zhishuMap.put("000001","上证指数");//特定测试
+//        String date = "2022-07-08";
+        String bizType = DB_RANK_BIZ_TYPE_ZS;//DB_RANK_BIZ_TYPE_ETF    DB_RANK_BIZ_TYPE_ZS    DB_RANK_BIZ_TYPE_GAI_NIAN
+        Map<String, String> zhishuMap = new HashMap<>();
+        zhishuMap = Content.getZhishuMap();//        Map<String, String>  zhishuMap = new HashMap<>();zhishuMap.put("000001","上证指数");//特定测试
 
-        String bizType = DB_RANK_BIZ_TYPE_ZS;
+//        List<RankBizDataDiff> bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
+//        for (RankBizDataDiff rankBizDataDiff : bizList) {
+//            zhishuMap.put(rankBizDataDiff.getF12(),rankBizDataDiff.getF14());
+//        }
+
         //保存指数k线：5分钟-天
         KlineService.saveKlineByType(zhishuMap, date, KLT_5, bizType, true);
         KlineService.saveKlineByType(zhishuMap, date, KLT_15, bizType, true);
@@ -44,10 +51,8 @@ public class KlineDemo {
         KlineService.updateFundFlow(zhishuMap, date, KLT_101, bizType);
         //更新均线价格
         for (String zqdm : zhishuMap.keySet()) {
-            updateNetByDate(zqdm, KLT_101, true, date, date, DB_RANK_BIZ_TYPE_ZS);
+            updateNetByDate(zqdm, KLT_101, true, date, date, bizType);
         }
-
-//        KlineService.saveKlineByType(zhishuMap, date, KLT_102, bizType, true);
 
         //  插入常用指数k线
 //        addZs();
