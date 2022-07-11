@@ -654,12 +654,14 @@ public class KlineService {
                 //涨破均线，买出信号
                 if (isUp && yesterdayCloseAmt.compareTo(curMaAmt) < 0 && curAmt.compareTo(curMaAmt) >= 0) {
 //                    sbMa.append("，昨日价低于均线但是当前价涨破均线，买入信号！！！！！！");
-                    sbMa.append(klt + "(" + maType + ")");
+//                    sbMa.append(klt).append("(").append(maType).append(")");
+                    sbMa.append(klt);
                 }
                 if (isCheckDown && yesterdayCloseAmt.compareTo(curMaAmt) >= 0 && curAmt.compareTo(curMaAmt) < 0) {
 //                    sbMa.append("，昨日价高于均线但是当前价跌破均线，卖出信号！！！");
 //                    sbMa.append("-");
-                    sbMa.append(klt).append("(").append(maType).append(")");
+//                    sbMa.append(klt).append("(").append(maType).append(")");
+                    sbMa.append(klt);
                 }
             }
         }
@@ -1409,33 +1411,33 @@ public class KlineService {
             if (isShowDownMa) {
                 System.out.print("跌落均线：");//显示信息-价格区间
                 if (kltList.contains(KLT_5)) {
-                    String upMa5 = stockAdrCountVo.getMaDownDay5();
-                    System.out.print(StringUtils.isNotBlank(upMa5) ? upMa5 + "    " : "         ");
+                    String upMa = stockAdrCountVo.getMaDownDay5();
+                    System.out.print(StockUtil.formatStr(upMa,4));
 //                    System.out.print(StringUtils.isNotBlank(upMa5) ? "[" + upMa5 + "   " + "]" : "[        ]");
                 }
                 if (kltList.contains(KLT_15)) {
-                    String upMa15 = stockAdrCountVo.getMaDownDay15();
-                    System.out.print(StringUtils.isNotBlank(upMa15) ? upMa15 + "  " : "        ");
+                    String upMa = stockAdrCountVo.getMaDownDay15();
+                    System.out.print(StockUtil.formatStr(upMa,4));
 //                    System.out.print(StringUtils.isNotBlank(upMa15) ? "[" + upMa15 + " " + "]" : "[       ]");
                 }
                 if (kltList.contains(KLT_30)) {
-                    String upMa30 = stockAdrCountVo.getMaDownDay30();
-                    System.out.print(StringUtils.isNotBlank(upMa30) ? upMa30 + "  " : "        ");
+                    String upMa = stockAdrCountVo.getMaDownDay30();
+                    System.out.print(StockUtil.formatStr(upMa,4));
 //                    System.out.print(StringUtils.isNotBlank(upMa30) ? "[" + upMa30 + " " + "]" : "[       ]");
                 }
                 if (kltList.contains(KLT_60)) {
-                    String upMa60 = stockAdrCountVo.getMaDownDay60();
-                    System.out.print(StringUtils.isNotBlank(upMa60) ? upMa60 + "  " : "        ");
+                    String upMa = stockAdrCountVo.getMaDownDay60();
+                    System.out.print(StockUtil.formatStr(upMa,4));
 //                    System.out.print(StringUtils.isNotBlank(upMa60) ? "[" + upMa60 + " " + "]" : "[       ]");
                 }
                 if (kltList.contains(KLT_101)) {
-                    String upMa101 = stockAdrCountVo.getMaDownDay101();
-                    System.out.print(StringUtils.isNotBlank(upMa101) ? upMa101 : "        ");
+                    String upMa = stockAdrCountVo.getMaDownDay101();
+                    System.out.print(StockUtil.formatStr(upMa,4));
 //                    System.out.print(StringUtils.isNotBlank(upMa101) ? "[" + upMa101 + "]" : "[       ]");
                 }
                 if (kltList.contains(KLT_102)) {
-                    String upMa102 = stockAdrCountVo.getMaDownDay102();
-                    System.out.print(StringUtils.isNotBlank(upMa102) ? upMa102 : "        ");
+                    String upMa = stockAdrCountVo.getMaDownDay102();
+                    System.out.print(StockUtil.formatStr(upMa,4));
 //                    System.out.print(StringUtils.isNotBlank(upMa102) ? "[" + upMa102 + "]" : "[       ]");
                 }
             }

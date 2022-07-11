@@ -587,7 +587,7 @@ public class StockAdrCountDemo {
                 //更新
                 int rs = StockAdrCountService.update(entity);
                 updateRs += rs;
-                System.out.println("更新-超过均线信息:" + stockAdrCount.getF14() + ",是否成功：" + rs);
+                System.out.println("更新-超过均线信息:" + stockAdrCount.getF14() + ",是否成功：" + rs + ",f3:" + stockAdrCount.getF3());
             } else {
 //                System.out.println("更新-超过均线信息:" + stockAdrCount.getF14() + "未超过任何均线，不做处理");
             }

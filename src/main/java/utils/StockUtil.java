@@ -75,7 +75,7 @@ public class StockUtil {
     }
 
     /**
-     * 格式化数字，根据长度
+     * 格式化-数字，根据长度
      *
      * @param number 输入值
      * @param length 长度
@@ -90,6 +90,29 @@ public class StockUtil {
             return rs.toString();
         }
         String numberStr = number.toString();
+        int kong = length - numberStr.length();
+        rs.append(numberStr);
+        for (int i = 0; i < kong; i++) {
+            rs.append(" ");
+        }
+        return rs.toString();
+    }
+
+    /**
+     * 格式化-字符串，根据长度
+     * @param number
+     * @param length
+     * @return
+     */
+    public static String formatStr(String number, int length) {
+        StringBuffer rs = new StringBuffer();
+        if (number == null) {
+            for (int i = 0; i < length; i++) {
+                rs.append(" ");
+            }
+            return rs.toString();
+        }
+        String numberStr = number;
         int kong = length - numberStr.length();
         rs.append(numberStr);
         for (int i = 0; i < kong; i++) {
