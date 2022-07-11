@@ -1262,7 +1262,7 @@ public class KlineService {
             String zqmc = rankBizDataDiff.getF14();
 
             int rs = 0;
-            List<FundFlow> rsList = FundFlowService.parse(FundFlowService.httpFundFlowRs(zqdm, null));//获取-资金流向的对象结果
+            List<FundFlow> rsList = FundFlowService.parse(FundFlowService.httpFundFlowRs(zqdm, null, klt));//获取-资金流向的对象结果
             rsList = FundFlowService.handlerFundFlowByMinute(rsList, Integer.valueOf(klt));//计算分钟级别资金流向
             for (FundFlow fundFlow : rsList) {
                 Kline kline = new Kline();
@@ -1302,31 +1302,62 @@ public class KlineService {
     public static void updateFundFlow(Map<String, String> mapZq, String date, String klt, String type) {
         for (String zqdm : mapZq.keySet()) {
             String zqmc = mapZq.get(zqdm);
-
             int rs = 0;
-            List<FundFlow> rsList = FundFlowService.parse(FundFlowService.httpFundFlowRs(zqdm, type));//获取-资金流向的对象结果
-            rsList = FundFlowService.handlerFundFlowByMinute(rsList, Integer.valueOf(klt));//计算分钟级别资金流向
-            for (FundFlow fundFlow : rsList) {
-                Kline kline = new Kline();
-                String ktime = fundFlow.getKtime();
-                if (klt == KLT_5 || klt == KLT_15 || klt == KLT_30 || klt == KLT_60) {
-                    kline.setKtime(DateUtil.getForMatTime(HH_MM_SS, ktime));//只设置当天具体时间，去掉日期
-                }
-                kline.setZqdm(zqdm);
-                kline.setDate(date);
-                kline.setType(type);
-                kline.setKlt(klt);
+            List<FundFlow> rsList = null;
+            if (klt.equals(KLT_101)) {
+                rsList = FundFlowService.httpFundFlowHisDay(zqdm, type);//获取-资金流向的对象结果
+                rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(FundFlow::getDate, Comparator.nullsFirst(String::compareTo)).reversed()).collect(Collectors.toList());
 
-                kline.setFlowInMain(fundFlow.getFlowInMain());
-                kline.setFlowInSuperBig(fundFlow.getFlowInSuperBig());
-                kline.setFlowInBig(fundFlow.getFlowInBig());
-                kline.setFlowInMid(fundFlow.getFlowInMid());
-                kline.setFlowInSmall(fundFlow.getFlowInSmall());
-                int updateRs = KlineService.update(kline);
-                if (updateRs != 1) {
-                    System.out.println("K线-资金流入-更新失败：" + JSON.toJSONString(kline));
-                } else {
-                    rs = rs + updateRs;
+                //日期倒序排序，利于查询
+                for (FundFlow fundFlow : rsList) {
+                    String fundFlowDate = fundFlow.getDate();//找到指定日期
+                    if (fundFlowDate.equals(date)) {
+                        Kline kline = new Kline();
+                        kline.setZqdm(zqdm);
+                        kline.setDate(date);
+                        kline.setType(type);
+                        kline.setKlt(klt);
+
+                        kline.setFlowInMain(fundFlow.getFlowInMain());
+                        kline.setFlowInSuperBig(fundFlow.getFlowInSuperBig());
+                        kline.setFlowInBig(fundFlow.getFlowInBig());
+                        kline.setFlowInMid(fundFlow.getFlowInMid());
+                        kline.setFlowInSmall(fundFlow.getFlowInSmall());
+                        int updateRs = KlineService.update(kline);
+                        if (updateRs != 1) {
+                            System.out.println("K线-资金流入-更新失败：" + JSON.toJSONString(kline));
+                        } else {
+                            rs = rs + updateRs;
+                        }
+                        break;
+                    }
+                }
+
+            } else {
+                rsList = FundFlowService.parse(FundFlowService.httpFundFlowRs(zqdm, type, klt));//获取-资金流向的对象结果
+                rsList = FundFlowService.handlerFundFlowByMinute(rsList, Integer.valueOf(klt));//计算分钟级别资金流向
+                for (FundFlow fundFlow : rsList) {
+                    Kline kline = new Kline();
+                    String ktime = fundFlow.getKtime();
+                    if (klt == KLT_5 || klt == KLT_15 || klt == KLT_30 || klt == KLT_60) {
+                        kline.setKtime(DateUtil.getForMatTime(HH_MM_SS, ktime));//只设置当天具体时间，去掉日期
+                    }
+                    kline.setZqdm(zqdm);
+                    kline.setDate(date);
+                    kline.setType(type);
+                    kline.setKlt(klt);
+
+                    kline.setFlowInMain(fundFlow.getFlowInMain());
+                    kline.setFlowInSuperBig(fundFlow.getFlowInSuperBig());
+                    kline.setFlowInBig(fundFlow.getFlowInBig());
+                    kline.setFlowInMid(fundFlow.getFlowInMid());
+                    kline.setFlowInSmall(fundFlow.getFlowInSmall());
+                    int updateRs = KlineService.update(kline);
+                    if (updateRs != 1) {
+                        System.out.println("K线-资金流入-更新失败：" + JSON.toJSONString(kline));
+                    } else {
+                        rs = rs + updateRs;
+                    }
                 }
             }
             System.out.println("K线-资金流入-更新个数：" + rs + ",zqmc:" + zqmc);
@@ -1412,32 +1443,32 @@ public class KlineService {
                 System.out.print("跌落均线：");//显示信息-价格区间
                 if (kltList.contains(KLT_5)) {
                     String upMa = stockAdrCountVo.getMaDownDay5();
-                    System.out.print(StockUtil.formatStr(upMa,4));
+                    System.out.print(StockUtil.formatStr(upMa, 4));
 //                    System.out.print(StringUtils.isNotBlank(upMa5) ? "[" + upMa5 + "   " + "]" : "[        ]");
                 }
                 if (kltList.contains(KLT_15)) {
                     String upMa = stockAdrCountVo.getMaDownDay15();
-                    System.out.print(StockUtil.formatStr(upMa,4));
+                    System.out.print(StockUtil.formatStr(upMa, 4));
 //                    System.out.print(StringUtils.isNotBlank(upMa15) ? "[" + upMa15 + " " + "]" : "[       ]");
                 }
                 if (kltList.contains(KLT_30)) {
                     String upMa = stockAdrCountVo.getMaDownDay30();
-                    System.out.print(StockUtil.formatStr(upMa,4));
+                    System.out.print(StockUtil.formatStr(upMa, 4));
 //                    System.out.print(StringUtils.isNotBlank(upMa30) ? "[" + upMa30 + " " + "]" : "[       ]");
                 }
                 if (kltList.contains(KLT_60)) {
                     String upMa = stockAdrCountVo.getMaDownDay60();
-                    System.out.print(StockUtil.formatStr(upMa,4));
+                    System.out.print(StockUtil.formatStr(upMa, 4));
 //                    System.out.print(StringUtils.isNotBlank(upMa60) ? "[" + upMa60 + " " + "]" : "[       ]");
                 }
                 if (kltList.contains(KLT_101)) {
                     String upMa = stockAdrCountVo.getMaDownDay101();
-                    System.out.print(StockUtil.formatStr(upMa,4));
+                    System.out.print(StockUtil.formatStr(upMa, 4));
 //                    System.out.print(StringUtils.isNotBlank(upMa101) ? "[" + upMa101 + "]" : "[       ]");
                 }
                 if (kltList.contains(KLT_102)) {
                     String upMa = stockAdrCountVo.getMaDownDay102();
-                    System.out.print(StockUtil.formatStr(upMa,4));
+                    System.out.print(StockUtil.formatStr(upMa, 4));
 //                    System.out.print(StringUtils.isNotBlank(upMa102) ? "[" + upMa102 + "]" : "[       ]");
                 }
             }

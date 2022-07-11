@@ -51,7 +51,7 @@ public class BizService {
                 "&fltt=2" +//浮点数精度
                 "&invt=3" +//显示格式：-；0.0
                 "&fid=f3");//排序字段
-        if (type.equals(DB_RANK_BIZ_TYPE_HANG_YE)) {
+        if (type.equals(DB_RANK_BIZ_TYPE_BAN_KUAI)) {
             urlParam.append("&fs=m:90+t:2+f:!50");
         }
         if (type.equals(DB_RANK_BIZ_TYPE_GAI_NIAN)) {

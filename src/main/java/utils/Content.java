@@ -181,9 +181,9 @@ public class Content {
     public static String ST_BIZ_TYPE_SHI_YOU = "石油行业";
 
     /**
-     * DB_RANK_BIZ_TYPE_HANG_YE 数据库字段-排行榜-业务-类型-板块
+     * DB_RANK_BIZ_TYPE_BAN_KUAI 数据库字段-排行榜-业务-类型-板块
      */
-    public static String DB_RANK_BIZ_TYPE_HANG_YE = "bk";
+    public static String DB_RANK_BIZ_TYPE_BAN_KUAI = "bk";
     /**
      * DB_RANK_BIZ_TYPE_GAI_NIAN 排行榜-类型-概念
      */
@@ -324,6 +324,10 @@ public class Content {
      * MINUTE_120
      */
     public static int MINUTE_120 = 120;
+    /**
+     * KLT_DAY_1
+     */
+    public static int KLT_DAY_1 = 101;
     /**
      * MA_5 均线
      */

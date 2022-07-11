@@ -43,7 +43,7 @@ public class FundFlowService {
 //        String limitStartTime = "2021-11-12 10:50";
 //        fundFlowHandler(zqdm, limitStartTime);//查询资金流向，判断买卖信号
 
-        List<FundFlow> rsList = parse(httpFundFlowRs(zqdm, null));//获取-资金流向的对象结果
+        List<FundFlow> rsList = parse(httpFundFlowRs(zqdm, null, MINUTE_1 + ""));//获取-资金流向的对象结果
         rsList = handlerFundFlowByMinute(rsList, MINUTE_15);//计算分钟级别资金流向
         RankBizDataDiff biz = BizService.findBiz(zqdm, date, null);
 
@@ -111,9 +111,37 @@ public class FundFlowService {
             //根据周期类型，对时间最后两位进行取余，如果取余为0，则将累计的结果重新设值,然后重置
             String ktime = fundFlow.getKtime();
 
+            if (minuteType == KLT_DAY_1) {
+                //天的处理
+                FundFlow newRs = new FundFlow();
+//                System.out.println(ktimeMinuteInt);
 
-            //一般情况取余处理即可，60分钟需要特殊处理
-            if (minuteType == MINUTE_60) {
+                //累计的结果 = 新值-旧值
+                mainNetIn = fundFlow.getFlowInMain().subtract(mainNetIn);
+                smallNetIn = fundFlow.getFlowInSmall().subtract(smallNetIn);
+                midNetIn = fundFlow.getFlowInMid().subtract(midNetIn);
+                bigNetIn = fundFlow.getFlowInBig().subtract(bigNetIn);
+                superBigNetIn = fundFlow.getFlowInSuperBig().subtract(superBigNetIn);
+
+                newRs.setKtime(fundFlow.getKtime());
+                newRs.setCode(fundFlow.getCode());
+                newRs.setName(fundFlow.getName());
+                newRs.setFlowInMain(mainNetIn);
+                newRs.setFlowInSmall(smallNetIn);
+                newRs.setFlowInMid(midNetIn);
+                newRs.setFlowInBig(bigNetIn);
+                newRs.setFlowInSuperBig(superBigNetIn);
+
+                rs.add(newRs);
+
+                //将此时的值设定为起始值
+                mainNetIn = fundFlow.getFlowInMain();
+                smallNetIn = fundFlow.getFlowInSmall();
+                midNetIn = fundFlow.getFlowInMid();
+                bigNetIn = fundFlow.getFlowInBig();
+                superBigNetIn = fundFlow.getFlowInSuperBig();
+            } else if (minuteType == MINUTE_60) {
+                //一般情况取余处理即可，60分钟需要特殊处理
                 if (ktime.endsWith("10:30") || ktime.endsWith("11:30") || ktime.endsWith("14:00") || ktime.endsWith("15:00")) {
                     FundFlow newRs = new FundFlow();
 //                System.out.println(ktimeMinuteInt);
@@ -188,7 +216,7 @@ public class FundFlowService {
      * @param zqdm
      */
     public static String fundFlowHandler(String zqdm, String limitStartTime) {
-        String rs = httpFundFlowRs(zqdm, null);
+        String rs = httpFundFlowRs(zqdm, null, MINUTE_1 + "");
 //        System.out.println("zqdm:" + zqdm + ",rs:" + rs);
         JSONObject szzzMonthJson = JSON.parseObject(rs);
         JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
@@ -368,9 +396,10 @@ public class FundFlowService {
      *
      * @param zqdm zqdm
      * @param type 类型
+     * @param klt
      * @return rs
      */
-    public static String httpFundFlowRs(String zqdm, String type) {
+    public static String httpFundFlowRs(String zqdm, String type, String klt) {
         long curTime = System.currentTimeMillis();
         //http://push2.eastmoney.com/api/qt/stock/fflow/kline/get?cb=jQuery112301410828211613766_1635351266119&lmt=0&klt=1&fields1=f1%2Cf2%2Cf3%2Cf7&fields2=f51%2Cf52%2Cf53%2Cf54%2Cf55%2Cf56%2Cf57%2Cf58%2Cf59%2Cf60%2Cf61%2Cf62%2Cf63%2Cf64%2Cf65&ut=b2884a393a59ad64002292a3e90d46a5&secid=0.002027&_=1635351266120
         StringBuffer url = new StringBuffer();
@@ -381,7 +410,11 @@ public class FundFlowService {
         urlParam.append("cb=jQuery11230141082821161" + RandomUtils.nextInt(1000, 9999) + "_");
         urlParam.append(curTime);
         urlParam.append("&lmt=0");//
-        urlParam.append("&klt=1");//
+        if (klt.equals(KLT_101)) {
+            urlParam.append("&klt=" + KLT_101);//
+        } else {
+            urlParam.append("&klt=1");//
+        }
         urlParam.append("&fields1=f1,f2,f3,f7");//
         urlParam.append("&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64,f65");//
         urlParam.append("&ut=b2884a393a59ad64002292a3e90d46a5");//

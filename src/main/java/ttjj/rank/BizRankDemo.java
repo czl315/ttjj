@@ -42,7 +42,7 @@ public class BizRankDemo {
         String bizType = "";
         List<RankBizDataDiff> bizList = null;
 
-        bizType = DB_RANK_BIZ_TYPE_HANG_YE;
+        bizType = DB_RANK_BIZ_TYPE_BAN_KUAI;
         bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
         saveBizAndKline(date, bizType, bizList, isDelAndAddBiz,isUpdateDayMa,isUpdateDay15MinuteNet);//保存业务和k线
 
@@ -75,7 +75,7 @@ public class BizRankDemo {
 //        /**
 //         * 更新均值
 //         */
-//        List<RankBizDataDiff> bizList = listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询主题排名by时间类型、显示个数
+//        List<RankBizDataDiff> bizList = listBiz(date, DB_RANK_BIZ_TYPE_BAN_KUAI, NUM_MAX_999);//查询主题排名by时间类型、显示个数
 //        for (int i = 0; i < 365; i++) {
 //            date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);// String today = "2021-09-17";
 //            updateNetMa(date, Content.MA_5, bizList);
@@ -699,10 +699,10 @@ public class BizRankDemo {
      * @param date
      */
     private static void updateFundFlowBk(String date) {
-        List<RankBizDataDiff> rankList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询板块行业列表
+        List<RankBizDataDiff> rankList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_BAN_KUAI, NUM_MAX_999);//查询板块行业列表
         for (RankBizDataDiff etf : rankList) {
             String stCode = etf.getF12();
-            String rsFundFlow = FundFlowService.httpFundFlowRs(stCode,null);
+            String rsFundFlow = FundFlowService.httpFundFlowRs(stCode,null, KLT_1);
 
             RankBizDataDiff entityDb = new RankBizDataDiff();
             entityDb.setF12(stCode);
@@ -723,7 +723,7 @@ public class BizRankDemo {
         List<RankBizDataDiff> rankEtf = BizService.listBiz(date, "etf", 999);//2021-04-16:425;
         for (RankBizDataDiff etf : rankEtf) {
             String stCode = etf.getF12();
-            String rsFundFlow = FundFlowService.httpFundFlowRs(stCode, null);
+            String rsFundFlow = FundFlowService.httpFundFlowRs(stCode, null, KLT_1);
 
             RankBizDataDiff entityDb = new RankBizDataDiff();
             entityDb.setF12(stCode);
@@ -779,7 +779,7 @@ public class BizRankDemo {
      * @param endDate
      */
     private static void insertHisDbBanKuai(String begDate, String endDate) {
-        List<RankBizDataDiff> hangYeList = BizService.listBiz(endDate, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询所有行业列表
+        List<RankBizDataDiff> hangYeList = BizService.listBiz(endDate, DB_RANK_BIZ_TYPE_BAN_KUAI, NUM_MAX_999);//查询所有行业列表
         //遍历所有行业，根据行业查询历史k线，插入行业的数据
         for (RankBizDataDiff hangYe : hangYeList) {
             String banKuaiZqdm = HTTP_KLINE_SECID_PREFIX_BANKUAI + hangYe.getF12();
@@ -815,7 +815,7 @@ public class BizRankDemo {
 //        int updateDbEtfNetDays = 0;
 
 //        if (insertDbTodayBiz) {
-//            List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询板块行业列表
+//            List<RankBizDataDiff> rankBizDataDiffListBiz = listBiz(date, DB_RANK_BIZ_TYPE_BAN_KUAI, NUM_MAX_999);//查询板块行业列表
 //            //db-插入
 //            BizRankDao.insertDbBiz(rankBizDataDiffListBiz);//bk-板块
 //            System.out.println("bk-板块-保存完成：" + rankBizDataDiffListBiz.size());
@@ -978,7 +978,7 @@ public class BizRankDemo {
             rankBizDataDiff.setMonth(DateUtil.getYearMonth(kline.getKtime(), DateUtil.YYYY_MM_DD));
             rankBizDataDiff.setWeekYear(DateUtil.getYearWeek(kline.getKtime(), DateUtil.YYYY_MM_DD));
             rankBizDataDiff.setWeek(DateUtil.getWeekByYyyyMmDd(kline.getKtime(), DateUtil.YYYY_MM_DD));
-            rankBizDataDiff.setType(DB_RANK_BIZ_TYPE_HANG_YE);
+            rankBizDataDiff.setType(DB_RANK_BIZ_TYPE_BAN_KUAI);
             rankBizDataDiff.setF1(2L);
             rankBizDataDiff.setF2(kline.getCloseAmt().doubleValue());
             rankBizDataDiff.setF3(kline.getZhangDieFu());

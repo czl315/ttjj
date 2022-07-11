@@ -33,7 +33,7 @@ public class ReportDemo {
         String reportName = REPORT_NAME_RPT_PUBLIC_OP_NEWPREDICT;
 
         //查询所有行业列表
-        List<RankBizDataDiff> bizList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_HANG_YE, NUM_MAX_999);//查询所有行业列表
+        List<RankBizDataDiff> bizList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_BAN_KUAI, NUM_MAX_999);//查询所有行业列表
 //        List<RankBizDataDiff> bizList = new ArrayList<>();//查询所有行业列表
 //        RankBizDataDiff bizOne = new RankBizDataDiff();//指定一个板块行业
 //        bizOne.setF12("BK0438");//食品饮料:BK0438

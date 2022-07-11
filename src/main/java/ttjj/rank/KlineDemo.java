@@ -28,40 +28,52 @@ public class KlineDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-07-08";
-        String bizType = DB_RANK_BIZ_TYPE_ZS;//DB_RANK_BIZ_TYPE_ETF    DB_RANK_BIZ_TYPE_ZS    DB_RANK_BIZ_TYPE_GAI_NIAN
-        Map<String, String> zhishuMap = new HashMap<>();
-        zhishuMap = Content.getZhishuMap();//        Map<String, String>  zhishuMap = new HashMap<>();zhishuMap.put("000001","上证指数");//特定测试
+        List<String> kltList = Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101);
+        saveKlineByType(date, DB_RANK_BIZ_TYPE_ZS, kltList);
+        saveKlineByType(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList( KLT_101));
+        saveKlineByType(date, DB_RANK_BIZ_TYPE_BAN_KUAI, Arrays.asList( KLT_101));
+        saveKlineByType(date, DB_RANK_BIZ_TYPE_GAI_NIAN, Arrays.asList( KLT_101));
 
-//        List<RankBizDataDiff> bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
-//        for (RankBizDataDiff rankBizDataDiff : bizList) {
-//            zhishuMap.put(rankBizDataDiff.getF12(),rankBizDataDiff.getF14());
-//        }
-
-        //保存指数k线：5分钟-天
-        KlineService.saveKlineByType(zhishuMap, date, KLT_5, bizType, true);
-        KlineService.saveKlineByType(zhishuMap, date, KLT_15, bizType, true);
-        KlineService.saveKlineByType(zhishuMap, date, KLT_30, bizType, true);
-        KlineService.saveKlineByType(zhishuMap, date, KLT_60, bizType, true);
-        KlineService.saveKlineByType(zhishuMap, date, KLT_101, bizType, true);
-        // 更新-k线-资金流向
-        KlineService.updateFundFlow(zhishuMap, date, KLT_5, bizType);
-        KlineService.updateFundFlow(zhishuMap, date, KLT_15, bizType);
-        KlineService.updateFundFlow(zhishuMap, date, KLT_30, bizType);
-        KlineService.updateFundFlow(zhishuMap, date, KLT_60, bizType);
-        KlineService.updateFundFlow(zhishuMap, date, KLT_101, bizType);
-        //更新均线价格
-        for (String zqdm : zhishuMap.keySet()) {
-            updateNetByDate(zqdm, KLT_101, true, date, date, bizType);
-        }
 
         //  插入常用指数k线
 //        addZs();
 
-//        updateHisDateKlineFundFlow(DB_RANK_BIZ_TYPE_HANG_YE);//更新历史日期-资金流向
+//        updateHisDateKlineFundFlow(DB_RANK_BIZ_TYPE_BAN_KUAI);//更新历史日期-资金流向
 
 ////        // 查询k线
 //        findKline();
 
+    }
+
+    /**
+     * 保存k线数据
+     *
+     * @param date
+     * @param bizType
+     * @param kltList
+     */
+    private static void saveKlineByType(String date, String bizType, List<String> kltList) {
+        Map<String, String> zhishuMap = new HashMap<>();
+        if (bizType.equals(DB_RANK_BIZ_TYPE_ZS)) {
+            zhishuMap = Content.getZhishuMap();//        Map<String, String>  zhishuMap = new HashMap<>();zhishuMap.put("000001","上证指数");//特定测试
+        }else if(bizType.equals(DB_RANK_BIZ_TYPE_ETF) || bizType.equals(DB_RANK_BIZ_TYPE_BAN_KUAI)|| bizType.equals(DB_RANK_BIZ_TYPE_GAI_NIAN)){
+            List<RankBizDataDiff> bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
+            for (RankBizDataDiff rankBizDataDiff : bizList) {
+                zhishuMap.put(rankBizDataDiff.getF12(), rankBizDataDiff.getF14());
+            }
+        }
+
+        for (String klt : kltList) {
+            // 保存指数k线：5分钟-天, date, KLT_60, bizType);
+            KlineService.saveKlineByType(zhishuMap, date, klt, bizType, true);
+            // 更新-k线-资金流向
+            KlineService.updateFundFlow(zhishuMap, date, klt, bizType);
+        }
+
+        //更新均线价格-天
+        for (String zqdm : zhishuMap.keySet()) {
+            updateNetByDate(zqdm, KLT_101, true, date, date, bizType);
+        }
     }
 
     private static void addZs() {
@@ -97,6 +109,7 @@ public class KlineDemo {
                 }
                 Kline kline = new Kline();
                 kline.setKtime(fundFlow.getKtime());//只设置当天具体时间，去掉日期
+                kline.setDate(date);//只设置当天具体时间，去掉日期
                 kline.setZqdm(rankBizDataDiff.getF12());
                 kline.setDate(fundFlow.getKtime());
                 kline.setType(bizType);
