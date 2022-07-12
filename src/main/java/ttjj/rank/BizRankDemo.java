@@ -684,7 +684,7 @@ public class BizRankDemo {
      * @param date
      */
     private static void checkFundFlowByEtf(String date) {
-        List<RankBizDataDiff> etfList = BizService.listBiz(date, KLINE_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
+        List<RankBizDataDiff> etfList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
         for (RankBizDataDiff etf : etfList) {
             //限定总市值10亿
             if (etf.getF20().compareTo(new BigDecimal("1000000000")) > 0) {
@@ -741,7 +741,7 @@ public class BizRankDemo {
             String zqdm = rankBizDataDiff.getF12();
             entity.setF12(zqdm);
             entity.setDate(date);
-            Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, ma5, KLT_101, false, "", date, KLINE_TYPE_BAN_KUAI);
+            Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, ma5, KLT_101, false, "", date, DB_RANK_BIZ_TYPE_BAN_KUAI);
             if (ma5 == MA_5) {
                 entity.setNET_MA_5(netMap.get(Content.keyRsNetCloseAvg));
             }
@@ -929,7 +929,7 @@ public class BizRankDemo {
         String klt = "101";//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
         List<RankBizDataDiff> rankBizDataDiffList = new ArrayList<>();
-        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate, KLINE_TYPE_ETF);
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate, DB_RANK_BIZ_TYPE_ETF);
         System.out.println("开始日期:" + begDate + "，结束日期:" + endDate + "，周期:" + klt + "，klines.size():" + klines.size());
 //        System.out.println("klines:"+JSON.toJSONString(klines));
         for (Kline kline : klines) {
@@ -969,7 +969,7 @@ public class BizRankDemo {
         String klt = KLT_101;//klt=5:5分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1000000;
         List<RankBizDataDiff> rankBizDataDiffList = new ArrayList<>();
-        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate, KLINE_TYPE_BAN_KUAI);
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, true, begDate, endDate, DB_RANK_BIZ_TYPE_BAN_KUAI);
         System.out.println(",开始日期:" + begDate + "，结束日期:" + endDate + "，周期:" + klt + "，klines.size():" + klines.size() + ",zqdm:" + zqdm);
 //        System.out.println("klines:"+JSON.toJSONString(klines));
         for (Kline kline : klines) {

@@ -517,12 +517,22 @@ public class FundFlowService {
      * @return 历史资金流向列表
      */
     public static List<FundFlow> httpFundFlowHisDay(String zqdm, String klt) {
+        List<FundFlow> fundFlowRs = new ArrayList<>();
+
         String rs = httpFundFlowHisDayRs(zqdm, klt);
 
         //{"rc":0,"rt":21,"svr":182482236,"lt":1,"full":0,"dlmkts":"","data":{"code":"BK0464","market":90,"name":"石油行业","tradePeriods":{"pre":null,"after":null,"periods":[{"b":202205270930,"e":202205271130},{"b":202205271300,"e":202205271500}]},
         //  "klines":["2022-05-27 09:31,9706708.0,-4195368.0,-5511340.0,6747405.0,2959303.0","2022-05-27 09:32,13862440.0,-4179670.0,-9682770.0,3219155.0,10643285.0"]}}
         JSONObject jsonRs = JSON.parseObject(rs);
+        if (jsonRs == null || !jsonRs.containsKey(RS_KEY_DATA)) {
+            System.out.println("查询信息异常：" + JSON.toJSONString(rs));
+            return fundFlowRs;
+        }
         JSONObject jsonRsData = JSON.parseObject(jsonRs.getString(RS_KEY_DATA));
+        if (jsonRsData == null || !jsonRsData.containsKey(RS_KEY_CODE)) {
+            System.out.println("查询信息异常：" + JSON.toJSONString(rs));
+            return fundFlowRs;
+        }
         String code = "";
         if (jsonRsData.containsKey(RS_KEY_CODE)) {
             code = jsonRsData.getString(RS_KEY_CODE);
@@ -538,7 +548,7 @@ public class FundFlowService {
         }
 
         JSONArray klines = JSON.parseArray(jsonRsData.getString(RS_KEY_KLINES));
-        List<FundFlow> fundFlowRs = new ArrayList<>();
+
         if (klines != null) {
             for (Object klineObj : klines) {
                 FundFlow fundFlow = new FundFlow();

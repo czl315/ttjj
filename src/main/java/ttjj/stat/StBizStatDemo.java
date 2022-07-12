@@ -553,7 +553,7 @@ public class StBizStatDemo {
      * @param date
      */
     private static void checkFundFlowByEtf(String date) {
-        List<RankBizDataDiff> etfList = StBizStatDemo.listEtf(date, KLINE_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
+        List<RankBizDataDiff> etfList = StBizStatDemo.listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
         for (RankBizDataDiff etf : etfList) {
             //限定总市值10亿
             if (etf.getF20().compareTo(new BigDecimal("1000000000")) > 0) {
