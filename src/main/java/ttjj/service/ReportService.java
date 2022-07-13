@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.ReportDao;
+import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.Kline;
 import ttjj.dto.Report;
 import utils.Content;
@@ -13,6 +14,7 @@ import utils.DateUtil;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,5 +149,27 @@ public class ReportService {
         return ReportDao.findByCondition(condition);
     }
 
-
+    /**
+     * 处理业绩报表
+     *
+     * @param maSb
+     * @param stock
+     * @param reportQuete
+     */
+    public static void handlerReport(StringBuffer maSb, RankStockCommpanyDb stock, String reportQuete) {
+        Report condition = new Report();
+        condition.setSECURITY_CODE(stock.getF12());
+        condition.setQDATE(reportQuete);
+        Report report = ReportService.findByCondition(condition);
+        if (report != null) {
+            BigDecimal PARENT_NETPROFIT = report.getPARENT_NETPROFIT() != null ? report.getPARENT_NETPROFIT().divide(new BigDecimal("100000000")).setScale(2, RoundingMode.HALF_UP) : null;//净利亿
+            BigDecimal SJLHZ = report.getSJLHZ() != null ? report.getSJLHZ().setScale(2, RoundingMode.HALF_UP) : null;//净利环增
+            BigDecimal SJLTZ = report.getSJLTZ() != null ? report.getSJLTZ().setScale(2, RoundingMode.HALF_UP) : null;//净利同增
+            BigDecimal YSHZ = report.getYSHZ() != null ? report.getYSHZ().setScale(2, RoundingMode.HALF_UP) : null;//营收环增
+            BigDecimal YSTZ = report.getYSTZ() != null ? report.getYSTZ().setScale(2, RoundingMode.HALF_UP) : null;//营收同增
+            maSb.append("净利环:").append(SJLHZ).append(";净利同:").append(SJLTZ).append(";营收环:").append(YSHZ).append(";营收同:").append(YSTZ).append(";").append("净利:").append(PARENT_NETPROFIT).append(";");
+        } else {
+            maSb.append("业绩报表为空");
+        }
+    }
 }

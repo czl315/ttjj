@@ -68,6 +68,18 @@ public class StockAdrCountVo extends StockAdrCount {
      * maDownDay60
      */
     private String maDownDay102;
+    /**
+     * count 涨跌次数
+     */
+    private BigDecimal count;
+
+    public BigDecimal getCount() {
+        return count;
+    }
+
+    public void setCount(BigDecimal count) {
+        this.count = count;
+    }
 
     public String getUpMaDay5() {
         return upMaDay5;

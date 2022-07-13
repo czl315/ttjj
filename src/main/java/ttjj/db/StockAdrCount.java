@@ -140,6 +140,35 @@ public class StockAdrCount {
      * ADR_UP_COUNT_stat 涨幅次数统计近3月：5日、10日、20日、40日、60日之和
      */
     private BigDecimal ADR_UP_COUNT_SUM_60;
+    /**
+     * ADR_UP_COUNT_SUM_20_40 涨幅次数统计
+     */
+    private BigDecimal ADR_UP_COUNT_20_40;
+    /**
+     * ADR_UP_COUNT_SUM_40_60 涨幅次数统计
+     */
+    private BigDecimal ADR_UP_COUNT_40_60;
+
+    /**
+     * 排序号
+     */
+    private BigDecimal ADR_UP_COUNT_ORDER_NUM_1_10;
+    /**
+     * 排序号
+     */
+    private BigDecimal ADR_UP_COUNT_ORDER_NUM_1_20;
+    /**
+     * 排序号
+     */
+    private BigDecimal ADR_UP_COUNT_ORDER_NUM_20_40;
+    /**
+     * 排序号
+     */
+    private BigDecimal ADR_UP_COUNT_ORDER_NUM_40_60;
+    /**
+     * 涨幅次数统计：1-60交易日之和
+     */
+    private BigDecimal ADR_UP_COUNT_SUM_1_60;
 
     /**
      * NET_AREA_DAY_5 净值区间
@@ -565,5 +594,61 @@ public class StockAdrCount {
 
     public void setF62(BigDecimal f62) {
         this.f62 = f62;
+    }
+
+    public BigDecimal getADR_UP_COUNT_20_40() {
+        return ADR_UP_COUNT_20_40;
+    }
+
+    public void setADR_UP_COUNT_20_40(BigDecimal ADR_UP_COUNT_20_40) {
+        this.ADR_UP_COUNT_20_40 = ADR_UP_COUNT_20_40;
+    }
+
+    public BigDecimal getADR_UP_COUNT_40_60() {
+        return ADR_UP_COUNT_40_60;
+    }
+
+    public void setADR_UP_COUNT_40_60(BigDecimal ADR_UP_COUNT_40_60) {
+        this.ADR_UP_COUNT_40_60 = ADR_UP_COUNT_40_60;
+    }
+
+    public BigDecimal getADR_UP_COUNT_ORDER_NUM_1_10() {
+        return ADR_UP_COUNT_ORDER_NUM_1_10;
+    }
+
+    public void setADR_UP_COUNT_ORDER_NUM_1_10(BigDecimal ADR_UP_COUNT_ORDER_NUM_1_10) {
+        this.ADR_UP_COUNT_ORDER_NUM_1_10 = ADR_UP_COUNT_ORDER_NUM_1_10;
+    }
+
+    public BigDecimal getADR_UP_COUNT_ORDER_NUM_1_20() {
+        return ADR_UP_COUNT_ORDER_NUM_1_20;
+    }
+
+    public void setADR_UP_COUNT_ORDER_NUM_1_20(BigDecimal ADR_UP_COUNT_ORDER_NUM_1_20) {
+        this.ADR_UP_COUNT_ORDER_NUM_1_20 = ADR_UP_COUNT_ORDER_NUM_1_20;
+    }
+
+    public BigDecimal getADR_UP_COUNT_ORDER_NUM_20_40() {
+        return ADR_UP_COUNT_ORDER_NUM_20_40;
+    }
+
+    public void setADR_UP_COUNT_ORDER_NUM_20_40(BigDecimal ADR_UP_COUNT_ORDER_NUM_20_40) {
+        this.ADR_UP_COUNT_ORDER_NUM_20_40 = ADR_UP_COUNT_ORDER_NUM_20_40;
+    }
+
+    public BigDecimal getADR_UP_COUNT_ORDER_NUM_40_60() {
+        return ADR_UP_COUNT_ORDER_NUM_40_60;
+    }
+
+    public void setADR_UP_COUNT_ORDER_NUM_40_60(BigDecimal ADR_UP_COUNT_ORDER_NUM_40_60) {
+        this.ADR_UP_COUNT_ORDER_NUM_40_60 = ADR_UP_COUNT_ORDER_NUM_40_60;
+    }
+
+    public BigDecimal getADR_UP_COUNT_SUM_1_60() {
+        return ADR_UP_COUNT_SUM_1_60;
+    }
+
+    public void setADR_UP_COUNT_SUM_1_60(BigDecimal ADR_UP_COUNT_SUM_1_60) {
+        this.ADR_UP_COUNT_SUM_1_60 = ADR_UP_COUNT_SUM_1_60;
     }
 }

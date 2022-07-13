@@ -29,6 +29,8 @@ public interface StockAdrCountMapper {
             ", `NET_AREA_DAY_40`, `NET_AREA_DAY_60`, `NET_AREA_DAY_120`, `NET_AREA_DAY_250`,`UP_MA_5`",
             ", `UP_MA_15`, `UP_MA_30`, `UP_MA_60`, `UP_MA_101`,`UP_MA_102`",
             ", `f139`, `f62`",
+            ", `ADR_UP_COUNT_20_40`, `ADR_UP_COUNT_40_60`",
+            ", `ADR_UP_COUNT_ORDER_NUM_1_10`, `ADR_UP_COUNT_ORDER_NUM_1_20`, `ADR_UP_COUNT_ORDER_NUM_20_40`, `ADR_UP_COUNT_ORDER_NUM_40_60`, `ADR_UP_COUNT_SUM_1_60`",
             ") VALUES (",
             "#{date},#{type_name},#{f2},#{f3},#{f4}",
             ",#{f5},#{f6},#{f7},#{f8},#{f9}",
@@ -40,6 +42,8 @@ public interface StockAdrCountMapper {
             ",#{NET_AREA_DAY_40}, #{NET_AREA_DAY_60}, #{NET_AREA_DAY_120}, #{NET_AREA_DAY_250},#{UP_MA_5}",
             ",#{UP_MA_15}, #{UP_MA_30}, #{UP_MA_60}, #{UP_MA_101},#{UP_MA_102}",
             ",#{f139},#{f62}",
+            ",#{ADR_UP_COUNT_20_40},#{ADR_UP_COUNT_40_60} ",
+            ", #{ADR_UP_COUNT_ORDER_NUM_1_10}, #{ADR_UP_COUNT_ORDER_NUM_1_20}, #{ADR_UP_COUNT_ORDER_NUM_20_40}, #{ADR_UP_COUNT_ORDER_NUM_40_60}, #{ADR_UP_COUNT_SUM_1_60}",
             ");",
             "</script>"})
     int insert(StockAdrCount entity);
@@ -90,6 +94,13 @@ public interface StockAdrCountMapper {
             "    <if test='NET_AREA_DAY_120 != null'>NET_AREA_DAY_120=#{NET_AREA_DAY_120},</if>",
             "    <if test='NET_AREA_DAY_250 != null'>NET_AREA_DAY_250=#{NET_AREA_DAY_250},</if>",
             "    <if test='UPDATE_TIME != null'>UPDATE_TIME=#{UPDATE_TIME},</if>",
+            "    <if test='ADR_UP_COUNT_20_40 != null'>ADR_UP_COUNT_20_40=#{ADR_UP_COUNT_20_40},</if>",
+            "    <if test='ADR_UP_COUNT_40_60 != null'>ADR_UP_COUNT_40_60=#{ADR_UP_COUNT_40_60},</if>",
+            "    <if test='ADR_UP_COUNT_ORDER_NUM_1_10 != null'>ADR_UP_COUNT_ORDER_NUM_1_10=#{ADR_UP_COUNT_ORDER_NUM_1_10},</if>",
+            "    <if test='ADR_UP_COUNT_ORDER_NUM_1_20 != null'>ADR_UP_COUNT_ORDER_NUM_1_20=#{ADR_UP_COUNT_ORDER_NUM_1_20},</if>",
+            "    <if test='ADR_UP_COUNT_ORDER_NUM_20_40 != null'>ADR_UP_COUNT_ORDER_NUM_20_40=#{ADR_UP_COUNT_ORDER_NUM_20_40},</if>",
+            "    <if test='ADR_UP_COUNT_ORDER_NUM_40_60 != null'>ADR_UP_COUNT_ORDER_NUM_40_60=#{ADR_UP_COUNT_ORDER_NUM_40_60},</if>",
+            "    <if test='ADR_UP_COUNT_SUM_1_60 != null'>ADR_UP_COUNT_SUM_1_60=#{ADR_UP_COUNT_SUM_1_60},</if>",
             "  </set>",
             "where date=#{date} AND f12=#{f12}",
             "</script>"})

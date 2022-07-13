@@ -8,21 +8,26 @@ import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.db.StockAdrCount;
 import ttjj.dto.*;
+import ttjj.rank.StockDemo;
+import utils.ConceptionUtil;
 import utils.DateUtil;
 import utils.HttpUtil;
+import utils.StockUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import static utils.Content.*;
 
 /**
- * @author chenzhilong
- * @date 2022/1/10
+ * StockService简介
+ *
+ * @author Administrator
+ * @date 2022-07-13 10:01
  */
 public class StockService {
 
@@ -465,6 +470,295 @@ public class StockService {
     public static List<StatRsStAdrCount> listStAdrCountByCond(StatCondStAdrCount condition) {
         return RankStockCommpanyDao.findListStatStAdrCount(condition); //  查询-股票涨跌次数
     }
+    /**
+     * 统计涨跌次数
+     *
+     * @param date
+     * @param stListLikeConception
+     * @param daysList
+     * @param conpetions
+     * @param isShowPriceArea
+     */
+    public static List<StockAdrCount> showAdrCount(String date, List<RankStockCommpanyDb> stListLikeConception, Long board, BigDecimal mvMin, BigDecimal mvMax, List<BigDecimal> adrMinList, List<Integer> daysList, String conpetions, String reportQuete, boolean isShowPriceArea) {
+        List<StockAdrCount> stockAdrCountList = new ArrayList<>();
+        Map<String, StockAdrCount> statRsStAdrCountMap = new HashMap<>();
+        ExecutorService service = Executors.newCachedThreadPool();// 创建一个的线程池
+        for (BigDecimal adrMinTemp : adrMinList) {
+            //涨幅超过
+            for (Integer days : daysList) {
+                service.execute(() -> {
+                    StockService.statStAdrCount(stListLikeConception, date, days, adrMinTemp, board, mvMin,mvMax, statRsStAdrCountMap);//统计次数：90
+                });
+            }
+        }
 
+        // 等待子线程结束，再继续执行下面的代码
+        service.shutdown();
+        while (true) {
+            if (service.isTerminated()) {
+                System.out.println("service-thread-ok!" + "线程池状态：" + service);
+                break;
+            }
+            try {
+//                System.out.println("线程池状态：" + service);
+//                service.awaitTermination(20, TimeUnit.SECONDS);
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        List<StockAdrCount> statRsStAdrCountList = new ArrayList<>();
+        for (String code : statRsStAdrCountMap.keySet()) {
+            StockAdrCount statRsStAdrCount = statRsStAdrCountMap.get(code);
+            statRsStAdrCountList.add(statRsStAdrCount);
+        }
+        statRsStAdrCountList = statRsStAdrCountList.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCount::getADR_UP_COUNT_SUM_60, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+
+        Map<String, RankStockCommpanyDb> stDbMap = new HashMap<>();
+        for (RankStockCommpanyDb rankStockCommpanyDb : stListLikeConception) {
+            stDbMap.put(rankStockCommpanyDb.getF12(), rankStockCommpanyDb);
+//                System.out.println(rankStockCommpanyDb.getF12()+":"+rankStockCommpanyDb.getF14()+":"+rankStockCommpanyDb.getF3());
+        }
+////            checkMaDemo(stMap, date, true, maList, KLT_15);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+////            checkMaDemo(stMap, date, true, maList, KLT_30);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+////            checkMaDemo(stMap, date, true, maList, KLT_60);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+////            checkMaDemo(stMap, date, true, maList, KLT_101);//    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+
+        System.out.println("[" + JSON.toJSONString(conpetions) + "]：" + stListLikeConception.size() + ";");
+        BigDecimal orderNum = new BigDecimal("0");
+        for (StockAdrCount statRsStAdrCount : statRsStAdrCountList) {
+            StringBuffer sb = new StringBuffer();
+//                System.out.println(JSON.toJSONString(statRsStAdrCount));
+            String zqdm = statRsStAdrCount.getF12();
+            BigDecimal stAdrCount = statRsStAdrCount.getADR_UP_COUNT_SUM_60();
+
+            RankStockCommpanyDb rankStockCommpanyDb = stDbMap.get(zqdm);
+            String biz = StockUtil.formatBizName(rankStockCommpanyDb.getType_name());
+            String adr = StockUtil.formatDouble(rankStockCommpanyDb.getF3());
+            String liangBi = StockUtil.formatDouble(rankStockCommpanyDb.getF10());
+            String stName = StockUtil.handlerStName(rankStockCommpanyDb.getF14());
+            Double curPrice = rankStockCommpanyDb.getF2();
+            BigDecimal marketValue = null;
+            if (rankStockCommpanyDb.getF20() != null) {
+                marketValue = rankStockCommpanyDb.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
+            }
+
+//            sb.append(stCode).append("\t");
+//            sb.append(stName).append("\t");
+            sb.append(stAdrCount).append("\t");
+            sb.append(biz).append(" ");
+            sb.append(adr).append("\t");
+            sb.append(marketValue).append("\t");
+            sb.append(liangBi).append("\t");
+            //            map.put("002432", "");//002432	九安医疗	医疗器械
+            String concepPinYin = "mapGn";
+            if (ConceptionUtil.stConceptionMap.get(conpetions) != null) {
+                concepPinYin = ConceptionUtil.stConceptionMap.get(conpetions);
+            }
+//            System.out.print(concepPinYin + ".put(\"" + zqdm + "\", \"" + stName + "\");//");//map  map.put("002432", "");//002432	九安医疗	医疗器械
+//                System.out.println("mapTemp.put(\"" + stCode + "\", \"" + stName.replace(" ","") + "\");//" + stCode + " " + stName + " " + stAdrCount + " " + biz + " ");
+//            System.out.print(sb);
+
+            RankStockCommpanyDb stock = new RankStockCommpanyDb();
+            stock.setF12(statRsStAdrCount.getF12());
+            StringBuffer maSb = new StringBuffer();
+            if (isShowPriceArea) {
+                Map<String, Boolean> maUpdateMap = new HashMap<>();
+                StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
+                StringBuffer sbPriceArea = new StringBuffer();
+                StockDemo.handlerNetMa(stock, maUpdateMap, date, sbPriceArea, new StockAdrCountVo());//处理均线净值
+//            maSb.append("\t").append(",当前价：").append(curPrice);
+//            maSb.append("\t").append(",当前：").append(DateUtil.getToday(DateUtil.YYYY_MM_DD_HH_MM_SS));
+                System.out.println("价格区间:" + sbPriceArea.toString());
+            }
+            if (StringUtils.isNotBlank(reportQuete)) {
+                ReportService.handlerReport(maSb, stock, reportQuete);
+            }
+//            System.out.println();
+
+            statRsStAdrCount.setType_name(rankStockCommpanyDb.getType_name());
+            statRsStAdrCount.setConception(rankStockCommpanyDb.getConception());
+            statRsStAdrCount.setDate(date);
+            if (rankStockCommpanyDb.getF2() != null) {
+                statRsStAdrCount.setF2(new BigDecimal(rankStockCommpanyDb.getF2()));
+            }
+            statRsStAdrCount.setF3(rankStockCommpanyDb.getF3());
+            if (rankStockCommpanyDb.getF4() != null) {
+                statRsStAdrCount.setF4(new BigDecimal(rankStockCommpanyDb.getF4()));
+            }
+            statRsStAdrCount.setF5(rankStockCommpanyDb.getF5());
+            statRsStAdrCount.setF6(rankStockCommpanyDb.getF6());
+            if (rankStockCommpanyDb.getF7() != null) {
+                statRsStAdrCount.setF7(new BigDecimal(rankStockCommpanyDb.getF7()));
+            }
+            if (rankStockCommpanyDb.getF8() != null) {
+                statRsStAdrCount.setF8(new BigDecimal(rankStockCommpanyDb.getF8()));
+            }
+            if (rankStockCommpanyDb.getF9() != null) {
+                statRsStAdrCount.setF9(new BigDecimal(rankStockCommpanyDb.getF9()));
+            }
+            statRsStAdrCount.setF10(rankStockCommpanyDb.getF10());
+            statRsStAdrCount.setF12(rankStockCommpanyDb.getF12());
+            statRsStAdrCount.setF14(rankStockCommpanyDb.getF14());
+            if (rankStockCommpanyDb.getF15() != null) {
+                statRsStAdrCount.setF15(new BigDecimal(rankStockCommpanyDb.getF15().toString()));
+            }
+            if (rankStockCommpanyDb.getF16() != null) {
+                statRsStAdrCount.setF16(new BigDecimal(rankStockCommpanyDb.getF16().toString()));
+            }
+            if (rankStockCommpanyDb.getF17() != null) {
+                statRsStAdrCount.setF17(new BigDecimal(rankStockCommpanyDb.getF17().toString()));
+            }
+            if (rankStockCommpanyDb.getF18() != null) {
+                statRsStAdrCount.setF18(new BigDecimal(rankStockCommpanyDb.getF18().toString()));
+            }
+            statRsStAdrCount.setF20(rankStockCommpanyDb.getF20());
+            statRsStAdrCount.setF21(rankStockCommpanyDb.getF21());
+
+//            //处理价格区间
+//            statRsStAdrCount.setNET_AREA_DAY_5(KlineService.handlerPriceAreaRate(zqdm, MA_5, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+//            statRsStAdrCount.setNET_AREA_DAY_10(KlineService.handlerPriceAreaRate(zqdm, MA_10, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+//            statRsStAdrCount.setNET_AREA_DAY_20(KlineService.handlerPriceAreaRate(zqdm, MA_20, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+//            statRsStAdrCount.setNET_AREA_DAY_40(KlineService.handlerPriceAreaRate(zqdm, MA_40, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+//            statRsStAdrCount.setNET_AREA_DAY_60(KlineService.handlerPriceAreaRate(zqdm, MA_60, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+//            statRsStAdrCount.setNET_AREA_DAY_120(KlineService.handlerPriceAreaRate(zqdm, MA_120, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+//            statRsStAdrCount.setNET_AREA_DAY_250(KlineService.handlerPriceAreaRate(zqdm, MA_250, KLT_101, false, "", date, KLINE_TYPE_STOCK));
+
+            orderNum = orderNum.add(new BigDecimal("1"));
+            statRsStAdrCount.setOrder_num(orderNum);
+
+            stockAdrCountList.add(statRsStAdrCount);
+        }
+        return stockAdrCountList;
+    }
+
+
+    public static List<StockAdrCount> listAdrCount(String date, List<RankStockCommpanyDb> stListLikeConception, Long board, BigDecimal mvMin, BigDecimal mvMax, List<BigDecimal> adrMinList, List<Integer> daysList, String conpetions) {
+        List<StockAdrCount> stockAdrCountList = new ArrayList<>();
+        Map<String, StockAdrCount> statRsStAdrCountMap = new HashMap<>();
+        ExecutorService service = Executors.newCachedThreadPool();// 创建一个的线程池
+        for (BigDecimal adrMinTemp : adrMinList) {
+            //涨幅超过
+            for (Integer days : daysList) {
+                service.execute(() -> {
+                    StockService.statStAdrCount(stListLikeConception, date, days, adrMinTemp, board, mvMin,mvMax, statRsStAdrCountMap);//统计次数：90
+                });
+            }
+        }
+
+        // 等待子线程结束，再继续执行下面的代码
+        service.shutdown();
+        while (true) {
+            if (service.isTerminated()) {
+                System.out.println("service-thread-ok!" + "线程池状态：" + service);
+                break;
+            }
+            try {
+//                System.out.println("线程池状态：" + service);
+//                service.awaitTermination(20, TimeUnit.SECONDS);
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        List<StockAdrCount> statRsStAdrCountList = new ArrayList<>();
+        for (String code : statRsStAdrCountMap.keySet()) {
+            StockAdrCount statRsStAdrCount = statRsStAdrCountMap.get(code);
+            statRsStAdrCountList.add(statRsStAdrCount);
+        }
+        statRsStAdrCountList = statRsStAdrCountList.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCount::getADR_UP_COUNT_SUM_60, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+
+        Map<String, RankStockCommpanyDb> stDbMap = new HashMap<>();
+        for (RankStockCommpanyDb rankStockCommpanyDb : stListLikeConception) {
+            stDbMap.put(rankStockCommpanyDb.getF12(), rankStockCommpanyDb);
+//                System.out.println(rankStockCommpanyDb.getF12()+":"+rankStockCommpanyDb.getF14()+":"+rankStockCommpanyDb.getF3());
+        }
+
+        System.out.println("[" + JSON.toJSONString(conpetions) + "]：" + stListLikeConception.size() + ";");
+        BigDecimal orderNum = new BigDecimal("0");
+        for (StockAdrCount statRsStAdrCount : statRsStAdrCountList) {
+            StringBuffer sb = new StringBuffer();
+//                System.out.println(JSON.toJSONString(statRsStAdrCount));
+            String zqdm = statRsStAdrCount.getF12();
+            BigDecimal stAdrCount = statRsStAdrCount.getADR_UP_COUNT_SUM_60();
+
+            RankStockCommpanyDb rankStockCommpanyDb = stDbMap.get(zqdm);
+            String biz = StockUtil.formatBizName(rankStockCommpanyDb.getType_name());
+            String adr = StockUtil.formatDouble(rankStockCommpanyDb.getF3());
+            String liangBi = StockUtil.formatDouble(rankStockCommpanyDb.getF10());
+            String stName = StockUtil.handlerStName(rankStockCommpanyDb.getF14());
+            Double curPrice = rankStockCommpanyDb.getF2();
+            BigDecimal marketValue = null;
+            if (rankStockCommpanyDb.getF20() != null) {
+                marketValue = rankStockCommpanyDb.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
+            }
+
+//            sb.append(stCode).append("\t");
+//            sb.append(stName).append("\t");
+            sb.append(stAdrCount).append("\t");
+            sb.append(biz).append(" ");
+            sb.append(adr).append("\t");
+            sb.append(marketValue).append("\t");
+            sb.append(liangBi).append("\t");
+            //            map.put("002432", "");//002432	九安医疗	医疗器械
+            String concepPinYin = "mapGn";
+            if (ConceptionUtil.stConceptionMap.get(conpetions) != null) {
+                concepPinYin = ConceptionUtil.stConceptionMap.get(conpetions);
+            }
+//            System.out.print(concepPinYin + ".put(\"" + zqdm + "\", \"" + stName + "\");//");//map  map.put("002432", "");//002432	九安医疗	医疗器械
+//                System.out.println("mapTemp.put(\"" + stCode + "\", \"" + stName.replace(" ","") + "\");//" + stCode + " " + stName + " " + stAdrCount + " " + biz + " ");
+//            System.out.print(sb);
+
+            RankStockCommpanyDb stock = new RankStockCommpanyDb();
+            stock.setF12(statRsStAdrCount.getF12());
+
+            statRsStAdrCount.setType_name(rankStockCommpanyDb.getType_name());
+            statRsStAdrCount.setConception(rankStockCommpanyDb.getConception());
+            statRsStAdrCount.setDate(date);
+            if (rankStockCommpanyDb.getF2() != null) {
+                statRsStAdrCount.setF2(new BigDecimal(rankStockCommpanyDb.getF2()));
+            }
+            statRsStAdrCount.setF3(rankStockCommpanyDb.getF3());
+            if (rankStockCommpanyDb.getF4() != null) {
+                statRsStAdrCount.setF4(new BigDecimal(rankStockCommpanyDb.getF4()));
+            }
+            statRsStAdrCount.setF5(rankStockCommpanyDb.getF5());
+            statRsStAdrCount.setF6(rankStockCommpanyDb.getF6());
+            if (rankStockCommpanyDb.getF7() != null) {
+                statRsStAdrCount.setF7(new BigDecimal(rankStockCommpanyDb.getF7()));
+            }
+            if (rankStockCommpanyDb.getF8() != null) {
+                statRsStAdrCount.setF8(new BigDecimal(rankStockCommpanyDb.getF8()));
+            }
+            if (rankStockCommpanyDb.getF9() != null) {
+                statRsStAdrCount.setF9(new BigDecimal(rankStockCommpanyDb.getF9()));
+            }
+            statRsStAdrCount.setF10(rankStockCommpanyDb.getF10());
+            statRsStAdrCount.setF12(rankStockCommpanyDb.getF12());
+            statRsStAdrCount.setF14(rankStockCommpanyDb.getF14());
+            if (rankStockCommpanyDb.getF15() != null) {
+                statRsStAdrCount.setF15(new BigDecimal(rankStockCommpanyDb.getF15().toString()));
+            }
+            if (rankStockCommpanyDb.getF16() != null) {
+                statRsStAdrCount.setF16(new BigDecimal(rankStockCommpanyDb.getF16().toString()));
+            }
+            if (rankStockCommpanyDb.getF17() != null) {
+                statRsStAdrCount.setF17(new BigDecimal(rankStockCommpanyDb.getF17().toString()));
+            }
+            if (rankStockCommpanyDb.getF18() != null) {
+                statRsStAdrCount.setF18(new BigDecimal(rankStockCommpanyDb.getF18().toString()));
+            }
+            statRsStAdrCount.setF20(rankStockCommpanyDb.getF20());
+            statRsStAdrCount.setF21(rankStockCommpanyDb.getF21());
+
+            orderNum = orderNum.add(new BigDecimal("1"));
+            statRsStAdrCount.setOrder_num(orderNum);
+
+            stockAdrCountList.add(statRsStAdrCount);
+        }
+        return stockAdrCountList;
+    }
 
 }
