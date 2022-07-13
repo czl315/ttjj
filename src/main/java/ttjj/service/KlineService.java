@@ -1217,7 +1217,7 @@ public class KlineService {
             if (DB_RANK_BIZ_TYPE_ZS.equals(type)) {
                 klines = KlineService.kline(zqdm, NUM_MAX_999, klt, true, date, date, DB_RANK_BIZ_TYPE_ZS);
             } else {
-                klines = KlineService.kline(zqdm, NUM_MAX_999, klt, true, date, date, null);
+                klines = KlineService.kline(zqdm, NUM_MAX_999, klt, true, date, date, type);
             }
             System.out.println(",开始日期:" + date + "，结束日期:" + date + "，周期:" + klt + "，klines.size():" + klines.size() + ",zqmc:" + zqmc);
             //        System.out.println("klines:"+JSON.toJSONString(klines));

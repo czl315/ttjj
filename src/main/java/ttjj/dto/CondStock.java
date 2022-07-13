@@ -40,6 +40,9 @@ public class CondStock extends RankStockCommpanyDb {
 
     List<String> conpetionList;
 
+    public CondStock() {
+    }
+
     public String getBegDate() {
         return begDate;
     }

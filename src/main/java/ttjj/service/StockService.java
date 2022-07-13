@@ -286,7 +286,7 @@ public class StockService {
      * @return 日期列表
      */
     public static List<String> findListDateBefore(String date, int days) {
-        return RankStockCommpanyDao.findListDateBefore(new DateCond(date, days));
+        return RankStockCommpanyDao.findListDateBefore(new DateCond(date, (days+1)));
     }
 
     /**
@@ -452,9 +452,9 @@ public class StockService {
      */
     public static String findBegDate(String endDate, Integer days) {
         List<String> dateList = StockService.findListDateBefore(endDate, days);//查询n个交易日之前的日期
-        if (dateList != null) {
+        if (dateList != null && dateList.size() >= days) {
 //            System.out.println("findBegDate.：" + dateList.get(days - 1));
-            return dateList.get(days - 1);
+            return dateList.get(days);
         } else {
             System.out.println("查询日期错误.：使用指定日期减去自然日的日期" + JSON.toJSONString(dateList));
             return DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, days);
@@ -470,6 +470,7 @@ public class StockService {
     public static List<StatRsStAdrCount> listStAdrCountByCond(StatCondStAdrCount condition) {
         return RankStockCommpanyDao.findListStatStAdrCount(condition); //  查询-股票涨跌次数
     }
+
     /**
      * 统计涨跌次数
      *
@@ -487,7 +488,7 @@ public class StockService {
             //涨幅超过
             for (Integer days : daysList) {
                 service.execute(() -> {
-                    StockService.statStAdrCount(stListLikeConception, date, days, adrMinTemp, board, mvMin,mvMax, statRsStAdrCountMap);//统计次数：90
+                    StockService.statStAdrCount(stListLikeConception, date, days, adrMinTemp, board, mvMin, mvMax, statRsStAdrCountMap);//统计次数：90
                 });
             }
         }
@@ -634,7 +635,7 @@ public class StockService {
     }
 
 
-    public static List<StockAdrCount> listAdrCount(String date, List<RankStockCommpanyDb> stListLikeConception, Long board, BigDecimal mvMin, BigDecimal mvMax, List<BigDecimal> adrMinList, List<Integer> daysList, String conpetions) {
+    public static List<StockAdrCount> listAdrCount(String date, List<RankStockCommpanyDb> stList, Long board, BigDecimal mvMin, BigDecimal mvMax, List<BigDecimal> adrMinList, List<Integer> daysList) {
         List<StockAdrCount> stockAdrCountList = new ArrayList<>();
         Map<String, StockAdrCount> statRsStAdrCountMap = new HashMap<>();
         ExecutorService service = Executors.newCachedThreadPool();// 创建一个的线程池
@@ -642,7 +643,7 @@ public class StockService {
             //涨幅超过
             for (Integer days : daysList) {
                 service.execute(() -> {
-                    StockService.statStAdrCount(stListLikeConception, date, days, adrMinTemp, board, mvMin,mvMax, statRsStAdrCountMap);//统计次数：90
+                    StockService.statStAdrCount(stList, date, days, adrMinTemp, board, mvMin, mvMax, statRsStAdrCountMap);//统计次数：90
                 });
             }
         }
@@ -671,12 +672,11 @@ public class StockService {
         statRsStAdrCountList = statRsStAdrCountList.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCount::getADR_UP_COUNT_SUM_60, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
 
         Map<String, RankStockCommpanyDb> stDbMap = new HashMap<>();
-        for (RankStockCommpanyDb rankStockCommpanyDb : stListLikeConception) {
+        for (RankStockCommpanyDb rankStockCommpanyDb : stList) {
             stDbMap.put(rankStockCommpanyDb.getF12(), rankStockCommpanyDb);
 //                System.out.println(rankStockCommpanyDb.getF12()+":"+rankStockCommpanyDb.getF14()+":"+rankStockCommpanyDb.getF3());
         }
 
-        System.out.println("[" + JSON.toJSONString(conpetions) + "]：" + stListLikeConception.size() + ";");
         BigDecimal orderNum = new BigDecimal("0");
         for (StockAdrCount statRsStAdrCount : statRsStAdrCountList) {
             StringBuffer sb = new StringBuffer();
@@ -685,31 +685,6 @@ public class StockService {
             BigDecimal stAdrCount = statRsStAdrCount.getADR_UP_COUNT_SUM_60();
 
             RankStockCommpanyDb rankStockCommpanyDb = stDbMap.get(zqdm);
-            String biz = StockUtil.formatBizName(rankStockCommpanyDb.getType_name());
-            String adr = StockUtil.formatDouble(rankStockCommpanyDb.getF3());
-            String liangBi = StockUtil.formatDouble(rankStockCommpanyDb.getF10());
-            String stName = StockUtil.handlerStName(rankStockCommpanyDb.getF14());
-            Double curPrice = rankStockCommpanyDb.getF2();
-            BigDecimal marketValue = null;
-            if (rankStockCommpanyDb.getF20() != null) {
-                marketValue = rankStockCommpanyDb.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
-            }
-
-//            sb.append(stCode).append("\t");
-//            sb.append(stName).append("\t");
-            sb.append(stAdrCount).append("\t");
-            sb.append(biz).append(" ");
-            sb.append(adr).append("\t");
-            sb.append(marketValue).append("\t");
-            sb.append(liangBi).append("\t");
-            //            map.put("002432", "");//002432	九安医疗	医疗器械
-            String concepPinYin = "mapGn";
-            if (ConceptionUtil.stConceptionMap.get(conpetions) != null) {
-                concepPinYin = ConceptionUtil.stConceptionMap.get(conpetions);
-            }
-//            System.out.print(concepPinYin + ".put(\"" + zqdm + "\", \"" + stName + "\");//");//map  map.put("002432", "");//002432	九安医疗	医疗器械
-//                System.out.println("mapTemp.put(\"" + stCode + "\", \"" + stName.replace(" ","") + "\");//" + stCode + " " + stName + " " + stAdrCount + " " + biz + " ");
-//            System.out.print(sb);
 
             RankStockCommpanyDb stock = new RankStockCommpanyDb();
             stock.setF12(statRsStAdrCount.getF12());
