@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.BizRankDao;
-import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.db.StockAdrCount;
 import ttjj.dto.*;
@@ -43,7 +42,8 @@ public class StBizStatDemo {
         String reportQuete = "";//业绩报表季度  2022Q1
         boolean isShowPriceArea = false;//是否显示价格区间
         long board = DB_RANK_BIZ_F19_BK_MAIN;
-        BigDecimal mvLimit = NUM_YI_50;
+        BigDecimal mvMin = NUM_YI_50;
+        BigDecimal mvMax = null;
 
         {
             //        String conceptions = "体外诊断";//医疗-新冠：新冠检测,新冠药物,体外诊断
@@ -85,8 +85,14 @@ public class StBizStatDemo {
             String biz = "银行";//银行  航空机场    证券
 //            String biz = rankBizDataDiff.getF14();
             System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz);
-            List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
-            List<StockAdrCount> stockAdrCountList = showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, reportQuete, isShowPriceArea);//统计涨跌次数
+            CondStock condition = new CondStock();
+            condition.setDate(date);
+            condition.setF139(board);
+            condition.setMvMin(mvMin);
+            condition.setMvMax(mvMax);
+            condition.setType_name(biz);
+            List<RankStockCommpanyDb> stList = StockService.findListByCondition(condition);//查询股票列表-根据板块：
+            List<StockAdrCount> stockAdrCountList = showAdrCount(date, stList, board, mvMin,mvMax, adrMinList, daysList, biz, reportQuete, isShowPriceArea);//统计涨跌次数
 //            System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertListOrUpdate(stockAdrCountList));
 
             Map<String, String> zqMap = new HashMap<>();
@@ -262,7 +268,7 @@ public class StBizStatDemo {
      * @param conpetions
      * @param isShowPriceArea
      */
-    public static List<StockAdrCount> showAdrCount(String date, List<RankStockCommpanyDb> stListLikeConception, Long board, BigDecimal mvMin, List<BigDecimal> adrMinList, List<Integer> daysList, String conpetions, String reportQuete, boolean isShowPriceArea) {
+    public static List<StockAdrCount> showAdrCount(String date, List<RankStockCommpanyDb> stListLikeConception, Long board, BigDecimal mvMin, BigDecimal mvMax, List<BigDecimal> adrMinList, List<Integer> daysList, String conpetions, String reportQuete, boolean isShowPriceArea) {
         List<StockAdrCount> stockAdrCountList = new ArrayList<>();
         Map<String, StockAdrCount> statRsStAdrCountMap = new HashMap<>();
         ExecutorService service = Executors.newCachedThreadPool();// 创建一个的线程池
@@ -270,7 +276,7 @@ public class StBizStatDemo {
             //涨幅超过
             for (Integer days : daysList) {
                 service.execute(() -> {
-                    StockService.statStAdrCount(stListLikeConception, date, days, adrMinTemp, board, mvMin, statRsStAdrCountMap);//统计次数：90
+                    StockService.statStAdrCount(stListLikeConception, date, days, adrMinTemp, board, mvMin,mvMax, statRsStAdrCountMap);//统计次数：90
                 });
             }
         }

@@ -137,23 +137,6 @@ public class BizRankDemo {
         if (isUpdateDay15MinuteNet) {
             updateDbTodayNetCloseByKlt(date, KLT_15, bizType, bizList);
         }
-
-        //遍历板块，插入K线
-        saveKlineByType(bizList, date, KLT_5, bizType, true);
-        saveKlineByType(bizList, date, KLT_15, bizType, true);
-        saveKlineByType(bizList, date, KLT_30, bizType, true);
-        saveKlineByType(bizList, date, KLT_60, bizType, true);
-        saveKlineByType(bizList, date, KLT_101, bizType, true);
-
-        // 更新-k线-资金流向
-        KlineService.updateFundFlow(bizList, date, KLT_5, bizType);
-        KlineService.updateFundFlow(bizList, date, KLT_15, bizType);
-        KlineService.updateFundFlow(bizList, date, KLT_30, bizType);
-        KlineService.updateFundFlow(bizList, date, KLT_60, bizType);
-        KlineService.updateFundFlow(bizList, date, KLT_101, bizType);
-
-        //更新-k线-净值-只更新日k线-价格区间
-        updateNet(bizList, date, KLT_101, bizType);
     }
 
     /**

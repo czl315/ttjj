@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.BizRankDao;
 import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
-import ttjj.dto.CondStLikeConception;
+import ttjj.dto.CondStock;
 import ttjj.dto.RankBizDataDiff;
 import utils.DateUtil;
 import utils.HttpUtil;

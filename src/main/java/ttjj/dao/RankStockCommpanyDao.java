@@ -286,7 +286,7 @@ public class RankStockCommpanyDao {
      * @param condition
      * @return
      */
-    public static List<RankStockCommpanyDb> findListLikeConception(CondStLikeConception condition) {
+    public static List<RankStockCommpanyDb> findListLikeConception(CondStock condition) {
         long timeBeg = 0;
         if (showTime) {
             timeBeg = System.currentTimeMillis();
@@ -316,7 +316,7 @@ public class RankStockCommpanyDao {
      * @param condition
      * @return
      */
-    public static List<RankStockCommpanyDb> findListByCondition(RankStockCommpanyDb condition) {
+    public static List<RankStockCommpanyDb> findListByCondition(CondStock condition) {
         long timeBeg = 0;
         if (showTime) {
             timeBeg = System.currentTimeMillis();

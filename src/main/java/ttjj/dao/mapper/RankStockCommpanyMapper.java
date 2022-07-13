@@ -541,6 +541,9 @@ public interface RankStockCommpanyMapper {
             "   <if test='marketValueMin != null'> ",
             "   AND rank_st_biz_com.f20 >= #{marketValueMin} ",
             "   </if> ",
+            "   <if test='marketValueMax != null'> ",
+            "   <![CDATA[ AND rank_st_biz_com.f20 <= #{marketValueMax} ]]> ",
+            "   </if> ",
             "   <if test='adrMin != null'> ",
             "   AND rank_st_biz_com.f3 > #{adrMin} ",
             "   </if> ",
@@ -550,10 +553,12 @@ public interface RankStockCommpanyMapper {
             "       <if test='endDate != null'> ",
             "       <![CDATA[ AND rank_st_biz_com.date <= #{endDate} ]]> ",
             "       </if> ",
-            "   AND rank_st_biz_com.f12 IN  ",
-            "   <foreach collection='stCodeList' item='item' open='(' separator=',' close=')'>  ",
-            "       #{item} ",
-            "   </foreach> ",
+            "       <if test='stCodeList != null'> ",
+            "           AND rank_st_biz_com.f12 IN  ",
+            "           <foreach collection='stCodeList' item='item' open='(' separator=',' close=')'>  ",
+            "               #{item} ",
+            "           </foreach> ",
+            "       </if> ",
             " GROUP BY rank_st_biz_com.f12 ",
             " ORDER BY ",
             "   COUNT(1) DESC",
@@ -586,7 +591,7 @@ public interface RankStockCommpanyMapper {
             "       </if> ",
             "   ORDER BY rank_st_biz_com.date DESC,rank_st_biz_com.f3 DESC ",
             "</script>"})
-    List<RankStockCommpanyDb> findListLikeConception(CondStLikeConception condition);
+    List<RankStockCommpanyDb> findListLikeConception(CondStock condition);
 
 
     @Select({"<script>",
@@ -602,11 +607,17 @@ public interface RankStockCommpanyMapper {
             "       <if test='f20 != null'> ",
             "       AND rank_st_biz_com.f20 >= #{f20} ",
             "       </if> ",
+            "       <if test='mvMin != null'> ",
+            "       <![CDATA[ AND rank_st_biz_com.f20 >= #{mvMin} ]]> ",
+            "       </if> ",
+            "       <if test='mvMax != null'> ",
+            "       <![CDATA[ AND rank_st_biz_com.f20 <= #{mvMax} ]]> ",
+            "       </if> ",
             "       <if test='type_name != null'> ",
             "       AND rank_st_biz_com.type_name = #{type_name} ",
             "       </if> ",
             "   ORDER BY rank_st_biz_com.f3 DESC ",
             "</script>"})
-    List<RankStockCommpanyDb> findListByCondition(RankStockCommpanyDb condition);
+    List<RankStockCommpanyDb> findListByCondition(CondStock condition);
 
 }

@@ -28,12 +28,12 @@ public class KlineDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-07-08";
-        List<String> kltList = Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101);
+        List<String> kltList = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15, KLT_5);
         List<String> kltListCurDay = Arrays.asList(KLT_101);
-        saveKlineByType(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltListCurDay);
-//        saveKlineByType(date, DB_RANK_BIZ_TYPE_ZS, kltList);
-//        saveKlineByType(date, DB_RANK_BIZ_TYPE_ETF, kltList);
-//        saveKlineByType(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltListCurDay);
+        saveKlineByType(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList);
+        saveKlineByType(date, DB_RANK_BIZ_TYPE_ZS, kltList);
+        saveKlineByType(date, DB_RANK_BIZ_TYPE_ETF, kltList);
+        saveKlineByType(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltListCurDay);
 
 
         //  插入常用指数k线
@@ -226,7 +226,7 @@ public class KlineDemo {
                 String begDate = DateUtil.getDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, year, month, day, i);//查询新增交易的开始时间
                 String endDate = begDate;
 //            //  增加大周期k线
-                addKlineDaZhouQi(zqdm, lmt, klt, begDate, endDate,klineType);
+                addKlineDaZhouQi(zqdm, lmt, klt, begDate, endDate, klineType);
 
                 if (isAddMinuteKline) {
                     //按照日期的分钟线（1分钟；5分钟；15分钟；30分钟；60分钟；120分钟），插入k线
@@ -352,7 +352,8 @@ public class KlineDemo {
 
     /**
      * 增加大周期k线
-     *  @param zqdm
+     *
+     * @param zqdm
      * @param lmt
      * @param klt
      * @param begDate
@@ -446,7 +447,7 @@ public class KlineDemo {
      */
     private static Integer updateNetByDate(String zqdm, String klt, boolean isBegDate, String begDate, String endDate, String klineType) {
         Integer rs = 1;
-        boolean isShowLog = true;
+        boolean isShowLog = false;
         Kline kline = new Kline();
         kline.setZqdm(zqdm);
         kline.setDate(endDate);

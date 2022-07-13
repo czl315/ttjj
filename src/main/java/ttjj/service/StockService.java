@@ -117,7 +117,7 @@ public class StockService {
 //        String conceptions = "上海自贸";//：上海自贸
 //        String conceptions = "辅助生殖";//辅助生殖,婴童概念,托育服务
 //        String conceptions = "杭州亚运会";//最新概念：土壤修复,智慧灯杆,净水概念,杭州亚运会
-        CondStLikeConception conditionLikeConception = new CondStLikeConception();
+        CondStock conditionLikeConception = new CondStock();
         conditionLikeConception.setDate(date);
         String[] conceptionStrs = conceptions.split(",");
         List<String> conpetionList = Arrays.asList(conceptionStrs);
@@ -136,14 +136,25 @@ public class StockService {
      * @param date
      * @param board
      * @param mvMin
+     * @param mvMax
      * @return
      */
-    public static List<RankStockCommpanyDb> findListByCondition(String boardName, String date, Long board, BigDecimal mvMin) {
-        RankStockCommpanyDb condition = new RankStockCommpanyDb();
+    public static List<RankStockCommpanyDb> findListByCondition(String boardName, String date, Long board, BigDecimal mvMin, BigDecimal mvMax) {
+        CondStock condition = new CondStock();
         condition.setDate(date);
         condition.setF139(board);
         condition.setF20(mvMin);
         condition.setType_name(boardName);
+        return RankStockCommpanyDao.findListByCondition(condition);
+    }
+
+    /**
+     * 查询列表-根据
+     *
+     * @param condition 条件
+     * @return 结果
+     */
+    public static List<RankStockCommpanyDb> findListByCondition(CondStock condition) {
         return RankStockCommpanyDao.findListByCondition(condition);
     }
 
@@ -264,6 +275,7 @@ public class StockService {
 
     /**
      * 查询指定日期之前交易日期列表
+     *
      * @param date 指定日期
      * @param days 限定返回数量
      * @return 日期列表
@@ -275,12 +287,13 @@ public class StockService {
     /**
      * 统计涨跌次数
      */
-    public static void statStAdrCount(List<RankStockCommpanyDb> stListLikeConception, String endDate, Integer days, BigDecimal adrMin, Long bk, BigDecimal mvMin, Map<String, StockAdrCount> statRsStAdrCountMap) {
-        List<String> stCodeList = new ArrayList<>();
+    public static void statStAdrCount(List<RankStockCommpanyDb> stListLikeConception, String endDate, Integer days, BigDecimal adrMin, Long bk, BigDecimal mvMin, BigDecimal mvMax, Map<String, StockAdrCount> statRsStAdrCountMap) {
+        List<String> stCodeList = null;
         if (stListLikeConception == null || stListLikeConception.size() <= 0) {
             System.out.println(JSON.toJSONString(stListLikeConception) + ":查询股票列表为空！");
-//            return statRsStAdrCountMap;
+            return;
         }
+        stCodeList = new ArrayList<>();
         for (RankStockCommpanyDb rankStockCommpanyDb : stListLikeConception) {
             stCodeList.add(rankStockCommpanyDb.getF12());
         }
@@ -291,24 +304,30 @@ public class StockService {
         StatCondStAdrCount condition = new StatCondStAdrCount();
         condition.setF139(bk);
         condition.setMarketValueMin(mvMin);//市值
+        condition.setMarketValueMax(mvMax);//市值
         condition.setAdrMin(adrMin);
         condition.setBegDate(begDate);
         condition.setEndDate(endDate);
 
-        condition.setStCodeList(stCodeList);
+        if (stCodeList != null && stCodeList.size() > 0) {
+            condition.setStCodeList(stCodeList);
+        }
         List<StatRsStAdrCount> rs = RankStockCommpanyDao.findListStatStAdrCount(condition); //  查询-股票涨跌次数
+        if (rs == null) {
+            return;
+        }
         for (StatRsStAdrCount stAdrCount : rs) {
             String code = stAdrCount.getCode();
 
 //            BigDecimal score = adrMin.multiply(stAdrCount.getCount());//涨幅得分=上涨幅度*次数
-            BigDecimal score = stAdrCount.getCount()!= null ? stAdrCount.getCount() : new BigDecimal("0");//涨幅得分=上涨次数
+            BigDecimal score = stAdrCount.getCount() != null ? stAdrCount.getCount() : new BigDecimal("0");//涨幅得分=上涨次数
 //            System.out.println("days:" + days + ",adrMin:" + adrMin + "=" + JSON.toJSONString(stAdrCount));
 //            if ("中国神华".equals(stAdrCount.getName())) {
 //                System.out.println(stAdrCount.getCode() + ":" + stAdrCount.getName() + ":" + ",天数：" + days + ",上涨次数：" + stAdrCount.getCount() + ",涨幅标准：" + adrMin + ",上涨得分：" + score);
 //            }
             if (statRsStAdrCountMap.containsKey(code)) {
                 StockAdrCount stMapDtoOld = statRsStAdrCountMap.get(code);
-                BigDecimal countOld = stMapDtoOld.getADR_UP_COUNT_SUM_60()!= null ? stMapDtoOld.getADR_UP_COUNT_SUM_60() : new BigDecimal("0");
+                BigDecimal countOld = stMapDtoOld.getADR_UP_COUNT_SUM_60() != null ? stMapDtoOld.getADR_UP_COUNT_SUM_60() : new BigDecimal("0");
 
                 if (days == TRADE_DAYS_1) {
                     BigDecimal countOldTemp = stMapDtoOld.getADR_UP_COUNT_1();
@@ -418,6 +437,7 @@ public class StockService {
         }
 //        return statRsStAdrCountMap;
     }
+
     /**
      * 查询n个交易日之前的日期,日过不存在，使用指定日期减去自然日的日期
      *
@@ -438,6 +458,7 @@ public class StockService {
 
     /**
      * 统计股票涨跌幅次数-根据条件
+     *
      * @param condition 查询条件
      * @return 统计股票涨跌幅次数
      */

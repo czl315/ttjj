@@ -5,10 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.StockAdrCountDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.db.StockAdrCount;
-import ttjj.dto.Kline;
-import ttjj.dto.RankBizDataDiff;
-import ttjj.dto.StockAdrCountCond;
-import ttjj.dto.StockAdrCountVo;
+import ttjj.dto.*;
 import ttjj.service.BizService;
 import ttjj.service.KlineService;
 import ttjj.service.StockAdrCountService;
@@ -40,7 +37,8 @@ public class StockAdrCountDemo {
 //        List<Integer> daysList = Arrays.asList(TRADE_DAYS_3,TRADE_DAYS_2,TRADE_DAYS_1);
 //        BigDecimal adrUpCountSum60Limit = new BigDecimal("200");//涨幅次数限定，过滤杂毛
         BigDecimal adrUpCountSum60Limit = null;//涨幅次数限定，过滤杂毛
-        BigDecimal mvLimit = NUM_YI_50;//NUM_YI_1000
+        BigDecimal mvMin = NUM_YI_50;//NUM_YI_1000
+        BigDecimal mvMax = null;
 
         //插入且更新价格区间、更新
         String spBizName = null;//业务类别为空时，插入全部类别
@@ -48,7 +46,7 @@ public class StockAdrCountDemo {
 //        String spBizName = "贸易行业";//消费： 酿酒行业  贸易行业 物流行业
 //        String spBizName = "钢铁行业";//资源：能源金属 煤炭行业   化肥行业 农牧饲渔 航天航空    采掘行业  医疗服务 医疗器械
 //        spBizName = "中药";//医疗： 医疗服务 医疗器械 中药 生物制品
-//        String spBizName = "证券";//金融： 银行  工程咨询服务 证券 房地产开发
+//        String spBizName = "银行";//金融： 银行  工程咨询服务 证券 房地产开发
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
         int stBizCountTemp = 0;
@@ -56,7 +54,7 @@ public class StockAdrCountDemo {
         for (RankBizDataDiff rankBizDataDiff : bizList) {
             String bizCode = rankBizDataDiff.getF12();
             //保存-特定业务处理
-            if (saveBizSp(date, spBizName, adrMinList, daysList, adrUpCountSum60Limit, mvLimit)) {
+            if (saveBizSp(date, spBizName, adrMinList, daysList, adrUpCountSum60Limit, mvMin, mvMax)) {
                 break;
             }
 
@@ -70,9 +68,9 @@ public class StockAdrCountDemo {
 //            insertListStatStock(date, bizName, adrMinList,daysList);//批量插入-从股票表中统计数据-按照业务类别
 //            deleteTodayStAdrCount(date, bizName);//删除
 //            insertListByBiz(date, bizCode, bizName, mvLimit);
-            updateListByBiz(date, bizCode, bizName, mvLimit);
-            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit);
-            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit, mvLimit);//更新-最新价格、价格区间、均线
+            updateListByBiz(date, bizCode, bizName, mvMin);
+            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit,mvMin,mvMax);
+            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit, mvMin);//更新-最新价格、价格区间、均线
 
 //            updateAdrCountByDay(date, bizName, adrMinList);
 
@@ -96,9 +94,8 @@ public class StockAdrCountDemo {
      * @param adrMinList           涨幅列表
      * @param daysList             天数列表
      * @param adrUpCountSum60Limit
-     * @param mvLimit
      */
-    private static boolean saveBizSp(String date, String spBizName, List<BigDecimal> adrMinList, List<Integer> daysList, BigDecimal adrUpCountSum60Limit, BigDecimal mvLimit) {
+    private static boolean saveBizSp(String date, String spBizName, List<BigDecimal> adrMinList, List<Integer> daysList, BigDecimal adrUpCountSum60Limit, BigDecimal mvMin, BigDecimal mvMax) {
         if (StringUtils.isBlank(spBizName)) {
 //            System.out.println("特定业务处理-业务不能为空");
             return false;
@@ -109,9 +106,9 @@ public class StockAdrCountDemo {
         bizCode = ContMapBizBaord.BOARD.get(spBizName);//根据业务名称，查询业务编码
 
         //                insertListByBiz(date, bizCode);
-        updateListByBiz(date, bizCode, spBizName, mvLimit);
-        updateAdrCount(date, spBizName, adrMinList, daysList, adrUpCountSum60Limit);
-        updateNetAreaAndMa(date, spBizName, adrUpCountSum60Limit, mvLimit);//更新-最新价格、价格区间、均线
+        updateListByBiz(date, bizCode, spBizName, mvMin);
+        updateAdrCount(date, spBizName, adrMinList, daysList, adrUpCountSum60Limit,mvMin,mvMax);
+        updateNetAreaAndMa(date, spBizName, adrUpCountSum60Limit, mvMin);//更新-最新价格、价格区间、均线
         return true;
     }
 
@@ -281,18 +278,23 @@ public class StockAdrCountDemo {
      * @param daysList             +
      * @param adrUpCountSum60Limit 涨幅次数限定，过滤杂毛
      */
-    private static void updateAdrCount(String date, String biz, List<BigDecimal> adrMinList, List<Integer> daysList, BigDecimal adrUpCountSum60Limit) {
+    private static void updateAdrCount(String date, String biz, List<BigDecimal> adrMinList, List<Integer> daysList, BigDecimal adrUpCountSum60Limit, BigDecimal mvMin, BigDecimal mvMax) {
         List<StockAdrCount> stockAdrCountList = null;
         boolean isShowPriceArea = false;//是否显示价格区间
         long board = DB_RANK_BIZ_F19_BK_MAIN;
-        BigDecimal mvLimit = NUM_YI_50;
         int rs = 0;
 
 //        按板块查询
 //        System.out.println("-------------------------当前biz：" + biz);
-        List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
+        CondStock condition = new CondStock();
+        condition.setDate(date);
+        condition.setF139(board);
+        condition.setMvMin(mvMin);
+        condition.setMvMax(mvMax);
+        condition.setType_name(biz);
+        List<RankStockCommpanyDb> stList = StockService.findListByCondition(condition);//查询股票列表-根据板块：
         String endDate = StockService.findBegDate(date, 2);//只统计今天之前的数据
-        stockAdrCountList = StBizStatDemo.showAdrCount(endDate, stList, board, mvLimit, adrMinList, daysList, biz, "", isShowPriceArea);//统计涨跌次数
+        stockAdrCountList = StBizStatDemo.showAdrCount(endDate, stList, board, mvMin, mvMax, adrMinList, daysList, biz, "", isShowPriceArea);//统计涨跌次数
         for (StockAdrCount stockAdrCount : stockAdrCountList) {
             BigDecimal adrUpCountSum60 = stockAdrCount.getADR_UP_COUNT_SUM_60();
             //涨幅次数限定，过滤杂毛
@@ -361,7 +363,8 @@ public class StockAdrCountDemo {
         List<Integer> daysList = Arrays.asList(MA_60, MA_40, MA_20, MA_10, MA_5);
         boolean isShowPriceArea = false;//是否显示价格区间
         long board = DB_RANK_BIZ_F19_BK_MAIN;
-        BigDecimal mvLimit = NUM_YI_50;
+        BigDecimal mvMin = NUM_YI_50;
+        BigDecimal mvMax = null;
 
         //批量插入-从股票表中统计数据-按照业务类别
 //        insertListStatStock(date, biz);
@@ -372,12 +375,18 @@ public class StockAdrCountDemo {
             System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz);
 
             //先删除，后插入
-            List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
-            stockAdrCountList = StBizStatDemo.showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, "", isShowPriceArea);//统计涨跌次数
+            CondStock condition = new CondStock();
+            condition.setDate(date);
+            condition.setF139(board);
+            condition.setMvMin(mvMin);
+            condition.setMvMax(mvMax);
+            condition.setType_name(biz);
+            List<RankStockCommpanyDb> stList = StockService.findListByCondition(condition);//查询股票列表-根据板块：
+            stockAdrCountList = StBizStatDemo.showAdrCount(date, stList, board, mvMin, mvMax, adrMinList, daysList, biz, "", isShowPriceArea);//统计涨跌次数
             deleteTodayStAdrCount(date, biz);//先删除，后插入
             System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertList(stockAdrCountList));
 
-            stockAdrCountList = findListByCondition(date, biz, adrUpCountSum60Limit, mvLimit, null);
+            stockAdrCountList = findListByCondition(date, biz, adrUpCountSum60Limit, mvMin, null);
             //更新-价格区间
             updateNetArea(date, stockAdrCountList);
             //更新-超过均线信息
@@ -411,12 +420,19 @@ public class StockAdrCountDemo {
         List<StockAdrCount> stockAdrCountList = null;
         boolean isShowPriceArea = false;//是否显示价格区间
         long board = DB_RANK_BIZ_F19_BK_MAIN;
-        BigDecimal mvLimit = NUM_YI_50;
+        BigDecimal mvMin = NUM_YI_50;
+        BigDecimal mvMax = null;
 
 //        按板块查询
 //        System.out.println("-------------------------当前biz：" + biz);
-        List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
-        stockAdrCountList = StBizStatDemo.showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, "", isShowPriceArea);//统计涨跌次数
+        CondStock condition = new CondStock();
+        condition.setDate(date);
+        condition.setF139(board);
+        condition.setMvMin(mvMin);
+        condition.setMvMax(mvMax);
+        condition.setType_name(biz);
+        List<RankStockCommpanyDb> stList = StockService.findListByCondition(condition);//查询股票列表-根据板块：
+        stockAdrCountList = StBizStatDemo.showAdrCount(date, stList, board, mvMin, mvMax, adrMinList, daysList, biz, "", isShowPriceArea);//统计涨跌次数
         deleteTodayStAdrCount(date, biz);//先删除，后插入
         System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertList(stockAdrCountList));
         return stockAdrCountList;
@@ -604,7 +620,8 @@ public class StockAdrCountDemo {
         String reportQuete = "";//业绩报表季度  2022Q1
         boolean isShowPriceArea = false;//是否显示价格区间
         long board = DB_RANK_BIZ_F19_BK_MAIN;
-        BigDecimal mvLimit = NUM_YI_50;
+        BigDecimal mvMin = NUM_YI_50;
+        BigDecimal mvMax = null;
 
 //        按板块查询
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
@@ -617,8 +634,14 @@ public class StockAdrCountDemo {
 //            String biz = "医疗服务";//银行  航空机场    证券
             String biz = rankBizDataDiff.getF14();
             System.out.println("-------------------------当前stBizCountTemp：" + (++stBizCountTemp) + "---" + biz);
-            List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvLimit);//查询股票列表-根据板块：
-            List<StockAdrCount> stockAdrCountList = StBizStatDemo.showAdrCount(date, stList, board, mvLimit, adrMinList, daysList, biz, reportQuete, isShowPriceArea);//统计涨跌次数
+            CondStock condition = new CondStock();
+            condition.setDate(date);
+            condition.setF139(board);
+            condition.setMvMin(mvMin);
+            condition.setMvMax(mvMax);
+            condition.setType_name(biz);
+            List<RankStockCommpanyDb> stList = StockService.findListByCondition(biz, date, board, mvMin, mvMax);//查询股票列表-根据板块：
+            List<StockAdrCount> stockAdrCountList = StBizStatDemo.showAdrCount(date, stList, board, mvMin, mvMax, adrMinList, daysList, biz, reportQuete, isShowPriceArea);//统计涨跌次数
 //            //插入或更新
 //            System.out.println("插入成功-涨幅次数统计：" + StockAdrCountService.insertListOrUpdate(stockAdrCountList));
 

@@ -466,6 +466,10 @@ public class Content {
     public static int NUM_MAX_99 = 99;
 
     /**
+     * NUM_YI_10000
+     */
+    public static BigDecimal NUM_YI_10000 = new BigDecimal("100000000").multiply(new BigDecimal("10000"));
+    /**
      * NUM_YI_1000
      */
     public static BigDecimal NUM_YI_1000 = new BigDecimal("100000000").multiply(new BigDecimal("1000"));
