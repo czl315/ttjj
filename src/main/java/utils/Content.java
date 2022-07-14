@@ -655,4 +655,26 @@ public class Content {
      * 报表数据-业绩预告
      */
     public static String REPORT_NAME_RPT_PUBLIC_OP_NEWPREDICT = "RPT_PUBLIC_OP_NEWPREDICT";
+
+    /**
+     * DB_STOCK_ADR_COUNT_ADR_UP_COUNT_1_5
+     */
+    public static String DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5 = "ADR_UP_SUM_1_5";
+    /**
+     * DB_STOCK_ADR_COUNT_ADR_UP_COUNT_1_10
+     */
+    public static String DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10 = "ADR_UP_SUM_1_10";
+    /**
+     * DB_STOCK_ADR_COUNT_ADR_UP_COUNT_20
+     */
+    public static String DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20 = "ADR_UP_SUM_1_20";
+    /**
+     * 数据库字段-股票涨幅次数
+     */
+    public static String DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40 = "ADR_UP_SUM_20_40";
+    /**
+     * DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60
+     */
+    public static String DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60 = "ADR_UP_SUM_40_60";
+
 }

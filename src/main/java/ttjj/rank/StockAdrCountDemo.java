@@ -17,6 +17,7 @@ import utils.StockUtil;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static utils.Content.*;
 
@@ -30,9 +31,21 @@ public class StockAdrCountDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-06-17";
+        BigDecimal mvMin = NUM_YI_50;//NUM_YI_1000  NUM_YI_50
+        BigDecimal mvMax = null;
+        long board = DB_RANK_BIZ_F19_BK_MAIN;
+        String bizName = "银行";
+        List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("4"), new BigDecimal("5"), new BigDecimal("6"), new BigDecimal("7"), new BigDecimal("8"), new BigDecimal("9"), new BigDecimal("9.9"));
+        List<Integer> daysList = Arrays.asList(TRADE_DAYS_60, TRADE_DAYS_40, TRADE_DAYS_20, TRADE_DAYS_10, TRADE_DAYS_5, TRADE_DAYS_3, TRADE_DAYS_2, TRADE_DAYS_1);
 
-        saveOrUpdate(date);
-//        updateAdrCountSum(date);
+        List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
+
+//        save(date, bizList, true);
+//        updateListByBizAll(date, bizList,board, mvMin, mvMax);
+//        updateAdrCountAllBiz(date, bizList,board, mvMin, mvMax);
+//        updateNetAreaAndMaAllBiz(date, bizList,board, mvMin, mvMax);
+
+        updateAdrCountSumAndOrderAllBiz(date, bizList, board, mvMin, mvMax,true,true);
 
 //        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
 
@@ -42,38 +55,239 @@ public class StockAdrCountDemo {
 
     }
 
-    private static void updateAdrCountSum(String date) {
-        String spDate = "";//        String spDate = "2022-05-18";//是否显示特定日期涨跌
-        List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("4"), new BigDecimal("5"), new BigDecimal("6"), new BigDecimal("7"), new BigDecimal("8"), new BigDecimal("9"), new BigDecimal("9.9"));
-        List<Integer> daysList = Arrays.asList(TRADE_DAYS_60, TRADE_DAYS_40, TRADE_DAYS_20, TRADE_DAYS_10, TRADE_DAYS_5, TRADE_DAYS_3, TRADE_DAYS_2, TRADE_DAYS_1);
-//        List<Integer> daysList = Arrays.asList(TRADE_DAYS_3,TRADE_DAYS_2,TRADE_DAYS_1);
-//        BigDecimal adrUpCountSum60Limit = new BigDecimal("200");//涨幅次数限定，过滤杂毛
-        BigDecimal adrUpCountSum60Limit = null;//涨幅次数限定，过滤杂毛
-        BigDecimal mvMin = NUM_YI_50;//NUM_YI_1000
-        BigDecimal mvMax = null;
-        long board = DB_RANK_BIZ_F19_BK_MAIN;
+    private static void updateAdrSumOrderByBiz(String date, String bizName, String dbField) {
+        int rs = 0;
+        //查询股票列表-根据板块
+        StockAdrCountCond condition = new StockAdrCountCond();
+        condition.setDate(date);
+        condition.setType_name(bizName);
+        List<StockAdrCount> stList = StockAdrCountService.findListByCondition(condition);
 
-        List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
+        //排序
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5.equals(dbField)) {
+            stList = stList.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCount::getADR_UP_SUM_1_5, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10.equals(dbField)) {
+            stList = stList.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCount::getADR_UP_SUM_1_10, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20.equals(dbField)) {
+            stList = stList.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCount::getADR_UP_SUM_1_20, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40.equals(dbField)) {
+            stList = stList.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCount::getADR_UP_SUM_20_40, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60.equals(dbField)) {
+            stList = stList.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCount::getADR_UP_SUM_40_60, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        }
+
+        int order = 0;
+        //查询每只股票的涨幅次数
+        for (StockAdrCount stock : stList) {
+            StockAdrCount entity = new StockAdrCount();
+            entity.setF12(stock.getF12());
+            entity.setDate(date);
+            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5.equals(dbField)) {
+                entity.setADR_UP_SUM_ORDER_1_5(new BigDecimal(++order));
+            }
+            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10.equals(dbField)) {
+                entity.setADR_UP_SUM_ORDER_1_10(new BigDecimal(++order));
+            }
+            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20.equals(dbField)) {
+                entity.setADR_UP_SUM_ORDER_1_20(new BigDecimal(++order));
+            }
+            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40.equals(dbField)) {
+                entity.setADR_UP_SUM_ORDER_20_40(new BigDecimal(++order));
+            }
+            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60.equals(dbField)) {
+                entity.setADR_UP_SUM_ORDER_40_60(new BigDecimal(++order));
+            }
+
+            //更新
+            int updateRs = StockAdrCountService.update(entity);
+            if (updateRs != 1) {
+                System.out.println("更新-上涨之和排序-失败：" + rs + "" + JSON.toJSONString(entity));
+            } else {
+                rs++;
+            }
+        }
+        System.out.println("更新-上涨之和排序-成功：" + rs);
+    }
+
+    /**
+     * 更新-上涨累计、上涨累计排序
+     * @param date
+     * @param bizList
+     * @param board
+     * @param mvMin
+     * @param mvMax
+     * @param isUpdateSum
+     * @param isUpdateOrder
+     */
+    private static void updateAdrCountSumAndOrderAllBiz(String date, List<RankBizDataDiff> bizList, long board, BigDecimal mvMin, BigDecimal mvMax, boolean isUpdateSum, boolean isUpdateOrder) {
+        int stBizCountTemp = 0;
+        int startMapNum = 0;//map的开始，中断后使用，默认可设置为0
         for (RankBizDataDiff rankBizDataDiff : bizList) {
-            String bizCode = rankBizDataDiff.getF12();
             String bizName = rankBizDataDiff.getF14();
-            //查询股票列表
-            CondStock condition = new CondStock();
-            condition.setDate(date);
-            condition.setF139(board);
-            condition.setMvMin(mvMin);
-            condition.setMvMax(mvMax);
-            condition.setType_name(bizName);
-            List<RankStockCommpanyDb> stList = StockService.findListByCondition(condition);//查询股票列表-根据板块：
-            //查询每只股票的涨幅次数
-            String endDate = StockService.findBegDate(date, 1);//只统计今天之前的数据
-            List<StockAdrCount> stockAdrCountList = StockService.listAdrCount(endDate, stList, board, mvMin, mvMax, adrMinList, daysList);//统计涨跌次数
-            //更新涨幅次数
-//            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit,mvMin,mvMax);
+            stBizCountTemp++;
+            if (stBizCountTemp < startMapNum) {
+                System.out.println("已完成," + (stBizCountTemp) + ":" + bizName);
+                continue;//已完成
+            }
+            System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
+            if(isUpdateSum){
+                //更新-上涨之和
+                updateAdrCountByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5);
+                updateAdrCountByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10);
+                updateAdrCountByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20);
+                updateAdrCountByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40);
+                updateAdrCountByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60);
+            }
+
+            if(isUpdateSum){
+                //更新-上涨之和排序
+                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5);
+                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10);
+                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20);
+                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40);
+                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60);
+            }
+
+
         }
     }
 
-    private static void saveOrUpdate(String date) {
+    /**
+     * 更新涨跌次数-根据业务
+     *
+     * @param date
+     * @param board
+     * @param mvMin
+     * @param mvMax
+     * @param bizName
+     * @return
+     */
+    private static int updateAdrCountByBiz(String date, long board, BigDecimal mvMin, BigDecimal mvMax, String bizName, String dbField) {
+        int rs = 0;
+        List<StockAdrCount> stockAdrCountList = new ArrayList<>();
+        //查询股票列表-根据板块
+        CondStock condition = new CondStock();
+        condition.setDate(date);
+        condition.setF139(board);
+        condition.setMvMin(mvMin);
+        condition.setMvMax(mvMax);
+        condition.setType_name(bizName);
+        List<RankStockCommpanyDb> stList = StockService.findListByCondition(condition);
+
+        String endDate = handlerEndDateByDbField(date, dbField);
+        String begDate = handlerBegDateByDbField(date, dbField);
+
+        //查询每只股票的涨幅次数
+        for (RankStockCommpanyDb stock : stList) {
+            BigDecimal adrSum = new BigDecimal("0");//涨幅合计
+            CondStock conditionStock = new CondStock();//查询条件
+            conditionStock.setF12(stock.getF12());
+            conditionStock.setBegDate(begDate);
+            conditionStock.setEndDate(endDate);
+            List<RankStockCommpanyDb> stockDateList = StockService.findListByCondition(conditionStock);
+            for (RankStockCommpanyDb stockOneDate : stockDateList) {
+                BigDecimal adr = stockOneDate.getF3();
+                //只计算正增长的
+                if (adr != null && adr.compareTo(new BigDecimal("0")) > 0) {
+                    adrSum = adrSum.add(adr);
+                }
+            }
+            StockAdrCount entity = new StockAdrCount();
+            entity.setF12(stock.getF12());
+            entity.setF14(stock.getF14());
+            entity.setDate(date);
+            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5.equals(dbField)) {
+                entity.setADR_UP_SUM_1_5(adrSum);
+            }
+            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10.equals(dbField)) {
+                entity.setADR_UP_SUM_1_10(adrSum);
+            }
+            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20.equals(dbField)) {
+                entity.setADR_UP_SUM_1_20(adrSum);
+            }
+            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40.equals(dbField)) {
+                entity.setADR_UP_SUM_20_40(adrSum);
+            }
+            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60.equals(dbField)) {
+                entity.setADR_UP_SUM_40_60(adrSum);
+            }
+            stockAdrCountList.add(entity);
+        }
+        //排序
+        //更新涨幅次数
+        for (StockAdrCount stockAdrCount : stockAdrCountList) {
+            int updateRs = StockAdrCountService.update(stockAdrCount);
+            if (updateRs != 1) {
+                System.out.println(bizName+",更新-上涨之和-失败：" + rs + "" + JSON.toJSONString(stockAdrCount));
+            } else {
+                rs++;
+            }
+        }
+        System.out.println(bizName+",更新-上涨之和-成功：" + rs);
+        return rs;
+    }
+
+    /**
+     * 计算开始日期-根据字段
+     *
+     * @param date    基础日期
+     * @param dbField 字段
+     * @return 结束日期
+     */
+    private static String handlerBegDateByDbField(String date, String dbField) {
+        String rs = null;
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5.equals(dbField)) {
+            rs = StockService.findBegDate(date, 5);
+        }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10.equals(dbField)) {
+            rs = StockService.findBegDate(date, 10);
+        }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20.equals(dbField)) {
+            rs = StockService.findBegDate(date, 20);
+        }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40.equals(dbField)) {
+            rs = StockService.findBegDate(date, 40);
+        }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60.equals(dbField)) {
+            rs = StockService.findBegDate(date, 60);
+        }
+        return rs;
+    }
+
+    /**
+     * 计算结束日期-根据字段
+     *
+     * @param date    基础日期
+     * @param dbField 字段
+     * @return 结束日期
+     */
+    private static String handlerEndDateByDbField(String date, String dbField) {
+        String rs = null;
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5.equals(dbField)) {
+            rs = StockService.findBegDate(date, 1);
+        }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10.equals(dbField)) {
+            rs = StockService.findBegDate(date, 1);
+        }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20.equals(dbField)) {
+            rs = StockService.findBegDate(date, 1);
+        }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40.equals(dbField)) {
+            rs = StockService.findBegDate(date, 20);
+        }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60.equals(dbField)) {
+            rs = StockService.findBegDate(date, 40);
+        }
+
+        return rs;
+    }
+
+
+    private static void save(String date, List<RankBizDataDiff> bizList, boolean isDelete) {
         String spDate = "";//        String spDate = "2022-05-18";//是否显示特定日期涨跌
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("4"), new BigDecimal("5"), new BigDecimal("6"), new BigDecimal("7"), new BigDecimal("8"), new BigDecimal("9"), new BigDecimal("9.9"));
         List<Integer> daysList = Arrays.asList(TRADE_DAYS_60, TRADE_DAYS_40, TRADE_DAYS_20, TRADE_DAYS_10, TRADE_DAYS_5, TRADE_DAYS_3, TRADE_DAYS_2, TRADE_DAYS_1);
@@ -91,9 +305,8 @@ public class StockAdrCountDemo {
 //        spBizName = "中药";//医疗： 医疗服务 医疗器械 中药 生物制品
 //        String spBizName = "银行";//金融： 银行  工程咨询服务 证券 房地产开发
 
-        List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
         int stBizCountTemp = 0;
-        int startMapNum = 20;//map的开始，中断后使用，默认可设置为0
+        int startMapNum = 0;//map的开始，中断后使用，默认可设置为0
         for (RankBizDataDiff rankBizDataDiff : bizList) {
             String bizCode = rankBizDataDiff.getF12();
             //保存-特定业务处理
@@ -109,16 +322,93 @@ public class StockAdrCountDemo {
             }
             System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
 //            insertListStatStock(date, bizName, adrMinList,daysList);//批量插入-从股票表中统计数据-按照业务类别
-//            deleteTodayStAdrCount(date, bizName);//删除
-//            insertListByBiz(date, bizCode, bizName, mvMin);
+            if (isDelete) {
+                deleteTodayStAdrCount(date, bizName);//删除
+            }
+            insertListByBiz(date, bizCode, bizName, mvMin);
+        }
+    }
+
+    /**
+     * @param date
+     * @param bizList
+     * @param board
+     * @param mvMin
+     * @param mvMax
+     */
+    private static void updateListByBizAll(String date, List<RankBizDataDiff> bizList, long board, BigDecimal mvMin, BigDecimal mvMax) {
+        String spDate = "";//        String spDate = "2022-05-18";//是否显示特定日期涨跌
+        List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("4"), new BigDecimal("5"), new BigDecimal("6"), new BigDecimal("7"), new BigDecimal("8"), new BigDecimal("9"), new BigDecimal("9.9"));
+        List<Integer> daysList = Arrays.asList(TRADE_DAYS_60, TRADE_DAYS_40, TRADE_DAYS_20, TRADE_DAYS_10, TRADE_DAYS_5, TRADE_DAYS_3, TRADE_DAYS_2, TRADE_DAYS_1);
+//        List<Integer> daysList = Arrays.asList(TRADE_DAYS_3,TRADE_DAYS_2,TRADE_DAYS_1);
+//        BigDecimal adrUpCountSum60Limit = new BigDecimal("200");//涨幅次数限定，过滤杂毛
+        BigDecimal adrUpCountSum60Limit = null;//涨幅次数限定，过滤杂毛
+
+        //插入且更新价格区间、更新
+        String spBizName = null;//业务类别为空时，插入全部类别
+//        spBizName = "电子元件";//科技： 光伏设备  能源金属  风电设备    半导体  电池    非金属材料   汽车整车
+//        String spBizName = "贸易行业";//消费： 酿酒行业  贸易行业 物流行业
+//        String spBizName = "钢铁行业";//资源：能源金属 煤炭行业   化肥行业 农牧饲渔 航天航空    采掘行业  医疗服务 医疗器械
+//        spBizName = "中药";//医疗： 医疗服务 医疗器械 中药 生物制品
+//        String spBizName = "银行";//金融： 银行  工程咨询服务 证券 房地产开发
+
+        int stBizCountTemp = 0;
+        int startMapNum = 0;//map的开始，中断后使用，默认可设置为0
+        for (RankBizDataDiff rankBizDataDiff : bizList) {
+            String bizCode = rankBizDataDiff.getF12();
+            String bizName = rankBizDataDiff.getF14();
+            stBizCountTemp++;
+            if (stBizCountTemp < startMapNum) {
+                System.out.println("已完成," + (stBizCountTemp) + ":" + bizName);
+                continue;//已完成
+            }
+            System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
             updateListByBiz(date, bizCode, bizName, mvMin);
-            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit,mvMin,mvMax);
+        }
+    }
+
+    private static void updateAdrCountAllBiz(String date, List<RankBizDataDiff> bizList, long board, BigDecimal mvMin, BigDecimal mvMax) {
+        List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("4"), new BigDecimal("5"), new BigDecimal("6"), new BigDecimal("7"), new BigDecimal("8"), new BigDecimal("9"), new BigDecimal("9.9"));
+        List<Integer> daysList = Arrays.asList(TRADE_DAYS_60, TRADE_DAYS_40, TRADE_DAYS_20, TRADE_DAYS_10, TRADE_DAYS_5, TRADE_DAYS_3, TRADE_DAYS_2, TRADE_DAYS_1);
+//        List<Integer> daysList = Arrays.asList(TRADE_DAYS_3,TRADE_DAYS_2,TRADE_DAYS_1);
+//        BigDecimal adrUpCountSum60Limit = new BigDecimal("200");//涨幅次数限定，过滤杂毛
+        BigDecimal adrUpCountSum60Limit = null;//涨幅次数限定，过滤杂毛
+
+        int stBizCountTemp = 0;
+        int startMapNum = 0;//map的开始，中断后使用，默认可设置为0
+        for (RankBizDataDiff rankBizDataDiff : bizList) {
+            String bizCode = rankBizDataDiff.getF12();
+            String bizName = rankBizDataDiff.getF14();
+            stBizCountTemp++;
+            if (stBizCountTemp < startMapNum) {
+                System.out.println("已完成," + (stBizCountTemp) + ":" + bizName);
+                continue;//已完成
+            }
+            System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
+            updateAdrCount(date, bizName, adrMinList, daysList, adrUpCountSum60Limit, mvMin, mvMax);
+//            updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit, mvMin);//更新-最新价格、价格区间、均线
+        }
+    }
+
+    private static void updateNetAreaAndMaAllBiz(String date, List<RankBizDataDiff> bizList, long board, BigDecimal mvMin, BigDecimal mvMax) {
+        List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("4"), new BigDecimal("5"), new BigDecimal("6"), new BigDecimal("7"), new BigDecimal("8"), new BigDecimal("9"), new BigDecimal("9.9"));
+        List<Integer> daysList = Arrays.asList(TRADE_DAYS_60, TRADE_DAYS_40, TRADE_DAYS_20, TRADE_DAYS_10, TRADE_DAYS_5, TRADE_DAYS_3, TRADE_DAYS_2, TRADE_DAYS_1);
+//        List<Integer> daysList = Arrays.asList(TRADE_DAYS_3,TRADE_DAYS_2,TRADE_DAYS_1);
+//        BigDecimal adrUpCountSum60Limit = new BigDecimal("200");//涨幅次数限定，过滤杂毛
+        BigDecimal adrUpCountSum60Limit = null;//涨幅次数限定，过滤杂毛
+
+        int stBizCountTemp = 0;
+        int startMapNum = 0;//map的开始，中断后使用，默认可设置为0
+        for (RankBizDataDiff rankBizDataDiff : bizList) {
+            String bizCode = rankBizDataDiff.getF12();
+            String bizName = rankBizDataDiff.getF14();
+            stBizCountTemp++;
+            if (stBizCountTemp < startMapNum) {
+                System.out.println("已完成," + (stBizCountTemp) + ":" + bizName);
+                continue;//已完成
+            }
+            System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
             updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit, mvMin);//更新-最新价格、价格区间、均线
-
-//            updateAdrCountByDay(date, bizName, adrMinList);
-
-//            List<StockAdrCount> stockAdrCountList = findListByCondition(date, bizName, adrUpCountSum60Limit, mvLimit, 1);
-//            statStockAdrCount(spDate, date, stockAdrCountList, bizName);//统计股票涨跌次数:0,0为当天
         }
     }
 
@@ -143,7 +433,7 @@ public class StockAdrCountDemo {
 
         //                insertListByBiz(date, bizCode);
         updateListByBiz(date, bizCode, spBizName, mvMin);
-        updateAdrCount(date, spBizName, adrMinList, daysList, adrUpCountSum60Limit,mvMin,mvMax);
+        updateAdrCount(date, spBizName, adrMinList, daysList, adrUpCountSum60Limit, mvMin, mvMax);
         updateNetAreaAndMa(date, spBizName, adrUpCountSum60Limit, mvMin);//更新-最新价格、价格区间、均线
         return true;
     }
@@ -152,10 +442,10 @@ public class StockAdrCountDemo {
      * 插入-根据业务，查询列表
      * 股票状态过滤：退市、退市整理、未上市、st
      *
-     * @param date 日期
-     * @param biz 业务
+     * @param date    日期
+     * @param biz     业务
      * @param bizName 业务名称
-     * @param mvMin 最低市值
+     * @param mvMin   最低市值
      * @return 结果
      */
     private static List<StockAdrCount> insertListByBiz(String date, String biz, String bizName, BigDecimal mvMin) {

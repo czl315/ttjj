@@ -37,6 +37,10 @@ public class CondStock extends RankStockCommpanyDb {
      * stCodeList 限定股票代码列表
      */
     private List<String> stCodeList;
+    /**
+     * orderBy 排序
+     */
+    private String orderBy;
 
     List<String> conpetionList;
 
@@ -97,5 +101,13 @@ public class CondStock extends RankStockCommpanyDb {
 
     public void setMvMax(BigDecimal mvMax) {
         this.mvMax = mvMax;
+    }
+
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
     }
 }

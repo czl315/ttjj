@@ -30,8 +30,8 @@ public class BizRankDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-05-24";
-        boolean isOnlyGn = true;
-//        boolean isOnlyGn = false;
+//        boolean isOnlyGn = true;
+        boolean isOnlyGn = false;
         boolean isDelAndAddBiz = true;//是否删除后插入
 //        boolean isDelAndAddBiz = false;//是否删除后插入
 //        boolean isUpdateDayMa = true;//是否更新日均线

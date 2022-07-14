@@ -141,14 +141,46 @@ public class StockAdrCount {
      */
     private BigDecimal ADR_UP_COUNT_SUM_60;
     /**
+     * ADR_UP_SUM_1_5 上涨之和
+     */
+    private BigDecimal ADR_UP_SUM_1_5;
+
+    /**
+     * ADR_UP_SUM_1_10
+     */
+    private BigDecimal ADR_UP_SUM_1_10;
+    /**
+     * ADR_UP_SUM_1_20
+     */
+    private BigDecimal ADR_UP_SUM_1_20;
+    /**
      * ADR_UP_COUNT_SUM_20_40 涨幅次数统计
      */
-    private BigDecimal ADR_UP_COUNT_20_40;
+    private BigDecimal ADR_UP_SUM_20_40;
     /**
      * ADR_UP_COUNT_SUM_40_60 涨幅次数统计
      */
-    private BigDecimal ADR_UP_COUNT_40_60;
-
+    private BigDecimal ADR_UP_SUM_40_60;
+    /**
+     * ADR_UP_SUM_ORDER_1_5 上涨之和排序
+     */
+    private BigDecimal ADR_UP_SUM_ORDER_1_5;
+    /**
+     * ADR_UP_SUM_ORDER_1_10
+     */
+    private BigDecimal ADR_UP_SUM_ORDER_1_10;
+    /**
+     * ADR_UP_SUM_ORDER_1_20
+     */
+    private BigDecimal ADR_UP_SUM_ORDER_1_20;
+    /**
+     * ADR_UP_SUM_ORDER_20_40
+     */
+    private BigDecimal ADR_UP_SUM_ORDER_20_40;
+    /**
+     * ADR_UP_SUM_ORDER_40_60
+     */
+    private BigDecimal ADR_UP_SUM_ORDER_40_60;
     /**
      * 排序号
      */
@@ -596,20 +628,20 @@ public class StockAdrCount {
         this.f62 = f62;
     }
 
-    public BigDecimal getADR_UP_COUNT_20_40() {
-        return ADR_UP_COUNT_20_40;
+    public BigDecimal getADR_UP_SUM_20_40() {
+        return ADR_UP_SUM_20_40;
     }
 
-    public void setADR_UP_COUNT_20_40(BigDecimal ADR_UP_COUNT_20_40) {
-        this.ADR_UP_COUNT_20_40 = ADR_UP_COUNT_20_40;
+    public void setADR_UP_SUM_20_40(BigDecimal ADR_UP_SUM_20_40) {
+        this.ADR_UP_SUM_20_40 = ADR_UP_SUM_20_40;
     }
 
-    public BigDecimal getADR_UP_COUNT_40_60() {
-        return ADR_UP_COUNT_40_60;
+    public BigDecimal getADR_UP_SUM_40_60() {
+        return ADR_UP_SUM_40_60;
     }
 
-    public void setADR_UP_COUNT_40_60(BigDecimal ADR_UP_COUNT_40_60) {
-        this.ADR_UP_COUNT_40_60 = ADR_UP_COUNT_40_60;
+    public void setADR_UP_SUM_40_60(BigDecimal ADR_UP_SUM_40_60) {
+        this.ADR_UP_SUM_40_60 = ADR_UP_SUM_40_60;
     }
 
     public BigDecimal getADR_UP_COUNT_ORDER_NUM_1_10() {
@@ -650,5 +682,69 @@ public class StockAdrCount {
 
     public void setADR_UP_COUNT_SUM_1_60(BigDecimal ADR_UP_COUNT_SUM_1_60) {
         this.ADR_UP_COUNT_SUM_1_60 = ADR_UP_COUNT_SUM_1_60;
+    }
+
+    public BigDecimal getADR_UP_SUM_1_5() {
+        return ADR_UP_SUM_1_5;
+    }
+
+    public void setADR_UP_SUM_1_5(BigDecimal ADR_UP_SUM_1_5) {
+        this.ADR_UP_SUM_1_5 = ADR_UP_SUM_1_5;
+    }
+
+    public BigDecimal getADR_UP_SUM_1_10() {
+        return ADR_UP_SUM_1_10;
+    }
+
+    public void setADR_UP_SUM_1_10(BigDecimal ADR_UP_SUM_1_10) {
+        this.ADR_UP_SUM_1_10 = ADR_UP_SUM_1_10;
+    }
+
+    public BigDecimal getADR_UP_SUM_1_20() {
+        return ADR_UP_SUM_1_20;
+    }
+
+    public void setADR_UP_SUM_1_20(BigDecimal ADR_UP_SUM_1_20) {
+        this.ADR_UP_SUM_1_20 = ADR_UP_SUM_1_20;
+    }
+
+    public BigDecimal getADR_UP_SUM_ORDER_1_5() {
+        return ADR_UP_SUM_ORDER_1_5;
+    }
+
+    public void setADR_UP_SUM_ORDER_1_5(BigDecimal ADR_UP_SUM_ORDER_1_5) {
+        this.ADR_UP_SUM_ORDER_1_5 = ADR_UP_SUM_ORDER_1_5;
+    }
+
+    public BigDecimal getADR_UP_SUM_ORDER_1_10() {
+        return ADR_UP_SUM_ORDER_1_10;
+    }
+
+    public void setADR_UP_SUM_ORDER_1_10(BigDecimal ADR_UP_SUM_ORDER_1_10) {
+        this.ADR_UP_SUM_ORDER_1_10 = ADR_UP_SUM_ORDER_1_10;
+    }
+
+    public BigDecimal getADR_UP_SUM_ORDER_1_20() {
+        return ADR_UP_SUM_ORDER_1_20;
+    }
+
+    public void setADR_UP_SUM_ORDER_1_20(BigDecimal ADR_UP_SUM_ORDER_1_20) {
+        this.ADR_UP_SUM_ORDER_1_20 = ADR_UP_SUM_ORDER_1_20;
+    }
+
+    public BigDecimal getADR_UP_SUM_ORDER_20_40() {
+        return ADR_UP_SUM_ORDER_20_40;
+    }
+
+    public void setADR_UP_SUM_ORDER_20_40(BigDecimal ADR_UP_SUM_ORDER_20_40) {
+        this.ADR_UP_SUM_ORDER_20_40 = ADR_UP_SUM_ORDER_20_40;
+    }
+
+    public BigDecimal getADR_UP_SUM_ORDER_40_60() {
+        return ADR_UP_SUM_ORDER_40_60;
+    }
+
+    public void setADR_UP_SUM_ORDER_40_60(BigDecimal ADR_UP_SUM_ORDER_40_60) {
+        this.ADR_UP_SUM_ORDER_40_60 = ADR_UP_SUM_ORDER_40_60;
     }
 }
