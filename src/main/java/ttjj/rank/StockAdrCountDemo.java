@@ -40,12 +40,12 @@ public class StockAdrCountDemo {
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
 
-//        save(date, bizList, true);
+//        save(date, bizList, false);
 //        updateListByBizAll(date, bizList,board, mvMin, mvMax);
+        updateAdrCountSumAndOrderAllBiz(date, bizList, board, mvMin, mvMax,true,true);
 //        updateAdrCountAllBiz(date, bizList,board, mvMin, mvMax);
 //        updateNetAreaAndMaAllBiz(date, bizList,board, mvMin, mvMax);
 
-        updateAdrCountSumAndOrderAllBiz(date, bizList, board, mvMin, mvMax,true,true);
 
 //        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
 
@@ -134,6 +134,7 @@ public class StockAdrCountDemo {
                 continue;//已完成
             }
             System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
+
             if(isUpdateSum){
                 //更新-上涨之和
                 updateAdrCountByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5);
@@ -183,6 +184,11 @@ public class StockAdrCountDemo {
 
         //查询每只股票的涨幅次数
         for (RankStockCommpanyDb stock : stList) {
+            //检查股票:状态
+            if (!StockService.checkStockStatus(stock)) {
+                continue;
+            }
+
             BigDecimal adrSum = new BigDecimal("0");//涨幅合计
             CondStock conditionStock = new CondStock();//查询条件
             conditionStock.setF12(stock.getF12());

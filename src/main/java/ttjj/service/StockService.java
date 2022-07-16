@@ -61,6 +61,32 @@ public class StockService {
             return false;
         }
 
+        //检查股票:状态
+        if (!checkStockStatus(entity)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * 检查股票:状态
+     *
+     * @param entity 股票
+     * @return
+     */
+    public static boolean checkStockStatus(RankStockCommpanyDb entity) {
+        String zqdm = entity.getF12();
+        String zqmc = entity.getF14();
+        if (entity == null) {
+            System.out.println("实体信息为null，不更新db：");
+            return false;
+        }
+        if (StringUtils.isBlank(zqdm)) {
+            System.out.println("实体信息异常，不更新db：" + JSON.toJSONString(entity));
+            return false;
+        }
+
         // 股票状态过滤：退市、退市整理、未上市、st
         Long stStatus = entity.getF148();
         if (DB_RANK_BIZ_F148_STOCK_STATUS_DELISTED == stStatus || DB_RANK_BIZ_F148_STOCK_STATUS_DELISTING == stStatus) {
@@ -286,7 +312,7 @@ public class StockService {
      * @return 日期列表
      */
     public static List<String> findListDateBefore(String date, int days) {
-        return RankStockCommpanyDao.findListDateBefore(new DateCond(date, (days+1)));
+        return RankStockCommpanyDao.findListDateBefore(new DateCond(date, (days + 1)));
     }
 
     /**

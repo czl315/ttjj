@@ -995,12 +995,12 @@ public class ContMapStBoardAdrCount {
     public static Map<String, String> yiLiao = new HashMap<>();
 
     static {
-        yiLiao.putAll(yiYaoShangYe);
-        yiLiao.putAll(huaXueZhiYao);
-        yiLiao.putAll(zhongYao);
-        yiLiao.putAll(yiLiaoQiXie);
-        yiLiao.putAll(shengWuZhiPin);
-        yiLiao.putAll(yiLiaoFuWu);
+        yiLiao.putAll(yiYaoShangYe);//医药商业
+        yiLiao.putAll(huaXueZhiYao);//化学制药
+        yiLiao.putAll(zhongYao);//中药
+        yiLiao.putAll(yiLiaoQiXie);//医疗器械
+        yiLiao.putAll(shengWuZhiPin);//生物制品
+        yiLiao.putAll(yiLiaoFuWu);//医疗服务
     }
 
     /**

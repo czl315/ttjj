@@ -1219,7 +1219,9 @@ public class KlineService {
             } else {
                 klines = KlineService.kline(zqdm, NUM_MAX_999, klt, true, date, date, type);
             }
-            System.out.println(",开始日期:" + date + "，结束日期:" + date + "，周期:" + klt + "，klines.size():" + klines.size() + ",zqmc:" + zqmc);
+            if (klines != null) {
+                System.out.println(",开始日期:" + date + "，结束日期:" + date + "，周期:" + klt + "，klines.size():" + klines.size() + ",zqmc:" + zqmc);
+            }
             //        System.out.println("klines:"+JSON.toJSONString(klines));
             //是否先删除
             if (isDelete) {

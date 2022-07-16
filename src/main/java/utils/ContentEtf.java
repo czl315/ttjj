@@ -37,7 +37,7 @@ public class ContentEtf {
         mapEtfKeJi.put("512660", "军工ETF");//512660	军工ETF	151.61      512680	中证军工ETF	40.29
 //        mapEtfKeJi.put("515150", "一带一路ETF");//515150	一带一路ETF	12.84
 
-        mapEtfKeJi.put("159851", "金融科技ETF");//159851 金融科技ETF 0.99
+//        mapEtfKeJi.put("159851", "金融科技ETF");//159851 金融科技ETF 0.99
         mapEtfKeJi.put("516110", "汽车ETF");//516110   汽车ETF   2.23
     }
 
