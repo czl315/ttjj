@@ -656,6 +656,19 @@ public class Content {
      */
     public static String REPORT_NAME_RPT_PUBLIC_OP_NEWPREDICT = "RPT_PUBLIC_OP_NEWPREDICT";
 
+
+    /**
+     * DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1
+     */
+    public static String DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1 = "ADR_UP_SUM_1_1";
+    /**
+     * DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_2
+     */
+    public static String DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_2 = "ADR_UP_SUM_1_2";
+    /**
+     * DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_3
+     */
+    public static String DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_3 = "ADR_UP_SUM_1_3";
     /**
      * DB_STOCK_ADR_COUNT_ADR_UP_COUNT_1_5
      */
@@ -676,5 +689,9 @@ public class Content {
      * DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60
      */
     public static String DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60 = "ADR_UP_SUM_40_60";
+    /**
+     * DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60
+     */
+    public static String DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_60 = "ADR_UP_SUM_1_60";
 
 }
