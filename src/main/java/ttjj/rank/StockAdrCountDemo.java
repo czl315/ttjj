@@ -37,11 +37,11 @@ public class StockAdrCountDemo {
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
 
-//        save(date, bizList, false);
+//        save(date, bizList, true);
 //        updateListByBizAll(date, bizList,board, mvMin, mvMax);
-        updateAdrCountSumAndOrderAllBiz(date, bizList, board, mvMin, mvMax, true, true);
-//        updateAdrCountAllBiz(date, bizList,board, mvMin, mvMax);
-//        updateNetAreaAndMaAllBiz(date, bizList,board, mvMin, mvMax);
+//        updateAdrCountSumAndOrderAllBiz(date, bizList, board, mvMin, mvMax, true, true);
+        updateNetAreaAndMaAllBiz(date, bizList,board, mvMin, mvMax);
+        updateAdrCountAllBiz(date, bizList,board, mvMin, mvMax);
 
 //        List<StockAdrCount> stockAdrCountList = findListByCondition(date, biz);
 

@@ -1235,6 +1235,9 @@ public class KlineService {
             }
 
             int saveRs = 0;
+            if (klines == null) {
+                return;
+            }
             for (Kline kline : klines) {
                 if (klt == KLT_5 || klt == KLT_15 || klt == KLT_30 || klt == KLT_60) {
                     kline.setKtime(kline.getKtime().substring(11));//只设置当天具体时间，去掉日期
