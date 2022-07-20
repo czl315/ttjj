@@ -30,9 +30,9 @@ public class KlineDemo {
 //        String date = "2022-07-08";
         List<String> kltList = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15, KLT_5);
         List<String> kltListCurDay = Arrays.asList(KLT_101);
-        saveKlineByType(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList);
         saveKlineByType(date, DB_RANK_BIZ_TYPE_ZS, kltList);
-        saveKlineByType(date, DB_RANK_BIZ_TYPE_ETF, kltList);
+        saveKlineByType(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList);
+        saveKlineByType(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
         saveKlineByType(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltListCurDay);
 
 

@@ -1381,7 +1381,6 @@ public class KlineService {
      * @param condMa 均线条件
      */
     public static void showStockMa(CondMa condMa) {
-
         String date = condMa.getDate();
         String spDate = condMa.getSpDate();
         boolean isShowPriceArea = condMa.getShowPriceArea();
