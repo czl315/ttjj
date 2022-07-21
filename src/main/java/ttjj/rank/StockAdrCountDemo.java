@@ -39,7 +39,7 @@ public class StockAdrCountDemo {
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
 
-        save(date, bizList, true, spBizName);
+//        save(date, bizList, false, spBizName);
 //        updateListByBizAll(date, bizList, board, mvMin, mvMax, true, false, false, false, false, false);
 //        updateListByBizAll(date, bizList, board, mvMin, mvMax, true, false, false, true, true, false);
 //        updateListByBizAll(date, bizList, board, mvMin, mvMax,spBizName, true, true, true, true, true, true);
@@ -71,9 +71,7 @@ public class StockAdrCountDemo {
             BigDecimal marketValue = stockAdrCount.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
             BigDecimal order_1_60 = stockAdrCount.getADR_UP_SUM_ORDER_1_20().add(stockAdrCount.getADR_UP_SUM_ORDER_20_40()).add(stockAdrCount.getADR_UP_SUM_ORDER_40_60());
             sb.append(stName);
-            sb.append("\t");
             sb.append(bizName);
-            sb.append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_ORDER_1_60()).append("\t");
             sb.append(order_1_60);
             sb.append("\t");
