@@ -694,4 +694,9 @@ public class Content {
      */
     public static String DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_60 = "ADR_UP_SUM_1_60";
 
+    /**
+     * 排序字段
+     */
+    public static String ORDER_BY_F3 = " F3 DESC ";
+
 }

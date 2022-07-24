@@ -12,6 +12,7 @@ import ttjj.service.BizService;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
 import utils.Content;
+import utils.ContentEtf;
 import utils.DateUtil;
 
 import java.math.BigDecimal;
@@ -26,8 +27,8 @@ import static utils.Content.*;
  */
 public class KlineDemo {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-07-08";
+//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        String date = "2022-07-22";
         List<String> kltList = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15, KLT_5);
         List<String> kltListCurDay = Arrays.asList(KLT_101);
         saveKlineByType(date, DB_RANK_BIZ_TYPE_ZS, kltList);
@@ -74,6 +75,12 @@ public class KlineDemo {
         //更新均线价格-天
         for (String zqdm : zhishuMap.keySet()) {
             updateNetByDate(zqdm, KLT_101, true, date, date, bizType);
+        }
+
+        //etf特殊集合插入5分钟
+        if (bizType.equals(DB_RANK_BIZ_TYPE_ETF)) {
+            zhishuMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
+            KlineService.saveKlineByType(zhishuMap, date, KLT_5, bizType, true);
         }
     }
 

@@ -36,13 +36,15 @@ public class StockAdrCountDemo {
         Long board = DB_RANK_BIZ_F139_BK_MAIN;//
         String spBizName = null;//特定业务：半导体 "半导体"
 //        String spBizName = "半导体";//特定业务：半导体 "半导体"
+        int startMapNum = 0;//map的开始，中断后使用，默认可设置为0
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
 
 //        save(date, bizList, false, spBizName);
-//        updateListByBizAll(date, bizList, board, mvMin, mvMax, true, false, false, false, false, false);
-//        updateListByBizAll(date, bizList, board, mvMin, mvMax, true, false, false, true, true, false);
-//        updateListByBizAll(date, bizList, board, mvMin, mvMax,spBizName, true, true, true, true, true, true);
+//        updateListByBizAll(date, bizList, board, mvMin, mvMax, spBizName,true, false, false, false, false, false);
+//        updateListByBizAll(date, bizList, board, mvMin, mvMax, spBizName,true, true, true, false, false, false);
+//        updateListByBizAll(date, bizList, board, mvMin, mvMax, spBizName,true, false, false, true, false, true);
+        updateListByBizAll(date, bizList, board, mvMin, mvMax,spBizName, true, true, true, true, true, true,startMapNum);
 
 //        updateAdrCountAllBiz(date, bizList, board, mvMin, mvMax, spBizName);
 
@@ -483,7 +485,6 @@ public class StockAdrCountDemo {
         String spDate = "";//        String spDate = "2022-05-18";//是否显示特定日期涨跌
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("4"), new BigDecimal("5"), new BigDecimal("6"), new BigDecimal("7"), new BigDecimal("8"), new BigDecimal("9"), new BigDecimal("9.9"));
         List<Integer> daysList = Arrays.asList(TRADE_DAYS_60, TRADE_DAYS_40, TRADE_DAYS_20, TRADE_DAYS_10, TRADE_DAYS_5, TRADE_DAYS_3, TRADE_DAYS_2, TRADE_DAYS_1);
-//        List<Integer> daysList = Arrays.asList(TRADE_DAYS_3,TRADE_DAYS_2,TRADE_DAYS_1);
 //        BigDecimal adrUpCountSum60Limit = new BigDecimal("200");//涨幅次数限定，过滤杂毛
         BigDecimal adrUpCountSum60Limit = null;//涨幅次数限定，过滤杂毛
         BigDecimal mvMin = NUM_YI_50;//NUM_YI_1000
@@ -498,9 +499,6 @@ public class StockAdrCountDemo {
             if (spBizName != null && !bizName.equals(spBizName)) {
                 continue;
             }
-//            if (saveBizSp(date, spBizName, adrMinList, daysList, adrUpCountSum60Limit, mvMin, mvMax)) {
-//                break;
-//            }
 
             stBizCountTemp++;
             if (stBizCountTemp < startMapNum) {
@@ -518,21 +516,20 @@ public class StockAdrCountDemo {
 
     /**
      * 更新数据：
-     *
-     * @param date            日期
+     *  @param date            日期
      * @param bizList         业务列表
      * @param board           板块
      * @param mvMin           市值
      * @param mvMax           市值
-     * @param isUpdateNetArea 是否更新净值区间
      * @param isUpdateUpMa    是否更新均线
+     * @param isUpdateNetArea 是否更新净值区间
+     * @param startMapNum
      */
-    private static void updateListByBizAll(String date, List<RankBizDataDiff> bizList, Long board, BigDecimal mvMin, BigDecimal mvMax, String spBizName, boolean isUpdateNet, boolean isUpdateSum, boolean isUpdateOrder, boolean isFindList, boolean isUpdateUpMa, boolean isUpdateNetArea) {
+    private static void updateListByBizAll(String date, List<RankBizDataDiff> bizList, Long board, BigDecimal mvMin, BigDecimal mvMax, String spBizName, boolean isUpdateNet, boolean isUpdateSum, boolean isUpdateOrder, boolean isFindList, boolean isUpdateUpMa, boolean isUpdateNetArea, int startMapNum) {
         BigDecimal adrUpCountSum60Limit = null;//涨幅次数限定，过滤杂毛
 
         //插入且更新价格区间、更新
         int stBizCountTemp = 0;
-        int startMapNum = 0;//map的开始，中断后使用，默认可设置为0
         for (RankBizDataDiff rankBizDataDiff : bizList) {
             String bizCode = rankBizDataDiff.getF12();
             String bizName = rankBizDataDiff.getF14();
@@ -549,7 +546,7 @@ public class StockAdrCountDemo {
 
             System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
             if (isUpdateNet) {
-                updateListNet(date, bizCode, bizName, mvMin);
+                updateListNet(date, bizCode, bizName, mvMin,rankBizDataDiff);
             }
 
             if (isUpdateSum) {
@@ -581,7 +578,7 @@ public class StockAdrCountDemo {
 
             List<StockAdrCount> stockAdrCountList = null;
             if (isFindList) {
-                stockAdrCountList = findListByCondition(date, bizName, adrUpCountSum60Limit, mvMin, null, null);//查询列表-根据条件
+                stockAdrCountList = findListByCondition(date, bizName, adrUpCountSum60Limit, mvMin, null, ORDER_BY_F3);//查询列表-根据条件
             }
             if (isUpdateUpMa) {
                 updateUpMa(date, stockAdrCountList);//更新-超过均线信息
@@ -640,32 +637,6 @@ public class StockAdrCountDemo {
             System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
             updateNetAreaAndMa(date, bizName, adrUpCountSum60Limit, mvMin);//更新-最新价格、价格区间、均线
         }
-    }
-
-    /**
-     * 保存-特定业务处理
-     *
-     * @param date                 日期
-     * @param spBizName            特定业务
-     * @param adrMinList           涨幅列表
-     * @param daysList             天数列表
-     * @param adrUpCountSum60Limit
-     */
-    private static boolean saveBizSp(String date, String spBizName, List<BigDecimal> adrMinList, List<Integer> daysList, BigDecimal adrUpCountSum60Limit, BigDecimal mvMin, BigDecimal mvMax) {
-        if (StringUtils.isBlank(spBizName)) {
-//            System.out.println("特定业务处理-业务不能为空");
-            return false;
-        }
-        String bizCode = "";
-        System.out.println("特定业务处理：" + spBizName);
-
-        bizCode = ContMapBizBaord.BOARD_NAME_CODE.get(spBizName);//根据业务名称，查询业务编码
-
-        //                insertListByBiz(date, bizCode);
-        updateListNet(date, bizCode, spBizName, mvMin);
-        updateAdrCount(date, spBizName, adrMinList, daysList, adrUpCountSum60Limit, mvMin, mvMax);
-        updateNetAreaAndMa(date, spBizName, adrUpCountSum60Limit, mvMin);//更新-最新价格、价格区间、均线
-        return true;
     }
 
     /**
@@ -746,9 +717,10 @@ public class StockAdrCountDemo {
      * @param biz
      * @param bizName
      * @param mvLimit
+     * @param rankBizDataDiff
      * @return
      */
-    private static List<StockAdrCount> updateListNet(String date, String biz, String bizName, BigDecimal mvLimit) {
+    private static List<StockAdrCount> updateListNet(String date, String biz, String bizName, BigDecimal mvLimit, RankBizDataDiff rankBizDataDiff) {
         List<StockAdrCount> stockAdrCountList = new ArrayList<>();
 //        按板块查询
 //        System.out.println("-------------------------当前biz：" + biz);
@@ -820,7 +792,7 @@ public class StockAdrCountDemo {
                 rs++;
             }
         }
-        System.out.println("当前biz：" + bizName + ",根据业务，批量更新基础信息成功-涨幅次数统计：" + rs + "：" + stList.size());
+        System.out.println("当前biz：" + bizName+ ",涨幅：" + rankBizDataDiff.getF3() + ",根据业务，批量更新基础信息成功-涨幅次数统计：" + rs + "：" + stList.size());
 
         return stockAdrCountList;
     }

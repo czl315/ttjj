@@ -30,7 +30,7 @@ public class EtfUtil {
             sb.append("    ");
             return sb.toString();
         }
-        if (name.equals("标普500") || name.equals("中证500") || name.equals("中证100") || name.equals("上证180") || name.equals("沪深300")) {
+        if (name.equals("标普500") || name.equals("中证500") || name.equals("中证100") || name.equals("上证180") || name.equals("沪深300")|| name.equals("TCL中环")) {
             sb.append("   ");
             return sb.toString();
         }
