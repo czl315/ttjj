@@ -51,6 +51,17 @@ public class StockAdrCountCond extends StockAdrCount {
      */
     private boolean updateNetArea;
 
+    /**
+     * mvMin 市值-最低
+     */
+    private BigDecimal mvMin;
+    /**
+     * mvMax 市值-最高
+     */
+    private BigDecimal mvMax;
+
+    List<String> maKltList ;//均线周期列表
+
     public Integer getLimitCount() {
         return limitCount;
     }
@@ -122,5 +133,29 @@ public class StockAdrCountCond extends StockAdrCount {
 
     public void setUpdateNetArea(boolean updateNetArea) {
         this.updateNetArea = updateNetArea;
+    }
+
+    public BigDecimal getMvMin() {
+        return mvMin;
+    }
+
+    public void setMvMin(BigDecimal mvMin) {
+        this.mvMin = mvMin;
+    }
+
+    public BigDecimal getMvMax() {
+        return mvMax;
+    }
+
+    public void setMvMax(BigDecimal mvMax) {
+        this.mvMax = mvMax;
+    }
+
+    public List<String> getMaKltList() {
+        return maKltList;
+    }
+
+    public void setMaKltList(List<String> maKltList) {
+        this.maKltList = maKltList;
     }
 }

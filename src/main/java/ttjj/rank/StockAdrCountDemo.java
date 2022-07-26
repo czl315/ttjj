@@ -35,21 +35,25 @@ public class StockAdrCountDemo {
         Long board = DB_RANK_BIZ_F139_BK_MAIN;//
         String spBizName = null;//特定业务：半导体 "半导体"
 //        String spBizName = "半导体";//特定业务：半导体 "半导体"
-        int startMapNum = 0;//map的开始，中断后使用，默认可设置为0
+        int begBiz = 0;//map的开始，中断后使用，默认可设置为0
+        List<String> maKltList = Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101,KLT_102);//价格区间周期列表
+//        List<String> maKltList = Arrays.asList(KLT_102);//价格区间周期列表
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
 
-
         StockAdrCountCond stockAdrCountCond = new StockAdrCountCond();
+        stockAdrCountCond.setMvMin(mvMin);
+        stockAdrCountCond.setMvMax(mvMax);
+        stockAdrCountCond.setF139(board);
+        stockAdrCountCond.setMaKltList(maKltList);
         stockAdrCountCond.setUpdateNet(true);
         stockAdrCountCond.setUpdateSum(true);
         stockAdrCountCond.setUpdateOrder(true);
-        stockAdrCountCond.setFindList(true);
         stockAdrCountCond.setUpdateUpMa(true);
         stockAdrCountCond.setUpdateNetArea(true);
 
-//        save(date, bizList, false, spBizName);
-        updateListByBizAll(date, bizList, board, mvMin, mvMax, spBizName, stockAdrCountCond, startMapNum);
+        save(date, bizList, false, spBizName);
+        updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
 
 //        updateAdrCountAllBiz(date, bizList, board, mvMin, mvMax, spBizName);
 
@@ -562,23 +566,22 @@ public class StockAdrCountDemo {
      *
      * @param date              日期
      * @param bizList           业务列表
-     * @param board             板块
-     * @param mvMin             市值
-     * @param mvMax             市值
      * @param stockAdrCountCond 更新字段条件
-     * @param startMapNum       开始序号
+     * @param begBiz            开始序号
      */
-    private static void updateListByBizAll(String date, List<RankBizDataDiff> bizList, Long board, BigDecimal mvMin, BigDecimal mvMax, String spBizName, StockAdrCountCond stockAdrCountCond, int startMapNum) {
+    private static void updateListByBizAll(String date, List<RankBizDataDiff> bizList, int begBiz, String spBizName, StockAdrCountCond stockAdrCountCond) {
         BigDecimal adrUpCountSum60Limit = null;//涨幅次数限定，过滤杂毛
-
+        BigDecimal mvMin = stockAdrCountCond.getMvMin();
+        BigDecimal mvMax = stockAdrCountCond.getMvMax();
+        Long board = stockAdrCountCond.getF139();
         //插入且更新价格区间、更新
-        int stBizCountTemp = 0;
+        int curBizNum = 0;
         for (RankBizDataDiff rankBizDataDiff : bizList) {
             String bizCode = rankBizDataDiff.getF12();
             String bizName = rankBizDataDiff.getF14();
-            stBizCountTemp++;
-            if (stBizCountTemp < startMapNum) {
-                System.out.println("已完成," + (stBizCountTemp) + ":" + bizName);
+            curBizNum++;
+            if (!checkBizBegNum(curBizNum, begBiz)) {
+                System.out.println("已完成," + (curBizNum) + ":" + bizName);
                 continue;//已完成
             }
 
@@ -587,7 +590,8 @@ public class StockAdrCountDemo {
                 continue;
             }
 
-            System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
+            System.out.println("-------------------------当前stBizCountTemp：" + (curBizNum) + "---" + bizName);
+
             if (stockAdrCountCond.isUpdateNet()) {
                 updateListNet(date, bizCode, bizName, mvMin, rankBizDataDiff);
             }
@@ -620,17 +624,30 @@ public class StockAdrCountDemo {
             }
 
             List<StockAdrCount> stockAdrCountList = null;
-            if (stockAdrCountCond.isFindList()) {
-                stockAdrCountList = findListByCondition(date, bizList, bizName, adrUpCountSum60Limit, mvMin, null, ORDER_BY_F3);//查询列表-根据条件
-            }
             if (stockAdrCountCond.isUpdateUpMa()) {
-                updateUpMa(date, stockAdrCountList);//更新-超过均线信息
+                stockAdrCountList = findListByCondition(date, bizList, bizName, adrUpCountSum60Limit, mvMin, null, ORDER_BY_F3);//查询列表-根据条件
+                updateUpMa(date, stockAdrCountList, stockAdrCountCond);//更新-超过均线信息
             }
             if (stockAdrCountCond.isUpdateNetArea()) {
+                stockAdrCountList = findListByCondition(date, bizList, bizName, adrUpCountSum60Limit, mvMin, null, ORDER_BY_F3);//查询列表-根据条件
                 updateNetArea(date, stockAdrCountList);//更新-价格区间
             }
 
         }
+    }
+
+    /**
+     * 检查-当前业务是否完成
+     *
+     * @param curBizNum 当前业务号
+     * @param begBiz    特定业务开始号
+     * @return 是否检查通过
+     */
+    private static boolean checkBizBegNum(int curBizNum, int begBiz) {
+        if (curBizNum < begBiz) {
+            return false;
+        }
+        return true;
     }
 
     private static void updateAdrCountAllBiz(String date, List<RankBizDataDiff> bizList, long board, BigDecimal mvMin, BigDecimal mvMax, String spBizName) {
@@ -1038,11 +1055,13 @@ public class StockAdrCountDemo {
      *
      * @param maDate
      * @param stockAdrCountList
+     * @param stockAdrCountCond
      */
-    private static void updateUpMa(String maDate, List<StockAdrCount> stockAdrCountList) {
+    private static void updateUpMa(String maDate, List<StockAdrCount> stockAdrCountList, StockAdrCountCond stockAdrCountCond) {
         int updateRs = 0;//更新成功个数
         if (stockAdrCountList == null) {
             System.out.println("更新-超过均线信息:stockAdrCountList==null");
+            return;
         }
         for (StockAdrCount stockAdrCount : stockAdrCountList) {
             StockAdrCount entity = new StockAdrCount();
@@ -1057,40 +1076,56 @@ public class StockAdrCountDemo {
             RankStockCommpanyDb stock = new RankStockCommpanyDb();
             stock.setF12(stockAdrCount.getF12());
             stock.setF14(stockAdrCount.getF14());
+            List<String> maKltList = stockAdrCountCond.getMaKltList();
             //显示信息-上涨均线
-//            boolean isMa15 = KlineService.showUpMa(stock, KLT_15, maList, maDate, isUp);//显示信息-上涨均线
-//            if (isMa15) {
-//                entity.setUP_MA_15(KLT_15 + "(" + MA_60 + ")");
-//            } else {
-//                entity.setUP_MA_15("");
-//            }
-//            boolean isMa30 = KlineService.showUpMa(stock, KLT_30, maList, maDate, isUp);//显示信息-上涨均线
-//            if (isMa30) {
-//                entity.setUP_MA_30(KLT_30 + "(" + MA_60 + ")");
-//            } else {
-//                entity.setUP_MA_30("");
-//            }
-//            boolean isMa60 = KlineService.showUpMa(stock, KLT_60, maList, maDate, isUp);//显示信息-上涨均线
-//            if (isMa60) {
-//                entity.setUP_MA_60(KLT_60 + "(" + MA_60 + ")");
-//            } else {
-//                entity.setUP_MA_60("");
-//            }
-//            boolean isMa101 = KlineService.showUpMa(stock, KLT_101, maList, maDate, isUp);//显示信息-上涨均线
-//            if (isMa101) {
-//                entity.setUP_MA_101(KLT_101 + "(" + MA_60 + ")");
-//            } else {
-//                entity.setUP_MA_101("");
-//            }
-            boolean isMa102 = KlineService.showUpMa(stock, KLT_102, maList, maDate, isUp);//显示信息-上涨均线
-            if (isMa102) {
-                entity.setUP_MA_102(KLT_102 + "(" + MA_60 + ")");
-            } else {
-                entity.setUP_MA_102("");
+            boolean isMa15 = false;
+            boolean isMa30 = false;
+            boolean isMa60 = false;
+            boolean isMa101 = false;
+            boolean isMa102 = false;
+            if (maKltList.contains(KLT_15)) {
+                isMa15 = KlineService.showUpMa(stock, KLT_15, maList, maDate, isUp);//显示信息-上涨均线
+                if (isMa15) {
+                    entity.setUP_MA_15(KLT_15 + "(" + MA_60 + ")");
+                } else {
+                    entity.setUP_MA_15("");
+                }
+            }
+            if (maKltList.contains(KLT_30)) {
+                isMa30 = KlineService.showUpMa(stock, KLT_30, maList, maDate, isUp);//显示信息-上涨均线
+                if (isMa30) {
+                    entity.setUP_MA_30(KLT_30 + "(" + MA_60 + ")");
+                } else {
+                    entity.setUP_MA_30("");
+                }
+            }
+            if (maKltList.contains(KLT_60)) {
+                isMa60 = KlineService.showUpMa(stock, KLT_60, maList, maDate, isUp);//显示信息-上涨均线
+                if (isMa60) {
+                    entity.setUP_MA_60(KLT_60 + "(" + MA_60 + ")");
+                } else {
+                    entity.setUP_MA_60("");
+                }
+            }
+            if (maKltList.contains(KLT_101)) {
+                isMa101 = KlineService.showUpMa(stock, KLT_101, maList, maDate, isUp);//显示信息-上涨均线
+                if (isMa101) {
+                    entity.setUP_MA_101(KLT_101 + "(" + MA_60 + ")");
+                } else {
+                    entity.setUP_MA_101("");
+                }
+            }
+            if (maKltList.contains(KLT_102)) {
+                isMa102 = KlineService.showUpMa(stock, KLT_102, maList, maDate, isUp);//显示信息-上涨均线
+                if (isMa102) {
+                    entity.setUP_MA_102(KLT_102 + "(" + MA_60 + ")");
+                } else {
+                    entity.setUP_MA_102("");
+                }
             }
 
-//            boolean isHasMa = isMa15 || isMa30 || isMa60 || isMa101 || isMa102;
-            boolean isHasMa = isMa102;
+            boolean isHasMa = isMa15 || isMa30 || isMa60 || isMa101 || isMa102;
+//            boolean isHasMa = isMa102;
             if (isHasMa) {
                 //更新
                 int rs = StockAdrCountService.update(entity);
