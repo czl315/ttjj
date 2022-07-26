@@ -26,6 +26,30 @@ public class StockAdrCountCond extends StockAdrCount {
      * limitCount 限定查询个数
      */
     private Integer limitCount;
+    /**
+     * 是否更新-净值
+     */
+    private boolean updateNet;
+    /**
+     * 是否更新-上涨累计
+     */
+    private boolean updateSum;
+    /**
+     * 是否更新-上涨累计排序
+     */
+    private boolean updateOrder;
+    /**
+     * 是否查询-列表
+     */
+    private boolean findList;
+    /**
+     * 是否更新-超过均线
+     */
+    private boolean updateUpMa;
+    /**
+     * 是否更新-净值区间
+     */
+    private boolean updateNetArea;
 
     public Integer getLimitCount() {
         return limitCount;
@@ -50,5 +74,53 @@ public class StockAdrCountCond extends StockAdrCount {
 
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
+    }
+
+    public boolean isUpdateNet() {
+        return updateNet;
+    }
+
+    public void setUpdateNet(boolean updateNet) {
+        this.updateNet = updateNet;
+    }
+
+    public boolean isUpdateSum() {
+        return updateSum;
+    }
+
+    public void setUpdateSum(boolean updateSum) {
+        this.updateSum = updateSum;
+    }
+
+    public boolean isUpdateOrder() {
+        return updateOrder;
+    }
+
+    public void setUpdateOrder(boolean updateOrder) {
+        this.updateOrder = updateOrder;
+    }
+
+    public boolean isFindList() {
+        return findList;
+    }
+
+    public void setFindList(boolean findList) {
+        this.findList = findList;
+    }
+
+    public boolean isUpdateUpMa() {
+        return updateUpMa;
+    }
+
+    public void setUpdateUpMa(boolean updateUpMa) {
+        this.updateUpMa = updateUpMa;
+    }
+
+    public boolean isUpdateNetArea() {
+        return updateNetArea;
+    }
+
+    public void setUpdateNetArea(boolean updateNetArea) {
+        this.updateNetArea = updateNetArea;
     }
 }

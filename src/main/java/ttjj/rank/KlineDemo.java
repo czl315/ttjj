@@ -27,8 +27,8 @@ import static utils.Content.*;
  */
 public class KlineDemo {
     public static void main(String[] args) {
-//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-        String date = "2022-07-22";
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-07-22";
         List<String> kltList = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15, KLT_5);
         List<String> kltListCurDay = Arrays.asList(KLT_101);
         saveKlineByType(date, DB_RANK_BIZ_TYPE_ZS, kltList);
