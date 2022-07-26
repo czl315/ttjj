@@ -41,7 +41,7 @@ public class StockAdrCountDemo {
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
 
-        StockAdrCountCond stockAdrCountCond = new StockAdrCountCond();
+        CondStockAdrCount stockAdrCountCond = new CondStockAdrCount();
         stockAdrCountCond.setMvMin(mvMin);
         stockAdrCountCond.setMvMax(mvMax);
         stockAdrCountCond.setF139(board);
@@ -52,15 +52,15 @@ public class StockAdrCountDemo {
         stockAdrCountCond.setUpdateUpMa(true);
         stockAdrCountCond.setUpdateNetArea(true);
 
-        save(date, bizList, false, spBizName);
-        updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
+//        save(date, bizList, false, spBizName);
+//        updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
 
 //        updateAdrCountAllBiz(date, bizList, board, mvMin, mvMax, spBizName);
 
-//        String orderBy = " ADR_UP_SUM_1_60  DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
-////        List<StockAdrCount> stockAdrCountList = findListByBiz(date, bizList,spBizName,startMapNum, null, mvMin, 2,orderBy);
-//        List<StockAdrCount> stockAdrCountList = findListByCondition(date, bizList,spBizName, null, mvMin, 10,orderBy);
-//        showStockAdrCountList(stockAdrCountList);
+        String orderBy = " ADR_UP_SUM_1_60  DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
+//        List<StockAdrCount> stockAdrCountList = findListByBiz(date, bizList,spBizName,startMapNum, null, mvMin, 2,orderBy);
+        List<StockAdrCount> stockAdrCountList = findListByCondition(date, bizList,spBizName, null, mvMin, 10,orderBy);
+        showStockAdrCountList(stockAdrCountList);
 
 //        statStockAdrCountBatch(0);//统计股票涨跌次数:0,0为当天
 
@@ -86,7 +86,7 @@ public class StockAdrCountDemo {
                 continue;
             }
 
-            StockAdrCountCond condition = new StockAdrCountCond();
+            CondStockAdrCount condition = new CondStockAdrCount();
             condition.setDate(date);
 //        condition.setOrderNumList(orderNumList);
             condition.setADR_UP_COUNT_SUM_60(adrUpCountSum60Limit);
@@ -130,7 +130,7 @@ public class StockAdrCountDemo {
             sb.append(stockAdrCount.getADR_UP_SUM_ORDER_1_20()).append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_ORDER_1_10()).append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_ORDER_1_5()).append("\t");
-            sb.append(stockAdrCount.getADR_UP_COUNT_SUM_60()).append("\t");
+//            sb.append(stockAdrCount.getADR_UP_COUNT_SUM_60()).append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_40_60()).append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_20_40()).append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_1_20()).append("\t");
@@ -171,7 +171,7 @@ public class StockAdrCountDemo {
     private static void updateAdrSumOrderByBiz(String date, String bizName, String dbField) {
         int rs = 0;
         //查询股票列表-根据板块
-        StockAdrCountCond condition = new StockAdrCountCond();
+        CondStockAdrCount condition = new CondStockAdrCount();
         condition.setDate(date);
         condition.setType_name(bizName);
         List<StockAdrCount> stList = StockAdrCountService.findListByCondition(condition);
@@ -245,7 +245,7 @@ public class StockAdrCountDemo {
     private static void updateUpSumAndOrder(String date, String bizName, String dbField) {
         int rs = 0;
         //查询股票列表-根据板块
-        StockAdrCountCond condition = new StockAdrCountCond();
+        CondStockAdrCount condition = new CondStockAdrCount();
         condition.setDate(date);
         condition.setType_name(bizName);
         List<StockAdrCount> stList = StockAdrCountService.findListByCondition(condition);
@@ -569,7 +569,7 @@ public class StockAdrCountDemo {
      * @param stockAdrCountCond 更新字段条件
      * @param begBiz            开始序号
      */
-    private static void updateListByBizAll(String date, List<RankBizDataDiff> bizList, int begBiz, String spBizName, StockAdrCountCond stockAdrCountCond) {
+    private static void updateListByBizAll(String date, List<RankBizDataDiff> bizList, int begBiz, String spBizName, CondStockAdrCount stockAdrCountCond) {
         BigDecimal adrUpCountSum60Limit = null;//涨幅次数限定，过滤杂毛
         BigDecimal mvMin = stockAdrCountCond.getMvMin();
         BigDecimal mvMax = stockAdrCountCond.getMvMax();
@@ -1038,7 +1038,7 @@ public class StockAdrCountDemo {
 
 //        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"));
 //        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"));
-        StockAdrCountCond condition = new StockAdrCountCond();
+        CondStockAdrCount condition = new CondStockAdrCount();
         condition.setDate(date);
 //        condition.setOrderNumList(orderNumList);
         condition.setADR_UP_COUNT_SUM_60(adrUpCountSum60Limit);
@@ -1057,7 +1057,7 @@ public class StockAdrCountDemo {
      * @param stockAdrCountList
      * @param stockAdrCountCond
      */
-    private static void updateUpMa(String maDate, List<StockAdrCount> stockAdrCountList, StockAdrCountCond stockAdrCountCond) {
+    private static void updateUpMa(String maDate, List<StockAdrCount> stockAdrCountList, CondStockAdrCount stockAdrCountCond) {
         int updateRs = 0;//更新成功个数
         if (stockAdrCountList == null) {
             System.out.println("更新-超过均线信息:stockAdrCountList==null");

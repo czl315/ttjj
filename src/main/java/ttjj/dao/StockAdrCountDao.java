@@ -3,7 +3,7 @@ package ttjj.dao;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import ttjj.db.StockAdrCount;
-import ttjj.dto.StockAdrCountCond;
+import ttjj.dto.CondStockAdrCount;
 
 import java.util.List;
 
@@ -73,7 +73,7 @@ public class StockAdrCountDao {
      * @param condition
      * @return
      */
-    public static List<StockAdrCount> findListByCondition(StockAdrCountCond condition) {
+    public static List<StockAdrCount> findListByCondition(CondStockAdrCount condition) {
         SqlSession session = sqlSessionFactory.openSession();
         List<StockAdrCount> rs = null;
         try {

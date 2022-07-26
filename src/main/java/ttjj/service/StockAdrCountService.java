@@ -2,7 +2,7 @@ package ttjj.service;
 
 import ttjj.dao.StockAdrCountDao;
 import ttjj.db.StockAdrCount;
-import ttjj.dto.StockAdrCountCond;
+import ttjj.dto.CondStockAdrCount;
 
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class StockAdrCountService {
      * @param condition
      * @return
      */
-    public static List<StockAdrCount> findListByCondition(StockAdrCountCond condition) {
+    public static List<StockAdrCount> findListByCondition(CondStockAdrCount condition) {
         return StockAdrCountDao.findListByCondition(condition);
     }
 

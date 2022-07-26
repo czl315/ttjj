@@ -11,7 +11,7 @@ import java.util.List;
  * @author Administrator
  * @date 2022-05-09 23:47
  */
-public class StockAdrCountCond extends StockAdrCount {
+public class CondStockAdrCount extends StockAdrCount {
     /**
      * order_num 查询条件：排序号列表
      */
