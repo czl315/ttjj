@@ -29,14 +29,14 @@ import static utils.Content.*;
 public class StockAdrCountDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-07-20";
+//        String date = "2022-07-26";
         BigDecimal mvMin = NUM_YI_50;//NUM_YI_1000  NUM_YI_50
         BigDecimal mvMax = null;
         Long board = DB_RANK_BIZ_F139_BK_MAIN;//
         String spBizName = null;//特定业务：半导体 "半导体"
 //        String spBizName = "半导体";//特定业务：半导体 "半导体"
         int begBiz = 0;//map的开始，中断后使用，默认可设置为0
-        List<String> maKltList = Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101,KLT_102);//价格区间周期列表
+        List<String> maKltList = Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101, KLT_102);//价格区间周期列表
 //        List<String> maKltList = Arrays.asList(KLT_102);//价格区间周期列表
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
@@ -57,13 +57,35 @@ public class StockAdrCountDemo {
 
 //        updateAdrCountAllBiz(date, bizList, board, mvMin, mvMax, spBizName);
 
-        String orderBy = " ADR_UP_SUM_1_60  DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
-//        List<StockAdrCount> stockAdrCountList = findListByBiz(date, bizList,spBizName,startMapNum, null, mvMin, 2,orderBy);
-        List<StockAdrCount> stockAdrCountList = findListByCondition(date, bizList,spBizName, null, mvMin, 10,orderBy);
-        showStockAdrCountList(stockAdrCountList);
+        findListDemo(date);
+
 
 //        statStockAdrCountBatch(0);//统计股票涨跌次数:0,0为当天
 
+    }
+
+    /**
+     * 查询
+     * @param date 日期
+     */
+    private static void findListDemo(String date) {
+        CondStockAdrCount condFind = new CondStockAdrCount();
+        condFind.setDate(date);
+        condFind.setF139(DB_RANK_BIZ_F139_BK_MAIN);
+        condFind.setOrderBy(" ADR_UP_SUM_1_60  DESC ");//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
+        condFind.setAdrUpSumOrder1to60Min(new BigDecimal("1"));
+        condFind.setAdrUpSumOrder1to60Max(new BigDecimal("5"));
+//        condFind.setUP_MA_60("60(60)");
+//        condFind.setUP_MA_101("101(60)");
+//        condFind.setUP_MA_102("102(60)");
+//        condFind.setADR_UP_COUNT_SUM_60(adrUpCountSum60Limit);
+        condFind.setLimitCount(10);
+        condFind.setType_name(null);//特定业务：半导体 "半导体"
+        condFind.setMvMin(NUM_YI_1000);//NUM_YI_1000  NUM_YI_50
+        condFind.setMvMax(null);
+//        List<StockAdrCount> stockAdrCountList = findListByBiz(date, bizList,spBizName,startMapNum, null, mvMin, 2,orderBy);
+        List<StockAdrCount> stockAdrCountList = findListByCondition(condFind);
+        showStockAdrCountList(stockAdrCountList);
     }
 
     private static List<StockAdrCount> findListByBiz(String date, List<RankBizDataDiff> bizList, String spBizName, int startMapNum, Object o, BigDecimal mvMin, int limitCount, String orderBy) {
@@ -624,12 +646,21 @@ public class StockAdrCountDemo {
             }
 
             List<StockAdrCount> stockAdrCountList = null;
+            if (stockAdrCountCond.isUpdateUpMa() || stockAdrCountCond.isUpdateNetArea()) {
+                CondStockAdrCount condFind = new CondStockAdrCount();
+                condFind.setDate(date);
+                condFind.setMvMin(mvMin);
+                condFind.setMvMax(mvMax);
+                condFind.setF139(board);
+                condFind.setOrderBy(ORDER_BY_F3);//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
+//                condFind.setLimitCount(10);
+                condFind.setType_name(spBizName);
+                stockAdrCountList = findListByCondition(condFind);//查询列表-根据条件
+            }
             if (stockAdrCountCond.isUpdateUpMa()) {
-                stockAdrCountList = findListByCondition(date, bizList, bizName, adrUpCountSum60Limit, mvMin, null, ORDER_BY_F3);//查询列表-根据条件
                 updateUpMa(date, stockAdrCountList, stockAdrCountCond);//更新-超过均线信息
             }
             if (stockAdrCountCond.isUpdateNetArea()) {
-                stockAdrCountList = findListByCondition(date, bizList, bizName, adrUpCountSum60Limit, mvMin, null, ORDER_BY_F3);//查询列表-根据条件
                 updateNetArea(date, stockAdrCountList);//更新-价格区间
             }
 
@@ -1024,30 +1055,11 @@ public class StockAdrCountDemo {
     /**
      * 查询列表-根据条件
      *
-     * @param date       日期
-     * @param bizList
-     * @param bizName    业务
-     * @param mvLimit    市值限定
-     * @param limitCount 限定查询个数
+     * @param condFind 条件
+     * @return 结果
      */
-    private static List<StockAdrCount> findListByCondition(String date, List<RankBizDataDiff> bizList, String bizName, BigDecimal adrUpCountSum60Limit, BigDecimal mvLimit, Integer limitCount, String orderBy) {
-        //        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"));
-//        List<BigDecimal> orderNumList = null;
-//        List<Boolean> upMaList = Arrays.asList(false,true,true);//判断是否超过均线列表：15,30,60
-        List<Boolean> upMaList = null;//判断是否超过均线列表：15,30,60
-
-//        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"));
-//        List<BigDecimal> orderNumList = Arrays.asList(new BigDecimal("1"));
-        CondStockAdrCount condition = new CondStockAdrCount();
-        condition.setDate(date);
-//        condition.setOrderNumList(orderNumList);
-        condition.setADR_UP_COUNT_SUM_60(adrUpCountSum60Limit);
-        condition.setOrderBy(orderBy);
-        condition.setLimitCount(limitCount);
-        if (StringUtils.isNotBlank(bizName)) {
-            condition.setType_name(bizName);
-        }
-        return StockAdrCountService.findListByCondition(condition);
+    private static List<StockAdrCount> findListByCondition(CondStockAdrCount condFind) {
+        return StockAdrCountService.findListByCondition(condFind);
     }
 
     /**

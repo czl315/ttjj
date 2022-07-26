@@ -59,8 +59,35 @@ public class CondStockAdrCount extends StockAdrCount {
      * mvMax 市值-最高
      */
     private BigDecimal mvMax;
+    /**
+     * 最低-上涨累计排序-1至60日
+     */
+    private BigDecimal adrUpSumOrder1to60Min;
+    /**
+     * 最高-上涨累计排序-1至60日
+     */
+    private BigDecimal adrUpSumOrder1to60Max;
 
-    List<String> maKltList ;//均线周期列表
+    /**
+     * 均线周期列表
+     */
+    List<String> maKltList;
+
+    public BigDecimal getAdrUpSumOrder1to60Min() {
+        return adrUpSumOrder1to60Min;
+    }
+
+    public void setAdrUpSumOrder1to60Min(BigDecimal adrUpSumOrder1to60Min) {
+        this.adrUpSumOrder1to60Min = adrUpSumOrder1to60Min;
+    }
+
+    public BigDecimal getAdrUpSumOrder1to60Max() {
+        return adrUpSumOrder1to60Max;
+    }
+
+    public void setAdrUpSumOrder1to60Max(BigDecimal adrUpSumOrder1to60Max) {
+        this.adrUpSumOrder1to60Max = adrUpSumOrder1to60Max;
+    }
 
     public Integer getLimitCount() {
         return limitCount;
