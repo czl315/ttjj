@@ -38,7 +38,7 @@ public class KlineDemo {
 
 
         //  插入常用指数k线
-//        addZs();
+        addZs(KLT_102);
 
 //        updateHisDateKlineFundFlow(DB_RANK_BIZ_TYPE_BAN_KUAI);//更新历史日期-资金流向
 
@@ -84,17 +84,15 @@ public class KlineDemo {
         }
     }
 
-    private static void addZs() {
+    private static void addZs(String klt) {
         //        boolean isAddMinuteKline = true;//是否添加分钟级别K线
-        boolean isAddMinuteKline = false;//是否添加分钟级别K线
-        String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         int lmt = 1;
         int addDaysMax = 0;//最多增加的天数
         int year = DateUtil.getCurYear();//2021
         int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()
         int day = DateUtil.getCurDay();//DateUtil.getCurDay()
         String klineType = DB_RANK_BIZ_TYPE_ZS;
-        addZhishuKline(isAddMinuteKline, klt, lmt, addDaysMax, year, month, day, klineType);
+        addZhishuKline(false, klt, lmt, addDaysMax, year, month, day, klineType);
     }
 
     /**
