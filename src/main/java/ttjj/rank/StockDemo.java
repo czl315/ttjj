@@ -34,6 +34,7 @@ public class StockDemo {
             setMaMapType(MA_TYPE_MINUTE15, maUpdateMap);
 
 //            deleteTodayStCom();//删除数据-今日
+
 //            addTodayStCom(date, startNum);//  添加或更新股票-根据日期
 //            updateConception(date, startNum);//更新题材概念
             updateTodayStCom(date, startNum);//更新股票

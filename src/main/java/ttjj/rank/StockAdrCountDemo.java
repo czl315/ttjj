@@ -34,7 +34,7 @@ public class StockAdrCountDemo {
         BigDecimal mvMax = null;
         Long board = DB_RANK_BIZ_F139_BK_MAIN;//
         String spBizName = null;//特定业务：半导体 "半导体"
-//        String spBizName = "半导体";//特定业务：半导体 "半导体"
+//        String spBizName = "电力行业";//特定业务：半导体 "半导体"
         int begBiz = 0;//map的开始，中断后使用，默认可设置为0
         List<String> maKltList = Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101, KLT_102);//价格区间周期列表
 //        List<String> maKltList = Arrays.asList(KLT_102);//价格区间周期列表
@@ -53,11 +53,11 @@ public class StockAdrCountDemo {
         stockAdrCountCond.setUpdateNetArea(true);
 
 //        save(date, bizList, false, spBizName);
-//        updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
+        updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
 
 //        updateAdrCountAllBiz(date, bizList, board, mvMin, mvMax, spBizName);
 
-        findListDemo(date);
+//        findListDemo(date);
 
 
 //        statStockAdrCountBatch(0);//统计股票涨跌次数:0,0为当天
@@ -592,7 +592,6 @@ public class StockAdrCountDemo {
      * @param begBiz            开始序号
      */
     private static void updateListByBizAll(String date, List<RankBizDataDiff> bizList, int begBiz, String spBizName, CondStockAdrCount stockAdrCountCond) {
-        BigDecimal adrUpCountSum60Limit = null;//涨幅次数限定，过滤杂毛
         BigDecimal mvMin = stockAdrCountCond.getMvMin();
         BigDecimal mvMax = stockAdrCountCond.getMvMax();
         Long board = stockAdrCountCond.getF139();
@@ -612,7 +611,7 @@ public class StockAdrCountDemo {
                 continue;
             }
 
-            System.out.println("-------------------------当前stBizCountTemp：" + (curBizNum) + "---" + bizName);
+            System.out.println("-------------------------当前业务：" + (curBizNum) + "---" + bizName);
 
             if (stockAdrCountCond.isUpdateNet()) {
                 updateListNet(date, bizCode, bizName, mvMin, rankBizDataDiff);
@@ -654,7 +653,7 @@ public class StockAdrCountDemo {
                 condFind.setF139(board);
                 condFind.setOrderBy(ORDER_BY_F3);//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
 //                condFind.setLimitCount(10);
-                condFind.setType_name(spBizName);
+                condFind.setType_name(bizName);
                 stockAdrCountList = findListByCondition(condFind);//查询列表-根据条件
             }
             if (stockAdrCountCond.isUpdateUpMa()) {
