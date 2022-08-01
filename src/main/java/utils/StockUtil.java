@@ -100,6 +100,7 @@ public class StockUtil {
 
     /**
      * 格式化-字符串，根据长度
+     *
      * @param number
      * @param length
      * @return
@@ -141,5 +142,57 @@ public class StockUtil {
             name = name + "  ";
         }
         return name;
+    }
+
+    /**
+     * 格式化名称
+     *
+     * @param name
+     * @param length
+     * @return rs
+     */
+    public static String formatStName(String name, int length) {
+        StringBuffer rs = new StringBuffer();
+        if (name == null || name.length() == 0) {
+            for (int i = 0; i < length; i++) {
+                rs.append(" ");
+            }
+            return rs.toString();
+        }
+        char[] chars = name.toCharArray();
+        for (char aChar : chars) {
+            if (isChineseChar(aChar)) {
+                length = length - 2;
+            } else {
+                length = length - 1;
+            }
+        }
+        rs.append(name);
+        for (int i = 0; i < length; i++) {
+            rs.append(" ");
+        }
+        return rs.toString();
+    }
+
+    /**
+     * 格式化名称-etf
+     * @param name
+     * @param length
+     * @return
+     */
+    public static String formatEtfName(String name, int length) {
+        name = name.replace("ETF", "");
+        return formatStName(name, length);
+    }
+
+    /**
+     * 判断一个字符是否是汉字
+     * PS：中文汉字的编码范围：[\u4e00-\u9fa5]
+     *
+     * @param c 需要判断的字符
+     * @return 是汉字(true), 不是汉字(false)
+     */
+    public static boolean isChineseChar(char c) {
+        return String.valueOf(c).matches("[\u4e00-\u9fa5]");
     }
 }

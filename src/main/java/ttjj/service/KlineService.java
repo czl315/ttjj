@@ -1404,7 +1404,7 @@ public class KlineService {
         for (StockAdrCountVo stockAdrCountVo : rs) {
             System.out.print(stockAdrCountVo.getF12());
             System.out.print("\t");
-            System.out.print(EtfUtil.handlerEtfName(stockAdrCountVo.getF14()));
+            System.out.print(StockUtil.formatEtfName(stockAdrCountVo.getF14(), 8));
             System.out.print("\t");
             if (isShowPriceArea) {
                 System.out.print("5日:" + stockAdrCountVo.getNET_AREA_DAY_5() + "\t");//显示信息-价格区间

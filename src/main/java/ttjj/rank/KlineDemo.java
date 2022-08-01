@@ -38,7 +38,7 @@ public class KlineDemo {
 
 
         //  插入常用指数k线
-        addZs(KLT_102);
+//        addZs(KLT_102);
 
 //        updateHisDateKlineFundFlow(DB_RANK_BIZ_TYPE_BAN_KUAI);//更新历史日期-资金流向
 
