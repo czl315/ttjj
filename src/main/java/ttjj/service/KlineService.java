@@ -1381,6 +1381,7 @@ public class KlineService {
      * @param condMa 均线条件
      */
     public static void showStockMa(CondMa condMa) {
+        StringBuffer rs = new StringBuffer();
         String date = condMa.getDate();
         String spDate = condMa.getSpDate();
         boolean isShowPriceArea = condMa.getShowPriceArea();
@@ -1393,15 +1394,15 @@ public class KlineService {
         boolean isShowFlowIn = condMa.getShowFlowIn();
         Map<String, String> mapSt = condMa.getMapStock();
 
-        List<StockAdrCountVo> rs = KlineService.checkMaDemo(mapSt, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        List<StockAdrCountVo> stockAdrCountVoRs = KlineService.checkMaDemo(mapSt, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList);
 
-        if (rs == null || rs.size() == 0) {
+        if (stockAdrCountVoRs == null || stockAdrCountVoRs.size() == 0) {
             return;
         }
         if (StringUtils.isNotBlank(orderField)) {
-            rs = handlerOrder(rs, orderField, isOrderDesc);//列表-排序：根据字段
+            stockAdrCountVoRs = handlerOrder(stockAdrCountVoRs, orderField, isOrderDesc);//列表-排序：根据字段
         }
-        for (StockAdrCountVo stockAdrCountVo : rs) {
+        for (StockAdrCountVo stockAdrCountVo : stockAdrCountVoRs) {
             System.out.print(stockAdrCountVo.getF12());
             System.out.print("\t");
             System.out.print(StockUtil.formatEtfName(stockAdrCountVo.getF14(), 8));

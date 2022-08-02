@@ -31,10 +31,17 @@ public class KlineDemo {
 //        String date = "2022-07-22";
         List<String> kltList = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15, KLT_5);
         List<String> kltListCurDay = Arrays.asList(KLT_101);
+
         saveKlineByType(date, DB_RANK_BIZ_TYPE_ZS, kltList);
-        saveKlineByType(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList);
         saveKlineByType(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
+        saveKlineByType(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList);
         saveKlineByType(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltListCurDay);
+
+        updateFundFlow(date, DB_RANK_BIZ_TYPE_ZS, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
+        updateFundFlow(date, DB_RANK_BIZ_TYPE_BAN_KUAI, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
+        updateFundFlow(date, DB_RANK_BIZ_TYPE_GAI_NIAN, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
+
+//        updateFundFlow(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));//etf资金流向不重要
 
 
         //  插入常用指数k线
@@ -48,6 +55,21 @@ public class KlineDemo {
     }
 
     /**
+     * 更新资金流向
+     * @param date
+     * @param bizType
+     * @param kltList
+     */
+    private static void updateFundFlow(String date, String bizType, List<String> kltList) {
+        Map<String, String> zhishuMap = handlerZqMap(date,bizType);
+
+        for (String klt : kltList) {
+            // 更新-k线-资金流向
+            KlineService.updateFundFlow(zhishuMap, date, klt, bizType);
+        }
+    }
+
+    /**
      * 保存k线数据
      *
      * @param date
@@ -55,21 +77,13 @@ public class KlineDemo {
      * @param kltList
      */
     private static void saveKlineByType(String date, String bizType, List<String> kltList) {
-        Map<String, String> zhishuMap = new HashMap<>();
-        if (bizType.equals(DB_RANK_BIZ_TYPE_ZS)) {
-            zhishuMap = Content.getZhishuMap();//        Map<String, String>  zhishuMap = new HashMap<>();zhishuMap.put("000001","上证指数");//特定测试
-        } else if (bizType.equals(DB_RANK_BIZ_TYPE_ETF) || bizType.equals(DB_RANK_BIZ_TYPE_BAN_KUAI) || bizType.equals(DB_RANK_BIZ_TYPE_GAI_NIAN)) {
-            List<RankBizDataDiff> bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
-            for (RankBizDataDiff rankBizDataDiff : bizList) {
-                zhishuMap.put(rankBizDataDiff.getF12(), rankBizDataDiff.getF14());
-            }
-        }
+        Map<String, String> zhishuMap = handlerZqMap(date,bizType);
 
         for (String klt : kltList) {
             // 保存指数k线：5分钟-天, date, KLT_60, bizType);
             KlineService.saveKlineByType(zhishuMap, date, klt, bizType, true);
-            // 更新-k线-资金流向
-            KlineService.updateFundFlow(zhishuMap, date, klt, bizType);
+//            // 更新-k线-资金流向
+//            KlineService.updateFundFlow(zhishuMap, date, klt, bizType);
         }
 
         //更新均线价格-天
@@ -82,6 +96,25 @@ public class KlineDemo {
             zhishuMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
             KlineService.saveKlineByType(zhishuMap, date, KLT_5, bizType, true);
         }
+    }
+
+    /**
+     * 获取证券列表
+     * @param date 日期
+     * @param bizType 业务
+     * @return 证券列表
+     */
+    private static Map<String, String> handlerZqMap(String date, String bizType) {
+        Map<String, String> zhishuMap = new HashMap<>();
+        if (bizType.equals(DB_RANK_BIZ_TYPE_ZS)) {
+            zhishuMap = Content.getZhishuMap();//        Map<String, String>  zhishuMap = new HashMap<>();zhishuMap.put("000001","上证指数");//特定测试
+        } else if (bizType.equals(DB_RANK_BIZ_TYPE_ETF) || bizType.equals(DB_RANK_BIZ_TYPE_BAN_KUAI) || bizType.equals(DB_RANK_BIZ_TYPE_GAI_NIAN)) {
+            List<RankBizDataDiff> bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
+            for (RankBizDataDiff rankBizDataDiff : bizList) {
+                zhishuMap.put(rankBizDataDiff.getF12(), rankBizDataDiff.getF14());
+            }
+        }
+        return zhishuMap;
     }
 
     private static void addZs(String klt) {

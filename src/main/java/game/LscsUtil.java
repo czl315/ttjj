@@ -10,7 +10,7 @@ import utils.HttpUtil;
 
 import java.util.List;
 
-public class LscsUtilDarkMoon {
+public class LscsUtil {
 
     public static void main(String[] args) {
         String str = "";
@@ -18,8 +18,8 @@ public class LscsUtilDarkMoon {
         }
 
         String page = "";
-        String cardSet = "voyage-to-the-sunken-city";//united-in-stormwind   forged-in-the-barrens madness-at-the-darkmoon-faire  scholomance-academy fractured-in-alterac-valley
-        String cardTye = "0沉没之城";//  1暴风城    1贫瘠之地的锤炼  暗月马戏团   通灵学院
+        String cardSet = "murder-at-castle-nathria";//voyage-to-the-sunken-city：；united-in-stormwind   forged-in-the-barrens madness-at-the-darkmoon-faire  scholomance-academy fractured-in-alterac-valley
+        String cardTye = "2208纳堡悬案";//  1暴风城    1贫瘠之地的锤炼  暗月马戏团   通灵学院
 //        String cardClass = "neutral";
         String cardClass = "";
         for (int i = 0; i <= 0; i++) {

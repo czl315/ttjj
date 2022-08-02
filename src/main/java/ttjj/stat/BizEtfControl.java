@@ -41,7 +41,6 @@ public class BizEtfControl {
         condMa.setShowFlowIn(false);//是否显示资金流入
         condMa.setOrderField(ORDER_FIELD_NET_AREA_DAY_5);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3 ORDER_FIELD_MAXDOWN
         condMa.setOrderDesc(false);//是否倒序
-
         List<StockAdrCountVo> rs = null;
         System.out.println("科技：");
         condMa.setMapStock(ContentEtf.mapEtfKeJi);
