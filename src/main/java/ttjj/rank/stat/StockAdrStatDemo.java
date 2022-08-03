@@ -1,4 +1,4 @@
-package ttjj.rank;
+package ttjj.rank.stat;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
@@ -6,6 +6,7 @@ import ttjj.dao.StockAdrCountDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.db.StockAdrCount;
 import ttjj.dto.*;
+import ttjj.rank.StockDemo;
 import ttjj.service.BizService;
 import ttjj.service.KlineService;
 import ttjj.service.StockAdrCountService;
@@ -26,11 +27,11 @@ import static utils.Content.*;
  * @author Administrator
  * @date 2022-05-11 10:28
  */
-public class StockAdrCountDemo {
+public class StockAdrStatDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-07-26";
-        BigDecimal mvMin = NUM_YI_50;//NUM_YI_1000  NUM_YI_50
+        BigDecimal mvMin = NUM_YI_1000;//NUM_YI_1000  NUM_YI_50
         BigDecimal mvMax = null;
         Long board = DB_RANK_BIZ_F139_BK_MAIN;//
         String spBizName = null;//特定业务：半导体 "半导体"
@@ -52,13 +53,7 @@ public class StockAdrCountDemo {
         stockAdrCountCond.setUpdateUpMa(true);
         stockAdrCountCond.setUpdateNetArea(true);
 
-//        save(date, bizList, true, spBizName, stockAdrCountCond);
-        updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
-
-//        updateAdrCountAllBiz(date, bizList, board, mvMin, mvMax, spBizName);
-
-//        findListDemo(date);
-
+        findListDemo(date);
 
 //        statStockAdrCountBatch(0);//统计股票涨跌次数:0,0为当天
 

@@ -1,4 +1,4 @@
-package ttjj.stat;
+package ttjj.rank.stat;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;

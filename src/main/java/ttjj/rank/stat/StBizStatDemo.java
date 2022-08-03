@@ -1,4 +1,4 @@
-package ttjj.stat;
+package ttjj.rank.stat;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -9,18 +9,14 @@ import ttjj.db.RankStockCommpanyDb;
 import ttjj.db.StockAdrCount;
 import ttjj.dto.*;
 import ttjj.rank.BizRankDemo;
-import ttjj.rank.StockDemo;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
-import ttjj.service.ReportService;
 import ttjj.service.StockService;
 import utils.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import static utils.Content.*;

@@ -1,13 +1,11 @@
-package ttjj.stat;
+package ttjj.rank.stat;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.RankStockCommpanyDao;
-import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.*;
-import ttjj.service.KlineService;
 import utils.Content;
 import utils.DateUtil;
 import utils.HttpUtil;

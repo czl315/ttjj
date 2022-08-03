@@ -1,6 +1,6 @@
 package utils;
 
-import ttjj.stat.StockStatDemo;
+import ttjj.rank.stat.StockStatDemo;
 
 import java.util.HashMap;
 import java.util.Map;

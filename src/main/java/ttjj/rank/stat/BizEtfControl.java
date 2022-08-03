@@ -1,4 +1,4 @@
-package ttjj.stat;
+package ttjj.rank.stat;
 
 import ttjj.dao.BizRankDao;
 import ttjj.dto.CondMa;

@@ -1,8 +1,6 @@
 package utils;
 
 import ttjj.service.KlineService;
-import ttjj.stat.StBizStatDemo;
-import ttjj.stat.StockStatDemo;
 
 import java.util.HashMap;
 import java.util.Map;
