@@ -30,27 +30,11 @@ import static utils.Content.*;
 public class StockAdrStatDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-07-26";
+//        String date = "2022-08-03";
 
-        CondStockAdrCount condFind = new CondStockAdrCount();
-        condFind.setDate(date);
-        condFind.setF139(DB_RANK_BIZ_F139_BK_MAIN);
-        condFind.setOrderBy(" ADR_UP_SUM_1_60  DESC ");//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
-//        condFind.setAdrUpSumOrder1to60Min(new BigDecimal("1"));
-//        condFind.setAdrUpSumOrder1to60Max(new BigDecimal("5"));
-//        condFind.setUP_MA_60("60(60)");
-        condFind.setUP_MA_101("101(60)");
-//        condFind.setUP_MA_102("102(60)");
-//        condFind.setADR_UP_COUNT_SUM_60(adrUpCountSum60Limit);
-        condFind.setLimitCount(10);
-        condFind.setType_name(null);//特定业务：半导体 "半导体"
-        condFind.setMvMin(NUM_YI_1000);//NUM_YI_1000  NUM_YI_50
-        condFind.setMvMax(null);
-//        List<StockAdrCount> stockAdrCountList = findListByBiz(date, bizList,spBizName,startMapNum, null, mvMin, 2,orderBy);
-        List<StockAdrCount> stockAdrCountList = findListByCondition(condFind);
-        showStockAdrCountList(stockAdrCountList);
 
-//        findListDemo(date);
+
+        findListDemo(date);
 
 //        statStockAdrCountBatch(0);//统计股票涨跌次数:0,0为当天
 
@@ -65,15 +49,16 @@ public class StockAdrStatDemo {
         condFind.setDate(date);
         condFind.setF139(DB_RANK_BIZ_F139_BK_MAIN);
         condFind.setOrderBy(" ADR_UP_SUM_1_60  DESC ");//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
-        condFind.setAdrUpSumOrder1to60Min(new BigDecimal("1"));
-        condFind.setAdrUpSumOrder1to60Max(new BigDecimal("5"));
+//        condFind.setAdrUpSumOrder1to60Min(new BigDecimal("1"));
+//        condFind.setAdrUpSumOrder1to60Max(new BigDecimal("5"));
 //        condFind.setUP_MA_60("60(60)");
 //        condFind.setUP_MA_101("101(60)");
-        condFind.setUP_MA_102("102(60)");
+//        condFind.setUP_MA_102("102(60)");
 //        condFind.setADR_UP_COUNT_SUM_60(adrUpCountSum60Limit);
-        condFind.setLimitCount(10);
-        condFind.setType_name(null);//特定业务：半导体 "半导体"
-        condFind.setMvMin(NUM_YI_1000);//NUM_YI_1000  NUM_YI_50
+        condFind.setLimitCount(20);
+//        condFind.setType_name("半导体");//特定业务：半导体 "半导体" null
+        condFind.setBizList(Arrays.asList("半导体","电子化学品","光学光电子","电子元件"));
+        condFind.setMvMin(NUM_YI_500);//NUM_YI_1000  NUM_YI_50
         condFind.setMvMax(null);
 //        List<StockAdrCount> stockAdrCountList = findListByBiz(date, bizList,spBizName,startMapNum, null, mvMin, 2,orderBy);
         List<StockAdrCount> stockAdrCountList = findListByCondition(condFind);
@@ -123,6 +108,7 @@ public class StockAdrStatDemo {
     private static void showStockAdrCountList(List<StockAdrCount> stockAdrCountList) {
         if (stockAdrCountList == null) {
             System.out.println("stockAdrCountList==null");
+            return;
         }
         for (StockAdrCount stockAdrCount : stockAdrCountList) {
 //            System.out.println(JSON.toJSONString(stockAdrCount));
@@ -144,20 +130,20 @@ public class StockAdrStatDemo {
             sb.append(stockAdrCount.getADR_UP_SUM_1_60()).append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_ORDER_40_60()).append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_ORDER_20_40()).append("\t");
-            sb.append(stockAdrCount.getADR_UP_SUM_ORDER_1_20()).append("\t");
-            sb.append(stockAdrCount.getADR_UP_SUM_ORDER_1_10()).append("\t");
-            sb.append(stockAdrCount.getADR_UP_SUM_ORDER_1_5()).append("\t");
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_20(),6)).append(" ");
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_10(),6)).append(" ");
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_5(),6)).append(" ");
 //            sb.append(stockAdrCount.getADR_UP_COUNT_SUM_60()).append("\t");
-            sb.append(stockAdrCount.getADR_UP_SUM_40_60()).append("\t");
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_40_60(),6)).append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_20_40()).append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_1_20()).append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_1_10()).append("\t");
-            sb.append(stockAdrCount.getADR_UP_SUM_1_5()).append("\t");
-            sb.append(stockAdrCount.getADR_UP_SUM_1_3()).append("\t");
-            sb.append(stockAdrCount.getADR_UP_SUM_1_2()).append("\t");
-            sb.append(stockAdrCount.getADR_UP_SUM_1_1()).append("\t");
-            sb.append(marketValue).append("\t");
-            sb.append(stockAdrCount.getF3()).append("\t");
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_5(),6)).append("\t");
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_3(),6)).append("\t");
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_2(),6)).append("\t");
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_1(),6)).append("\t");
+            sb.append(StockUtil.formatDouble(marketValue,8)).append("  ");
+            sb.append(StockUtil.formatDouble(stockAdrCount.getF3(),6)).append(" ");
             String netArea5 = StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_5(), 6);
             sb.append(netArea5).append("\t");
             String netArea10 = StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_10(), 6);

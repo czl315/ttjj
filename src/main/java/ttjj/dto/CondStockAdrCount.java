@@ -71,7 +71,12 @@ public class CondStockAdrCount extends StockAdrCount {
     /**
      * 均线周期列表
      */
-    List<String> maKltList;
+    private List<String> maKltList;
+
+    /**
+     * 业务列表
+     */
+    private List<String> bizList;
 
     public BigDecimal getAdrUpSumOrder1to60Min() {
         return adrUpSumOrder1to60Min;
@@ -184,5 +189,13 @@ public class CondStockAdrCount extends StockAdrCount {
 
     public void setMaKltList(List<String> maKltList) {
         this.maKltList = maKltList;
+    }
+
+    public List<String> getBizList() {
+        return bizList;
+    }
+
+    public void setBizList(List<String> bizList) {
+        this.bizList = bizList;
     }
 }
