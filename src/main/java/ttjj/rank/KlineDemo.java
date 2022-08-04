@@ -30,16 +30,17 @@ public class KlineDemo {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-07-22";
         List<String> kltList = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15, KLT_5);
+        List<String> kltList_15_101 = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15);
         List<String> kltListCurDay = Arrays.asList(KLT_101);
 
+        saveKlineByType(date, DB_RANK_BIZ_TYPE_ETF, kltList_15_101);
+        saveKlineByType(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_15_101);
+        saveKlineByType(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_15_101);
         saveKlineByType(date, DB_RANK_BIZ_TYPE_ZS, kltList);
-        saveKlineByType(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
-        saveKlineByType(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList);
-        saveKlineByType(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltListCurDay);
 
-        updateFundFlow(date, DB_RANK_BIZ_TYPE_ZS, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
-        updateFundFlow(date, DB_RANK_BIZ_TYPE_BAN_KUAI, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
-        updateFundFlow(date, DB_RANK_BIZ_TYPE_GAI_NIAN, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
+//        updateFundFlow(date, DB_RANK_BIZ_TYPE_ZS, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
+//        updateFundFlow(date, DB_RANK_BIZ_TYPE_BAN_KUAI, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
+//        updateFundFlow(date, DB_RANK_BIZ_TYPE_GAI_NIAN, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
 
 //        updateFundFlow(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));//etf资金流向不重要
 

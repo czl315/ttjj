@@ -2,10 +2,14 @@ package ttjj.rank.stat;
 
 import com.alibaba.fastjson.JSON;
 import ttjj.dao.KlineDao;
-import ttjj.dto.*;
+import ttjj.dto.CondKline;
+import ttjj.dto.Kline;
+import ttjj.dto.StatCondStAdrCountKline;
+import ttjj.dto.StatRsStAdrCountKline;
 import ttjj.service.KlineService;
 import utils.Content;
 import utils.DateUtil;
+import utils.StockUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -20,11 +24,54 @@ import static utils.Content.*;
  */
 public class StatKlineDemo {
     public static void main(String[] args) {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-08-04";
 
 //        // 统计涨跌次数-根据每月中的日期
-        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
-        statAdrCountByDay(zqmc);
+//        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
+//        statAdrCountByDay(zqmc);
 
+        statAdrByTime(date);
+
+    }
+
+    /**
+     * 统计涨幅-根据时间、类型等
+     *
+     */
+    private static void statAdrByTime(String date) {
+        CondKline condition =  new CondKline();
+        condition.setDate(date);
+//        condition.setType(DB_RANK_BIZ_TYPE_BAN_KUAI);
+        condition.setType(DB_RANK_BIZ_TYPE_ETF);
+//        condition.setKlt(KLT_101);
+//        condition.setKtime(date);
+        condition.setKlt(KLT_60);
+        condition.setKtime("15:00:00");
+        List<Kline> klineList = KlineService.listKine(condition);
+        showKline(klineList);
+    }
+
+    private static void showKline(List<Kline> klineList) {
+        if (klineList == null) {
+            System.out.println("klineList==null");
+            return;
+        }
+        for (Kline dto : klineList) {
+//            System.out.println(JSON.toJSONString(stockAdrCount));
+            StringBuffer sb = new StringBuffer();
+            String stName = StockUtil.formatStName(dto.getZqmc(),16);
+            String bizName = StockUtil.formatStName(dto.getType(),2);
+            String ktime = dto.getKtime();
+            sb.append(stName);
+            sb.append("  ");
+            sb.append(bizName);
+            sb.append("  ");
+            sb.append(ktime);
+            sb.append("    ");
+            sb.append(StockUtil.formatDouble(dto.getZhangDieFu(),6)).append(" ");
+            System.out.println(sb);
+        }
     }
 
     /**

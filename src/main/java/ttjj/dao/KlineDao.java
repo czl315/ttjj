@@ -72,6 +72,22 @@ public class KlineDao {
         return rs;
     }
 
+    public static List<Kline> listKline(Kline condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<Kline> rs = null;
+        try {
+//                System.out.println(JSON.toJSONString(condition));
+            rs = session.selectList("ttjj.dao.mapper.KlineMapper.listKline", condition);
+            session.commit();
+        } catch (Exception e) {
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
     /**
      * 删除-根据条件
      * @param condition 条件

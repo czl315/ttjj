@@ -28,7 +28,7 @@ public class ContentEtf {
         mapEtfKeJi.put("515050", "5GETF");//159994	5GETF	32.40   515050	5GETF	143.85
 //        mapEtfKeJi.put("515880", "通信ETF");//515880	通信ETF	27.50
 
-        mapEtfKeJi.put("513050", "中概互联网ETF");//513050	中概互联网ETF	315.74
+//        mapEtfKeJi.put("513050", "中概互联网ETF");//513050	中概互联网ETF	315.74
 //        mapEtfKeJi.put("159920", "恒生ETF");//159920	恒生ETF	96.60
         mapEtfKeJi.put("513330", "恒生互联网ETF");//513330	恒生互联网ETF	137.99      513180	恒生科技指数ETF	34.31
         mapEtfKeJi.put("513100", "纳指ETF");//513100	纳指ETF	29.78
@@ -91,7 +91,7 @@ public class ContentEtf {
         mapEtfZiYuan.put("159825", "农业ETF");//159825	农业ETF	17.81   159827	农业50ETF	2.24    516550	农业ETF	0.81
         mapEtfZiYuan.put("159865", "养殖ETF");//159865	养殖ETF	12.49
 
-        mapEtfZiYuan.put("159981", "能源化工ETF");//159981	能源化工ETF	2.96    159930	能源ETF	2.06
+//        mapEtfZiYuan.put("159981", "能源化工ETF");//159981	能源化工ETF	2.96    159930	能源ETF	2.06
         mapEtfZiYuan.put("159930", "能源ETF");//159930	能源ETF	1.83
         mapEtfZiYuan.put("512400", "有色金属ETF");//512400	有色金属ETF	40.66
         mapEtfZiYuan.put("515210", "钢铁ETF");//515210	钢铁ETF	18.11

@@ -1522,4 +1522,15 @@ public class KlineService {
             System.out.println();
         }
     }
+
+    /**
+     * 查询-批量查询k线数据
+     * @param condition 条件
+     * @return rs
+     */
+    public static List<Kline> listKine(CondKline condition) {
+        return KlineDao.listKline(condition); //  查询-涨跌次数-所有
+    }
+
+
 }

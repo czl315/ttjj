@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import ttjj.dto.CondKline;
 import ttjj.dto.Kline;
 import ttjj.dto.StatCondStAdrCountKline;
 import ttjj.dto.StatRsStAdrCountKline;
@@ -45,7 +46,6 @@ public interface KlineMapper {
             ");",
             "</script>"})
     void insert(Kline entity);
-
     @Update({"<script>",
             "update kline",
             "  <set>",
@@ -99,7 +99,15 @@ public interface KlineMapper {
             "   <if test='ktime != null'> AND ktime=#{ktime}</if> ",
             "</script>"})
     void updateNet(Kline entity);
-
+    @Delete({"<script>",
+            "DELETE FROM `kline` WHERE 1=1 ",
+            "   AND date = #{date}  ",
+            "   <if test='type != null'> AND type=#{type}</if> ",
+            "   <if test='zqdm != null'> AND zqdm=#{zqdm}</if> ",
+            "   <if test='klt != null'> AND klt=#{klt}</if> ",
+            " LIMIT 100 ",
+            "</script>"})
+    int deleteByCondition(Kline condition);
     /**
      * 查询-涨跌次数
      *
@@ -138,13 +146,28 @@ public interface KlineMapper {
             "</script>"})
     List<StatRsStAdrCountKline> findListStatStAdrCount(StatCondStAdrCountKline condition);
 
-    @Delete({"<script>",
-            "DELETE FROM `kline` WHERE 1=1 ",
-            "   AND date = #{date}  ",
-            "   <if test='type != null'> AND type=#{type}</if> ",
-            "   <if test='zqdm != null'> AND zqdm=#{zqdm}</if> ",
-            "   <if test='klt != null'> AND klt=#{klt}</if> ",
-            " LIMIT 100 ",
+    @Select({"<script>",
+            " SELECT",
+            "   * ",
+            " FROM ",
+            "   `kline` kline ",
+            " WHERE 1=1 ",
+            "   <if test='klt != null'> ",
+            "       AND kline.klt = #{klt} ",
+            "   </if> ",
+            "   <if test='type != null'> ",
+            "       AND kline.type = #{type} ",
+            "   </if> ",
+            "   <if test='date != null'> ",
+            "       <![CDATA[ AND kline.date = #{date} ]]> ",
+            "   </if> ",
+            "   <if test='ktime != null'> ",
+            "       <![CDATA[ AND kline.ktime = #{ktime} ]]> ",
+            "   </if> ",
+            " ORDER BY ",
+            "   kline.zhangDieFu DESC  ",
             "</script>"})
-    int deleteByCondition(Kline condition);
+    List<Kline> listKline(CondKline condition);
+
+
 }

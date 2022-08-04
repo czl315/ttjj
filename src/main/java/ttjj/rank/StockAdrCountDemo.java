@@ -52,7 +52,7 @@ public class StockAdrCountDemo {
         stockAdrCountCond.setUpdateUpMa(true);
         stockAdrCountCond.setUpdateNetArea(true);
 
-//        save(date, bizList, true, spBizName, stockAdrCountCond);
+//        save(date, bizList, false, spBizName, stockAdrCountCond);
         updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
 
 //        updateAdrCountAllBiz(date, bizList, board, mvMin, mvMax, spBizName);
