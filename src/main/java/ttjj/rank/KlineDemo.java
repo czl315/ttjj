@@ -57,12 +57,13 @@ public class KlineDemo {
 
     /**
      * 更新资金流向
+     *
      * @param date
      * @param bizType
      * @param kltList
      */
     private static void updateFundFlow(String date, String bizType, List<String> kltList) {
-        Map<String, String> zhishuMap = handlerZqMap(date,bizType);
+        Map<String, String> zhishuMap = handlerZqMap(date, bizType);
 
         for (String klt : kltList) {
             // 更新-k线-资金流向
@@ -78,7 +79,7 @@ public class KlineDemo {
      * @param kltList
      */
     private static void saveKlineByType(String date, String bizType, List<String> kltList) {
-        Map<String, String> zhishuMap = handlerZqMap(date,bizType);
+        Map<String, String> zhishuMap = handlerZqMap(date, bizType);
 
         for (String klt : kltList) {
             // 保存指数k线：5分钟-天, date, KLT_60, bizType);
@@ -92,6 +93,9 @@ public class KlineDemo {
             updateNetByDate(zqdm, KLT_101, true, date, date, bizType);
         }
 
+        //更新-市值
+        updateMv(date, bizType, zhishuMap);
+
         //etf特殊集合插入5分钟
         if (bizType.equals(DB_RANK_BIZ_TYPE_ETF)) {
             zhishuMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
@@ -100,8 +104,46 @@ public class KlineDemo {
     }
 
     /**
+     * 更新-市值
+     *
+     * @param date      日期
+     * @param bizType   业务
+     * @param zhishuMap 代码列表
+     */
+    private static void updateMv(String date, String bizType, Map<String, String> zhishuMap) {
+        Map<String, BigDecimal> mapMv = new HashMap<>();
+        //查询市值
+//        if (bizType.equals(DB_RANK_BIZ_TYPE_ZS)) {
+//            zhishuMap = Content.getZhishuMap();//        Map<String, String>  zhishuMap = new HashMap<>();zhishuMap.put("000001","上证指数");//特定测试
+//        } else
+        if (bizType.equals(DB_RANK_BIZ_TYPE_ETF) || bizType.equals(DB_RANK_BIZ_TYPE_BAN_KUAI) || bizType.equals(DB_RANK_BIZ_TYPE_GAI_NIAN)) {
+            List<RankBizDataDiff> bizList = BizService.listBiz(date, bizType, NUM_MAX_999);//查询板块行业列表
+            for (RankBizDataDiff rankBizDataDiff : bizList) {
+                mapMv.put(rankBizDataDiff.getF12(), rankBizDataDiff.getF20());
+            }
+        }
+
+        for (String zqdm : zhishuMap.keySet()) {
+            Integer rs = 0;
+            boolean isShowLog = true;
+            Kline kline = new Kline();
+            kline.setZqdm(zqdm);
+            kline.setDate(date);
+            kline.setF20(mapMv.get(zqdm));
+            rs = KlineDao.updateNet(kline);
+            if (isShowLog && rs == 1) {
+                System.out.println("更新-市值-成功：" + JSON.toJSONString(kline));
+            }
+            if (isShowLog && rs != 1) {
+                System.out.println("更新-市值-失败：" + JSON.toJSONString(kline));
+            }
+        }
+    }
+
+    /**
      * 获取证券列表
-     * @param date 日期
+     *
+     * @param date    日期
      * @param bizType 业务
      * @return 证券列表
      */

@@ -94,11 +94,14 @@ public interface KlineMapper {
             "where 1=1  ",
             "   AND date = #{date}  ",
             "   AND zqdm=#{zqdm} ",
-            "   AND klt=#{klt}",
+            "   <if test='klt != null'> ",
+            "       AND klt=#{klt} ",
+            "   </if> ",
             "   <if test='type != null'> AND type=#{type}</if> ",
             "   <if test='ktime != null'> AND ktime=#{ktime}</if> ",
             "</script>"})
     void updateNet(Kline entity);
+
     @Delete({"<script>",
             "DELETE FROM `kline` WHERE 1=1 ",
             "   AND date = #{date}  ",

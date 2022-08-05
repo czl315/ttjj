@@ -166,6 +166,11 @@ public class Kline {
      */
     private BigDecimal flowInSuperBig;
 
+    /**
+     * 市值
+     */
+    private BigDecimal f20;
+
     public String getKtime() {
         return ktime;
     }
@@ -653,5 +658,13 @@ public class Kline {
 
     public void setFlowInSuperBig(BigDecimal flowInSuperBig) {
         this.flowInSuperBig = flowInSuperBig;
+    }
+
+    public BigDecimal getF20() {
+        return f20;
+    }
+
+    public void setF20(BigDecimal f20) {
+        this.f20 = f20;
     }
 }
