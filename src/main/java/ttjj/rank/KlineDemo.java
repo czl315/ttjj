@@ -126,10 +126,17 @@ public class KlineDemo {
         for (String zqdm : zhishuMap.keySet()) {
             Integer rs = 0;
             boolean isShowLog = true;
+
+            BigDecimal mv = mapMv.get(zqdm);
+            if(mv==null){
+                System.out.println("市值为空："+zqdm);
+                continue;
+            }
+
             Kline kline = new Kline();
             kline.setZqdm(zqdm);
             kline.setDate(date);
-            kline.setF20(mapMv.get(zqdm));
+            kline.setF20(mv);
             rs = KlineDao.updateNet(kline);
             if (isShowLog && rs == 1) {
                 System.out.println("更新-市值-成功：" + JSON.toJSONString(kline));

@@ -5,9 +5,11 @@ import ttjj.dto.CondMa;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.StatEtfUpDown;
 import ttjj.dto.StockAdrCountVo;
+import ttjj.service.BizService;
 import ttjj.service.KlineService;
 import utils.ContentEtf;
 import utils.DateUtil;
+import utils.StockUtil;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -22,13 +24,41 @@ import static utils.DateUtil.YYYY_MM_DD;
 public class BizEtfControl {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-06-01";
-//        spDate = DateUtil.getAddDays(YYYY_MM_DD, date, 1);//是否显示特定日期涨跌   "2022-05-18"
-        String spDate = "";//
+//        String date = "2022-08-04";
+
 //        List<String> dateList = StockService.findListDateAfter(date, 2);
 //        if (dateList != null && dateList.size() > 1) {
 //            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
 //        }
+
+//        showEtfUpMa(date);//etf-超过均线
+
+        showEtfMv(date);//显示etf市值
+
+//        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
+    }
+
+    private static void showEtfMv(String date) {
+        List<RankBizDataDiff> bizList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//查询板块行业列表
+        bizList = bizList.stream().filter(e -> e != null).sorted(Comparator.comparing(RankBizDataDiff::getF20, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        for (RankBizDataDiff biz : bizList) {
+//            mapMv.put(rankBizDataDiff.getF12(), rankBizDataDiff.getF20());
+            StringBuffer sb = new StringBuffer();
+            sb.append(StockUtil.formatStName(biz.getF12(),6)).append(" ");
+            sb.append(StockUtil.formatStName(biz.getF14(),16)).append(" ");
+            BigDecimal marketValue = biz.getF20().divide(NUM_YI_1, 2, BigDecimal.ROUND_HALF_UP);
+            sb.append(marketValue).append(" ");
+            System.out.println(sb);
+        }
+    }
+
+    /**
+     * etf-超过均线
+     * @param date
+     */
+    private static void showEtfUpMa(String date) {
+        //        spDate = DateUtil.getAddDays(YYYY_MM_DD, date, 1);//是否显示特定日期涨跌   "2022-05-18"
+        String spDate = "";//
 
         CondMa condMa = new CondMa();
         condMa.setDate(date);
@@ -60,12 +90,7 @@ public class BizEtfControl {
         System.out.println("指数：");
         condMa.setMapStock(ContentEtf.mapEtfIndex);
         KlineService.showStockMa(condMa);
-
-//        showStockMa(rs, ORDER_FIELD_F3, true, isShowPriceArea, isShowUpMa, kltList, spDate);
-
-//        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
     }
-
 
 
     /**

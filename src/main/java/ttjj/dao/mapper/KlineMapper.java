@@ -90,6 +90,7 @@ public interface KlineMapper {
             "    <if test='flowInMid != null'>flowInMid=#{flowInMid},</if>",
             "    <if test='flowInBig != null'>flowInBig=#{flowInBig},</if>",
             "    <if test='flowInSuperBig != null'>flowInSuperBig=#{flowInSuperBig},</if>",
+            "    <if test='f20 != null'>f20=#{f20},</if>",
             "  </set>",
             "where 1=1  ",
             "   AND date = #{date}  ",

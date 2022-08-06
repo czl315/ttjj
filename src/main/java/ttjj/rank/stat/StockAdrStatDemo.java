@@ -32,8 +32,6 @@ public class StockAdrStatDemo {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-08-03";
 
-
-
         findListDemo(date);
 
 //        statStockAdrCountBatch(0);//统计股票涨跌次数:0,0为当天
@@ -57,8 +55,9 @@ public class StockAdrStatDemo {
 //        condFind.setADR_UP_COUNT_SUM_60(adrUpCountSum60Limit);
         condFind.setLimitCount(20);
 //        condFind.setType_name("半导体");//特定业务：半导体 "半导体" null
-        condFind.setBizList(Arrays.asList("半导体","电子化学品","光学光电子","电子元件"));
-        condFind.setMvMin(NUM_YI_500);//NUM_YI_1000  NUM_YI_50
+//        condFind.setBizList(Arrays.asList("半导体","电子化学品","光学光电子","电子元件"));
+        condFind.setBizList(Arrays.asList("银行"));
+        condFind.setMvMin(NUM_YI_50);//NUM_YI_1000  NUM_YI_50
         condFind.setMvMax(null);
 //        List<StockAdrCount> stockAdrCountList = findListByBiz(date, bizList,spBizName,startMapNum, null, mvMin, 2,orderBy);
         List<StockAdrCount> stockAdrCountList = findListByCondition(condFind);
@@ -135,9 +134,9 @@ public class StockAdrStatDemo {
             sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_5(),6)).append(" ");
 //            sb.append(stockAdrCount.getADR_UP_COUNT_SUM_60()).append("\t");
             sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_40_60(),6)).append("\t");
-            sb.append(stockAdrCount.getADR_UP_SUM_20_40()).append("\t");
-            sb.append(stockAdrCount.getADR_UP_SUM_1_20()).append("\t");
-            sb.append(stockAdrCount.getADR_UP_SUM_1_10()).append("\t");
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_20_40(),6)).append("\t");
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_20(),6)).append("\t");
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_10(),6)).append("\t");
             sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_5(),6)).append("\t");
             sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_3(),6)).append("\t");
             sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_2(),6)).append("\t");
