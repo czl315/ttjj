@@ -19,7 +19,7 @@ import static utils.Content.*;
 import static utils.DateUtil.YYYY_MM_DD;
 
 /**
- * 主题排行
+ * etf
  */
 public class BizEtfControl {
     public static void main(String[] args) {
@@ -38,22 +38,36 @@ public class BizEtfControl {
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
     }
 
-    private static void showEtfMv(String date) {
+    /**
+     * 显示-etf-市值
+     *
+     * @param date
+     */
+    public static void showEtfMv(String date) {
         List<RankBizDataDiff> bizList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//查询板块行业列表
-        bizList = bizList.stream().filter(e -> e != null).sorted(Comparator.comparing(RankBizDataDiff::getF20, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+//        bizList = bizList.stream().filter(e -> e != null).sorted(Comparator.comparing(RankBizDataDiff::getF20, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        bizList = bizList.stream().filter(e -> e != null).sorted(Comparator.comparing(RankBizDataDiff::getF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
         for (RankBizDataDiff biz : bizList) {
-//            mapMv.put(rankBizDataDiff.getF12(), rankBizDataDiff.getF20());
             StringBuffer sb = new StringBuffer();
-            sb.append(StockUtil.formatStName(biz.getF12(),6)).append(" ");
-            sb.append(StockUtil.formatStName(biz.getF14(),16)).append(" ");
+//            mapMv.put(rankBizDataDiff.getF12(), rankBizDataDiff.getF20());
+            String code = biz.getF12();
+            String name = biz.getF14();
+//            //  名称过滤
+//            if (!name.contains("300")) {
+//                continue;
+//            }
+            sb.append(StockUtil.formatStName(code, 6)).append(" ");
+            sb.append(StockUtil.formatStName(name, 16)).append(" ");
             BigDecimal marketValue = biz.getF20().divide(NUM_YI_1, 2, BigDecimal.ROUND_HALF_UP);
             sb.append(marketValue).append(" ");
-            System.out.println(sb);
+//            System.out.println(sb);
+            System.out.println("ETF_MV.put(\"" + code + "\", \"" + marketValue + "\");//" + name + "\t" + biz.getF3());
         }
     }
 
     /**
      * etf-超过均线
+     *
      * @param date
      */
     private static void showEtfUpMa(String date) {
@@ -232,8 +246,6 @@ public class BizEtfControl {
         name = name.replace("中概互联网", "中概");
         return name;
     }
-
-
 
 
 }
