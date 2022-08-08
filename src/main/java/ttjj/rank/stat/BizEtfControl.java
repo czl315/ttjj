@@ -25,15 +25,14 @@ public class BizEtfControl {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-08-04";
-
 //        List<String> dateList = StockService.findListDateAfter(date, 2);
 //        if (dateList != null && dateList.size() > 1) {
 //            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
 //        }
 
-//        showEtfUpMa(date);//etf-超过均线
+        showEtfUpMa(date);//etf-超过均线
 
-        showEtfMv(date);//显示etf市值
+//        showEtfMv(date);//显示etf市值
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
     }

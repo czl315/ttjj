@@ -29,14 +29,14 @@ public class KlineDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-07-22";
-        List<String> kltList = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15, KLT_5);
         List<String> kltList_15_101 = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15);
+        List<String> kltList_5_101 = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15, KLT_5);
         List<String> kltListCurDay = Arrays.asList(KLT_101);
 
         saveKlineByType(date, DB_RANK_BIZ_TYPE_ETF, kltList_15_101);
         saveKlineByType(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_15_101);
-        saveKlineByType(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_15_101);
-        saveKlineByType(date, DB_RANK_BIZ_TYPE_ZS, kltList);
+//        saveKlineByType(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_15_101);
+        saveKlineByType(date, DB_RANK_BIZ_TYPE_ZS, kltList_5_101);
 
 //        updateFundFlow(date, DB_RANK_BIZ_TYPE_ZS, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
 //        updateFundFlow(date, DB_RANK_BIZ_TYPE_BAN_KUAI, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
@@ -101,6 +101,24 @@ public class KlineDemo {
             zhishuMap = ContentEtf.mapEtfAll;//mapEtfBiz mapEtfIndex    mapEtfAll
             KlineService.saveKlineByType(zhishuMap, date, KLT_5, bizType, true);
         }
+    }
+
+    /**
+     * 保存K线，更新市值
+     * @param date
+     * @param bizType
+     * @param kltList
+     * @param mapZq
+     */
+    private static void saveKlineAndMv(String date, String bizType, List<String> kltList, Map<String, String> mapZq) {
+        for (String klt : kltList) {
+            // 保存指数k线：5分钟-天, date, KLT_60, bizType);
+            KlineService.saveKlineByType(mapZq, date, klt, bizType, true);
+        }
+
+        //更新-市值
+        updateMv(date, bizType, mapZq);
+
     }
 
     /**
