@@ -7,6 +7,7 @@ import ttjj.dto.StatEtfUpDown;
 import ttjj.dto.StockAdrCountVo;
 import ttjj.service.BizService;
 import ttjj.service.KlineService;
+import utils.ContMapEtf;
 import utils.ContentEtf;
 import utils.DateUtil;
 import utils.StockUtil;
@@ -51,16 +52,25 @@ public class BizEtfControl {
 //            mapMv.put(rankBizDataDiff.getF12(), rankBizDataDiff.getF20());
             String code = biz.getF12();
             String name = biz.getF14();
+            String nameFormat = StockUtil.formatStName(name, 14);
+            BigDecimal marketValue = biz.getF20().divide(NUM_YI_1, 2, BigDecimal.ROUND_HALF_UP);
+            String mvFormat = StockUtil.formatDouble(marketValue, 8);
+            BigDecimal adr = biz.getF3();
 //            //  名称过滤
 //            if (!name.contains("300")) {
 //                continue;
 //            }
+            //  特定类型
+//            Map<String, String> mapZq = ContMapEtf.ZIYUAN;
+//            if (!mapZq.keySet().contains(code)) {
+//                continue;
+//            }
+
             sb.append(StockUtil.formatStName(code, 6)).append(" ");
-            sb.append(StockUtil.formatStName(name, 16)).append(" ");
-            BigDecimal marketValue = biz.getF20().divide(NUM_YI_1, 2, BigDecimal.ROUND_HALF_UP);
+            sb.append(nameFormat).append(" ");
             sb.append(marketValue).append(" ");
 //            System.out.println(sb);
-            System.out.println("ETF_MV.put(\"" + code + "\", \"" + marketValue + "\");//" + name + "\t" + biz.getF3());
+            System.out.println("etf.put(\"" + code + "\", \"" + nameFormat + "\");//" + mvFormat + "\t" + adr);
         }
     }
 
@@ -86,22 +96,22 @@ public class BizEtfControl {
         condMa.setOrderDesc(false);//是否倒序
         List<StockAdrCountVo> rs = null;
         System.out.println("科技：");
-        condMa.setMapStock(ContentEtf.mapEtfKeJi);
+        condMa.setMapStock(ContMapEtf.KEJI);
         KlineService.showStockMa(condMa);
         System.out.println("消费：");
-        condMa.setMapStock(ContentEtf.mapEtfXiaoFei);
+        condMa.setMapStock(ContMapEtf.XIAOFEI);
         KlineService.showStockMa(condMa);
         System.out.println("资源：");
-        condMa.setMapStock(ContentEtf.mapEtfZiYuan);
+        condMa.setMapStock(ContMapEtf.ZIYUAN);
         KlineService.showStockMa(condMa);
         System.out.println("医疗：");
-        condMa.setMapStock(ContentEtf.mapEtfYiLiao);
+        condMa.setMapStock(ContMapEtf.YILIAO);
         KlineService.showStockMa(condMa);
         System.out.println("金融：");
-        condMa.setMapStock(ContentEtf.mapEtfJinRong);
+        condMa.setMapStock(ContMapEtf.JINRONG);
         KlineService.showStockMa(condMa);
         System.out.println("指数：");
-        condMa.setMapStock(ContentEtf.mapEtfIndex);
+        condMa.setMapStock(ContMapEtf.ETF_ZS);
         KlineService.showStockMa(condMa);
     }
 

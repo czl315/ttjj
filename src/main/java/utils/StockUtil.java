@@ -182,6 +182,7 @@ public class StockUtil {
      */
     public static String formatEtfName(String name, int length) {
         name = name.replace("ETF", "");
+        name = name.replace("易方达", "");
         return formatStName(name, length);
     }
 

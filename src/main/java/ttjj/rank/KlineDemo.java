@@ -11,6 +11,7 @@ import ttjj.dto.RankBizDataDiff;
 import ttjj.service.BizService;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
+import utils.ContMapEtf;
 import utils.Content;
 import utils.ContentEtf;
 import utils.DateUtil;
@@ -29,20 +30,26 @@ public class KlineDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-07-22";
-        List<String> kltList_15_101 = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15);
-        List<String> kltList_5_101 = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15, KLT_5);
-        List<String> kltListCurDay = Arrays.asList(KLT_101);
+        List<String> kltList_101_15 = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15);
+        List<String> kltList_101_5 = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15, KLT_5);
+        List<String> kltList_101 = Arrays.asList(KLT_101);
 
-        saveKlineByType(date, DB_RANK_BIZ_TYPE_ETF, kltList_15_101);
-        saveKlineByType(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_15_101);
-//        saveKlineByType(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_15_101);
-        saveKlineByType(date, DB_RANK_BIZ_TYPE_ZS, kltList_5_101);
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_5, ContMapEtf.ETF_All);//常用etf
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_BAN_KUAI));//
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_GAI_NIAN));//
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS));//
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ETF));//全部etf
 
 //        updateFundFlow(date, DB_RANK_BIZ_TYPE_ZS, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
 //        updateFundFlow(date, DB_RANK_BIZ_TYPE_BAN_KUAI, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
 //        updateFundFlow(date, DB_RANK_BIZ_TYPE_GAI_NIAN, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
 
 //        updateFundFlow(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));//etf资金流向不重要
+
+//        saveKlineByType(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_15);
+//        saveKlineByType(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15);
+//        saveKlineByType(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_101_15);
+//        saveKlineByType(date, DB_RANK_BIZ_TYPE_ZS, kltList_5_101);
 
 
         //  插入常用指数k线
@@ -104,7 +111,8 @@ public class KlineDemo {
     }
 
     /**
-     * 保存K线，更新市值
+     * 保存K线，更新市值,更新均线价格-天
+     *
      * @param date
      * @param bizType
      * @param kltList
@@ -119,6 +127,11 @@ public class KlineDemo {
         //更新-市值
         updateMv(date, bizType, mapZq);
 
+        //更新均线价格-天
+        for (String zqdm : mapZq.keySet()) {
+            updateNetByDate(zqdm, KLT_101, true, date, date, bizType);
+        }
+
     }
 
     /**
@@ -129,6 +142,7 @@ public class KlineDemo {
      * @param zhishuMap 代码列表
      */
     private static void updateMv(String date, String bizType, Map<String, String> zhishuMap) {
+        boolean isShowLog = true;
         Map<String, BigDecimal> mapMv = new HashMap<>();
         //查询市值
 //        if (bizType.equals(DB_RANK_BIZ_TYPE_ZS)) {
@@ -143,11 +157,10 @@ public class KlineDemo {
 
         for (String zqdm : zhishuMap.keySet()) {
             Integer rs = 0;
-            boolean isShowLog = true;
 
             BigDecimal mv = mapMv.get(zqdm);
-            if(mv==null){
-                System.out.println("市值为空："+zqdm);
+            if (mv == null) {
+                System.out.println("市值为空：" + zqdm);
                 continue;
             }
 
@@ -156,10 +169,10 @@ public class KlineDemo {
             kline.setDate(date);
             kline.setF20(mv);
             rs = KlineDao.updateNet(kline);
-            if (isShowLog && rs == 1) {
+            if (isShowLog && rs >= 1) {
                 System.out.println("更新-市值-成功：" + JSON.toJSONString(kline));
             }
-            if (isShowLog && rs != 1) {
+            if (isShowLog && rs < 1) {
                 System.out.println("更新-市值-失败：" + JSON.toJSONString(kline));
             }
         }

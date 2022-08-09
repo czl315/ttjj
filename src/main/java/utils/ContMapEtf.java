@@ -1,15 +1,9 @@
 package utils;
 
-import ttjj.dto.RankBizDataDiff;
 import ttjj.rank.stat.BizEtfControl;
-import ttjj.service.StockService;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-
-import static utils.Content.NUM_MAX_99;
 
 /**
  * ETF
@@ -129,21 +123,35 @@ public class ContMapEtf {
     /**
      * etf-市值-指数
      */
-    public static Map<String, String> ETF_MV_ZS = new HashMap<>();
+    public static Map<String, String> ETF_ZS = new HashMap<>();
 
     static {
-        ETF_MV_ZS.putAll(ETF_MV_ZS_A50);
-        ETF_MV_ZS.putAll(ETF_MV_ZS_ZZ100);
-        ETF_MV_ZS.putAll(ETF_MV_ZS_HS300);
-        ETF_MV_ZS.putAll(ETF_MV_ZS_ZZ500);
-        ETF_MV_ZS.putAll(ETF_MV_ZS_KCB);
-        ETF_MV_ZS.putAll(ETF_MV_ZS_CYB);
-        ETF_MV_ZS.putAll(ETF_MV_ZS_ZS180);
-        ETF_MV_ZS.putAll(ETF_MV_ZS_HG);
-        ETF_MV_ZS.putAll(ETF_MV_ZS_MG);
-        ETF_MV_ZS.putAll(ETF_MV_ZS_ZS1000);
-        ETF_MV_ZS.putAll(ETF_MV_ZS_SZ100);
-        ETF_MV_ZS.putAll(ETF_MV_ZS_SC);
+        ETF_ZS.put("512100", "中证1000ETF");		//103.53	0.19
+        ETF_ZS.put("510500", "中证500ETF");		//375.91	0.17
+        ETF_ZS.put("159901", "深证100ETF易方达");		//65.12	-0.12
+        ETF_ZS.put("510300", "沪深300ETF");		//434.68	-0.24
+        ETF_ZS.put("510180", "上证180ETF");		//199.61	-0.36
+        ETF_ZS.put("513500", "标普500ETF");		//74.86	-0.38
+        ETF_ZS.put("562000", "华宝中证100ETF");		//5.05	-0.41
+        ETF_ZS.put("510050", "上证50ETF");		//492.63	-0.5
+        ETF_ZS.put("159949", "创业板50ETF");		//89.61	-0.51
+        ETF_ZS.put("159920", "恒生ETF");		//136.84	-0.54
+        ETF_ZS.put("159941", "纳指ETF");		//120.13	-0.72
+        ETF_ZS.put("159781", "双创50ETF");		//63.51	-0.74
+        ETF_ZS.put("588000", "科创50ETF");		//305.66	-1.23
+
+//        ETF_ZS.putAll(ETF_MV_ZS_A50);
+//        ETF_ZS.putAll(ETF_MV_ZS_ZZ100);
+//        ETF_ZS.putAll(ETF_MV_ZS_HS300);
+//        ETF_ZS.putAll(ETF_MV_ZS_ZZ500);
+//        ETF_ZS.putAll(ETF_MV_ZS_KCB);
+//        ETF_ZS.putAll(ETF_MV_ZS_CYB);
+//        ETF_ZS.putAll(ETF_MV_ZS_ZS180);
+//        ETF_ZS.putAll(ETF_MV_ZS_HG);
+//        ETF_ZS.putAll(ETF_MV_ZS_MG);
+//        ETF_ZS.putAll(ETF_MV_ZS_ZS1000);
+//        ETF_ZS.putAll(ETF_MV_ZS_SZ100);
+//        ETF_ZS.putAll(ETF_MV_ZS_SC);
     }
 
 
@@ -157,18 +165,16 @@ public class ContMapEtf {
     public static Map<String, String> ZIYUAN = new HashMap<>();
 
     static {
-        KEJI.put("513050", "372.33");//中概互联网ETF
-        KEJI.put("513330", "251.19");//恒生互联网ETF
-        KEJI.put("159995", "209.18");//芯片ETF
-        KEJI.put("515790", "147.77");//光伏ETF
-        KEJI.put("512660", "137.14");//军工ETF
-        KEJI.put("515030", "110.33");//新能源车ETF
-        KEJI.put("515050", "100.74");//5GETF
-
-        KEJI.put("159967", "29.66");//创成长ETF
-        KEJI.put("159611", "12.85");//电力ETF
-
-        KEJI.put("516110", "9.19");//汽车ETF
+        KEJI.put("512660", "军工ETF       ");//139.20  	1.74
+        KEJI.put("159611", "电力ETF       ");//12.86   	0.68
+        KEJI.put("159967", "创成长ETF     ");//29.98   	0.15
+        KEJI.put("515790", "光伏ETF       ");//147.52  	-0.18
+        KEJI.put("515030", "新能源车ETF   ");//110.75  	-0.23
+        KEJI.put("515050", "5GETF         ");//99.94   	-0.42
+        KEJI.put("516110", "汽车ETF       ");//9.23    	-0.81
+        KEJI.put("159995", "芯片ETF       ");//205.39  	-0.94
+        KEJI.put("513050", "中概互联网ETF ");//367.01  	-1.43
+        KEJI.put("513330", "恒生互联网ETF ");//246.99  	-1.67
 
 //        KEJI.put("513180", "118.13");//恒生科技指数ETF
 //        KEJI.put("512760", "135.48");//芯片ETF
@@ -212,12 +218,12 @@ public class ContMapEtf {
 
     //金融
     static {
-        JINRONG.put("512880", "320.44");//证券ETF
-        JINRONG.put("510880", "165.39");//红利ETF
-        JINRONG.put("518880", "113.80");//黄金ETF
-        JINRONG.put("512800", "98.55");//银行ETF
-        JINRONG.put("516970", "97.42");//基建50ETF
-        JINRONG.put("512200", "53.31");//房地产ETF
+        JINRONG.put("510880", "红利ETF       ");//166.99  	0.6
+        JINRONG.put("512200", "房地产ETF     ");//52.10   	-0.14
+        JINRONG.put("512880", "证券ETF       ");//316.81  	-0.22
+        JINRONG.put("516970", "基建50ETF     ");//98.25   	-0.27
+        JINRONG.put("512800", "银行ETF       ");//97.45   	-0.47
+        JINRONG.put("518880", "黄金ETF       ");//112.54  	-0.55
 
         //        JINRONG.put("511990", "1532.55");//华宝添益ETF
 //        JINRONG.put("511880", "1355.05");//银华日利ETF
@@ -260,9 +266,9 @@ public class ContMapEtf {
 
     //医疗
     static {
-        YILIAO.put("512170", "149.46");//医疗ETF
-        YILIAO.put("513060", "55.57");//恒生医疗ETF
-        YILIAO.put("159992", "43.91");//创新药ETF
+        YILIAO.put("513060", "恒生医疗ETF   ");//55.08   	-0.18
+        YILIAO.put("512170", "医疗ETF       ");//148.20  	-0.37
+        YILIAO.put("159992", "创新药ETF     ");//43.44   	-0.89
 
 //        YILIAO.put("512010", "101.39");//医药ETF
 //        YILIAO.put("512290", "40.51");//生物医药ETF
@@ -276,12 +282,12 @@ public class ContMapEtf {
 
     //消费
     static {
-        XIAOFEI.put("159928", "107.92");//消费ETF
-        XIAOFEI.put("512690", "92.63");//酒ETF
-        XIAOFEI.put("515170", "39.06");//食品饮料ETF
-        XIAOFEI.put("512980", "47.29");//传媒ETF
-        XIAOFEI.put("159996", "28.13");//家电ETF
-        XIAOFEI.put("159766", "20.09");//旅游ETF
+        XIAOFEI.put("159996", "家电ETF       ");//27.23   	0.65
+        XIAOFEI.put("515170", "食品饮料ETF   ");//39.01   	-0.26
+        XIAOFEI.put("159928", "消费ETF       ");//107.11  	-0.37
+        XIAOFEI.put("512690", "酒ETF         ");//92.62   	-0.47
+        XIAOFEI.put("512980", "传媒ETF       ");//47.02   	-0.67
+        XIAOFEI.put("159766", "旅游ETF       ");//19.72   	-1.86
 
 //        XIAOFEI.put("515650", "17.31");//消费50ETF
 //        XIAOFEI.put("510150", "11.36");//消费ETF
@@ -294,27 +300,27 @@ public class ContMapEtf {
 
     //资源
     static {
-        ZIYUAN.put("515220", "50.19");//煤炭ETF
-        ZIYUAN.put("512400", "30.81");//有色金属ETF
-        ZIYUAN.put("516150", "24.02");//稀土ETF基金
-        ZIYUAN.put("159865", "41.65");//养殖ETF
-        ZIYUAN.put("159825", "17.89");//农业ETF
-        ZIYUAN.put("159930", "2.61");//能源ETF
-        ZIYUAN.put("515210", "16.82");//钢铁ETF
-        ZIYUAN.put("159870", "7.58");//化工ETF
+        ZIYUAN.put("515220", "煤炭ETF       ");//51.65   	1.62
+        ZIYUAN.put("159930", "能源ETF       ");//2.67    	1.41
+        ZIYUAN.put("515210", "钢铁ETF       ");//17.02   	1.1
+        ZIYUAN.put("159865", "养殖ETF       ");//41.80   	0.59
+        ZIYUAN.put("159825", "农业ETF       ");//17.63   	0.41
+        ZIYUAN.put("516150", "稀土ETF基金   ");//24.14   	0.36
+        ZIYUAN.put("159870", "化工ETF       ");//7.80    	0.34
+        ZIYUAN.put("512400", "有色金属ETF   ");//30.77   	-0.08
     }
 
     /**
      * etf-市值-行业板块
      */
-    public static Map<String, String> ETF_MV_BK = new HashMap<>();
+    public static Map<String, String> ETF_BK = new HashMap<>();
 
     static {
-        ETF_MV_BK.putAll(KEJI);
-        ETF_MV_BK.putAll(YILIAO);
-        ETF_MV_BK.putAll(JINRONG);
-        ETF_MV_BK.putAll(XIAOFEI);
-        ETF_MV_BK.putAll(ZIYUAN);
+        ETF_BK.putAll(KEJI);
+        ETF_BK.putAll(YILIAO);
+        ETF_BK.putAll(JINRONG);
+        ETF_BK.putAll(XIAOFEI);
+        ETF_BK.putAll(ZIYUAN);
     }
 
     /**
@@ -323,8 +329,8 @@ public class ContMapEtf {
     public static Map<String, String> ETF_All = new HashMap<>();
 
     static {
-        ETF_All.putAll(ETF_MV_ZS);
-        ETF_All.putAll(ETF_MV_BK);
+        ETF_All.putAll(ETF_ZS);
+        ETF_All.putAll(ETF_BK);
     }
 
     static {
