@@ -18,6 +18,8 @@ import utils.DateUtil;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static utils.Content.*;
@@ -34,17 +36,24 @@ public class KlineDemo {
         List<String> kltList_101_5 = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15, KLT_5);
         List<String> kltList_101 = Arrays.asList(KLT_101);
 
-        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_5, ContMapEtf.ETF_All);//常用etf
+        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
+            System.out.println("定时任务-保存常用etf:");
+            saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_5, ContMapEtf.ETF_All);//保存常用etf
+        }, 0, 5, TimeUnit.MINUTES);
+
+        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
+            System.out.println("定时任务-保存-板块、概念、指数、全部etf:");
 //        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_BAN_KUAI));//
 //        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_GAI_NIAN));//
 //        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS));//
 //        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ETF));//全部etf
-//
+
 //        updateFundFlow(date, DB_RANK_BIZ_TYPE_ZS, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
 //        updateFundFlow(date, DB_RANK_BIZ_TYPE_BAN_KUAI, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
 //        updateFundFlow(date, DB_RANK_BIZ_TYPE_GAI_NIAN, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
 
 //        updateFundFlow(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));//etf资金流向不重要
+        }, 0, 15, TimeUnit.MINUTES);
 
 //        saveKlineByType(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_15);
 //        saveKlineByType(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15);
