@@ -1,8 +1,7 @@
 package utils;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author chenzhilong
@@ -702,5 +701,79 @@ public class Content {
      * 排序字段
      */
     public static String ORDER_BY_F3 = " F3 DESC ";
+
+    /**
+     * 每天时间
+     */
+    public static String TIME_09_35 = "09:35:00";
+    public static String TIME_09_40 = "09:40:00";
+    public static String TIME_09_45 = "09:45:00";
+    public static String TIME_09_50 = "09:50:00";
+    public static String TIME_09_55 = "09:55:00";
+    public static String TIME_10_00 = "10:00:00";
+    public static String TIME_10_05 = "10:05:00";
+    public static String TIME_10_10 = "10:10:00";
+    public static String TIME_10_15 = "10:15:00";
+    public static String TIME_10_20 = "10:20:00";
+    public static String TIME_10_25 = "10:25:00";
+    public static String TIME_10_30 = "10:30:00";
+    public static String TIME_10_35 = "10:35:00";
+    public static String TIME_10_40 = "10:40:00";
+    public static String TIME_10_45 = "10:45:00";
+    public static String TIME_10_50 = "10:50:00";
+    public static String TIME_10_55 = "10:55:00";
+    public static String TIME_11_00 = "11:00:00";
+    public static String TIME_11_05 = "11:05:00";
+    public static String TIME_11_10 = "11:10:00";
+    public static String TIME_11_15 = "11:15:00";
+    public static String TIME_11_20 = "11:20:00";
+    public static String TIME_11_25 = "11:25:00";
+    public static String TIME_11_30 = "11:30:00";
+    public static String TIME_13_00 = "13:00:00";
+    public static String TIME_13_05 = "13:05:00";
+    public static String TIME_13_10 = "13:10:00";
+    public static String TIME_13_15 = "13:15:00";
+    public static String TIME_13_20 = "13:20:00";
+    public static String TIME_13_25 = "13:25:00";
+    public static String TIME_13_30 = "13:30:00";
+    public static String TIME_13_35 = "13:35:00";
+    public static String TIME_13_40 = "13:40:00";
+    public static String TIME_13_45 = "13:45:00";
+    public static String TIME_13_50 = "13:50:00";
+    public static String TIME_13_55 = "13:55:00";
+    public static String TIME_14_00 = "14:00:00";
+    public static String TIME_14_05 = "14:05:00";
+    public static String TIME_14_10 = "14:10:00";
+    public static String TIME_14_15 = "14:15:00";
+    public static String TIME_14_20 = "14:20:00";
+    public static String TIME_14_25 = "14:25:00";
+    public static String TIME_14_30 = "14:30:00";
+    public static String TIME_14_35 = "14:35:00";
+    public static String TIME_14_40 = "14:40:00";
+    public static String TIME_14_45 = "14:45:00";
+    public static String TIME_14_50 = "14:50:00";
+    public static String TIME_14_55 = "14:55:00";
+    public static String TIME_15_00 = "15:00:00";
+
+
+    public static List<String> TIME_TYPE5_0935_TO_1000 = Arrays.asList(TIME_09_35, TIME_09_40, TIME_09_45, TIME_09_50, TIME_09_55, TIME_10_00);
+    public static List<String> TIME_TYPE5_1005_TO_1030 = Arrays.asList(TIME_10_05, TIME_10_10, TIME_10_15, TIME_10_20, TIME_10_25, TIME_10_30);
+    public static List<String> TIME_TYPE5_1035_TO_1100 = Arrays.asList(TIME_10_35, TIME_10_40, TIME_10_45, TIME_10_50, TIME_10_55, TIME_11_00);
+    public static List<String> TIME_TYPE5_1105_TO_1130 = Arrays.asList(TIME_11_05, TIME_11_10, TIME_11_15, TIME_11_20, TIME_11_25, TIME_11_30);
+    public static List<String> TIME_TYPE_5_1435_TO_1500 = Arrays.asList(TIME_14_35, TIME_14_40, TIME_14_45, TIME_14_50, TIME_14_55, TIME_15_00);
+
+    public static List<String> TIME_TYPE_15_0945_TO_1130 = Arrays.asList(TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30);
+    public static List<String> TIME_TYPE_15_1315_TO_1500 = Arrays.asList(TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00);
+    public static List<String> TIME_TYPE_15_0945_TO_1500 = Arrays.asList(TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00);
+
+    /**
+     * 每天时间段列表-n分钟-开始时间-至-结束时间
+     */
+    public static List<String> TIME_TYPE_30_1000_TO_1500 = Arrays.asList(TIME_10_00, TIME_10_30, TIME_11_00, TIME_11_30, TIME_13_30, TIME_14_00, TIME_14_30, TIME_15_00);
+    /**
+     * 每天时间段列表-n分钟-开始时间-至-结束时间
+     */
+    public static List<String> TIME_TYPE_60_1030_TO_1500 = Arrays.asList(TIME_10_30, TIME_11_30, TIME_14_00, TIME_15_00);
+
 
 }

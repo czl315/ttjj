@@ -25,7 +25,7 @@ import static utils.Content.*;
 public class StatKlineDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-08-04";
+//        String date = "2022-08-09";
 
 //        // 统计涨跌次数-根据每月中的日期
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
@@ -37,39 +37,116 @@ public class StatKlineDemo {
 
     /**
      * 统计涨幅-根据时间、类型等
-     *
      */
     private static void statAdrByTime(String date) {
-        CondKline condition =  new CondKline();
-        condition.setDate(date);
-//        condition.setType(DB_RANK_BIZ_TYPE_BAN_KUAI);
-        condition.setType(DB_RANK_BIZ_TYPE_ETF);
-//        condition.setKlt(KLT_101);
-//        condition.setKtime(date);
-        condition.setKlt(KLT_60);
-        condition.setKtime("15:00:00");
-        List<Kline> klineList = KlineService.listKine(condition);
-        showKline(klineList);
+        //首先查询k线类别
+        //按时间列表查询k线涨幅
+        List<String> timeList = new ArrayList<>();
+        Map<String, List<Kline>> codeKline = new HashMap<>();
+        String orderTime = TIME_15_00;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00
+        String klt = KLT_60;
+//        String orderTime = TIME_13_30;//TIME_10_30 TIME_11_30 TIME_13_30  TIME_14_00 TIME_14_30  TIME_15_00
+//        String orderTime = TIME_14_50;//TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
+//        String klt = KLT_5;
+//        String klt = KLT_15;
+//        String klt = KLT_30;
+        if (klt.equals(KLT_15)) {
+            timeList.addAll(TIME_TYPE_15_0945_TO_1500);
+        }
+        if (klt.equals(KLT_30)) {
+            timeList.addAll(TIME_TYPE_30_1000_TO_1500);//TIME_TYPE_30_1000_TO_1500  TIME_TYPE_15_0945_TO_1500
+        }
+        if (klt.equals(KLT_60)) {
+            timeList.addAll(TIME_TYPE_60_1030_TO_1500);
+        }
+        if (klt.equals(KLT_5)) {
+            timeList.addAll(TIME_TYPE_5_1435_TO_1500);
+        }
+
+        String type = DB_RANK_BIZ_TYPE_ETF;
+//        TIME_TYPE5_0935_TO_1000.addAll(TIME_TYPE5_1005_TO_1030);
+
+        CondKline conditionKlineList = new CondKline();
+        conditionKlineList.setDate(date);
+        conditionKlineList.setType(type);
+        conditionKlineList.setKlt(klt);
+        conditionKlineList.setKtime(orderTime);//排序时间点
+        List<Kline> klineList = KlineService.listKine(conditionKlineList);
+
+        for (Kline kline : klineList) {
+            String code = kline.getZqdm();
+            CondKline condKlineTime = new CondKline();
+            condKlineTime.setDate(date);
+            condKlineTime.setType(type);
+            condKlineTime.setKlt(klt);
+            condKlineTime.setZqdm(code);
+            List<Kline> klineTimeList = KlineService.listKine(condKlineTime);
+            codeKline.put(code, klineTimeList);
+        }
+
+        showKline(klineList, timeList, codeKline);
     }
 
-    private static void showKline(List<Kline> klineList) {
+    private static void showKline(List<Kline> klineList, List<String> timeList, Map<String, List<Kline>> codeKlineMap) {
+        boolean isShowCode = false;
         if (klineList == null) {
             System.out.println("klineList==null");
             return;
         }
+
+        StringBuffer sbHead = new StringBuffer();
+        if (isShowCode) {
+            sbHead.append(StockUtil.formatStName("编码", 10));
+        }
+        sbHead.append(StockUtil.formatEtfName("名称", 12));
+        sbHead.append(StockUtil.formatStName("类型", 4));
+        sbHead.append(StockUtil.formatStName("当前时间", 10));
+        sbHead.append(StockUtil.formatStName("当前涨幅", 14));
+        for (String time : timeList) {
+//            sbHead.append("[");
+            sbHead.append(StockUtil.formatStName(time, 10));
+//            sbHead.append("]");
+        }
+        System.out.println(sbHead);
+
         for (Kline dto : klineList) {
 //            System.out.println(JSON.toJSONString(stockAdrCount));
             StringBuffer sb = new StringBuffer();
-            String stName = StockUtil.formatStName(dto.getZqmc(),16);
-            String bizName = StockUtil.formatStName(dto.getType(),2);
+            String stName = StockUtil.formatEtfName(dto.getZqmc(), 12);
+            String bizName = StockUtil.formatStName(dto.getType(), 2);
+            String code = StockUtil.formatStName(dto.getZqdm(), 6);
             String ktime = dto.getKtime();
+            if (isShowCode) {
+                sb.append(code);
+            }
+            sb.append("  ");
             sb.append(stName);
             sb.append("  ");
             sb.append(bizName);
             sb.append("  ");
             sb.append(ktime);
             sb.append("    ");
-            sb.append(StockUtil.formatDouble(dto.getZhangDieFu(),6)).append(" ");
+            sb.append(StockUtil.formatDouble(dto.getZhangDieFu(), 6)).append(" ");
+            sb.append("    ");
+
+            for (String time : timeList) {
+                List<Kline> codeKlineList = codeKlineMap.get(code);
+
+                for (Kline kline : codeKlineList) {
+                    if (!code.equals(kline.getZqdm())) {
+                        continue;
+                    }
+                    if (time.equals(kline.getKtime())) {
+//                        sb.append("[");
+                        sb.append(StockUtil.formatDouble(kline.getZhangDieFu(), 9));
+                        sb.append(" ");
+//                        sb.append("]");
+                        break;
+                    }
+                }
+            }
+
+
             System.out.println(sb);
         }
     }
