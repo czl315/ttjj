@@ -33,27 +33,30 @@ public class KlineDemo {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-07-22";
         List<String> kltList_101_15 = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15);
-        List<String> kltList_101_5 = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15, KLT_5);
+        List<String> kltList_101_5 = Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101);
         List<String> kltList_101 = Arrays.asList(KLT_101);
+        int perriod2 = 2;
+        int perriod5 = 5;
+        int perriod15 = 15;
 
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
             System.out.println("定时任务-保存常用etf:");
             saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_5, ContMapEtf.ETF_All);//保存常用etf
-        }, 0, 5, TimeUnit.MINUTES);
+        }, 0, perriod5, TimeUnit.MINUTES);
 
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
             System.out.println("定时任务-保存-板块、概念、指数、全部etf:");
-//        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_BAN_KUAI));//
-//        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_GAI_NIAN));//
-//        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS));//
-//        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ETF));//全部etf
+            saveKlineAndMv(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_BAN_KUAI));//
+            saveKlineAndMv(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_GAI_NIAN));//
+            saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS));//
+            saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ETF));//全部etf
 
-//        updateFundFlow(date, DB_RANK_BIZ_TYPE_ZS, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
-//        updateFundFlow(date, DB_RANK_BIZ_TYPE_BAN_KUAI, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
-//        updateFundFlow(date, DB_RANK_BIZ_TYPE_GAI_NIAN, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
+        updateFundFlow(date, DB_RANK_BIZ_TYPE_ZS, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
+        updateFundFlow(date, DB_RANK_BIZ_TYPE_BAN_KUAI, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
+        updateFundFlow(date, DB_RANK_BIZ_TYPE_GAI_NIAN, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
 
 //        updateFundFlow(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));//etf资金流向不重要
-        }, 0, 15, TimeUnit.MINUTES);
+        }, perriod2, perriod15, TimeUnit.MINUTES);
 
 //        saveKlineByType(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_15);
 //        saveKlineByType(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15);
@@ -128,6 +131,8 @@ public class KlineDemo {
      * @param mapZq
      */
     private static void saveKlineAndMv(String date, String bizType, List<String> kltList, Map<String, String> mapZq) {
+        long timeBeg = System.currentTimeMillis();
+        System.out.println("保存K线，更新市值,更新均线价格" + date + "," + bizType + "-beg");
         for (String klt : kltList) {
             // 保存指数k线：5分钟-天, date, KLT_60, bizType);
             KlineService.saveKlineByType(mapZq, date, klt, bizType, true);
@@ -140,6 +145,8 @@ public class KlineDemo {
         for (String zqdm : mapZq.keySet()) {
             updateNetByDate(zqdm, KLT_101, true, date, date, bizType);
         }
+        long timeEnd = System.currentTimeMillis();
+        System.out.println("保存K线，更新市值,更新均线价格" + date + "," + bizType + "-end:" + (timeEnd - timeBeg) / 1000);
     }
 
     /**
@@ -163,9 +170,8 @@ public class KlineDemo {
             }
         }
 
+        Integer rs = 0;
         for (String zqdm : zhishuMap.keySet()) {
-            Integer rs = 0;
-
             BigDecimal mv = mapMv.get(zqdm);
             if (mv == null) {
                 System.out.println("市值为空：" + zqdm);
@@ -176,13 +182,14 @@ public class KlineDemo {
             kline.setZqdm(zqdm);
             kline.setDate(date);
             kline.setF20(mv);
-            rs = KlineDao.updateNet(kline);
-            if (isShowLog && rs >= 1) {
-                System.out.println("更新-市值-成功：" + JSON.toJSONString(kline));
-            }
+            rs += KlineDao.updateNet(kline);
+
             if (isShowLog && rs < 1) {
                 System.out.println("更新-市值-失败：" + JSON.toJSONString(kline));
             }
+        }
+        if (isShowLog && rs >= 1) {
+            System.out.println("更新-市值-成功：" + rs);
         }
     }
 
@@ -635,52 +642,4 @@ public class KlineDemo {
         return rs;
     }
 
-    /**
-     * 增加大周期k线-只插入http返回结果
-     *
-     * @param zhishu
-     * @param klt
-     */
-    private static void addKlineDaZhouQiOnlyHttpRs(String zhishu, String klt) {
-        int lmt = 1000000;
-        String begDate = "";//查询新增交易的开始时间
-        String endDate = "";
-        begDate = "0";
-        endDate = "20500101";
-        String zqdm = zhishu;
-//  只插入http返回结果
-        String klineRs = KlineService.klineRsStrHttpDfcf(zqdm, lmt, klt, true, begDate, endDate, KLINE_TYPE_STOCK);
-        System.out.println("开始日期:" + begDate + "，结束日期:" + endDate + "，周期:" + klt + "，klines.size():" + klineRs);
-//        System.out.println("klines:"+JSON.toJSONString(klines));
-
-        if (StringUtils.isBlank(klineRs)) {
-            System.out.println("k线查询结果为空！");
-        }
-
-        JSONObject szzzMonthJson = JSON.parseObject(klineRs);
-        JSONObject szzzMonthDataJson = JSON.parseObject(szzzMonthJson.getString("data"));
-        String zqmc = szzzMonthDataJson.getString("name");
-        System.out.println("证券名称：" + zqmc);
-        if (szzzMonthDataJson == null || !szzzMonthDataJson.containsKey("klines")) {
-            System.out.println("klines数据异常：" + JSON.toJSONString(szzzMonthDataJson));
-        }
-
-        JSONArray klines = JSON.parseArray(szzzMonthDataJson.getString("klines"));
-        if (klines == null || klines.size() <= 0) {
-            System.out.println("k线数据为空！");
-        }
-
-        Kline kline = new Kline();
-        kline.setKlt(klt);
-//        kline.setRs(klineRs);
-        kline.setZqmc(zqmc);
-        kline.setZqdm(zqdm);
-        kline.setKtime(begDate);
-        /**
-         * 插入数据库-K线
-         */
-        KlineDao.insert(kline);
-
-
-    }
 }

@@ -247,7 +247,7 @@ public class KlineService {
             } else {
                 url.append("0." + zqdm);
             }
-        } else if (klineType.equals(DB_RANK_BIZ_TYPE_BAN_KUAI)) {
+        } else if (klineType.equals(DB_RANK_BIZ_TYPE_BAN_KUAI) || klineType.equals(DB_RANK_BIZ_TYPE_GAI_NIAN)) {
             if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI)) {//板块
                 url.append(zqdm);//secid: 90.BK0438
             } else {
@@ -1211,6 +1211,8 @@ public class KlineService {
 
     public static void saveKlineByType(Map<String, String> mapZq, String date, String klt, String type, boolean isDelete) {
         boolean isShowLog = true;
+        int deleRs = 0;
+        int saveRs = 0;
         for (String zqdm : mapZq.keySet()) {
             String zqmc = mapZq.get(zqdm);
             List<Kline> klines = null;
@@ -1219,9 +1221,9 @@ public class KlineService {
             } else {
                 klines = KlineService.kline(zqdm, NUM_MAX_999, klt, true, date, date, type);
             }
-            if (klines != null) {
-                System.out.println(",开始日期:" + date + "，结束日期:" + date + "，周期:" + klt + "，klines.size():" + klines.size() + ",zqmc:" + zqmc);
-            }
+//            if (klines != null) {
+//                System.out.println(",开始日期:" + date + "，结束日期:" + date + "，周期:" + klt + "，klines.size():" + klines.size() + ",zqmc:" + zqmc);
+//            }
             //        System.out.println("klines:"+JSON.toJSONString(klines));
             //是否先删除
             if (isDelete) {
@@ -1230,11 +1232,10 @@ public class KlineService {
                 condition.setZqdm(zqdm);
                 condition.setType(type);
                 condition.setKlt(klt);
-                int rs = KlineService.deleteByCondition(condition);
-//                System.out.println(zqdm + "," + date + ",删除结果：" + rs);
+                deleRs += KlineService.deleteByCondition(condition);
+//                System.out.println(zqdm + "," + date + ",删除结果：" + deleRs);
             }
 
-            int saveRs = 0;
             if (klines == null) {
                 return;
             }
@@ -1250,8 +1251,9 @@ public class KlineService {
                  */
                 saveRs += KlineService.insert(kline);
             }
-//            System.out.println(zqdm + "," + date + ",插入K线：" + saveRs);
         }
+        System.out.println(date + ",删除结果：" + deleRs);
+        System.out.println(date + "," + type + "," + klt + ",插入K线：" + saveRs);
     }
 
     /**
@@ -1525,6 +1527,7 @@ public class KlineService {
 
     /**
      * 查询-批量查询k线数据
+     *
      * @param condition 条件
      * @return rs
      */

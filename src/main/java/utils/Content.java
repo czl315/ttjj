@@ -760,6 +760,8 @@ public class Content {
     public static List<String> TIME_TYPE5_1005_TO_1030 = Arrays.asList(TIME_10_05, TIME_10_10, TIME_10_15, TIME_10_20, TIME_10_25, TIME_10_30);
     public static List<String> TIME_TYPE5_1035_TO_1100 = Arrays.asList(TIME_10_35, TIME_10_40, TIME_10_45, TIME_10_50, TIME_10_55, TIME_11_00);
     public static List<String> TIME_TYPE5_1105_TO_1130 = Arrays.asList(TIME_11_05, TIME_11_10, TIME_11_15, TIME_11_20, TIME_11_25, TIME_11_30);
+    public static List<String> TIME_TYPE_5_1305_TO_1330 = Arrays.asList(TIME_13_05, TIME_13_10, TIME_13_15, TIME_13_20, TIME_13_25, TIME_13_30);
+    public static List<String> TIME_TYPE_5_1335_TO_1400 = Arrays.asList(TIME_13_35, TIME_13_40, TIME_13_45, TIME_13_50, TIME_13_55, TIME_14_00);
     public static List<String> TIME_TYPE_5_1435_TO_1500 = Arrays.asList(TIME_14_35, TIME_14_40, TIME_14_45, TIME_14_50, TIME_14_55, TIME_15_00);
 
     public static List<String> TIME_TYPE_15_0945_TO_1130 = Arrays.asList(TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30);

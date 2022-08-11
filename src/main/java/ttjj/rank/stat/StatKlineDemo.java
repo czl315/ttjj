@@ -43,12 +43,13 @@ public class StatKlineDemo {
         //按时间列表查询k线涨幅
         List<String> timeList = new ArrayList<>();
         Map<String, List<Kline>> codeKline = new HashMap<>();
-        String orderTime = TIME_15_00;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00
+        String orderTime = TIME_10_30;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00
         String klt = KLT_60;
-//        String orderTime = TIME_15_00;//TIME_10_30 TIME_11_30 TIME_13_30  TIME_14_00 TIME_14_30  TIME_15_00
+//        String orderTime = TIME_14_30;//TIME_10_30 TIME_11_30 TIME_13_30  TIME_14_00 TIME_14_30  TIME_15_00
 //        String klt = KLT_30;
-//        String orderTime = TIME_14_50;//TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
+//        String orderTime = TIME_13_30;//TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
 //        String klt = KLT_5;
+//        String orderTime = TIME_13_45;//TIME_10_30 TIME_11_30 TIME_13_30  TIME_14_00 TIME_14_30  TIME_15_00
 //        String klt = KLT_15;
         if (klt.equals(KLT_15)) {
             timeList.addAll(TIME_TYPE_15_0945_TO_1500);
@@ -60,7 +61,8 @@ public class StatKlineDemo {
             timeList.addAll(TIME_TYPE_60_1030_TO_1500);
         }
         if (klt.equals(KLT_5)) {
-            timeList.addAll(TIME_TYPE_5_1435_TO_1500);
+            timeList.addAll(TIME_TYPE_5_0935_TO_1000);//TIME_TYPE_5_0935_TO_1000
+//            timeList.addAll(TIME_TYPE_5_1305_TO_1330);//TIME_TYPE_5_0935_TO_1000
         }
 
         String type = DB_RANK_BIZ_TYPE_ETF;
@@ -85,6 +87,94 @@ public class StatKlineDemo {
         }
 
         showKline(date, type, klineList, timeList, codeKline);
+
+        //显示-A股当前时段上涨和下跌
+        showUpOrDownInfo(date, type, klt, TIME_10_30, "0.5", "-0.5", true, false, 10);
+        showUpOrDownInfo(date, type, klt, TIME_11_30, "0.5", "-0.5", true, false, 10);
+        showUpOrDownInfo(date, type, klt, TIME_14_00, "0.5", "-0.5", true, false, 10);
+        showUpOrDownInfo(date, type, klt, TIME_15_00, "0.5", "-0.5", true, false, 10);
+    }
+
+    private static void showUpOrDownInfo(String date, String type, String klt, String orderTime, String adrUp, String adrDown, boolean isUp, boolean isDown, int limit) {
+        boolean isShowCode = false;
+        CondKline conditionKlineList = new CondKline();
+        conditionKlineList.setDate(date);
+        conditionKlineList.setType(type);
+        conditionKlineList.setKlt(klt);
+        conditionKlineList.setKtime(orderTime);//排序时间点
+        List<Kline> klineList = KlineService.listKine(conditionKlineList);
+
+        if (klineList == null) {
+            System.out.println("klineList==null");
+            return;
+        }
+
+        StringBuffer sbHead = new StringBuffer();
+        sbHead.append("A股");
+        if (isUp) {
+            sbHead.append("上涨");
+        }
+        if (type.equals(DB_RANK_BIZ_TYPE_ETF)) {
+            sbHead.append("(ETF)");
+        }
+        if (orderTime.equals(TIME_10_30)) {
+            sbHead.append("(第1小时):");
+        }
+        if (orderTime.equals(TIME_11_30)) {
+            sbHead.append("(第2小时):");
+        }
+        if (orderTime.equals(TIME_14_00)) {
+            sbHead.append("(第3小时):");
+        }
+        if (orderTime.equals(TIME_15_00)) {
+            sbHead.append("(第4小时):");
+        }
+        System.out.println(sbHead);
+
+        //上涨
+        for (Kline dto : klineList) {
+            BigDecimal adr = dto.getZhangDieFu();
+            if (adr.compareTo(new BigDecimal(adrUp)) >= 0) {
+                if (--limit < 0) {
+                    break;//限定个数
+                }
+                StringBuffer sb = new StringBuffer();
+                sb.append(StockUtil.formatEtfName(dto.getZqmc(), 0));
+                sb.append(":");
+                sb.append(StockUtil.formatDouble(adr, 4));
+                sb.append(";");
+                System.out.print(sb);
+            }
+        }
+        System.out.println();
+
+//        StringBuffer sbHeadDown = new StringBuffer();
+//        sbHeadDown.append("A股ETF下跌");
+//        if(orderTime.equals(TIME_10_30)){
+//            sbHeadDown.append("(第1小时):");
+//        }
+//        if(orderTime.equals(TIME_11_30)){
+//            sbHeadDown.append("(第2小时):");
+//        }
+//        if(orderTime.equals(TIME_14_00)){
+//            sbHeadDown.append("(第3小时):");
+//        }
+//        if(orderTime.equals(TIME_15_00)){
+//            sbHeadDown.append("(第4小时):");
+//        }
+//        System.out.println(sbHeadDown);
+//        //  下跌
+//        for (Kline dto : klineList) {
+//            BigDecimal adr = dto.getZhangDieFu();
+//            if(adr.compareTo(new BigDecimal(adrDown))<=0){
+//                StringBuffer sb = new StringBuffer();
+//                sb.append(StockUtil.formatEtfName(dto.getZqmc(), 0));
+//                sb.append(":");
+//                sb.append(StockUtil.formatDouble(adr, 4));
+//                sb.append("; ");
+//                System.out.print(sb);
+//            }
+//        }
     }
 
     private static void showKline(String date, String type, List<Kline> klineList, List<String> timeList, Map<String, List<Kline>> codeKlineMap) {
@@ -148,10 +238,10 @@ public class StatKlineDemo {
             sb.append(stName);
 //            sb.append("]");
 //            sb.append("[");
-            sb.append(StockUtil.formatStName(bizName,10));
+            sb.append(StockUtil.formatStName(bizName, 10));
 //            sb.append("]");
 //            sb.append("[");
-            sb.append(StockUtil.formatStName(ktime,10));
+            sb.append(StockUtil.formatStName(ktime, 10));
 //            sb.append("]");
 //            sb.append("[");
             sb.append(StockUtil.formatDouble(dto.getZhangDieFu(), 10));
@@ -159,7 +249,7 @@ public class StatKlineDemo {
 
             //显示当日涨幅
 //            sb.append("[");
-            sb.append(StockUtil.formatStName(date,14));
+            sb.append(StockUtil.formatStName(date, 14));
 //            sb.append("]");
 //            sb.append("[");
             sb.append(StockUtil.formatDouble(mapKlineListCurDay.get(dto.getZqdm()).getZhangDieFu(), 10));
