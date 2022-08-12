@@ -479,7 +479,11 @@ public class Content {
     /**
      * NUM_YI_500
      */
-    public static BigDecimal NUM_YI_500 = new BigDecimal("100000000").multiply(new BigDecimal("50"));
+    public static BigDecimal NUM_YI_500 = new BigDecimal("100000000").multiply(new BigDecimal("500"));
+    /**
+     * 200亿
+     */
+    public static BigDecimal NUM_YI_200 = new BigDecimal("100000000").multiply(new BigDecimal("200"));
     /**
      * NUM_YI_30 数字-亿
      */
