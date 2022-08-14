@@ -44,24 +44,7 @@ public class KlineDemo {
             saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_5, ContMapEtf.ETF_All);//保存常用etf
         }, 0, perriod5, TimeUnit.MINUTES);
 
-        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            System.out.println("定时任务-保存-板块、概念、指数、全部etf:");
-            saveKlineAndMv(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_BAN_KUAI));//
-            saveKlineAndMv(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_GAI_NIAN));//
-            saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS));//
-            saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ETF));//全部etf
-
-        updateFundFlow(date, DB_RANK_BIZ_TYPE_ZS, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
-        updateFundFlow(date, DB_RANK_BIZ_TYPE_BAN_KUAI, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
-        updateFundFlow(date, DB_RANK_BIZ_TYPE_GAI_NIAN, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
-
-//        updateFundFlow(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));//etf资金流向不重要
-        }, perriod2, perriod15, TimeUnit.MINUTES);
-
-//        saveKlineByType(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_15);
-//        saveKlineByType(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15);
-//        saveKlineByType(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_101_15);
-//        saveKlineByType(date, DB_RANK_BIZ_TYPE_ZS, kltList_5_101);
+//        saveKlineAll();
 
 
         //  插入常用指数k线
@@ -72,6 +55,28 @@ public class KlineDemo {
 ////        // 查询k线
 //        findKline();
 
+    }
+
+    private static void saveKlineAll() {
+
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-07-22";
+        List<String> kltList_101_15 = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15);
+        List<String> kltList_101_5 = Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101);
+        List<String> kltList_101 = Arrays.asList(KLT_101);
+
+        System.out.println("定时任务-保存-板块、概念、指数、全部etf:");
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_5, ContMapEtf.ETF_All);//保存常用etf
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_BAN_KUAI));//
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_GAI_NIAN));//
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS));//
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ETF));//全部etf
+
+        updateFundFlow(date, DB_RANK_BIZ_TYPE_ZS, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
+        updateFundFlow(date, DB_RANK_BIZ_TYPE_BAN_KUAI, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
+        updateFundFlow(date, DB_RANK_BIZ_TYPE_GAI_NIAN, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
+
+//        updateFundFlow(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));//etf资金流向不重要
     }
 
     /**
@@ -219,7 +224,7 @@ public class KlineDemo {
         int addDaysMax = 0;//最多增加的天数
         int year = DateUtil.getCurYear();//2021
         int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()
-        int day = DateUtil.getCurDay();//DateUtil.getCurDay()
+        int day = 12;//DateUtil.getCurDay()
         String klineType = DB_RANK_BIZ_TYPE_ZS;
         addZhishuKline(false, klt, lmt, addDaysMax, year, month, day, klineType);
     }

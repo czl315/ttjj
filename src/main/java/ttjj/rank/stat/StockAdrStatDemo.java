@@ -12,6 +12,7 @@ import ttjj.service.KlineService;
 import ttjj.service.StockAdrCountService;
 import ttjj.service.StockService;
 import utils.ConceptionUtil;
+import utils.ContMapBizBaord;
 import utils.DateUtil;
 import utils.StockUtil;
 
@@ -43,6 +44,11 @@ public class StockAdrStatDemo {
      * @param date 日期
      */
     private static void findListDemo(String date) {
+        Map<String, String> mapZiYuan = ContMapBizBaord.BOARD_TYPE_ZI_YUAN;
+        List bizList = new ArrayList();
+        for (String ziYuan : mapZiYuan.keySet()) {
+            bizList.add(ziYuan);
+        }
         CondStockAdrCount condFind = new CondStockAdrCount();
         condFind.setDate(date);
         condFind.setF139(DB_RANK_BIZ_F139_BK_MAIN);
@@ -57,7 +63,8 @@ public class StockAdrStatDemo {
 //        condFind.setType_name("半导体");//特定业务：半导体 "半导体" null
 //        condFind.setBizList(Arrays.asList("半导体","电子化学品","光学光电子","电子元件"));
 //        condFind.setBizList(Arrays.asList("银行"));
-        condFind.setBizList(Arrays.asList("煤炭行业"));
+//        condFind.setBizList(Arrays.asList("煤炭行业"));
+        condFind.setBizList(bizList);
         condFind.setMvMin(NUM_YI_50);//NUM_YI_1000  NUM_YI_50
         condFind.setMvMax(null);
 //        List<StockAdrCount> stockAdrCountList = findListByBiz(date, bizList,spBizName,startMapNum, null, mvMin, 2,orderBy);

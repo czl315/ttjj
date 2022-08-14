@@ -15,11 +15,36 @@ import static utils.Content.NUM_MAX_99;
  * @date 2022-03-18 10:09
  */
 public class ContMapBizBaord {
-    /**
-     * meiTanHangYe
-     */
     public static Map<String, String> BOARD_NAME_CODE = new HashMap<>();
     public static Map<String, String> BOARD_CODE_NAME = new TreeMap<>();
+    /**
+     * 板块-分类-资源
+     */
+    public static Map<String, String> BOARD_TYPE_ZI_YUAN = new HashMap<>();
+    static{
+        BOARD_TYPE_ZI_YUAN.put("农牧饲渔", "BK0433");//9
+        BOARD_TYPE_ZI_YUAN.put("煤炭行业", "BK0437");//11
+        BOARD_TYPE_ZI_YUAN.put("塑料制品", "BK0454");//18
+        BOARD_TYPE_ZI_YUAN.put("石油行业", "BK0464");//23
+        BOARD_TYPE_ZI_YUAN.put("造纸印刷", "BK0470");//25
+        BOARD_TYPE_ZI_YUAN.put("化纤行业", "BK0471");//26
+        BOARD_TYPE_ZI_YUAN.put("有色金属", "BK0478");//32
+        BOARD_TYPE_ZI_YUAN.put("钢铁行业", "BK0479");//33
+        BOARD_TYPE_ZI_YUAN.put("化学制品", "BK0538");//40
+        BOARD_TYPE_ZI_YUAN.put("玻璃玻纤", "BK0546");//43
+        BOARD_TYPE_ZI_YUAN.put("农药兽药", "BK0730");//49
+        BOARD_TYPE_ZI_YUAN.put("化肥行业", "BK0731");//50
+        BOARD_TYPE_ZI_YUAN.put("贵金属", "BK0732");//51
+        BOARD_TYPE_ZI_YUAN.put("包装材料", "BK0733");//52
+        BOARD_TYPE_ZI_YUAN.put("能源金属", "BK1015");//61
+        BOARD_TYPE_ZI_YUAN.put("采掘行业", "BK1017");//63
+        BOARD_TYPE_ZI_YUAN.put("橡胶制品", "BK1018");//64
+        BOARD_TYPE_ZI_YUAN.put("化学原料", "BK1019");//65
+        BOARD_TYPE_ZI_YUAN.put("非金属材料", "BK1020");//66
+        BOARD_TYPE_ZI_YUAN.put("小金属", "BK1027");//67
+        BOARD_TYPE_ZI_YUAN.put("燃气", "BK1028");//68
+    }
+
     static{
         BOARD_NAME_CODE.put("航空机场", "BK0420");//1
         BOARD_NAME_CODE.put("铁路公路", "BK0421");//2

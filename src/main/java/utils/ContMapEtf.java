@@ -218,7 +218,7 @@ public class ContMapEtf {
 
     //金融
     static {
-        JINRONG.put("510880", "红利ETF       ");//166.99  	0.6
+//        JINRONG.put("510880", "红利ETF       ");//166.99  	0.6
         JINRONG.put("512200", "房地产ETF     ");//52.10   	-0.14
         JINRONG.put("512880", "证券ETF       ");//316.81  	-0.22
         JINRONG.put("516970", "基建50ETF     ");//98.25   	-0.27
