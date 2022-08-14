@@ -31,7 +31,7 @@ import static utils.Content.*;
 public class StockAdrStatDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-08-05";
+//        String date = "2022-08-12";
 
         findListDemo(date);
 
@@ -41,31 +41,40 @@ public class StockAdrStatDemo {
 
     /**
      * 查询
+     *
      * @param date 日期
      */
     private static void findListDemo(String date) {
-        Map<String, String> mapZiYuan = ContMapBizBaord.BOARD_TYPE_ZI_YUAN;
+        Map<String, String> mapBiz = new HashMap<>();//业务
+//        mapBiz = ContMapBizBaord.BOARD_TYPE_JIN_RONG_JI_GOU;//业务：BOARD_TYPE_JIN_RONG   BOARD_TYPE_JIN_RONG_JI_GOU   BOARD_TYPE_ZI_YUAN
+        mapBiz = ContMapBizBaord.BOARD_TYPE_KE_JI_XIN_PIAN;//业务：BOARD_TYPE_KE_JI_XIN_PIAN
+//        mapBiz.put("证券", "");//银行  证券
+        String orderBy = " ADR_UP_SUM_1_60  DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
+        BigDecimal mvMin = NUM_YI_500;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
+;
+
+        int limitCount = 20;
         List bizList = new ArrayList();
-        for (String ziYuan : mapZiYuan.keySet()) {
+        for (String ziYuan : mapBiz.keySet()) {
             bizList.add(ziYuan);
         }
         CondStockAdrCount condFind = new CondStockAdrCount();
         condFind.setDate(date);
         condFind.setF139(DB_RANK_BIZ_F139_BK_MAIN);
-        condFind.setOrderBy(" ADR_UP_SUM_1_60  DESC ");//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
+        condFind.setOrderBy(orderBy);
 //        condFind.setAdrUpSumOrder1to60Min(new BigDecimal("1"));
 //        condFind.setAdrUpSumOrder1to60Max(new BigDecimal("5"));
 //        condFind.setUP_MA_60("60(60)");
 //        condFind.setUP_MA_101("101(60)");
 //        condFind.setUP_MA_102("102(60)");
 //        condFind.setADR_UP_COUNT_SUM_60(adrUpCountSum60Limit);
-        condFind.setLimitCount(20);
+        condFind.setLimitCount(limitCount);
 //        condFind.setType_name("半导体");//特定业务：半导体 "半导体" null
 //        condFind.setBizList(Arrays.asList("半导体","电子化学品","光学光电子","电子元件"));
 //        condFind.setBizList(Arrays.asList("银行"));
 //        condFind.setBizList(Arrays.asList("煤炭行业"));
         condFind.setBizList(bizList);
-        condFind.setMvMin(NUM_YI_50);//NUM_YI_1000  NUM_YI_50
+        condFind.setMvMin(mvMin);
         condFind.setMvMax(null);
 //        List<StockAdrCount> stockAdrCountList = findListByBiz(date, bizList,spBizName,startMapNum, null, mvMin, 2,orderBy);
         List<StockAdrCount> stockAdrCountList = findListByCondition(condFind);
@@ -135,9 +144,10 @@ public class StockAdrStatDemo {
         sbHead.append(StockUtil.formatStName("10天排", 6));
         sbHead.append(StockUtil.formatStName("5天排", 6));
         sbHead.append(StockUtil.formatStName("3月涨和", 8));
-        sbHead.append(StockUtil.formatStName("3月涨", 6));
-        sbHead.append(StockUtil.formatStName("2月涨", 6));
-        sbHead.append(StockUtil.formatStName("1月涨", 6));
+        sbHead.append(StockUtil.formatStName("2月涨和", 8));
+        sbHead.append(StockUtil.formatStName("3月涨", 8));
+        sbHead.append(StockUtil.formatStName("2月涨", 8));
+        sbHead.append(StockUtil.formatStName("1月涨", 8));
         sbHead.append(StockUtil.formatStName("10天涨", 6));
         sbHead.append(StockUtil.formatStName("5天涨", 6));
         sbHead.append(StockUtil.formatStName("3天涨", 6));
@@ -157,48 +167,66 @@ public class StockAdrStatDemo {
         sbHead.append(StockUtil.formatStName("超15", 6));
         System.out.println(sbHead);
 
+        //处理-近2月涨幅和
+        for (StockAdrCount stockAdrCount : stockAdrCountList) {
+            if (stockAdrCount.getADR_UP_SUM_1_40() != null) {
+                break;//如果非空，不需要处理
+            }
+            BigDecimal adrUpSum1to20 = stockAdrCount.getADR_UP_SUM_1_20() != null ? stockAdrCount.getADR_UP_SUM_1_20() : new BigDecimal("0");
+            BigDecimal adrUpSum20to40 = stockAdrCount.getADR_UP_SUM_20_40() != null ? stockAdrCount.getADR_UP_SUM_20_40() : new BigDecimal("0");
+            BigDecimal adrUpSum1to40 = adrUpSum20to40.add(adrUpSum1to20);
+            stockAdrCount.setADR_UP_SUM_1_40(adrUpSum1to40);
+        }
+
+//        //排序-近2月涨幅和
+//        stockAdrCountList = stockAdrCountList.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCount::getADR_UP_SUM_1_40, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+
         for (StockAdrCount stockAdrCount : stockAdrCountList) {
 //            System.out.println(JSON.toJSONString(stockAdrCount));
             StringBuffer sb = new StringBuffer();
             String bizName = StockUtil.formatBizName(stockAdrCount.getType_name());
-            BigDecimal order1to20 = stockAdrCount.getADR_UP_SUM_ORDER_1_20()!=null?stockAdrCount.getADR_UP_SUM_ORDER_1_20():new BigDecimal("0");
-            BigDecimal order20to40 = stockAdrCount.getADR_UP_SUM_ORDER_20_40()!=null?stockAdrCount.getADR_UP_SUM_ORDER_20_40():new BigDecimal("0");
-            BigDecimal order40to60 = stockAdrCount.getADR_UP_SUM_ORDER_40_60()!=null?stockAdrCount.getADR_UP_SUM_ORDER_40_60():new BigDecimal("0");
+            BigDecimal order1to20 = stockAdrCount.getADR_UP_SUM_ORDER_1_20() != null ? stockAdrCount.getADR_UP_SUM_ORDER_1_20() : new BigDecimal("0");
+            BigDecimal order20to40 = stockAdrCount.getADR_UP_SUM_ORDER_20_40() != null ? stockAdrCount.getADR_UP_SUM_ORDER_20_40() : new BigDecimal("0");
+            BigDecimal order40to60 = stockAdrCount.getADR_UP_SUM_ORDER_40_60() != null ? stockAdrCount.getADR_UP_SUM_ORDER_40_60() : new BigDecimal("0");
 
             BigDecimal marketValue = stockAdrCount.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
             BigDecimal order_1_60 = order1to20.add(order20to40).add(order40to60);
 //            sb.append("[");
-            sb.append(StockUtil.formatStName(stockAdrCount.getF14(),10));
+            sb.append(StockUtil.formatStName(stockAdrCount.getF14(), 10));
 //            sb.append("]");
-            sb.append(StockUtil.formatStName(bizName,14));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_60(),8));
-            sb.append(StockUtil.formatDouble(order_1_60,8));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_40_60(),6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_20_40(),6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_20(),6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_10(),6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_5(),6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_60(),8));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_40_60(),6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_20_40(),6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_20(),6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_10(),6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_5(),6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_3(),6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_2(),6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_1(),6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getF3(),6));
-            sb.append(StockUtil.formatDouble(marketValue,8));
+            sb.append(StockUtil.formatStName(bizName, 14));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_60(), 8));
+            sb.append(StockUtil.formatDouble(order_1_60, 8));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_40_60(), 6));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_20_40(), 6));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_20(), 6));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_10(), 6));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_5(), 6));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_60(), 8));
+            //处理-近2月涨幅和
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_40(), 8));
+//            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_20_40().add(stockAdrCount.getADR_UP_SUM_1_20()),8));
+
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_40_60(), 8));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_20_40(), 8));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_20(), 8));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_10(), 6));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_5(), 6));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_3(), 6));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_2(), 6));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_1(), 6));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getF3(), 6));
+            sb.append(StockUtil.formatDouble(marketValue, 8));
             sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_5(), 6));
             sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_10(), 6));
             sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_20(), 6));
             sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_40(), 6));
             sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_60(), 6));
-            sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_102().replace("(60)",""), 6));
-            sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_101().replace("(60)",""), 6));
-            sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_60().replace("(60)",""), 6));
-            sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_30().replace("(60)",""), 6));
-            sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_15().replace("(60)",""), 6));
+            sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_102().replace("(60)", ""), 6));
+            sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_101().replace("(60)", ""), 6));
+            sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_60().replace("(60)", ""), 6));
+            sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_30().replace("(60)", ""), 6));
+            sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_15().replace("(60)", ""), 6));
             System.out.println(sb);
         }
     }
@@ -277,6 +305,9 @@ public class StockAdrStatDemo {
             if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20.equals(dbField)) {
                 entity.setADR_UP_SUM_1_20(adrSum);
             }
+            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40.equals(dbField)) {
+                entity.setADR_UP_SUM_1_40(adrSum);
+            }
             if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40.equals(dbField)) {
                 entity.setADR_UP_SUM_20_40(adrSum);
             }
@@ -326,6 +357,9 @@ public class StockAdrStatDemo {
         if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20.equals(dbField)) {
             return StockService.findBegDate(date, 20);
         }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40.equals(dbField)) {
+            return StockService.findBegDate(date, 40);
+        }
         if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40.equals(dbField)) {
             return StockService.findBegDate(date, 40);
         }
@@ -360,6 +394,9 @@ public class StockAdrStatDemo {
             return StockService.findBegDate(date, 1);
         }
         if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20.equals(dbField)) {
+            return StockService.findBegDate(date, 1);
+        }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40.equals(dbField)) {
             return StockService.findBegDate(date, 1);
         }
         if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40.equals(dbField)) {

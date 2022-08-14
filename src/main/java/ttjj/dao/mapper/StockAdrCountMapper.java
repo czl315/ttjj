@@ -31,6 +31,7 @@ public interface StockAdrCountMapper {
             ", `f139`, `f62`",
             ", `ADR_UP_SUM_1_1`, `ADR_UP_SUM_1_2`, `ADR_UP_SUM_1_3` ",
             ", `ADR_UP_SUM_1_5`, `ADR_UP_SUM_1_10`, `ADR_UP_SUM_1_20`, `ADR_UP_SUM_20_40`, `ADR_UP_SUM_40_60`, `ADR_UP_SUM_1_60`",
+            ", `ADR_UP_SUM_1_40`",
             ", `ADR_UP_SUM_ORDER_1_5`, `ADR_UP_SUM_ORDER_1_10`, `ADR_UP_SUM_ORDER_1_20`, `ADR_UP_SUM_ORDER_20_40`, `ADR_UP_SUM_ORDER_40_60`, `ADR_UP_SUM_ORDER_1_60`",
             ") VALUES (",
             "#{date},#{type_name},#{f2},#{f3},#{f4}",
@@ -45,6 +46,7 @@ public interface StockAdrCountMapper {
             ",#{f139},#{f62}",
             ",#{ADR_UP_SUM_1_1},#{ADR_UP_SUM_1_2},#{ADR_UP_SUM_1_3} ",
             ", #{ADR_UP_SUM_1_5}, #{ADR_UP_SUM_1_10}, #{ADR_UP_SUM_1_20}, #{ADR_UP_SUM_20_40}, #{ADR_UP_SUM_40_60}, #{ADR_UP_SUM_1_60}",
+            ", #{ADR_UP_SUM_1_40}",
             ", #{ADR_UP_SUM_ORDER_1_5}, #{ADR_UP_SUM_ORDER_1_10}, #{ADR_UP_SUM_ORDER_1_20}, #{ADR_UP_SUM_ORDER_20_40}, #{ADR_UP_SUM_ORDER_40_60}, #{ADR_UP_SUM_ORDER_1_60}",
             ");",
             "</script>"})
@@ -102,6 +104,7 @@ public interface StockAdrCountMapper {
             "    <if test='ADR_UP_SUM_1_5 != null'>ADR_UP_SUM_1_5=#{ADR_UP_SUM_1_5},</if>",
             "    <if test='ADR_UP_SUM_1_10 != null'>ADR_UP_SUM_1_10=#{ADR_UP_SUM_1_10},</if>",
             "    <if test='ADR_UP_SUM_1_20 != null'>ADR_UP_SUM_1_20=#{ADR_UP_SUM_1_20},</if>",
+            "    <if test='ADR_UP_SUM_1_40 != null'>ADR_UP_SUM_1_40=#{ADR_UP_SUM_1_40},</if>",
             "    <if test='ADR_UP_SUM_20_40 != null'>ADR_UP_SUM_20_40=#{ADR_UP_SUM_20_40},</if>",
             "    <if test='ADR_UP_SUM_40_60 != null'>ADR_UP_SUM_40_60=#{ADR_UP_SUM_40_60},</if>",
             "    <if test='ADR_UP_SUM_1_60 != null'>ADR_UP_SUM_1_60=#{ADR_UP_SUM_1_60},</if>",

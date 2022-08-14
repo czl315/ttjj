@@ -45,6 +45,201 @@ public class ContMapBizBaord {
         BOARD_TYPE_ZI_YUAN.put("燃气", "BK1028");//68
     }
 
+    /**
+     * 板块-分类-金融-基建
+     */
+    public static Map<String, String> BOARD_TYPE_JIN_RONG_JI_JIAN = new HashMap<>();
+    static{
+        BOARD_TYPE_JIN_RONG_JI_JIAN.put("工程建设", "BK0425");//5
+        BOARD_TYPE_JIN_RONG_JI_JIAN.put("铁路公路", "BK0421");//2
+        BOARD_TYPE_JIN_RONG_JI_JIAN.put("水泥建材", "BK0424");//4
+        BOARD_TYPE_JIN_RONG_JI_JIAN.put("公用事业", "BK0427");//6
+        BOARD_TYPE_JIN_RONG_JI_JIAN.put("房地产开发", "BK0451");//17
+        BOARD_TYPE_JIN_RONG_JI_JIAN.put("装修建材", "BK0476");//30
+        BOARD_TYPE_JIN_RONG_JI_JIAN.put("装修装饰", "BK0725");//44
+        BOARD_TYPE_JIN_RONG_JI_JIAN.put("工程咨询服务", "BK0726");//45
+        BOARD_TYPE_JIN_RONG_JI_JIAN.put("房地产服务", "BK1045");//85
+        BOARD_TYPE_JIN_RONG_JI_JIAN.put("工程机械", "BK0739");//58
+    }
+
+    /**
+     * 板块-分类-金融-机构
+     */
+    public static Map<String, String> BOARD_TYPE_JIN_RONG_JI_GOU = new HashMap<>();
+    static{
+        BOARD_TYPE_JIN_RONG_JI_GOU.put("证券", "BK0473");//27
+        BOARD_TYPE_JIN_RONG_JI_GOU.put("保险", "BK0474");//28
+        BOARD_TYPE_JIN_RONG_JI_GOU.put("银行", "BK0475");//29
+        BOARD_TYPE_JIN_RONG_JI_GOU.put("多元金融", "BK0738");//57
+    }
+    /**
+     * 板块-分类-金融：基建，机构
+     */
+    public static Map<String, String> BOARD_TYPE_JIN_RONG = new HashMap<>();
+    static{
+        BOARD_TYPE_JIN_RONG.putAll(BOARD_TYPE_JIN_RONG_JI_JIAN);
+        BOARD_TYPE_JIN_RONG.putAll(BOARD_TYPE_JIN_RONG_JI_GOU);
+    }
+
+    /**
+     * 板块-分类-科技-芯片
+     */
+    public static Map<String, String> BOARD_TYPE_KE_JI_XIN_PIAN = new HashMap<>();
+
+    static{
+        BOARD_TYPE_KE_JI_XIN_PIAN.put("半导体", "BK1036");//76
+        BOARD_TYPE_KE_JI_XIN_PIAN.put("消费电子", "BK1037");//77
+        BOARD_TYPE_KE_JI_XIN_PIAN.put("光学光电子", "BK1038");//78
+        BOARD_TYPE_KE_JI_XIN_PIAN.put("电子化学品", "BK1039");//79
+    }
+    /**
+     * 板块-分类-科技:芯片
+     */
+    public static Map<String, String> BOARD_TYPE_KE_JI = new HashMap<>();
+
+    static{
+        BOARD_TYPE_KE_JI.putAll(BOARD_TYPE_KE_JI_XIN_PIAN);
+
+        BOARD_NAME_CODE.put("电力行业", "BK0428");//7
+        BOARD_NAME_CODE.put("交运设备", "BK0429");//8
+        BOARD_NAME_CODE.put("家用轻工", "BK0440");//13
+        BOARD_NAME_CODE.put("互联网服务", "BK0447");//14
+        BOARD_NAME_CODE.put("通信设备", "BK0448");//15
+        BOARD_NAME_CODE.put("电网设备", "BK0457");//20
+        BOARD_NAME_CODE.put("仪器仪表", "BK0458");//21
+        BOARD_NAME_CODE.put("航天航空", "BK0480");//34
+        BOARD_NAME_CODE.put("汽车零部件", "BK0481");//35
+        BOARD_NAME_CODE.put("通用设备", "BK0545");//42
+        BOARD_NAME_CODE.put("环保行业", "BK0728");//47
+        BOARD_NAME_CODE.put("船舶制造", "BK0729");//48
+        BOARD_NAME_CODE.put("包装材料", "BK0733");//52
+        BOARD_NAME_CODE.put("计算机设备", "BK0735");//54
+        BOARD_NAME_CODE.put("通信服务", "BK0736");//55
+        BOARD_NAME_CODE.put("软件开发", "BK0737");//56
+        BOARD_NAME_CODE.put("教育", "BK0740");//59
+        BOARD_NAME_CODE.put("专用设备", "BK0910");//60
+        BOARD_NAME_CODE.put("能源金属", "BK1015");//61
+        BOARD_NAME_CODE.put("汽车服务", "BK1016");//62
+        BOARD_NAME_CODE.put("汽车整车", "BK1029");//69
+        BOARD_NAME_CODE.put("电机", "BK1030");//70
+        BOARD_NAME_CODE.put("光伏设备", "BK1031");//71
+        BOARD_NAME_CODE.put("风电设备", "BK1032");//72
+        BOARD_NAME_CODE.put("电池", "BK1033");//73
+        BOARD_NAME_CODE.put("电源设备", "BK1034");//74
+        BOARD_NAME_CODE.put("专业服务", "BK1043");//83
+        BOARD_NAME_CODE.put("游戏", "BK1046");//86
+        BOARD_NAME_CODE.put("综合行业", "BK0539");//41
+    }
+
+    //分类
+    static{
+        //金融
+        BOARD_NAME_CODE.put("工程建设", "BK0425");//5
+        BOARD_NAME_CODE.put("铁路公路", "BK0421");//2
+        BOARD_NAME_CODE.put("水泥建材", "BK0424");//4
+        BOARD_NAME_CODE.put("公用事业", "BK0427");//6
+        BOARD_NAME_CODE.put("房地产开发", "BK0451");//17
+        BOARD_NAME_CODE.put("证券", "BK0473");//27
+        BOARD_NAME_CODE.put("保险", "BK0474");//28
+        BOARD_NAME_CODE.put("银行", "BK0475");//29
+        BOARD_NAME_CODE.put("装修建材", "BK0476");//30
+        BOARD_NAME_CODE.put("综合行业", "BK0539");//41
+        BOARD_NAME_CODE.put("装修装饰", "BK0725");//44
+        BOARD_NAME_CODE.put("工程咨询服务", "BK0726");//45
+        BOARD_NAME_CODE.put("多元金融", "BK0738");//57
+        BOARD_NAME_CODE.put("工程机械", "BK0739");//58
+        BOARD_NAME_CODE.put("房地产服务", "BK1045");//85
+
+        // 消费
+        BOARD_NAME_CODE.put("航空机场", "BK0420");//1
+        BOARD_NAME_CODE.put("物流行业", "BK0422");//3
+        BOARD_NAME_CODE.put("纺织服装", "BK0436");//10
+        BOARD_NAME_CODE.put("食品饮料", "BK0438");//12
+        BOARD_NAME_CODE.put("家电行业", "BK0456");//19
+        BOARD_NAME_CODE.put("酿酒行业", "BK0477");//31
+        BOARD_NAME_CODE.put("商业百货", "BK0482");//36
+        BOARD_NAME_CODE.put("贸易行业", "BK0484");//37
+        BOARD_NAME_CODE.put("旅游酒店", "BK0485");//38
+        BOARD_NAME_CODE.put("文化传媒", "BK0486");//39
+        BOARD_NAME_CODE.put("美容护理", "BK1035");//75
+
+        //科技
+        BOARD_NAME_CODE.put("电力行业", "BK0428");//7
+        BOARD_NAME_CODE.put("交运设备", "BK0429");//8
+        BOARD_NAME_CODE.put("家用轻工", "BK0440");//13
+        BOARD_NAME_CODE.put("互联网服务", "BK0447");//14
+        BOARD_NAME_CODE.put("通信设备", "BK0448");//15
+        BOARD_NAME_CODE.put("电网设备", "BK0457");//20
+        BOARD_NAME_CODE.put("仪器仪表", "BK0458");//21
+        BOARD_NAME_CODE.put("航天航空", "BK0480");//34
+        BOARD_NAME_CODE.put("汽车零部件", "BK0481");//35
+        BOARD_NAME_CODE.put("通用设备", "BK0545");//42
+        BOARD_NAME_CODE.put("环保行业", "BK0728");//47
+        BOARD_NAME_CODE.put("船舶制造", "BK0729");//48
+        BOARD_NAME_CODE.put("包装材料", "BK0733");//52
+        BOARD_NAME_CODE.put("计算机设备", "BK0735");//54
+        BOARD_NAME_CODE.put("通信服务", "BK0736");//55
+        BOARD_NAME_CODE.put("软件开发", "BK0737");//56
+        BOARD_NAME_CODE.put("教育", "BK0740");//59
+        BOARD_NAME_CODE.put("专用设备", "BK0910");//60
+        BOARD_NAME_CODE.put("能源金属", "BK1015");//61
+        BOARD_NAME_CODE.put("汽车服务", "BK1016");//62
+        BOARD_NAME_CODE.put("汽车整车", "BK1029");//69
+        BOARD_NAME_CODE.put("电机", "BK1030");//70
+        BOARD_NAME_CODE.put("光伏设备", "BK1031");//71
+        BOARD_NAME_CODE.put("风电设备", "BK1032");//72
+        BOARD_NAME_CODE.put("电池", "BK1033");//73
+        BOARD_NAME_CODE.put("电源设备", "BK1034");//74
+        BOARD_NAME_CODE.put("半导体", "BK1036");//76
+        BOARD_NAME_CODE.put("消费电子", "BK1037");//77
+        BOARD_NAME_CODE.put("光学光电子", "BK1038");//78
+        BOARD_NAME_CODE.put("电子化学品", "BK1039");//79
+        BOARD_NAME_CODE.put("专业服务", "BK1043");//83
+        BOARD_NAME_CODE.put("游戏", "BK1046");//86
+        BOARD_NAME_CODE.put("综合行业", "BK0539");//41
+
+        //资源
+        BOARD_NAME_CODE.put("农牧饲渔", "BK0433");//9
+        BOARD_NAME_CODE.put("煤炭行业", "BK0437");//11
+        BOARD_NAME_CODE.put("航运港口", "BK0450");//16
+        BOARD_NAME_CODE.put("塑料制品", "BK0454");//18
+        BOARD_NAME_CODE.put("电子元件", "BK0459");//22
+        BOARD_NAME_CODE.put("石油行业", "BK0464");//23
+        BOARD_NAME_CODE.put("造纸印刷", "BK0470");//25
+        BOARD_NAME_CODE.put("化纤行业", "BK0471");//26
+        BOARD_NAME_CODE.put("有色金属", "BK0478");//32
+        BOARD_NAME_CODE.put("钢铁行业", "BK0479");//33
+        BOARD_NAME_CODE.put("化学制品", "BK0538");//40
+        BOARD_NAME_CODE.put("玻璃玻纤", "BK0546");//43
+        BOARD_NAME_CODE.put("农药兽药", "BK0730");//49
+        BOARD_NAME_CODE.put("化肥行业", "BK0731");//50
+        BOARD_NAME_CODE.put("贵金属", "BK0732");//51
+        BOARD_NAME_CODE.put("珠宝首饰", "BK0734");//53
+        BOARD_NAME_CODE.put("采掘行业", "BK1017");//63
+        BOARD_NAME_CODE.put("橡胶制品", "BK1018");//64
+        BOARD_NAME_CODE.put("化学原料", "BK1019");//65
+        BOARD_NAME_CODE.put("非金属材料", "BK1020");//66
+        BOARD_NAME_CODE.put("小金属", "BK1027");//67
+        BOARD_NAME_CODE.put("燃气", "BK1028");//68
+
+        //医疗
+        BOARD_NAME_CODE.put("化学制药", "BK0465");//24
+        BOARD_NAME_CODE.put("医疗服务", "BK0727");//46
+        BOARD_NAME_CODE.put("中药", "BK1040");//80
+        BOARD_NAME_CODE.put("医疗器械", "BK1041");//81
+        BOARD_NAME_CODE.put("医药商业", "BK1042");//82
+        BOARD_NAME_CODE.put("生物制品", "BK1044");//84
+
+
+
+
+
+
+
+
+
+
+    }
     static{
         BOARD_NAME_CODE.put("航空机场", "BK0420");//1
         BOARD_NAME_CODE.put("铁路公路", "BK0421");//2
@@ -133,6 +328,7 @@ public class ContMapBizBaord {
         BOARD_NAME_CODE.put("房地产服务", "BK1045");//85
         BOARD_NAME_CODE.put("游戏", "BK1046");//86
     }
+
     static {
         BOARD_CODE_NAME.put("BK0420", "航空机场");//1
         BOARD_CODE_NAME.put("BK0421", "铁路公路");//2

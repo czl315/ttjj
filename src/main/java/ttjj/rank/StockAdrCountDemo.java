@@ -155,6 +155,7 @@ public class StockAdrCountDemo {
 //            sb.append(stockAdrCount.getADR_UP_COUNT_SUM_60()).append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_40_60()).append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_20_40()).append("\t");
+            sb.append(stockAdrCount.getADR_UP_SUM_1_40()).append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_1_20()).append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_1_10()).append("\t");
             sb.append(stockAdrCount.getADR_UP_SUM_1_5()).append("\t");
@@ -217,6 +218,9 @@ public class StockAdrCountDemo {
         if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20.equals(dbField)) {
             stList = stList.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCount::getADR_UP_SUM_1_20, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
         }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40.equals(dbField)) {
+            stList = stList.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCount::getADR_UP_SUM_1_40, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        }
         if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40.equals(dbField)) {
             stList = stList.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCount::getADR_UP_SUM_20_40, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
         }
@@ -239,6 +243,9 @@ public class StockAdrCountDemo {
             if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20.equals(dbField)) {
                 entity.setADR_UP_SUM_ORDER_1_20(new BigDecimal(++order));
             }
+//            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40.equals(dbField)) {
+//                entity.setADR_UP_SUM_ORDER_1_40(new BigDecimal(++order));
+//            }
             if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40.equals(dbField)) {
                 entity.setADR_UP_SUM_ORDER_20_40(new BigDecimal(++order));
             }
@@ -276,11 +283,15 @@ public class StockAdrCountDemo {
         for (StockAdrCount stockAdrCount : stList) {
             if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_60.equals(dbField)) {
                 BigDecimal adrUpSum_1_20 = new BigDecimal("0");
+                BigDecimal adrUpSum_1_40 = new BigDecimal("0");
                 BigDecimal adrUpSum_20_40 = new BigDecimal("0");
                 BigDecimal adrUpSum_40_60 = new BigDecimal("0");
 
                 if (stockAdrCount.getADR_UP_SUM_1_20() != null) {
                     adrUpSum_1_20 = stockAdrCount.getADR_UP_SUM_1_20();
+                }
+                if (stockAdrCount.getADR_UP_SUM_1_40() != null) {
+                    adrUpSum_1_40 = stockAdrCount.getADR_UP_SUM_1_40();
                 }
 
                 if (stockAdrCount.getADR_UP_SUM_20_40() != null) {
@@ -359,6 +370,7 @@ public class StockAdrCountDemo {
                 updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5);
                 updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10);
                 updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20);
+                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40);
                 updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40);
                 updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60);
             }
@@ -372,6 +384,7 @@ public class StockAdrCountDemo {
                 updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5);
                 updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10);
                 updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20);
+//                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40);
                 updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40);
                 updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60);
 
@@ -454,6 +467,9 @@ public class StockAdrCountDemo {
             if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20.equals(dbField)) {
                 entity.setADR_UP_SUM_1_20(adrSum);
             }
+            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40.equals(dbField)) {
+                entity.setADR_UP_SUM_1_40(adrSum);
+            }
             if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40.equals(dbField)) {
                 entity.setADR_UP_SUM_20_40(adrSum);
             }
@@ -503,6 +519,9 @@ public class StockAdrCountDemo {
         if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20.equals(dbField)) {
             return StockService.findBegDate(date, 20);
         }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40.equals(dbField)) {
+            return StockService.findBegDate(date, 40);
+        }
         if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40.equals(dbField)) {
             return StockService.findBegDate(date, 40);
         }
@@ -537,6 +556,9 @@ public class StockAdrCountDemo {
             return StockService.findBegDate(date, 1);
         }
         if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20.equals(dbField)) {
+            return StockService.findBegDate(date, 1);
+        }
+        if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40.equals(dbField)) {
             return StockService.findBegDate(date, 1);
         }
         if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40.equals(dbField)) {
@@ -624,6 +646,7 @@ public class StockAdrCountDemo {
                 updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5);
                 updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10);
                 updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20);
+                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40);
                 updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40);
                 updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60);
             }
@@ -637,6 +660,7 @@ public class StockAdrCountDemo {
                 updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5);
                 updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10);
                 updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20);
+//                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40);
                 updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40);
                 updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60);
 

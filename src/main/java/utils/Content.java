@@ -689,6 +689,10 @@ public class Content {
      */
     public static String DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20 = "ADR_UP_SUM_1_20";
     /**
+     * DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40
+     */
+    public static String DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40 = "ADR_UP_SUM_1_40";
+    /**
      * 数据库字段-股票涨幅次数
      */
     public static String DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40 = "ADR_UP_SUM_20_40";

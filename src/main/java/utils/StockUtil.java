@@ -163,7 +163,10 @@ public class StockUtil {
         for (char aChar : chars) {
             if (isChineseChar(aChar)) {
                 length = length - 2;
+            } else if (isCharQuanJiao(aChar)) {
+                length = length - 2;
             } else {
+//                System.out.println("名称非中文或全角：["+aChar+"]");
                 length = length - 1;
             }
         }
@@ -195,5 +198,14 @@ public class StockUtil {
      */
     public static boolean isChineseChar(char c) {
         return String.valueOf(c).matches("[\u4e00-\u9fa5]");
+    }
+
+    /**
+     * 判断是全角字符
+     * @param c 字符
+     * @return 是否全角字符
+     */
+    public static boolean isCharQuanJiao(char c) {
+        return String.valueOf(c).matches("[^\\x00-\\xff]");
     }
 }

@@ -165,6 +165,10 @@ public class StockAdrCount {
      */
     private BigDecimal ADR_UP_SUM_1_20;
     /**
+     * 涨幅和-从第n个交易日至第n个交易日-(近2个月)
+     */
+    private BigDecimal ADR_UP_SUM_1_40;
+    /**
      * ADR_UP_COUNT_SUM_20_40 涨幅次数统计
      */
     private BigDecimal ADR_UP_SUM_20_40;
@@ -805,5 +809,13 @@ public class StockAdrCount {
 
     public void setADR_UP_SUM_1_3(BigDecimal ADR_UP_SUM_1_3) {
         this.ADR_UP_SUM_1_3 = ADR_UP_SUM_1_3;
+    }
+
+    public BigDecimal getADR_UP_SUM_1_40() {
+        return ADR_UP_SUM_1_40;
+    }
+
+    public void setADR_UP_SUM_1_40(BigDecimal ADR_UP_SUM_1_40) {
+        this.ADR_UP_SUM_1_40 = ADR_UP_SUM_1_40;
     }
 }
