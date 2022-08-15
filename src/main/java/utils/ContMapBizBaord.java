@@ -230,15 +230,6 @@ public class ContMapBizBaord {
         BOARD_NAME_CODE.put("医药商业", "BK1042");//82
         BOARD_NAME_CODE.put("生物制品", "BK1044");//84
 
-
-
-
-
-
-
-
-
-
     }
     static{
         BOARD_NAME_CODE.put("航空机场", "BK0420");//1
