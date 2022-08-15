@@ -35,14 +35,12 @@ public class KlineDemo {
         List<String> kltList_101_15 = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15);
         List<String> kltList_101_5 = Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101);
         List<String> kltList_101 = Arrays.asList(KLT_101);
-        int perriod2 = 2;
-        int perriod5 = 5;
-        int perriod15 = 15;
 
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            System.out.println("定时任务-保存常用etf:");
+            System.out.println("定时任务-保存常用etf-beg:");
             saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_5, ContMapEtf.ETF_All);//保存常用etf
-        }, 0, perriod5, TimeUnit.MINUTES);
+            System.out.println("定时任务-保存常用etf-end:");
+        }, 0, 5, TimeUnit.MINUTES);
 
 //        saveKlineAll();
 

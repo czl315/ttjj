@@ -167,7 +167,7 @@ public class ContMapEtf {
     static {
         KEJI.put("512660", "军工ETF       ");//139.20  	1.74
         KEJI.put("159611", "电力ETF       ");//12.86   	0.68
-        KEJI.put("159967", "创成长ETF     ");//29.98   	0.15
+//        KEJI.put("159967", "创成长ETF     ");//29.98   	0.15
         KEJI.put("515790", "光伏ETF       ");//147.52  	-0.18
         KEJI.put("515030", "新能源车ETF   ");//110.75  	-0.23
         KEJI.put("515050", "5GETF         ");//99.94   	-0.42

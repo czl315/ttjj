@@ -43,9 +43,9 @@ public class StatKlineDemo {
         //按时间列表查询k线涨幅
         List<String> timeList = new ArrayList<>();
         Map<String, List<Kline>> codeKline = new HashMap<>();
-        String orderTime = TIME_15_00;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
-//        String klt = KLT_60;
-        String klt = KLT_30;
+        String orderTime = TIME_10_30;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
+        String klt = KLT_60;
+//        String klt = KLT_30;
 //        String klt = KLT_15;
 //        String klt = KLT_5;
         if (klt.equals(KLT_15)) {
@@ -58,8 +58,8 @@ public class StatKlineDemo {
             timeList.addAll(TIME_TYPE_60_1030_TO_1500);
         }
         if (klt.equals(KLT_5)) {
-            timeList.addAll(TIME_TYPE_5_0935_TO_1000);//TIME_TYPE_5_0935_TO_1000
-//            timeList.addAll(TIME_TYPE_5_1305_TO_1330);//TIME_TYPE_5_0935_TO_1000
+//            timeList.addAll(TIME_TYPE_5_0935_TO_1000);//TIME_TYPE_5_0935_TO_1000
+            timeList.addAll(TIME_TYPE_5_1305_TO_1330);//TIME_TYPE_5_0935_TO_1000
         }
 
         String type = DB_RANK_BIZ_TYPE_ETF;
@@ -86,21 +86,23 @@ public class StatKlineDemo {
         showKline(date, type, klineList, timeList, codeKline);
 
         //显示-A股当前时段上涨和下跌
-        showUpOrDownInfo(date, type, klt, TIME_10_30, "0.3", "-0.3", true, false, 10);
-        showUpOrDownInfo(date, type, klt, TIME_10_30, "0.3", "-0.3", false, true, 10);
+        showUpOrDownInfo(date, type, klt, TIME_10_30, timeList,"0.3", "-0.3", true, false, 10);
+        showUpOrDownInfo(date, type, klt, TIME_10_30, timeList, "0.3", "-0.3", false, true, 10);
 
-        showUpOrDownInfo(date, type, klt, TIME_11_30, "0.3", "-0.3", true, false, 10);
-        showUpOrDownInfo(date, type, klt, TIME_11_30, "0.3", "-0.3", false, true, 10);
+        showUpOrDownInfo(date, type, klt, TIME_11_30, timeList, "0.3", "-0.3", true, false, 10);
+        showUpOrDownInfo(date, type, klt, TIME_11_30, timeList, "0.3", "-0.3", false, true, 10);
 
-        showUpOrDownInfo(date, type, klt, TIME_14_00, "0.3", "-0.3", true, false, 10);
-        showUpOrDownInfo(date, type, klt, TIME_14_00, "0.3", "-0.3", false, true, 10);
+        showUpOrDownInfo(date, type, klt, TIME_14_00, timeList, "0.3", "-0.3", true, false, 10);
+        showUpOrDownInfo(date, type, klt, TIME_14_00, timeList, "0.3", "-0.3", false, true, 10);
 
 //        showUpOrDownInfo(date, type, klt, TIME_14_00, "0.5", "-0.5", true, false, 10);
 //        showUpOrDownInfo(date, type, klt, TIME_15_00, "0.5", "-0.5", true, false, 10);
     }
 
-    private static void showUpOrDownInfo(String date, String type, String klt, String orderTime, String adrUp, String adrDown, boolean isUp, boolean isDown, int limit) {
+    private static void showUpOrDownInfo(String date, String type, String klt, String orderTime, List<String> timeList, String adrUp, String adrDown, boolean isUp, boolean isDown, int limit) {
         boolean isShowCode = false;
+        int sizeName = 14;
+        int sizeAdr = 6;
         CondKline conditionKlineList = new CondKline();
         conditionKlineList.setDate(date);
         conditionKlineList.setType(type);
@@ -180,9 +182,10 @@ public class StatKlineDemo {
                         break;//限定个数
                     }
                     StringBuffer sb = new StringBuffer();
-                    sb.append(StockUtil.formatEtfName(dto.getZqmc(), 0));
+//                    sb.append(StockUtil.formatEtfName(dto.getZqmc(), 0));
+                    sb.append(StockUtil.formatStName(dto.getZqmc(), sizeName));
                     sb.append(":");
-                    sb.append(StockUtil.formatDouble(adr, 4));
+                    sb.append(StockUtil.formatStr(adr+"%", sizeAdr));
                     sb.append(";");
                     System.out.println(sb);
                 }
@@ -199,9 +202,10 @@ public class StatKlineDemo {
                         break;//限定个数
                     }
                     StringBuffer sb = new StringBuffer();
-                    sb.append(StockUtil.formatEtfName(dto.getZqmc(), 0));
+//                    sb.append(StockUtil.formatEtfName(dto.getZqmc(), 0));
+                    sb.append(StockUtil.formatStName(dto.getZqmc(), sizeName));
                     sb.append(":");
-                    sb.append(StockUtil.formatDouble(adr, 4));
+                    sb.append(StockUtil.formatStr(adr+"%", sizeAdr));
                     sb.append(";");
                     System.out.println(sb);
                 }

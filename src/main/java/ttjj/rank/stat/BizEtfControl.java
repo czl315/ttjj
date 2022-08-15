@@ -14,6 +14,8 @@ import utils.StockUtil;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static utils.Content.*;
@@ -31,8 +33,16 @@ public class BizEtfControl {
 //            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
 //        }
 
-        showEtfUpMa(date);//etf-超过均线
 
+        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
+            System.out.println();
+            System.out.println();
+            System.out.println("定时任务-etf-检查均线-beg:");
+            showEtfUpMa(date);//etf-超过均线
+            System.out.println("定时任务-etf-检查均线-end:");
+        }, 0, 5, TimeUnit.MINUTES);
+
+//        showEtfUpMa(date);//etf-超过均线
 //        showEtfMv(date);//显示etf市值
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
