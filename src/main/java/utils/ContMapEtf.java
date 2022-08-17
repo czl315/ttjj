@@ -108,7 +108,7 @@ public class ContMapEtf {
 
     static {
         ETF_MV_ZS_MG.put("159941", "120.15");//纳指ETF
-        ETF_MV_ZS_MG.put("513500", "74.38");//标普500ETF
+//        ETF_MV_ZS_MG.put("513500", "74.38");//标普500ETF
 //        ETF_MV_ZS_MG.put("513100", "52.02");//纳指ETF
 //        ETF_MV_ZS_MG.put("513300", "12.09");//纳斯达克ETF
     }
@@ -130,12 +130,12 @@ public class ContMapEtf {
         ETF_ZS.put("510500", "中证500ETF");		//375.91	0.17
 //        ETF_ZS.put("159901", "深证100ETF易方达");		//65.12	-0.12
         ETF_ZS.put("510300", "沪深300ETF");		//434.68	-0.24
-        ETF_ZS.put("513500", "标普500ETF");		//74.86	-0.38
         ETF_ZS.put("510050", "上证50ETF");		//492.63	-0.5
         ETF_ZS.put("159949", "创业板50ETF");		//89.61	-0.51
         ETF_ZS.put("159920", "恒生ETF");		//136.84	-0.54
         ETF_ZS.put("159941", "纳指ETF");		//120.13	-0.72
-        ETF_ZS.put("159781", "双创50ETF");		//63.51	-0.74
+//        ETF_ZS.put("513500", "标普500ETF");		//74.86	-0.38
+//        ETF_ZS.put("159781", "双创50ETF");		//63.51	-0.74
         ETF_ZS.put("588000", "科创50ETF");		//305.66	-1.23
 //        ETF_ZS.put("562000", "华宝中证100ETF");		//5.05	-0.41
 //        ETF_ZS.put("510180", "上证180ETF");		//199.61	-0.36
@@ -170,7 +170,7 @@ public class ContMapEtf {
 //        KEJI.put("159967", "创成长ETF     ");//29.98   	0.15
         KEJI.put("515790", "光伏ETF       ");//147.52  	-0.18
         KEJI.put("515030", "新能源车ETF   ");//110.75  	-0.23
-        KEJI.put("515050", "5GETF         ");//99.94   	-0.42
+//        KEJI.put("515050", "5GETF         ");//99.94   	-0.42
         KEJI.put("516110", "汽车ETF       ");//9.23    	-0.81
         KEJI.put("159995", "芯片ETF       ");//205.39  	-0.94
         KEJI.put("513050", "中概互联网ETF ");//367.01  	-1.43
@@ -283,8 +283,8 @@ public class ContMapEtf {
     //消费
     static {
         XIAOFEI.put("159996", "家电ETF       ");//27.23   	0.65
-        XIAOFEI.put("515170", "食品饮料ETF   ");//39.01   	-0.26
-        XIAOFEI.put("159928", "消费ETF       ");//107.11  	-0.37
+//        XIAOFEI.put("515170", "食品饮料ETF   ");//39.01   	-0.26
+//        XIAOFEI.put("159928", "消费ETF       ");//107.11  	-0.37
         XIAOFEI.put("512690", "酒ETF         ");//92.62   	-0.47
         XIAOFEI.put("512980", "传媒ETF       ");//47.02   	-0.67
         XIAOFEI.put("159766", "旅游ETF       ");//19.72   	-1.86
@@ -302,12 +302,12 @@ public class ContMapEtf {
     static {
         ZIYUAN.put("515220", "煤炭ETF       ");//51.65   	1.62
         ZIYUAN.put("159930", "能源ETF       ");//2.67    	1.41
-        ZIYUAN.put("515210", "钢铁ETF       ");//17.02   	1.1
-        ZIYUAN.put("159865", "养殖ETF       ");//41.80   	0.59
-        ZIYUAN.put("159825", "农业ETF       ");//17.63   	0.41
+//        ZIYUAN.put("515210", "钢铁ETF       ");//17.02   	1.1
         ZIYUAN.put("516150", "稀土ETF基金   ");//24.14   	0.36
         ZIYUAN.put("159870", "化工ETF       ");//7.80    	0.34
         ZIYUAN.put("512400", "有色金属ETF   ");//30.77   	-0.08
+        ZIYUAN.put("159865", "养殖ETF       ");//41.80   	0.59
+//        ZIYUAN.put("159825", "农业ETF       ");//17.63   	0.41
     }
 
     /**
