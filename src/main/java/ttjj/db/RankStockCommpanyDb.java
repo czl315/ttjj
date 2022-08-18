@@ -118,7 +118,16 @@ public class RankStockCommpanyDb {
     private Double f18;
 
     /**
-     * f19 ？2-上证(600XXX)；3-B股(900XXX)；6-深证(00XXXX)；7-B股(200XXX)；10-etf(159XXX)；23-科创板(688XXX)；80-创业板(300XXX)；
+     * f19 某板 2022-08-18：5002
+     * 2-上证主板(600XXX)；
+     * 3-上证B股(900XXX)；
+     * 23-科创板(688XXX/689XXX)
+     * 6-深证主板(00XXXX)；
+     * 7-深证B股(20XXXX)；
+     * 80-创业板(30XXXX)；
+     * 81-北交所(43XXXX/83XXXX/87XXXX);；
+     * 10-etf(159XXX)；
+     * 2022-08-18:48
      */
     private Long f19;
     /**
@@ -143,6 +152,11 @@ public class RankStockCommpanyDb {
      * f26 上市时间
      */
     private String f26;
+    /**
+     * f27 证券市场
+     * 0:上证(600XXX/688XXX/689XXX/900XXX)
+     * 1:深证{深证:00XXXX;深证B股(20XXXX);创业板(30XXXX);北交所(43XXXX/83XXXX/87XXXX)}
+     */
     private Long f27;
     private Double f28;
     private Long f29;
@@ -336,7 +350,13 @@ public class RankStockCommpanyDb {
      */
     private Double f136;
     /**
-     * f139 2-A股主板(00XXXX/60XXXX);3-B股(200XXX/900XXX);5-创业板(30XXXX);32-科创板(688XXX);33-存托凭证(689XXX,689是科创板专门为CDR存托凭证公司)
+     * f139 类型板块    2022-08-18：5002
+     * 2-A股主板(00XXXX/60XXXX);     2022-08-18：3149
+     * 3-B股(20XXXX/900XXX);         2022-08-18：100
+     * 5-创业板(30XXXX);             2022-08-18：1184
+     * 32-科创板(688XXX);            2022-08-18：459
+     * 33-存托凭证(689XXX,689是科创板专门为CDR存托凭证公司); 2022-08-18：1
+     * 80-北交所(43XXXX/83XXXX/87XXXX);    2022-08-18：109
      */
     private Long f139;
     /**
