@@ -44,6 +44,15 @@ public class CondStock extends RankStockCommpanyDb {
 
     List<String> conpetionList;
 
+    /**
+     * 最低-涨幅
+     */
+    private BigDecimal minF3;
+    /**
+     * 最高-涨幅
+     */
+    private BigDecimal maxF3;
+
     public CondStock() {
     }
 
@@ -109,5 +118,21 @@ public class CondStock extends RankStockCommpanyDb {
 
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
+    }
+
+    public BigDecimal getMinF3() {
+        return minF3;
+    }
+
+    public void setMinF3(BigDecimal minF3) {
+        this.minF3 = minF3;
+    }
+
+    public BigDecimal getMaxF3() {
+        return maxF3;
+    }
+
+    public void setMaxF3(BigDecimal maxF3) {
+        this.maxF3 = maxF3;
     }
 }

@@ -14,6 +14,7 @@ import ttjj.dto.*;
 import ttjj.rank.history.StockTradeDemo;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
+import ttjj.service.StockService;
 import utils.*;
 
 import java.math.BigDecimal;
@@ -33,16 +34,80 @@ import static utils.Content.*;
 public class FupanDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//                String date = "2022-07-11";
+//                String date = "2022-08-18";
 
 //        insertOrUpdate(date, KLT_101, DAYS_1,ContentCookie.COOKIE_DFCF);//保存复盘和仓位
         checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
+//        updateStUpDownCount(date);//更新股票涨跌个数
+
+
 //        KlineDemo.main(null);
 
 //        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 
 //        listMyPosition(date, KLT_101);//查询我的仓位 KLT_102;//检查周期类型
 
+    }
+
+    /**
+     * 更新股票涨跌个数
+     * @param date
+     */
+    private static void updateStUpDownCount(String date) {
+        //查询个数
+        CondStock condition = new CondStock();
+        condition.setDate(date);
+        Integer countAll = StockService.count(condition);
+        System.out.println("全市场个数-全部："+countAll);
+
+        CondStock conditionUp = new CondStock();
+        conditionUp.setDate(date);
+        conditionUp.setMinF3(new BigDecimal("0"));
+        Integer countAllUp = StockService.count(conditionUp);
+        System.out.println("全市场个数-上涨："+countAllUp);
+        CondStock conditionFlat = new CondStock();
+        conditionFlat.setDate(date);
+        conditionFlat.setF3(new BigDecimal("0"));
+        Integer countAllFlat = StockService.count(conditionFlat);
+        System.out.println("全市场个数-平盘："+countAllFlat);
+        CondStock conditionDown = new CondStock();
+        conditionDown.setDate(date);
+        conditionDown.setMaxF3(new BigDecimal("0"));
+        Integer countAllDown = StockService.count(conditionDown);
+        System.out.println("全市场个数-下跌："+countAllDown);
+
+        CondStock conditionUpMianBord = new CondStock();
+        conditionUpMianBord.setDate(date);
+        conditionUpMianBord.setMinF3(new BigDecimal("0"));
+        conditionUpMianBord.setF139(2L);
+        Integer countAllUpMianBord = StockService.count(conditionUpMianBord);
+        System.out.println("主板个数-上涨："+countAllUpMianBord);
+        CondStock conditionMianBordFlat = new CondStock();
+        conditionMianBordFlat.setDate(date);
+        conditionMianBordFlat.setF3(new BigDecimal("0"));
+        conditionMianBordFlat.setF139(2L);
+        Integer countAllMianBordFlat = StockService.count(conditionMianBordFlat);
+        System.out.println("主板个数-平盘："+countAllMianBordFlat);
+        CondStock conditionMianBordDown = new CondStock();
+        conditionMianBordDown.setDate(date);
+        conditionMianBordDown.setMaxF3(new BigDecimal("0"));
+        conditionMianBordDown.setF139(2L);
+        Integer countAllMianBordDown = StockService.count(conditionMianBordDown);
+        System.out.println("主板个数-下跌："+countAllMianBordDown);
+
+        Fupan fupanRs = new Fupan();
+        //where
+        fupanRs.setCode(date);
+        fupanRs.setPeriod("1");
+        //setValue
+        fupanRs.setCOUNT_ST_ALL(countAll);
+        fupanRs.setCOUNT_ST_ALL_UP(countAllUp);
+        fupanRs.setCOUNT_ST_ALL_DOWN(countAllDown);
+        fupanRs.setCOUNT_ST_ALL_FLAT(countAllFlat);
+        fupanRs.setCOUNT_ST_ZB_UP(countAllUpMianBord);
+        fupanRs.setCOUNT_ST_ZB_DOWN(countAllMianBordDown);
+        fupanRs.setCOUNT_ST_ZB_FLAT(countAllMianBordFlat);
+        FuPanDao.updateDb(fupanRs);
     }
 
     /**

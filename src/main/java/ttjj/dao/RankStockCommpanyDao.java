@@ -340,4 +340,21 @@ public class RankStockCommpanyDao {
         }
         return rs;
     }
+
+    /**
+     * 查询个数
+     * @param entity
+     * @return
+     */
+    public static Integer count(CondStock entity) {
+        SqlSession session = sqlSessionFactory.openSession();
+        Integer rs = null;
+        try {
+            rs = session.selectOne("ttjj.dao.mapper.RankStockCommpanyMapper.count", entity);
+            session.commit();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
 }

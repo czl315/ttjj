@@ -94,8 +94,18 @@ public interface FupanMapper {
             "    <if test='amt_fund_last != null'>amt_fund_last=#{amt_fund_last},</if>",
             "    <if test='earn_fund != null'>earn_fund=#{earn_fund},</if>",
             "    <if test='rt_zh != null'>rt_zh=#{rt_zh},</if>",
+
+            "    <if test='COUNT_ST_ALL != null'>COUNT_ST_ALL=#{COUNT_ST_ALL},</if>",
+            "    <if test='COUNT_ST_ALL_UP != null'>COUNT_ST_ALL_UP=#{COUNT_ST_ALL_UP},</if>",
+            "    <if test='COUNT_ST_ALL_DOWN != null'>COUNT_ST_ALL_DOWN=#{COUNT_ST_ALL_DOWN},</if>",
+            "    <if test='COUNT_ST_ALL_FLAT != null'>COUNT_ST_ALL_FLAT=#{COUNT_ST_ALL_FLAT},</if>",
+            "    <if test='COUNT_ST_ZB_UP != null'>COUNT_ST_ZB_UP=#{COUNT_ST_ZB_UP},</if>",
+            "    <if test='COUNT_ST_ZB_DOWN != null'>COUNT_ST_ZB_DOWN=#{COUNT_ST_ZB_DOWN},</if>",
+            "    <if test='COUNT_ST_ZB_FLAT != null'>COUNT_ST_ZB_FLAT=#{COUNT_ST_ZB_FLAT},</if>",
+
             "  </set>",
-            "where CODE=#{code} AND fupan.period=#{period} AND fupan.TYPE=#{type}",
+            "where CODE=#{code} AND fupan.period=#{period} ",
+            "    <if test='type != null'> AND fupan.TYPE=#{type}</if>",
             "</script>"})
     void updateFupan(Fupan fupan);
 

@@ -94,6 +94,35 @@ public class Fupan {
     String earn_fund;
     String rt_zh;
 
+    /**
+     * 股票个数-所有类型
+     */
+    private Integer COUNT_ST_ALL;
+    /**
+     * 股票个数-所有类型-上涨
+     */
+    private Integer COUNT_ST_ALL_UP;
+    /**
+     * 股票个数-所有类型-下跌
+     */
+    private Integer COUNT_ST_ALL_DOWN;
+    /**
+     * 股票个数-所有类型-平盘
+     */
+    private Integer COUNT_ST_ALL_FLAT;
+    /**
+     * 股票个数-主板-上涨
+     */
+    private Integer COUNT_ST_ZB_UP;
+    /**
+     * 股票个数-主板-下跌
+     */
+    private Integer COUNT_ST_ZB_DOWN;
+    /**
+     * 股票个数-主板-平盘
+     */
+    private Integer COUNT_ST_ZB_FLAT;
+
     public String getBiz_up() {
         return biz_up;
     }
@@ -650,5 +679,61 @@ public class Fupan {
 
     public void setCje_kcb50(String cje_kcb50) {
         this.cje_kcb50 = cje_kcb50;
+    }
+
+    public Integer getCOUNT_ST_ALL() {
+        return COUNT_ST_ALL;
+    }
+
+    public void setCOUNT_ST_ALL(Integer COUNT_ST_ALL) {
+        this.COUNT_ST_ALL = COUNT_ST_ALL;
+    }
+
+    public Integer getCOUNT_ST_ALL_UP() {
+        return COUNT_ST_ALL_UP;
+    }
+
+    public void setCOUNT_ST_ALL_UP(Integer COUNT_ST_ALL_UP) {
+        this.COUNT_ST_ALL_UP = COUNT_ST_ALL_UP;
+    }
+
+    public Integer getCOUNT_ST_ALL_DOWN() {
+        return COUNT_ST_ALL_DOWN;
+    }
+
+    public void setCOUNT_ST_ALL_DOWN(Integer COUNT_ST_ALL_DOWN) {
+        this.COUNT_ST_ALL_DOWN = COUNT_ST_ALL_DOWN;
+    }
+
+    public Integer getCOUNT_ST_ALL_FLAT() {
+        return COUNT_ST_ALL_FLAT;
+    }
+
+    public void setCOUNT_ST_ALL_FLAT(Integer COUNT_ST_ALL_FLAT) {
+        this.COUNT_ST_ALL_FLAT = COUNT_ST_ALL_FLAT;
+    }
+
+    public Integer getCOUNT_ST_ZB_UP() {
+        return COUNT_ST_ZB_UP;
+    }
+
+    public void setCOUNT_ST_ZB_UP(Integer COUNT_ST_ZB_UP) {
+        this.COUNT_ST_ZB_UP = COUNT_ST_ZB_UP;
+    }
+
+    public Integer getCOUNT_ST_ZB_DOWN() {
+        return COUNT_ST_ZB_DOWN;
+    }
+
+    public void setCOUNT_ST_ZB_DOWN(Integer COUNT_ST_ZB_DOWN) {
+        this.COUNT_ST_ZB_DOWN = COUNT_ST_ZB_DOWN;
+    }
+
+    public Integer getCOUNT_ST_ZB_FLAT() {
+        return COUNT_ST_ZB_FLAT;
+    }
+
+    public void setCOUNT_ST_ZB_FLAT(Integer COUNT_ST_ZB_FLAT) {
+        this.COUNT_ST_ZB_FLAT = COUNT_ST_ZB_FLAT;
     }
 }

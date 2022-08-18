@@ -762,4 +762,12 @@ public class StockService {
         return stockAdrCountList;
     }
 
+    /**
+     * 查询股票涨跌个数
+     * @param condition
+     * @return
+     */
+    public static Integer count(CondStock condition) {
+        return RankStockCommpanyDao.count(condition); //  查询-股票涨跌次数
+    }
 }

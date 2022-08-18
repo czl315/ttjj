@@ -681,4 +681,36 @@ public interface RankStockCommpanyMapper {
             "</script>"})
     List<RankStockCommpanyDb> findListByCondition(CondStock condition);
 
+    /**
+     * 查询个数
+     *
+     * @param condition
+     * @return
+     */
+    @Select({"<script>",
+            "   SELECT ",
+            "       count(1) ",
+            "   FROM rank_st_biz_com ",
+            "   WHERE 1=1  ",
+            "       <if test='date != null'> ",
+            "           AND rank_st_biz_com.date = #{date}  ",
+            "       </if> ",
+            "       <if test='f12 != null'> ",
+            "           AND rank_st_biz_com.f12 = #{f12} ",
+            "       </if> ",
+            "       <if test='f139 != null'> ",
+            "           AND rank_st_biz_com.f139=#{f139} ",
+            "       </if> ",
+            "       <if test='minF3 != null'> ",
+            "           <![CDATA[ AND rank_st_biz_com.f3 > #{minF3} ]]> ",
+            "       </if> ",
+            "       <if test='maxF3 != null'> ",
+            "           <![CDATA[ AND rank_st_biz_com.f3 < #{maxF3} ]]> ",
+            "       </if> ",
+            "       <if test='f3 != null'> ",
+            "           <![CDATA[ AND rank_st_biz_com.f3 = #{f3} ]]> ",
+            "       </if> ",
+            "</script>"})
+    Integer count(CondStock condition);
+
 }
