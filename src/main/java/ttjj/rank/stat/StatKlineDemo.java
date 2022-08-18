@@ -31,26 +31,24 @@ public class StatKlineDemo {
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
 
-        statAdrByTime(date);
-
-    }
-
-    /**
-     * 统计涨幅-根据时间、类型等
-     */
-    private static void statAdrByTime(String date) {
-        //首先查询k线类别
-        //按时间列表查询k线涨幅
-
         String orderTime = TIME_15_00;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
 //        String klt = KLT_101;
         String klt = KLT_60;
 //        String klt = KLT_30;
 //        String klt = KLT_15;
 //        String klt = KLT_5;
+        statAdrByTime(date, orderTime, klt);
 
-//        String orderKlt = klt;
-        String orderKlt = KLT_101;
+    }
+
+    /**
+     * 统计涨幅-根据时间、类型等
+     */
+    private static void statAdrByTime(String date, String orderTime, String klt) {
+        //首先查询k线类别
+        //按时间列表查询k线涨幅
+        String orderKlt = klt;
+//        String orderKlt = KLT_101;
         if (orderKlt.equals(KLT_101)) {
             orderTime = date;
         } else {
@@ -60,10 +58,7 @@ public class StatKlineDemo {
 
 //        showUpOrDownInfo(date, type, klt, "0", "0", 100);//显示-A股当前时段上涨和下跌
 
-//        showKline(date, type, klt, orderTime, orderKlt, true, true);
         showKline(date, type, klt, orderTime, orderKlt, true, false, true, new BigDecimal("0"), true, new BigDecimal("0"));
-//        showKline(date, type, klt, orderTime, orderKlt, true, false,false, null, true, new BigDecimal("0"));
-
     }
 
     private static void showUpOrDownInfo(String date, String type, String klt, String adrUp, String adrDown, int limit) {
@@ -232,7 +227,6 @@ public class StatKlineDemo {
         } else {
             //显示上涨
             if (isOnlyUp) {
-                showUpOrDownInfoByList(date, type, orderKlt,orderList, true, up, false, down, 100);//显示-A股当前时段上涨和下跌
                 sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, true, up, false, down);
                 System.out.println(sbHead);
                 for (StringBuffer sb : sbList) {
@@ -243,28 +237,31 @@ public class StatKlineDemo {
             //显示下跌
             if (isOnlyDown) {
                 System.out.println();
-                showUpOrDownInfoByList(date, type, orderKlt,orderList, false, up, true, down, 100);//显示-A股当前时段上涨和下跌
                 sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, false, up, true, down);
                 System.out.println(sbHead);
                 for (StringBuffer sb : sbList) {
                     System.out.println(sb);
                 }
             }
+            showUpOrDownInfoByList(date, type, orderKlt, orderTime, orderList, true, up, false, down, 100);//显示-A股当前时段上涨和下跌
+            showUpOrDownInfoByList(date, type, orderKlt, orderTime, orderList, false, up, true, down, 100);//显示-A股当前时段上涨和下跌
         }
     }
 
     /**
      * 显示简约的信息
-     *  @param date
+     *
+     * @param date
      * @param type
      * @param klt
+     * @param orderTime
      * @param orderList
      * @param isOnlyUp
      * @param adrUp
      * @param isOnlyDown
      * @param adrDown
      */
-    private static void showUpOrDownInfoByList(String date, String type, String klt, List<Kline> orderList, boolean isOnlyUp, BigDecimal adrUp, boolean isOnlyDown, BigDecimal adrDown, int limit) {
+    private static void showUpOrDownInfoByList(String date, String type, String klt, String orderTime, List<Kline> orderList, boolean isOnlyUp, BigDecimal adrUp, boolean isOnlyDown, BigDecimal adrDown, int limit) {
         int sizeName = 14;
         int sizeAdr = 6;
         if (orderList == null) {
@@ -302,7 +299,12 @@ public class StatKlineDemo {
             if (klt.equals(KLT_5)) {
                 sbHead.append("(5分钟):");
             }
-            System.out.println(sbHead);
+            if (orderTime.equals(time)) {
+                System.out.println(sbHead);
+                break;
+            } else {
+                sbHead = new StringBuffer();
+            }
         }
 
         //上涨
