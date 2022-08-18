@@ -243,8 +243,8 @@ public class StatKlineDemo {
                     System.out.println(sb);
                 }
             }
-            showUpOrDownInfoByList(date, type, orderKlt, orderTime, orderList, true, up, false, down, 100);//显示-A股当前时段上涨和下跌
-            showUpOrDownInfoByList(date, type, orderKlt, orderTime, orderList, false, up, true, down, 100);//显示-A股当前时段上涨和下跌
+//            showUpOrDownInfoByList(date, type, orderKlt, orderTime, orderList, true, up, false, down, 100);//显示-A股当前时段上涨和下跌
+//            showUpOrDownInfoByList(date, type, orderKlt, orderTime, orderList, false, up, true, down, 100);//显示-A股当前时段上涨和下跌
         }
     }
 
@@ -383,7 +383,7 @@ public class StatKlineDemo {
             if (isMainEtf && !isMainEtf(dto.getZqdm())) {
                 continue;
             }
-            if (isOnlyUp && dto.getZhangDieFu().compareTo(up) < 0) {
+            if (isOnlyUp && dto.getZhangDieFu().compareTo(up) <= 0) {
                 break;
             }
             if (isOnlyDown && dto.getZhangDieFu().compareTo(down) >= 0) {
@@ -484,7 +484,8 @@ public class StatKlineDemo {
             return timeList;
         }
         if (klt.equals(KLT_5)) {
-            return TIME_TYPE_5_1305_TO_1330;
+//            return TIME_TYPE_5_1305_TO_1330;
+            return TIME_TYPE_5_0935_TO_1030;
 //            timeList.addAll(TIME_TYPE_5_0935_TO_1000);//TIME_TYPE_5_0935_TO_1000
         }
         return null;

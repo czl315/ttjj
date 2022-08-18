@@ -32,18 +32,9 @@ public class KlineDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-07-22";
-        List<String> kltList_101_15 = Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15);
-        List<String> kltList_101_5 = Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101);
-        List<String> kltList_101 = Arrays.asList(KLT_101);
 
-        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            System.out.println("定时任务-保存常用etf-beg:");
-            saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_5, ContMapEtf.ETF_All);//保存常用etf
-            System.out.println("定时任务-保存常用etf-end:");
-        }, 0, 5, TimeUnit.MINUTES);
-
+        saveKlineEtfMianSchedule(date);
 //        saveKlineAll();
-
 
         //  插入常用指数k线
 //        addZs(KLT_102);
@@ -53,6 +44,14 @@ public class KlineDemo {
 ////        // 查询k线
 //        findKline();
 
+    }
+
+    private static void saveKlineEtfMianSchedule(String date) {
+        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
+            System.out.println("定时任务-保存常用etf-beg:");
+            saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101), ContMapEtf.ETF_All);//保存常用etf
+            System.out.println("定时任务-保存常用etf-end:");
+        }, 0, 5, TimeUnit.MINUTES);
     }
 
     private static void saveKlineAll() {

@@ -37,6 +37,7 @@ public class StockAdrCountDemo {
         BigDecimal mvMin = NUM_YI_50;//NUM_YI_1000  NUM_YI_50
         BigDecimal mvMax = null;
         List<String> maKltList = Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101, KLT_102);//价格区间周期列表
+//        List<String> maKltList = Arrays.asList(KLT_102, KLT_101, KLT_60);//价格区间周期列表
 //        List<String> maKltList = Arrays.asList(KLT_102);//价格区间周期列表
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
