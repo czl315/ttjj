@@ -32,8 +32,8 @@ public class StatKlineDemo {
 //        statAdrCountByDay(zqmc);
 
         String orderTime = TIME_15_00;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
-//        String klt = KLT_101;
-        String klt = KLT_60;
+        String klt = KLT_101;
+//        String klt = KLT_60;
 //        String klt = KLT_30;
 //        String klt = KLT_15;
 //        String klt = KLT_5;

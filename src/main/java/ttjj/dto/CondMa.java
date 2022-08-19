@@ -1,5 +1,7 @@
 package ttjj.dto;
 
+import ttjj.db.AssetPositionDb;
+
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +16,10 @@ public class CondMa {
      * mapStock 证券编码列表
      */
     private Map<String, String> mapStock;
+    /**
+     * 我的仓位
+     */
+    private Map<String, AssetPositionDb> mapMyPosition;
 
     /**
      * date 查询日期
@@ -52,17 +58,13 @@ public class CondMa {
      */
     private Boolean isFindKline;
     /**
+     * 是否显示我的仓位
+     */
+    private Boolean isShowMyPosition;
+    /**
      * kltList 周期列表
      */
     private List<String> kltList;
-
-    public Map<String, String> getMapStock() {
-        return mapStock;
-    }
-
-    public void setMapStock(Map<String, String> mapStock) {
-        this.mapStock = mapStock;
-    }
 
     public String getDate() {
         return date;
@@ -142,5 +144,29 @@ public class CondMa {
 
     public void setKltList(List<String> kltList) {
         this.kltList = kltList;
+    }
+
+    public Map<String, AssetPositionDb> getMapMyPosition() {
+        return mapMyPosition;
+    }
+
+    public void setMapMyPosition(Map<String, AssetPositionDb> mapMyAsset) {
+        this.mapMyPosition = mapMyAsset;
+    }
+
+    public Boolean getShowMyPosition() {
+        return isShowMyPosition;
+    }
+
+    public void setShowMyPosition(Boolean showMyPosition) {
+        isShowMyPosition = showMyPosition;
+    }
+
+    public Map<String, String> getMapStock() {
+        return mapStock;
+    }
+
+    public void setMapStock(Map<String, String> mapStock) {
+        this.mapStock = mapStock;
     }
 }

@@ -48,7 +48,7 @@ public class KlineDemo {
 
     private static void saveKlineEtfMianSchedule(String date) {
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            System.out.println("定时任务-保存常用etf-beg:");
+            System.out.println("定时任务-保存常用etf-beg:"+DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0));
             saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101), ContMapEtf.ETF_All);//保存常用etf
             System.out.println("定时任务-保存常用etf-end:");
         }, 0, 5, TimeUnit.MINUTES);
@@ -221,7 +221,7 @@ public class KlineDemo {
         int addDaysMax = 0;//最多增加的天数
         int year = DateUtil.getCurYear();//2021
         int month = DateUtil.getCurMonth();//DateUtil.getCurMonth()
-        int day = 12;//DateUtil.getCurDay()
+        int day = DateUtil.getCurDay();//DateUtil.getCurDay()
         String klineType = DB_RANK_BIZ_TYPE_ZS;
         addZhishuKline(false, klt, lmt, addDaysMax, year, month, day, klineType);
     }

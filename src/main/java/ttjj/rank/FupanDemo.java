@@ -34,7 +34,7 @@ import static utils.Content.*;
 public class FupanDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//                String date = "2022-08-18";
+//                String date = "2022-08-19";
 
 //        insertOrUpdate(date, KLT_101, DAYS_1,ContentCookie.COOKIE_DFCF);//保存复盘和仓位
         checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
@@ -117,9 +117,9 @@ public class FupanDemo {
      */
     private static void checkMaByMyPosition(String date) {
         List<AssetPositionDb> rs = FupanPositionDao.listMyPositionByDate(date);//我的持仓
-        Map<String, String> mapMyPosition = new HashMap<>();
+        Map<String, AssetPositionDb> mapMyPosition = new HashMap<>();
         for (AssetPositionDb assetPositionDb : rs) {
-            mapMyPosition.put(assetPositionDb.getZqdm(),assetPositionDb.getZqmc());
+            mapMyPosition.put(assetPositionDb.getZqdm(),assetPositionDb);
         }
 
         CondMa condMa = new CondMa();
@@ -133,9 +133,10 @@ public class FupanDemo {
         condMa.setShowFlowIn(false);//是否显示资金流入
         condMa.setOrderField(ORDER_FIELD_NET_AREA_DAY_5);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3   ORDER_FIELD_MAXDOWN ORDER_FIELD_MINRISE
         condMa.setOrderDesc(false);//是否倒序
+        condMa.setShowMyPosition(true);
 
         System.out.println("我的持仓：");
-        condMa.setMapStock(mapMyPosition);
+        condMa.setMapMyPosition(mapMyPosition);
         KlineService.showStockMa(condMa);
     }
 

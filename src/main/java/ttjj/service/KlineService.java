@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.KlineDao;
 import ttjj.dao.RankStockCommpanyDao;
+import ttjj.db.AssetPositionDb;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.*;
 import ttjj.rank.StockDemo;
@@ -1388,15 +1389,20 @@ public class KlineService {
         String spDate = condMa.getSpDate();
         boolean isShowPriceArea = condMa.getShowPriceArea();
         boolean isShowUpMa = condMa.getShowUpMa();
+        Boolean isShowMyPosition = condMa.getShowMyPosition();
         boolean isFindKline = condMa.getFindKline();
         List<String> kltList = condMa.getKltList();
         String orderField = condMa.getOrderField();
         boolean isOrderDesc = condMa.getOrderDesc();
         boolean isShowDownMa = condMa.getShowDownMa();
         boolean isShowFlowIn = condMa.getShowFlowIn();
-        Map<String, String> mapSt = condMa.getMapStock();
+        Map<String, String> mapMySt = new HashMap<>();
+        Map<String, AssetPositionDb> mapMyPosition = condMa.getMapMyPosition();
+        for (String code : mapMyPosition.keySet()) {
+            mapMySt.put(code, mapMyPosition.get(code).getZqmc());
+        }
 
-        List<StockAdrCountVo> stockAdrCountVoRs = KlineService.checkMaDemo(mapSt, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        List<StockAdrCountVo> stockAdrCountVoRs = KlineService.checkMaDemo(mapMySt, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList);
 
         if (stockAdrCountVoRs == null || stockAdrCountVoRs.size() == 0) {
             return;
@@ -1484,6 +1490,14 @@ public class KlineService {
                     System.out.print(StockUtil.formatStr(upMa, 4));
 //                    System.out.print(StringUtils.isNotBlank(upMa102) ? "[" + upMa102 + "]" : "[       ]");
                 }
+            }
+
+            if (isShowMyPosition != null && isShowMyPosition) {
+                String zqdm = stockAdrCountVo.getF12();
+                AssetPositionDb myStock = mapMyPosition.get(zqdm);
+                StringBuffer sbMyStock = new StringBuffer();
+                sbMyStock.append(StockUtil.formatDouble(myStock.getZxsz(), 10));
+                System.out.print(sbMyStock);
             }
 
             //证券信息：涨幅，助力净流入，流市比
