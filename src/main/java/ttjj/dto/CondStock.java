@@ -34,6 +34,18 @@ public class CondStock extends RankStockCommpanyDb {
      */
     private String endDate;
     /**
+     * 净值-开始日期
+     */
+    private BigDecimal begDateF18;
+    /**
+     * 净值-结束日期
+     */
+    private BigDecimal endDateF2;
+    /**
+     * 区间涨幅
+     */
+    private BigDecimal areaF3;
+    /**
      * stCodeList 限定股票代码列表
      */
     private List<String> stCodeList;
@@ -134,5 +146,29 @@ public class CondStock extends RankStockCommpanyDb {
 
     public void setMaxF3(BigDecimal maxF3) {
         this.maxF3 = maxF3;
+    }
+
+    public BigDecimal getEndDateF2() {
+        return endDateF2;
+    }
+
+    public void setEndDateF2(BigDecimal endDateF2) {
+        this.endDateF2 = endDateF2;
+    }
+
+    public BigDecimal getAreaF3() {
+        return areaF3;
+    }
+
+    public void setAreaF3(BigDecimal areaF3) {
+        this.areaF3 = areaF3;
+    }
+
+    public BigDecimal getBegDateF18() {
+        return begDateF18;
+    }
+
+    public void setBegDateF18(BigDecimal begDateF18) {
+        this.begDateF18 = begDateF18;
     }
 }

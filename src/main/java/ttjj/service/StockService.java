@@ -565,7 +565,7 @@ public class StockService {
             String adr = StockUtil.formatDouble(rankStockCommpanyDb.getF3());
             String liangBi = StockUtil.formatDouble(rankStockCommpanyDb.getF10());
             String stName = StockUtil.handlerStName(rankStockCommpanyDb.getF14());
-            Double curPrice = rankStockCommpanyDb.getF2();
+            BigDecimal curPrice = rankStockCommpanyDb.getF2();
             BigDecimal marketValue = null;
             if (rankStockCommpanyDb.getF20() != null) {
                 marketValue = rankStockCommpanyDb.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
@@ -608,7 +608,7 @@ public class StockService {
             statRsStAdrCount.setConception(rankStockCommpanyDb.getConception());
             statRsStAdrCount.setDate(date);
             if (rankStockCommpanyDb.getF2() != null) {
-                statRsStAdrCount.setF2(new BigDecimal(rankStockCommpanyDb.getF2()));
+                statRsStAdrCount.setF2(rankStockCommpanyDb.getF2());
             }
             statRsStAdrCount.setF3(rankStockCommpanyDb.getF3());
             if (rankStockCommpanyDb.getF4() != null) {
@@ -719,7 +719,7 @@ public class StockService {
             statRsStAdrCount.setConception(rankStockCommpanyDb.getConception());
             statRsStAdrCount.setDate(date);
             if (rankStockCommpanyDb.getF2() != null) {
-                statRsStAdrCount.setF2(new BigDecimal(rankStockCommpanyDb.getF2()));
+                statRsStAdrCount.setF2(rankStockCommpanyDb.getF2());
             }
             statRsStAdrCount.setF3(rankStockCommpanyDb.getF3());
             if (rankStockCommpanyDb.getF4() != null) {

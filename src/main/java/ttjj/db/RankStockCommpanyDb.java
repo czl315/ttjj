@@ -54,7 +54,7 @@ public class RankStockCommpanyDb {
     /**
      * f2 指数点（当前价格）
      */
-    private Double f2;
+    private BigDecimal f2;
     /**
      * f3 涨跌幅
      */
@@ -115,7 +115,7 @@ public class RankStockCommpanyDb {
     /**
      * f18 昨日收盘
      */
-    private Double f18;
+    private BigDecimal f18;
 
     /**
      * f19 某板 2022-08-18：5002
@@ -1060,11 +1060,11 @@ public class RankStockCommpanyDb {
         this.rs = rs;
     }
 
-    public Double getF2() {
+    public BigDecimal getF2() {
         return f2;
     }
 
-    public void setF2(Double f2) {
+    public void setF2(BigDecimal f2) {
         this.f2 = f2;
     }
 
@@ -1188,11 +1188,11 @@ public class RankStockCommpanyDb {
         this.f17 = f17;
     }
 
-    public Double getF18() {
+    public BigDecimal getF18() {
         return f18;
     }
 
-    public void setF18(Double f18) {
+    public void setF18(BigDecimal f18) {
         this.f18 = f18;
     }
 

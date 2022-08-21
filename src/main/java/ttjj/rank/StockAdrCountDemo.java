@@ -759,7 +759,7 @@ public class StockAdrCountDemo {
             entity.setF139(rankStockCommpanyDb.getF139());
             entity.setConception(rankStockCommpanyDb.getConception());
             if (rankStockCommpanyDb.getF2() != null) {
-                entity.setF2(new BigDecimal(rankStockCommpanyDb.getF2()));
+                entity.setF2(rankStockCommpanyDb.getF2());
             }
             entity.setF3(rankStockCommpanyDb.getF3());
             if (rankStockCommpanyDb.getF4() != null) {
@@ -833,7 +833,7 @@ public class StockAdrCountDemo {
             entity.setF12(rankStockCommpanyDb.getF12());
             entity.setConception(rankStockCommpanyDb.getConception());
             if (rankStockCommpanyDb.getF2() != null) {
-                entity.setF2(new BigDecimal(rankStockCommpanyDb.getF2()));
+                entity.setF2(rankStockCommpanyDb.getF2());
             }
             entity.setF3(rankStockCommpanyDb.getF3());
             if (rankStockCommpanyDb.getF4() != null) {

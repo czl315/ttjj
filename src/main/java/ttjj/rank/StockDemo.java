@@ -815,7 +815,7 @@ public class StockDemo {
                 if (zqdm.startsWith("900")) {//B股
                     rankStockCommpanyDb.setF1(3L);
                 }
-                rankStockCommpanyDb.setF2(kline.getCloseAmt().doubleValue());
+                rankStockCommpanyDb.setF2(kline.getCloseAmt());
                 rankStockCommpanyDb.setF3(kline.getZhangDieFu());
                 rankStockCommpanyDb.setF4(kline.getZhangDieE().doubleValue());
                 rankStockCommpanyDb.setF5(kline.getCjl().longValue());
@@ -827,7 +827,7 @@ public class StockDemo {
                 rankStockCommpanyDb.setF15(kline.getMaxAmt().doubleValue());
                 rankStockCommpanyDb.setF16(kline.getMinAmt().doubleValue());
                 rankStockCommpanyDb.setF17(kline.getOpenAmt().doubleValue());
-                rankStockCommpanyDb.setF18(kline.getCloseAmt().subtract(kline.getZhangDieE()).doubleValue());
+                rankStockCommpanyDb.setF18(kline.getCloseAmt().subtract(kline.getZhangDieE()));
 
                 List<RankStockCommpanyDb> rankBizDataDiffListDb = new ArrayList<>();
                 rankBizDataDiffListDb.add(rankStockCommpanyDb);

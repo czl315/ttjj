@@ -5,13 +5,18 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.RankStockCommpanyDao;
+import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.*;
+import ttjj.service.StockService;
 import utils.Content;
 import utils.DateUtil;
 import utils.HttpUtil;
+import utils.StockUtil;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static utils.Content.*;
 
@@ -23,69 +28,240 @@ public class StockQueryDemo {
      * @param args
      */
     public static void main(String[] args) {
-        //  超跌反弹
-        {
-            SuperDropBounceStat statistics = new SuperDropBounceStat();
-            for (int i = 15; i <= 60; i++) {
-                String curDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
-                //  超跌反弹
-                superDropBounce(curDate, statistics);
-            }
-            System.out.println("统计:" + JSON.toJSONString(statistics));
-            System.out.print("统计日加1 :" + "涨：" + statistics.getAdrUpCountDay1() + "，跌：" + statistics.getAdrDownCountDay1() + "，共：" + statistics.getRsCountDay1());
-            System.out.println(",统计日加1（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay1() + "，跌：" + statistics.getAdrDownCountTotalDay1());
-            System.out.print("统计日加2 :" + "涨：" + statistics.getAdrUpCountDay2() + "，跌：" + statistics.getAdrDownCountDay2() + "，共：" + statistics.getRsCountDay2());
-            System.out.println(",统计日加2（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay2() + "，跌：" + statistics.getAdrDownCountTotalDay2());
-            System.out.print("统计日加3 :" + "涨：" + statistics.getAdrUpCountDay3() + "，跌：" + statistics.getAdrDownCountDay3() + "，共：" + statistics.getRsCountDay3());
-            System.out.println(",统计日加3（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay3() + "，跌：" + statistics.getAdrDownCountTotalDay3());
-            System.out.print("统计日加5 :" + "涨：" + statistics.getAdrUpCountDay5() + "，跌：" + statistics.getAdrDownCountDay5() + "，共：" + statistics.getRsCountDay5());
-            System.out.println(",统计日加5（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay5() + "，跌：" + statistics.getAdrDownCountTotalDay5());
-            System.out.print("统计日加10:" + "涨：" + statistics.getAdrUpCountDay10() + "，跌：" + statistics.getAdrDownCountDay10() + "，共：" + statistics.getRsCountDay10());
-            System.out.println(",统计日10（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay10() + "，跌：" + statistics.getAdrDownCountTotalDay10());
-            System.out.print("统计日加20:" + "涨：" + statistics.getAdrUpCountDay20() + "，跌：" + statistics.getAdrDownCountDay20() + "，共：" + statistics.getRsCountDay20());
-            System.out.println(",统计日20（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay20() + "，跌：" + statistics.getAdrDownCountTotalDay20());
-            System.out.print("统计日加30:" + "涨：" + statistics.getAdrUpCountDay30() + "，跌：" + statistics.getAdrDownCountDay30() + "，共：" + statistics.getRsCountDay30());
-            System.out.println(",统计日30（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay30() + "，跌：" + statistics.getAdrDownCountTotalDay30());
-            System.out.print("统计日加60:" + "涨：" + statistics.getAdrUpCountDay60() + "，跌：" + statistics.getAdrDownCountDay60() + "，共：" + statistics.getRsCountDay60());
-            System.out.println(",统计日60（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay60() + "，跌：" + statistics.getAdrDownCountTotalDay60());
+
+        //计算区间涨幅
+        statListAdrArea();
+
+//        statSuperDropBounce();//  超跌反弹
+
+//        statMaBreakUp();//突破均线
+
+//        statFindListTongJj();//查询-统计数据-股票分组
+
+    }
+
+    /**
+     * A股，涨幅榜、跌幅榜.股票：计算区间涨幅：查询两个日期间的股票列表，计算净值之差，得出涨幅。
+     */
+    private static void statListAdrArea() {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-08-12";
+        int areaDayType = 4;//4:近一周
+        int limit = 20;
+        long board = DB_RANK_BIZ_F19_BK_MAIN;
+        BigDecimal mvMin = NUM_YI_1000;//
+        BigDecimal mvMax = null;
+        String mvLimitInfo = "";
+        if (mvMin.equals(NUM_YI_1000)) {
+            mvLimitInfo = "(市值1000亿";
+        }
+        if (mvMax == null) {
+            mvLimitInfo = mvLimitInfo + "以上)";
+        }
+        String areaDayTypeName = "(近一周)";
+        String boardName = "";
+        if (board == DB_RANK_BIZ_F19_BK_MAIN) {
+            boardName = "沪深主板";
         }
 
-        //突破均线
-//        {
-//            BigDecimal goodRateCurDayLimitUp = new BigDecimal("0.01");
-//            String curDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -8);
-//            List<String> dateListBefore = RankStockCommpanyDao.findListDateBefore(new DateCond(curDate, 120));
-////        System.out.println(JSON.toJSONString(dateListBefore));
-//            int countUp1 = 0, countUp2 = 0, countUp3 = 0;//上涨个数
-//            int countDown1 = 0, countDown2 = 0, countDown3 = 0;//下跌个数
-////            String weekFiter = "一";
-////            String weekFiter = "二";
-////            String weekFiter = "三";
-////            String weekFiter = "四";
-//            String weekFiter = "五";
-//            for (String date : dateListBefore) {
-//                // 均线突破
-//                MaBreakUpRs rs = maBreakUp(date, weekFiter, goodRateCurDayLimitUp);
-//                if (rs == null) {
-//                    continue;
-//                }
-//                countUp1 = countUp1 + rs.getCurDayAdd1UpCount();
-//                countUp2 = countUp2 + rs.getCurDayAdd2UpCount();
-//                countUp3 = countUp3 + rs.getCurDayAdd3UpCount();
-//                countDown1 = countDown1 + rs.getCurDayAdd1DownCount();
-//                countDown2 = countDown2 + rs.getCurDayAdd1DownCount();
-//                countDown3 = countDown3 + rs.getCurDayAdd1DownCount();
-//            }
-//            System.out.println("后1日合计涨跌比:" + countUp1 + ":" + countDown1 + ",上涨率：" + new BigDecimal(countUp1).divide(new BigDecimal(countUp1 + countDown1), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100")));
-//            System.out.println(countUp1 + "\t" + countDown1 + "\t" + new BigDecimal(countUp1).divide(new BigDecimal(countUp1 + countDown1), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100")));
-//
-//        }
+        String endDate = StockService.findBegDate(date, 0);
+        String begDate = StockService.findBegDate(date, areaDayType);
 
-        /**查询-统计数据-股票分组**/
-//        String begDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -365);
-//        String endDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0);
-//        String typeName = ST_BIZ_TYPE_YOU_SE_JIN_SHU;//业务板块
-//        findListTongJj(typeName,begDate,endDate);//查询-统计数据
+        Map<String, CondStock> rsMap = new HashMap<>();
+
+        CondStock condEndDate = new CondStock();
+        condEndDate.setDate(endDate);
+        condEndDate.setF139(board);
+        condEndDate.setMvMin(mvMin);
+        condEndDate.setMvMax(mvMax);
+        List<RankStockCommpanyDb> stListEndDate = StockService.findListByCondition(condEndDate);//查询股票列表
+
+        CondStock condBegDate = new CondStock();
+        condBegDate.setDate(begDate);
+        List<String> stCodeList = new ArrayList<>();
+        for (RankStockCommpanyDb rankStockCommpanyDb : stListEndDate) {
+            stCodeList.add(rankStockCommpanyDb.getF12());
+        }
+        condBegDate.setStCodeList(stCodeList);
+        List<RankStockCommpanyDb> stListBegDate = StockService.findListByCondition(condBegDate);//查询股票列表
+
+        for (RankStockCommpanyDb rankStockCommpanyDb : stListEndDate) {
+            CondStock rsOne = new CondStock();
+            rsOne.setF14(rankStockCommpanyDb.getF14());
+            rsOne.setF3(rankStockCommpanyDb.getF3());
+            rsOne.setF139(rankStockCommpanyDb.getF139());
+            rsOne.setType_name(rankStockCommpanyDb.getType_name());
+            BigDecimal marketValue = null;
+            if (rankStockCommpanyDb.getF20() != null) {
+                marketValue = rankStockCommpanyDb.getF20().divide(NUM_YI_1, 2, BigDecimal.ROUND_HALF_UP);
+            }
+            rsOne.setF20(marketValue);
+            rsOne.setBegDate(begDate);
+            rsOne.setEndDate(endDate);
+            rsOne.setEndDateF2(rankStockCommpanyDb.getF2());
+            rsMap.put(rankStockCommpanyDb.getF12(), rsOne);
+        }
+
+        for (RankStockCommpanyDb rankStockCommpanyDb : stListBegDate) {
+            String code = rankStockCommpanyDb.getF12();
+            BigDecimal yestodayNet = rankStockCommpanyDb.getF18();
+            CondStock rsOne = rsMap.get(code);
+            if (rsOne == null) {
+//                System.out.println("市值已减小：" + JSON.toJSONString(rankStockCommpanyDb));
+                continue;
+            }
+            if (yestodayNet == null) {
+                System.out.println("昨日净值为空：" + JSON.toJSONString(rankStockCommpanyDb));
+                continue;
+            }
+            rsOne.setBegDateF18(yestodayNet);
+            rsMap.put(code, rsOne);
+        }
+
+
+        List<CondStock> rsList = new ArrayList<>();
+        //计算区间涨幅
+        for (CondStock dto : rsMap.values()) {
+            BigDecimal endDateF2 = dto.getEndDateF2();
+            BigDecimal begDateF18 = dto.getBegDateF18();
+            if (endDateF2 == null) {
+                System.out.println("结束净值为空：" + JSON.toJSONString(dto));
+                continue;
+            }
+            if (begDateF18 == null) {
+                System.out.println("开始净值为空：" + JSON.toJSONString(dto));
+                continue;
+            }
+            BigDecimal adrArea = (endDateF2.subtract(begDateF18)).multiply(new BigDecimal("100")).divide(begDateF18, 2, RoundingMode.HALF_UP);
+            dto.setAreaF3(adrArea);
+            rsList.add(dto);
+        }
+
+        //排序
+        List<CondStock> rsListDesc = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        List<CondStock> rsListAsc = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+
+        //区间涨幅
+        System.out.println("A股" + areaDayTypeName + mvLimitInfo +"("+ boardName +")"+  "涨幅榜");
+        showInfo(rsListDesc, boardName, begDate, endDate, limit, false);
+        System.out.println();
+        System.out.println("A股" + areaDayTypeName + mvLimitInfo +"("+ boardName +")"+ "涨幅榜");
+        showInfoHead(true);
+        showInfo(rsListDesc, boardName, begDate, endDate, limit, true);
+        System.out.println();
+
+        System.out.println();
+        System.out.println("A股" + areaDayTypeName + mvLimitInfo +"("+ boardName +")"+  "跌幅榜");
+        showInfo(rsListAsc, boardName, begDate, endDate, limit, false);
+        System.out.println();
+        System.out.println("A股" + areaDayTypeName + mvLimitInfo +"("+ boardName +")"+  "跌幅榜");
+        showInfoHead(true);
+        showInfo(rsListAsc, boardName, begDate, endDate, limit, true);
+
+    }
+
+    /**
+     * 显示头信息
+     */
+    private static void showInfoHead(boolean showMore) {
+        int size = 10;
+        int sizeBiz = 14;
+        int sizeDate14 = 14;
+        StringBuffer sb = new StringBuffer();
+        sb.append(StockUtil.formatStName("名称", size));
+        sb.append(StockUtil.formatStName("区间涨幅", size));
+        if (showMore) {
+            sb.append(StockUtil.formatStName("业务板块", sizeBiz));
+            sb.append(StockUtil.formatStName("今日涨幅", size));
+            sb.append(StockUtil.formatStName("市场板块", sizeBiz));
+            sb.append(StockUtil.formatStName("最新市值(亿)", sizeDate14));
+            sb.append(StockUtil.formatStName("开始日期", sizeDate14));
+            sb.append(StockUtil.formatStName("结束日期", sizeDate14));
+        }
+
+        System.out.println(sb);
+    }
+
+    /**
+     * 显示集合
+     *
+     * @param rsList    列表
+     * @param boardName 板块
+     * @param begDate   开始时间
+     * @param endDate   结束时间
+     * @param limit
+     * @param showMore  显示更多字段
+     */
+    private static void showInfo(List<CondStock> rsList, String boardName, String begDate, String endDate, int limit, boolean showMore) {
+        if (rsList == null) {
+            return;
+        }
+        int size = 10;
+        int sizeBiz = 14;
+        int sizeDate14 = 14;
+        for (CondStock dto : rsList) {
+            if (--limit <= 0) {
+                break;
+            }
+            StringBuffer sb = new StringBuffer();
+            sb.append(StockUtil.formatStName(dto.getF14(), size));
+            sb.append(StockUtil.formatDouble(dto.getAreaF3(), size));
+            if (showMore) {
+                sb.append(StockUtil.formatStName(dto.getType_name(), sizeBiz));
+                sb.append(StockUtil.formatDouble(dto.getF3(), size));
+                sb.append(StockUtil.formatStName(boardName, sizeBiz));
+                sb.append(StockUtil.formatDouble(dto.getF20(), sizeDate14));
+                sb.append(StockUtil.formatStName(begDate, sizeDate14));
+                sb.append(StockUtil.formatStName(endDate, sizeDate14));
+//                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
+//                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
+            }
+
+            System.out.println(sb);
+        }
+    }
+
+    /**
+     * 突破均线
+     */
+    private static void statMaBreakUp() {
+        BigDecimal goodRateCurDayLimitUp = new BigDecimal("0.01");
+        String curDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -8);
+        List<String> dateListBefore = RankStockCommpanyDao.findListDateBefore(new DateCond(curDate, 120));
+//        System.out.println(JSON.toJSONString(dateListBefore));
+        int countUp1 = 0, countUp2 = 0, countUp3 = 0;//上涨个数
+        int countDown1 = 0, countDown2 = 0, countDown3 = 0;//下跌个数
+//            String weekFiter = "一";
+//            String weekFiter = "二";
+//            String weekFiter = "三";
+//            String weekFiter = "四";
+        String weekFiter = "五";
+        for (String date : dateListBefore) {
+            // 均线突破
+            MaBreakUpRs rs = maBreakUp(date, weekFiter, goodRateCurDayLimitUp);
+            if (rs == null) {
+                continue;
+            }
+            countUp1 = countUp1 + rs.getCurDayAdd1UpCount();
+            countUp2 = countUp2 + rs.getCurDayAdd2UpCount();
+            countUp3 = countUp3 + rs.getCurDayAdd3UpCount();
+            countDown1 = countDown1 + rs.getCurDayAdd1DownCount();
+            countDown2 = countDown2 + rs.getCurDayAdd1DownCount();
+            countDown3 = countDown3 + rs.getCurDayAdd1DownCount();
+        }
+        System.out.println("后1日合计涨跌比:" + countUp1 + ":" + countDown1 + ",上涨率：" + new BigDecimal(countUp1).divide(new BigDecimal(countUp1 + countDown1), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100")));
+        System.out.println(countUp1 + "\t" + countDown1 + "\t" + new BigDecimal(countUp1).divide(new BigDecimal(countUp1 + countDown1), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100")));
+
+    }
+
+    /**
+     * 查询-统计数据-股票分组
+     */
+    private static void statFindListTongJj() {
+        String begDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -365);
+        String endDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0);
+        String typeName = ST_BIZ_TYPE_YOU_SE_JIN_SHU;//业务板块
+        findListTongJj(typeName, begDate, endDate);//查询-统计数据
 //        findListTongJj("2021-01-01","2021-01-31");//查询-统计数据
 //        findListTongJj("2021-02-01","2021-02-29");//查询-统计数据
 //        findListTongJj("2021-03-01","2021-03-31");//查询-统计数据
@@ -95,6 +271,35 @@ public class StockQueryDemo {
 //        findListTongJj("2021-07-01","2021-07-31");//查询-统计数据
 //        findListTongJj("2021-08-01","2021-08-31");//查询-统计数据
 //        findListTongJj("2021-09-01","2021-09-31");//查询-统计数据
+    }
+
+    /**
+     * 超跌反弹
+     */
+    private static void statSuperDropBounce() {
+        SuperDropBounceStat statistics = new SuperDropBounceStat();
+        for (int i = 15; i <= 60; i++) {
+            String curDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);
+            //  超跌反弹
+            superDropBounce(curDate, statistics);
+        }
+        System.out.println("统计:" + JSON.toJSONString(statistics));
+        System.out.print("统计日加1 :" + "涨：" + statistics.getAdrUpCountDay1() + "，跌：" + statistics.getAdrDownCountDay1() + "，共：" + statistics.getRsCountDay1());
+        System.out.println(",统计日加1（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay1() + "，跌：" + statistics.getAdrDownCountTotalDay1());
+        System.out.print("统计日加2 :" + "涨：" + statistics.getAdrUpCountDay2() + "，跌：" + statistics.getAdrDownCountDay2() + "，共：" + statistics.getRsCountDay2());
+        System.out.println(",统计日加2（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay2() + "，跌：" + statistics.getAdrDownCountTotalDay2());
+        System.out.print("统计日加3 :" + "涨：" + statistics.getAdrUpCountDay3() + "，跌：" + statistics.getAdrDownCountDay3() + "，共：" + statistics.getRsCountDay3());
+        System.out.println(",统计日加3（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay3() + "，跌：" + statistics.getAdrDownCountTotalDay3());
+        System.out.print("统计日加5 :" + "涨：" + statistics.getAdrUpCountDay5() + "，跌：" + statistics.getAdrDownCountDay5() + "，共：" + statistics.getRsCountDay5());
+        System.out.println(",统计日加5（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay5() + "，跌：" + statistics.getAdrDownCountTotalDay5());
+        System.out.print("统计日加10:" + "涨：" + statistics.getAdrUpCountDay10() + "，跌：" + statistics.getAdrDownCountDay10() + "，共：" + statistics.getRsCountDay10());
+        System.out.println(",统计日10（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay10() + "，跌：" + statistics.getAdrDownCountTotalDay10());
+        System.out.print("统计日加20:" + "涨：" + statistics.getAdrUpCountDay20() + "，跌：" + statistics.getAdrDownCountDay20() + "，共：" + statistics.getRsCountDay20());
+        System.out.println(",统计日20（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay20() + "，跌：" + statistics.getAdrDownCountTotalDay20());
+        System.out.print("统计日加30:" + "涨：" + statistics.getAdrUpCountDay30() + "，跌：" + statistics.getAdrDownCountDay30() + "，共：" + statistics.getRsCountDay30());
+        System.out.println(",统计日30（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay30() + "，跌：" + statistics.getAdrDownCountTotalDay30());
+        System.out.print("统计日加60:" + "涨：" + statistics.getAdrUpCountDay60() + "，跌：" + statistics.getAdrDownCountDay60() + "，共：" + statistics.getRsCountDay60());
+        System.out.println(",统计日60（累计） :" + "涨：" + statistics.getAdrUpCountTotalDay60() + "，跌：" + statistics.getAdrDownCountTotalDay60());
     }
 
     /**
@@ -276,7 +481,7 @@ public class StockQueryDemo {
             if (isOverCurPriceDay1 || isOverCurPriceDay2 || isOverCurPriceDay3 || isOverCurPriceDay5 || isOverCurPriceDay10) {
                 stat.setAdrUpCountTotalDay10(stat.getAdrUpCountTotalDay10().add(new BigDecimal("1")));
             }
-            if ( !isOverCurPriceDay20 && !isOverCurPriceDay30 && !isOverCurPriceDay60) {
+            if (!isOverCurPriceDay20 && !isOverCurPriceDay30 && !isOverCurPriceDay60) {
                 stat.setAdrDownCountTotalDay20(stat.getAdrDownCountTotalDay20().add(new BigDecimal("1")));
             }
             if (isOverCurPriceDay1 || isOverCurPriceDay2 || isOverCurPriceDay3 || isOverCurPriceDay5 || isOverCurPriceDay10 || isOverCurPriceDay20) {
