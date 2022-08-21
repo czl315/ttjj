@@ -24,18 +24,13 @@ import static utils.Content.*;
  * 排行-行业股票-公司-每日明细
  */
 public class StockQueryDemo {
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
 
         //计算区间涨幅
         statListAdrArea();
 
 //        statSuperDropBounce();//  超跌反弹
-
 //        statMaBreakUp();//突破均线
-
 //        statFindListTongJj();//查询-统计数据-股票分组
 
     }
@@ -46,21 +41,35 @@ public class StockQueryDemo {
     private static void statListAdrArea() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-08-12";
-        int areaDayType = 4;//4:近一周
+//        int areaDayType = 4;//4:近一周
+        int areaDayType = 20;//4:近一周;20:近一月
         int limit = 20;
-        long board = DB_RANK_BIZ_F19_BK_MAIN;
-        BigDecimal mvMin = NUM_YI_1000;//
+//        Long board = null;
+        Long board = DB_RANK_BIZ_F19_BK_MAIN;
+//        BigDecimal mvMin = null;//
+        BigDecimal mvMin = NUM_YI_50;//NUM_YI_1000
         BigDecimal mvMax = null;
         String mvLimitInfo = "";
-        if (mvMin.equals(NUM_YI_1000)) {
+        if (mvMin == null) {
+            mvLimitInfo = "(市值0亿";
+        } else if (mvMin.equals(NUM_YI_1000)) {
             mvLimitInfo = "(市值1000亿";
+        } else if (mvMin.equals(NUM_YI_200)) {
+            mvLimitInfo = "(市值200亿";
         }
         if (mvMax == null) {
             mvLimitInfo = mvLimitInfo + "以上)";
         }
-        String areaDayTypeName = "(近一周)";
+        String areaDayTypeName = "";
+        if (areaDayType == 4) {
+            areaDayTypeName = "(近一周)";
+        } else if (areaDayType == 20) {
+            areaDayTypeName = "(近一月)";
+        }
         String boardName = "";
-        if (board == DB_RANK_BIZ_F19_BK_MAIN) {
+        if (board == null) {
+            boardName = "全市场";
+        } else if (board == DB_RANK_BIZ_F19_BK_MAIN) {
             boardName = "沪深主板";
         }
 
@@ -88,6 +97,7 @@ public class StockQueryDemo {
         for (RankStockCommpanyDb rankStockCommpanyDb : stListEndDate) {
             CondStock rsOne = new CondStock();
             rsOne.setF14(rankStockCommpanyDb.getF14());
+            rsOne.setF12(rankStockCommpanyDb.getF12());
             rsOne.setF3(rankStockCommpanyDb.getF3());
             rsOne.setF139(rankStockCommpanyDb.getF139());
             rsOne.setType_name(rankStockCommpanyDb.getType_name());
@@ -141,33 +151,37 @@ public class StockQueryDemo {
         List<CondStock> rsListDesc = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
         List<CondStock> rsListAsc = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
 
+        boolean isShowCode = true;
         //区间涨幅
-        System.out.println("A股" + areaDayTypeName + mvLimitInfo +"("+ boardName +")"+  "涨幅榜");
-        showInfo(rsListDesc, boardName, begDate, endDate, limit, false);
+        System.out.println("A股" + areaDayTypeName + mvLimitInfo + "(" + boardName + ")" + "涨幅榜");
+        showInfo(rsListDesc, boardName, begDate, endDate, limit, false, isShowCode);
         System.out.println();
-        System.out.println("A股" + areaDayTypeName + mvLimitInfo +"("+ boardName +")"+ "涨幅榜");
-        showInfoHead(true);
-        showInfo(rsListDesc, boardName, begDate, endDate, limit, true);
+        System.out.println("A股" + areaDayTypeName + mvLimitInfo + "(" + boardName + ")" + "涨幅榜");
+        showInfoHead(true, isShowCode);
+        showInfo(rsListDesc, boardName, begDate, endDate, limit, true, isShowCode);
         System.out.println();
 
         System.out.println();
-        System.out.println("A股" + areaDayTypeName + mvLimitInfo +"("+ boardName +")"+  "跌幅榜");
-        showInfo(rsListAsc, boardName, begDate, endDate, limit, false);
+        System.out.println("A股" + areaDayTypeName + mvLimitInfo + "(" + boardName + ")" + "跌幅榜");
+        showInfo(rsListAsc, boardName, begDate, endDate, limit, false, isShowCode);
         System.out.println();
-        System.out.println("A股" + areaDayTypeName + mvLimitInfo +"("+ boardName +")"+  "跌幅榜");
-        showInfoHead(true);
-        showInfo(rsListAsc, boardName, begDate, endDate, limit, true);
+        System.out.println("A股" + areaDayTypeName + mvLimitInfo + "(" + boardName + ")" + "跌幅榜");
+        showInfoHead(true, isShowCode);
+        showInfo(rsListAsc, boardName, begDate, endDate, limit, true, isShowCode);
 
     }
 
     /**
      * 显示头信息
      */
-    private static void showInfoHead(boolean showMore) {
+    private static void showInfoHead(boolean showMore, boolean isShowCode) {
         int size = 10;
         int sizeBiz = 14;
         int sizeDate14 = 14;
         StringBuffer sb = new StringBuffer();
+        if (isShowCode) {
+            sb.append(StockUtil.formatStName("代码", size));
+        }
         sb.append(StockUtil.formatStName("名称", size));
         sb.append(StockUtil.formatStName("区间涨幅", size));
         if (showMore) {
@@ -192,7 +206,7 @@ public class StockQueryDemo {
      * @param limit
      * @param showMore  显示更多字段
      */
-    private static void showInfo(List<CondStock> rsList, String boardName, String begDate, String endDate, int limit, boolean showMore) {
+    private static void showInfo(List<CondStock> rsList, String boardName, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode) {
         if (rsList == null) {
             return;
         }
@@ -204,6 +218,9 @@ public class StockQueryDemo {
                 break;
             }
             StringBuffer sb = new StringBuffer();
+            if (isShowCode) {
+                sb.append(StockUtil.formatStName(dto.getF12(), size));
+            }
             sb.append(StockUtil.formatStName(dto.getF14(), size));
             sb.append(StockUtil.formatDouble(dto.getAreaF3(), size));
             if (showMore) {
@@ -213,8 +230,8 @@ public class StockQueryDemo {
                 sb.append(StockUtil.formatDouble(dto.getF20(), sizeDate14));
                 sb.append(StockUtil.formatStName(begDate, sizeDate14));
                 sb.append(StockUtil.formatStName(endDate, sizeDate14));
-//                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
-//                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
+                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
+                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
             }
 
             System.out.println(sb);
