@@ -67,6 +67,7 @@ public class StockAdrCountDemo {
 
     /**
      * 查询
+     *
      * @param date 日期
      */
     private static void findListDemo(String date) {
@@ -1165,7 +1166,8 @@ public class StockAdrCountDemo {
                 //更新
                 int rs = StockAdrCountService.update(entity);
                 updateRs += rs;
-                System.out.println("更新-超过均线信息:" + stockAdrCount.getF14() + ",是否成功：" + rs + ",f3:" + stockAdrCount.getF3());
+                System.out.print("更新-超过均线信息:" + stockAdrCount.getF14() + ",是否成功：" + rs + ",f3:" + stockAdrCount.getF3());
+                System.out.println(" "+entity.getUP_MA_15() + " " + entity.getUP_MA_30() + " " + " " + entity.getUP_MA_60() + " " + " " + entity.getUP_MA_101() + " " + " " + entity.getUP_MA_102() + " ");
             } else {
                 int rs = StockAdrCountService.update(entity);
                 updateRs += rs;

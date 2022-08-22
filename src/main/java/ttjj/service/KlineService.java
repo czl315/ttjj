@@ -1396,10 +1396,17 @@ public class KlineService {
         boolean isOrderDesc = condMa.getOrderDesc();
         boolean isShowDownMa = condMa.getShowDownMa();
         boolean isShowFlowIn = condMa.getShowFlowIn();
-        Map<String, String> mapMySt = new HashMap<>();
+        Map<String, String> mapMySt = condMa.getMapStock();
         Map<String, AssetPositionDb> mapMyPosition = condMa.getMapMyPosition();
-        for (String code : mapMyPosition.keySet()) {
-            mapMySt.put(code, mapMyPosition.get(code).getZqmc());
+        if (mapMyPosition != null) {
+            for (String code : mapMyPosition.keySet()) {
+                AssetPositionDb myStock = mapMyPosition.get(code);
+                if(myStock==null){
+                    System.out.println("我的持仓证券为空："+code+";"+JSON.toJSONString(myStock));
+                    continue;
+                }
+                mapMySt.put(code, myStock.getZqmc());
+            }
         }
 
         List<StockAdrCountVo> stockAdrCountVoRs = KlineService.checkMaDemo(mapMySt, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList);

@@ -38,8 +38,6 @@ public class FupanDemo {
 
 //        insertOrUpdate(date, KLT_101, DAYS_1,ContentCookie.COOKIE_DFCF);//保存复盘和仓位
         checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
-//        updateStUpDownCount(date);//更新股票涨跌个数
-
 
 //        KlineDemo.main(null);
 
@@ -118,8 +116,10 @@ public class FupanDemo {
     private static void checkMaByMyPosition(String date) {
         List<AssetPositionDb> rs = FupanPositionDao.listMyPositionByDate(date);//我的持仓
         Map<String, AssetPositionDb> mapMyPosition = new HashMap<>();
+        Map<String, String> mapStock = new HashMap<>();
         for (AssetPositionDb assetPositionDb : rs) {
             mapMyPosition.put(assetPositionDb.getZqdm(),assetPositionDb);
+            mapStock.put(assetPositionDb.getZqdm(),assetPositionDb.getZqmc());
         }
 
         CondMa condMa = new CondMa();
@@ -134,6 +134,7 @@ public class FupanDemo {
         condMa.setOrderField(ORDER_FIELD_NET_AREA_DAY_5);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3   ORDER_FIELD_MAXDOWN ORDER_FIELD_MINRISE
         condMa.setOrderDesc(false);//是否倒序
         condMa.setShowMyPosition(true);
+        condMa.setMapStock(mapStock);
 
         System.out.println("我的持仓：");
         condMa.setMapMyPosition(mapMyPosition);
@@ -503,6 +504,8 @@ public class FupanDemo {
             Fupan FupanMyFund = handlerFundByTtjj(amt, amt_fund, amt_fund_last, earn_fund, date, dateType);
             FuPanDao.updateDb(FupanMyFund);
         }
+
+        updateStUpDownCount(date);//更新股票涨跌个数
 
     }
 

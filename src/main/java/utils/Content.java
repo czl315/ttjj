@@ -473,17 +473,23 @@ public class Content {
      */
     public static BigDecimal NUM_YI_1000 = new BigDecimal("100000000").multiply(new BigDecimal("1000"));
     /**
-     * NUM_YI_50 数字-亿
-     */
-    public static BigDecimal NUM_YI_50 = new BigDecimal("100000000").multiply(new BigDecimal("50"));
-    /**
      * NUM_YI_500
      */
     public static BigDecimal NUM_YI_500 = new BigDecimal("100000000").multiply(new BigDecimal("500"));
+
     /**
      * 200亿
      */
     public static BigDecimal NUM_YI_200 = new BigDecimal("100000000").multiply(new BigDecimal("200"));
+    /**
+     * NUM_YI_100
+     */
+    public static BigDecimal NUM_YI_100 = new BigDecimal("100000000").multiply(new BigDecimal("100"));
+    /**
+     * NUM_YI_50 数字-亿
+     */
+    public static BigDecimal NUM_YI_50 = new BigDecimal("100000000").multiply(new BigDecimal("50"));
+
     /**
      * NUM_YI_30 数字-亿
      */

@@ -48,7 +48,7 @@ public class KlineDemo {
 
     private static void saveKlineEtfMianSchedule(String date) {
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            System.out.println("定时任务-保存常用etf-beg:"+DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, 0));
+            System.out.println("定时任务-保存常用etf-beg:"+DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
             saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101), ContMapEtf.ETF_All);//保存常用etf
             System.out.println("定时任务-保存常用etf-end:");
         }, 0, 5, TimeUnit.MINUTES);
@@ -63,10 +63,10 @@ public class KlineDemo {
         List<String> kltList_101 = Arrays.asList(KLT_101);
 
         System.out.println("定时任务-保存-板块、概念、指数、全部etf:");
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS));//
         saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_5, ContMapEtf.ETF_All);//保存常用etf
         saveKlineAndMv(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_BAN_KUAI));//
         saveKlineAndMv(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_GAI_NIAN));//
-        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS));//
         saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ETF));//全部etf
 
         updateFundFlow(date, DB_RANK_BIZ_TYPE_ZS, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
