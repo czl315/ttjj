@@ -31,7 +31,7 @@ import static utils.Content.*;
 public class StockAdrStatDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-08-12";
+//        String date = "2022-08-22";
 
         findListDemo(date);
 
@@ -45,8 +45,9 @@ public class StockAdrStatDemo {
      * @param date 日期
      */
     private static void findListDemo(String date) {
+        List<String> bizList = null;//
 //        List<String> bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");//板块-分类-科技:电力
-        List<String> bizList = Arrays.asList("水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");;//
+//        List<String> bizList = Arrays.asList("水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");//
         Map<String, String> mapBiz = new HashMap<>();//业务
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_JIN_RONG_JI_GOU;//金融：BOARD_TYPE_JIN_RONG   BOARD_TYPE_JIN_RONG_JI_GOU   BOARD_TYPE_ZI_YUAN
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_KE_JI_DIAN;//科技-电力：BOARD_TYPE_KE_JI_DIAN Arrays.asList(,"光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");
@@ -57,12 +58,24 @@ public class StockAdrStatDemo {
 //        }
 
         String orderBy = " ADR_UP_SUM_1_40  DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
-        BigDecimal mvMin = NUM_YI_1000;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
-        BigDecimal adrSum1To60 = new BigDecimal("60");
-        BigDecimal adrSum1To40 = new BigDecimal("30");
+
+        BigDecimal mvMin = null;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
+        BigDecimal adrSum1To60 = null;
+        BigDecimal adrSum1To40 = null;
         BigDecimal adrSum40To60 = null;
-//        BigDecimal adrSum40To60 = new BigDecimal("30");
         BigDecimal adrSum20To40 = null;
+//        //大票
+//         mvMin = NUM_YI_500;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
+//         adrSum1To60 = new BigDecimal("60");
+//         adrSum1To40 = new BigDecimal("30");
+////        BigDecimal adrSum40To60 = new BigDecimal("30");
+////        BigDecimal adrSum20To40 = new BigDecimal("20");
+
+        //中票
+        mvMin = NUM_YI_100;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
+        adrSum1To60 = new BigDecimal("90");
+        adrSum1To40 = new BigDecimal("50");
+//        BigDecimal adrSum40To60 = new BigDecimal("30");
 //        BigDecimal adrSum20To40 = new BigDecimal("20");
 
         int limitCount = 30;
