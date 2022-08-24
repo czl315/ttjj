@@ -634,7 +634,7 @@ public class StockAdrCountDemo {
                 continue;
             }
 
-            System.out.println("-------------------------当前业务：" + (curBizNum) + "---" + bizName);
+            System.out.println("-------------------------当前业务：" + (curBizNum) + "," + bizName+ ":" + rankBizDataDiff.getF3());
 
             if (stockAdrCountCond.isUpdateNet()) {
                 updateListNet(date, bizCode, bizName, mvMin, rankBizDataDiff);
