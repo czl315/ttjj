@@ -45,10 +45,13 @@ public class StockAdrStatDemo {
      * @param date 日期
      */
     private static void findListDemo(String date) {
-        List<String> bizList = null;//
+//        List<String> bizList = null;//
 //        List<String> bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");//板块-分类-科技:电力
 //        List<String> bizList = Arrays.asList("水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");//
-        Map<String, String> mapBiz = new HashMap<>();//业务
+        List<String> bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
+//        List<String> bizList = Arrays.asList("煤炭行业","采掘行业","石油行业","燃气");//资源:大宗商品
+
+//        Map<String, String> mapBiz = new HashMap<>();//业务
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_JIN_RONG_JI_GOU;//金融：BOARD_TYPE_JIN_RONG   BOARD_TYPE_JIN_RONG_JI_GOU   BOARD_TYPE_ZI_YUAN
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_KE_JI_DIAN;//科技-电力：BOARD_TYPE_KE_JI_DIAN Arrays.asList(,"光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_ZI_YUAN;//资源：BOARD_TYPE_KE_JI_XIN_PIAN
@@ -73,8 +76,8 @@ public class StockAdrStatDemo {
 
         //中票
         mvMin = NUM_YI_100;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
-        adrSum1To60 = new BigDecimal("90");
-        adrSum1To40 = new BigDecimal("50");
+//        adrSum1To60 = new BigDecimal("90");
+//        adrSum1To40 = new BigDecimal("45");
 //        BigDecimal adrSum40To60 = new BigDecimal("30");
 //        BigDecimal adrSum20To40 = new BigDecimal("20");
 
