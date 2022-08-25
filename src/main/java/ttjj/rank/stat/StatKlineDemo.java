@@ -31,8 +31,8 @@ public class StatKlineDemo {
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
 
-//        String klt = KLT_101;
-        String klt = KLT_60;
+        String klt = KLT_101;
+//        String klt = KLT_60;
 //        String klt = KLT_30;
 //        String klt = KLT_15;
 //        String klt = KLT_5;
@@ -45,9 +45,11 @@ public class StatKlineDemo {
             orderTimeList = TIME_TYPE_30_1000_TO_1500;
         } else if (klt.equals(KLT_60)) {
             orderTimeList = TIME_TYPE_60_1030_TO_1500;
+        } else if (klt.equals(KLT_101)) {
+            orderTimeList.add(date);
         }
         for (String curTime : orderTimeList) {
-            statAdrByTime(date, curTime, klt);
+            statAdrByTime(date, curTime, klt, true);
         }
 
     }
@@ -55,21 +57,15 @@ public class StatKlineDemo {
     /**
      * 统计涨幅-根据时间、类型等
      */
-    private static void statAdrByTime(String date, String orderTime, String klt) {
+    private static void statAdrByTime(String date, String orderTime, String klt, boolean isShowSimpleUpOrDown) {
         //首先查询k线类别
         //按时间列表查询k线涨幅
-        String orderKlt = klt;
-//        String orderKlt = KLT_101;
-        if (orderKlt.equals(KLT_101)) {
-            orderTime = date;
-        } else {
-            orderKlt = klt;
-        }
         String type = DB_RANK_BIZ_TYPE_ETF;
+        if (isShowSimpleUpOrDown) {
+            showUpOrDownInfo(date, type, klt, "0", "0", 100);//显示-A股当前时段上涨和下跌
+        }
 
-//        showUpOrDownInfo(date, type, klt, "0", "0", 100);//显示-A股当前时段上涨和下跌
-
-        showKline(date, type, klt, orderTime, orderKlt, true, false, true, new BigDecimal("0"), true, new BigDecimal("0"));
+        showKline(date, type, klt, orderTime, klt, true, false, true, new BigDecimal("0"), true, new BigDecimal("0"));
     }
 
     private static void showUpOrDownInfo(String date, String type, String klt, String adrUp, String adrDown, int limit) {
@@ -142,7 +138,7 @@ public class StatKlineDemo {
                     System.out.println(sb);
                 }
             }
-//            System.out.println();
+            System.out.println();
 
             //下跌
             System.out.println(sbHead.toString().replace("(上涨)", "(下跌)"));

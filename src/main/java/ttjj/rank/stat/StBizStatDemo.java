@@ -325,7 +325,7 @@ public class StBizStatDemo {
                     statEtfUpDown = statRs.get(code);
                 }
                 statEtfUpDown.setCode(biz.getF12());
-                statEtfUpDown.setName(BizEtfControl.handlerEtfName(biz.getF14()));
+                statEtfUpDown.setName(BizEtfDemo.handlerEtfName(biz.getF14()));
                 int oldCountCurContinueUp = statEtfUpDown.getCountCurContinueUp();
                 int oldCountCurContinueDown = statEtfUpDown.getCountCurContinueDown();
                 int oldCountTotalUp = statEtfUpDown.getCountTotalUp();
