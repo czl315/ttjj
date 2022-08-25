@@ -72,6 +72,10 @@ public class CondStockAdrCount extends StockAdrCount {
      * 均线周期列表
      */
     private List<String> maKltList;
+    /**
+     * 超过均线列表-条件-或
+     */
+    private List<String> upMaKltOrList;
 
     /**
      * 业务列表
@@ -197,5 +201,13 @@ public class CondStockAdrCount extends StockAdrCount {
 
     public void setBizList(List<String> bizList) {
         this.bizList = bizList;
+    }
+
+    public List<String> getUpMaKltOrList() {
+        return upMaKltOrList;
+    }
+
+    public void setUpMaKltOrList(List<String> upMaKltOrList) {
+        this.upMaKltOrList = upMaKltOrList;
     }
 }

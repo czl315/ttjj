@@ -31,7 +31,7 @@ import static utils.Content.*;
 public class StockAdrStatDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-08-22";
+//        String date = "2022-08-24";
 
         findListDemo(date);
 
@@ -76,9 +76,9 @@ public class StockAdrStatDemo {
 
         //中票
         mvMin = NUM_YI_100;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
-//        adrSum1To60 = new BigDecimal("90");
-//        adrSum1To40 = new BigDecimal("45");
-//        BigDecimal adrSum40To60 = new BigDecimal("30");
+        adrSum1To60 = new BigDecimal("90");
+        adrSum1To40 = new BigDecimal("45");
+        adrSum40To60 = new BigDecimal("20");
 //        BigDecimal adrSum20To40 = new BigDecimal("20");
 
         int limitCount = 30;
@@ -156,7 +156,8 @@ public class StockAdrStatDemo {
             return;
         }
 
-        boolean isShowCode = false;
+        boolean isShowCode = true;
+//        boolean isShowCode = false;
         StringBuffer sbHead = new StringBuffer();
         if (isShowCode) {
             sbHead.append(StockUtil.formatStName("编码", 10));
@@ -213,6 +214,7 @@ public class StockAdrStatDemo {
         for (StockAdrCount stockAdrCount : stockAdrCountList) {
 //            System.out.println(JSON.toJSONString(stockAdrCount));
             StringBuffer sb = new StringBuffer();
+
             String bizName = StockUtil.formatBizName(stockAdrCount.getType_name());
             BigDecimal order1to20 = stockAdrCount.getADR_UP_SUM_ORDER_1_20() != null ? stockAdrCount.getADR_UP_SUM_ORDER_1_20() : new BigDecimal("0");
             BigDecimal order20to40 = stockAdrCount.getADR_UP_SUM_ORDER_20_40() != null ? stockAdrCount.getADR_UP_SUM_ORDER_20_40() : new BigDecimal("0");
@@ -220,6 +222,9 @@ public class StockAdrStatDemo {
 
             BigDecimal marketValue = stockAdrCount.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
             BigDecimal order_1_60 = order1to20.add(order20to40).add(order40to60);
+            if (isShowCode) {
+                sb.append(StockUtil.formatStName(stockAdrCount.getF12(), 10));
+            }
 //            sb.append("[");
             sb.append(StockUtil.formatStName(stockAdrCount.getF14(), 10));
 //            sb.append("]");

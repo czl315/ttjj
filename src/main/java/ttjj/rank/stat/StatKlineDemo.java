@@ -31,13 +31,24 @@ public class StatKlineDemo {
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
 
-        String orderTime = TIME_15_00;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
 //        String klt = KLT_101;
-//        String klt = KLT_60;
-        String klt = KLT_30;
+        String klt = KLT_60;
+//        String klt = KLT_30;
 //        String klt = KLT_15;
 //        String klt = KLT_5;
-        statAdrByTime(date, orderTime, klt);
+//        String orderTime = TIME_11_30;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
+        List<String> orderTimeList = new ArrayList<>();
+        if (klt.equals(KLT_15)) {
+//            orderTimeList = TIME_TYPE_15_0945_TO_1500;
+            orderTimeList = TIME_TYPE_15_1315_TO_1500;
+        } else if (klt.equals(KLT_30)) {
+            orderTimeList = TIME_TYPE_30_1000_TO_1500;
+        } else if (klt.equals(KLT_60)) {
+            orderTimeList = TIME_TYPE_60_1030_TO_1500;
+        }
+        for (String curTime : orderTimeList) {
+            statAdrByTime(date, curTime, klt);
+        }
 
     }
 
@@ -228,7 +239,11 @@ public class StatKlineDemo {
             //显示上涨
             if (isOnlyUp) {
                 sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, true, up, false, down);
-                System.out.println(sbHead);
+                if (sbList != null && sbList.size() > 0) {
+                    System.out.println();
+                    System.out.println(new StringBuffer("当前时间：").append(orderTime).append(",上涨列表"));
+                    System.out.println(sbHead);
+                }
                 for (StringBuffer sb : sbList) {
                     System.out.println(sb);
                 }
@@ -236,9 +251,12 @@ public class StatKlineDemo {
 
             //显示下跌
             if (isOnlyDown) {
-                System.out.println();
                 sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, false, up, true, down);
-                System.out.println(sbHead);
+                if (sbList != null && sbList.size() > 0) {
+                    System.out.println();
+                    System.out.println(new StringBuffer("当前时间：").append(orderTime).append(",下跌列表"));
+                    System.out.println(sbHead);
+                }
                 for (StringBuffer sb : sbList) {
                     System.out.println(sb);
                 }
