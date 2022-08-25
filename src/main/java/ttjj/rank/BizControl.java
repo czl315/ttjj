@@ -26,7 +26,7 @@ import static utils.Content.*;
 /**
  * 主题排行
  */
-public class BizRankDemo {
+public class BizControl {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-05-24";

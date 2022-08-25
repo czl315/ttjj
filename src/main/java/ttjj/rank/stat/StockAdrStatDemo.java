@@ -2,23 +2,19 @@ package ttjj.rank.stat;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
-import ttjj.dao.StockAdrCountDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.db.StockAdrCount;
 import ttjj.dto.*;
-import ttjj.rank.StockDemo;
-import ttjj.service.BizService;
+import ttjj.rank.StockControl;
 import ttjj.service.KlineService;
 import ttjj.service.StockAdrCountService;
 import ttjj.service.StockService;
 import utils.ConceptionUtil;
-import utils.ContMapBizBaord;
 import utils.DateUtil;
 import utils.StockUtil;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static utils.Content.*;
 
@@ -60,7 +56,7 @@ public class StockAdrStatDemo {
 //            bizList.add(bk);
 //        }
 
-        String orderBy = " ADR_UP_SUM_1_40  DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
+        String orderBy = " ADR_UP_SUM_1_60  DESC ";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
 
         BigDecimal mvMin = null;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
         BigDecimal adrSum1To60 = null;
@@ -76,9 +72,9 @@ public class StockAdrStatDemo {
 
         //中票
         mvMin = NUM_YI_100;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
-        adrSum1To60 = new BigDecimal("90");
-        adrSum1To40 = new BigDecimal("45");
-        adrSum40To60 = new BigDecimal("20");
+//        adrSum1To60 = new BigDecimal("90");
+//        adrSum1To40 = new BigDecimal("45");
+//        adrSum40To60 = new BigDecimal("20");
 //        BigDecimal adrSum20To40 = new BigDecimal("20");
 
         int limitCount = 30;
@@ -151,6 +147,7 @@ public class StockAdrStatDemo {
      * @param stockAdrCountList
      */
     private static void showStockAdrCountList(List<StockAdrCount> stockAdrCountList) {
+        String spDate = "2022-08-25";//是否显示特定日期涨跌
         if (stockAdrCountList == null) {
             System.out.println("stockAdrCountList==null");
             return;
@@ -183,7 +180,10 @@ public class StockAdrStatDemo {
         sbHead.append(StockUtil.formatStName("3天涨", 10));
         sbHead.append(StockUtil.formatStName("2天涨", 6));
         sbHead.append(StockUtil.formatStName("1天涨", 6));
-        sbHead.append(StockUtil.formatStName("今涨", 10));
+        sbHead.append(StockUtil.formatStName("今涨", 8));
+        if (StringUtils.isNotBlank(spDate)) {
+            sbHead.append(StockUtil.formatStName(spDate.substring(5), 8));
+        }
         sbHead.append(StockUtil.formatStName("市值", 8));
         sbHead.append(StockUtil.formatStName("区间5", 6));
         sbHead.append(StockUtil.formatStName("区间10", 6));
@@ -249,7 +249,16 @@ public class StockAdrStatDemo {
             sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_3(), 10));
             sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_2(), 6));
             sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_1(), 6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getF3(), 10));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getF3(), 8));
+            //特定日期涨跌
+            if (StringUtils.isNotBlank(spDate)) {
+                RankStockCommpanyDb stock = new RankStockCommpanyDb();
+                stock.setF12(stockAdrCount.getF12());
+                Kline kline = KlineService.findLast(stock, spDate, KLT_101);
+                if (kline != null) {
+                    sb.append(StockUtil.formatDouble(kline.getZhangDieFu(), 8));
+                }
+            }
             sb.append(StockUtil.formatDouble(marketValue, 8));
             sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_5(), 6));
             sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_10(), 6));
@@ -541,8 +550,8 @@ public class StockAdrStatDemo {
             stock.setF12(zqdm);
             if (isShowPriceArea) {
                 Map<String, Boolean> maUpdateMap = new HashMap<>();
-                StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
-                StockDemo.handlerNetMa(stock, maUpdateMap, maDate, sbPriceArea, new StockAdrCountVo());//处理均线净值
+                StockControl.setMaMapType(MA_TYPE_DAY, maUpdateMap);
+                StockControl.handlerNetMa(stock, maUpdateMap, maDate, sbPriceArea, new StockAdrCountVo());//处理均线净值
             }
 
             Map<String, String> zqMap = new HashMap<>();

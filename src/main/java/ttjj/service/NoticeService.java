@@ -5,21 +5,15 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
-import ttjj.dao.BizRankDao;
-import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
-import ttjj.dto.Kline;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.StockNotice;
-import ttjj.rank.StockDemo;
 import utils.DateUtil;
 import utils.HttpUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static utils.Content.*;
 

@@ -26,7 +26,7 @@ import static utils.Content.*;
  * @author Administrator
  * @date 2022-05-11 10:28
  */
-public class StockAdrCountDemo {
+public class StockAdrCountControl {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-07-26";
@@ -1281,8 +1281,8 @@ public class StockAdrCountDemo {
             stock.setF12(zqdm);
             if (isShowPriceArea) {
                 Map<String, Boolean> maUpdateMap = new HashMap<>();
-                StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
-                StockDemo.handlerNetMa(stock, maUpdateMap, maDate, sbPriceArea, new StockAdrCountVo());//处理均线净值
+                StockControl.setMaMapType(MA_TYPE_DAY, maUpdateMap);
+                StockControl.handlerNetMa(stock, maUpdateMap, maDate, sbPriceArea, new StockAdrCountVo());//处理均线净值
             }
 
             Map<String, String> zqMap = new HashMap<>();

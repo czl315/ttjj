@@ -8,7 +8,7 @@ import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.db.StockAdrCount;
 import ttjj.dto.*;
-import ttjj.rank.StockDemo;
+import ttjj.rank.StockControl;
 import utils.ConceptionUtil;
 import utils.DateUtil;
 import utils.HttpUtil;
@@ -592,9 +592,9 @@ public class StockService {
             StringBuffer maSb = new StringBuffer();
             if (isShowPriceArea) {
                 Map<String, Boolean> maUpdateMap = new HashMap<>();
-                StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
+                StockControl.setMaMapType(MA_TYPE_DAY, maUpdateMap);
                 StringBuffer sbPriceArea = new StringBuffer();
-                StockDemo.handlerNetMa(stock, maUpdateMap, date, sbPriceArea, new StockAdrCountVo());//处理均线净值
+                StockControl.handlerNetMa(stock, maUpdateMap, date, sbPriceArea, new StockAdrCountVo());//处理均线净值
 //            maSb.append("\t").append(",当前价：").append(curPrice);
 //            maSb.append("\t").append(",当前：").append(DateUtil.getToday(DateUtil.YYYY_MM_DD_HH_MM_SS));
                 System.out.println("价格区间:" + sbPriceArea.toString());

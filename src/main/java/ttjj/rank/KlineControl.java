@@ -28,7 +28,7 @@ import static utils.Content.*;
 /**
  * k线
  */
-public class KlineDemo {
+public class KlineControl {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-07-22";

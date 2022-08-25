@@ -9,7 +9,7 @@ import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.AssetPositionDb;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.*;
-import ttjj.rank.StockDemo;
+import ttjj.rank.StockControl;
 import utils.*;
 
 import java.math.BigDecimal;
@@ -866,8 +866,8 @@ public class KlineService {
             if (isShowPriceArea) {
                 StringBuffer sbPriceArea = new StringBuffer();
                 Map<String, Boolean> maUpdateMap = new HashMap<>();
-                StockDemo.setMaMapType(MA_TYPE_DAY, maUpdateMap);
-                StockDemo.handlerNetMa(stock, maUpdateMap, date, sbPriceArea, stockAdrCountVo);//处理均线净值
+                StockControl.setMaMapType(MA_TYPE_DAY, maUpdateMap);
+                StockControl.handlerNetMa(stock, maUpdateMap, date, sbPriceArea, stockAdrCountVo);//处理均线净值
             }
 
             if (isShowUpMa) {

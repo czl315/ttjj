@@ -22,7 +22,7 @@ import static utils.Content.*;
 /**
  * 排行-行业股票-公司-每日明细
  */
-public class StockDemo {
+public class StockControl {
     public static void main(String[] args) {
         for (int i = 0; i < 1; i++) {
             String date = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, -i);

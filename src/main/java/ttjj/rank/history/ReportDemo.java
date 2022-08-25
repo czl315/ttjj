@@ -5,7 +5,6 @@ import ttjj.dao.ReportDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.RankBizDataDiff;
 import ttjj.dto.Report;
-import ttjj.rank.StockDemo;
 import ttjj.service.BizService;
 import ttjj.service.ReportService;
 import utils.DateUtil;
