@@ -36,6 +36,7 @@ public class StatKlineDemo {
 //        String klt = KLT_30;
 //        String klt = KLT_15;
 //        String klt = KLT_5;
+        boolean isShowSimpleUpOrDown = true;
 //        String orderTime = TIME_11_30;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
         List<String> orderTimeList = new ArrayList<>();
         if (klt.equals(KLT_15)) {
@@ -43,15 +44,15 @@ public class StatKlineDemo {
             orderTimeList = TIME_TYPE_15_1315_TO_1500;
         } else if (klt.equals(KLT_30)) {
             orderTimeList = TIME_TYPE_30_1000_TO_1500;
+//            orderTimeList = TIME_TYPE_30_1500_TO_1000;
         } else if (klt.equals(KLT_60)) {
             orderTimeList = TIME_TYPE_60_1030_TO_1500;
         } else if (klt.equals(KLT_101)) {
             orderTimeList.add(date);
         }
         for (String curTime : orderTimeList) {
-            statAdrByTime(date, curTime, klt, true);
+            statAdrByTime(date, curTime, klt, isShowSimpleUpOrDown);
         }
-
     }
 
     /**
@@ -72,6 +73,7 @@ public class StatKlineDemo {
         int sizeName = 14;
         int sizeAdr = 6;
 
+        System.out.println("A股主要ETF涨幅榜");
         int i = 0;//计数器
         List<String> timeList = getTimeList(date, klt);
         for (String time : timeList) {
@@ -110,8 +112,8 @@ public class StatKlineDemo {
                 conditionKlineList.setKtime(time);//排序时间点
             }
             List<Kline> klineList = KlineService.listKine(conditionKlineList);
-            if (klineList == null) {
-                System.out.println("klineList==null");
+            if (klineList == null || klineList.size() == 0) {
+//                System.out.println("klineList==null");
                 break;
             }
 
@@ -211,7 +213,7 @@ public class StatKlineDemo {
 
         List<String> timeList = getTimeList(date, klt);//获取时段列表，根据时间类型
 
-        StringBuffer sbHead = handlerHeadInfo(timeList);//首行标题信息
+        StringBuffer sbHead = handlerHeadInfo(timeList, klt);//首行标题信息
 
         //查询当日涨幅
         CondKline condCurDay = new CondKline();
@@ -451,9 +453,10 @@ public class StatKlineDemo {
      * 首行标题信息
      *
      * @param timeList
+     * @param klt
      * @return
      */
-    private static StringBuffer handlerHeadInfo(List<String> timeList) {
+    private static StringBuffer handlerHeadInfo(List<String> timeList, String klt) {
         int sizeName = 16;
         int sizeAdr = 10;
         StringBuffer sbHead = new StringBuffer();//首行标题信息
@@ -468,7 +471,9 @@ public class StatKlineDemo {
 //        sbHead.append(StockUtil.formatStName("排序时间", 14));
 //        sbHead.append(StockUtil.formatStName("时间涨幅", sizeAdr));
         sbHead.append(StockUtil.formatStName("日期", 14));
-        sbHead.append(StockUtil.formatStName("日涨幅", sizeAdr));
+        if (!klt.equals(KLT_101)) {
+            sbHead.append(StockUtil.formatStName("日涨幅", sizeAdr));
+        }
         for (String time : timeList) {
             sbHead.append(StockUtil.formatStName(time, 10));
         }

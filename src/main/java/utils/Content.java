@@ -771,7 +771,7 @@ public class Content {
 
 
     public static List<String> TIME_TYPE_5_0935_TO_1000 = Arrays.asList(TIME_09_35, TIME_09_40, TIME_09_45, TIME_09_50, TIME_09_55, TIME_10_00);
-    public static List<String> TIME_TYPE_5_0935_TO_1030 = Arrays.asList(TIME_09_35, TIME_09_40, TIME_09_45, TIME_09_50, TIME_09_55, TIME_10_00,TIME_10_05, TIME_10_10, TIME_10_15, TIME_10_20, TIME_10_25, TIME_10_30);
+    public static List<String> TIME_TYPE_5_0935_TO_1030 = Arrays.asList(TIME_09_35, TIME_09_40, TIME_09_45, TIME_09_50, TIME_09_55, TIME_10_00, TIME_10_05, TIME_10_10, TIME_10_15, TIME_10_20, TIME_10_25, TIME_10_30);
     public static List<String> TIME_TYPE5_1005_TO_1030 = Arrays.asList(TIME_10_05, TIME_10_10, TIME_10_15, TIME_10_20, TIME_10_25, TIME_10_30);
     public static List<String> TIME_TYPE5_1035_TO_1100 = Arrays.asList(TIME_10_35, TIME_10_40, TIME_10_45, TIME_10_50, TIME_10_55, TIME_11_00);
     public static List<String> TIME_TYPE5_1105_TO_1130 = Arrays.asList(TIME_11_05, TIME_11_10, TIME_11_15, TIME_11_20, TIME_11_25, TIME_11_30);
@@ -787,6 +787,7 @@ public class Content {
      * 每天时间段列表-n分钟-开始时间-至-结束时间
      */
     public static List<String> TIME_TYPE_30_1000_TO_1500 = Arrays.asList(TIME_10_00, TIME_10_30, TIME_11_00, TIME_11_30, TIME_13_30, TIME_14_00, TIME_14_30, TIME_15_00);
+    public static List<String> TIME_TYPE_30_1500_TO_1000 = Arrays.asList(TIME_15_00, TIME_14_30, TIME_14_00, TIME_13_30, TIME_11_30, TIME_11_00, TIME_10_30, TIME_10_00);
     /**
      * 每天时间段列表-n分钟-开始时间-至-结束时间
      */
