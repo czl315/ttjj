@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.*;
+import ttjj.service.KlineService;
 import ttjj.service.StockService;
 import utils.Content;
 import utils.DateUtil;
@@ -40,31 +41,24 @@ public class StockQueryDemo {
      */
     private static void statListAdrArea() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-08-12";
-//        int areaDayType = 4;//4:近一周
-        int areaDayType = 20;//4:近一周;20:近一月
+//        String date = "2022-08-26";
+        boolean isCheckFuQuan = true;//是否检查更新复权
+        int areaDayType = 4;//4:近一周
+//        int areaDayType = 20;//4:近一周;20:近一月
         int limit = 20;
 //        Long board = null;
         Long board = DB_RANK_BIZ_F19_BK_MAIN;
 //        BigDecimal mvMin = null;//
-        BigDecimal mvMin = NUM_YI_50;//NUM_YI_1000
+        BigDecimal mvMin = NUM_YI_500;//NUM_YI_1000
         BigDecimal mvMax = null;
-        String mvLimitInfo = "";
-        if (mvMin == null) {
-            mvLimitInfo = "(市值0亿";
-        } else if (mvMin.equals(NUM_YI_1000)) {
-            mvLimitInfo = "(市值1000亿";
-        } else if (mvMin.equals(NUM_YI_200)) {
-            mvLimitInfo = "(市值200亿";
-        }
-        if (mvMax == null) {
-            mvLimitInfo = mvLimitInfo + "以上)";
-        }
+
+        boolean isShowCode = false;//是否显示编码
+
         String areaDayTypeName = "";
         if (areaDayType == 4) {
-            areaDayTypeName = "(近一周)";
+            areaDayTypeName = "近一周";
         } else if (areaDayType == 20) {
-            areaDayTypeName = "(近一月)";
+            areaDayTypeName = "近一月";
         }
         String boardName = "";
         if (board == null) {
@@ -121,10 +115,13 @@ public class StockQueryDemo {
                 continue;
             }
             if (yestodayNet == null) {
-                System.out.println("昨日净值为空：" + JSON.toJSONString(rankStockCommpanyDb));
+//                System.out.println("昨日净值为空：" + JSON.toJSONString(rankStockCommpanyDb));
                 continue;
             }
             rsOne.setBegDateF18(yestodayNet);
+            rsOne.setF18(yestodayNet);
+            rsOne.setDate(rankStockCommpanyDb.getDate());
+            rsOne.setF2(rankStockCommpanyDb.getF2());
             rsMap.put(code, rsOne);
         }
 
@@ -135,7 +132,7 @@ public class StockQueryDemo {
             BigDecimal endDateF2 = dto.getEndDateF2();
             BigDecimal begDateF18 = dto.getBegDateF18();
             if (endDateF2 == null) {
-                System.out.println("结束净值为空：" + JSON.toJSONString(dto));
+//                System.out.println("结束净值为空：" + JSON.toJSONString(dto));
                 continue;
             }
             if (begDateF18 == null) {
@@ -151,24 +148,131 @@ public class StockQueryDemo {
         List<CondStock> rsListDesc = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
         List<CondStock> rsListAsc = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
 
-        boolean isShowCode = true;
+        //更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
+        if (isCheckFuQuan) {
+            updateFuQuan(rsListAsc, limit);
+        }
+
+
+        boolean isShowMoreYes = true;
+        boolean isShowMoreNo = false;
         //区间涨幅
-        System.out.println("A股" + areaDayTypeName + mvLimitInfo + "(" + boardName + ")" + "涨幅榜");
-        showInfo(rsListDesc, boardName, begDate, endDate, limit, false, isShowCode);
+        showHeadAdrRank(boardName, areaDayTypeName, begDate, endDate, "涨幅榜", mvMin, mvMax);
+        showInfo(rsListDesc, boardName, begDate, endDate, limit, isShowMoreNo, isShowCode);
         System.out.println();
-        System.out.println("A股" + areaDayTypeName + mvLimitInfo + "(" + boardName + ")" + "涨幅榜");
-        showInfoHead(true, isShowCode);
-        showInfo(rsListDesc, boardName, begDate, endDate, limit, true, isShowCode);
+        showHeadAdrRank(boardName, areaDayTypeName, begDate, endDate, "涨幅榜", mvMin, mvMax);
+        showInfoHead(isShowMoreYes, isShowCode);
+        showInfo(rsListDesc, boardName, begDate, endDate, limit, isShowMoreYes, isShowCode);
         System.out.println();
 
         System.out.println();
-        System.out.println("A股" + areaDayTypeName + mvLimitInfo + "(" + boardName + ")" + "跌幅榜");
-        showInfo(rsListAsc, boardName, begDate, endDate, limit, false, isShowCode);
+        showHeadAdrRank(boardName, areaDayTypeName, begDate, endDate, "跌幅榜", mvMin, mvMax);
+        showInfo(rsListAsc, boardName, begDate, endDate, limit, isShowMoreNo, isShowCode);
         System.out.println();
-        System.out.println("A股" + areaDayTypeName + mvLimitInfo + "(" + boardName + ")" + "跌幅榜");
-        showInfoHead(true, isShowCode);
-        showInfo(rsListAsc, boardName, begDate, endDate, limit, true, isShowCode);
+        showHeadAdrRank(boardName, areaDayTypeName, begDate, endDate, "跌幅榜", mvMin, mvMax);
+        showInfoHead(isShowMoreYes, isShowCode);
+        showInfo(rsListAsc, boardName, begDate, endDate, limit, isShowMoreYes, isShowCode);
 
+    }
+
+    /**
+     * 更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
+     *
+     * @param rsListAsc 股票列表
+     * @param limit     限定个数
+     */
+    private static void updateFuQuan(List<CondStock> rsListAsc, int limit) {
+        int checkCount = limit;
+        for (CondStock stock : rsListAsc) {
+            if (--checkCount <= 0) {
+                break;
+            }
+            String zqdm = stock.getF12();
+            String zqmc = stock.getF14();
+            String dateCheck = stock.getDate();
+            BigDecimal closeAmtDb = stock.getF2();
+            // 查询今日价格
+            List<Kline> klines = KlineService.kline(zqdm, 1, KLT_101, true, dateCheck, dateCheck, "");
+            if (klines == null || klines.size() == 0) {
+                StringBuffer sbError = new StringBuffer();
+                sbError.append(zqdm).append("，").append(":k线异常！");
+                System.out.println(sbError);
+                continue;
+            }
+            Kline todayKline = klines.get(0);
+            BigDecimal closeAmt = todayKline.getCloseAmt();
+            if (closeAmtDb.compareTo(closeAmt) != 0) {
+                System.out.println("k线收盘价与数据库收盘价不符：" + zqmc + "," + closeAmt + ":" + closeAmtDb);
+                RankStockCommpanyDb stockInfo = new RankStockCommpanyDb();
+                stockInfo.setF12(zqdm);
+                stockInfo.setDate(dateCheck);
+                stockInfo.setF2(closeAmt);
+                stockInfo.setF17(todayKline.getOpenAmt());
+                stockInfo.setF18(todayKline.getCloseLastAmt());
+                stockInfo.setF15(todayKline.getMaxAmt());
+                stockInfo.setF16(todayKline.getMinAmt());
+                int rsUpdate = RankStockCommpanyDao.updateByCode(stockInfo);
+                System.out.println("复权更新：" + rsUpdate);
+            }
+        }
+    }
+
+    /**
+     * 显示排行榜头信息
+     *
+     * @param boardName       板块
+     * @param areaDayTypeName 区间日期
+     * @param begDate         开始日期
+     * @param endDate         结束日期
+     * @param rankName        排行榜名称
+     * @param mvMin           最小市值
+     * @param mvMax           最大市值
+     */
+    private static void showHeadAdrRank(String boardName, String areaDayTypeName, String begDate, String endDate, String rankName, BigDecimal mvMin, BigDecimal mvMax) {
+        StringBuffer sb = new StringBuffer();
+        String mvLimitInfo = "";
+        if (mvMin == null) {
+            mvLimitInfo = "0亿";
+        } else if (mvMin.equals(NUM_YI_50)) {
+            mvLimitInfo = "50亿";
+        } else if (mvMin.equals(NUM_YI_100)) {
+            mvLimitInfo = "100亿";
+        } else if (mvMin.equals(NUM_YI_200)) {
+            mvLimitInfo = "200亿";
+        } else if (mvMin.equals(NUM_YI_500)) {
+            mvLimitInfo = "500亿";
+        } else if (mvMin.equals(NUM_YI_1000)) {
+            mvLimitInfo = "1000亿";
+        }
+        if (mvMax == null) {
+            mvLimitInfo = mvLimitInfo + "以上";
+        } else if (mvMax.equals(NUM_YI_50)) {
+            mvLimitInfo = "至50亿";
+        } else if (mvMax.equals(NUM_YI_100)) {
+            mvLimitInfo = "至100亿";
+        } else if (mvMax.equals(NUM_YI_200)) {
+            mvLimitInfo = "至200亿";
+        } else if (mvMax.equals(NUM_YI_500)) {
+            mvLimitInfo = "至500亿";
+        } else if (mvMax.equals(NUM_YI_1000)) {
+            mvLimitInfo = "至1000亿";
+        }
+
+        sb.append("A股");
+        sb.append(areaDayTypeName);
+        sb.append(rankName);
+        sb.append("(");
+        sb.append(begDate);
+        sb.append("至");
+        sb.append(endDate);
+        sb.append(")");
+        sb.append("(");
+        sb.append(mvLimitInfo);
+        sb.append(")");
+        sb.append("(");
+        sb.append(boardName);
+        sb.append(")");
+        System.out.println(sb);
     }
 
     /**
@@ -186,7 +290,7 @@ public class StockQueryDemo {
         sb.append(StockUtil.formatStName("区间涨幅", size));
         if (showMore) {
             sb.append(StockUtil.formatStName("业务板块", sizeBiz));
-            sb.append(StockUtil.formatStName("今日涨幅", size));
+            sb.append(StockUtil.formatStName("当日涨幅", size));
             sb.append(StockUtil.formatStName("市场板块", sizeBiz));
             sb.append(StockUtil.formatStName("最新市值(亿)", sizeDate14));
             sb.append(StockUtil.formatStName("开始日期", sizeDate14));
@@ -214,7 +318,7 @@ public class StockQueryDemo {
         int sizeBiz = 14;
         int sizeDate14 = 14;
         for (CondStock dto : rsList) {
-            if (--limit <= 0) {
+            if (limit-- <= 0) {
                 break;
             }
             StringBuffer sb = new StringBuffer();
@@ -230,8 +334,8 @@ public class StockQueryDemo {
                 sb.append(StockUtil.formatDouble(dto.getF20(), sizeDate14));
                 sb.append(StockUtil.formatStName(begDate, sizeDate14));
                 sb.append(StockUtil.formatStName(endDate, sizeDate14));
-                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
-                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
+//                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
+//                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
             }
 
             System.out.println(sb);

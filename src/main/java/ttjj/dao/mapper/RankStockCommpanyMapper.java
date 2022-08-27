@@ -372,6 +372,8 @@ public interface RankStockCommpanyMapper {
             "    <if test='f10 != null'>f10=#{f10},</if>",
             "    <if test='f15 != null'>f15=#{f15},</if>",
             "    <if test='f16 != null'>f16=#{f16},</if>",
+            "    <if test='f17 != null'>f17=#{f17},</if>",
+            "    <if test='f18 != null'>f18=#{f18},</if>",
             "    <if test='f20 != null'>f20=#{f20},</if>",
             "    <if test='f21 != null'>f21=#{f21},</if>",
             "    <if test='f23 != null'>f23=#{f23},</if>",

@@ -103,15 +103,15 @@ public class RankStockCommpanyDb {
     /**
      * f15 最高
      */
-    private Double f15;
+    private BigDecimal f15;
     /**
      * f16 最低
      */
-    private Double f16;
+    private BigDecimal f16;
     /**
      * f17 今日开盘
      */
-    private Double f17;
+    private BigDecimal f17;
     /**
      * f18 昨日收盘
      */
@@ -1164,27 +1164,27 @@ public class RankStockCommpanyDb {
         this.f14 = f14;
     }
 
-    public Double getF15() {
+    public BigDecimal getF15() {
         return f15;
     }
 
-    public void setF15(Double f15) {
+    public void setF15(BigDecimal f15) {
         this.f15 = f15;
     }
 
-    public Double getF16() {
+    public BigDecimal getF16() {
         return f16;
     }
 
-    public void setF16(Double f16) {
+    public void setF16(BigDecimal f16) {
         this.f16 = f16;
     }
 
-    public Double getF17() {
+    public BigDecimal getF17() {
         return f17;
     }
 
-    public void setF17(Double f17) {
+    public void setF17(BigDecimal f17) {
         this.f17 = f17;
     }
 

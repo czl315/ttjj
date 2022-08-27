@@ -824,9 +824,9 @@ public class StockControl {
                 rankStockCommpanyDb.setF8(kline.getHuanShouLv().doubleValue());
                 rankStockCommpanyDb.setF12(kline.getZqdm());
                 rankStockCommpanyDb.setF14(kline.getZqmc());
-                rankStockCommpanyDb.setF15(kline.getMaxAmt().doubleValue());
-                rankStockCommpanyDb.setF16(kline.getMinAmt().doubleValue());
-                rankStockCommpanyDb.setF17(kline.getOpenAmt().doubleValue());
+                rankStockCommpanyDb.setF15(kline.getMaxAmt());
+                rankStockCommpanyDb.setF16(kline.getMinAmt());
+                rankStockCommpanyDb.setF17(kline.getOpenAmt());
                 rankStockCommpanyDb.setF18(kline.getCloseAmt().subtract(kline.getZhangDieE()));
 
                 List<RankStockCommpanyDb> rankBizDataDiffListDb = new ArrayList<>();
