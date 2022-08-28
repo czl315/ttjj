@@ -1130,9 +1130,30 @@ public class KlineService {
      * @param isOrderDesc 是否倒序
      * @return 排序结果
      */
-    private static List<StockAdrCountVo> handlerOrder(List<StockAdrCountVo> rs, String orderField, boolean isOrderDesc) {
+    public static List<StockAdrCountVo> handlerOrder(List<StockAdrCountVo> rs, String orderField, boolean isOrderDesc) {
         if (rs == null) {
             return null;
+        }
+        if (ORDER_FIELD_ADR_UP_SUM_1_60.equals(orderField)) {
+            if (isOrderDesc) {
+                return rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getADR_UP_SUM_1_60, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                return rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getADR_UP_SUM_1_60, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+        if (ORDER_FIELD_ADR_UP_SUM_1_40.equals(orderField)) {
+            if (isOrderDesc) {
+                return rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getADR_UP_SUM_1_40, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                return rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getADR_UP_SUM_1_40, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+        if (ORDER_FIELD_ADR_UP_SUM_1_20.equals(orderField)) {
+            if (isOrderDesc) {
+                return rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getADR_UP_SUM_1_20, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                return rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getADR_UP_SUM_1_20, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
         }
         if (ORDER_FIELD_NET_AREA_DAY_5.equals(orderField)) {
             if (isOrderDesc) {
@@ -1190,6 +1211,8 @@ public class KlineService {
                 rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getMinRise, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
             }
         }
+
+
         return rs;
     }
 
@@ -1401,8 +1424,8 @@ public class KlineService {
         if (mapMyPosition != null) {
             for (String code : mapMyPosition.keySet()) {
                 AssetPositionDb myStock = mapMyPosition.get(code);
-                if(myStock==null){
-                    System.out.println("我的持仓证券为空："+code+";"+JSON.toJSONString(myStock));
+                if (myStock == null) {
+                    System.out.println("我的持仓证券为空：" + code + ";" + JSON.toJSONString(myStock));
                     continue;
                 }
                 mapMySt.put(code, myStock.getZqmc());

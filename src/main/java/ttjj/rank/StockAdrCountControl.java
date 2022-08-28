@@ -86,12 +86,12 @@ public class StockAdrCountControl {
         condFind.setMvMin(NUM_YI_1000);//NUM_YI_1000  NUM_YI_50
         condFind.setMvMax(null);
 //        List<StockAdrCount> stockAdrCountList = findListByBiz(date, bizList,spBizName,startMapNum, null, mvMin, 2,orderBy);
-        List<StockAdrCount> stockAdrCountList = findListByCondition(condFind);
+        List<StockAdrCountVo> stockAdrCountList = findListByCondition(condFind);
         showStockAdrCountList(stockAdrCountList);
     }
 
-    private static List<StockAdrCount> findListByBiz(String date, List<RankBizDataDiff> bizList, String spBizName, int startMapNum, Object o, BigDecimal mvMin, int limitCount, String orderBy) {
-        List<StockAdrCount> rs = new ArrayList<>();
+    private static List<StockAdrCountVo> findListByBiz(String date, List<RankBizDataDiff> bizList, String spBizName, int startMapNum, Object o, BigDecimal mvMin, int limitCount, String orderBy) {
+        List<StockAdrCountVo> rs = new ArrayList<>();
         BigDecimal adrUpCountSum60Limit = null;//涨幅次数限定，过滤杂毛
 
         //插入且更新价格区间、更新
@@ -130,7 +130,7 @@ public class StockAdrCountControl {
      *
      * @param stockAdrCountList
      */
-    private static void showStockAdrCountList(List<StockAdrCount> stockAdrCountList) {
+    private static void showStockAdrCountList(List<StockAdrCountVo> stockAdrCountList) {
         if (stockAdrCountList == null) {
             System.out.println("stockAdrCountList==null");
         }
@@ -199,7 +199,7 @@ public class StockAdrCountControl {
         CondStockAdrCount condition = new CondStockAdrCount();
         condition.setDate(date);
         condition.setType_name(bizName);
-        List<StockAdrCount> stList = StockAdrCountService.findListByCondition(condition);
+        List<StockAdrCountVo> stList = StockAdrCountService.findListByCondition(condition);
 
         //排序
         if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1.equals(dbField)) {
@@ -279,7 +279,7 @@ public class StockAdrCountControl {
         CondStockAdrCount condition = new CondStockAdrCount();
         condition.setDate(date);
         condition.setType_name(bizName);
-        List<StockAdrCount> stList = StockAdrCountService.findListByCondition(condition);
+        List<StockAdrCountVo> stList = StockAdrCountService.findListByCondition(condition);
 
         //计算3个月相加
         for (StockAdrCount stockAdrCount : stList) {
@@ -669,7 +669,7 @@ public class StockAdrCountControl {
                 updateUpSumAndOrder(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_60);
             }
 
-            List<StockAdrCount> stockAdrCountList = null;
+            List<StockAdrCountVo> stockAdrCountList = null;
             if (stockAdrCountCond.isUpdateUpMa() || stockAdrCountCond.isUpdateNetArea()) {
                 CondStockAdrCount condFind = new CondStockAdrCount();
                 condFind.setDate(date);
@@ -1014,7 +1014,7 @@ public class StockAdrCountControl {
      * @param date              日期
      * @param stockAdrCountList 更新列表
      */
-    private static void updateNetArea(String date, List<StockAdrCount> stockAdrCountList) {
+    private static void updateNetArea(String date, List<StockAdrCountVo> stockAdrCountList) {
         int updateRs = 0;//更新成功个数
         if (stockAdrCountList == null) {
             System.out.println("更新-净值区间:stockAdrCountList==null");
@@ -1082,7 +1082,7 @@ public class StockAdrCountControl {
      * @param condFind 条件
      * @return 结果
      */
-    private static List<StockAdrCount> findListByCondition(CondStockAdrCount condFind) {
+    private static List<StockAdrCountVo> findListByCondition(CondStockAdrCount condFind) {
         return StockAdrCountService.findListByCondition(condFind);
     }
 
@@ -1093,7 +1093,7 @@ public class StockAdrCountControl {
      * @param stockAdrCountList
      * @param stockAdrCountCond
      */
-    private static void updateUpMa(String maDate, List<StockAdrCount> stockAdrCountList, CondStockAdrCount stockAdrCountCond) {
+    private static void updateUpMa(String maDate, List<StockAdrCountVo> stockAdrCountList, CondStockAdrCount stockAdrCountCond) {
         int updateRs = 0;//更新成功个数
         if (stockAdrCountList == null) {
             System.out.println("更新-超过均线信息:stockAdrCountList==null");

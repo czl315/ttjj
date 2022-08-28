@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import ttjj.db.StockAdrCount;
 import ttjj.dto.CondStockAdrCount;
+import ttjj.dto.StockAdrCountVo;
 
 import java.util.List;
 
@@ -73,9 +74,9 @@ public class StockAdrCountDao {
      * @param condition
      * @return
      */
-    public static List<StockAdrCount> findListByCondition(CondStockAdrCount condition) {
+    public static List<StockAdrCountVo> findListByCondition(CondStockAdrCount condition) {
         SqlSession session = sqlSessionFactory.openSession();
-        List<StockAdrCount> rs = null;
+        List<StockAdrCountVo> rs = null;
         try {
             rs = session.selectList("ttjj.dao.mapper.StockAdrCountMapper.findListByCondition", condition);
             session.commit();

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import ttjj.db.StockAdrCount;
 import ttjj.dto.CondStockAdrCount;
+import ttjj.dto.StockAdrCountVo;
 
 import java.util.List;
 
@@ -202,7 +203,7 @@ public interface StockAdrCountMapper {
             "        LIMIT #{limitCount} ",
             "       </if> ",
             "</script>"})
-    List<StockAdrCount> findListByCondition(CondStockAdrCount condition);
+    List<StockAdrCountVo> findListByCondition(CondStockAdrCount condition);
 
     /**
      * @param condition

@@ -644,6 +644,12 @@ public class Content {
      */
     public static String ORDER_FIELD_NET_AREA_DAY_60 = "NET_AREA_DAY_60";
     /**
+     * ORDER_FIELD_ADR_UP_SUM_1_60
+     */
+    public static String ORDER_FIELD_ADR_UP_SUM_1_60 = "ADR_UP_SUM_1_60";
+    public static String ORDER_FIELD_ADR_UP_SUM_1_40 = "ADR_UP_SUM_1_40";
+    public static String ORDER_FIELD_ADR_UP_SUM_1_20 = "ADR_UP_SUM_1_20";
+    /**
      * ORDER_FIELD_F3
      */
     public static String ORDER_FIELD_F3 = "F3";
