@@ -1,6 +1,7 @@
 package utils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * @author chenzhilong
@@ -99,6 +100,41 @@ public class StockUtil {
     }
 
     /**
+     * 格式化-数字，根据长度，带前缀，后缀
+     *
+     * @param number 输入值
+     * @param length 长度
+     * @return 格式化结果
+     */
+    public static String formatDouble(BigDecimal number, int length, String prefix, String suffix) {
+        StringBuffer rs = new StringBuffer();
+        if (number == null) {
+            for (int i = 0; i < length; i++) {
+                rs.append(" ");
+            }
+            return rs.toString();
+        }
+        //格式化
+        number = number.setScale(2, RoundingMode.HALF_UP);
+
+        String numberStr = number.toString();
+        int kong = length - numberStr.length();
+        if (prefix != null) {
+            kong = kong - prefix.length();
+            rs.append(prefix);
+        }
+        rs.append(numberStr);
+        if (suffix != null) {
+            kong = kong - suffix.length();
+            rs.append(suffix);
+        }
+        for (int i = 0; i < kong; i++) {
+            rs.append(" ");
+        }
+        return rs.toString();
+    }
+
+    /**
      * 格式化-字符串，根据长度
      *
      * @param number
@@ -179,6 +215,7 @@ public class StockUtil {
 
     /**
      * 格式化名称-etf
+     *
      * @param name
      * @param length
      * @return
@@ -202,6 +239,7 @@ public class StockUtil {
 
     /**
      * 判断是全角字符
+     *
      * @param c 字符
      * @return 是否全角字符
      */

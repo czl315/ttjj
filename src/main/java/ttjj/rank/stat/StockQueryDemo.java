@@ -43,29 +43,16 @@ public class StockQueryDemo {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-08-26";
         boolean isCheckFuQuan = true;//是否检查更新复权
-        int areaDayType = 4;//4:近一周
-//        int areaDayType = 20;//4:近一周;20:近一月
+        int areaDayType = 20;//4:近一周;20:近一月
         int limit = 20;
 //        Long board = null;
         Long board = DB_RANK_BIZ_F19_BK_MAIN;
 //        BigDecimal mvMin = null;//
-        BigDecimal mvMin = NUM_YI_500;//NUM_YI_1000
+        BigDecimal mvMin = NUM_YI_100;//NUM_YI_1000
         BigDecimal mvMax = null;
 
         boolean isShowCode = false;//是否显示编码
 
-        String areaDayTypeName = "";
-        if (areaDayType == 4) {
-            areaDayTypeName = "近一周";
-        } else if (areaDayType == 20) {
-            areaDayTypeName = "近一月";
-        }
-        String boardName = "";
-        if (board == null) {
-            boardName = "全市场";
-        } else if (board == DB_RANK_BIZ_F19_BK_MAIN) {
-            boardName = "沪深主板";
-        }
 
         String endDate = StockService.findBegDate(date, 0);
         String begDate = StockService.findBegDate(date, areaDayType);
@@ -136,7 +123,7 @@ public class StockQueryDemo {
                 continue;
             }
             if (begDateF18 == null) {
-                System.out.println("开始净值为空：" + JSON.toJSONString(dto));
+//                System.out.println("开始净值为空：" + JSON.toJSONString(dto));
                 continue;
             }
             BigDecimal adrArea = (endDateF2.subtract(begDateF18)).multiply(new BigDecimal("100")).divide(begDateF18, 2, RoundingMode.HALF_UP);
@@ -157,21 +144,21 @@ public class StockQueryDemo {
         boolean isShowMoreYes = true;
         boolean isShowMoreNo = false;
         //区间涨幅
-        showHeadAdrRank(boardName, areaDayTypeName, begDate, endDate, "涨幅榜", mvMin, mvMax);
-        showInfo(rsListDesc, boardName, begDate, endDate, limit, isShowMoreNo, isShowCode);
+        showHeadAdrRank(board, areaDayType, begDate, endDate, "涨幅榜", mvMin, mvMax);
+        showInfo(rsListDesc, board, begDate, endDate, limit, isShowMoreNo, isShowCode);
         System.out.println();
-        showHeadAdrRank(boardName, areaDayTypeName, begDate, endDate, "涨幅榜", mvMin, mvMax);
+        showHeadAdrRank(board, areaDayType, begDate, endDate, "涨幅榜", mvMin, mvMax);
         showInfoHead(isShowMoreYes, isShowCode);
-        showInfo(rsListDesc, boardName, begDate, endDate, limit, isShowMoreYes, isShowCode);
+        showInfo(rsListDesc, board, begDate, endDate, limit, isShowMoreYes, isShowCode);
         System.out.println();
 
         System.out.println();
-        showHeadAdrRank(boardName, areaDayTypeName, begDate, endDate, "跌幅榜", mvMin, mvMax);
-        showInfo(rsListAsc, boardName, begDate, endDate, limit, isShowMoreNo, isShowCode);
+        showHeadAdrRank(board, areaDayType, begDate, endDate, "跌幅榜", mvMin, mvMax);
+        showInfo(rsListAsc, board, begDate, endDate, limit, isShowMoreNo, isShowCode);
         System.out.println();
-        showHeadAdrRank(boardName, areaDayTypeName, begDate, endDate, "跌幅榜", mvMin, mvMax);
+        showHeadAdrRank(board, areaDayType, begDate, endDate, "跌幅榜", mvMin, mvMax);
         showInfoHead(isShowMoreYes, isShowCode);
-        showInfo(rsListAsc, boardName, begDate, endDate, limit, isShowMoreYes, isShowCode);
+        showInfo(rsListAsc, board, begDate, endDate, limit, isShowMoreYes, isShowCode);
 
     }
 
@@ -220,15 +207,15 @@ public class StockQueryDemo {
     /**
      * 显示排行榜头信息
      *
-     * @param boardName       板块
-     * @param areaDayTypeName 区间日期
-     * @param begDate         开始日期
-     * @param endDate         结束日期
-     * @param rankName        排行榜名称
-     * @param mvMin           最小市值
-     * @param mvMax           最大市值
+     * @param board       板块
+     * @param areaDayType 区间日期类型
+     * @param begDate     开始日期
+     * @param endDate     结束日期
+     * @param rankName    排行榜名称
+     * @param mvMin       最小市值
+     * @param mvMax       最大市值
      */
-    private static void showHeadAdrRank(String boardName, String areaDayTypeName, String begDate, String endDate, String rankName, BigDecimal mvMin, BigDecimal mvMax) {
+    private static void showHeadAdrRank(Long board, int areaDayType, String begDate, String endDate, String rankName, BigDecimal mvMin, BigDecimal mvMax) {
         StringBuffer sb = new StringBuffer();
         String mvLimitInfo = "";
         if (mvMin == null) {
@@ -258,21 +245,46 @@ public class StockQueryDemo {
             mvLimitInfo = "至1000亿";
         }
 
+        String boardName = handlerBoardName(board);
+
+        String areaDayTypeName = "";
+        if (areaDayType == 4) {
+            areaDayTypeName = "近一周";
+        } else if (areaDayType == 20) {
+            areaDayTypeName = "近一月";
+        }
+
         sb.append("A股");
         sb.append(areaDayTypeName);
         sb.append(rankName);
-        sb.append("(");
-        sb.append(begDate);
-        sb.append("至");
-        sb.append(endDate);
-        sb.append(")");
         sb.append("(");
         sb.append(mvLimitInfo);
         sb.append(")");
         sb.append("(");
         sb.append(boardName);
         sb.append(")");
+        sb.append("(");
+        sb.append(begDate);
+        sb.append("至");
+        sb.append(endDate);
+        sb.append(")");
         System.out.println(sb);
+    }
+
+    /**
+     * 获取市场板块
+     *
+     * @param board 板块
+     * @return 市场板块名称
+     */
+    private static String handlerBoardName(Long board) {
+        String boardName = "";
+        if (board == null) {
+            boardName = "全市场";
+        } else if (board == DB_RANK_BIZ_F19_BK_MAIN) {
+            boardName = "沪深主板";
+        }
+        return boardName;
     }
 
     /**
@@ -290,7 +302,7 @@ public class StockQueryDemo {
         sb.append(StockUtil.formatStName("区间涨幅", size));
         if (showMore) {
             sb.append(StockUtil.formatStName("业务板块", sizeBiz));
-            sb.append(StockUtil.formatStName("当日涨幅", size));
+            sb.append(StockUtil.formatStName("最新涨幅", size));
             sb.append(StockUtil.formatStName("市场板块", sizeBiz));
             sb.append(StockUtil.formatStName("最新市值(亿)", sizeDate14));
             sb.append(StockUtil.formatStName("开始日期", sizeDate14));
@@ -303,20 +315,21 @@ public class StockQueryDemo {
     /**
      * 显示集合
      *
-     * @param rsList    列表
-     * @param boardName 板块
-     * @param begDate   开始时间
-     * @param endDate   结束时间
+     * @param rsList   列表
+     * @param board    板块
+     * @param begDate  开始时间
+     * @param endDate  结束时间
      * @param limit
-     * @param showMore  显示更多字段
+     * @param showMore 显示更多字段
      */
-    private static void showInfo(List<CondStock> rsList, String boardName, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode) {
+    private static void showInfo(List<CondStock> rsList, Long board, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode) {
         if (rsList == null) {
             return;
         }
         int size = 10;
         int sizeBiz = 14;
         int sizeDate14 = 14;
+        String boardName = handlerBoardName(board);
         for (CondStock dto : rsList) {
             if (limit-- <= 0) {
                 break;
@@ -326,10 +339,10 @@ public class StockQueryDemo {
                 sb.append(StockUtil.formatStName(dto.getF12(), size));
             }
             sb.append(StockUtil.formatStName(dto.getF14(), size));
-            sb.append(StockUtil.formatDouble(dto.getAreaF3(), size));
+            sb.append(StockUtil.formatDouble(dto.getAreaF3(), size, null, "%"));
             if (showMore) {
                 sb.append(StockUtil.formatStName(dto.getType_name(), sizeBiz));
-                sb.append(StockUtil.formatDouble(dto.getF3(), size));
+                sb.append(StockUtil.formatDouble(dto.getF3(), size, null, "%"));
                 sb.append(StockUtil.formatStName(boardName, sizeBiz));
                 sb.append(StockUtil.formatDouble(dto.getF20(), sizeDate14));
                 sb.append(StockUtil.formatStName(begDate, sizeDate14));
