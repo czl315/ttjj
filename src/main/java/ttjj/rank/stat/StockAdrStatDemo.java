@@ -55,7 +55,7 @@ public class StockAdrStatDemo {
         BigDecimal mvMinBig = NUM_YI_500;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
         BigDecimal mvMinSmall = NUM_YI_50;//
 
-        int limitCount = 1;
+        int limitCount = 10;
 
         BigDecimal adrSum1To60 = null;
         BigDecimal adrSum1To40 = null;
@@ -78,26 +78,28 @@ public class StockAdrStatDemo {
         condFind.setADR_UP_SUM_40_60(adrSum40To60);
         condFind.setADR_UP_SUM_20_40(adrSum20To40);
 
-//        Map<String, List<String>> bkMap = new HashMap<>();
-//        List<String> bizList = null;//
-////        bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");//科技:电力
-////        bizList = Arrays.asList("水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");//
-////        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
-////        bizList = Arrays.asList("煤炭行业", "采掘行业", "石油行业", "燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
-////        bizList = Arrays.asList("船舶制造");//资源:交运:("船舶制造")
-//        //特定板块
-//        bkMap.put(bizList.get(0), bizList);
-
-        Map<String, List<String>> bkMap = new HashMap<>();
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
-//        //全部板块
-        List<RankBizDataDiff> bkList = StockService.listBiz(NUM_MAX_99);
-        for (RankBizDataDiff bk : bkList) {
-            List<String> bizList = new ArrayList<>();
-            String biz = bk.getF14();
-            bizList.add(biz);
-            bkMap.put(bk.getF12(), bizList);
-        }
+        Map<String, List<String>> bkMap = new HashMap<>();
+        List<String> bizList = null;//
+//        bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");//科技:电力
+//        bizList = Arrays.asList("水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");//
+//        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
+//        bizList = Arrays.asList("煤炭行业", "采掘行业", "石油行业", "燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
+//        bizList = Arrays.asList("船舶制造");//资源:交运:("船舶制造")
+        bizList = Arrays.asList("医疗服务");//医疗:("医疗服务")
+
+        //特定板块
+        bkMap.put(bizList.get(0), bizList);
+
+//        Map<String, List<String>> bkMap = new HashMap<>();
+////        //全部板块
+//        List<RankBizDataDiff> bkList = StockService.listBiz(NUM_MAX_99);
+//        for (RankBizDataDiff bk : bkList) {
+//            List<String> bizList = new ArrayList<>();
+//            String biz = bk.getF14();
+//            bizList.add(biz);
+//            bkMap.put(bk.getF12(), bizList);
+//        }
 
         for (List<String> bks : bkMap.values()) {
             List<StockAdrCountVo> stockAdrCountList = listByBizList(date, spDate, bks, orderBy, limitCount, mvMinBig, mvMinSmall,condFind);
