@@ -43,12 +43,12 @@ public class StockQueryDemo {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-08-26";
         boolean isCheckFuQuan = true;//是否检查更新复权
-        int areaDayType = 20;//4:近一周;20:近一月
+        int areaDayType = 4;//4:近一周;20:近一月
         int limit = 20;
 //        Long board = null;
         Long board = DB_RANK_BIZ_F19_BK_MAIN;
 //        BigDecimal mvMin = null;//
-        BigDecimal mvMin = NUM_YI_100;//NUM_YI_1000
+        BigDecimal mvMin = NUM_YI_500;//NUM_YI_1000
         BigDecimal mvMax = null;
 
         boolean isShowCode = false;//是否显示编码
