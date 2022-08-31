@@ -436,10 +436,10 @@ public class ContMapBizBaord {
      */
     private static void showBoardList() {
         Map<String, String> mapBiz = new HashMap<>();//业务
-//        mapBiz = ContMapBizBaord.BOARD_TYPE_JIN_RONG_JI_GOU;//金融：BOARD_TYPE_JIN_RONG   BOARD_TYPE_JIN_RONG_JI_GOU   BOARD_TYPE_ZI_YUAN
+        mapBiz = ContMapBizBaord.BOARD_TYPE_JIN_RONG_JI_GOU;//金融：BOARD_TYPE_JIN_RONG   BOARD_TYPE_JIN_RONG_JI_GOU   BOARD_TYPE_ZI_YUAN
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_KE_JI_DIAN;//板块-分类-科技:电力：BOARD_TYPE_KE_JI_XIN_PIAN BOARD_TYPE_KE_JI_FENG_DIAN BOARD_TYPE_KE_JI_GUANG_FU
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_JIN_RONG_JI_JIAN;//板块-分类-金融-基建
-        mapBiz = ContMapBizBaord.BOARD_TYPE_ZI_YUAN;//资源
+//        mapBiz = ContMapBizBaord.BOARD_TYPE_ZI_YUAN;//资源
         boolean isFirst = true;
         System.out.print("Arrays.asList(");
         for (String bk : mapBiz.keySet()) {

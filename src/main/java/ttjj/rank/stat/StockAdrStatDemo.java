@@ -65,7 +65,7 @@ public class StockAdrStatDemo {
 
 //         adrSum1To60 = new BigDecimal("60");
 //         adrSum1To40 = new BigDecimal("30");
-        adrSum40To60 = new BigDecimal("30");
+        adrSum40To60 = new BigDecimal("15");
 ////        BigDecimal adrSum20To40 = new BigDecimal("20");
 
 //        adrSum1To60 = new BigDecimal("90");
@@ -81,29 +81,11 @@ public class StockAdrStatDemo {
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
         Map<String, List<String>> bkMap = new HashMap<>();
-        List<String> bizList = null;//
-//        bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");//科技:电力
-//        bizList = Arrays.asList("水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");//
-//        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
-//        bizList = Arrays.asList("煤炭行业", "采掘行业", "石油行业", "燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
-//        bizList = Arrays.asList("船舶制造");//资源:交运:("船舶制造")
-//        bizList = Arrays.asList("医疗服务");//医疗:("医疗服务")
-
-        //特定板块
-//        bkMap.put(bizList.get(0), bizList);
-
-////        //全部板块
-//        List<RankBizDataDiff> bkList = StockService.listBiz(NUM_MAX_99);
-//        for (RankBizDataDiff bk : bkList) {
-        Set<String> bkList = BOARD_NAME_CODE.keySet();
-        for (String bk : bkList) {
-            bizList = new ArrayList<>();
-            bizList.add(bk);
-            bkMap.put(bk, bizList);
-        }
+//        bkMap = getBizListSp();//获取业务列表-特定
+        bkMap = getBizListAll();//获取业务列表-全部板块
 
         for (List<String> bks : bkMap.values()) {
-            List<StockAdrCountVo> stockAdrCountList = listByBizList(date, spDate, bks, orderBy, limitCount, mvMinBig, mvMinSmall,condFind);
+            List<StockAdrCountVo> stockAdrCountList = listByBizList(date, spDate, bks, orderBy, limitCount, mvMinBig, mvMinSmall, condFind);
             stockAdrCountListBkAll.addAll(stockAdrCountList);
         }
 
@@ -111,6 +93,49 @@ public class StockAdrStatDemo {
 
         showStockAdrCountList(stockAdrCountListBkAll, spDate);//显示-涨幅列表
 
+    }
+
+    /**
+     * 获取业务列表-全部板块
+     * @return 获取业务列表-全部板块
+     */
+    private static Map<String, List<String>> getBizListAll() {
+        Map<String, List<String>> bkMap = new HashMap<>();
+        List<String> bizList = null;//
+        //        //全部板块
+//        List<RankBizDataDiff> bkList = StockService.listBiz(NUM_MAX_99);
+        Set<String> bkList = BOARD_NAME_CODE.keySet();
+        for (String bk : bkList) {
+            bizList = new ArrayList<>();
+            bizList.add(bk);
+            bkMap.put(bk, bizList);
+        }
+        return bkMap;
+    }
+
+    /**
+     * 获取特定业务列表
+     *
+     * @return
+     */
+    private static Map<String, List<String>> getBizListSp() {
+        Map<String, List<String>> bkMap = new HashMap<>();
+        List<String> bizList = null;//
+//        bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");//科技:电力
+//        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
+//        bizList = Arrays.asList("煤炭行业", "采掘行业", "石油行业", "燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
+//        bizList = Arrays.asList("船舶制造");//资源:交运:("船舶制造")
+//        bizList = Arrays.asList("医疗服务");//医疗:("医疗服务")
+//        bizList = Arrays.asList("家电行业");//消费:("家电行业")
+
+        //金融-机构:("多元金融","银行","证券","保险");
+        bizList = Arrays.asList("多元金融", "银行", "证券", "保险");
+//        bizList = Arrays.asList("银行");
+        //金融-房地产、基建:"水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");//
+        bizList = Arrays.asList("水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");//
+
+        bkMap.put(bizList.get(0), bizList);//特定板块
+        return bkMap;
     }
 
     /**
@@ -124,7 +149,7 @@ public class StockAdrStatDemo {
      * @param condFind
      * @return 查询列表
      */
-    private static List<StockAdrCountVo> listByBizList(String date, String spDate, List<String> bizList, String orderBy, int limitCount, BigDecimal mvMinBig, BigDecimal mvMinSmall,CondStockAdrCount condFind) {
+    private static List<StockAdrCountVo> listByBizList(String date, String spDate, List<String> bizList, String orderBy, int limitCount, BigDecimal mvMinBig, BigDecimal mvMinSmall, CondStockAdrCount condFind) {
 //        CondStockAdrCount condFind = new CondStockAdrCount();
         condFind.setDate(date);
         condFind.setF139(DB_RANK_BIZ_F139_BK_MAIN);
@@ -151,13 +176,13 @@ public class StockAdrStatDemo {
         Map<String, StockAdrCountVo> stockAdrCountMap = new HashMap<>();
         //查询大票
         condFind.setMvMin(mvMinBig);
-        List<StockAdrCountVo> stockAdrCountList500 = findListByBizList(date, spDate, bizList, orderBy, mvMinBig, limitCount,condFind);//大票
+        List<StockAdrCountVo> stockAdrCountList500 = findListByBizList(date, spDate, bizList, orderBy, mvMinBig, limitCount, condFind);//大票
         for (StockAdrCountVo stockAdrCount : stockAdrCountList500) {
             stockAdrCountMap.put(stockAdrCount.getF12(), stockAdrCount);
         }
         //查询中票，去重
         condFind.setMvMin(mvMinSmall);
-        List<StockAdrCountVo> stockAdrCountList100 = findListByBizList(date, spDate, bizList, orderBy, mvMinSmall, limitCount,condFind);//中票
+        List<StockAdrCountVo> stockAdrCountList100 = findListByBizList(date, spDate, bizList, orderBy, mvMinSmall, limitCount, condFind);//中票
         for (StockAdrCountVo stockAdrCount : stockAdrCountList100) {
             String zqdm = stockAdrCount.getF12();
             String zqmc = stockAdrCount.getF14();
@@ -348,11 +373,31 @@ public class StockAdrStatDemo {
             sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_20(), 6));
             sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_40(), 6));
             sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_60(), 6));
-            sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_102().replace("(60)", ""), 6));
-            sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_101().replace("(60)", ""), 6));
-            sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_60().replace("(60)", ""), 6));
-            sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_30().replace("(60)", ""), 6));
-            sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_15().replace("(60)", ""), 6));
+            if (stockAdrCount.getUP_MA_102() != null) {
+                sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_102().replace("(60)", ""), 6));
+            } else {
+                sb.append(StockUtil.formatStName("", 6));
+            }
+            if (stockAdrCount.getUP_MA_101() != null) {
+                sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_101().replace("(60)", ""), 6));
+            } else {
+                sb.append(StockUtil.formatStName("", 6));
+            }
+            if (stockAdrCount.getUP_MA_60() != null) {
+                sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_60().replace("(60)", ""), 6));
+            } else {
+                sb.append(StockUtil.formatStName("", 6));
+            }
+            if (stockAdrCount.getUP_MA_30() != null) {
+                sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_30().replace("(60)", ""), 6));
+            } else {
+                sb.append(StockUtil.formatStName("", 6));
+            }
+            if (stockAdrCount.getUP_MA_15() != null) {
+                sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_15().replace("(60)", ""), 6));
+            } else {
+                sb.append(StockUtil.formatStName("", 6));
+            }
             System.out.println(sb);
         }
     }

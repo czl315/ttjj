@@ -31,9 +31,9 @@ public class StatKlineDemo {
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
 
-        String klt = KLT_101;
+//        String klt = KLT_101;
 //        String klt = KLT_60;
-//        String klt = KLT_30;
+        String klt = KLT_30;
 //        String klt = KLT_15;
 //        String klt = KLT_5;
 
