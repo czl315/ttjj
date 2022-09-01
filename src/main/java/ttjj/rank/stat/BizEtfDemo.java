@@ -1,10 +1,7 @@
 package ttjj.rank.stat;
 
 import ttjj.dao.BizRankDao;
-import ttjj.dto.CondMa;
-import ttjj.dto.RankBizDataDiff;
-import ttjj.dto.StatEtfUpDown;
-import ttjj.dto.StockAdrCountVo;
+import ttjj.dto.*;
 import ttjj.service.BizService;
 import ttjj.service.KlineService;
 import utils.ContMapEtf;
@@ -45,7 +42,74 @@ public class BizEtfDemo {
 //        showEtfUpMa(date);//etf-超过均线
 //        showEtfMv(date);//显示etf市值
 
+        //k线：每日最高点、最低点
+        statDayMinMaxTime();
+
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
+    }
+
+    /**
+     * 每日最高点、最低点
+     */
+    private static void statDayMinMaxTime() {
+        Map<String, String> mapZq = ContMapEtf.ETF_ZS;
+        for (String zqdm : mapZq.keySet()) {
+            String zqmc = mapZq.get(zqdm);
+            statDayMinMaxTime(zqdm, zqmc);
+        }
+    }
+
+    private static void statDayMinMaxTime(String zqdm, String zqmc) {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        int days = 20;
+        String klt = KLT_5;
+        Map<String, KlineDto> mapTimeScore = new HashMap<>();
+        //获取最新n个交易日
+        List<Kline> klines = KlineService.kline(zqdm, days, KLT_101, false, null, date, DB_RANK_BIZ_TYPE_ETF);
+        for (Kline kline : klines) {
+            String curDate = kline.getKtime();
+//                System.out.println(curDate);
+
+            //获取每个交易日的所有5分钟k线
+            List<Kline> klineCurDate5MinuteList = KlineService.kline(zqdm, 0, klt, true, curDate, curDate, DB_RANK_BIZ_TYPE_ETF);
+            klineCurDate5MinuteList = klineCurDate5MinuteList.stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getCloseAmt, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            BigDecimal initScore = new BigDecimal(klineCurDate5MinuteList.size());
+            for (Kline klineCurDate5Minute : klineCurDate5MinuteList) {
+                String curTime = klineCurDate5Minute.getKtime();
+                String keyCurTime = "";
+                if (curTime.length() >= 19) {
+                    keyCurTime = curTime.substring(11);
+                }
+//                    BigDecimal curCloseAmt = klineCurDate5Minute.getCloseAmt();
+//                    System.out.println(keyCurTime + ":" + curCloseAmt);
+
+                KlineDto klineDto = new KlineDto();
+                klineDto.setZqdm(zqdm);
+                klineDto.setZqmc(zqmc);
+                klineDto.setKtime(keyCurTime);
+                if (mapTimeScore.containsKey(keyCurTime)) {
+                    BigDecimal oldScore = mapTimeScore.get(keyCurTime).getScore();
+                    BigDecimal newScore = oldScore.add(initScore);
+                    klineDto.setScore(newScore);
+                } else {
+                    klineDto.setScore(initScore);
+                }
+                mapTimeScore.put(keyCurTime, klineDto);
+                initScore = initScore.subtract(new BigDecimal("1"));
+            }
+        }
+
+
+        List<KlineDto> list = new ArrayList<>();
+        for (String s : mapTimeScore.keySet()) {
+            list.add(mapTimeScore.get(s));
+        }
+        list = list.stream().filter(e -> e != null).sorted(Comparator.comparing(KlineDto::getScore, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        int i = 0;
+        for (KlineDto klineDto : list) {
+            System.out.println(++i + ":" + klineDto.getZqmc() + ":" + klineDto.getKtime() + ":" + klineDto.getScore());
+        }
+        System.out.println();
     }
 
     /**

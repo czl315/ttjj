@@ -187,8 +187,8 @@ public class KlineService {
      * @return
      */
     public static String klineRsStrHttpDfcf(String zqdm, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate, String klineType) {
-        begDate = begDate.replace("-", "");
-        endDate = endDate.replace("-", "");
+        begDate = begDate != null ? begDate.replace("-", "") : null;
+        endDate = endDate != null ? endDate.replace("-", "") : null;
         long curTime = System.currentTimeMillis();
         //http://76.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery33106379847099350968_1624766355746&secid=0.399673&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61&klt=101&fqt=1&beg=0&end=20500101&smplmt=1390.59&lmt=1000000&_=1624766355750
 
