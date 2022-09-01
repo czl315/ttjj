@@ -22,9 +22,9 @@ import java.util.stream.Collectors;
 import static utils.Content.*;
 
 /**
- * 排行-行业股票-公司-每日明细
+ * 股票-统计
  */
-public class StockQueryDemo {
+public class StockStat {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-08-04";
@@ -38,51 +38,59 @@ public class StockQueryDemo {
 //        statFindListTongJj();//查询-统计数据-股票分组
 
     }
+
     /**
      * 股票涨跌个数
+     *
      * @param date
      */
     private static void statStockUpDownCount(String date) {
+        BigDecimal zero = new BigDecimal("0");
+        boolean isShowAllCount = false;
         //查询个数
-        CondStock condition = new CondStock();
-        condition.setDate(date);
-        Integer countAll = StockService.count(condition);
-        System.out.println("全市场个数-全部："+countAll);
+        System.out.println("A股涨跌个数统计" + "(" + date + ")" + "(上午)");
 
-        CondStock conditionUp = new CondStock();
-        conditionUp.setDate(date);
-        conditionUp.setMinF3(new BigDecimal("0"));
-        Integer countAllUp = StockService.count(conditionUp);
-        System.out.println("全市场个数-上涨："+countAllUp);
-        CondStock conditionFlat = new CondStock();
-        conditionFlat.setDate(date);
-        conditionFlat.setF3(new BigDecimal("0"));
-        Integer countAllFlat = StockService.count(conditionFlat);
-        System.out.println("全市场个数-平盘："+countAllFlat);
-        CondStock conditionDown = new CondStock();
-        conditionDown.setDate(date);
-        conditionDown.setMaxF3(new BigDecimal("0"));
-        Integer countAllDown = StockService.count(conditionDown);
-        System.out.println("全市场个数-下跌："+countAllDown);
+        if (isShowAllCount) {
+            System.out.println("全市场个数-全部：" + StockService.count(new CondStock(date, null, null, null, null)));
+        }
 
-        CondStock conditionUpMianBord = new CondStock();
-        conditionUpMianBord.setDate(date);
-        conditionUpMianBord.setMinF3(new BigDecimal("0"));
-        conditionUpMianBord.setF139(2L);
-        Integer countAllUpMianBord = StockService.count(conditionUpMianBord);
-        System.out.println("主板个数-上涨："+countAllUpMianBord);
-        CondStock conditionMianBordFlat = new CondStock();
-        conditionMianBordFlat.setDate(date);
-        conditionMianBordFlat.setF3(new BigDecimal("0"));
-        conditionMianBordFlat.setF139(2L);
-        Integer countAllMianBordFlat = StockService.count(conditionMianBordFlat);
-        System.out.println("主板个数-平盘："+countAllMianBordFlat);
-        CondStock conditionMianBordDown = new CondStock();
-        conditionMianBordDown.setDate(date);
-        conditionMianBordDown.setMaxF3(new BigDecimal("0"));
-        conditionMianBordDown.setF139(2L);
-        Integer countAllMianBordDown = StockService.count(conditionMianBordDown);
-        System.out.println("主板个数-下跌："+countAllMianBordDown);
+
+        String boardName = "全市场";
+        Long boardAll = null;
+        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, boardAll, null, zero, null)));
+        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, boardAll, zero, null, null)));
+        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, boardAll, null, null, zero)));
+
+        System.out.println();
+        boardName = "主板";
+        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, DB_RANK_BIZ_F139_BK_MAIN, null, zero, null)));
+        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, DB_RANK_BIZ_F139_BK_MAIN, zero, null, null)));
+        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, DB_RANK_BIZ_F139_BK_MAIN, null, null, zero)));
+
+
+        System.out.println();
+        boardName = "创业板";
+        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, F139_BK_CYB, null, zero, null)));
+        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, F139_BK_CYB, zero, null, null)));
+        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, F139_BK_CYB, null, null, zero)));
+
+        System.out.println();
+        boardName = "科创板";
+        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, F139_BK_KCB, null, zero, null)));
+        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, F139_BK_KCB, zero, null, null)));
+        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, F139_BK_KCB, null, null, zero)));
+
+        System.out.println();
+        boardName = "B股";
+        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, F139_BK_B, null, zero, null)));
+        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, F139_BK_B, zero, null, null)));
+        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, F139_BK_B, null, null, zero)));
+
+        System.out.println();
+        boardName = "北交所";
+        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, F139_BK_BJS, null, zero, null)));
+        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, F139_BK_BJS, zero, null, null)));
+        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, F139_BK_BJS, null, null, zero)));
     }
 
     /**

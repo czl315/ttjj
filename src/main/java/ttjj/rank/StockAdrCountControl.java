@@ -38,6 +38,7 @@ public class StockAdrCountControl {
         BigDecimal mvMax = null;
         List<String> maKltList = Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101, KLT_102);//价格区间周期列表
 //        List<String> maKltList = Arrays.asList(KLT_102, KLT_101, KLT_60);//价格区间周期列表
+//        List<String> maKltList = Arrays.asList(KLT_102);//价格区间周期列表
 
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询业务列表
 
@@ -47,8 +48,8 @@ public class StockAdrCountControl {
         stockAdrCountCond.setF139(board);
         stockAdrCountCond.setMaKltList(maKltList);
         stockAdrCountCond.setUpdateNet(true);
-        stockAdrCountCond.setUpdateSum(true);
-        stockAdrCountCond.setUpdateOrder(true);
+//        stockAdrCountCond.setUpdateSum(true);
+//        stockAdrCountCond.setUpdateOrder(true);
         stockAdrCountCond.setUpdateUpMa(true);
         stockAdrCountCond.setUpdateNetArea(true);
 
@@ -619,6 +620,7 @@ public class StockAdrCountControl {
         Long board = stockAdrCountCond.getF139();
         //插入且更新价格区间、更新
         int curBizNum = 0;
+        long lastTime = System.currentTimeMillis();
         for (RankBizDataDiff rankBizDataDiff : bizList) {
             String bizCode = rankBizDataDiff.getF12();
             String bizName = rankBizDataDiff.getF14();
@@ -633,7 +635,6 @@ public class StockAdrCountControl {
                 continue;
             }
 
-            System.out.println("-------------------------当前业务：" + (curBizNum) + "," + bizName+ ":" + rankBizDataDiff.getF3()+ "，" +DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
 
             if (stockAdrCountCond.isUpdateNet()) {
                 updateListNet(date, bizCode, bizName, mvMin, rankBizDataDiff);
@@ -686,7 +687,11 @@ public class StockAdrCountControl {
             if (stockAdrCountCond.isUpdateNetArea()) {
                 updateNetArea(date, stockAdrCountList);//更新-价格区间
             }
-
+            long curTime = System.currentTimeMillis();
+            System.out.print("-------------------------当前业务：" + (curBizNum) + "," + bizName+ ":" + rankBizDataDiff.getF3()+ "，" +DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
+            System.out.println(",花费时间："+(curTime-lastTime)/1000);
+            System.out.println();
+            lastTime = curTime;
         }
     }
 

@@ -209,8 +209,25 @@ public class Content {
     public static long DB_RANK_BIZ_F19_BK_MAIN = 2;
     /**
      * DB_RANK_BIZ_F139_BK_MAIN f19类型-板块:主板板块
+     * 2-A股主板(00XXXX/60XXXX);     2022-08-18：3149
      */
     public static long DB_RANK_BIZ_F139_BK_MAIN = 2;
+    /**
+     * 5-创业板(30XXXX);             2022-08-18：1184
+     */
+    public static Long F139_BK_CYB = 5L;
+    /**
+     * 32-科创板(688XXX);            2022-08-18：459
+     */
+    public static Long F139_BK_KCB = 32L;
+    /**
+     * 3-B股(20XXXX/900XXX);         2022-08-18：100;
+     */
+    public static Long F139_BK_B = 3L;//
+    /**
+     * 80-北交所(43XXXX/83XXXX/87XXXX);    2022-08-18：109
+     */
+    public static Long F139_BK_BJS = 80L;//;
 
     /**
      * DB_STOCK_F107_STOCK_STATUS_STOP F107:5 停牌
