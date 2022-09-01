@@ -48,7 +48,8 @@ public class StockStat {
         BigDecimal zero = new BigDecimal("0");
         boolean isShowAllCount = false;
         //查询个数
-        System.out.println("A股涨跌个数统计" + "(" + date + ")" + "(上午)");
+//        System.out.println("A股涨跌个数统计" + "(" + date + ")" + "(上午)");
+        System.out.println("A股涨跌个数统计" + "(" + date + ")");
 
         if (isShowAllCount) {
             System.out.println("全市场个数-全部：" + StockService.count(new CondStock(date, null, null, null, null)));
