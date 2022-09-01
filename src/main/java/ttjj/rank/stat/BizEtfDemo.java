@@ -37,7 +37,7 @@ public class BizEtfDemo {
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
             System.out.println();
             System.out.println();
-            System.out.println("定时任务-etf-检查均线-beg:");
+            System.out.println("定时任务-etf-检查均线-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
             showEtfUpMa(date);//etf-超过均线
             System.out.println("定时任务-etf-检查均线-end:");
         }, 0, 5, TimeUnit.MINUTES);

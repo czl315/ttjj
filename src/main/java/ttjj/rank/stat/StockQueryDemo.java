@@ -26,14 +26,63 @@ import static utils.Content.*;
  */
 public class StockQueryDemo {
     public static void main(String[] args) {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-08-04";
 
-        //计算区间涨幅
-        statListAdrArea();
+//        statListAdrArea();//计算区间涨幅
+
+        statStockUpDownCount(date);//股票涨跌个数
 
 //        statSuperDropBounce();//  超跌反弹
 //        statMaBreakUp();//突破均线
 //        statFindListTongJj();//查询-统计数据-股票分组
 
+    }
+    /**
+     * 股票涨跌个数
+     * @param date
+     */
+    private static void statStockUpDownCount(String date) {
+        //查询个数
+        CondStock condition = new CondStock();
+        condition.setDate(date);
+        Integer countAll = StockService.count(condition);
+        System.out.println("全市场个数-全部："+countAll);
+
+        CondStock conditionUp = new CondStock();
+        conditionUp.setDate(date);
+        conditionUp.setMinF3(new BigDecimal("0"));
+        Integer countAllUp = StockService.count(conditionUp);
+        System.out.println("全市场个数-上涨："+countAllUp);
+        CondStock conditionFlat = new CondStock();
+        conditionFlat.setDate(date);
+        conditionFlat.setF3(new BigDecimal("0"));
+        Integer countAllFlat = StockService.count(conditionFlat);
+        System.out.println("全市场个数-平盘："+countAllFlat);
+        CondStock conditionDown = new CondStock();
+        conditionDown.setDate(date);
+        conditionDown.setMaxF3(new BigDecimal("0"));
+        Integer countAllDown = StockService.count(conditionDown);
+        System.out.println("全市场个数-下跌："+countAllDown);
+
+        CondStock conditionUpMianBord = new CondStock();
+        conditionUpMianBord.setDate(date);
+        conditionUpMianBord.setMinF3(new BigDecimal("0"));
+        conditionUpMianBord.setF139(2L);
+        Integer countAllUpMianBord = StockService.count(conditionUpMianBord);
+        System.out.println("主板个数-上涨："+countAllUpMianBord);
+        CondStock conditionMianBordFlat = new CondStock();
+        conditionMianBordFlat.setDate(date);
+        conditionMianBordFlat.setF3(new BigDecimal("0"));
+        conditionMianBordFlat.setF139(2L);
+        Integer countAllMianBordFlat = StockService.count(conditionMianBordFlat);
+        System.out.println("主板个数-平盘："+countAllMianBordFlat);
+        CondStock conditionMianBordDown = new CondStock();
+        conditionMianBordDown.setDate(date);
+        conditionMianBordDown.setMaxF3(new BigDecimal("0"));
+        conditionMianBordDown.setF139(2L);
+        Integer countAllMianBordDown = StockService.count(conditionMianBordDown);
+        System.out.println("主板个数-下跌："+countAllMianBordDown);
     }
 
     /**
