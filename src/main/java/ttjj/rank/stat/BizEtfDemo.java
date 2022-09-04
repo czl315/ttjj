@@ -4,6 +4,7 @@ import ttjj.dao.BizRankDao;
 import ttjj.dto.*;
 import ttjj.service.BizService;
 import ttjj.service.KlineService;
+import ttjj.service.MyPositionService;
 import utils.ContMapEtf;
 import utils.ContentEtf;
 import utils.DateUtil;
@@ -30,17 +31,18 @@ public class BizEtfDemo {
 //            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
 //        }
 
-        statShowEtfUpMaSchedule(date);//定时任务-etf-检查均线
+//        statShowEtfUpMaSchedule(date);//定时任务-etf-检查均线
 //        showEtfUpMa(date);//etf-超过均线
 //        showEtfMv(date);//显示etf市值
 
-//        statDayMinMaxTime();//k线：每日最高点、最低点
+        statDayMinMaxTime();//k线：每日最高点、最低点
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
     }
 
     /**
      * 定时任务-etf-检查均线
+     *
      * @param date 日期
      */
     private static void statShowEtfUpMaSchedule(String date) {
@@ -57,33 +59,64 @@ public class BizEtfDemo {
      * 每日最高点、最低点
      */
     private static void statDayMinMaxTime() {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
         Map<String, String> mapZq = new HashMap<>();
-        mapZq = ContMapEtf.ETF_ZS;
+//        mapZq = ContMapEtf.ETF_MV_ZS_CYB;
+        mapZq = MyPositionService.listMyPositionByDate(date);//我的持仓
+//        String klineType = null;
         String klineType = DB_RANK_BIZ_TYPE_ETF;
 //        mapZq.put("000001","上证指数");
 //        mapZq.put("002027","分众传媒");
         for (String zqdm : mapZq.keySet()) {
             String zqmc = mapZq.get(zqdm);
-            statDayMinMaxTime(zqdm, zqmc,klineType);
+            statDayMinMaxTime(date,zqdm, zqmc, klineType);
         }
     }
 
     /**
      * 每日最高点、最低点:
-     * @param zqdm 编码
-     * @param zqmc 名称
+     *
+     * @param zqdm      编码
+     * @param zqmc      名称
      * @param klineType k线类型
      */
-    private static void statDayMinMaxTime(String zqdm, String zqmc, String klineType) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-        int days = 20;
+    private static void statDayMinMaxTime(String date,String zqdm, String zqmc, String klineType) {
+
+        int days = 60;
         String klt = KLT_15;
+        BigDecimal adrMin = null;
+//        BigDecimal adrMin = new BigDecimal("0");
+        BigDecimal adrMax = null;
+//        BigDecimal adrMax = new BigDecimal("0");
+        String limitWeek = "一";
         Map<String, KlineDto> mapTimeScore = new HashMap<>();
         //获取最新n个交易日
+        System.out.println();
+        System.out.print("统计" + zqmc + "最近" +days+ "个交易日的数据");
+        System.out.println(",限定周一");
         List<Kline> klines = KlineService.kline(zqdm, days, KLT_101, false, null, date, klineType);
         for (Kline kline : klines) {
             String curDate = kline.getKtime();
 //                System.out.println(curDate);
+            BigDecimal adr = kline.getZhangDieFu();
+            //限定涨跌
+            if (adrMin != null && adr.compareTo(adrMin) < 0) {
+                System.out.println(curDate + "日涨跌低于限定最低涨幅:" + adr + ":" + adrMin);
+                continue;
+            }
+            if (adrMax != null && adr.compareTo(adrMax) > 0) {
+                System.out.println(curDate + "日涨跌高于限定最高涨幅:" + adr + ":" + adrMax);
+                continue;
+            }
+
+            //限定星期几
+            String curDateWeek = DateUtil.getWeekByYyyyMmDd(curDate, DateUtil.YYYY_MM_DD);
+            if (curDateWeek != limitWeek) {
+                continue;
+            } else {
+//                System.out.println(curDate + "限定周一");
+            }
+
 
             //获取每个交易日的所有5分钟k线
             List<Kline> klineCurDate5MinuteList = KlineService.kline(zqdm, 0, klt, true, curDate, curDate, klineType);
@@ -124,7 +157,7 @@ public class BizEtfDemo {
         int i = 0;
         for (KlineDto klineDto : list) {
 //            System.out.println(StockUtil.formatStName(++i+"",4) + StockUtil.formatStName(klineDto.getZqmc(),10) + StockUtil.formatStName(klineDto.getKtime().substring(0,5),10) + StockUtil.formatDouble(klineDto.getCloseAmt(),10));
-            System.out.println(StockUtil.formatStName(++i+"",4) + StockUtil.formatStName(klineDto.getZqmc(),10) + StockUtil.formatStName(klineDto.getKtime().substring(0,5),10) + StockUtil.formatDouble(klineDto.getScore(),10));
+            System.out.println(StockUtil.formatStName(++i + "", 4) + StockUtil.formatStName(klineDto.getZqmc(), 16) + StockUtil.formatStName(klineDto.getKtime().substring(0, 5), 10) + StockUtil.formatDouble(klineDto.getScore(), 10));
         }
         System.out.println();
     }
