@@ -5,6 +5,7 @@ import ttjj.dto.*;
 import ttjj.service.BizService;
 import ttjj.service.KlineService;
 import ttjj.service.MyPositionService;
+import ttjj.service.StockService;
 import utils.ContMapEtf;
 import utils.ContentEtf;
 import utils.DateUtil;
@@ -60,16 +61,17 @@ public class BizEtfDemo {
      */
     private static void statDayMinMaxTime() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-09-02";
         Map<String, String> mapZq = new HashMap<>();
 //        mapZq = ContMapEtf.ETF_MV_ZS_CYB;
         mapZq = MyPositionService.listMyPositionByDate(date);//我的持仓
-//        String klineType = null;
-        String klineType = DB_RANK_BIZ_TYPE_ETF;
+        String klineType = null;
+//        String klineType = DB_RANK_BIZ_TYPE_ETF;
 //        mapZq.put("000001","上证指数");
 //        mapZq.put("002027","分众传媒");
         for (String zqdm : mapZq.keySet()) {
             String zqmc = mapZq.get(zqdm);
-            statDayMinMaxTime(date,zqdm, zqmc, klineType);
+            statDayMinMaxTime(date, zqdm, zqmc, klineType);
         }
     }
 
@@ -80,8 +82,7 @@ public class BizEtfDemo {
      * @param zqmc      名称
      * @param klineType k线类型
      */
-    private static void statDayMinMaxTime(String date,String zqdm, String zqmc, String klineType) {
-
+    private static void statDayMinMaxTime(String date, String zqdm, String zqmc, String klineType) {
         int days = 60;
         String klt = KLT_15;
         BigDecimal adrMin = null;
@@ -92,9 +93,16 @@ public class BizEtfDemo {
         Map<String, KlineDto> mapTimeScore = new HashMap<>();
         //获取最新n个交易日
         System.out.println();
-        System.out.print("统计" + zqmc + "最近" +days+ "个交易日的数据");
+        System.out.print("统计" + zqmc + "最近" + days + "个交易日的数据");
         System.out.println(",限定周一");
         List<Kline> klines = KlineService.kline(zqdm, days, KLT_101, false, null, date, klineType);
+        if (klines == null) {
+            date = StockService.findBegDate(date,1);
+            klines = KlineService.kline(zqdm, days, KLT_101, false, null, date, klineType);
+        }
+        if (klines == null) {
+            return;
+        }
         for (Kline kline : klines) {
             String curDate = kline.getKtime();
 //                System.out.println(curDate);

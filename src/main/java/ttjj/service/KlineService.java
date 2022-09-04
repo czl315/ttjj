@@ -222,14 +222,14 @@ public class KlineService {
                 url.append("2." + zqdm);
             } else if (zqdm.startsWith("107.")) {
                 url.append(zqdm);//美股
-            } else if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI) || zqdm.startsWith(HTTP_KLINE_TYPE_BK_REFIX) || klineType.equals(DB_RANK_BIZ_TYPE_BAN_KUAI)) {//板块
+            } else if (zqdm.startsWith("159")) {//ETF
+                url.append("0." + zqdm);
+            } else if (klineType != null && (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI) || zqdm.startsWith(HTTP_KLINE_TYPE_BK_REFIX) || klineType.equals(DB_RANK_BIZ_TYPE_BAN_KUAI))) {//板块
                 if (zqdm.startsWith(HTTP_KLINE_SECID_PREFIX_BANKUAI)) {//板块
                     url.append(zqdm);//secid: 90.BK0438
                 } else {
                     url.append(HTTP_KLINE_SECID_PREFIX_BANKUAI + zqdm);
                 }
-            } else if (zqdm.startsWith("159")) {//ETF
-                url.append("0." + zqdm);
             } else {
 //                || zqdm.startsWith("11")
                 //zhiShu.startsWith("5") || zhiShu.startsWith("6") || zhiShu.startsWith("000")|| zhiShu.startsWith("11")|| zhiShu.startsWith("12")
