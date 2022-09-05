@@ -1,13 +1,11 @@
-package ttjj.rank.stat;
+package ttjj.rank.stat.schedule;
 
 import ttjj.dao.BizRankDao;
 import ttjj.dto.*;
 import ttjj.service.BizService;
 import ttjj.service.KlineService;
-import ttjj.service.MyPositionService;
 import ttjj.service.StockService;
 import utils.ContMapEtf;
-import utils.ContentEtf;
 import utils.DateUtil;
 import utils.StockUtil;
 
@@ -21,19 +19,19 @@ import static utils.Content.*;
 import static utils.DateUtil.YYYY_MM_DD;
 
 /**
- * etf
+ * 定时任务-etf
  */
-public class BizEtfDemo {
+public class EtfJob {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-09-02";
+//        String date = "2022-08-04";
 //        List<String> dateList = StockService.findListDateAfter(date, 2);
 //        if (dateList != null && dateList.size() > 1) {
 //            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
 //        }
 
-//        statShowEtfUpMaSchedule(date);//定时任务-etf-检查均线
-        showEtfUpMa(date);//etf-超过均线
+        statShowEtfUpMaSchedule(date);//定时任务-etf-检查均线
+//        showEtfUpMa(date);//etf-超过均线
 //        showEtfMv(date);//显示etf市值
 //        statDayMinMaxTime();//k线：每日最高点、最低点
 

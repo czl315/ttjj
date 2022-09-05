@@ -1527,6 +1527,7 @@ public class KlineService {
                 AssetPositionDb myStock = mapMyPosition.get(zqdm);
                 StringBuffer sbMyStock = new StringBuffer();
                 sbMyStock.append(StockUtil.formatDouble(myStock.getZxsz(), 10));
+                sbMyStock.append(StockUtil.formatDouble(myStock.getZxjg(), 10));
                 System.out.print(sbMyStock);
             }
 

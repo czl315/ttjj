@@ -62,6 +62,21 @@ public class StockStat {
         System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, boardAll, zero, null, null)));
         System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, boardAll, null, null, zero)));
 
+
+        boardName = "沪市";
+        boardAll = null;
+        System.out.println();
+        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, F13_SHANGHAI, boardAll, null, zero, null)));
+        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, F13_SHANGHAI, boardAll, zero, null, null)));
+        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, F13_SHANGHAI, boardAll, null, null, zero)));
+
+        boardName = "深市";
+        boardAll = null;
+        System.out.println();
+        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, F13_SHENZHEN, boardAll, null, zero, null)));
+        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, F13_SHENZHEN, boardAll, zero, null, null)));
+        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, F13_SHENZHEN, boardAll, null, null, zero)));
+
         System.out.println();
         boardName = "主板";
         System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, DB_RANK_BIZ_F139_BK_MAIN, null, zero, null)));

@@ -68,8 +68,17 @@ public class CondStock extends RankStockCommpanyDb {
     public CondStock() {
     }
 
-    public CondStock(String date,Long f139, BigDecimal f3, BigDecimal minF3, BigDecimal maxF3) {
+    public CondStock(String date, Long f139, BigDecimal f3, BigDecimal minF3, BigDecimal maxF3) {
         setDate(date);
+        setF139(f139);
+        setF3(f3);
+        this.minF3 = minF3;
+        this.maxF3 = maxF3;
+    }
+
+    public CondStock(String date, Long f13, Long f139, BigDecimal f3, BigDecimal minF3, BigDecimal maxF3) {
+        setDate(date);
+        setF13(f13);
         setF139(f139);
         setF3(f3);
         this.minF3 = minF3;

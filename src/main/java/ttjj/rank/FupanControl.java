@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static utils.Content.*;
@@ -36,8 +38,9 @@ public class FupanControl {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //                String date = "2022-08-19";
 
-//        insertOrUpdate(date, KLT_101, DAYS_1,ContentCookie.COOKIE_DFCF);//保存复盘和仓位
-        checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
+        insertOrUpdate(date, KLT_101, DAYS_1,ContentCookie.COOKIE_DFCF);//保存复盘和仓位
+//        checkMaByMyPositionSchedule(date);
+//        checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
 
 //        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 
@@ -104,6 +107,21 @@ public class FupanControl {
         fupanRs.setCOUNT_ST_ZB_DOWN(countAllMianBordDown);
         fupanRs.setCOUNT_ST_ZB_FLAT(countAllMianBordFlat);
         FuPanDao.updateDb(fupanRs);
+    }
+
+    /**
+     * 定时任务-检查我的持仓
+     *
+     * @param date 日期
+     */
+    public static void checkMaByMyPositionSchedule(String date) {
+        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
+            System.out.println();
+            System.out.println();
+            System.out.println("定时任务-检查我的持仓-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
+            checkMaByMyPosition(date);//检查我的持仓
+            System.out.println("定时任务-检查我的持仓-end:");
+        }, 0, 5, TimeUnit.MINUTES);
     }
 
     /**

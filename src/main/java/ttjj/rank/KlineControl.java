@@ -33,8 +33,8 @@ public class KlineControl {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-07-22";
 
-        saveKlineEtfMianSchedule(date);
-//        saveKlineAll();
+//        saveKlineEtfMianSchedule(date);
+        saveKlineAll();
 
         //  插入常用指数k线
 //        addZs(KLT_102);
@@ -132,7 +132,7 @@ public class KlineControl {
      * @param kltList
      * @param mapZq
      */
-    private static void saveKlineAndMv(String date, String bizType, List<String> kltList, Map<String, String> mapZq) {
+    public static void saveKlineAndMv(String date, String bizType, List<String> kltList, Map<String, String> mapZq) {
         long timeBeg = System.currentTimeMillis();
         System.out.println("保存K线，更新市值,更新均线价格" + date + "," + bizType + "-beg");
         for (String klt : kltList) {

@@ -199,6 +199,15 @@ public class Content {
      * DB_RANK_BIZ_TYPE_ZS 指数
      */
     public static String DB_RANK_BIZ_TYPE_ZS = "zs";
+
+    /**
+     * 沪市
+     */
+    public static long F13_SHANGHAI = 1;
+    /**
+     * 深市
+     */
+    public static long F13_SHENZHEN = 0;
     /**
      * DB_RANK_BIZ_F12_BAN_KUAI f13类型-板块
      */
