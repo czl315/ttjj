@@ -46,6 +46,11 @@ public class StockAdrStatDemo {
         //        String spDate = "2022-08-25";//是否显示特定日期涨跌
         String spDate = null;//是否显示特定日期涨跌
 
+        List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
+        Map<String, List<String>> bkMap = new HashMap<>();
+        bkMap = getBizListSp();//获取业务列表-特定
+//        bkMap = getBizListAll();//获取业务列表-全部板块
+
         String orderBy = "";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
         String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;
         if (orderField.equals(ORDER_FIELD_ADR_UP_SUM_1_60)) {
@@ -55,7 +60,7 @@ public class StockAdrStatDemo {
         BigDecimal mvMinBig = NUM_YI_500;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
         BigDecimal mvMinSmall = NUM_YI_50;//
 
-        int limitCount = 1;
+        int limitCount = 10;
 
         BigDecimal adrSum1To60 = null;
         BigDecimal adrSum1To40 = null;
@@ -77,11 +82,6 @@ public class StockAdrStatDemo {
         condFind.setADR_UP_SUM_1_40(adrSum1To40);
         condFind.setADR_UP_SUM_40_60(adrSum40To60);
         condFind.setADR_UP_SUM_20_40(adrSum20To40);
-
-        List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
-        Map<String, List<String>> bkMap = new HashMap<>();
-//        bkMap = getBizListSp();//获取业务列表-特定
-        bkMap = getBizListAll();//获取业务列表-全部板块
 
         for (List<String> bks : bkMap.values()) {
             List<StockAdrCountVo> stockAdrCountList = listByBizList(date, spDate, bks, orderBy, limitCount, mvMinBig, mvMinSmall, condFind);
@@ -120,9 +120,9 @@ public class StockAdrStatDemo {
     private static Map<String, List<String>> getBizListSp() {
         Map<String, List<String>> bkMap = new HashMap<>();
         List<String> bizList = null;//
-//        bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");//科技:电力
+        bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");//科技:电力
 //        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
-        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
+//        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
 //        bizList = Arrays.asList("船舶制造");//资源:交运:("船舶制造")
 //        bizList = Arrays.asList("医疗服务");//医疗:("医疗服务")
 //        bizList = Arrays.asList("家电行业");//消费:("家电行业")

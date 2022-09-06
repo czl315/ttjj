@@ -48,8 +48,8 @@ public class StockAdrCountControl {
         stockAdrCountCond.setF139(board);
         stockAdrCountCond.setMaKltList(maKltList);
         stockAdrCountCond.setUpdateNet(true);
-//        stockAdrCountCond.setUpdateSum(true);
-//        stockAdrCountCond.setUpdateOrder(true);
+        stockAdrCountCond.setUpdateSum(true);
+        stockAdrCountCond.setUpdateOrder(true);
         stockAdrCountCond.setUpdateUpMa(true);
         stockAdrCountCond.setUpdateNetArea(true);
 

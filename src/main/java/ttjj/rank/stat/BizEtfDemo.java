@@ -220,7 +220,7 @@ public class BizEtfDemo {
      *
      * @param date
      */
-    private static void showEtfUpMa(String date) {
+    public static void showEtfUpMa(String date) {
         //        spDate = DateUtil.getAddDays(YYYY_MM_DD, date, 1);//是否显示特定日期涨跌   "2022-05-18"
         String spDate = "";//
 
