@@ -704,7 +704,16 @@ public interface RankStockCommpanyMapper {
             "           AND rank_st_biz_com.f13 = #{f13} ",
             "       </if> ",
             "       <if test='f139 != null'> ",
-            "           AND rank_st_biz_com.f139=#{f139} ",
+            "           AND rank_st_biz_com.f139 = #{f139} ",
+            "       </if> ",
+            "       <if test='f139not != null'> ",
+            "           AND rank_st_biz_com.f139 != #{f139not} ",
+            "       </if> ",
+            "       <if test='f139notList != null'> ",
+            "           AND rank_st_biz_com.f139 NOT IN  ",
+            "           <foreach collection='f139notList' item='item' open='(' separator=',' close=')'>  ",
+            "               #{item} ",
+            "           </foreach> ",
             "       </if> ",
             "       <if test='minF3 != null'> ",
             "           <![CDATA[ AND rank_st_biz_com.f3 > #{minF3} ]]> ",
@@ -716,6 +725,6 @@ public interface RankStockCommpanyMapper {
             "           <![CDATA[ AND rank_st_biz_com.f3 = #{f3} ]]> ",
             "       </if> ",
             "</script>"})
-    Integer count(CondStock condition);
+    Integer countStock(CondStock condition);
 
 }

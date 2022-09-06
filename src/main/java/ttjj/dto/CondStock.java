@@ -64,10 +64,26 @@ public class CondStock extends RankStockCommpanyDb {
      * 最高-涨幅
      */
     private BigDecimal maxF3;
+    /**
+     * 不查询市场板
+     */
+    private Long f139not;
+    /**
+     * 不查询多个市场板
+     */
+    private List<Long> f139notList;
 
     public CondStock() {
     }
 
+    /**
+     * 构造方法
+     * @param date
+     * @param f139
+     * @param f3
+     * @param minF3
+     * @param maxF3
+     */
     public CondStock(String date, Long f139, BigDecimal f3, BigDecimal minF3, BigDecimal maxF3) {
         setDate(date);
         setF139(f139);
@@ -76,10 +92,59 @@ public class CondStock extends RankStockCommpanyDb {
         this.maxF3 = maxF3;
     }
 
+    /**
+     * 构造方法
+     * @param date 日期
+     * @param f13 市场
+     * @param f139 市场板
+     * @param f3 涨幅
+     * @param minF3 最低涨幅
+     * @param maxF3 最高涨幅
+     */
     public CondStock(String date, Long f13, Long f139, BigDecimal f3, BigDecimal minF3, BigDecimal maxF3) {
         setDate(date);
         setF13(f13);
         setF139(f139);
+        setF3(f3);
+        this.minF3 = minF3;
+        this.maxF3 = maxF3;
+    }
+
+    /**
+     * 构造方法
+     * @param date 日期
+     * @param f13 市场
+     * @param f139 市场板
+     * @param f139not 不查询市场板
+     * @param f3 涨幅
+     * @param minF3 最低涨幅
+     * @param maxF3 最高涨幅
+     */
+//    public CondStock(String date, Long f13, Long f139, Long f139not, BigDecimal f3, BigDecimal minF3, BigDecimal maxF3) {
+//        setDate(date);
+//        setF13(f13);
+//        setF139(f139);
+//        setF139not(f139not);
+//        setF3(f3);
+//        this.minF3 = minF3;
+//        this.maxF3 = maxF3;
+//    }
+
+    /**
+     * 构造方法
+     * @param date 日期
+     * @param f13 市场
+     * @param f139 市场板
+     * @param f139notList 不查询市场板多个
+     * @param f3 涨幅
+     * @param minF3 最低涨幅
+     * @param maxF3 最高涨幅
+     */
+    public CondStock(String date, Long f13, Long f139, List<Long> f139notList, BigDecimal f3, BigDecimal minF3, BigDecimal maxF3) {
+        setDate(date);
+        setF13(f13);
+        setF139(f139);
+        setF139notList(f139notList);
         setF3(f3);
         this.minF3 = minF3;
         this.maxF3 = maxF3;
@@ -187,5 +252,21 @@ public class CondStock extends RankStockCommpanyDb {
 
     public void setBegDateF18(BigDecimal begDateF18) {
         this.begDateF18 = begDateF18;
+    }
+
+    public Long getF139not() {
+        return f139not;
+    }
+
+    public void setF139not(Long f139not) {
+        this.f139not = f139not;
+    }
+
+    public List<Long> getF139notList() {
+        return f139notList;
+    }
+
+    public void setF139notList(List<Long> f139notList) {
+        this.f139notList = f139notList;
     }
 }

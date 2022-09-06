@@ -40,7 +40,7 @@ public class StockStat {
     }
 
     /**
-     * 股票涨跌个数
+     * 股票涨跌个数:A股、上证指数沪市、深证成指深市、主板、创业板、科创板、B股、北交所
      *
      * @param date
      */
@@ -48,65 +48,52 @@ public class StockStat {
         BigDecimal zero = new BigDecimal("0");
         boolean isShowAllCount = false;
         //查询个数
-//        System.out.println("A股涨跌个数统计" + "(" + date + ")" + "(上午)");
-        System.out.println("A股涨跌个数统计" + "(" + date + ")");
 
         if (isShowAllCount) {
             System.out.println("全市场个数-全部：" + StockService.count(new CondStock(date, null, null, null, null)));
         }
+//        System.out.println("A股涨跌个数统计" + "(" + date + ")" + "(上午)");
+        System.out.println("A股涨跌个数统计" + "(" + date + ")");
 
+        int countUp = StockService.count(new CondStock(date, null, null, Arrays.asList(F139_BK_B), null, zero, null));
+        int countFlat = StockService.count(new CondStock(date, null, null, Arrays.asList(F139_BK_B), zero, null, null));
+        int countDown = StockService.count(new CondStock(date, null, null, Arrays.asList(F139_BK_B), null, null, zero));
+        System.out.println(StockUtil.formatStName("A股(涨/平/跌)",20) + "\t" + countUp + ":" + countFlat + ":" + countDown);
 
-        String boardName = "全市场";
-        Long boardAll = null;
-        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, boardAll, null, zero, null)));
-        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, boardAll, zero, null, null)));
-        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, boardAll, null, null, zero)));
+        int countShUp = StockService.count(new CondStock(date, F13_SHANGHAI, null, Arrays.asList(F139_BK_B), null, zero, null));
+        int countShFlat = StockService.count(new CondStock(date, F13_SHANGHAI, null, Arrays.asList(F139_BK_B), zero, null, null));
+        int countShDown = StockService.count(new CondStock(date, F13_SHANGHAI, null, Arrays.asList(F139_BK_B), null, null, zero));
+        System.out.println(StockUtil.formatStName("上证指数沪市(涨/平/跌)",20) + "\t" + countShUp + ":" + countShFlat + ":" + countShDown);
 
+        int countSzczUp = StockService.count(new CondStock(date, F13_SHENZHEN, null, Arrays.asList(F139_BK_BJS), null, zero, null));
+        int countSzczFlat = StockService.count(new CondStock(date, F13_SHENZHEN, null, Arrays.asList(F139_BK_BJS), zero, null, null));
+        int countSzczDown = StockService.count(new CondStock(date, F13_SHENZHEN, null, Arrays.asList(F139_BK_BJS), null, null, zero));
+        System.out.println(StockUtil.formatStName("深证成指深市(涨/平/跌)",20) + "\t" + countSzczUp + ":" + countSzczFlat + ":" + countSzczDown);
 
-        boardName = "沪市";
-        boardAll = null;
-        System.out.println();
-        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, F13_SHANGHAI, boardAll, null, zero, null)));
-        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, F13_SHANGHAI, boardAll, zero, null, null)));
-        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, F13_SHANGHAI, boardAll, null, null, zero)));
+        int countUpZb = StockService.count(new CondStock(date, null, DB_RANK_BIZ_F139_BK_MAIN, null, null, zero, null));
+        int countSzczFlatZb = StockService.count(new CondStock(date, null, DB_RANK_BIZ_F139_BK_MAIN, null, zero, null, null));
+        int countSzczDownZb = StockService.count(new CondStock(date, null, DB_RANK_BIZ_F139_BK_MAIN, null, null, null, zero));
+        System.out.println(StockUtil.formatStName("主板(涨/平/跌)",20) + "\t" + countUpZb + ":" + countSzczFlatZb + ":" + countSzczDownZb);
 
-        boardName = "深市";
-        boardAll = null;
-        System.out.println();
-        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, F13_SHENZHEN, boardAll, null, zero, null)));
-        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, F13_SHENZHEN, boardAll, zero, null, null)));
-        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, F13_SHENZHEN, boardAll, null, null, zero)));
+        int countUpCyb = StockService.count(new CondStock(date, null, F139_BK_CYB, null, null, zero, null));
+        int countFlatCyb = StockService.count(new CondStock(date, null, F139_BK_CYB, null, zero, null, null));
+        int countDownCyb = StockService.count(new CondStock(date, null, F139_BK_CYB, null, null, null, zero));
+        System.out.println(StockUtil.formatStName("创业板(涨/平/跌)",20) + "\t" + countUpCyb + ":" + countFlatCyb + ":" + countDownCyb);
 
-        System.out.println();
-        boardName = "主板";
-        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, DB_RANK_BIZ_F139_BK_MAIN, null, zero, null)));
-        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, DB_RANK_BIZ_F139_BK_MAIN, zero, null, null)));
-        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, DB_RANK_BIZ_F139_BK_MAIN, null, null, zero)));
+        int countUpKcb = StockService.count(new CondStock(date, null, F139_BK_KCB, null, null, zero, null));
+        int countFlatKcb = StockService.count(new CondStock(date, null, F139_BK_KCB, null, zero, null, null));
+        int countDownKcb = StockService.count(new CondStock(date, null, F139_BK_KCB, null, null, null, zero));
+        System.out.println(StockUtil.formatStName("科创板(涨/平/跌)",20) + "\t" + countUpKcb + ":" + countFlatKcb + ":" + countDownKcb);
 
+        int countUpBg = StockService.count(new CondStock(date, null, F139_BK_B, null, null, zero, null));
+        int countFlatBg = StockService.count(new CondStock(date, null, F139_BK_B, null, zero, null, null));
+        int countDownBg = StockService.count(new CondStock(date, null, F139_BK_B, null, null, null, zero));
+        System.out.println(StockUtil.formatStName("B股(涨/平/跌)",20) + "\t" + countUpBg + ":" + countFlatBg + ":" + countDownBg);
 
-        System.out.println();
-        boardName = "创业板";
-        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, F139_BK_CYB, null, zero, null)));
-        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, F139_BK_CYB, zero, null, null)));
-        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, F139_BK_CYB, null, null, zero)));
-
-        System.out.println();
-        boardName = "科创板";
-        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, F139_BK_KCB, null, zero, null)));
-        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, F139_BK_KCB, zero, null, null)));
-        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, F139_BK_KCB, null, null, zero)));
-
-        System.out.println();
-        boardName = "B股";
-        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, F139_BK_B, null, zero, null)));
-        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, F139_BK_B, zero, null, null)));
-        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, F139_BK_B, null, null, zero)));
-
-        System.out.println();
-        boardName = "北交所";
-        System.out.println(boardName + "上涨个数：" + StockService.count(new CondStock(date, F139_BK_BJS, null, zero, null)));
-        System.out.println(boardName + "平盘个数：" + StockService.count(new CondStock(date, F139_BK_BJS, zero, null, null)));
-        System.out.println(boardName + "下跌个数：" + StockService.count(new CondStock(date, F139_BK_BJS, null, null, zero)));
+        int countUpBjs = StockService.count(new CondStock(date, null, F139_BK_BJS, null, null, zero, null));
+        int countFlatBjs = StockService.count(new CondStock(date, null, F139_BK_BJS, null, zero, null, null));
+        int countDownBjs = StockService.count(new CondStock(date, null, F139_BK_BJS, null, null, null, zero));
+        System.out.println(StockUtil.formatStName("北交所(涨/平/跌)",20) + "\t" + countUpBjs + ":" + countFlatBjs + ":" + countDownBjs);
     }
 
     /**

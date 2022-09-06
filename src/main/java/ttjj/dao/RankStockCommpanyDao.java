@@ -350,7 +350,7 @@ public class RankStockCommpanyDao {
         SqlSession session = sqlSessionFactory.openSession();
         Integer rs = null;
         try {
-            rs = session.selectOne("ttjj.dao.mapper.RankStockCommpanyMapper.count", entity);
+            rs = session.selectOne("ttjj.dao.mapper.RankStockCommpanyMapper.countStock", entity);
             session.commit();
         } finally {
             session.close();
