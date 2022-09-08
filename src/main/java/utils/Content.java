@@ -12,6 +12,7 @@ public class Content {
      * ZHISHU_CODE_000001
      */
     public static String ZHISHU_CODE_000001 = "000001";
+    public static String ZHISHU_CODE_399001 = "399001";
     /**
      * ZHISHU_NAME_000001
      */

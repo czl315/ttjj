@@ -109,27 +109,14 @@ public class FupanControl {
         FuPanDao.updateDb(fupanRs);
     }
 
-    /**
-     * 定时任务-检查我的持仓
-     *
-     * @param date 日期
-     */
-    public static void checkMaByMyPositionSchedule(String date) {
-        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            System.out.println();
-            System.out.println();
-            System.out.println("定时任务-检查我的持仓-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
-            checkMaByMyPosition(date);//检查我的持仓
-            System.out.println("定时任务-检查我的持仓-end:");
-        }, 0, 5, TimeUnit.MINUTES);
-    }
+
 
     /**
      * 检查我的持仓：超过均线、价格区间、今日涨跌
      *
      * @param date
      */
-    private static void checkMaByMyPosition(String date) {
+    public static void checkMaByMyPosition(String date) {
         List<AssetPositionDb> rs = FupanPositionDao.listMyPositionByDate(date);//我的持仓
         Map<String, AssetPositionDb> mapMyPosition = new HashMap<>();
         Map<String, String> mapStock = new HashMap<>();

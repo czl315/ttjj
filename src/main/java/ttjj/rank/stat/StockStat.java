@@ -58,42 +58,70 @@ public class StockStat {
         int countUp = StockService.count(new CondStock(date, null, null, Arrays.asList(F139_BK_B), null, zero, null));
         int countFlat = StockService.count(new CondStock(date, null, null, Arrays.asList(F139_BK_B), zero, null, null));
         int countDown = StockService.count(new CondStock(date, null, null, Arrays.asList(F139_BK_B), null, null, zero));
-        System.out.println(StockUtil.formatStName("A股(涨/平/跌)",20) + "\t" + countUp + ":" + countFlat + ":" + countDown);
+        System.out.println(StockUtil.formatStName("A股(涨/平/跌):", 30) + StockUtil.formatStName(countUp + ":" + countFlat + ":" + countDown, 20));
 
         int countShUp = StockService.count(new CondStock(date, F13_SHANGHAI, null, Arrays.asList(F139_BK_B), null, zero, null));
         int countShFlat = StockService.count(new CondStock(date, F13_SHANGHAI, null, Arrays.asList(F139_BK_B), zero, null, null));
         int countShDown = StockService.count(new CondStock(date, F13_SHANGHAI, null, Arrays.asList(F139_BK_B), null, null, zero));
-        System.out.println(StockUtil.formatStName("上证指数沪市(涨/平/跌)",20) + "\t" + countShUp + ":" + countShFlat + ":" + countShDown);
+        System.out.print(StockUtil.formatStName("上证指数沪市(涨/平/跌):", 30) + StockUtil.formatStName(countShUp + ":" + countShFlat + ":" + countShDown, 20));
+        CondKline conditionKlineList = new CondKline();
+        conditionKlineList.setZqdm(ZHISHU_CODE_000001);
+        conditionKlineList.setDate(date);
+        conditionKlineList.setType(DB_RANK_BIZ_TYPE_ZS);
+        conditionKlineList.setKlt(KLT_101);
+        conditionKlineList.setKtime(date);
+        List<Kline> klineList = KlineService.listKine(conditionKlineList);
+        if (klineList != null && klineList.size() >= 0) {
+            Kline kline = klineList.get(0);
+            System.out.print(StockUtil.formatStName("涨幅:" + kline.getZhangDieFu(), 20));
+            BigDecimal cje = kline.getCje().divide(NUM_YI_1, 0, BigDecimal.ROUND_HALF_UP);
+            System.out.print(StockUtil.formatStName("成交额(亿):" + cje, 20));
+        }
+        System.out.println();
 
         int countSzczUp = StockService.count(new CondStock(date, F13_SHENZHEN, null, Arrays.asList(F139_BK_BJS), null, zero, null));
         int countSzczFlat = StockService.count(new CondStock(date, F13_SHENZHEN, null, Arrays.asList(F139_BK_BJS), zero, null, null));
         int countSzczDown = StockService.count(new CondStock(date, F13_SHENZHEN, null, Arrays.asList(F139_BK_BJS), null, null, zero));
-        System.out.println(StockUtil.formatStName("深证成指深市(涨/平/跌)",20) + "\t" + countSzczUp + ":" + countSzczFlat + ":" + countSzczDown);
+        System.out.print(StockUtil.formatStName("深证成指深市(涨/平/跌):", 30) + StockUtil.formatStName(countSzczUp + ":" + countSzczFlat + ":" + countSzczDown, 20));
+        CondKline condSzcz = new CondKline();
+        condSzcz.setZqdm(ZHISHU_CODE_399001);
+        condSzcz.setDate(date);
+        condSzcz.setType(DB_RANK_BIZ_TYPE_ZS);
+        condSzcz.setKlt(KLT_101);
+        condSzcz.setKtime(date);
+        List<Kline> klineListSzcz = KlineService.listKine(condSzcz);
+        if (klineListSzcz != null && klineListSzcz.size() >= 0) {
+            Kline kline = klineListSzcz.get(0);
+            System.out.print(StockUtil.formatStName("涨幅:" + kline.getZhangDieFu(), 20));
+            BigDecimal cje = kline.getCje().divide(NUM_YI_1, 0, BigDecimal.ROUND_HALF_UP);
+            System.out.print(StockUtil.formatStName("成交额(亿):" + cje, 20));
+        }
+        System.out.println();
 
         int countUpZb = StockService.count(new CondStock(date, null, DB_RANK_BIZ_F139_BK_MAIN, null, null, zero, null));
         int countSzczFlatZb = StockService.count(new CondStock(date, null, DB_RANK_BIZ_F139_BK_MAIN, null, zero, null, null));
         int countSzczDownZb = StockService.count(new CondStock(date, null, DB_RANK_BIZ_F139_BK_MAIN, null, null, null, zero));
-        System.out.println(StockUtil.formatStName("主板(涨/平/跌)",20) + "\t" + countUpZb + ":" + countSzczFlatZb + ":" + countSzczDownZb);
+        System.out.println(StockUtil.formatStName("主板(涨/平/跌):", 30) + StockUtil.formatStName(countUpZb + ":" + countSzczFlatZb + ":" + countSzczDownZb, 20));
 
         int countUpCyb = StockService.count(new CondStock(date, null, F139_BK_CYB, null, null, zero, null));
         int countFlatCyb = StockService.count(new CondStock(date, null, F139_BK_CYB, null, zero, null, null));
         int countDownCyb = StockService.count(new CondStock(date, null, F139_BK_CYB, null, null, null, zero));
-        System.out.println(StockUtil.formatStName("创业板(涨/平/跌)",20) + "\t" + countUpCyb + ":" + countFlatCyb + ":" + countDownCyb);
+        System.out.println(StockUtil.formatStName("创业板(涨/平/跌):", 30) + StockUtil.formatStName(countUpCyb + ":" + countFlatCyb + ":" + countDownCyb, 20));
 
         int countUpKcb = StockService.count(new CondStock(date, null, F139_BK_KCB, null, null, zero, null));
         int countFlatKcb = StockService.count(new CondStock(date, null, F139_BK_KCB, null, zero, null, null));
         int countDownKcb = StockService.count(new CondStock(date, null, F139_BK_KCB, null, null, null, zero));
-        System.out.println(StockUtil.formatStName("科创板(涨/平/跌)",20) + "\t" + countUpKcb + ":" + countFlatKcb + ":" + countDownKcb);
+        System.out.println(StockUtil.formatStName("科创板(涨/平/跌):", 30) + StockUtil.formatStName(countUpKcb + ":" + countFlatKcb + ":" + countDownKcb, 20));
 
         int countUpBg = StockService.count(new CondStock(date, null, F139_BK_B, null, null, zero, null));
         int countFlatBg = StockService.count(new CondStock(date, null, F139_BK_B, null, zero, null, null));
         int countDownBg = StockService.count(new CondStock(date, null, F139_BK_B, null, null, null, zero));
-        System.out.println(StockUtil.formatStName("B股(涨/平/跌)",20) + "\t" + countUpBg + ":" + countFlatBg + ":" + countDownBg);
+        System.out.println(StockUtil.formatStName("B股(涨/平/跌):", 30) + StockUtil.formatStName(countUpBg + ":" + countFlatBg + ":" + countDownBg, 20));
 
         int countUpBjs = StockService.count(new CondStock(date, null, F139_BK_BJS, null, null, zero, null));
         int countFlatBjs = StockService.count(new CondStock(date, null, F139_BK_BJS, null, zero, null, null));
         int countDownBjs = StockService.count(new CondStock(date, null, F139_BK_BJS, null, null, null, zero));
-        System.out.println(StockUtil.formatStName("北交所(涨/平/跌)",20) + "\t" + countUpBjs + ":" + countFlatBjs + ":" + countDownBjs);
+        System.out.println(StockUtil.formatStName("北交所(涨/平/跌):", 30) + StockUtil.formatStName(countUpBjs + ":" + countFlatBjs + ":" + countDownBjs, 20));
     }
 
     /**

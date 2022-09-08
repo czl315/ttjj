@@ -841,8 +841,9 @@ public class KlineService {
      * @param isShowDownMa    是否显示跌落均线
      * @param isFindKline     查询当日k线
      * @param kltList         周期列表
+     * @param mapMyPosition
      */
-    public static List<StockAdrCountVo> checkMaDemo(Map<String, String> etfBizMap, String date, boolean isShowPriceArea, boolean isShowUpMa, boolean isShowDownMa, boolean isFindKline, List<String> kltList) {
+    public static List<StockAdrCountVo> checkMaDemo(Map<String, String> etfBizMap, String date, boolean isShowPriceArea, boolean isShowUpMa, boolean isShowDownMa, boolean isFindKline, List<String> kltList, Map<String, AssetPositionDb> mapMyPosition) {
         List<StockAdrCountVo> rs = new ArrayList<>();
         boolean isUp = true;//检查上涨
 //        boolean isUp = false;
@@ -858,6 +859,14 @@ public class KlineService {
             etfBizMapSub.put(zqdm, zqmc);
             stockAdrCountVo.setF12(zqdm);
             stockAdrCountVo.setF14(zqmc);
+
+            if (mapMyPosition != null) {
+                AssetPositionDb myStock = mapMyPosition.get(zqdm);
+                if (myStock != null) {
+                    stockAdrCountVo.setMyPositionZxjg(myStock.getZxjg());
+                    stockAdrCountVo.setMyPositionZxsz(myStock.getZxsz());
+                }
+            }
 
 
             RankStockCommpanyDb stock = new RankStockCommpanyDb();
@@ -1212,6 +1221,14 @@ public class KlineService {
             }
         }
 
+        if (ORDER_FIELD_MINRISE.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getMinRise, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getMinRise, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+
 
         return rs;
     }
@@ -1432,7 +1449,7 @@ public class KlineService {
             }
         }
 
-        List<StockAdrCountVo> stockAdrCountVoRs = KlineService.checkMaDemo(mapMySt, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList);
+        List<StockAdrCountVo> stockAdrCountVoRs = KlineService.checkMaDemo(mapMySt, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList, mapMyPosition);
 
         if (stockAdrCountVoRs == null || stockAdrCountVoRs.size() == 0) {
             return;

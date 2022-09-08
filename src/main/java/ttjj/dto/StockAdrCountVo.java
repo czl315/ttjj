@@ -73,6 +73,15 @@ public class StockAdrCountVo extends StockAdrCount {
      */
     private BigDecimal count;
 
+    /**
+     * Zxjg 最新价格
+     */
+    private BigDecimal myPositionZxjg;
+    /**
+     * Zxsz 最新市值
+     */
+    private BigDecimal myPositionZxsz;
+
     public BigDecimal getCount() {
         return count;
     }
@@ -191,5 +200,21 @@ public class StockAdrCountVo extends StockAdrCount {
 
     public void setMinRise(BigDecimal minRise) {
         this.minRise = minRise;
+    }
+
+    public BigDecimal getMyPositionZxjg() {
+        return myPositionZxjg;
+    }
+
+    public void setMyPositionZxjg(BigDecimal myPositionZxjg) {
+        this.myPositionZxjg = myPositionZxjg;
+    }
+
+    public BigDecimal getMyPositionZxsz() {
+        return myPositionZxsz;
+    }
+
+    public void setMyPositionZxsz(BigDecimal myPositionZxsz) {
+        this.myPositionZxsz = myPositionZxsz;
     }
 }
