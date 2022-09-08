@@ -58,6 +58,10 @@ public class CondMa {
      */
     private Boolean isFindKline;
     /**
+     * 是否显示日最低点、最高点
+     */
+    private Boolean showDateMinMax;
+    /**
      * 是否显示我的仓位
      */
     private Boolean isShowMyPosition;
@@ -168,5 +172,13 @@ public class CondMa {
 
     public void setMapStock(Map<String, String> mapStock) {
         this.mapStock = mapStock;
+    }
+
+    public Boolean getShowDateMinMax() {
+        return showDateMinMax;
+    }
+
+    public void setShowDateMinMax(Boolean showDateMinMax) {
+        this.showDateMinMax = showDateMinMax;
     }
 }

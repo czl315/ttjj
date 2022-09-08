@@ -1436,6 +1436,7 @@ public class KlineService {
         boolean isOrderDesc = condMa.getOrderDesc();
         boolean isShowDownMa = condMa.getShowDownMa();
         boolean isShowFlowIn = condMa.getShowFlowIn();
+        Boolean isShowDateMinMax = condMa.getShowDateMinMax();//是否显示日最低点、最高点
         Map<String, String> mapMySt = condMa.getMapStock();
         Map<String, AssetPositionDb> mapMyPosition = condMa.getMapMyPosition();
         if (mapMyPosition != null) {
@@ -1458,7 +1459,8 @@ public class KlineService {
             stockAdrCountVoRs = handlerOrder(stockAdrCountVoRs, orderField, isOrderDesc);//列表-排序：根据字段
         }
         for (StockAdrCountVo stockAdrCountVo : stockAdrCountVoRs) {
-            System.out.print(stockAdrCountVo.getF12());
+            String code = stockAdrCountVo.getF12();
+            System.out.print(code);
             System.out.print("\t");
             System.out.print(StockUtil.formatEtfName(stockAdrCountVo.getF14(), 8));
             System.out.print("\t");
@@ -1576,15 +1578,66 @@ public class KlineService {
             //特定日期涨跌
             if (StringUtils.isNotBlank(spDate)) {
                 RankStockCommpanyDb stock = new RankStockCommpanyDb();
-                stock.setF12(stockAdrCountVo.getF12());
+                stock.setF12(code);
                 Kline kline = KlineService.findLast(stock, spDate, KLT_101);
                 if (kline != null) {
                     System.out.print("\t[" + spDate.substring(5) + "]：" + kline.getZhangDieFu());
                 }
             }
 
+            //是否显示日最低点、最高点
+            if (isShowDateMinMax != null && isShowDateMinMax) {
+                showDateMinMax(date, code);
+            }
+
             System.out.println();
         }
+    }
+
+    /**
+     * 显示日最低点、最高点
+     *
+     * @param date
+     * @param code
+     */
+    private static void showDateMinMax(String date, String code) {
+        StringBuffer sb = new StringBuffer();
+        List<Kline> klineList = getKlineListByDate(date, code, null, KLT_5);
+        klineList = klineList.stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getCloseAmt, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+        sb.append("最低点：").append(getTimeByOrderNo(klineList, 0)).append(" ");
+        List<Kline> klineListDesc = klineList.stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getCloseAmt, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        sb.append("最高点：").append(getTimeByOrderNo(klineListDesc, 0)).append(" ");
+        System.out.print(sb);
+    }
+
+    /**
+     * 获取时间信息，根据列表
+     *
+     * @param klineList
+     * @param orderNo
+     */
+    private static String getTimeByOrderNo(List<Kline> klineList, int orderNo) {
+        String time = "";
+        if (klineList != null && klineList.size() > 0) {
+            time = klineList.get(orderNo).getKtime();
+            if (time.length() >= 19) {
+                time = time.substring(11, 16);
+            }
+        }
+        return time;
+    }
+
+    /**
+     * 查询最高点、最低点:根据日期、类型
+     *
+     * @param date
+     * @param zqdm
+     * @param klineType
+     */
+    private static List<Kline> getKlineListByDate(String date, String zqdm, String klineType, String klt) {
+        //获取每个交易日的所有k线
+        List<Kline> klineListCurDate = KlineService.kline(zqdm, 0, klt, true, date, date, klineType);
+        return klineListCurDate;
     }
 
     /**

@@ -32,35 +32,19 @@ public class BizEtfDemo {
 //            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
 //        }
 
-//        statShowEtfUpMaSchedule(date);//定时任务-etf-检查均线
         showEtfUpMa(date);//etf-超过均线
 //        showEtfMv(date);//显示etf市值
-//        statDayMinMaxTime();//k线：每日最高点、最低点
+//        statDayMinMaxTime(date);//k线：每日最高点、最低点
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
     }
 
     /**
-     * 定时任务-etf-检查均线
-     *
-     * @param date 日期
-     */
-    private static void statShowEtfUpMaSchedule(String date) {
-        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            System.out.println();
-            System.out.println();
-            System.out.println("定时任务-etf-检查均线-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
-            showEtfUpMa(date);//etf-超过均线
-            System.out.println("定时任务-etf-检查均线-end:");
-        }, 0, 5, TimeUnit.MINUTES);
-    }
-
-    /**
      * 每日最高点、最低点
+     *
+     * @param date
      */
-    private static void statDayMinMaxTime() {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-09-02";
+    private static void statDayMinMaxTime(String date) {
         Map<String, String> mapZq = new HashMap<>();
 //        mapZq = ContMapEtf.ETF_MV_ZS_CYB;
         mapZq.put("515790", "光伏ETF");//KEJI.put("515790", "光伏ETF       ");//147.52  	-0.18
@@ -235,6 +219,7 @@ public class BizEtfDemo {
         condMa.setShowFlowIn(false);//是否显示资金流入
         condMa.setOrderField(ORDER_FIELD_NET_AREA_DAY_5);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3 ORDER_FIELD_MAXDOWN    ORDER_FIELD_MINRISE
         condMa.setOrderDesc(false);//是否倒序
+        condMa.setShowDateMinMax(true);//是否显示日最低点、最高点
         List<StockAdrCountVo> rs = null;
         System.out.println("科技：");
         condMa.setMapStock(ContMapEtf.KEJI);
