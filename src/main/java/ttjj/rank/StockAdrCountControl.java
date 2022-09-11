@@ -29,12 +29,12 @@ import static utils.Content.*;
 public class StockAdrCountControl {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-07-26";
+//        String date = "2022-09-09";
         Long board = DB_RANK_BIZ_F139_BK_MAIN;//
         String spBizName = null;//特定业务：半导体 "半导体"
 //        String spBizName = "电力行业";//特定业务：半导体 "半导体"
         int begBiz = 0;//map的开始，中断后使用，默认可设置为0
-        BigDecimal mvMin = NUM_YI_50;//NUM_YI_1000  NUM_YI_50
+        BigDecimal mvMin = NUM_YI_50;//NUM_YI_1000  NUM_YI_50  NUM_YI_100
         BigDecimal mvMax = null;
         List<String> maKltList = Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101, KLT_102);//价格区间周期列表
 //        List<String> maKltList = Arrays.asList(KLT_102, KLT_101, KLT_60);//价格区间周期列表
@@ -48,8 +48,8 @@ public class StockAdrCountControl {
         stockAdrCountCond.setF139(board);
         stockAdrCountCond.setMaKltList(maKltList);
         stockAdrCountCond.setUpdateNet(true);
-//        stockAdrCountCond.setUpdateSum(true);
-//        stockAdrCountCond.setUpdateOrder(true);
+        stockAdrCountCond.setUpdateSum(true);
+        stockAdrCountCond.setUpdateOrder(true);
         stockAdrCountCond.setUpdateUpMa(true);
         stockAdrCountCond.setUpdateNetArea(true);
 

@@ -71,7 +71,7 @@ public class StockStat {
         conditionKlineList.setKlt(KLT_101);
         conditionKlineList.setKtime(date);
         List<Kline> klineList = KlineService.listKine(conditionKlineList);
-        if (klineList != null && klineList.size() >= 0) {
+        if (klineList != null && klineList.size() > 0) {
             Kline kline = klineList.get(0);
             System.out.print(StockUtil.formatStName("涨幅:" + kline.getZhangDieFu(), 20));
             BigDecimal cje = kline.getCje().divide(NUM_YI_1, 0, BigDecimal.ROUND_HALF_UP);
@@ -90,7 +90,7 @@ public class StockStat {
         condSzcz.setKlt(KLT_101);
         condSzcz.setKtime(date);
         List<Kline> klineListSzcz = KlineService.listKine(condSzcz);
-        if (klineListSzcz != null && klineListSzcz.size() >= 0) {
+        if (klineListSzcz != null && klineListSzcz.size() > 0) {
             Kline kline = klineListSzcz.get(0);
             System.out.print(StockUtil.formatStName("涨幅:" + kline.getZhangDieFu(), 20));
             BigDecimal cje = kline.getCje().divide(NUM_YI_1, 0, BigDecimal.ROUND_HALF_UP);
