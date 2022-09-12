@@ -4,19 +4,15 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.RandomUtils;
-import org.apache.commons.lang3.StringUtils;
 import ttjj.dao.BizRankDao;
-import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
-import ttjj.dto.CondStock;
 import ttjj.dto.RankBizDataDiff;
 import utils.DateUtil;
 import utils.HttpUtil;
 
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
+import static utils.ContMapBizBaord.BOARD_NAME_CODE;
 import static utils.Content.*;
 
 /**
@@ -225,5 +221,23 @@ public class BizService {
         }
 
         return null;
+    }
+
+    /**
+     * 获取业务列表-全部板块
+     * @return 获取业务列表-全部板块
+     */
+    public static Map<String, List<String>> getBizListAll() {
+        Map<String, List<String>> bkMap = new HashMap<>();
+        List<String> bizList = null;//
+        //        //全部板块
+//        List<RankBizDataDiff> bkList = StockService.listBiz(NUM_MAX_99);
+        Set<String> bkList = BOARD_NAME_CODE.keySet();
+        for (String bk : bkList) {
+            bizList = new ArrayList<>();
+            bizList.add(bk);
+            bkMap.put(bk, bizList);
+        }
+        return bkMap;
     }
 }

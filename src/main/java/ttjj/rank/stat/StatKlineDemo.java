@@ -37,9 +37,6 @@ public class StatKlineDemo {
 //        String klt = KLT_15;
 //        String klt = KLT_5;
 
-//        boolean isShowSimpleUpOrDown = true;
-        boolean isShowSimpleUpOrDown = false
-                ;
 //        String orderTime = TIME_11_30;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
         List<String> orderTimeList = new ArrayList<>();
         if (klt.equals(KLT_15)) {
@@ -54,7 +51,7 @@ public class StatKlineDemo {
             orderTimeList.add(date);
         }
         for (String curTime : orderTimeList) {
-            statAdrByTime(date, curTime, klt, isShowSimpleUpOrDown);
+            statAdrByTime(date, curTime, klt, false);
         }
     }
 

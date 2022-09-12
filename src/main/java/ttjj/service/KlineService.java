@@ -717,6 +717,46 @@ public class KlineService {
     }
 
     /**
+     * 特定日期区间涨幅
+     *
+     * @param zqdm      代码
+     * @param spDateBeg 开始日期
+     * @param spDateEnd 结束日期
+     * @param klt       周期
+     * @return 区间涨幅
+     */
+    public static BigDecimal findAreaAdr(String zqdm, String spDateBeg, String spDateEnd, String klt) {
+        BigDecimal areaAdr = null;
+        // 查询开始日期
+        List<Kline> klines = KlineService.kline(zqdm, 1, klt, false, "", spDateBeg, "");
+        if (klines == null || klines.size() == 0) {
+//            System.out.println(new StringBuffer().append(zqdm).append("，").append(zqdm).append(":k线异常！"));
+            return null;
+        }
+        Kline klineBeg = klines.get(0);
+        // 查询结束日期
+        List<Kline> klinesEnd = KlineService.kline(zqdm, 1, klt, false, "", spDateEnd, "");
+        if (klinesEnd == null || klinesEnd.size() == 0) {
+//            System.out.println(new StringBuffer().append(zqdm).append("，").append(zqdm).append(":k线异常！"));
+            return null;
+        }
+        Kline klineEnd = klinesEnd.get(0);
+
+        BigDecimal endDateF2 = klineEnd.getCloseAmt();
+        BigDecimal begDateF18 = klineBeg.getCloseLastAmt();
+        if (endDateF2 == null) {
+//                System.out.println("结束净值为空：" + JSON.toJSONString(dto));
+            return null;
+        }
+        if (begDateF18 == null) {
+//                System.out.println("开始净值为空：" + JSON.toJSONString(dto));
+            return null;
+        }
+        areaAdr = (endDateF2.subtract(begDateF18)).multiply(new BigDecimal("100")).divide(begDateF18, 2, RoundingMode.HALF_UP);
+        return areaAdr;
+    }
+
+    /**
      * @param stock
      * @param klt
      * @param maList
