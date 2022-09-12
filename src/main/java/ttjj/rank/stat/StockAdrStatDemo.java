@@ -35,14 +35,14 @@ public class StockAdrStatDemo {
     }
 
     /**
-     * 查询
+     * 统计：涨幅次数列表
      *
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-09-09";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
-//        String date = "2022-09-05";
 //        String spDateBeg = "2022-09-06";//"2022-09-05"
 //        String spDateEnd = "2022-09-09";//"2022-09-09"
 
@@ -84,7 +84,7 @@ public class StockAdrStatDemo {
         condFind.setADR_UP_SUM_20_40(adrSum20To40);
 //        condFind.setUP_MA_60("60(60)");
 //        condFind.setUP_MA_101("101(60)");
-        condFind.setUP_MA_102("102(60)");
+//        condFind.setUP_MA_102("102(60)");
 
         for (List<String> bks : bkMap.values()) {
             List<StockAdrCountVo> stockAdrCountList = listByBizList(date, bks, orderBy, limitCount, mvMinBig, mvMinSmall, condFind);
