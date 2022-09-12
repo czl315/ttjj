@@ -28,10 +28,7 @@ import static utils.Content.*;
  */
 public class StockAdrStatDemo {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-09-02";
-
-        findListDemo(date);
+        findListDemo();
 
 //        statStockAdrCountBatch(0);//统计股票涨跌次数:0,0为当天
 
@@ -40,17 +37,19 @@ public class StockAdrStatDemo {
     /**
      * 查询
      *
-     * @param date 日期
      */
-    public static List<StockAdrCountVo> findListDemo(String date) {
-        //        String spDate = "2022-08-25";//是否显示特定日期涨跌
+    public static List<StockAdrCountVo> findListDemo() {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
+//        String date = "2022-09-05";
+//        String spDateBeg = "2022-09-06";//"2022-09-05"
+//        String spDateEnd = "2022-09-09";//"2022-09-09"
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
         Map<String, List<String>> bkMap = new HashMap<>();
-        bkMap = getBizListSp();//获取业务列表-特定
-//        bkMap = BizService.getBizListAll();//获取业务列表-全部板块
+//        bkMap = getBizListSp();//获取业务列表-特定
+        bkMap = BizService.getBizListAll();//获取业务列表-全部板块
 
         String orderBy = "";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
         String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;
@@ -61,7 +60,7 @@ public class StockAdrStatDemo {
         BigDecimal mvMinBig = NUM_YI_500;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
         BigDecimal mvMinSmall = NUM_YI_50;//
 
-        int limitCount = 10;
+        int limitCount = 3;
 
         BigDecimal adrSum1To60 = null;
         BigDecimal adrSum1To40 = null;
@@ -83,6 +82,9 @@ public class StockAdrStatDemo {
         condFind.setADR_UP_SUM_1_40(adrSum1To40);
         condFind.setADR_UP_SUM_40_60(adrSum40To60);
         condFind.setADR_UP_SUM_20_40(adrSum20To40);
+//        condFind.setUP_MA_60("60(60)");
+//        condFind.setUP_MA_101("101(60)");
+        condFind.setUP_MA_102("102(60)");
 
         for (List<String> bks : bkMap.values()) {
             List<StockAdrCountVo> stockAdrCountList = listByBizList(date, bks, orderBy, limitCount, mvMinBig, mvMinSmall, condFind);
