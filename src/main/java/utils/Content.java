@@ -829,5 +829,14 @@ public class Content {
      */
     public static List<String> TIME_TYPE_60_1030_TO_1500 = Arrays.asList(TIME_10_30, TIME_11_30, TIME_14_00, TIME_15_00);
 
+    /**
+     * 查询模式-http查询
+     */
+    public static String FIND_MODEL_HTTP = "HTTP";
+    /**
+     * 查询模式-数据库查询
+     */
+    public static String FIND_MODEL_DB = "DB";
+
 
 }
