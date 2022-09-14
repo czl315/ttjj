@@ -43,8 +43,10 @@ public class StockAdrStatDemo {
 //        String date = "2022-09-09";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
-//        String spDateBeg = "2022-09-06";//"2022-09-05"
-//        String spDateEnd = "2022-09-09";//"2022-09-09"
+//        String spDateBeg = "2022-09-13";//
+//        String spDateEnd = "2022-09-13";//
+
+        int limitCount = 2;
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
         Map<String, List<String>> bkMap = new HashMap<>();
@@ -56,11 +58,13 @@ public class StockAdrStatDemo {
         if (orderField.equals(ORDER_FIELD_ADR_UP_SUM_1_60)) {
             orderBy = " ADR_UP_SUM_1_60  DESC ";//排序
         }
+        if (orderField.equals(ORDER_FIELD_ADR_UP_SUM_1_40)) {
+            orderBy = " ADR_UP_SUM_1_40  DESC ";//排序
+        }
 
         BigDecimal mvMinBig = NUM_YI_500;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
         BigDecimal mvMinSmall = NUM_YI_50;//
 
-        int limitCount = 3;
 
         BigDecimal adrSum1To60 = null;
         BigDecimal adrSum1To40 = null;
@@ -80,11 +84,11 @@ public class StockAdrStatDemo {
         CondStockAdrCount condFind = new CondStockAdrCount();
         condFind.setADR_UP_SUM_1_60(adrSum1To60);
         condFind.setADR_UP_SUM_1_40(adrSum1To40);
-        condFind.setADR_UP_SUM_40_60(adrSum40To60);
+        condFind.setADR_UP_SUM_40_60(adrSum40To60);//new BigDecimal("10")
         condFind.setADR_UP_SUM_20_40(adrSum20To40);
 //        condFind.setUP_MA_60("60(60)");
 //        condFind.setUP_MA_101("101(60)");
-//        condFind.setUP_MA_102("102(60)");
+        condFind.setUP_MA_102("102(60)");
 
         for (List<String> bks : bkMap.values()) {
             List<StockAdrCountVo> stockAdrCountList = listByBizList(date, bks, orderBy, limitCount, mvMinBig, mvMinSmall, condFind);
@@ -110,11 +114,12 @@ public class StockAdrStatDemo {
         List<String> bizList = null;//
 //        bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");//科技:电力
 //        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
+        bizList = Arrays.asList("化肥行业","农牧饲渔","农药兽药");//资源-农业:
 //        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
 //        bizList = Arrays.asList("船舶制造");//资源:交运:("船舶制造")
 //        bizList = Arrays.asList("医疗服务");//医疗:("医疗服务")
 //        bizList = Arrays.asList("家电行业");//消费:("家电行业")
-        bizList = Arrays.asList("多元金融", "银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
+//        bizList = Arrays.asList("多元金融", "银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
 //        bizList = Arrays.asList("证券");
         //金融-房地产、基建:"水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");//
 //        bizList = Arrays.asList("水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");//

@@ -21,6 +21,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+import static utils.ContTradeDay.mapTradeDay;
 import static utils.Content.*;
 
 /**
@@ -477,9 +478,16 @@ public class StockService {
      * @return 计算结果日期
      */
     public static String findBegDate(String endDate, Integer days) {
+        //如果交易日缓存的第一天是结束日期，从交易日缓存中获取
+        String tradeDay0 = mapTradeDay.get(0);
+        if (tradeDay0.equals(endDate) && mapTradeDay.size() >= days) {
+//            System.out.println("交易日缓存：" + mapTradeDay.get(days));
+            return mapTradeDay.get(days);
+        }
+
         List<String> dateList = StockService.findListDateBefore(endDate, days);//查询n个交易日之前的日期
         if (dateList != null && dateList.size() >= days) {
-//            System.out.println("findBegDate.：" + dateList.get(days - 1));
+//            System.out.println("findBegDate.：" + dateList.get(days));
             return dateList.get(days);
         } else {
             System.out.println("查询日期错误.：使用指定日期减去自然日的日期" + JSON.toJSONString(dateList));
@@ -764,10 +772,21 @@ public class StockService {
 
     /**
      * 查询股票涨跌个数
+     *
      * @param condition
      * @return
      */
     public static Integer count(CondStock condition) {
         return RankStockCommpanyDao.count(condition); //  查询-股票涨跌次数
+    }
+
+    public static void main(String[] args) {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-09-09";
+        List<String> dateList = StockService.findListDateBefore(date, 1);//查询n个交易日之前的日期
+        for (String dateStr : dateList) {
+            System.out.println(dateStr);
+
+        }
     }
 }

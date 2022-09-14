@@ -39,7 +39,6 @@ public class FupanControl {
 //                String date = "2022-08-19";
 
         insertOrUpdate(date, KLT_101, DAYS_1,ContentCookie.COOKIE_DFCF);//保存复盘和仓位
-//        checkMaByMyPositionSchedule(date);
 //        checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
 
 //        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
