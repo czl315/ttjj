@@ -39,7 +39,10 @@ public class StatKlineDemo {
 
 //        String orderTime = TIME_11_30;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
         List<String> orderTimeList = new ArrayList<>();
-        if (klt.equals(KLT_15)) {
+        if (klt.equals(KLT_5)) {
+            orderTimeList = TIME_TYPE_5_1305_TO_1330;
+//            orderTimeList = TIME_TYPE_15_1315_TO_1500;
+        } else if (klt.equals(KLT_15)) {
             orderTimeList = TIME_TYPE_15_0945_TO_1500;
 //            orderTimeList = TIME_TYPE_15_1315_TO_1500;
         } else if (klt.equals(KLT_30)) {
