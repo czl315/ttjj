@@ -688,6 +688,10 @@ public class Content {
      * ORDER_FIELD_MINRISE
      */
     public static String ORDER_FIELD_MINRISE = "minRise";
+    /**
+     * 排序字段-我的仓位-最新市值
+     */
+    public static String ORDER_FIELD_MY_ZXSZ = "myPositionZxsz";
 
     /**
      * 报表数据-业绩快报

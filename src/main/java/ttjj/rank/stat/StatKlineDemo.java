@@ -117,7 +117,7 @@ public class StatKlineDemo {
             List<Kline> klineList = KlineService.listKine(conditionKlineList);
             if (klineList == null || klineList.size() == 0) {
 //                System.out.println("klineList==null");
-                break;
+//                break;
             }
 
             //上涨

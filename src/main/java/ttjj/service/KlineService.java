@@ -1269,6 +1269,14 @@ public class KlineService {
             }
         }
 
+        if (ORDER_FIELD_MY_ZXSZ.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getMyPositionZxsz, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCountVo::getMyPositionZxsz, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+
 
         return rs;
     }

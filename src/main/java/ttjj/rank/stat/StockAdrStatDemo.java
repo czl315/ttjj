@@ -54,7 +54,7 @@ public class StockAdrStatDemo {
         bkMap = BizService.getBizListAll();//获取业务列表-全部板块
 
         String orderBy = "";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
-        String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;
+        String orderField = ORDER_FIELD_ADR_UP_SUM_1_40;
         if (orderField.equals(ORDER_FIELD_ADR_UP_SUM_1_60)) {
             orderBy = " ADR_UP_SUM_1_60  DESC ";//排序
         }
@@ -88,7 +88,7 @@ public class StockAdrStatDemo {
         condFind.setADR_UP_SUM_20_40(adrSum20To40);
 //        condFind.setUP_MA_60("60(60)");
 //        condFind.setUP_MA_101("101(60)");
-        condFind.setUP_MA_102("102(60)");
+//        condFind.setUP_MA_102("102(60)");
 
         for (List<String> bks : bkMap.values()) {
             List<StockAdrCountVo> stockAdrCountList = listByBizList(date, bks, orderBy, limitCount, mvMinBig, mvMinSmall, condFind);

@@ -38,8 +38,8 @@ public class FupanControl {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //                String date = "2022-08-19";
 
-        insertOrUpdate(date, KLT_101, DAYS_1,ContentCookie.COOKIE_DFCF);//保存复盘和仓位
-//        checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
+//        insertOrUpdate(date, KLT_101, DAYS_1,ContentCookie.COOKIE_DFCF);//保存复盘和仓位
+        checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
 
 //        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 
@@ -133,7 +133,7 @@ public class FupanControl {
         condMa.setShowDownMa(true);//是否显示-跌落均线
         condMa.setFindKline(true);//是否查询最新k线
         condMa.setShowFlowIn(false);//是否显示资金流入
-        condMa.setOrderField(ORDER_FIELD_NET_AREA_DAY_5);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3   ORDER_FIELD_MAXDOWN ORDER_FIELD_MINRISE
+        condMa.setOrderField(ORDER_FIELD_MY_ZXSZ);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3   ORDER_FIELD_MAXDOWN ORDER_FIELD_MINRISE`ORDER_FIELD_MY_ZXSZ
         condMa.setOrderDesc(false);//是否倒序
         condMa.setShowMyPosition(true);
         condMa.setMapStock(mapStock);
