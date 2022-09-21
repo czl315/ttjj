@@ -46,7 +46,7 @@ public class StockAdrStatDemo {
 //        String spDateBeg = "2022-09-13";//
 //        String spDateEnd = "2022-09-13";//
 
-        int limitCount = 2;
+        int limitCount = 3;
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
         Map<String, List<String>> bkMap = new HashMap<>();
@@ -78,7 +78,7 @@ public class StockAdrStatDemo {
 
 //        adrSum1To60 = new BigDecimal("90");
 //        adrSum1To40 = new BigDecimal("45");
-        adrSum40To60 = new BigDecimal("10");
+//        adrSum40To60 = new BigDecimal("10");
 //        BigDecimal adrSum20To40 = new BigDecimal("20");
 
         CondStockAdrCount condFind = new CondStockAdrCount();
@@ -86,6 +86,8 @@ public class StockAdrStatDemo {
         condFind.setADR_UP_SUM_1_40(adrSum1To40);
         condFind.setADR_UP_SUM_40_60(adrSum40To60);//new BigDecimal("10")
         condFind.setADR_UP_SUM_20_40(adrSum20To40);
+
+        condFind.setUP_MA_30("30(60)");
 //        condFind.setUP_MA_60("60(60)");
 //        condFind.setUP_MA_101("101(60)");
 //        condFind.setUP_MA_102("102(60)");
@@ -112,9 +114,9 @@ public class StockAdrStatDemo {
     private static Map<String, List<String>> getBizListSp() {
         Map<String, List<String>> bkMap = new HashMap<>();
         List<String> bizList = null;//
-//        bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");//科技:电力
+        bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");//科技:电力
 //        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
-        bizList = Arrays.asList("化肥行业","农牧饲渔","农药兽药");//资源-农业:
+//        bizList = Arrays.asList("化肥行业","农牧饲渔","农药兽药");//资源-农业:
 //        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
 //        bizList = Arrays.asList("船舶制造");//资源:交运:("船舶制造")
 //        bizList = Arrays.asList("医疗服务");//医疗:("医疗服务")

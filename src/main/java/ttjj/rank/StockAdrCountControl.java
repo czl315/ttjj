@@ -48,8 +48,8 @@ public class StockAdrCountControl {
         stockAdrCountCond.setF139(board);
         stockAdrCountCond.setMaKltList(maKltList);
         stockAdrCountCond.setUpdateNet(true);
-//        stockAdrCountCond.setUpdateSum(true);
-//        stockAdrCountCond.setUpdateOrder(true);
+        stockAdrCountCond.setUpdateSum(true);
+        stockAdrCountCond.setUpdateOrder(true);
         stockAdrCountCond.setUpdateUpMa(true);
         stockAdrCountCond.setUpdateNetArea(true);
 
@@ -687,6 +687,7 @@ public class StockAdrCountControl {
      * @param begBiz            开始序号
      */
     private static void updateListByBizAll(String date, List<RankBizDataDiff> bizList, int begBiz, String spBizName, CondStockAdrCount stockAdrCountCond) {
+        long curTimeAll = System.currentTimeMillis();
         BigDecimal mvMin = stockAdrCountCond.getMvMin();
         BigDecimal mvMax = stockAdrCountCond.getMvMax();
         Long board = stockAdrCountCond.getF139();
@@ -766,6 +767,7 @@ public class StockAdrCountControl {
             System.out.println();
             lastTime = curTime;
         }
+        System.out.println("总花费时间：" + (System.currentTimeMillis() - curTimeAll) / 1000);
     }
 
     /**
