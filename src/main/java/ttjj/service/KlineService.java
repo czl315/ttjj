@@ -1507,8 +1507,9 @@ public class KlineService {
             stockAdrCountVoRs = handlerOrder(stockAdrCountVoRs, orderField, isOrderDesc);//列表-排序：根据字段
         }
         for (StockAdrCountVo stockAdrCountVo : stockAdrCountVoRs) {
-            String code = stockAdrCountVo.getF12();
-            System.out.print(code);
+            String zqdm = stockAdrCountVo.getF12();
+//            String zqdm = stockAdrCountVo.getF12();
+            System.out.print(zqdm);
             System.out.print("\t");
             System.out.print(StockUtil.formatEtfName(stockAdrCountVo.getF14(), 8));
             System.out.print("\t");
@@ -1590,7 +1591,6 @@ public class KlineService {
             }
 
             if (isShowMyPosition != null && isShowMyPosition) {
-                String zqdm = stockAdrCountVo.getF12();
                 AssetPositionDb myStock = mapMyPosition.get(zqdm);
                 StringBuffer sbMyStock = new StringBuffer();
                 sbMyStock.append(StockUtil.formatDouble(myStock.getZxsz(), 10));
@@ -1600,8 +1600,20 @@ public class KlineService {
 
             //证券信息：涨幅，助力净流入，流市比
             StringBuffer sbStockInfo = new StringBuffer();
-            sbStockInfo.append("[").append(stockAdrCountVo.getDate().substring(5)).append("]");
-            sbStockInfo.append("涨跌：").append(StockUtil.formatDouble(stockAdrCountVo.getF3(), 5)).append(" ");
+            //显示指定日期最近3个K线交易日的涨跌
+            List<Kline> klineListDays = KlineService.kline(zqdm, 3, KLT_101, false, null, date, null);
+            if(klineListDays!=null){
+                for (Kline klineListDay : klineListDays) {
+                    Kline kline = klineListDay;
+                    sbStockInfo.append(StockUtil.formatDouble(kline.getZhangDieFu(), 6));
+                    if(kline.getKtime().equals(date)){
+                        //显示今天
+                        sbStockInfo.append("[").append(kline.getKtime().substring(5)).append("]");
+                    }
+                }
+            }
+//            sbStockInfo.append("[").append(stockAdrCountVo.getDate().substring(5)).append("]");
+//            sbStockInfo.append("涨跌：").append(StockUtil.formatDouble(stockAdrCountVo.getF3(), 5)).append(" ");
             sbStockInfo.append("最高回撤：").append(stockAdrCountVo.getMaxDown()).append(" ");
             sbStockInfo.append("最低上涨：").append(stockAdrCountVo.getMinRise()).append(" ");
 
@@ -1626,7 +1638,7 @@ public class KlineService {
             //特定日期涨跌
             if (StringUtils.isNotBlank(spDate)) {
                 RankStockCommpanyDb stock = new RankStockCommpanyDb();
-                stock.setF12(code);
+                stock.setF12(zqdm);
                 Kline kline = KlineService.findLast(stock, spDate, KLT_101);
                 if (kline != null) {
                     System.out.print("\t[" + spDate.substring(5) + "]：" + kline.getZhangDieFu());
@@ -1635,7 +1647,7 @@ public class KlineService {
 
             //是否显示日最低点、最高点
             if (isShowDateMinMax != null && isShowDateMinMax) {
-                showDateMinMax(date, code);
+                showDateMinMax(date, zqdm);
             }
 
             System.out.println();

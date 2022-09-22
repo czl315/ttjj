@@ -200,7 +200,8 @@ public class BizEtfDemo {
     }
 
     /**
-     * etf-超过均线
+     * etf-超过均线:
+     * 显示最近3个K线交易日的涨跌
      *
      * @param date
      */
