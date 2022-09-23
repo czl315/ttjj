@@ -69,6 +69,10 @@ public class CondMa {
      * kltList 周期列表
      */
     private List<String> kltList;
+    /**
+     * K线天数
+     */
+    private Integer days;
 
     public String getDate() {
         return date;
@@ -180,5 +184,13 @@ public class CondMa {
 
     public void setShowDateMinMax(Boolean showDateMinMax) {
         this.showDateMinMax = showDateMinMax;
+    }
+
+    public Integer getDays() {
+        return days;
+    }
+
+    public void setDays(Integer days) {
+        this.days = days;
     }
 }

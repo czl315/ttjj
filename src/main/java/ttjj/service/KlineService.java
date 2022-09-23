@@ -1475,6 +1475,7 @@ public class KlineService {
         StringBuffer rs = new StringBuffer();
         String date = condMa.getDate();
         String spDate = condMa.getSpDate();
+        Integer days = condMa.getDays();
         boolean isShowPriceArea = condMa.getShowPriceArea();
         boolean isShowUpMa = condMa.getShowUpMa();
         Boolean isShowMyPosition = condMa.getShowMyPosition();
@@ -1599,19 +1600,25 @@ public class KlineService {
             }
 
             //证券信息：涨幅，助力净流入，流市比
-            StringBuffer sbStockInfo = new StringBuffer();
+            StringBuffer sbDaysAdr = new StringBuffer();
             //显示指定日期最近3个K线交易日的涨跌
-            List<Kline> klineListDays = KlineService.kline(zqdm, 3, KLT_101, false, null, date, null);
-            if(klineListDays!=null){
-                for (Kline klineListDay : klineListDays) {
-                    Kline kline = klineListDay;
-                    sbStockInfo.append(StockUtil.formatDouble(kline.getZhangDieFu(), 6));
-                    if(kline.getKtime().equals(date)){
-                        //显示今天
-                        sbStockInfo.append("[").append(kline.getKtime().substring(5)).append("]");
+            if(days!=null){
+                List<Kline> klineListDays = KlineService.kline(zqdm, 1, KLT_101, false, null, date, null);
+                if(klineListDays!=null){
+                    for (Kline klineListDay : klineListDays) {
+                        Kline kline = klineListDay;
+                        sbDaysAdr.append(StockUtil.formatDouble(kline.getZhangDieFu(), 6));
+                        if(kline.getKtime().equals(date)){
+                            //显示今天
+                            sbDaysAdr.append("[").append(kline.getKtime().substring(5)).append("]");
+                        }
                     }
                 }
+                sbDaysAdr.append("\t");
             }
+            System.out.print(sbDaysAdr);
+
+            StringBuffer sbStockInfo = new StringBuffer();
 //            sbStockInfo.append("[").append(stockAdrCountVo.getDate().substring(5)).append("]");
 //            sbStockInfo.append("涨跌：").append(StockUtil.formatDouble(stockAdrCountVo.getF3(), 5)).append(" ");
             sbStockInfo.append("最高回撤：").append(stockAdrCountVo.getMaxDown()).append(" ");

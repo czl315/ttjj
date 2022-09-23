@@ -35,8 +35,9 @@ public class StockControl {
 
 //            deleteTodayStCom();//删除数据-今日
 
-            addTodayStCom(date, startNum);//  添加或更新股票-根据日期
-//            updateTodayStCom(date, startNum);//更新股票
+//            addTodayStCom(date, startNum);//  添加或更新股票-根据日期
+            updateTodayStCom(date, startNum);//更新股票
+
 //            updateConception(date, startNum);//更新题材概念
 //            updateNetToday(date, startNum, maUpdateMap, isReport, NUM_YI_50);//  更新净值
 
