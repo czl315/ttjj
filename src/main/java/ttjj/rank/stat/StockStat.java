@@ -125,25 +125,28 @@ public class StockStat {
     }
 
     /**
-     * A股，涨幅榜、跌幅榜.股票：计算区间涨幅：查询两个日期间的股票列表，计算净值之差，得出涨幅。
+     * 股票：涨幅榜、跌幅榜.
+     * 计算区间涨幅：查询两个日期间的股票列表，计算净值之差，得出涨幅。
      */
     private static void statListAdrArea() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-08-26";
 
-        int areaDays = 4;//4:近一周;20:近一月
+
+        int areaDays = 20;//4:近一周;20:近一月
         Long board = null;
 //        Long board = DB_RANK_BIZ_F19_BK_MAIN;
-        BigDecimal mvMin = null;//
+//        BigDecimal mvMin = null;//
 //        BigDecimal mvMin = NUM_YI_500;//NUM_YI_1000
-        BigDecimal mvMax = null;
+//        BigDecimal mvMax = null;
 
-        boolean isAsc = true;//涨幅榜或跌幅榜
-        statListAdrArea(date, 4, null, isAsc, null, null);
-        statListAdrArea(date, 4, null, isAsc, NUM_YI_500, null);
-        statListAdrArea(date, 4, null, isAsc, NUM_YI_200, NUM_YI_500);
-        statListAdrArea(date, 4, null, isAsc, NUM_YI_50, NUM_YI_200);
-        statListAdrArea(date, 4, null, isAsc, null, NUM_YI_50);
+        boolean isDesc = false;
+
+        statListAdrArea(date, areaDays, board, isDesc, null, null);
+        statListAdrArea(date, areaDays, board, isDesc, NUM_YI_500, null);
+        statListAdrArea(date, areaDays, board, isDesc, NUM_YI_200, NUM_YI_500);
+        statListAdrArea(date, areaDays, board, isDesc, NUM_YI_50, NUM_YI_200);
+        statListAdrArea(date, areaDays, board, isDesc, null, NUM_YI_50);
 
 
     }
@@ -153,11 +156,11 @@ public class StockStat {
      * @param date
      * @param areaDays
      * @param board
-     * @param isAsc
+     * @param isDesc
      * @param mvMin
      * @param mvMax
      */
-    private static void statListAdrArea(String date, int areaDays, Long board, boolean isAsc, BigDecimal mvMin, BigDecimal mvMax) {
+    private static void statListAdrArea(String date, int areaDays, Long board, boolean isDesc, BigDecimal mvMin, BigDecimal mvMax) {
         boolean isShowCode = false;//是否显示编码
         boolean isCheckFuQuan = true;//是否检查更新复权
         int limit = 20;
@@ -247,26 +250,26 @@ public class StockStat {
 
         boolean isShowMoreYes = true;
         boolean isShowMoreNo = false;
-        if (isAsc) {
+        if (isDesc) {
             //排序
             List<CondStock> rsListDesc = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
             //区间涨幅
-            showHeadAdrRank(board, areaDays, begDate, endDate, "涨幅榜", mvMin, mvMax);
-            showInfo(rsListDesc, board, begDate, endDate, limit, isShowMoreNo, isShowCode);
-            System.out.println();
+//            showHeadAdrRank(board, areaDays, begDate, endDate, "涨幅榜", mvMin, mvMax);
+//            showInfo(rsListDesc, board, begDate, endDate, limit, isShowMoreNo, isShowCode);
+//            System.out.println();
             showHeadAdrRank(board, areaDays, begDate, endDate, "涨幅榜", mvMin, mvMax);
             showInfoHead(isShowMoreYes, isShowCode);
             showInfo(rsListDesc, board, begDate, endDate, limit, isShowMoreYes, isShowCode);
             System.out.println();
         } else {
             List<CondStock> rsListAsc = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
-            System.out.println();
-            showHeadAdrRank(board, areaDays, begDate, endDate, "跌幅榜", mvMin, mvMax);
-            showInfo(rsListAsc, board, begDate, endDate, limit, isShowMoreNo, isShowCode);
-            System.out.println();
+//            System.out.println();
+//            showHeadAdrRank(board, areaDays, begDate, endDate, "跌幅榜", mvMin, mvMax);
+//            showInfo(rsListAsc, board, begDate, endDate, limit, isShowMoreNo, isShowCode);
             showHeadAdrRank(board, areaDays, begDate, endDate, "跌幅榜", mvMin, mvMax);
             showInfoHead(isShowMoreYes, isShowCode);
             showInfo(rsListAsc, board, begDate, endDate, limit, isShowMoreYes, isShowCode);
+            System.out.println();
         }
     }
 
