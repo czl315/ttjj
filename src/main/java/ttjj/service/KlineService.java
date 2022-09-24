@@ -132,6 +132,7 @@ public class KlineService {
 //        System.out.println("指数名称："+name);
         if (szzzMonthDataJson == null || !szzzMonthDataJson.containsKey("klines")) {
             System.out.println("klines数据异常：" + JSON.toJSONString(szzzMonthDataJson));
+            System.out.println(rs);
             return null;
         }
 
@@ -177,6 +178,7 @@ public class KlineService {
 
     /**
      * k线结果字符串类型
+     *  北交所k线查询
      *
      * @param zqdm
      * @param lmt
@@ -197,7 +199,7 @@ public class KlineService {
         url.append("&secid=");
 
         if (klineType == null || klineType.equals(KLINE_TYPE_STOCK) || StringUtils.isBlank(klineType)) {
-            if (zqdm.startsWith("00") || zqdm.startsWith("12") || zqdm.startsWith("13") || zqdm.startsWith("16") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159")) {
+            if (zqdm.startsWith("00") || zqdm.startsWith("12") || zqdm.startsWith("13") || zqdm.startsWith("16") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159") || zqdm.startsWith("83") || zqdm.startsWith("43")) {
                 url.append("0." + zqdm);
 //                16XXXX：深交所LOF基金：16打头(前两位均用“16”标识，中间两位为中国证监会信息中心统一规定的基金管理公司代码gg，后两位为该公司发行全部开放式基金的顺序号xx。具体表示为“16ggxx”)
                 //指数 zqdm.startsWith("159") || zqdm.startsWith("399") ||

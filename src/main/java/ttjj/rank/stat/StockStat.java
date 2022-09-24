@@ -133,7 +133,7 @@ public class StockStat {
 //        String date = "2022-08-26";
 
 
-        int areaDays = 20;//4:近一周;20:近一月
+        int areaDays = 4;//4:近一周;20:近一月
         Long board = null;
 //        Long board = DB_RANK_BIZ_F19_BK_MAIN;
 //        BigDecimal mvMin = null;//
