@@ -130,20 +130,40 @@ public class StockStat {
     private static void statListAdrArea() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-08-26";
-        boolean isCheckFuQuan = true;//是否检查更新复权
-        int areaDayType = 20;//4:近一周;20:近一月
-        int limit = 20;
-//        Long board = null;
-        Long board = DB_RANK_BIZ_F19_BK_MAIN;
-//        BigDecimal mvMin = null;//
-        BigDecimal mvMin = NUM_YI_500;//NUM_YI_1000
+
+        int areaDays = 4;//4:近一周;20:近一月
+        Long board = null;
+//        Long board = DB_RANK_BIZ_F19_BK_MAIN;
+        BigDecimal mvMin = null;//
+//        BigDecimal mvMin = NUM_YI_500;//NUM_YI_1000
         BigDecimal mvMax = null;
 
-        boolean isShowCode = false;//是否显示编码
+        boolean isAsc = true;//涨幅榜或跌幅榜
+        statListAdrArea(date, 4, null, isAsc, null, null);
+        statListAdrArea(date, 4, null, isAsc, NUM_YI_500, null);
+        statListAdrArea(date, 4, null, isAsc, NUM_YI_200, NUM_YI_500);
+        statListAdrArea(date, 4, null, isAsc, NUM_YI_50, NUM_YI_200);
+        statListAdrArea(date, 4, null, isAsc, null, NUM_YI_50);
 
+
+    }
+
+    /**
+     * 统计区间涨幅
+     * @param date
+     * @param areaDays
+     * @param board
+     * @param isAsc
+     * @param mvMin
+     * @param mvMax
+     */
+    private static void statListAdrArea(String date, int areaDays, Long board, boolean isAsc, BigDecimal mvMin, BigDecimal mvMax) {
+        boolean isShowCode = false;//是否显示编码
+        boolean isCheckFuQuan = true;//是否检查更新复权
+        int limit = 20;
 
         String endDate = StockService.findBegDate(date, 0);
-        String begDate = StockService.findBegDate(date, areaDayType);
+        String begDate = StockService.findBegDate(date, areaDays);
 
         Map<String, CondStock> rsMap = new HashMap<>();
 
@@ -219,35 +239,35 @@ public class StockStat {
             rsList.add(dto);
         }
 
-        //排序
-        List<CondStock> rsListDesc = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
-        List<CondStock> rsListAsc = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
 
         //更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
         if (isCheckFuQuan) {
-            updateFuQuan(rsListAsc, limit);
+            updateFuQuan(rsList, limit);
         }
-
 
         boolean isShowMoreYes = true;
         boolean isShowMoreNo = false;
-        //区间涨幅
-        showHeadAdrRank(board, areaDayType, begDate, endDate, "涨幅榜", mvMin, mvMax);
-        showInfo(rsListDesc, board, begDate, endDate, limit, isShowMoreNo, isShowCode);
-        System.out.println();
-        showHeadAdrRank(board, areaDayType, begDate, endDate, "涨幅榜", mvMin, mvMax);
-        showInfoHead(isShowMoreYes, isShowCode);
-        showInfo(rsListDesc, board, begDate, endDate, limit, isShowMoreYes, isShowCode);
-        System.out.println();
-
-        System.out.println();
-        showHeadAdrRank(board, areaDayType, begDate, endDate, "跌幅榜", mvMin, mvMax);
-        showInfo(rsListAsc, board, begDate, endDate, limit, isShowMoreNo, isShowCode);
-        System.out.println();
-        showHeadAdrRank(board, areaDayType, begDate, endDate, "跌幅榜", mvMin, mvMax);
-        showInfoHead(isShowMoreYes, isShowCode);
-        showInfo(rsListAsc, board, begDate, endDate, limit, isShowMoreYes, isShowCode);
-
+        if (isAsc) {
+            //排序
+            List<CondStock> rsListDesc = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            //区间涨幅
+            showHeadAdrRank(board, areaDays, begDate, endDate, "涨幅榜", mvMin, mvMax);
+            showInfo(rsListDesc, board, begDate, endDate, limit, isShowMoreNo, isShowCode);
+            System.out.println();
+            showHeadAdrRank(board, areaDays, begDate, endDate, "涨幅榜", mvMin, mvMax);
+            showInfoHead(isShowMoreYes, isShowCode);
+            showInfo(rsListDesc, board, begDate, endDate, limit, isShowMoreYes, isShowCode);
+            System.out.println();
+        } else {
+            List<CondStock> rsListAsc = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            System.out.println();
+            showHeadAdrRank(board, areaDays, begDate, endDate, "跌幅榜", mvMin, mvMax);
+            showInfo(rsListAsc, board, begDate, endDate, limit, isShowMoreNo, isShowCode);
+            System.out.println();
+            showHeadAdrRank(board, areaDays, begDate, endDate, "跌幅榜", mvMin, mvMax);
+            showInfoHead(isShowMoreYes, isShowCode);
+            showInfo(rsListAsc, board, begDate, endDate, limit, isShowMoreYes, isShowCode);
+        }
     }
 
     /**
@@ -322,15 +342,15 @@ public class StockStat {
         if (mvMax == null) {
             mvLimitInfo = mvLimitInfo + "以上";
         } else if (mvMax.equals(NUM_YI_50)) {
-            mvLimitInfo = "至50亿";
+            mvLimitInfo = mvLimitInfo + "至50亿";
         } else if (mvMax.equals(NUM_YI_100)) {
-            mvLimitInfo = "至100亿";
+            mvLimitInfo = mvLimitInfo + "至100亿";
         } else if (mvMax.equals(NUM_YI_200)) {
-            mvLimitInfo = "至200亿";
+            mvLimitInfo = mvLimitInfo + "至200亿";
         } else if (mvMax.equals(NUM_YI_500)) {
-            mvLimitInfo = "至500亿";
+            mvLimitInfo = mvLimitInfo + "至500亿";
         } else if (mvMax.equals(NUM_YI_1000)) {
-            mvLimitInfo = "至1000亿";
+            mvLimitInfo = mvLimitInfo + "至1000亿";
         }
 
         String boardName = handlerBoardName(board);

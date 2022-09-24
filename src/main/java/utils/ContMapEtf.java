@@ -288,6 +288,7 @@ public class ContMapEtf {
         XIAOFEI.put("512690", "酒ETF         ");//92.62   	-0.47
         XIAOFEI.put("512980", "传媒ETF       ");//47.02   	-0.67
         XIAOFEI.put("159766", "旅游ETF       ");//19.72   	-1.86
+        XIAOFEI.put("516530", "物流快递ETF");//物流快递ETF	516530	0.94
 
 //        XIAOFEI.put("515650", "17.31");//消费50ETF
 //        XIAOFEI.put("510150", "11.36");//消费ETF
@@ -308,6 +309,7 @@ public class ContMapEtf {
         ZIYUAN.put("512400", "有色金属ETF   ");//30.77   	-0.08
         ZIYUAN.put("159865", "养殖ETF       ");//41.80   	0.59
 //        ZIYUAN.put("159825", "农业ETF       ");//17.63   	0.41
+        ZIYUAN.put("159985", "豆粕ETF");//豆粕ETF	159985	2.43
     }
 
     /**

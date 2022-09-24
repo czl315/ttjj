@@ -1603,15 +1603,14 @@ public class KlineService {
             StringBuffer sbDaysAdr = new StringBuffer();
             //显示指定日期最近3个K线交易日的涨跌
             if(days!=null){
-                List<Kline> klineListDays = KlineService.kline(zqdm, 1, KLT_101, false, null, date, null);
+                List<Kline> klineListDays = KlineService.kline(zqdm, days, KLT_101, false, null, date, null);
                 if(klineListDays!=null){
                     for (Kline klineListDay : klineListDays) {
                         Kline kline = klineListDay;
+//                        if(kline.getKtime().equals(date)){//显示今天
+//                            sbDaysAdr.append("[").append(kline.getKtime().substring(5)).append("]");
+//                        }
                         sbDaysAdr.append(StockUtil.formatDouble(kline.getZhangDieFu(), 6));
-                        if(kline.getKtime().equals(date)){
-                            //显示今天
-                            sbDaysAdr.append("[").append(kline.getKtime().substring(5)).append("]");
-                        }
                     }
                 }
                 sbDaysAdr.append("\t");
