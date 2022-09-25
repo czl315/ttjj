@@ -26,7 +26,7 @@ import static utils.DateUtil.YYYY_MM_DD;
 public class BizEtfDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-09-02";
+//        String date = "2022-09-23";
 //        List<String> dateList = StockService.findListDateAfter(date, 2);
 //        if (dateList != null && dateList.size() > 1) {
 //            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
@@ -349,7 +349,7 @@ public class BizEtfDemo {
             if (temp > limit) {
                 break;
             }
-            String name = handlerEtfName(r.getF14());
+            String name = StockUtil.formatEtfName(r.getF14(),4);
             //如果上涨标志，涨幅小于0，中断
             if (upDownFlag && r.getF3().compareTo(new BigDecimal("0")) <= 0) {
                 break;
@@ -368,21 +368,4 @@ public class BizEtfDemo {
         }
         return rs;
     }
-
-    /**
-     * 处理etf名称
-     *
-     * @param name
-     */
-    public static String handlerEtfName(String name) {
-        name = name.replace("ETF", "");
-        name = name.replace("基金", "");
-        name = name.replace("有色金属", "有色");
-        name = name.replace("基建50", "基建");
-        name = name.replace("能源化工", "能源化工");
-        name = name.replace("中概互联网", "中概");
-        return name;
-    }
-
-
 }
