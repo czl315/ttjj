@@ -133,20 +133,21 @@ public class StockStat {
 //        String date = "2022-08-26";
 
 
-        int areaDays = 4;//4:近一周;20:近一月
+        int areaDays = 60;//4:近一周;20:近一月
         Long board = null;
 //        Long board = DB_RANK_BIZ_F19_BK_MAIN;
 //        BigDecimal mvMin = null;//
 //        BigDecimal mvMin = NUM_YI_500;//NUM_YI_1000
 //        BigDecimal mvMax = null;
+        int limit = 20;
 
-        boolean isDesc = false;
+        boolean isDesc = true;
 
-        statListAdrArea(date, areaDays, board, isDesc, null, null);
-        statListAdrArea(date, areaDays, board, isDesc, NUM_YI_500, null);
-        statListAdrArea(date, areaDays, board, isDesc, NUM_YI_200, NUM_YI_500);
-        statListAdrArea(date, areaDays, board, isDesc, NUM_YI_50, NUM_YI_200);
-        statListAdrArea(date, areaDays, board, isDesc, null, NUM_YI_50);
+        statListAdrArea(date, areaDays, board, isDesc, NUM_YI_500, null,limit);
+//        statListAdrArea(date, areaDays, board, isDesc, null, null,limit);
+//        statListAdrArea(date, areaDays, board, isDesc, NUM_YI_200, NUM_YI_500,limit);
+//        statListAdrArea(date, areaDays, board, isDesc, NUM_YI_50, NUM_YI_200,limit);
+//        statListAdrArea(date, areaDays, board, isDesc, null, NUM_YI_50,limit);
 
 
     }
@@ -160,10 +161,9 @@ public class StockStat {
      * @param mvMin
      * @param mvMax
      */
-    private static void statListAdrArea(String date, int areaDays, Long board, boolean isDesc, BigDecimal mvMin, BigDecimal mvMax) {
+    private static void statListAdrArea(String date, int areaDays, Long board, boolean isDesc, BigDecimal mvMin, BigDecimal mvMax,int limit) {
         boolean isShowCode = false;//是否显示编码
         boolean isCheckFuQuan = true;//是否检查更新复权
-        int limit = 20;
 
         String endDate = StockService.findBegDate(date, 0);
         String begDate = StockService.findBegDate(date, areaDays);
@@ -243,16 +243,17 @@ public class StockStat {
         }
 
 
-        //更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
-        if (isCheckFuQuan) {
-            updateFuQuan(rsList, limit);
-        }
+
 
         boolean isShowMoreYes = true;
         boolean isShowMoreNo = false;
         if (isDesc) {
             //排序
             List<CondStock> rsListDesc = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+
+            if (isCheckFuQuan) {
+                updateFuQuan(rsListDesc, limit);//更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
+            }
             //区间涨幅
 //            showHeadAdrRank(board, areaDays, begDate, endDate, "涨幅榜", mvMin, mvMax);
 //            showInfo(rsListDesc, board, begDate, endDate, limit, isShowMoreNo, isShowCode);
@@ -263,6 +264,9 @@ public class StockStat {
             System.out.println();
         } else {
             List<CondStock> rsListAsc = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            if (isCheckFuQuan) {
+                updateFuQuan(rsListAsc, limit);//更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
+            }
 //            System.out.println();
 //            showHeadAdrRank(board, areaDays, begDate, endDate, "跌幅榜", mvMin, mvMax);
 //            showInfo(rsListAsc, board, begDate, endDate, limit, isShowMoreNo, isShowCode);
@@ -287,6 +291,12 @@ public class StockStat {
             }
             String zqdm = stock.getF12();
             String zqmc = stock.getF14();
+//            if(zqmc.contains("康龙化成")){
+//                System.out.println("特殊股票处理："+zqmc);
+//            }
+//            if(zqdm.contains("300759")){
+//                System.out.println("特殊股票代码处理："+zqmc);
+//            }
             String dateCheck = stock.getDate();
             BigDecimal closeAmtDb = stock.getF2();
             // 查询今日价格
@@ -409,6 +419,7 @@ public class StockStat {
         if (isShowCode) {
             sb.append(StockUtil.formatStName("代码", size));
         }
+        sb.append(StockUtil.formatStName("序号", size));
         sb.append(StockUtil.formatStName("名称", size));
         sb.append(StockUtil.formatStName("区间涨幅", size));
         if (showMore) {
@@ -441,6 +452,7 @@ public class StockStat {
         int sizeBiz = 14;
         int sizeDate14 = 14;
         String boardName = handlerBoardName(board);
+        int number = 0;
         for (CondStock dto : rsList) {
             if (limit-- <= 0) {
                 break;
@@ -449,6 +461,7 @@ public class StockStat {
             if (isShowCode) {
                 sb.append(StockUtil.formatStName(dto.getF12(), size));
             }
+            sb.append(StockUtil.formatStName(String.valueOf(++number), size));
             sb.append(StockUtil.formatStName(dto.getF14(), size));
             sb.append(StockUtil.formatDouble(dto.getAreaF3(), size, null, "%"));
             if (showMore) {
