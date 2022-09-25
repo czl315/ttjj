@@ -338,7 +338,7 @@ public class StockUtil {
      * @param limit
      * @param showMore 显示更多字段
      */
-    public static void showInfoEtf(List<BizDto> rsList, Long board, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode) {
+    public static void showInfoEtf(List<BizDto> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode) {
         if (rsList == null) {
             return;
         }

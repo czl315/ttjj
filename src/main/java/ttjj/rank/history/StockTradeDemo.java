@@ -353,7 +353,7 @@ public class StockTradeDemo {
 //        }
 //
 //        List<String> typeListQiHuo = new ArrayList<>();
-//        typeListQiHuo.add("159985");//豆粕ETF
+//        typeListQiHuo.add("159985");//
 //        if (typeListQiHuo.contains(fundTrade.getZqdm())) {
 //            fundTrade.setBizTy("期货");
 //            fundTrade.setRiskStLoss(baseRiskStLoss);

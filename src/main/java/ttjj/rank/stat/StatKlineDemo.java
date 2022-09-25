@@ -7,10 +7,7 @@ import ttjj.dto.Kline;
 import ttjj.dto.StatCondStAdrCountKline;
 import ttjj.dto.StatRsStAdrCountKline;
 import ttjj.service.KlineService;
-import utils.ContMapEtf;
-import utils.Content;
-import utils.DateUtil;
-import utils.StockUtil;
+import utils.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -125,7 +122,7 @@ public class StatKlineDemo {
             int curNum = limit;
             for (Kline dto : klineList) {
                 //检查是否是主要etf
-                if (!isMainEtf(dto.getZqdm())) {
+                if (!EtfUtil.isMainEtf(dto.getZqdm())) {
                     continue;
                 }
 
@@ -151,7 +148,7 @@ public class StatKlineDemo {
             curNum = limit;
             for (Kline dto : klineList) {
                 //检查是否是主要etf
-                if (!isMainEtf(dto.getZqdm())) {
+                if (!EtfUtil.isMainEtf(dto.getZqdm())) {
                     continue;
                 }
                 BigDecimal adr = dto.getZhangDieFu();
@@ -173,18 +170,7 @@ public class StatKlineDemo {
 
     }
 
-    /**
-     * 检查是否是主要etf
-     *
-     * @param zqdm 编码
-     * @return 是否是主要etf
-     */
-    private static boolean isMainEtf(String zqdm) {
-        if (ContMapEtf.ETF_All.keySet().contains(zqdm)) {
-            return true;
-        }
-        return false;
-    }
+
 
     /**
      * 显示k线数据
@@ -333,7 +319,7 @@ public class StatKlineDemo {
         }
         for (Kline dto : orderList) {
             //检查是否是主要etf
-            if (!isMainEtf(dto.getZqdm())) {
+            if (!EtfUtil.isMainEtf(dto.getZqdm())) {
                 continue;
             }
 
@@ -399,7 +385,7 @@ public class StatKlineDemo {
 //        }
         for (Kline dto : orderList) {
             //检查是否是主要etf
-            if (isMainEtf && !isMainEtf(dto.getZqdm())) {
+            if (isMainEtf && !EtfUtil.isMainEtf(dto.getZqdm())) {
                 continue;
             }
             if (isOnlyUp && dto.getZhangDieFu().compareTo(up) <= 0) {

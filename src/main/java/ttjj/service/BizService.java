@@ -260,8 +260,9 @@ public class BizService {
      * @param limit     限定个数
      * @param dateCheck
      */
-    public static void updateFuQuanBiz(List<BizDto> rsList, int limit, String dateCheck) {
+    public static boolean updateFuQuanBiz(List<BizDto> rsList, int limit, String dateCheck) {
         int checkCount = limit;
+        boolean isUpdate = false;
         for (BizDto bizDto : rsList) {
             if (--checkCount <= 0) {
                 break;
@@ -297,7 +298,9 @@ public class BizService {
                 entity.setF18(todayKline.getCloseLastAmt());
                 int rsUpdate = BizRankDao.updateEtfNet(entity);
                 System.out.println("复权更新：" + rsUpdate);
+                isUpdate = true;
             }
         }
+        return isUpdate;
     }
 }

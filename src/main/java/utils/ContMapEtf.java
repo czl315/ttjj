@@ -165,7 +165,6 @@ public class ContMapEtf {
     public static Map<String, String> ZIYUAN = new HashMap<>();
 
     static {
-        KEJI.put("512660", "军工ETF       ");//139.20  	1.74
         KEJI.put("159611", "电力ETF       ");//12.86   	0.68
 //        KEJI.put("159967", "创成长ETF     ");//29.98   	0.15
         KEJI.put("515790", "光伏ETF       ");//147.52  	-0.18
@@ -175,6 +174,9 @@ public class ContMapEtf {
         KEJI.put("159995", "芯片ETF       ");//205.39  	-0.94
         KEJI.put("513050", "中概互联网ETF ");//367.01  	-1.43
         KEJI.put("513330", "恒生互联网ETF ");//246.99  	-1.67
+
+        KEJI.put("512660", "军工ETF       ");//139.20  	1.74
+        //4     512670    国防ETF         2.69%     -0.20%    22.58         2022-08-25    2022-09-23
 
 //        KEJI.put("513180", "118.13");//恒生科技指数ETF
 //        KEJI.put("512760", "135.48");//芯片ETF

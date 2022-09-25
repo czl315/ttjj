@@ -7,6 +7,7 @@ import ttjj.service.KlineService;
 import ttjj.service.StockService;
 import utils.ContMapEtf;
 import utils.DateUtil;
+import utils.EtfUtil;
 import utils.StockUtil;
 
 import java.math.BigDecimal;
@@ -46,18 +47,14 @@ public class BizEtfDemo {
 //        String date = "2022-08-26";
 
 
-        int areaDays = 60;//4:近一周;20:近一月
-        Long board = null;
-//        Long board = DB_RANK_BIZ_F19_BK_MAIN;
-//        BigDecimal mvMin = null;//
-//        BigDecimal mvMin = NUM_YI_500;//NUM_YI_1000
-//        BigDecimal mvMax = null;
-        int limit = 200;
+        int areaDays = 40;//4:近一周;20:近一月
+        int limit = 20;
 
-//        boolean isDesc = true;
-        boolean isDesc = false;
+        boolean isDesc = true;
+//        boolean isDesc = false;
 
-        statListEtfAdrArea(date, areaDays, board, isDesc, NUM_YI_10, null, limit);
+        statListEtfAdrArea(date, areaDays, isDesc, null, null, limit, true, DB_RANK_BIZ_TYPE_BAN_KUAI);//DB_RANK_BIZ_TYPE_BAN_KUAI
+//        statListEtfAdrArea(date, areaDays, isDesc, null, null, limit, false,DB_RANK_BIZ_TYPE_BAN_KUAI);
 
     }
 
@@ -66,12 +63,11 @@ public class BizEtfDemo {
      *
      * @param date
      * @param areaDays
-     * @param board
      * @param isDesc
      * @param mvMin
      * @param mvMax
      */
-    private static void statListEtfAdrArea(String date, int areaDays, Long board, boolean isDesc, BigDecimal mvMin, BigDecimal mvMax, int limit) {
+    private static void statListEtfAdrArea(String date, int areaDays, boolean isDesc, BigDecimal mvMin, BigDecimal mvMax, int limit, boolean isCheckMianEtf, String type) {
         boolean isShowCode = true;//是否显示编码
         boolean isCheckFuQuan = true;//是否检查更新复权
 
@@ -82,7 +78,7 @@ public class BizEtfDemo {
 
         BizDto condition = new BizDto();
         condition.setDate(endDate);
-        condition.setType(DB_RANK_BIZ_TYPE_ETF);
+        condition.setType(type);
         condition.setMvMin(mvMin);
         condition.setMvMax(mvMax);
         List<BizDto> etfListEndDate = BizService.findListDbBiz(condition);
@@ -105,7 +101,7 @@ public class BizEtfDemo {
 
         BizDto condBegDate = new BizDto();
         condBegDate.setDate(begDate);
-        condBegDate.setType(DB_RANK_BIZ_TYPE_ETF);
+        condBegDate.setType(type);
         condBegDate.setMvMin(mvMin);
         condBegDate.setMvMax(mvMax);
         List<BizDto> etfListBegDate = BizService.findListDbBiz(condBegDate);
@@ -147,6 +143,10 @@ public class BizEtfDemo {
             }
             BigDecimal adrArea = (endDateF2.subtract(begDateF18)).multiply(new BigDecimal("100")).divide(begDateF18, 2, RoundingMode.HALF_UP);
             dto.setAreaF3(adrArea);
+
+            if (isCheckMianEtf && !EtfUtil.isMainEtf(dto.getF12())) {//检查是否是主要etf
+                continue;
+            }
             rsList.add(dto);
         }
 
@@ -160,15 +160,16 @@ public class BizEtfDemo {
         }
         //区间涨幅
         StockUtil.showInfoHead(isShowMoreYes, isShowCode, false);
-        StockUtil.showInfoEtf(rsList, board, begDate, endDate, limit, isShowMoreYes, isShowCode);
+        StockUtil.showInfoEtf(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode);
         System.out.println();
 
         if (isCheckFuQuan) {
-            BizService.updateFuQuanBiz(rsList, limit,begDate);//更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
+            boolean isUpdate = BizService.updateFuQuanBiz(rsList, limit, begDate);//更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
+            if (isUpdate) {
+                statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, isCheckMianEtf, type);
+            }
         }
     }
-
-
 
 
     /**

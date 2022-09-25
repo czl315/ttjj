@@ -56,4 +56,17 @@ public class EtfUtil {
 //        }
         return sb.toString();
     }
+
+    /**
+     * 检查是否是主要etf
+     *
+     * @param zqdm 编码
+     * @return 是否是主要etf
+     */
+    public static boolean isMainEtf(String zqdm) {
+        if (ContMapEtf.ETF_All.keySet().contains(zqdm)) {
+            return true;
+        }
+        return false;
+    }
 }

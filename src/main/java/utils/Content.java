@@ -530,6 +530,10 @@ public class Content {
      */
     public static BigDecimal NUM_YI_10 = new BigDecimal("100000000").multiply(new BigDecimal("10"));
     /**
+     * 2亿
+     */
+    public static BigDecimal NUM_YI_2 = new BigDecimal("100000000").multiply(new BigDecimal("2"));
+    /**
      * 1亿
      */
     public static BigDecimal NUM_YI_1 = new BigDecimal("100000000").multiply(new BigDecimal("1"));
