@@ -74,6 +74,46 @@ public interface RandBizEtfMapper {
             "</script>"})
     List<RankBizDataDiff> listEtfBiz(Map<String, Object> condition);
 
+    @Select({"<script>",
+            "   SELECT ",
+            "       * ",
+            "   FROM rank_st_biz ",
+            "   WHERE 1=1  ",
+            "       <if test='date != null'> ",
+            "       AND rank_st_biz.date = #{date}  ",
+            "       </if> ",
+            "       <if test='type != null'> ",
+            "       AND rank_st_biz.type = #{type}  ",
+            "       </if> ",
+            "       <if test='begDate != null'> ",
+            "       <![CDATA[ AND rank_st_biz.date >= #{begDate} ]]> ",
+            "       </if> ",
+            "       <if test='endDate != null'> ",
+            "       <![CDATA[ AND rank_st_biz.date <= #{endDate} ]]> ",
+            "       </if> ",
+            "       <if test='f12 != null'> ",
+            "       AND rank_st_biz.f12 = #{f12} ",
+            "       </if> ",
+            "       <if test='f139 != null'> ",
+            "       AND rank_st_biz.f139=#{f139} ",
+            "       </if> ",
+//            "       AND rank_st_biz.conception LIKE CONCAT('%',#{conception},'%')",
+            "       <if test='f20 != null'> ",
+            "       AND rank_st_biz.f20 >= #{f20} ",
+            "       </if> ",
+            "       <if test='mvMin != null'> ",
+            "       <![CDATA[ AND rank_st_biz.f20 >= #{mvMin} ]]> ",
+            "       </if> ",
+            "       <if test='mvMax != null'> ",
+            "       <![CDATA[ AND rank_st_biz.f20 <= #{mvMax} ]]> ",
+            "       </if> ",
+            "       <if test='orderBy != null '> ",
+            "        ORDER BY  ${orderBy} ",
+            "       </if> ",
+//            "   ORDER BY rank_st_biz.f3 DESC ",
+            "</script>"})
+    List<BizDto> findListDbBiz(BizDto condition);
+
     @Insert({"<script>",
             "INSERT INTO `bank19`.`rank_st_biz`(",
             "`date`,`type`,`order_num`",//`rs`,
@@ -150,6 +190,11 @@ public interface RandBizEtfMapper {
     @Update({"<script>",
             "update rank_st_biz",
             "  <set>",
+            "    <if test='f2 != null'>f2=#{f2},</if>",
+            "    <if test='f15 != null'>f15=#{f15},</if>",
+            "    <if test='f16 != null'>f16=#{f16},</if>",
+            "    <if test='f17 != null'>f17=#{f17},</if>",
+            "    <if test='f18 != null'>f18=#{f18},</if>",
             "    <if test='LAST_NET != null'>LAST_NET=#{LAST_NET},</if>",
             "    <if test='NET_MIN_1 != null'>NET_MIN_1=#{NET_MIN_1},</if>",
             "    <if test='NET_MIN_CLOS_1 != null'>NET_MIN_CLOS_1=#{NET_MIN_CLOS_1},</if>",
@@ -277,6 +322,6 @@ public interface RandBizEtfMapper {
             " ORDER BY ",
             "   SUBSTR(rank_st_biz.date FROM 9 FOR 2) ",
             "</script>"})
-    List<StatRsStAdrCountBiz> findListStatStAdrCount(StatCondStAdrCountBiz condition);
+    List<BizDto> findListStatStAdrCount(StatCondStAdrCountBiz condition);
 
 }

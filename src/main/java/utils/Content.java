@@ -522,13 +522,23 @@ public class Content {
      */
     public static BigDecimal NUM_YI_30 = new BigDecimal("100000000").multiply(new BigDecimal("30"));
     /**
+     * 20亿
+     */
+    public static BigDecimal NUM_YI_20 = new BigDecimal("100000000").multiply(new BigDecimal("20"));
+    /**
+     * 10亿
+     */
+    public static BigDecimal NUM_YI_10 = new BigDecimal("100000000").multiply(new BigDecimal("10"));
+    /**
+     * 1亿
+     */
+    public static BigDecimal NUM_YI_1 = new BigDecimal("100000000").multiply(new BigDecimal("1"));
+    /**
      * NUM_YI_0
      */
     public static BigDecimal NUM_YI_0 = new BigDecimal("100000000").multiply(new BigDecimal("0"));
-    /**
-     * NUM_YI_1
-     */
-    public static BigDecimal NUM_YI_1 = new BigDecimal("100000000").multiply(new BigDecimal("1"));
+
+
     /**
      * DATE_WEEK_5
      */

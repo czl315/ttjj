@@ -6,10 +6,13 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.RandomUtils;
 import ttjj.dao.BizRankDao;
 import ttjj.db.RankStockCommpanyDb;
+import ttjj.dto.BizDto;
+import ttjj.dto.Kline;
 import ttjj.dto.RankBizDataDiff;
 import utils.DateUtil;
 import utils.HttpUtil;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import static utils.ContMapBizBaord.BOARD_NAME_CODE;
@@ -144,6 +147,16 @@ public class BizService {
     }
 
     /**
+     * 查询列表-根据
+     *
+     * @param condition 条件
+     * @return 结果
+     */
+    public static List<BizDto> findListDbBiz(BizDto condition) {
+        return BizRankDao.findListDbBiz(condition);
+    }
+
+    /**
      * 查询昨日主题排名
      */
     public static List<RankStockCommpanyDb> listRankStockByBiz(int pageSize, String biz) {
@@ -239,5 +252,52 @@ public class BizService {
             bkMap.put(bk, bizList);
         }
         return bkMap;
+    }
+
+    /**
+     * 更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
+     *  @param rsList 列表
+     * @param limit     限定个数
+     * @param dateCheck
+     */
+    public static void updateFuQuanBiz(List<BizDto> rsList, int limit, String dateCheck) {
+        int checkCount = limit;
+        for (BizDto bizDto : rsList) {
+            if (--checkCount <= 0) {
+                break;
+            }
+            String zqdm = bizDto.getF12();
+            String zqmc = bizDto.getF14();
+//            if(zqmc.contains("康龙化成")){
+//                System.out.println("特殊股票处理："+zqmc);
+//            }
+//            if(zqdm.contains("300759")){
+//                System.out.println("特殊股票代码处理："+zqmc);
+//            }
+            BigDecimal closeAmtDb = bizDto.getF2();
+            // 查询今日价格
+            List<Kline> klines = KlineService.kline(zqdm, 1, KLT_101, true, dateCheck, dateCheck, "");
+            if (klines == null || klines.size() == 0) {
+                StringBuffer sbError = new StringBuffer();
+                sbError.append(zqdm).append("，").append(":k线异常！");
+                System.out.println(sbError);
+                continue;
+            }
+            Kline todayKline = klines.get(0);
+            BigDecimal closeAmt = todayKline.getCloseAmt();
+            if (closeAmtDb.compareTo(closeAmt) != 0) {
+                System.out.println("k线收盘价与数据库收盘价不符：" + zqmc + "," + closeAmt + ":" + closeAmtDb);
+                RankBizDataDiff entity = new RankBizDataDiff();
+                entity.setF12(zqdm);
+                entity.setDate(dateCheck);
+                entity.setF2(closeAmt);
+                entity.setF15(todayKline.getMaxAmt());
+                entity.setF16(todayKline.getMinAmt());
+                entity.setF17(todayKline.getOpenAmt());
+                entity.setF18(todayKline.getCloseLastAmt());
+                int rsUpdate = BizRankDao.updateEtfNet(entity);
+                System.out.println("复权更新：" + rsUpdate);
+            }
+        }
     }
 }

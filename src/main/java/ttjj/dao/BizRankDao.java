@@ -137,6 +137,25 @@ public class BizRankDao {
     }
 
     /**
+     * 查询列表-根据板块
+     * @param condition
+     * @return
+     */
+    public static List<BizDto> findListDbBiz(BizDto condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<BizDto> rs = null;
+        try {
+            rs = session.selectList("ttjj.dao.mapper.RandBizEtfMapper.findListDbBiz", condition);
+            session.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
      * 删除-根据日期
      * @param entity
      * @return

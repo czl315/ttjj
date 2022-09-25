@@ -259,8 +259,8 @@ public class StockStat {
 //            showInfo(rsListDesc, board, begDate, endDate, limit, isShowMoreNo, isShowCode);
 //            System.out.println();
             showHeadAdrRank(board, areaDays, begDate, endDate, "涨幅榜", mvMin, mvMax);
-            showInfoHead(isShowMoreYes, isShowCode);
-            showInfo(rsListDesc, board, begDate, endDate, limit, isShowMoreYes, isShowCode);
+            StockUtil.showInfoHead(isShowMoreYes, isShowCode,true);
+            StockUtil.showInfo(rsListDesc, board, begDate, endDate, limit, isShowMoreYes, isShowCode);
             System.out.println();
         } else {
             List<CondStock> rsListAsc = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
@@ -271,8 +271,8 @@ public class StockStat {
 //            showHeadAdrRank(board, areaDays, begDate, endDate, "跌幅榜", mvMin, mvMax);
 //            showInfo(rsListAsc, board, begDate, endDate, limit, isShowMoreNo, isShowCode);
             showHeadAdrRank(board, areaDays, begDate, endDate, "跌幅榜", mvMin, mvMax);
-            showInfoHead(isShowMoreYes, isShowCode);
-            showInfo(rsListAsc, board, begDate, endDate, limit, isShowMoreYes, isShowCode);
+            StockUtil.showInfoHead(isShowMoreYes, isShowCode,true);
+            StockUtil.showInfo(rsListAsc, board, begDate, endDate, limit, isShowMoreYes, isShowCode);
             System.out.println();
         }
     }
@@ -366,7 +366,7 @@ public class StockStat {
             mvLimitInfo = mvLimitInfo + "至1000亿";
         }
 
-        String boardName = handlerBoardName(board);
+        String boardName = StockUtil.handlerBoardName(board);
 
         String areaDayTypeName = "";
         if (areaDayType == 4) {
@@ -392,92 +392,8 @@ public class StockStat {
         System.out.println(sb);
     }
 
-    /**
-     * 获取市场板块
-     *
-     * @param board 板块
-     * @return 市场板块名称
-     */
-    private static String handlerBoardName(Long board) {
-        String boardName = "";
-        if (board == null) {
-            boardName = "全市场";
-        } else if (board == DB_RANK_BIZ_F19_BK_MAIN) {
-            boardName = "沪深主板";
-        }
-        return boardName;
-    }
 
-    /**
-     * 显示头信息
-     */
-    private static void showInfoHead(boolean showMore, boolean isShowCode) {
-        int size = 10;
-        int sizeBiz = 14;
-        int sizeDate14 = 14;
-        StringBuffer sb = new StringBuffer();
-        if (isShowCode) {
-            sb.append(StockUtil.formatStName("代码", size));
-        }
-        sb.append(StockUtil.formatStName("序号", size));
-        sb.append(StockUtil.formatStName("名称", size));
-        sb.append(StockUtil.formatStName("区间涨幅", size));
-        if (showMore) {
-            sb.append(StockUtil.formatStName("业务板块", sizeBiz));
-            sb.append(StockUtil.formatStName("最新涨幅", size));
-            sb.append(StockUtil.formatStName("市场板块", sizeBiz));
-            sb.append(StockUtil.formatStName("最新市值(亿)", sizeDate14));
-            sb.append(StockUtil.formatStName("开始日期", sizeDate14));
-            sb.append(StockUtil.formatStName("结束日期", sizeDate14));
-        }
 
-        System.out.println(sb);
-    }
-
-    /**
-     * 显示集合
-     *
-     * @param rsList   列表
-     * @param board    板块
-     * @param begDate  开始时间
-     * @param endDate  结束时间
-     * @param limit
-     * @param showMore 显示更多字段
-     */
-    private static void showInfo(List<CondStock> rsList, Long board, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode) {
-        if (rsList == null) {
-            return;
-        }
-        int size = 10;
-        int sizeBiz = 14;
-        int sizeDate14 = 14;
-        String boardName = handlerBoardName(board);
-        int number = 0;
-        for (CondStock dto : rsList) {
-            if (limit-- <= 0) {
-                break;
-            }
-            StringBuffer sb = new StringBuffer();
-            if (isShowCode) {
-                sb.append(StockUtil.formatStName(dto.getF12(), size));
-            }
-            sb.append(StockUtil.formatStName(String.valueOf(++number), size));
-            sb.append(StockUtil.formatStName(dto.getF14(), size));
-            sb.append(StockUtil.formatDouble(dto.getAreaF3(), size, null, "%"));
-            if (showMore) {
-                sb.append(StockUtil.formatStName(dto.getType_name(), sizeBiz));
-                sb.append(StockUtil.formatDouble(dto.getF3(), size, null, "%"));
-                sb.append(StockUtil.formatStName(boardName, sizeBiz));
-                sb.append(StockUtil.formatDouble(dto.getF20(), sizeDate14));
-                sb.append(StockUtil.formatStName(begDate, sizeDate14));
-                sb.append(StockUtil.formatStName(endDate, sizeDate14));
-//                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
-//                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
-            }
-
-            System.out.println(sb);
-        }
-    }
 
     /**
      * 突破均线

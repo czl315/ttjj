@@ -4,17 +4,14 @@ import ttjj.dao.BizRankDao;
 import ttjj.dto.*;
 import ttjj.service.BizService;
 import ttjj.service.KlineService;
-import ttjj.service.MyPositionService;
 import ttjj.service.StockService;
 import utils.ContMapEtf;
-import utils.ContentEtf;
 import utils.DateUtil;
 import utils.StockUtil;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static utils.Content.*;
@@ -32,12 +29,147 @@ public class BizEtfDemo {
 //            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
 //        }
 
-        showEtfUpMa(date);//etf-超过均线
+//        showEtfUpMa(date);//etf-超过均线
 //        showEtfMv(date);//显示etf市值
 //        statDayMinMaxTime(date);//k线：每日最高点、最低点
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
+
+        statListEtfAdrArea();//计算区间涨幅
     }
+
+    /**
+     * ETF：计算区间涨幅
+     */
+    private static void statListEtfAdrArea() {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-08-26";
+
+
+        int areaDays = 60;//4:近一周;20:近一月
+        Long board = null;
+//        Long board = DB_RANK_BIZ_F19_BK_MAIN;
+//        BigDecimal mvMin = null;//
+//        BigDecimal mvMin = NUM_YI_500;//NUM_YI_1000
+//        BigDecimal mvMax = null;
+        int limit = 200;
+
+//        boolean isDesc = true;
+        boolean isDesc = false;
+
+        statListEtfAdrArea(date, areaDays, board, isDesc, NUM_YI_10, null, limit);
+
+    }
+
+    /**
+     * 统计区间涨幅
+     *
+     * @param date
+     * @param areaDays
+     * @param board
+     * @param isDesc
+     * @param mvMin
+     * @param mvMax
+     */
+    private static void statListEtfAdrArea(String date, int areaDays, Long board, boolean isDesc, BigDecimal mvMin, BigDecimal mvMax, int limit) {
+        boolean isShowCode = true;//是否显示编码
+        boolean isCheckFuQuan = true;//是否检查更新复权
+
+        String endDate = StockService.findBegDate(date, 0);
+        String begDate = StockService.findBegDate(date, areaDays);
+
+        Map<String, BizDto> rsMap = new HashMap<>();
+
+        BizDto condition = new BizDto();
+        condition.setDate(endDate);
+        condition.setType(DB_RANK_BIZ_TYPE_ETF);
+        condition.setMvMin(mvMin);
+        condition.setMvMax(mvMax);
+        List<BizDto> etfListEndDate = BizService.findListDbBiz(condition);
+
+        for (BizDto etf : etfListEndDate) {
+            BizDto rsOne = new BizDto();
+            rsOne.setF14(etf.getF14());
+            rsOne.setF12(etf.getF12());
+            rsOne.setF3(etf.getF3());
+            BigDecimal marketValue = null;
+            if (etf.getF20() != null) {
+                marketValue = etf.getF20().divide(NUM_YI_1, 2, BigDecimal.ROUND_HALF_UP);
+            }
+            rsOne.setF20(marketValue);
+            rsOne.setBegDate(begDate);
+            rsOne.setEndDate(endDate);
+            rsOne.setEndDateF2(etf.getF2());
+            rsMap.put(etf.getF12(), rsOne);
+        }
+
+        BizDto condBegDate = new BizDto();
+        condBegDate.setDate(begDate);
+        condBegDate.setType(DB_RANK_BIZ_TYPE_ETF);
+        condBegDate.setMvMin(mvMin);
+        condBegDate.setMvMax(mvMax);
+        List<BizDto> etfListBegDate = BizService.findListDbBiz(condBegDate);
+
+        for (BizDto etfBegDate : etfListBegDate) {
+            String code = etfBegDate.getF12();
+            BigDecimal yestodayNet = etfBegDate.getF18();
+            BizDto rsOne = rsMap.get(code);
+            if (rsOne == null) {
+//                System.out.println("市值已减小：" + JSON.toJSONString(rankStockCommpanyDb));
+                continue;
+            }
+            if (yestodayNet == null) {
+//                System.out.println("昨日净值为空：" + JSON.toJSONString(rankStockCommpanyDb));
+                continue;
+            }
+            rsOne.setBegDateF18(yestodayNet);
+            rsOne.setF18(yestodayNet);
+
+            //更新复权使用
+            rsOne.setF2(etfBegDate.getF2());
+
+            rsMap.put(code, rsOne);
+        }
+
+
+        List<BizDto> rsList = new ArrayList<>();
+        //计算区间涨幅
+        for (BizDto dto : rsMap.values()) {
+            BigDecimal endDateF2 = dto.getEndDateF2();
+            BigDecimal begDateF18 = dto.getBegDateF18();
+            if (endDateF2 == null) {
+//                System.out.println("结束净值为空：" + JSON.toJSONString(dto));
+                continue;
+            }
+            if (begDateF18 == null) {
+//                System.out.println("开始净值为空：" + JSON.toJSONString(dto));
+                continue;
+            }
+            BigDecimal adrArea = (endDateF2.subtract(begDateF18)).multiply(new BigDecimal("100")).divide(begDateF18, 2, RoundingMode.HALF_UP);
+            dto.setAreaF3(adrArea);
+            rsList.add(dto);
+        }
+
+        boolean isShowMoreYes = true;
+        boolean isShowMoreNo = false;
+        if (isDesc) {
+            //排序
+            rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(BizDto::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        } else {
+            rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(BizDto::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+        }
+        //区间涨幅
+        StockUtil.showInfoHead(isShowMoreYes, isShowCode, false);
+        StockUtil.showInfoEtf(rsList, board, begDate, endDate, limit, isShowMoreYes, isShowCode);
+        System.out.println();
+
+        if (isCheckFuQuan) {
+            BizService.updateFuQuanBiz(rsList, limit,begDate);//更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
+        }
+    }
+
+
+
 
     /**
      * 每日最高点、最低点
@@ -349,7 +481,7 @@ public class BizEtfDemo {
             if (temp > limit) {
                 break;
             }
-            String name = StockUtil.formatEtfName(r.getF14(),4);
+            String name = StockUtil.formatEtfName(r.getF14(), 4);
             //如果上涨标志，涨幅小于0，中断
             if (upDownFlag && r.getF3().compareTo(new BigDecimal("0")) <= 0) {
                 break;

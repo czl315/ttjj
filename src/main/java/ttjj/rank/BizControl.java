@@ -923,7 +923,7 @@ public class BizControl {
             rankBizDataDiff.setWeek(DateUtil.getWeekByYyyyMmDd(kline.getKtime(), DateUtil.YYYY_MM_DD));
             rankBizDataDiff.setType("etf");
             rankBizDataDiff.setF1(3L);
-            rankBizDataDiff.setF2(kline.getCloseAmt().doubleValue());
+            rankBizDataDiff.setF2(kline.getCloseAmt());
             rankBizDataDiff.setF3(kline.getZhangDieFu());
             rankBizDataDiff.setF4(kline.getZhangDieE().doubleValue());
             rankBizDataDiff.setF5(kline.getCjl().longValue());
@@ -936,10 +936,10 @@ public class BizControl {
             rankBizDataDiff.setF12(kline.getZqdm());
             rankBizDataDiff.setF13(1L);
             rankBizDataDiff.setF14(kline.getZqmc());
-            rankBizDataDiff.setF15(kline.getMaxAmt().doubleValue());
-            rankBizDataDiff.setF16(kline.getMinAmt().doubleValue());
-            rankBizDataDiff.setF17(kline.getOpenAmt().doubleValue());
-            rankBizDataDiff.setF18(kline.getCloseAmt().subtract(kline.getZhangDieE()).doubleValue());//计算昨日收盘价：今日收盘价-今日涨跌额
+            rankBizDataDiff.setF15(kline.getMaxAmt());
+            rankBizDataDiff.setF16(kline.getMinAmt());
+            rankBizDataDiff.setF17(kline.getOpenAmt());
+            rankBizDataDiff.setF18(kline.getCloseAmt().subtract(kline.getZhangDieE()));//计算昨日收盘价：今日收盘价-今日涨跌额
 
             rankBizDataDiffList.add(rankBizDataDiff);
         }
@@ -963,7 +963,7 @@ public class BizControl {
             rankBizDataDiff.setWeek(DateUtil.getWeekByYyyyMmDd(kline.getKtime(), DateUtil.YYYY_MM_DD));
             rankBizDataDiff.setType(DB_RANK_BIZ_TYPE_BAN_KUAI);
             rankBizDataDiff.setF1(2L);
-            rankBizDataDiff.setF2(kline.getCloseAmt().doubleValue());
+            rankBizDataDiff.setF2(kline.getCloseAmt());
             rankBizDataDiff.setF3(kline.getZhangDieFu());
             rankBizDataDiff.setF4(kline.getZhangDieE().doubleValue());
             rankBizDataDiff.setF5(kline.getCjl().longValue());
@@ -976,10 +976,10 @@ public class BizControl {
             rankBizDataDiff.setF12(kline.getZqdm());
             rankBizDataDiff.setF13(DB_RANK_BIZ_F12_BAN_KUAI);
             rankBizDataDiff.setF14(kline.getZqmc());
-            rankBizDataDiff.setF15(kline.getMaxAmt().doubleValue());
-            rankBizDataDiff.setF16(kline.getMinAmt().doubleValue());
-            rankBizDataDiff.setF17(kline.getOpenAmt().doubleValue());
-            rankBizDataDiff.setF18(kline.getCloseAmt().subtract(kline.getZhangDieE()).doubleValue());//计算昨日收盘价：今日收盘价-今日涨跌额
+            rankBizDataDiff.setF15(kline.getMaxAmt());
+            rankBizDataDiff.setF16(kline.getMinAmt());
+            rankBizDataDiff.setF17(kline.getOpenAmt());
+            rankBizDataDiff.setF18(kline.getCloseAmt().subtract(kline.getZhangDieE()));//计算昨日收盘价：今日收盘价-今日涨跌额
             rankBizDataDiff.setF19(DB_RANK_BIZ_F19_BK_MAIN);
             rankBizDataDiff.setF27(DB_RANK_BIZ_F12_BAN_KUAI);
             rankBizDataDiff.setF29(DB_RANK_BIZ_F139_BK_MAIN);

@@ -1,7 +1,13 @@
 package utils;
 
+import ttjj.dto.BizDto;
+import ttjj.dto.CondStock;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
+
+import static utils.Content.DB_RANK_BIZ_F19_BK_MAIN;
 
 /**
  * @author chenzhilong
@@ -246,4 +252,138 @@ public class StockUtil {
     public static boolean isCharQuanJiao(char c) {
         return String.valueOf(c).matches("[^\\x00-\\xff]");
     }
+
+    /**
+     * 显示头信息
+     */
+    public static void showInfoHead(boolean showMore, boolean isShowCode, boolean isShowBoard) {
+        int size = 10;
+        int sizeBiz = 14;
+        int sizeDate14 = 14;
+        StringBuffer sb = new StringBuffer();
+        sb.append(StockUtil.formatStName("序号", 6));
+        if (isShowCode) {
+            sb.append(StockUtil.formatStName("代码", size));
+        }
+        sb.append(StockUtil.formatStName("名称", 16));
+        sb.append(StockUtil.formatStName("区间涨幅", size));
+        if (showMore) {
+            if (isShowBoard) {
+                sb.append(StockUtil.formatStName("业务板块", sizeBiz));
+            }
+            sb.append(StockUtil.formatStName("最新涨幅", size));
+            if (isShowBoard) {
+                sb.append(StockUtil.formatStName("市场板块", sizeBiz));
+            }
+            sb.append(StockUtil.formatStName("最新市值(亿)", sizeDate14));
+            sb.append(StockUtil.formatStName("开始日期", sizeDate14));
+            sb.append(StockUtil.formatStName("结束日期", sizeDate14));
+        }
+
+        System.out.println(sb);
+    }
+
+    /**
+     * 显示集合
+     *
+     * @param rsList   列表
+     * @param board    板块
+     * @param begDate  开始时间
+     * @param endDate  结束时间
+     * @param limit
+     * @param showMore 显示更多字段
+     */
+    public static void showInfo(List<CondStock> rsList, Long board, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode) {
+        if (rsList == null) {
+            return;
+        }
+        int size = 10;
+        int sizeBiz = 14;
+        int sizeDate14 = 14;
+        String boardName = handlerBoardName(board);
+        int number = 0;
+        for (CondStock dto : rsList) {
+            if (limit-- <= 0) {
+                break;
+            }
+            StringBuffer sb = new StringBuffer();
+            if (isShowCode) {
+                sb.append(StockUtil.formatStName(dto.getF12(), size));
+            }
+            sb.append(StockUtil.formatStName(String.valueOf(++number), size));
+            sb.append(StockUtil.formatStName(dto.getF14(), size));
+            sb.append(StockUtil.formatDouble(dto.getAreaF3(), size, null, "%"));
+            if (showMore) {
+                sb.append(StockUtil.formatStName(dto.getType_name(), sizeBiz));
+                sb.append(StockUtil.formatDouble(dto.getF3(), size, null, "%"));
+                sb.append(StockUtil.formatStName(boardName, sizeBiz));
+                sb.append(StockUtil.formatDouble(dto.getF20(), sizeDate14));
+                sb.append(StockUtil.formatStName(begDate, sizeDate14));
+                sb.append(StockUtil.formatStName(endDate, sizeDate14));
+//                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
+//                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
+            }
+
+            System.out.println(sb);
+        }
+    }
+
+    /**
+     * 显示集合
+     *
+     * @param rsList   列表
+     * @param board    板块
+     * @param begDate  开始时间
+     * @param endDate  结束时间
+     * @param limit
+     * @param showMore 显示更多字段
+     */
+    public static void showInfoEtf(List<BizDto> rsList, Long board, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode) {
+        if (rsList == null) {
+            return;
+        }
+        int size = 10;
+        int sizeDate14 = 14;
+        int number = 0;
+        for (BizDto dto : rsList) {
+            if (limit-- <= 0) {
+                break;
+            }
+            StringBuffer sb = new StringBuffer();
+            sb.append(StockUtil.formatStName(String.valueOf(++number), 6));
+            if (isShowCode) {
+                sb.append(StockUtil.formatStName(dto.getF12(), size));
+            }
+            sb.append(StockUtil.formatStName(dto.getF14(), 16));
+            sb.append(StockUtil.formatDouble(dto.getAreaF3(), size, null, "%"));
+            if (showMore) {
+                sb.append(StockUtil.formatDouble(dto.getF3(), size, null, "%"));
+                sb.append(StockUtil.formatDouble(dto.getF20(), sizeDate14));
+                sb.append(StockUtil.formatStName(begDate, sizeDate14));
+                sb.append(StockUtil.formatStName(endDate, sizeDate14));
+//                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
+//                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
+            }
+
+            System.out.println(sb);
+        }
+    }
+
+
+    /**
+     * 获取市场板块
+     *
+     * @param board 板块
+     * @return 市场板块名称
+     */
+    public static String handlerBoardName(Long board) {
+        String boardName = "";
+        if (board == null) {
+            boardName = "全市场";
+        } else if (board == DB_RANK_BIZ_F19_BK_MAIN) {
+            boardName = "沪深主板";
+        }
+        return boardName;
+    }
+
 }
