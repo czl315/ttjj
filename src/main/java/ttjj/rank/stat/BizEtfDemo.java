@@ -47,14 +47,14 @@ public class BizEtfDemo {
 //        String date = "2022-08-26";
 
 
-        int areaDays = 40;//4:近一周;20:近一月
+        int areaDays = 4;//4:近一周;20:近一月
         int limit = 20;
 
         boolean isDesc = true;
 //        boolean isDesc = false;
 
-        statListEtfAdrArea(date, areaDays, isDesc, null, null, limit, true, DB_RANK_BIZ_TYPE_BAN_KUAI);//DB_RANK_BIZ_TYPE_BAN_KUAI
-//        statListEtfAdrArea(date, areaDays, isDesc, null, null, limit, false,DB_RANK_BIZ_TYPE_BAN_KUAI);
+//        statListEtfAdrArea(date, areaDays, isDesc, null, null, limit, true, DB_RANK_BIZ_TYPE_ETF);
+        statListEtfAdrArea(date, areaDays, isDesc, null, null, limit, false,DB_RANK_BIZ_TYPE_BAN_KUAI);
 
     }
 
