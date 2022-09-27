@@ -24,7 +24,7 @@ import static utils.DateUtil.YYYY_MM_DD;
 public class BizEtfDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-09-26";
+//        String date = "2022-09-27";
 //        List<String> dateList = StockService.findListDateAfter(date, 2);
 //        if (dateList != null && dateList.size() > 1) {
 //            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
@@ -343,6 +343,7 @@ public class BizEtfDemo {
 //        String spDate = "2022-09-27";//
 
         CondMa condMa = new CondMa();
+        condMa.setOrderField(ORDER_FIELD_NET_AREA_DAY_5);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3 ORDER_FIELD_MAXDOWN    ORDER_FIELD_MINRISE
         condMa.setDate(date);
         condMa.setDays(3);
         condMa.setSpDate(spDate);
@@ -352,10 +353,10 @@ public class BizEtfDemo {
         condMa.setShowDownMa(true);//是否显示-跌落均线
         condMa.setFindKline(true);//是否查询最新k线
         condMa.setShowFlowIn(false);//是否显示资金流入
-        condMa.setOrderField(ORDER_FIELD_NET_AREA_DAY_5);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3 ORDER_FIELD_MAXDOWN    ORDER_FIELD_MINRISE
         condMa.setOrderDesc(false);//是否倒序
         condMa.setShowDateMinMax(true);//是否显示日最低点、最高点
         condMa.setShowMaxMin(true);//是否显最低、最高
+
         List<StockAdrCountVo> rs = null;
         System.out.println("科技：");
         condMa.setMapStock(ContMapEtf.KEJI);
