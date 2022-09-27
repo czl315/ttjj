@@ -24,19 +24,19 @@ import static utils.DateUtil.YYYY_MM_DD;
 public class BizEtfDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-09-23";
+//        String date = "2022-09-26";
 //        List<String> dateList = StockService.findListDateAfter(date, 2);
 //        if (dateList != null && dateList.size() > 1) {
 //            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
 //        }
 
-//        showEtfUpMa(date);//etf-超过均线
+        showEtfUpMa(date);//etf-超过均线
 //        showEtfMv(date);//显示etf市值
 //        statDayMinMaxTime(date);//k线：每日最高点、最低点
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
-        statListEtfAdrArea();//计算区间涨幅
+//        statListEtfAdrArea();//计算区间涨幅
     }
 
     /**

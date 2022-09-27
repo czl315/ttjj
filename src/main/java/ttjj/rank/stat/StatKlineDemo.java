@@ -22,7 +22,7 @@ import static utils.Content.*;
 public class StatKlineDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-08-16";
+//        String date = "2022-09-26";
 
 //        // 统计涨跌次数-根据每月中的日期
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
@@ -225,12 +225,10 @@ public class StatKlineDemo {
         } else {
             //显示上涨
             if (isOnlyUp) {
+                System.out.println();
+                System.out.println(new StringBuffer("当前时间：").append(orderTime).append(",上涨列表"));
+                System.out.println(sbHead);
                 sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, true, up, false, down);
-                if (sbList != null && sbList.size() > 0) {
-                    System.out.println();
-                    System.out.println(new StringBuffer("当前时间：").append(orderTime).append(",上涨列表"));
-                    System.out.println(sbHead);
-                }
                 for (StringBuffer sb : sbList) {
                     System.out.println(sb);
                 }
@@ -238,12 +236,10 @@ public class StatKlineDemo {
 
             //显示下跌
             if (isOnlyDown) {
+                System.out.println();
+                System.out.println(new StringBuffer("当前时间：").append(orderTime).append(",下跌列表"));
+                System.out.println(sbHead);
                 sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, false, up, true, down);
-                if (sbList != null && sbList.size() > 0) {
-                    System.out.println();
-                    System.out.println(new StringBuffer("当前时间：").append(orderTime).append(",下跌列表"));
-                    System.out.println(sbHead);
-                }
                 for (StringBuffer sb : sbList) {
                     System.out.println(sb);
                 }
