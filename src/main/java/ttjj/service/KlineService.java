@@ -178,7 +178,7 @@ public class KlineService {
 
     /**
      * k线结果字符串类型
-     *  北交所k线查询
+     * 北交所k线查询
      *
      * @param zqdm
      * @param lmt
@@ -199,7 +199,7 @@ public class KlineService {
         url.append("&secid=");
 
         if (klineType == null || klineType.equals(KLINE_TYPE_STOCK) || StringUtils.isBlank(klineType)) {
-            if (zqdm.startsWith("00") || zqdm.startsWith("12") || zqdm.startsWith("13") || zqdm.startsWith("16") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159") || zqdm.startsWith("83")|| zqdm.startsWith("87") || zqdm.startsWith("43")) {
+            if (zqdm.startsWith("00") || zqdm.startsWith("12") || zqdm.startsWith("13") || zqdm.startsWith("16") || zqdm.startsWith("20") || zqdm.startsWith("30") || zqdm.startsWith("159") || zqdm.startsWith("83") || zqdm.startsWith("87") || zqdm.startsWith("43")) {
                 url.append("0." + zqdm);
 //                16XXXX：深交所LOF基金：16打头(前两位均用“16”标识，中间两位为中国证监会信息中心统一规定的基金管理公司代码gg，后两位为该公司发行全部开放式基金的顺序号xx。具体表示为“16ggxx”)
                 //指数 zqdm.startsWith("159") || zqdm.startsWith("399") ||
@@ -998,6 +998,7 @@ public class KlineService {
                     stockAdrCountVo.setF2(curAmt);
                     stockAdrCountVo.setF15(maxAmt);
                     stockAdrCountVo.setF16(minAmt);
+                    stockAdrCountVo.setF18(kline.getCloseLastAmt());
                     if (curAmt != null && curAmt.compareTo(new BigDecimal("0")) > 0) {
                         BigDecimal maxDown = maxAmt.subtract(curAmt).divide(curAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
                         BigDecimal minRise = curAmt.subtract(minAmt).divide(minAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
@@ -1487,6 +1488,7 @@ public class KlineService {
         boolean isOrderDesc = condMa.getOrderDesc();
         boolean isShowDownMa = condMa.getShowDownMa();
         boolean isShowFlowIn = condMa.getShowFlowIn();
+        Boolean isShowMaxMin = condMa.getShowMaxMin();
         Boolean isShowDateMinMax = condMa.getShowDateMinMax();//是否显示日最低点、最高点
         Map<String, String> mapMySt = condMa.getMapStock();
         Map<String, AssetPositionDb> mapMyPosition = condMa.getMapMyPosition();
@@ -1516,15 +1518,7 @@ public class KlineService {
             System.out.print("\t");
             System.out.print(StockUtil.formatEtfName(stockAdrCountVo.getF14(), 8));
             System.out.print("\t");
-            if (isShowPriceArea) {
-                System.out.print("5日:" + stockAdrCountVo.getNET_AREA_DAY_5() + "\t");//显示信息-价格区间
-                System.out.print("10日:" + stockAdrCountVo.getNET_AREA_DAY_10() + "\t");//显示信息-价格区间
-                System.out.print("20日:" + stockAdrCountVo.getNET_AREA_DAY_20() + "\t");//显示信息-价格区间
-                System.out.print("40日:" + stockAdrCountVo.getNET_AREA_DAY_40() + "\t");//显示信息-价格区间
-                System.out.print("60日:" + stockAdrCountVo.getNET_AREA_DAY_60() + "\t");//显示信息-价格区间
-//                System.out.print("120日:"+stockAdrCountVo.getNET_AREA_DAY_120() + "\t");//显示信息-价格区间
-//                System.out.print("250日:"+stockAdrCountVo.getNET_AREA_DAY_250() + "\t");//显示信息-价格区间
-            }
+
             if (isShowUpMa) {
                 System.out.print("超均线：");//显示信息-价格区间
                 if (kltList.contains(KLT_5)) {
@@ -1560,7 +1554,7 @@ public class KlineService {
             }
 
             if (isShowDownMa) {
-                System.out.print("跌落均线：");//显示信息-价格区间
+                System.out.print("下均线：");//显示信息-价格区间
                 if (kltList.contains(KLT_5)) {
                     String upMa = stockAdrCountVo.getMaDownDay5();
                     System.out.print(StockUtil.formatStr(upMa, 4));
@@ -1602,11 +1596,11 @@ public class KlineService {
             }
 
             //证券信息：涨幅，助力净流入，流市比
-            StringBuffer sbDaysAdr = new StringBuffer();
             //显示指定日期最近3个K线交易日的涨跌
-            if(days!=null){
+            if (days != null) {
+                StringBuffer sbDaysAdr = new StringBuffer();
                 List<Kline> klineListDays = KlineService.kline(zqdm, days, KLT_101, false, null, date, null);
-                if(klineListDays!=null){
+                if (klineListDays != null) {
                     for (Kline klineListDay : klineListDays) {
                         Kline kline = klineListDay;
 //                        if(kline.getKtime().equals(date)){//显示今天
@@ -1616,17 +1610,29 @@ public class KlineService {
                     }
                 }
                 sbDaysAdr.append("\t");
+                System.out.print(sbDaysAdr);
             }
-            System.out.print(sbDaysAdr);
 
-            StringBuffer sbStockInfo = new StringBuffer();
-//            sbStockInfo.append("[").append(stockAdrCountVo.getDate().substring(5)).append("]");
-//            sbStockInfo.append("涨跌：").append(StockUtil.formatDouble(stockAdrCountVo.getF3(), 5)).append(" ");
-            sbStockInfo.append("最高回撤：").append(stockAdrCountVo.getMaxDown()).append(" ");
-            sbStockInfo.append("最低上涨：").append(stockAdrCountVo.getMinRise()).append(" ");
+            //特定日期涨跌
+            if (StringUtils.isNotBlank(spDate)) {
+                RankStockCommpanyDb stock = new RankStockCommpanyDb();
+                stock.setF12(zqdm);
+                Kline kline = KlineService.findLast(stock, spDate, KLT_101);
+                if (kline != null) {
+                    System.out.print("[" + spDate.substring(5) + "]：" + StockUtil.formatDouble(kline.getZhangDieFu(), 6));
+                }
+            }
 
-            sbStockInfo.append("\t");
-            System.out.print(sbStockInfo);
+            if (isShowMaxMin != null && isShowMaxMin) {
+                StringBuffer sbMaxMin = new StringBuffer();
+                BigDecimal yesterdayAmt = stockAdrCountVo.getF18();
+                sbMaxMin.append("回撤：").append(stockAdrCountVo.getMaxDown()).append(" ");
+                sbMaxMin.append("低涨：").append(stockAdrCountVo.getMinRise()).append(" ");
+                sbMaxMin.append("最高：").append(StockUtil.formatDouble(stockAdrCountVo.getF15().subtract(yesterdayAmt).divide(yesterdayAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2,RoundingMode.HALF_UP), 5)).append(" ");
+                sbMaxMin.append("最低：").append(StockUtil.formatDouble(stockAdrCountVo.getF16().subtract(yesterdayAmt).divide(yesterdayAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2,RoundingMode.HALF_UP), 5)).append(" ");
+                sbMaxMin.append("\t");
+                System.out.print(sbMaxMin);
+            }
 
             if (isShowFlowIn) {
                 BigDecimal flowInMian = stockAdrCountVo.getF62();
@@ -1643,19 +1649,21 @@ public class KlineService {
                 }
             }
 
-            //特定日期涨跌
-            if (StringUtils.isNotBlank(spDate)) {
-                RankStockCommpanyDb stock = new RankStockCommpanyDb();
-                stock.setF12(zqdm);
-                Kline kline = KlineService.findLast(stock, spDate, KLT_101);
-                if (kline != null) {
-                    System.out.print("\t[" + spDate.substring(5) + "]：" + kline.getZhangDieFu());
-                }
-            }
 
             //是否显示日最低点、最高点
             if (isShowDateMinMax != null && isShowDateMinMax) {
                 showDateMinMax(date, zqdm);
+            }
+
+            if (isShowPriceArea) {
+                System.out.print("\t");
+                System.out.print("5日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_5(), 6));//显示信息-价格区间
+                System.out.print("10日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_10(), 6));//显示信息-价格区间
+                System.out.print("20日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_20(), 6));//显示信息-价格区间
+                System.out.print("40日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_40(), 6));//显示信息-价格区间
+                System.out.print("60日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_60(), 6));//显示信息-价格区间
+//                System.out.print("120日:"+stockAdrCountVo.getNET_AREA_DAY_120() + "\t");//显示信息-价格区间
+//                System.out.print("250日:"+stockAdrCountVo.getNET_AREA_DAY_250() + "\t");//显示信息-价格区间
             }
 
             System.out.println();

@@ -268,7 +268,7 @@ public class ContMapEtf {
 
     //医疗
     static {
-        YILIAO.put("513060", "恒生医疗ETF   ");//55.08   	-0.18
+//        YILIAO.put("513060", "恒生医疗ETF   ");//55.08   	-0.18
         YILIAO.put("512170", "医疗ETF       ");//148.20  	-0.37
         YILIAO.put("159992", "创新药ETF     ");//43.44   	-0.89
 

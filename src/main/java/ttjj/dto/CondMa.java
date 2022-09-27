@@ -66,6 +66,10 @@ public class CondMa {
      */
     private Boolean isShowMyPosition;
     /**
+     * 是否显示-高点回撤、低点上涨、最高涨幅、最低跌幅
+     */
+    private Boolean isShowMaxMin;
+    /**
      * kltList 周期列表
      */
     private List<String> kltList;
@@ -192,5 +196,13 @@ public class CondMa {
 
     public void setDays(Integer days) {
         this.days = days;
+    }
+
+    public Boolean getShowMaxMin() {
+        return isShowMaxMin;
+    }
+
+    public void setShowMaxMin(Boolean showMaxMin) {
+        isShowMaxMin = showMaxMin;
     }
 }
