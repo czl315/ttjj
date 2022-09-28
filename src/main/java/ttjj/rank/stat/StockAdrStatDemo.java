@@ -50,8 +50,8 @@ public class StockAdrStatDemo {
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
         Map<String, List<String>> bkMap = new HashMap<>();
-        bkMap = getBizListSp();//获取业务列表-特定
-//        bkMap = BizService.getBizListAll();//获取业务列表-全部板块
+//        bkMap = getBizListSp();//获取业务列表-特定
+        bkMap = BizService.getBizListAll();//获取业务列表-全部板块
 
         String orderBy = "";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
         String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;

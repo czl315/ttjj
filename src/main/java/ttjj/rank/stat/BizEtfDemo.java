@@ -343,7 +343,7 @@ public class BizEtfDemo {
 //        String spDate = "2022-09-27";//
 
         CondMa condMa = new CondMa();
-        condMa.setOrderField(ORDER_FIELD_NET_AREA_DAY_5);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3 ORDER_FIELD_MAXDOWN    ORDER_FIELD_MINRISE
+        condMa.setOrderField(ORDER_FIELD_F3);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3 ORDER_FIELD_MAXDOWN    ORDER_FIELD_MINRISE
         condMa.setDate(date);
         condMa.setDays(3);
         condMa.setSpDate(spDate);
@@ -358,14 +358,15 @@ public class BizEtfDemo {
         condMa.setShowMaxMin(true);//是否显最低、最高
 
         List<StockAdrCountVo> rs = null;
+
+        System.out.println("资源：");
+        condMa.setMapStock(ContMapEtf.ZIYUAN);
+        KlineService.showStockMa(condMa);
         System.out.println("科技：");
         condMa.setMapStock(ContMapEtf.KEJI);
         KlineService.showStockMa(condMa);
         System.out.println("消费：");
         condMa.setMapStock(ContMapEtf.XIAOFEI);
-        KlineService.showStockMa(condMa);
-        System.out.println("资源：");
-        condMa.setMapStock(ContMapEtf.ZIYUAN);
         KlineService.showStockMa(condMa);
         System.out.println("医疗：");
         condMa.setMapStock(ContMapEtf.YILIAO);
