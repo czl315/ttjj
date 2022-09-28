@@ -277,6 +277,30 @@ public class StockAdrCount {
      * UP_MA_102
      */
     private String UP_MA_102;
+    /**
+     * 均线净值
+     */
+    private BigDecimal MA_NET_60_5;
+    /**
+     * MA_NET_60_15
+     */
+    private BigDecimal MA_NET_60_15;
+    /**
+     * MA_NET_60_30
+     */
+    private BigDecimal MA_NET_60_30;
+    /**
+     * MA_NET_60_60
+     */
+    private BigDecimal MA_NET_60_60;
+    /**
+     * MA_NET_60_101
+     */
+    private BigDecimal MA_NET_60_101;
+    /**
+     * MA_NET_60_102
+     */
+    private BigDecimal MA_NET_60_102;
 
     /**
      * UPDATE_TIME
@@ -817,5 +841,53 @@ public class StockAdrCount {
 
     public void setADR_UP_SUM_1_40(BigDecimal ADR_UP_SUM_1_40) {
         this.ADR_UP_SUM_1_40 = ADR_UP_SUM_1_40;
+    }
+
+    public BigDecimal getMA_NET_60_5() {
+        return MA_NET_60_5;
+    }
+
+    public void setMA_NET_60_5(BigDecimal MA_NET_60_5) {
+        this.MA_NET_60_5 = MA_NET_60_5;
+    }
+
+    public BigDecimal getMA_NET_60_15() {
+        return MA_NET_60_15;
+    }
+
+    public void setMA_NET_60_15(BigDecimal MA_NET_60_15) {
+        this.MA_NET_60_15 = MA_NET_60_15;
+    }
+
+    public BigDecimal getMA_NET_60_30() {
+        return MA_NET_60_30;
+    }
+
+    public void setMA_NET_60_30(BigDecimal MA_NET_60_30) {
+        this.MA_NET_60_30 = MA_NET_60_30;
+    }
+
+    public BigDecimal getMA_NET_60_60() {
+        return MA_NET_60_60;
+    }
+
+    public void setMA_NET_60_60(BigDecimal MA_NET_60_60) {
+        this.MA_NET_60_60 = MA_NET_60_60;
+    }
+
+    public BigDecimal getMA_NET_60_101() {
+        return MA_NET_60_101;
+    }
+
+    public void setMA_NET_60_101(BigDecimal MA_NET_60_101) {
+        this.MA_NET_60_101 = MA_NET_60_101;
+    }
+
+    public BigDecimal getMA_NET_60_102() {
+        return MA_NET_60_102;
+    }
+
+    public void setMA_NET_60_102(BigDecimal MA_NET_60_102) {
+        this.MA_NET_60_102 = MA_NET_60_102;
     }
 }

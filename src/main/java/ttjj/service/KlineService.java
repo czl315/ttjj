@@ -831,6 +831,44 @@ public class KlineService {
     }
 
     /**
+     * 突破均线-向上
+     *
+     * @param stock  股票
+     * @param klt    周期
+     * @param maType 均线周期类型
+     * @param date   日期
+     * @return
+     */
+    public static BreakMaDto breakMaUp(RankStockCommpanyDb stock, String klt, Integer maType, String date) {
+        BreakMaDto rs = new BreakMaDto();
+        boolean isUpMa = false;
+        String zqmc = stock.getF14();
+        String zqdm = stock.getF12();
+        ;
+        // 查询今日价格
+        List<Kline> klines = KlineService.kline(zqdm, 1, KLT_101, true, date, date, "");
+        if (klines == null || klines.size() == 0) {
+//            System.out.println(new StringBuffer().append(zqdm).append("，").append(zqmc).append(":k线null！"));
+            return null;
+        }
+        Kline todayKline = klines.get(0);
+        BigDecimal curAmt = todayKline.getCloseAmt();
+        BigDecimal yesterdayCloseAmt = todayKline.getCloseLastAmt();
+
+        Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, maType, klt, false, "", date, "");
+        BigDecimal curMaAmt = netMap.get(Content.keyRsNetCloseAvg);
+
+        rs.setMaNet(curMaAmt);
+        //涨破均线，买出信号
+        if (yesterdayCloseAmt.compareTo(curMaAmt) < 0 && curAmt.compareTo(curMaAmt) >= 0) {
+            isUpMa = true;
+            rs.setUpMa(true);
+        }
+
+        return rs;
+    }
+
+    /**
      * 获取-secid
      *
      * @return
@@ -1628,8 +1666,8 @@ public class KlineService {
                 BigDecimal yesterdayAmt = stockAdrCountVo.getF18();
                 sbMaxMin.append("回撤：").append(stockAdrCountVo.getMaxDown()).append(" ");
                 sbMaxMin.append("低涨：").append(stockAdrCountVo.getMinRise()).append(" ");
-                sbMaxMin.append("最高：").append(StockUtil.formatDouble(stockAdrCountVo.getF15().subtract(yesterdayAmt).divide(yesterdayAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2,RoundingMode.HALF_UP), 5)).append(" ");
-                sbMaxMin.append("最低：").append(StockUtil.formatDouble(stockAdrCountVo.getF16().subtract(yesterdayAmt).divide(yesterdayAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2,RoundingMode.HALF_UP), 5)).append(" ");
+                sbMaxMin.append("最高：").append(StockUtil.formatDouble(stockAdrCountVo.getF15().subtract(yesterdayAmt).divide(yesterdayAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_UP), 5)).append(" ");
+                sbMaxMin.append("最低：").append(StockUtil.formatDouble(stockAdrCountVo.getF16().subtract(yesterdayAmt).divide(yesterdayAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_UP), 5)).append(" ");
                 sbMaxMin.append("\t");
                 System.out.print(sbMaxMin);
             }

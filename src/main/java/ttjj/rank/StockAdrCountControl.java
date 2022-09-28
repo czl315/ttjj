@@ -29,7 +29,7 @@ import static utils.Content.*;
 public class StockAdrCountControl {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-09-09";
+//        String date = "2022-09-27";
         Long board = DB_RANK_BIZ_F139_BK_MAIN;//
         String spBizName = null;//特定业务：半导体 "半导体"
 //        String spBizName = "电力行业";//特定业务：半导体 "半导体"
@@ -1166,7 +1166,7 @@ public class StockAdrCountControl {
     }
 
     /**
-     * 更新-超过均线信息
+     * 更新-超过均线信息:均线净值
      *
      * @param maDate
      * @param stockAdrCountList
@@ -1199,7 +1199,10 @@ public class StockAdrCountControl {
             boolean isMa101 = false;
             boolean isMa102 = false;
             if (maKltList.contains(KLT_15)) {
-                isMa15 = KlineService.showUpMa(stock, KLT_15, maList, maDate, isUp);//显示信息-上涨均线
+//                isMa15 = KlineService.showUpMa(stock, KLT_15, maList, maDate, isUp);//显示信息-上涨均线
+                BreakMaDto breakMa = KlineService.breakMaUp(stock, KLT_15, MA_60, maDate);
+                entity.setMA_NET_60_15(breakMa != null ? breakMa.getMaNet() : null);
+                isMa15 = breakMa.isUpMa();
                 if (isMa15) {
                     entity.setUP_MA_15(KLT_15 + "(" + MA_60 + ")");
                 } else {
@@ -1207,7 +1210,10 @@ public class StockAdrCountControl {
                 }
             }
             if (maKltList.contains(KLT_30)) {
-                isMa30 = KlineService.showUpMa(stock, KLT_30, maList, maDate, isUp);//显示信息-上涨均线
+//                isMa30 = KlineService.showUpMa(stock, KLT_30, maList, maDate, isUp);//显示信息-上涨均线
+                BreakMaDto breakMa = KlineService.breakMaUp(stock, KLT_30, MA_60, maDate);
+                entity.setMA_NET_60_30(breakMa != null ? breakMa.getMaNet() : null);
+                isMa30 = breakMa.isUpMa();
                 if (isMa30) {
                     entity.setUP_MA_30(KLT_30 + "(" + MA_60 + ")");
                 } else {
@@ -1215,7 +1221,10 @@ public class StockAdrCountControl {
                 }
             }
             if (maKltList.contains(KLT_60)) {
-                isMa60 = KlineService.showUpMa(stock, KLT_60, maList, maDate, isUp);//显示信息-上涨均线
+//                isMa60 = KlineService.showUpMa(stock, KLT_60, maList, maDate, isUp);//显示信息-上涨均线
+                BreakMaDto breakMa = KlineService.breakMaUp(stock, KLT_60, MA_60, maDate);
+                entity.setMA_NET_60_60(breakMa != null ? breakMa.getMaNet() : null);
+                isMa60 = breakMa.isUpMa();
                 if (isMa60) {
                     entity.setUP_MA_60(KLT_60 + "(" + MA_60 + ")");
                 } else {
@@ -1223,7 +1232,10 @@ public class StockAdrCountControl {
                 }
             }
             if (maKltList.contains(KLT_101)) {
-                isMa101 = KlineService.showUpMa(stock, KLT_101, maList, maDate, isUp);//显示信息-上涨均线
+//                isMa101 = KlineService.showUpMa(stock, KLT_101, maList, maDate, isUp);//显示信息-上涨均线
+                BreakMaDto breakMa = KlineService.breakMaUp(stock, KLT_101, MA_60, maDate);
+                entity.setMA_NET_60_101(breakMa != null ? breakMa.getMaNet() : null);
+                isMa101 = breakMa.isUpMa();
                 if (isMa101) {
                     entity.setUP_MA_101(KLT_101 + "(" + MA_60 + ")");
                 } else {
@@ -1231,7 +1243,10 @@ public class StockAdrCountControl {
                 }
             }
             if (maKltList.contains(KLT_102)) {
-                isMa102 = KlineService.showUpMa(stock, KLT_102, maList, maDate, isUp);//显示信息-上涨均线
+//                isMa102 = KlineService.showUpMa(stock, KLT_102, maList, maDate, isUp);//显示信息-上涨均线
+                BreakMaDto breakMa = KlineService.breakMaUp(stock, KLT_102, MA_60, maDate);
+                entity.setMA_NET_60_102(breakMa != null ? breakMa.getMaNet() : null);
+                isMa102 = breakMa.isUpMa();
                 if (isMa102) {
                     entity.setUP_MA_102(KLT_102 + "(" + MA_60 + ")");
                 } else {
