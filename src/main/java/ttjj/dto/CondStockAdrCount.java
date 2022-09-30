@@ -82,6 +82,11 @@ public class CondStockAdrCount extends StockAdrCount {
      */
     private List<String> bizList;
 
+    /**
+     * 均线之上-60-周线
+     */
+    private BigDecimal minMa60Up102;
+
     public BigDecimal getAdrUpSumOrder1to60Min() {
         return adrUpSumOrder1to60Min;
     }
@@ -209,5 +214,13 @@ public class CondStockAdrCount extends StockAdrCount {
 
     public void setUpMaKltOrList(List<String> upMaKltOrList) {
         this.upMaKltOrList = upMaKltOrList;
+    }
+
+    public BigDecimal getMinMa60Up102() {
+        return minMa60Up102;
+    }
+
+    public void setMinMa60Up102(BigDecimal minMa60Up102) {
+        this.minMa60Up102 = minMa60Up102;
     }
 }

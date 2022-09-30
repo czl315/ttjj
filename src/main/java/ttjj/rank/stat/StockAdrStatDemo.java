@@ -36,7 +36,6 @@ public class StockAdrStatDemo {
 
     /**
      * 统计：涨幅次数列表
-     *
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
@@ -71,16 +70,6 @@ public class StockAdrStatDemo {
         BigDecimal adrSum40To60 = null;
         BigDecimal adrSum20To40 = null;
 
-//         adrSum1To60 = new BigDecimal("60");
-//         adrSum1To40 = new BigDecimal("30");
-//        adrSum40To60 = new BigDecimal("15");
-////        BigDecimal adrSum20To40 = new BigDecimal("20");
-
-//        adrSum1To60 = new BigDecimal("90");
-//        adrSum1To40 = new BigDecimal("45");
-//        adrSum40To60 = new BigDecimal("10");
-//        BigDecimal adrSum20To40 = new BigDecimal("20");
-
         CondStockAdrCount condFind = new CondStockAdrCount();
         condFind.setADR_UP_SUM_1_60(adrSum1To60);
         condFind.setADR_UP_SUM_1_40(adrSum1To40);
@@ -91,6 +80,8 @@ public class StockAdrStatDemo {
 //        condFind.setUP_MA_60("60(60)");
 //        condFind.setUP_MA_101("101(60)");
 //        condFind.setUP_MA_102("102(60)");
+
+        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
         for (List<String> bks : bkMap.values()) {
             List<StockAdrCountVo> stockAdrCountList = listByBizList(date, bks, orderBy, limitCount, mvMinBig, mvMinSmall, condFind);
@@ -253,66 +244,14 @@ public class StockAdrStatDemo {
 
         boolean isShowCode = true;
 //        boolean isShowCode = false;
-        StringBuffer sbHead = new StringBuffer();
-        if (isShowCode) {
-            sbHead.append(StockUtil.formatStName("编码", 10));
-        }
-//        sbHead.append("[");
-        sbHead.append(StockUtil.formatEtfName("名称", 10));
-//        sbHead.append("]");
-        sbHead.append(StockUtil.formatStName("行业", 14));
-        sbHead.append(StockUtil.formatStName("全3月排", 8));
-        sbHead.append(StockUtil.formatStName("全3排和", 8));
-        sbHead.append(StockUtil.formatStName("3月排", 6));
-        sbHead.append(StockUtil.formatStName("2月排", 6));
-        sbHead.append(StockUtil.formatStName("1月排", 6));
-        sbHead.append(StockUtil.formatStName("10天排", 6));
-        sbHead.append(StockUtil.formatStName("5天排", 6));
-        sbHead.append(StockUtil.formatStName("3月涨和", 8));
-        sbHead.append(StockUtil.formatStName("2月涨和", 8));
-        sbHead.append(StockUtil.formatStName("3月涨", 8));
-        sbHead.append(StockUtil.formatStName("2月涨", 8));
-        sbHead.append(StockUtil.formatStName("1月涨", 8));
-        sbHead.append(StockUtil.formatStName("10天涨", 6));
-        sbHead.append(StockUtil.formatStName("5天涨", 6));
-        sbHead.append(StockUtil.formatStName("3天涨", 10));
-        sbHead.append(StockUtil.formatStName("2天涨", 6));
-        sbHead.append(StockUtil.formatStName("1天涨", 6));
-        sbHead.append(StockUtil.formatStName("今涨", 8));
+        boolean isShowCurNet = true;//是否显示当前净值
+        boolean isShowAreaAdr = true;//是否显示-区间涨幅
         if (StringUtils.isNotBlank(spDateBeg)) {
-//            sbHead.append(StockUtil.formatStName(spDateBeg.substring(5), 5));
-            sbHead.append(StockUtil.formatStName("区间涨幅", 5));
+            isShowAreaAdr = true;
         }
-//        if (StringUtils.isNotBlank(spDateEnd)) {
-//            sbHead.append("至");
-//            sbHead.append(StockUtil.formatStName(spDateEnd.substring(5), 7));
-//        }
-        sbHead.append(StockUtil.formatStName("市值", 8));
-        sbHead.append(StockUtil.formatStName("区间5", 6));
-        sbHead.append(StockUtil.formatStName("区间10", 6));
-        sbHead.append(StockUtil.formatStName("区间20", 6));
-        sbHead.append(StockUtil.formatStName("区间40", 6));
-        sbHead.append(StockUtil.formatStName("区间60", 6));
-        sbHead.append(StockUtil.formatStName("超周", 6));
-        sbHead.append(StockUtil.formatStName("超日", 6));
-        sbHead.append(StockUtil.formatStName("超60", 6));
-        sbHead.append(StockUtil.formatStName("超30", 6));
-        sbHead.append(StockUtil.formatStName("超15", 6));
-        System.out.println(sbHead);
 
-        //处理-近2月涨幅和
-//        for (StockAdrCount stockAdrCount : stockAdrCountList) {
-//            if (stockAdrCount.getADR_UP_SUM_1_40() != null) {
-//                break;//如果非空，不需要处理
-//            }
-//            BigDecimal adrUpSum1to20 = stockAdrCount.getADR_UP_SUM_1_20() != null ? stockAdrCount.getADR_UP_SUM_1_20() : new BigDecimal("0");
-//            BigDecimal adrUpSum20to40 = stockAdrCount.getADR_UP_SUM_20_40() != null ? stockAdrCount.getADR_UP_SUM_20_40() : new BigDecimal("0");
-//            BigDecimal adrUpSum1to40 = adrUpSum20to40.add(adrUpSum1to20);
-//            stockAdrCount.setADR_UP_SUM_1_40(adrUpSum1to40);
-//        }
-
-//        //排序-近2月涨幅和
-//        stockAdrCountList = stockAdrCountList.stream().filter(e -> e != null).sorted(Comparator.comparing(StockAdrCount::getADR_UP_SUM_1_40, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        //显示头信息
+        System.out.println(showHead(isShowCode, isShowCurNet,isShowAreaAdr));
 
         for (StockAdrCountVo stockAdrCount : stockAdrCountList) {
 //            System.out.println(JSON.toJSONString(stockAdrCount));
@@ -397,8 +336,73 @@ public class StockAdrStatDemo {
             } else {
                 sb.append(StockUtil.formatStName("", 6));
             }
+            if (isShowCurNet) {
+                sb.append(StockUtil.formatDouble(stockAdrCount.getF2(), 6));
+                sb.append(StockUtil.formatDouble(stockAdrCount.getMA_NET_60_102(), 6));
+            }
+
             System.out.println(sb);
         }
+    }
+
+    /**
+     * 显示头信息
+     * @param isShowCode
+     * @param isShowCurNet
+     * @param isShowAreaAdr
+     * @return
+     */
+    private static StringBuffer showHead(boolean isShowCode, boolean isShowCurNet, boolean isShowAreaAdr) {
+        StringBuffer sbHead = new StringBuffer();
+        if (isShowCode) {
+            sbHead.append(StockUtil.formatStName("编码", 10));
+        }
+//        sbHead.append("[");
+        sbHead.append(StockUtil.formatEtfName("名称", 10));
+//        sbHead.append("]");
+        sbHead.append(StockUtil.formatStName("行业", 14));
+        sbHead.append(StockUtil.formatStName("全3月排", 8));
+        sbHead.append(StockUtil.formatStName("全3排和", 8));
+        sbHead.append(StockUtil.formatStName("3月排", 6));
+        sbHead.append(StockUtil.formatStName("2月排", 6));
+        sbHead.append(StockUtil.formatStName("1月排", 6));
+        sbHead.append(StockUtil.formatStName("10天排", 6));
+        sbHead.append(StockUtil.formatStName("5天排", 6));
+        sbHead.append(StockUtil.formatStName("3月涨和", 8));
+        sbHead.append(StockUtil.formatStName("2月涨和", 8));
+        sbHead.append(StockUtil.formatStName("3月涨", 8));
+        sbHead.append(StockUtil.formatStName("2月涨", 8));
+        sbHead.append(StockUtil.formatStName("1月涨", 8));
+        sbHead.append(StockUtil.formatStName("10天涨", 6));
+        sbHead.append(StockUtil.formatStName("5天涨", 6));
+        sbHead.append(StockUtil.formatStName("3天涨", 10));
+        sbHead.append(StockUtil.formatStName("2天涨", 6));
+        sbHead.append(StockUtil.formatStName("1天涨", 6));
+        sbHead.append(StockUtil.formatStName("今涨", 8));
+        if (isShowAreaAdr) {
+//            sbHead.append(StockUtil.formatStName(spDateBeg.substring(5), 5));
+            sbHead.append(StockUtil.formatStName("区间涨幅", 5));
+        }
+//        if (StringUtils.isNotBlank(spDateEnd)) {
+//            sbHead.append("至");
+//            sbHead.append(StockUtil.formatStName(spDateEnd.substring(5), 7));
+//        }
+        sbHead.append(StockUtil.formatStName("市值", 8));
+        sbHead.append(StockUtil.formatStName("区间5", 6));
+        sbHead.append(StockUtil.formatStName("区间10", 6));
+        sbHead.append(StockUtil.formatStName("区间20", 6));
+        sbHead.append(StockUtil.formatStName("区间40", 6));
+        sbHead.append(StockUtil.formatStName("区间60", 6));
+        sbHead.append(StockUtil.formatStName(" 超周", 6));
+        sbHead.append(StockUtil.formatStName("超日", 6));
+        sbHead.append(StockUtil.formatStName("超60", 6));
+        sbHead.append(StockUtil.formatStName("超30", 6));
+        sbHead.append(StockUtil.formatStName("超15", 6));
+        if (isShowCurNet) {
+            sbHead.append(StockUtil.formatStName("净值", 6));
+            sbHead.append(StockUtil.formatStName("60周", 6));
+        }
+        return sbHead;
     }
 
     /**

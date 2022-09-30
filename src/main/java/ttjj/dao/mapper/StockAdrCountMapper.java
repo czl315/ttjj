@@ -203,6 +203,9 @@ public interface StockAdrCountMapper {
             "       <if test='mvMax != null'> ",
             "       <![CDATA[ AND f20 <= #{mvMax} ]]> ",
             "       </if> ",
+            "       <if test='minMa60Up102 != null'> ",
+            "       <![CDATA[ AND f2 >= MA_NET_60_102 ]]> ",
+            "       </if> ",
 
             "       <if test='orderBy != null '> ",
             "        ORDER BY  ${orderBy} ",

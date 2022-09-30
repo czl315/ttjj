@@ -329,7 +329,7 @@ public class FupanControl {
      * @param dateType 日期类型
      * @param cookie 登录key
      */
-    private static void insertOrUpdate(String date, String klt, String dateType, String cookie) {
+    public static void insertOrUpdate(String date, String klt, String dateType, String cookie) {
         boolean updateDaPanKline = true;//显示-大盘指数
 //        boolean updateDaPanKline = false;//不显示-大盘指数
         boolean updateMyStock = true;//显示-我的股票
@@ -634,7 +634,12 @@ public class FupanControl {
         String totalAmt = "";//合计资产金额
         String dayProfit = "";//当日盈亏
         String dayProfitRt = "";//当日盈亏收益率
-        JSONObject rsJson = JSON.parseObject(rs);
+        JSONObject rsJson = null;
+        try{
+            rsJson = JSON.parseObject(rs);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         JSONArray rsArray = rsJson.getJSONArray("ResultObj");
         for (int i = 0; i < rsArray.size(); i++) {

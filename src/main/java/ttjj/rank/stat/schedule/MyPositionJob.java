@@ -1,10 +1,14 @@
 package ttjj.rank.stat.schedule;
 
 import ttjj.rank.FupanControl;
+import utils.ContentCookie;
 import utils.DateUtil;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import static utils.Content.DAYS_1;
+import static utils.Content.KLT_101;
 
 /**
  * k线
@@ -28,7 +32,8 @@ public class MyPositionJob {
             System.out.println();
             System.out.println("定时任务-检查我的持仓-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
             FupanControl.checkMaByMyPosition(date);//检查我的持仓
+//            FupanControl.insertOrUpdate(date, KLT_101, DAYS_1, ContentCookie.COOKIE_DFCF);
             System.out.println("定时任务-检查我的持仓-end:");
-        }, 0, 5, TimeUnit.MINUTES);
+        }, 0, 15, TimeUnit.MINUTES);
     }
 }

@@ -343,7 +343,7 @@ public class BizEtfDemo {
 //        String spDate = "2022-09-27";//
 
         CondMa condMa = new CondMa();
-        condMa.setOrderField(ORDER_FIELD_F3);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3 ORDER_FIELD_MAXDOWN    ORDER_FIELD_MINRISE
+        condMa.setOrderField(ORDER_FIELD_NET_AREA_DAY_5);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3 ORDER_FIELD_MAXDOWN    ORDER_FIELD_MINRISE
         condMa.setDate(date);
         condMa.setDays(3);
         condMa.setSpDate(spDate);
