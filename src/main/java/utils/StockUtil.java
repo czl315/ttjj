@@ -1,11 +1,14 @@
 package utils;
 
+import org.apache.commons.lang3.StringUtils;
 import ttjj.dto.BizDto;
 import ttjj.dto.CondStock;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static utils.Content.DB_RANK_BIZ_F19_BK_MAIN;
 
@@ -256,16 +259,24 @@ public class StockUtil {
     /**
      * 显示头信息
      */
-    public static void showInfoHead(boolean showMore, boolean isShowCode, boolean isShowBoard) {
+    public static Map<String,Integer> showInfoHead(boolean showMore, boolean isShowCode, boolean isShowBoard, String conception) {
+        Map<String,Integer> sizeMap = new HashMap<>();
+        String orderNo = "序号";
+        sizeMap.put("序号",5);
+        sizeMap.put("名称",16);
+        sizeMap.put("概念",16);
         int size = 10;
         int sizeBiz = 14;
         int sizeDate14 = 14;
         StringBuffer sb = new StringBuffer();
-        sb.append(StockUtil.formatStName("序号", 6));
+        sb.append(StockUtil.formatStName(orderNo, sizeMap.get(orderNo)));
         if (isShowCode) {
             sb.append(StockUtil.formatStName("代码", size));
         }
-        sb.append(StockUtil.formatStName("名称", 16));
+        sb.append(StockUtil.formatStName("名称", sizeMap.get("名称")));
+        if (StringUtils.isNotBlank(conception)) {
+            sb.append(StockUtil.formatStName("概念", sizeMap.get("概念")));
+        }
         sb.append(StockUtil.formatStName("区间涨幅", size));
         if (showMore) {
             if (isShowBoard) {
@@ -281,19 +292,21 @@ public class StockUtil {
         }
 
         System.out.println(sb);
+        return sizeMap;
     }
 
     /**
      * 显示集合
-     *
      * @param rsList   列表
      * @param board    板块
      * @param begDate  开始时间
      * @param endDate  结束时间
      * @param limit
      * @param showMore 显示更多字段
+     * @param sizeMap
+     * @param conception
      */
-    public static void showInfo(List<CondStock> rsList, Long board, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode) {
+    public static void showInfo(List<CondStock> rsList, Long board, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, Map<String, Integer> sizeMap, String conception) {
         if (rsList == null) {
             return;
         }
@@ -308,10 +321,13 @@ public class StockUtil {
             }
             StringBuffer sb = new StringBuffer();
             if (isShowCode) {
-                sb.append(StockUtil.formatStName(dto.getF12(), size));
+                sb.append(StockUtil.formatStName(dto.getF12(), 6));
             }
-            sb.append(StockUtil.formatStName(String.valueOf(++number), size));
-            sb.append(StockUtil.formatStName(dto.getF14(), size));
+            sb.append(StockUtil.formatStName(String.valueOf(++number), sizeMap.get("序号")));
+            sb.append(StockUtil.formatStName(dto.getF14(), sizeMap.get("名称")));
+            if (StringUtils.isNotBlank(conception)) {
+                sb.append(StockUtil.formatStName(conception, sizeMap.get("概念")));
+            }
             sb.append(StockUtil.formatDouble(dto.getAreaF3(), size, null, "%"));
             if (showMore) {
                 sb.append(StockUtil.formatStName(dto.getType_name(), sizeBiz));
@@ -332,7 +348,6 @@ public class StockUtil {
      * 显示集合
      *
      * @param rsList   列表
-     * @param board    板块
      * @param begDate  开始时间
      * @param endDate  结束时间
      * @param limit

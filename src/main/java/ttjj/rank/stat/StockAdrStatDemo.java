@@ -29,9 +29,7 @@ import static utils.Content.*;
 public class StockAdrStatDemo {
     public static void main(String[] args) {
         findListDemo();
-
 //        statStockAdrCountBatch(0);//统计股票涨跌次数:0,0为当天
-
     }
 
     /**
@@ -39,18 +37,18 @@ public class StockAdrStatDemo {
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-09-26";
+//        String date = "2022-09-29";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
 //        String spDateBeg = "2022-09-20";//
 //        String spDateEnd = "2022-09-22";//
 
-        int limitCount = 3;
+        int limitCount = 5;
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
         Map<String, List<String>> bkMap = new HashMap<>();
-//        bkMap = getBizListSp();//获取业务列表-特定
-        bkMap = BizService.getBizListAll();//获取业务列表-全部板块
+        bkMap = getBizListSp();//获取业务列表-特定
+//        bkMap = BizService.getBizListAll();//获取业务列表-全部板块
 
         String orderBy = "";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
         String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;
@@ -81,7 +79,7 @@ public class StockAdrStatDemo {
 //        condFind.setUP_MA_101("101(60)");
 //        condFind.setUP_MA_102("102(60)");
 
-        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
         for (List<String> bks : bkMap.values()) {
             List<StockAdrCountVo> stockAdrCountList = listByBizList(date, bks, orderBy, limitCount, mvMinBig, mvMinSmall, condFind);
@@ -110,12 +108,12 @@ public class StockAdrStatDemo {
 //        bizList = Arrays.asList("化肥行业","农牧饲渔","农药兽药");//资源-农业:
 //        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
 //        bizList = Arrays.asList("船舶制造");//资源:交运:("船舶制造")
-        bizList = Arrays.asList("医疗服务");//医疗:("医疗服务")
+//        bizList = Arrays.asList("医疗服务");//医疗:("医疗服务")
 //        bizList = Arrays.asList("家电行业");//消费:("家电行业")
 //        bizList = Arrays.asList("多元金融", "银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
 //        bizList = Arrays.asList("证券");
         //金融-房地产、基建:"水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");//
-//        bizList = Arrays.asList("水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");//
+        bizList = Arrays.asList("水泥建材", "房地产服务", "工程机械", "房地产开发", "铁路公路", "装修建材", "装修装饰", "工程建设", "公用事业", "工程咨询服务");//
 
         bkMap.put(bizList.get(0), bizList);//特定板块
         return bkMap;
@@ -158,13 +156,13 @@ public class StockAdrStatDemo {
         Map<String, StockAdrCountVo> stockAdrCountMap = new HashMap<>();
         //查询大票
         condFind.setMvMin(mvMinBig);
-        List<StockAdrCountVo> stockAdrCountList500 = findListByBizList(date, bizList, orderBy, mvMinBig, limitCount, condFind);//大票
+        List<StockAdrCountVo> stockAdrCountList500 = StockAdrCountService.findListByCondition(condFind);//大票
         for (StockAdrCountVo stockAdrCount : stockAdrCountList500) {
             stockAdrCountMap.put(stockAdrCount.getF12(), stockAdrCount);
         }
         //查询中票，去重
         condFind.setMvMin(mvMinSmall);
-        List<StockAdrCountVo> stockAdrCountList100 = findListByBizList(date, bizList, orderBy, mvMinSmall, limitCount, condFind);//中票
+        List<StockAdrCountVo> stockAdrCountList100 = StockAdrCountService.findListByCondition(condFind);;//中票
         for (StockAdrCountVo stockAdrCount : stockAdrCountList100) {
             String zqdm = stockAdrCount.getF12();
             String zqmc = stockAdrCount.getF14();
@@ -179,20 +177,6 @@ public class StockAdrStatDemo {
         }
 
         return stockAdrCountList;
-    }
-
-    /**
-     * 查询
-     *
-     * @param date       日期
-     * @param bizList    板块列表
-     * @param orderBy
-     * @param mvMin
-     * @param limitCount
-     */
-    private static List<StockAdrCountVo> findListByBizList(String date, List<String> bizList, String orderBy, BigDecimal mvMin, int limitCount, CondStockAdrCount condFind) {
-//        List<StockAdrCount> stockAdrCountList = findListByBiz(date, bizList,spBizName,startMapNum, null, mvMin, 2,orderBy);
-        return findListByCondition(condFind);
     }
 
     private static List<StockAdrCountVo> findListByBiz(String date, List<RankBizDataDiff> bizList, String spBizName, int startMapNum, Object o, BigDecimal mvMin, int limitCount, String orderBy) {
@@ -245,13 +229,13 @@ public class StockAdrStatDemo {
         boolean isShowCode = true;
 //        boolean isShowCode = false;
         boolean isShowCurNet = true;//是否显示当前净值
-        boolean isShowAreaAdr = true;//是否显示-区间涨幅
+        boolean isShowAreaAdr = false;//是否显示-区间涨幅
         if (StringUtils.isNotBlank(spDateBeg)) {
             isShowAreaAdr = true;
         }
 
         //显示头信息
-        System.out.println(showHead(isShowCode, isShowCurNet,isShowAreaAdr));
+        System.out.println(showHead(isShowCode, isShowCurNet, isShowAreaAdr));
 
         for (StockAdrCountVo stockAdrCount : stockAdrCountList) {
 //            System.out.println(JSON.toJSONString(stockAdrCount));
@@ -303,7 +287,7 @@ public class StockAdrStatDemo {
 //                }
 
                 BigDecimal areaAdr = KlineService.findAreaAdr(code, spDateBeg, spDateEnd, KLT_101);
-                sb.append(StockUtil.formatDouble(areaAdr, 8));
+                sb.append("[" + StockUtil.formatDouble(areaAdr, 8) + "]");
             }
             sb.append(StockUtil.formatDouble(marketValue, 8));
             sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_5(), 6));
@@ -347,6 +331,7 @@ public class StockAdrStatDemo {
 
     /**
      * 显示头信息
+     *
      * @param isShowCode
      * @param isShowCurNet
      * @param isShowAreaAdr

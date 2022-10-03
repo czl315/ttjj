@@ -27,7 +27,7 @@ public class StockJob {
             System.out.println("定时任务-股票-更新-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
             StockControl.updateTodayStCom(date, 0);//更新股票
             System.out.println("定时任务-股票-更新-end:");
-        }, 0, 15, TimeUnit.MINUTES);
+        }, 0, 5, TimeUnit.MINUTES);
     }
 
 }

@@ -159,7 +159,7 @@ public class BizEtfDemo {
             rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(BizDto::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
         }
         //区间涨幅
-        StockUtil.showInfoHead(isShowMoreYes, isShowCode, false);
+        StockUtil.showInfoHead(isShowMoreYes, isShowCode, false, null);
         StockUtil.showInfoEtf(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode);
         System.out.println();
 
