@@ -8,7 +8,7 @@ import ttjj.dao.BizRankDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.db.StockAdrCount;
 import ttjj.dto.*;
-import ttjj.rank.BizControl;
+import ttjj.service.BizService;
 import ttjj.service.FundFlowService;
 import ttjj.service.KlineService;
 import ttjj.service.StockService;
@@ -266,7 +266,7 @@ public class StBizStatDemo {
      * 显示概念涨幅排行榜
      */
     private static void showGianNian(String date) {
-        List<RankBizDataDiff> rankList = BizControl.listConcept(date, DB_RANK_BIZ_TYPE_GAI_NIAN, NUM_MAX_999);//查询主题排名by时间类型、显示个数
+        List<RankBizDataDiff> rankList = BizService.listConcept(date, DB_RANK_BIZ_TYPE_GAI_NIAN, NUM_MAX_999);//查询主题排名by时间类型、显示个数
         System.out.println("排行榜-概念：");
         for (RankBizDataDiff etf : rankList) {
             System.out.print(etf.getF14() + ",");

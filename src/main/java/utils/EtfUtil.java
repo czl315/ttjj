@@ -1,6 +1,13 @@
 package utils;
 
 
+import ttjj.dto.RankBizDataDiff;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static utils.Content.DB_RANK_BIZ_TYPE_ETF;
+
 /**
  * EtfUtil简介
  *
@@ -8,6 +15,44 @@ package utils;
  * @date 2022-03-07 10:15
  */
 public class EtfUtil {
+    /**
+     * 过滤etf
+     *
+     * @param bizList 原始数据
+     * @param bizType 类型
+     * @return 过滤后数据
+     */
+    public static List<RankBizDataDiff> handlerEtfList(List<RankBizDataDiff> bizList, String bizType) {
+        List<RankBizDataDiff> rs = new ArrayList<>();
+        if (DB_RANK_BIZ_TYPE_ETF.equals(bizType)) {
+            //过滤etf
+            for (RankBizDataDiff biz : bizList) {
+                String code = biz.getF12();
+                if (ContentEtf.mapEtfAll.keySet().contains(code)) {
+                    rs.add(biz);
+                }
+            }
+            return rs;
+        } else {
+            return bizList;
+        }
+    }
+
+
+    /**
+     * 处理etf名称
+     *
+     * @param name
+     */
+    public static String handlerEtfNameSimple(String name) {
+        name = name.replace("ETF", "");
+        name = name.replace("基金", "");
+        name = name.replace("有色金属", "有色");
+        name = name.replace("基建50", "基建");
+        name = name.replace("能源化工", "能源");
+        name = name.replace("中概互联网", "中概");
+        return name;
+    }
     /**
      * @param name
      */
