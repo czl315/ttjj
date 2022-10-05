@@ -486,7 +486,7 @@ public class StockService {
         }
 
         List<String> dateList = StockService.findListDateBefore(endDate, days);//查询n个交易日之前的日期
-        if (dateList != null && dateList.size() >= days) {
+        if (dateList != null && dateList.size() > days) {
 //            System.out.println("findBegDate.：" + dateList.get(days));
             return dateList.get(days);
         } else {

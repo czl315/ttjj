@@ -36,8 +36,8 @@ public class StockAdrStatDemo {
      * 统计：涨幅次数列表
      */
     public static List<StockAdrCountVo> findListDemo() {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-09-29";
+//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        String date = "2022-09-30";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
 //        String spDateBeg = "2022-09-20";//

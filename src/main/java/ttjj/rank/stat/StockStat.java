@@ -143,7 +143,7 @@ public class StockStat {
 
         boolean isDesc = true;
 
-        String conception = "上证50";
+        String conception = "HS300";//上证50
 
         statListAdrArea(date, areaDays, board, isDesc, null, null,limit,conception);
 //        statListAdrArea(date, areaDays, board, isDesc, NUM_YI_500, null,limit,conception);
