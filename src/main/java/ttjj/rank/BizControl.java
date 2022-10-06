@@ -115,78 +115,6 @@ public class BizControl {
     }
 
     /**
-     * 更新-k线-净值
-     *
-     * @param date    日期
-     * @param bizList 更新列表
-     */
-    private static void updateNet(List<RankBizDataDiff> bizList, String date, String klt, String type) {
-        int updateRs = 0;//更新成功个数
-        if (bizList == null) {
-            System.out.println("更新-净值区间:bizList==null");
-            return;
-        }
-        for (RankBizDataDiff biz : bizList) {
-            Kline entity = new Kline();
-            String zqdm = biz.getF12();
-            entity.setZqdm(zqdm);
-            entity.setDate(date);
-            entity.setKlt(klt);
-            entity.setType(type);
-
-            //处理价格区间
-            //计算净值
-            Map<String, BigDecimal> netMap5 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_5, klt, false, "", date, null);
-            entity.setNET_MA_5(netMap5.get(Content.keyRsNetCloseAvg));
-            entity.setNET_MIN_5(netMap5.get(Content.keyRsMin));
-            entity.setNET_MAX_5(netMap5.get(Content.keyRsMax));
-            entity.setNET_MIN_CLOS_5(netMap5.get(Content.keyRsNetCloseMin));
-            entity.setNET_MAX_CLOS_5(netMap5.get(Content.keyRsNetCloseMax));
-            Map<String, BigDecimal> netMap10 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_10, klt, false, "", date, null);
-            entity.setNET_MA_10(netMap10.get(Content.keyRsNetCloseAvg));
-            entity.setNET_MIN_10(netMap10.get(Content.keyRsMin));
-            entity.setNET_MAX_10(netMap10.get(Content.keyRsMax));
-            entity.setNET_MIN_CLOS_10(netMap10.get(Content.keyRsNetCloseMin));
-            entity.setNET_MAX_CLOS_10(netMap10.get(Content.keyRsNetCloseMax));
-            Map<String, BigDecimal> netMap20 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_20, klt, false, "", date, null);
-            entity.setNET_MA_20(netMap20.get(Content.keyRsNetCloseAvg));
-            entity.setNET_MIN_20(netMap20.get(Content.keyRsMin));
-            entity.setNET_MAX_20(netMap20.get(Content.keyRsMax));
-            entity.setNET_MIN_CLOS_20(netMap20.get(Content.keyRsNetCloseMin));
-            entity.setNET_MAX_CLOS_20(netMap20.get(Content.keyRsNetCloseMax));
-            Map<String, BigDecimal> netMap30 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_30, klt, false, "", date, null);
-            entity.setNET_MA_30(netMap30.get(Content.keyRsNetCloseAvg));
-            entity.setNET_MIN_30(netMap30.get(Content.keyRsMin));
-            entity.setNET_MAX_30(netMap30.get(Content.keyRsMax));
-            entity.setNET_MIN_CLOS_30(netMap30.get(Content.keyRsNetCloseMin));
-            entity.setNET_MAX_CLOS_30(netMap30.get(Content.keyRsNetCloseMax));
-            Map<String, BigDecimal> netMap60 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_60, klt, false, "", date, null);
-            entity.setNET_MA_60(netMap60.get(Content.keyRsNetCloseAvg));
-            entity.setNET_MIN_60(netMap60.get(Content.keyRsMin));
-            entity.setNET_MAX_60(netMap60.get(Content.keyRsMax));
-            entity.setNET_MIN_CLOS_60(netMap60.get(Content.keyRsNetCloseMin));
-            entity.setNET_MAX_CLOS_60(netMap60.get(Content.keyRsNetCloseMax));
-            Map<String, BigDecimal> netMap120 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_120, klt, false, "", date, null);
-            entity.setNET_MA_120(netMap120.get(Content.keyRsNetCloseAvg));
-            entity.setNET_MIN_120(netMap120.get(Content.keyRsMin));
-            entity.setNET_MAX_120(netMap120.get(Content.keyRsMax));
-            entity.setNET_MIN_CLOS_120(netMap120.get(Content.keyRsNetCloseMin));
-            entity.setNET_MAX_CLOS_120(netMap120.get(Content.keyRsNetCloseMax));
-            Map<String, BigDecimal> netMap250 = KlineService.findNetMinMaxAvg(zqdm, Content.MA_250, klt, false, "", date, null);
-            entity.setNET_MA_250(netMap250.get(Content.keyRsNetCloseAvg));
-            entity.setNET_MIN_250(netMap250.get(Content.keyRsMin));
-            entity.setNET_MAX_250(netMap250.get(Content.keyRsMax));
-            entity.setNET_MIN_CLOS_250(netMap250.get(Content.keyRsNetCloseMin));
-            entity.setNET_MAX_CLOS_250(netMap250.get(Content.keyRsNetCloseMax));
-
-
-            //更新
-            updateRs += KlineService.update(entity);
-        }
-        System.out.println("更新-净值-个数:" + bizList.size() + ",更新成功：" + updateRs);
-    }
-
-    /**
      * 更新今日15分钟净值价-根据周期
      *
      * @param date
@@ -391,27 +319,6 @@ public class BizControl {
             entityDb.setFundFlow(rsFundFlow);
             int updateRs = BizRankDao.updateEtfNet(entityDb);
             System.out.println("更新资金流向-板块-结果：" + updateRs + "," + etf.getF14());
-        }
-    }
-
-    /**
-     * 更新当日资金流信息-etf
-     *
-     * @param date
-     */
-    private static void updateFundFlowEtf(String date) {
-        List<RankBizDataDiff> rankEtf = BizService.listBiz(date, "etf", 999);//2021-04-16:425;
-        for (RankBizDataDiff etf : rankEtf) {
-            String stCode = etf.getF12();
-            String rsFundFlow = FundFlowService.httpFundFlowRs(stCode, null, KLT_1);
-
-            RankBizDataDiff entityDb = new RankBizDataDiff();
-            entityDb.setF12(stCode);
-            entityDb.setDate(date);
-
-            entityDb.setFundFlow(rsFundFlow);
-            int updateRs = BizRankDao.updateEtfNet(entityDb);
-            System.out.println("更新资金流向-etf-结果：" + updateRs + "," + etf.getF14());
         }
     }
 
@@ -737,93 +644,6 @@ public class BizControl {
             entity.setWeekYear(DateUtil.getYearWeek(date, DateUtil.YYYY_MM_DD));
             entity.setWeek(DateUtil.getWeekByYyyyMmDd(date, DateUtil.YYYY_MM_DD));
             BizRankDao.updateDate(entity);
-        }
-    }
-
-
-    /**
-     * 显示业务排行-插入sql
-     *
-     * @param today
-     * @param rankBizDataDiffList
-     * @param queryType
-     */
-    private static void showBizSql(String today, List<RankBizDataDiff> rankBizDataDiffList, String queryType) {
-        int orderNum = 0;//序号
-        for (RankBizDataDiff entity : rankBizDataDiffList) {
-            orderNum++;
-            //显示插入数据库语句
-            {
-                System.out.println("INSERT INTO `bank19`.`rank_st_biz`(" +
-                        "`rs`,`date`,`type`,`order_num`," +
-                        "`f1`,`f2`,`f3`,`f4`" +
-                        ",`f5`,`f6`,`f7`,`f8`,`f9`" +
-                        ",`f10`,`f11`,`f12`,`f13`,`f14`" +
-                        ",`f15`,`f16`,`f17`,`f18`,`f19`" +
-                        ",`f20`,`f21`,`f22`,`f23`,`f24`" +
-                        ",`f25`,`f26`,`f27`,`f28`,`f29`" +
-                        ",`f30`,`f31`,`f32`,`f33`,`f34`" +
-                        ",`f35`,`f36`,`f37`,`f38`,`f39`" +
-                        ",`f60`,`f61`,`f62`,`f63`,`f64`" +
-                        ",`f65`,`f66`,`f67`,`f68`,`f69`" +
-                        ",`f70`,`f71`,`f72`,`f73`,`f74`" +
-                        ",`f75`,`f76`,`f77`,`f78`,`f79`" +
-                        ",`f80`,`f81`,`f82`,`f83`,`f84`" +
-                        ",`f85`,`f86`,`f87`,`f88`,`f89`" +
-                        ",`f90`,`f91`,`f92`,`f93`,`f94`" +
-                        ",`f95`,`f96`,`f97`,`f98`,`f99`" +
-                        ",`f104`" +
-                        ",`f105`,`f107`,`f109`" +
-                        ",`f110`,`f111`" +
-                        ",`f115`" +
-                        ",`f124`" +
-                        ",`f127`,`f128`" +
-                        ",`f136`,`f139`" +
-                        ",`f140`,`f141`,`f142`,`f143`,`f144`" +
-                        ",`f145`,`f148`,`f149`" +
-                        ",`f152`" +
-                        ",`f207`" +
-                        ",`f208`" +
-                        ",`f209`" +
-                        ",`f222`,`f223`" +
-                        ") VALUES (" +
-                        " ''" +
-                        " ,'" + today + "'" +
-                        " ,'" + queryType + "'" +
-                        " ," + orderNum + "" +
-                        " ," + entity.getF1() + "," + entity.getF2() + "," + entity.getF3() + "," + entity.getF4() + "," + entity.getF5() + "" +
-                        " ," + entity.getF6() + "," + entity.getF7() + "," + entity.getF8() + "," + entity.getF9() +
-                        "," + entity.getF10() + "," + entity.getF11() + ",'" + entity.getF12() + "'," + entity.getF13() + ",'" + entity.getF14() + "'" +
-                        " ," + entity.getF15() + "," + entity.getF16() + "," + entity.getF17() + "," + entity.getF18() + "," + entity.getF19() +
-                        " ," + entity.getF20() + "," + entity.getF21() + "," + entity.getF22() + ",'" + (entity.getF23() == null ? "" : entity.getF23()) + "'," + entity.getF24() + "" +
-                        " ," + entity.getF25() + ",'" + (entity.getF26() == null ? "" : entity.getF26()) + "'," + entity.getF27() + "," + entity.getF28() + "," + entity.getF29() + "" +
-                        " ," + entity.getF30() + "," + entity.getF31() + "," + entity.getF32() + "," + entity.getF33() + "," + entity.getF34() + "" +
-                        " ," + entity.getF35() + "," + entity.getF36() + "," + entity.getF37() + "," + entity.getF38() + "," + entity.getF39() + "" +
-                        " ," + entity.getF60() + "," + entity.getF61() + "," + entity.getF62() + "," + entity.getF63() + "," + entity.getF64() + "" +
-                        " ," + entity.getF65() + "," + entity.getF66() + "," + entity.getF67() + "," + entity.getF68() + "," + entity.getF69() + "" +
-                        " ," + entity.getF70() + "," + entity.getF71() + "," + entity.getF72() + "," + entity.getF73() + "," + entity.getF74() + "" +
-                        " ," + entity.getF75() + "," + entity.getF76() + "," + entity.getF77() + "," + entity.getF78() + "," + entity.getF79() + "" +
-                        " ," + entity.getF80() + "," + entity.getF81() + "," + entity.getF82() + "," + entity.getF83() + "," + entity.getF84() + "" +
-                        " ," + entity.getF85() + "," + entity.getF86() + "," + entity.getF87() + "," + entity.getF88() + "," + entity.getF89() + "" +
-                        " ," + entity.getF90() + "," + entity.getF91() + "," + entity.getF92() + "," + entity.getF93() + "," + entity.getF94() + "" +
-                        " ," + entity.getF95() + "," + entity.getF96() + "," + entity.getF97() + "," + entity.getF98() + "," + entity.getF99() + "" +
-                        " ," + entity.getF104() + "" +
-                        " ," + entity.getF105() + "," + entity.getF107() + "" + "," + entity.getF109() + "" +
-                        " ," + entity.getF110() + "," + entity.getF111() +
-                        " ,'" + (entity.getF115() == null ? "" : entity.getF115()) + "'" +
-                        " ," + entity.getF124() + "" +
-                        " ," + entity.getF127() + "," + "'" + (entity.getF128() == null ? "" : entity.getF128()) + "'" +
-                        " ," + entity.getF136() + "," + entity.getF139() + "" +
-                        " ,'" + (entity.getF140() == null ? "" : entity.getF140()) + "'" + "," + entity.getF141() + "," + entity.getF142() + "," + entity.getF143() + "," + entity.getF144() + "" +
-                        " ," + entity.getF145() + "" + " ," + entity.getF148() + "" + " ," + entity.getF149() + "" +
-                        " ," + entity.getF152() + "" +
-                        " ,'" + (entity.getF207() == null ? "" : entity.getF207()) + "'" +
-                        " ,'" + (entity.getF208() == null ? "" : entity.getF208()) + "'" +
-                        " ," + entity.getF209() + "" +
-                        " ," + entity.getF222() + "" + " ," + entity.getF223() +
-                        ");");
-            }
-
         }
     }
 
