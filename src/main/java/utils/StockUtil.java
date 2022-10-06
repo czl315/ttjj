@@ -1,6 +1,8 @@
 package utils;
 
 import org.apache.commons.lang3.StringUtils;
+import ttjj.db.AssetPositionDb;
+import ttjj.db.Fupan;
 import ttjj.dto.BizDto;
 import ttjj.dto.CondStock;
 
@@ -10,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static utils.Content.DB_RANK_BIZ_F19_BK_MAIN;
+import static utils.Content.*;
 
 /**
  * @author chenzhilong
@@ -399,6 +401,78 @@ public class StockUtil {
             boardName = "沪深主板";
         }
         return boardName;
+    }
+    /**
+     * 检查是否：XX发债，7XXXXX开头的
+     *
+     * @param assetPosition
+     */
+    public static boolean checkIsNewBond(AssetPositionDb assetPosition) {
+        if (assetPosition == null) {
+            return false;
+        }
+        String zqdm = assetPosition.getZqdm();
+        String zqmc = assetPosition.getZqmc();
+        if (zqdm.startsWith("7")) {
+            return true;
+        }
+        if (zqmc.contains("发债")) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 获取均线数据
+     *
+     * @param strHead
+     * @param netMap
+     * @return
+     */
+    public static String handlerAvgLine(String strHead, Map<String, BigDecimal> netMap) {
+        BigDecimal curPrice = netMap.get(keyRsNetClose);
+        BigDecimal minPrice = netMap.get(keyRsMin);
+        BigDecimal maxPrice = netMap.get(keyRsMax);
+        StringBuffer sb = new StringBuffer();
+        if (curPrice != null && minPrice != null && maxPrice != null && maxPrice.compareTo(new BigDecimal("0")) != 0) {
+            BigDecimal curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
+            sb.append(strHead).append("区间：").append("\t").append(curPriceArea).append("%").append(",");
+        }
+        sb.append("\t").append(strHead).append("：").append("\t").append(netMap.get(keyRsNetCloseAvg));
+        sb.append("\t").append(",最低：").append("\t").append(minPrice);
+        sb.append("\t").append(",最高：").append("\t").append(maxPrice);
+        sb.append("\t").append(",当前价：").append(curPrice);
+
+        return sb.toString();
+    }
+    /**
+     * 计算我的天天基金收益
+     *
+     * @param amt
+     * @param amt_fund
+     * @param amt_fund_last
+     * @param date
+     * @param dateType
+     */
+    public static Fupan handlerFundByTtjj(String amt, String amt_fund, String amt_fund_last, String earn_fund, String date, String dateType) {
+        String dayProfitRt = new BigDecimal(earn_fund).divide(new BigDecimal(amt_fund_last), 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).divide(new BigDecimal("1"), 4, BigDecimal.ROUND_HALF_UP).toString();//当日盈亏收益率
+        System.out.println("UPDATE `fupan` SET `amt`='" + amt + "', `amt_fund`='" + amt_fund + "', `amt_fund_last`='" + amt_fund_last
+                + "', `earn_fund`='" + earn_fund
+                + "', `rt_zh`='" + dayProfitRt
+                + "' WHERE (`CODE`='" + date + "') AND fupan.period='1'" + " AND fupan.TYPE=1;");
+
+        Fupan fupanRs = new Fupan();
+        //where
+        fupanRs.setCode(date);
+        fupanRs.setPeriod(dateType);
+        fupanRs.setType("1");//实际
+        //setValue
+        fupanRs.setAmt(amt);
+        fupanRs.setAmt_fund(amt_fund);
+        fupanRs.setAmt_fund_last(amt_fund_last);
+        fupanRs.setEarn_fund(earn_fund);
+        fupanRs.setRt_zh(dayProfitRt);
+        return fupanRs;
     }
 
 }
