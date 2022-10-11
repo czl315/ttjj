@@ -21,9 +21,7 @@ import static utils.Content.*;
  */
 public class StatKlineDemo {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-09-26";
-
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-09-26";
 //        // 统计涨跌次数-根据每月中的日期
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
@@ -31,14 +29,14 @@ public class StatKlineDemo {
 //        String klt = KLT_101;
 //        String klt = KLT_60;
 //        String klt = KLT_30;
-        String klt = KLT_15;
-//        String klt = KLT_5;
+//        String klt = KLT_15;
+        String klt = KLT_5;
 
 //        String orderTime = TIME_11_30;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
         List<String> orderTimeList = new ArrayList<>();
         if (klt.equals(KLT_5)) {
-            orderTimeList = TIME_TYPE_5_1305_TO_1330;
-//            orderTimeList = TIME_TYPE_15_1315_TO_1500;
+//            orderTimeList = TIME_TYPE_5_1305_TO_1330;
+            orderTimeList = TIME_TYPE_5_0935_TO_1500;
         } else if (klt.equals(KLT_15)) {
             orderTimeList = TIME_TYPE_15_0945_TO_1500;
 //            orderTimeList = TIME_TYPE_15_1315_TO_1500;
@@ -50,15 +48,24 @@ public class StatKlineDemo {
         } else if (klt.equals(KLT_101)) {
             orderTimeList.add(date);
         }
-        for (String curTime : orderTimeList) {
-            statAdrByTime(date, curTime, klt, false);
+        for (String time : orderTimeList) {
+            statAdrByTime(date, time, klt, false);
         }
     }
 
     /**
-     * 统计涨幅-根据时间、类型等
+     * 统计涨幅-根据时间、类型等:如果未到当前时间，不处理
      */
-    private static void statAdrByTime(String date, String orderTime, String klt, boolean isShowSimpleUpOrDown) {
+    private static void statAdrByTime(String date, String time, String klt, boolean isShowSimpleUpOrDown) {
+        //如果未到当前时间，不处理
+        String time1 = date + " " + time;
+        long timeLong = DateUtil.getTimeInMillisByDateStr(DateUtil.YYYY_MM_DD_HH_MM_SS, time1);
+        long curTime = Calendar.getInstance().getTimeInMillis();
+        if (timeLong > curTime) {
+            System.out.println("如果未到当前时间，不处理:"+time1);
+            return;
+        }
+
         //首先查询k线类别
         //按时间列表查询k线涨幅
         String type = DB_RANK_BIZ_TYPE_ETF;
@@ -66,7 +73,7 @@ public class StatKlineDemo {
             showUpOrDownInfo(date, type, klt, "0", "0", 100);//显示-A股当前时段上涨和下跌
         }
 
-        showKline(date, type, klt, orderTime, klt, true, false, true, new BigDecimal("0"), true, new BigDecimal("0"));
+        showKline(date, type, klt, time, klt, true, false, true, new BigDecimal("0"), true, new BigDecimal("0"));
     }
 
     private static void showUpOrDownInfo(String date, String type, String klt, String adrUp, String adrDown, int limit) {
@@ -169,7 +176,6 @@ public class StatKlineDemo {
         }
 
     }
-
 
 
     /**

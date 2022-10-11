@@ -32,13 +32,14 @@ public class StockControl {
             Map<String, Boolean> maUpdateMap = new HashMap<>();
             setMaMapType(MA_TYPE_DAY, maUpdateMap);
             setMaMapType(MA_TYPE_MINUTE15, maUpdateMap);
+            setMaMapType(MA_TYPE_WEEK, maUpdateMap);
 
 //            deleteTodayStCom();//删除数据-今日
 
 //            addTodayStCom(date, startNum);//  添加或更新股票-根据日期
 //            updateConception(date, startNum);//更新题材概念
             updateTodayStCom(date, startNum);//更新股票
-//            updateNetToday(date, startNum, maUpdateMap, isReport, NUM_YI_50);//  更新净值
+            updateNetToday(date, startNum, maUpdateMap, isReport, NUM_YI_50);//  更新净值
 
 //            setMaMapType(MA_TYPE_MINUTE5, maUpdateMap);
 //            setMaMapType(MA_TYPE_MINUTE30, maUpdateMap);
@@ -229,13 +230,13 @@ public class StockControl {
             maUpdateMap.put(MA_UPDATE_FLAG_MINUTE_120_250, true);
         }
         if (maTypeDay.equals(MA_TYPE_WEEK)) {
-            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_5, true);
-            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_10, true);
-            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_20, true);
+//            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_5, true);
+//            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_10, true);
+//            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_20, true);
             maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_30, true);
             maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_60, true);
-            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_120, true);
-            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_250, true);
+//            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_120, true);
+//            maUpdateMap.put(MA_UPDATE_FLAG_WEEK_1_250, true);
         }
         if (maTypeDay.equals(MA_TYPE_MONTH)) {
             maUpdateMap.put(MA_UPDATE_FLAG_MONTH_1_5, true);
