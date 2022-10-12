@@ -47,11 +47,12 @@ public class StockAdrCountControl {
         stockAdrCountCond.setMvMax(mvMax);
         stockAdrCountCond.setF139(board);
         stockAdrCountCond.setMaKltList(maKltList);
-        stockAdrCountCond.setUpdateNet(true);
-//        stockAdrCountCond.setUpdateSum(true);
+        stockAdrCountCond.setUpdateNet(true);//用时：16
+//        stockAdrCountCond.setUpdateSum(true);//总花费时间：1116
 //        stockAdrCountCond.setUpdateOrder(true);
         stockAdrCountCond.setUpdateUpMa(true);//总花费时间：1225
         stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
+//        更新均值+区间，用时：1790 1643 1527
 
 //        save(date, bizList, false, spBizName, stockAdrCountCond);
         updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
@@ -767,7 +768,7 @@ public class StockAdrCountControl {
             System.out.println();
             lastTime = curTime;
         }
-        System.out.println("总花费时间：" + (System.currentTimeMillis() - curTimeAll) / 1000);
+        System.out.println("，用时：" + (System.currentTimeMillis() - curTimeAll) / 1000);
     }
 
     /**
