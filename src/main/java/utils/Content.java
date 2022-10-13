@@ -516,7 +516,10 @@ public class Content {
      * NUM_YI_50 数字-亿
      */
     public static BigDecimal NUM_YI_50 = new BigDecimal("100000000").multiply(new BigDecimal("50"));
-
+    /**
+     * NUM_YI_40 数字-亿
+     */
+    public static BigDecimal NUM_YI_40 = new BigDecimal("100000000").multiply(new BigDecimal("40"));
     /**
      * NUM_YI_30 数字-亿
      */
@@ -529,6 +532,10 @@ public class Content {
      * 10亿
      */
     public static BigDecimal NUM_YI_10 = new BigDecimal("100000000").multiply(new BigDecimal("10"));
+    /**
+     * NUM_YI_5
+     */
+    public static BigDecimal NUM_YI_5 = new BigDecimal("100000000").multiply(new BigDecimal("5"));
     /**
      * 2亿
      */

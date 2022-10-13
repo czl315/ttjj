@@ -5,10 +5,7 @@ import ttjj.dto.*;
 import ttjj.service.BizService;
 import ttjj.service.KlineService;
 import ttjj.service.StockService;
-import utils.ContMapEtf;
-import utils.DateUtil;
-import utils.EtfUtil;
-import utils.StockUtil;
+import utils.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -24,7 +21,7 @@ import static utils.DateUtil.YYYY_MM_DD;
 public class BizEtfDemo {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-09-27";
+//        String date = "2022-10-12";
 //        List<String> dateList = StockService.findListDateAfter(date, 2);
 //        if (dateList != null && dateList.size() > 1) {
 //            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
@@ -47,14 +44,17 @@ public class BizEtfDemo {
 //        String date = "2022-08-26";
 
 
-        int areaDays = 4;//4:近一周;20:近一月
-        int limit = 20;
+        int areaDays = 20;//4:近一周;20:近一月
+        int limit = 1000;
+
+        BigDecimal mvMin = null;//NUM_YI_1000  NUM_YI_50  NUM_YI_100
+        BigDecimal mvMax = null;
 
         boolean isDesc = true;
 //        boolean isDesc = false;
 
-//        statListEtfAdrArea(date, areaDays, isDesc, null, null, limit, true, DB_RANK_BIZ_TYPE_ETF);
-        statListEtfAdrArea(date, areaDays, isDesc, null, null, limit, false,DB_RANK_BIZ_TYPE_BAN_KUAI);
+        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, false, DB_RANK_BIZ_TYPE_ETF);
+//        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, false,DB_RANK_BIZ_TYPE_BAN_KUAI);
 
     }
 
@@ -159,8 +159,8 @@ public class BizEtfDemo {
             rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(BizDto::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
         }
         //区间涨幅
-        StockUtil.showInfoHead(isShowMoreYes, isShowCode, false, null);
-        StockUtil.showInfoEtf(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode);
+        Map<String,Integer> sizeMap = StockUtil.showInfoHead(isShowMoreYes, isShowCode, false, null);
+        StockUtil.showInfoEtf(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode,sizeMap);
         System.out.println();
 
         if (isCheckFuQuan) {
