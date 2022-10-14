@@ -39,6 +39,7 @@ public class BizService {
         System.out.println(type + "保存完成：" + bizList.size());
 //            showBizSql(date, rankBizDataDiffListBiz, "bk");//显示sql-业务排行-插入
     }
+
     /**
      * 列表查询业务-根据类型
      * //2021-04-16:425;2021-12-06:584;
@@ -148,6 +149,7 @@ public class BizService {
 
     /**
      * 查询业务-根据条件：编码、日期、业务类型
+     *
      * @param zqdm 编码
      * @param date 日期
      * @param type 类型
@@ -252,14 +254,23 @@ public class BizService {
 
     /**
      * 获取业务列表-全部板块
+     *
      * @return 获取业务列表-全部板块
      */
-    public static Map<String, List<String>> getBizListAll() {
+    public static Map<String, List<String>> getBizListAll(String findModel) {
         Map<String, List<String>> bkMap = new HashMap<>();
         List<String> bizList = null;//
         //        //全部板块
-//        List<RankBizDataDiff> bkList = StockService.listBiz(NUM_MAX_99);
-        Set<String> bkList = BOARD_NAME_CODE.keySet();
+        Set<String> bkList = new HashSet<>();
+        if (FIND_MODEL_CACHE.equals(findModel)) {
+            bkList = BOARD_NAME_CODE.keySet();
+        }
+        if (FIND_MODEL_HTTP.equals(findModel)) {
+            List<RankBizDataDiff> bkListHttp = StockService.listBiz(NUM_MAX_99);
+            for (RankBizDataDiff bk : bkListHttp) {
+                bkList.add(bk.getF14());
+            }
+        }
         for (String bk : bkList) {
             bizList = new ArrayList<>();
             bizList.add(bk);
@@ -270,7 +281,8 @@ public class BizService {
 
     /**
      * 更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
-     *  @param rsList 列表
+     *
+     * @param rsList    列表
      * @param limit     限定个数
      * @param dateCheck
      */
@@ -466,6 +478,7 @@ public class BizService {
 
 
     }
+
     /**
      * 计算最大净值、最小净值
      *

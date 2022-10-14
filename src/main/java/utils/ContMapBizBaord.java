@@ -91,6 +91,7 @@ public class ContMapBizBaord {
      */
     public static Map<String, String> BOARD_TYPE_KE_JI_XIN_PIAN = new HashMap<>();
 
+
     static {
         BOARD_TYPE_KE_JI_XIN_PIAN.put("半导体", "BK1036");//76
         BOARD_TYPE_KE_JI_XIN_PIAN.put("消费电子", "BK1037");//77
@@ -145,6 +146,21 @@ public class ContMapBizBaord {
         BOARD_NAME_CODE.put("游戏", "BK1046");//86
         BOARD_NAME_CODE.put("综合行业", "BK0539");//41
     }
+
+    /**
+     * 板块-分类-医疗
+     */
+    public static Map<String, String> BOARD_TYPE_YI_LIAO = new HashMap<>();
+    static {
+        //医疗
+        BOARD_TYPE_YI_LIAO.put("化学制药", "BK0465");//24
+        BOARD_TYPE_YI_LIAO.put("医疗服务", "BK0727");//46
+        BOARD_TYPE_YI_LIAO.put("中药", "BK1040");//80
+        BOARD_TYPE_YI_LIAO.put("医疗器械", "BK1041");//81
+        BOARD_TYPE_YI_LIAO.put("医药商业", "BK1042");//82
+        BOARD_TYPE_YI_LIAO.put("生物制品", "BK1044");//84
+    }
+
 
     //分类
     static {
@@ -436,10 +452,11 @@ public class ContMapBizBaord {
      */
     private static void showBoardList() {
         Map<String, String> mapBiz = new HashMap<>();//业务
-        mapBiz = ContMapBizBaord.BOARD_TYPE_JIN_RONG_JI_GOU;//金融：BOARD_TYPE_JIN_RONG   BOARD_TYPE_JIN_RONG_JI_GOU   BOARD_TYPE_ZI_YUAN
+//        mapBiz = ContMapBizBaord.BOARD_TYPE_JIN_RONG_JI_GOU;//金融：BOARD_TYPE_JIN_RONG   BOARD_TYPE_JIN_RONG_JI_GOU   BOARD_TYPE_ZI_YUAN
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_KE_JI_DIAN;//板块-分类-科技:电力：BOARD_TYPE_KE_JI_XIN_PIAN BOARD_TYPE_KE_JI_FENG_DIAN BOARD_TYPE_KE_JI_GUANG_FU
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_JIN_RONG_JI_JIAN;//板块-分类-金融-基建
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_ZI_YUAN;//资源
+        mapBiz = ContMapBizBaord.BOARD_TYPE_YI_LIAO;//医疗
         boolean isFirst = true;
         System.out.print("Arrays.asList(");
         for (String bk : mapBiz.keySet()) {

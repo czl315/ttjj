@@ -862,6 +862,10 @@ public class Content {
      * 查询模式-数据库查询
      */
     public static String FIND_MODEL_DB = "DB";
+    /**
+     * 查询模式-缓存
+     */
+    public static String FIND_MODEL_CACHE = "CACHE";
 
 
 }

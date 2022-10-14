@@ -51,9 +51,10 @@ public class StockAdrCountControl {
 //        stockAdrCountCond.setUpdateSum(true);//总花费时间：1116
 //        stockAdrCountCond.setUpdateOrder(true);
         stockAdrCountCond.setUpdateUpMa(true);//总花费时间：1225
-        stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
+//        stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
 //        更新涨和+涨序，用时：1185
 //        更新均值+区间，用时：1790 1643 1527 1844
+//        更新涨和+涨序+均值+区间，用时：3225
 
 //        save(date, bizList, false, spBizName, stockAdrCountCond);
         updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);

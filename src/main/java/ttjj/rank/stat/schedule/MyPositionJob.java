@@ -31,8 +31,8 @@ public class MyPositionJob {
             System.out.println();
             System.out.println();
             System.out.println("定时任务-检查我的持仓-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
-            FupanControl.checkMaByMyPosition(date);//检查我的持仓
 //            FupanControl.insertOrUpdate(date, KLT_101, DAYS_1, ContentCookie.COOKIE_DFCF);
+            FupanControl.checkMaByMyPosition(date);//检查我的持仓
             System.out.println("定时任务-检查我的持仓-end:");
         }, 0, 15, TimeUnit.MINUTES);
     }

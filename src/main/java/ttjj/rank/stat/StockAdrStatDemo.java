@@ -43,12 +43,12 @@ public class StockAdrStatDemo {
 //        String spDateBeg = "2022-09-20";//
 //        String spDateEnd = "2022-09-22";//
 
-        int limitCount = 2;
+        int limitCount = 10;
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
         Map<String, List<String>> bkMap = new HashMap<>();
-//        bkMap = getBizListSp();//获取业务列表-特定
-        bkMap = BizService.getBizListAll();//获取业务列表-全部板块
+        bkMap = getBizListSp();//获取业务列表-特定
+//        bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
 
         String orderBy = "";//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
         String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;
@@ -65,15 +65,15 @@ public class StockAdrStatDemo {
         CondStockAdrCount condFind = new CondStockAdrCount();
         condFind.setADR_UP_SUM_1_60(null);
         condFind.setADR_UP_SUM_1_40(null);
-        condFind.setADR_UP_SUM_40_60(new BigDecimal("10"));//
+//        condFind.setADR_UP_SUM_40_60(new BigDecimal("10"));//
         condFind.setADR_UP_SUM_20_40(null);
 
 //        condFind.setUP_MA_30("30(60)");
 //        condFind.setUP_MA_60("60(60)");
 //        condFind.setUP_MA_101("101(60)");
-        condFind.setUP_MA_102("102(60)");
+//        condFind.setUP_MA_102("102(60)");
 
-        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
         condFind.setDate(date);
         condFind.setF139(DB_RANK_BIZ_F139_BK_MAIN);
@@ -90,18 +90,19 @@ public class StockAdrStatDemo {
                 stockAdrCountMap.put(stockAdrCount.getF12(), stockAdrCount);
             }
 
-            //查询中票，去重
-            condFind.setMvMin(mvMinSmall);
-            List<StockAdrCountVo> stockAdrCountList100 = StockAdrCountService.findListByCondition(condFind);;//中票
-            for (StockAdrCountVo stockAdrCount : stockAdrCountList100) {
-                String zqdm = stockAdrCount.getF12();
-                String zqmc = stockAdrCount.getF14();
-                if (stockAdrCountMap.containsKey(zqdm)) {
-//                    System.out.println("检查中票：大票也存在：" + zqmc);
-                } else {
-                    stockAdrCountMap.put(zqdm, stockAdrCount);
-                }
-            }
+//            //查询中票，去重
+//            condFind.setMvMin(mvMinSmall);
+//            List<StockAdrCountVo> stockAdrCountList100 = StockAdrCountService.findListByCondition(condFind);
+//            ;//中票
+//            for (StockAdrCountVo stockAdrCount : stockAdrCountList100) {
+//                String zqdm = stockAdrCount.getF12();
+//                String zqmc = stockAdrCount.getF14();
+//                if (stockAdrCountMap.containsKey(zqdm)) {
+////                    System.out.println("检查中票：大票也存在：" + zqmc);
+//                } else {
+//                    stockAdrCountMap.put(zqdm, stockAdrCount);
+//                }
+//            }
         }
         for (StockAdrCountVo stockAdrCount : stockAdrCountMap.values()) {
             stockAdrCountListBkAll.add(stockAdrCount);
@@ -129,12 +130,13 @@ public class StockAdrStatDemo {
 //        bizList = Arrays.asList("化肥行业","农牧饲渔","农药兽药");//资源-农业:
 //        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
 //        bizList = Arrays.asList("船舶制造");//资源:交运:("船舶制造")
-//        bizList = Arrays.asList("医疗服务");//医疗:("医疗服务")
+//        bizList = Arrays.asList("生物制品", "医药商业", "医疗服务", "中药", "医疗器械", "化学制药");//医疗
+        bizList = Arrays.asList("医疗服务");//医疗
 //        bizList = Arrays.asList("家电行业");//消费:("家电行业")
 //        bizList = Arrays.asList("多元金融", "银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
 //        bizList = Arrays.asList("证券");
         //金融-房地产、基建:"水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");//
-        bizList = Arrays.asList("水泥建材", "房地产服务", "工程机械", "房地产开发", "铁路公路", "装修建材", "装修装饰", "工程建设", "公用事业", "工程咨询服务");//
+//        bizList = Arrays.asList("水泥建材", "房地产服务", "工程机械", "房地产开发", "铁路公路", "装修建材", "装修装饰", "工程建设", "公用事业", "工程咨询服务");//
 
         bkMap.put(bizList.get(0), bizList);//特定板块
         return bkMap;
@@ -196,8 +198,22 @@ public class StockAdrStatDemo {
         }
 
         //显示头信息
-        System.out.println(showHead(isShowCode, isShowCurNet, isShowAreaAdr));
+        Map<String, Integer> sizeMap = new HashMap<>();
+        System.out.println(showHead(isShowCode, isShowCurNet, isShowAreaAdr, sizeMap));
+        showInfoStAdr(stockAdrCountList, sizeMap, isShowCode, spDateBeg, spDateEnd, isShowCurNet);
+    }
 
+    /**
+     * 显示信息
+     *
+     * @param stockAdrCountList
+     * @param sizeMap
+     * @param isShowCode
+     * @param spDateBeg
+     * @param spDateEnd
+     * @param isShowCurNet
+     */
+    private static void showInfoStAdr(List<StockAdrCountVo> stockAdrCountList, Map<String, Integer> sizeMap, boolean isShowCode, String spDateBeg, String spDateEnd, boolean isShowCurNet) {
         for (StockAdrCountVo stockAdrCount : stockAdrCountList) {
 //            System.out.println(JSON.toJSONString(stockAdrCount));
             StringBuffer sb = new StringBuffer();
@@ -211,7 +227,7 @@ public class StockAdrStatDemo {
             BigDecimal marketValue = stockAdrCount.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
             BigDecimal order_1_60 = order1to20.add(order20to40).add(order40to60);
             if (isShowCode) {
-                sb.append(StockUtil.formatStName(code, 10));
+                sb.append(StockUtil.formatStName(code, sizeMap.get("编码")));
             }
 //            sb.append("[");
             sb.append(StockUtil.formatStName(stockAdrCount.getF14(), 10));
@@ -298,10 +314,14 @@ public class StockAdrStatDemo {
      * @param isShowAreaAdr
      * @return
      */
-    private static StringBuffer showHead(boolean isShowCode, boolean isShowCurNet, boolean isShowAreaAdr) {
+    private static StringBuffer showHead(boolean isShowCode, boolean isShowCurNet, boolean isShowAreaAdr, Map<String, Integer> sizeMap) {
         StringBuffer sbHead = new StringBuffer();
+        String orderNo = "序号";
+        sizeMap.put("序号", 5);
+        sizeMap.put("编码", 8);
+        sizeMap.put("名称", 16);
         if (isShowCode) {
-            sbHead.append(StockUtil.formatStName("编码", 10));
+            sbHead.append(StockUtil.formatStName("编码", sizeMap.get("编码")));
         }
 //        sbHead.append("[");
         sbHead.append(StockUtil.formatEtfName("名称", 10));
