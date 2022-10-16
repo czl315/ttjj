@@ -134,10 +134,10 @@ public class StockStat {
 
 
         int areaDays = 4;//4:近一周;20:近一月
-        Long board = null;
-//        Long board = DB_RANK_BIZ_F19_BK_MAIN;
+//        Long board = null;
+        Long board = DB_RANK_BIZ_F19_BK_MAIN;
 //        BigDecimal mvMin = null;//
-        BigDecimal mvMin = NUM_YI_0;//NUM_YI_1000
+        BigDecimal mvMin = NUM_YI_200;//NUM_YI_1000
         BigDecimal mvMax = null;
         int limit = 20;
 
