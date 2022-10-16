@@ -315,7 +315,8 @@ public class BizEtfDemo {
             String mvFormat = StockUtil.formatDouble(marketValue, 8);
             BigDecimal adr = biz.getF3();
 //            //  名称过滤
-//            if (!name.contains("300")) {
+//            if (!name.contains("物流") && !name.contains("快递")) {
+//            if (!name.contains("物") || !name.contains("流")|| !name.contains("快")|| !name.contains("递")) {
 //                continue;
 //            }
             //  特定类型
