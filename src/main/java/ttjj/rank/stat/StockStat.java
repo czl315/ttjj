@@ -133,19 +133,24 @@ public class StockStat {
 //        String date = "2022-08-26";
 
 
-        int areaDays = 0;//4:近一周;20:近一月
+        int areaDays = 4;//4:近一周;20:近一月
         Long board = null;
 //        Long board = DB_RANK_BIZ_F19_BK_MAIN;
 //        BigDecimal mvMin = null;//
-//        BigDecimal mvMin = NUM_YI_500;//NUM_YI_1000
-//        BigDecimal mvMax = null;
-        int limit = 60;
+        BigDecimal mvMin = NUM_YI_0;//NUM_YI_1000
+        BigDecimal mvMax = null;
+        int limit = 20;
 
         boolean isDesc = true;
+//        boolean isDesc = false;
 
-        String conception = "上证50";//上证50  HS300
+        boolean isNew = false;//是否统计新股
 
-        statListAdrArea(date, areaDays, board, isDesc, null, null,limit,conception);
+        String conception = null;
+//        String conception = "上证50";//上证50  HS300
+
+        statListAdrArea(date, areaDays, board, isDesc, mvMin, mvMax, limit, conception, isNew);
+
 //        statListAdrArea(date, areaDays, board, isDesc, NUM_YI_500, null,limit,conception);
 //        statListAdrArea(date, areaDays, board, isDesc, null, null,limit);
 //        statListAdrArea(date, areaDays, board, isDesc, NUM_YI_200, NUM_YI_500,limit);
@@ -157,16 +162,20 @@ public class StockStat {
 
     /**
      * 统计区间涨幅
+     * 20221016:股票:统计-统计区间涨幅-是否统计新股:根据标志，是否统计上市时间在30天以内新股
+     *
      * @param date
      * @param areaDays
      * @param board
      * @param isDesc
-     * @param mvMin 市值最低
-     * @param mvMax 市值最高
+     * @param mvMin      市值最低
+     * @param mvMax      市值最高
+     * @param limit
      * @param conception 概念
+     * @param isNew      是否统计新股
      */
-    private static void statListAdrArea(String date, int areaDays, Long board, boolean isDesc, BigDecimal mvMin, BigDecimal mvMax, int limit, String conception) {
-        boolean isShowCode = false;//是否显示编码
+    private static void statListAdrArea(String date, int areaDays, Long board, boolean isDesc, BigDecimal mvMin, BigDecimal mvMax, int limit, String conception, boolean isNew) {
+        boolean isShowCode = true;//是否显示编码
         boolean isCheckFuQuan = false;//是否检查更新复权
 
         String endDate = StockService.findBegDate(date, 0);
@@ -179,6 +188,10 @@ public class StockStat {
         condEndDate.setF139(board);
         condEndDate.setMvMin(mvMin);
         condEndDate.setMvMax(mvMax);
+        if (!isNew) {
+            String maxDate = DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYYMMDD, -30);
+            condEndDate.setMaxF26(maxDate);
+        }
         List<RankStockCommpanyDb> stListEndDate = StockService.findListByCondition(condEndDate);//查询股票列表
 
         CondStock condBegDate = new CondStock();
@@ -228,7 +241,6 @@ public class StockStat {
             rsMap.put(code, rsOne);
         }
 
-
         List<CondStock> rsList = new ArrayList<>();
         //计算区间涨幅
         for (CondStock dto : rsMap.values()) {
@@ -258,17 +270,17 @@ public class StockStat {
             rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondStock::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
             rankName = "跌幅榜";
         }
-            if (isCheckFuQuan) {
-                updateFuQuan(rsList, limit);//更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
-            }
-            //区间涨幅
+        if (isCheckFuQuan) {
+            updateFuQuan(rsList, limit);//更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
+        }
+        //区间涨幅
 //            System.out.println();
 //            showHeadAdrRank(board, areaDays, begDate, endDate, rankName, mvMin, mvMax);
 //            showInfo(rsListAsc, board, begDate, endDate, limit, isShowMoreNo, isShowCode);
-            showHeadAdrRank(board, areaDays, begDate, endDate, rankName, mvMin, mvMax);
-            Map<String,Integer> sizeMap = StockUtil.showInfoHead(isShowMoreYes, isShowCode,true, conception);
-            StockUtil.showInfo(rsList, board, begDate, endDate, limit, isShowMoreYes, isShowCode, sizeMap, conception);
-            System.out.println();
+        showHeadAdrRank(board, areaDays, begDate, endDate, rankName, mvMin, mvMax, isNew);
+        Map<String, Integer> sizeMap = StockUtil.showInfoHead(isShowMoreYes, isShowCode, true, conception);
+        StockUtil.showInfo(rsList, board, begDate, endDate, limit, isShowMoreYes, isShowCode, sizeMap, conception);
+        System.out.println();
     }
 
     /**
@@ -329,35 +341,40 @@ public class StockStat {
      * @param rankName    排行榜名称
      * @param mvMin       最小市值
      * @param mvMax       最大市值
+     * @param isNew       是否统计新股
      */
-    private static void showHeadAdrRank(Long board, int areaDayType, String begDate, String endDate, String rankName, BigDecimal mvMin, BigDecimal mvMax) {
+    private static void showHeadAdrRank(Long board, int areaDayType, String begDate, String endDate, String rankName, BigDecimal mvMin, BigDecimal mvMax, boolean isNew) {
         StringBuffer sb = new StringBuffer();
         String mvLimitInfo = "";
-        if (mvMin == null) {
-            mvLimitInfo = "0亿";
+        if (mvMin == null || mvMin.compareTo(new BigDecimal("0")) == 0) {
+            mvLimitInfo = "(0亿";
         } else if (mvMin.equals(NUM_YI_50)) {
-            mvLimitInfo = "50亿";
+            mvLimitInfo = "(50亿";
         } else if (mvMin.equals(NUM_YI_100)) {
-            mvLimitInfo = "100亿";
+            mvLimitInfo = "(100亿";
         } else if (mvMin.equals(NUM_YI_200)) {
-            mvLimitInfo = "200亿";
+            mvLimitInfo = "(200亿";
         } else if (mvMin.equals(NUM_YI_500)) {
-            mvLimitInfo = "500亿";
+            mvLimitInfo = "(500亿";
         } else if (mvMin.equals(NUM_YI_1000)) {
-            mvLimitInfo = "1000亿";
+            mvLimitInfo = "(1000亿";
         }
         if (mvMax == null) {
-            mvLimitInfo = mvLimitInfo + "以上";
+            if (mvMin == null || mvMin.compareTo(new BigDecimal("0")) == 0) {
+                mvLimitInfo = "";
+            } else {
+                mvLimitInfo = mvLimitInfo + "以上)";
+            }
         } else if (mvMax.equals(NUM_YI_50)) {
-            mvLimitInfo = mvLimitInfo + "至50亿";
+            mvLimitInfo = mvLimitInfo + "至50亿)";
         } else if (mvMax.equals(NUM_YI_100)) {
-            mvLimitInfo = mvLimitInfo + "至100亿";
+            mvLimitInfo = mvLimitInfo + "至100亿)";
         } else if (mvMax.equals(NUM_YI_200)) {
-            mvLimitInfo = mvLimitInfo + "至200亿";
+            mvLimitInfo = mvLimitInfo + "至200亿)";
         } else if (mvMax.equals(NUM_YI_500)) {
-            mvLimitInfo = mvLimitInfo + "至500亿";
+            mvLimitInfo = mvLimitInfo + "至500亿)";
         } else if (mvMax.equals(NUM_YI_1000)) {
-            mvLimitInfo = mvLimitInfo + "至1000亿";
+            mvLimitInfo = mvLimitInfo + "至1000亿)";
         }
 
         String boardName = StockUtil.handlerBoardName(board);
@@ -373,20 +390,22 @@ public class StockStat {
         sb.append(areaDayTypeName);
         sb.append(rankName);
         sb.append("(");
-        sb.append(mvLimitInfo);
-        sb.append(")");
-        sb.append("(");
-        sb.append(boardName);
-        sb.append(")");
-        sb.append("(");
         sb.append(begDate);
         sb.append("至");
         sb.append(endDate);
         sb.append(")");
+
+        sb.append(mvLimitInfo);
+
+        sb.append("(");
+        sb.append(boardName);
+        sb.append(")");
+        if (!isNew) {
+            sb.append("(剔除近30日内新股)");
+        }
+
         System.out.println(sb);
     }
-
-
 
 
     /**

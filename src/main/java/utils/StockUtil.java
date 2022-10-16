@@ -261,29 +261,30 @@ public class StockUtil {
     /**
      * 显示头信息
      */
-    public static Map<String,Integer> showInfoHead(boolean showMore, boolean isShowCode, boolean isShowBoard, String conception) {
-        Map<String,Integer> sizeMap = new HashMap<>();
+    public static Map<String, Integer> showInfoHead(boolean showMore, boolean isShowCode, boolean isShowBoard, String conception) {
+        Map<String, Integer> sizeMap = new HashMap<>();
         String orderNo = "序号";
-        sizeMap.put("序号",5);
-        sizeMap.put("名称",16);
-        sizeMap.put("概念",16);
+        sizeMap.put("序号", 5);
+        sizeMap.put("名称", 16);
+        sizeMap.put("概念", 16);
+        sizeMap.put("代码", 8);
         int size = 10;
         int sizeBiz = 14;
         int sizeDate14 = 14;
         StringBuffer sb = new StringBuffer();
         sb.append(StockUtil.formatStName(orderNo, sizeMap.get(orderNo)));
         if (isShowCode) {
-            sb.append(StockUtil.formatStName("代码", size));
+            sb.append(StockUtil.formatStName("代码", sizeMap.get("代码")));
         }
         sb.append(StockUtil.formatStName("名称", sizeMap.get("名称")));
+        if (isShowBoard) {
+            sb.append(StockUtil.formatStName("业务板块", sizeBiz));
+        }
         if (StringUtils.isNotBlank(conception)) {
             sb.append(StockUtil.formatStName("概念", sizeMap.get("概念")));
         }
         sb.append(StockUtil.formatStName("区间涨幅", size));
         if (showMore) {
-            if (isShowBoard) {
-                sb.append(StockUtil.formatStName("业务板块", sizeBiz));
-            }
             sb.append(StockUtil.formatStName("最新涨幅", size));
             if (isShowBoard) {
                 sb.append(StockUtil.formatStName("市场板块", sizeBiz));
@@ -299,12 +300,13 @@ public class StockUtil {
 
     /**
      * 显示集合
-     * @param rsList   列表
-     * @param board    板块
-     * @param begDate  开始时间
-     * @param endDate  结束时间
+     *
+     * @param rsList     列表
+     * @param board      板块
+     * @param begDate    开始时间
+     * @param endDate    结束时间
      * @param limit
-     * @param showMore 显示更多字段
+     * @param showMore   显示更多字段
      * @param sizeMap
      * @param conception
      */
@@ -322,17 +324,19 @@ public class StockUtil {
                 break;
             }
             StringBuffer sb = new StringBuffer();
-            if (isShowCode) {
-                sb.append(StockUtil.formatStName(dto.getF12(), 6));
-            }
             sb.append(StockUtil.formatStName(String.valueOf(++number), sizeMap.get("序号")));
+            if (isShowCode) {
+                sb.append(StockUtil.formatStName(dto.getF12(), sizeMap.get("代码")));
+            }
             sb.append(StockUtil.formatStName(dto.getF14(), sizeMap.get("名称")));
+            if (showMore) {
+                sb.append(StockUtil.formatStName(dto.getType_name(), sizeBiz));
+            }
             if (StringUtils.isNotBlank(conception)) {
                 sb.append(StockUtil.formatStName(conception, sizeMap.get("概念")));
             }
             sb.append(StockUtil.formatDouble(dto.getAreaF3(), size, null, "%"));
             if (showMore) {
-                sb.append(StockUtil.formatStName(dto.getType_name(), sizeBiz));
                 sb.append(StockUtil.formatDouble(dto.getF3(), size, null, "%"));
                 sb.append(StockUtil.formatStName(boardName, sizeBiz));
                 sb.append(StockUtil.formatDouble(dto.getF20(), sizeDate14));
@@ -348,7 +352,8 @@ public class StockUtil {
 
     /**
      * 显示集合
-     *  @param rsList   列表
+     *
+     * @param rsList   列表
      * @param begDate  开始时间
      * @param endDate  结束时间
      * @param limit
@@ -402,6 +407,7 @@ public class StockUtil {
         }
         return boardName;
     }
+
     /**
      * 检查是否：XX发债，7XXXXX开头的
      *
@@ -445,6 +451,7 @@ public class StockUtil {
 
         return sb.toString();
     }
+
     /**
      * 计算我的天天基金收益
      *

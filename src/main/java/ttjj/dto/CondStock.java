@@ -50,10 +50,17 @@ public class CondStock extends RankStockCommpanyDb {
      */
     private List<String> stCodeList;
     /**
+     * 编码过滤列表
+     */
+    private List<String> stCodeListNotIn;
+    /**
      * orderBy 排序
      */
     private String orderBy;
 
+    /**
+     * conpetionList 概念列表
+     */
     List<String> conpetionList;
 
     /**
@@ -72,6 +79,14 @@ public class CondStock extends RankStockCommpanyDb {
      * 不查询多个市场板
      */
     private List<Long> f139notList;
+    /**
+     * 最低上市日期
+     */
+    private String minF26;
+    /**
+     * 上市日期-最高：可以过滤新股
+     */
+    private String maxF26;
 
     public CondStock() {
     }
@@ -268,5 +283,29 @@ public class CondStock extends RankStockCommpanyDb {
 
     public void setF139notList(List<Long> f139notList) {
         this.f139notList = f139notList;
+    }
+
+    public List<String> getStCodeListNotIn() {
+        return stCodeListNotIn;
+    }
+
+    public void setStCodeListNotIn(List<String> stCodeListNotIn) {
+        this.stCodeListNotIn = stCodeListNotIn;
+    }
+
+    public String getMinF26() {
+        return minF26;
+    }
+
+    public void setMinF26(String minF26) {
+        this.minF26 = minF26;
+    }
+
+    public String getMaxF26() {
+        return maxF26;
+    }
+
+    public void setMaxF26(String maxF26) {
+        this.maxF26 = maxF26;
     }
 }
