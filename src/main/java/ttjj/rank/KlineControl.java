@@ -65,7 +65,7 @@ public class KlineControl {
         List<String> kltList_101 = Arrays.asList(KLT_101);
 
         System.out.println("定时任务-保存-板块、概念、指数、全部etf:");
-        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS));//
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, kltList_101_5, handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS));//
         saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_5, ContMapEtf.ETF_All);//保存常用etf
         saveKlineAndMv(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_BAN_KUAI));//
         saveKlineAndMv(date, DB_RANK_BIZ_TYPE_GAI_NIAN, Arrays.asList(KLT_101, KLT_60), handlerZqMap(date, DB_RANK_BIZ_TYPE_GAI_NIAN));//

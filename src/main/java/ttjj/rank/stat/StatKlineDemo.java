@@ -7,6 +7,7 @@ import ttjj.dto.Kline;
 import ttjj.dto.StatCondStAdrCountKline;
 import ttjj.dto.StatRsStAdrCountKline;
 import ttjj.service.KlineService;
+import ttjj.service.StockService;
 import utils.*;
 
 import java.math.BigDecimal;
@@ -26,10 +27,73 @@ public class StatKlineDemo {
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
 
-//        String klt = KLT_101;
+//        statAdrByTime(date);//统计涨幅-根据日期
+        statAdrCjl(date);
+
+//        findKline();
+
+
+    }
+
+    /**
+     * 统计-成交量-根据日期
+     *
+     * @param date
+     */
+    private static void statAdrCjl(String date) {
+        String zqdm = ZHISHU_CODE_000001;
+        String klt = Content.KLT_30;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+        System.out.println("周期(" + klt + "):");
+
+        Map<String, BigDecimal> cjeMap = new HashMap<>();
+        //上一交易日
+        String tradeDaySub1 = StockService.findBegDate(date, 1);
+        List<Kline> klineTradeDaySub1 = KlineService.kline(zqdm, NUM_MAX_999, klt, true, tradeDaySub1, tradeDaySub1, DB_RANK_BIZ_TYPE_ZS);
+//        System.out.println(JSON.toJSONString(klineTradeDaySub1));
+        for (Kline kline : klineTradeDaySub1) {
+            BigDecimal cje = kline.getCje().divide(NUM_YI_1, 0, BigDecimal.ROUND_HALF_UP);
+            String timeCur = kline.getKtime().substring(10);
+            cjeMap.put(timeCur, cje);
+            System.out.println("上一交易日" + "(" + kline.getKtime() + ")" + StockUtil.formatStName("成交额(亿):" + cje, 20));
+        }
+
+        //查询K线-昨天到今天
+        String today = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        List<Kline> klineToday = KlineService.kline(zqdm, NUM_MAX_999, klt, true, today, today, DB_RANK_BIZ_TYPE_ZS);
+//        System.out.println(JSON.toJSONString(klineToday));
+        for (Kline kline : klineToday) {
+            BigDecimal cjeToday = kline.getCje().divide(NUM_YI_1, 0, BigDecimal.ROUND_HALF_UP);
+            String timeCur = kline.getKtime().substring(10);
+            BigDecimal cjeTradeDaySub1 = cjeMap.get(timeCur);
+            BigDecimal cjeCompRs = cjeToday.subtract(cjeTradeDaySub1);
+            System.out.print("今天" + "(" + kline.getKtime() + ")" + "成交额(亿):" + StockUtil.formatDouble(cjeToday, 5) + "-" + StockUtil.formatDouble(cjeTradeDaySub1, 5) + "=");
+            if (cjeCompRs.compareTo(new BigDecimal("0")) > 0) {
+                System.out.print("(" + cjeCompRs + ")亿" + "(放量)");
+            } else {
+                System.out.print("(" + cjeCompRs + ")亿" + "(缩量)");
+            }
+            BigDecimal adr = kline.getZhangDieFu();
+            if (adr.compareTo(new BigDecimal("0")) > 0) {
+                System.out.print(",上涨" + adr);
+            } else {
+                System.out.print(",下跌" + adr);
+            }
+            System.out.println();
+        }
+
+
+    }
+
+    /**
+     * 统计涨幅-根据日期
+     *
+     * @param date
+     */
+    private static void statAdrByTime(String date) {
+        //        String klt = KLT_101;
 //        String klt = KLT_60;
-        String klt = KLT_30;
-//        String klt = KLT_15;
+//        String klt = KLT_30;
+        String klt = KLT_15;
 //        String klt = KLT_5;
 
 //        String orderTime = TIME_11_30;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
@@ -62,7 +126,7 @@ public class StatKlineDemo {
         long timeLong = DateUtil.getTimeInMillisByDateStr(DateUtil.YYYY_MM_DD_HH_MM_SS, time1);
         long curTime = Calendar.getInstance().getTimeInMillis();
         if (timeLong > curTime) {
-            System.out.println("如果未到当前时间，不处理:"+time1);
+            System.out.println("如果未到当前时间，不处理:" + time1);
             return;
         }
 
