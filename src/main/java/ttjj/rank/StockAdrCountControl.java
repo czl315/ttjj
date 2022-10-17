@@ -1208,7 +1208,7 @@ public class StockAdrCountControl {
                     continue;
                 }
                 entity.setMA_NET_60_15(breakMa.getMaNet());
-                isMa15 = breakMa.isUpMa();
+                isMa15 = breakMa.isMaBreakUp();
                 if (isMa15) {
                     entity.setUP_MA_15(KLT_15 + "(" + MA_60 + ")");
                 } else {
@@ -1222,7 +1222,7 @@ public class StockAdrCountControl {
                     continue;
                 }
                 entity.setMA_NET_60_30(breakMa.getMaNet());
-                isMa30 = breakMa.isUpMa();
+                isMa30 = breakMa.isMaBreakUp();
                 if (isMa30) {
                     entity.setUP_MA_30(KLT_30 + "(" + MA_60 + ")");
                 } else {
@@ -1236,7 +1236,7 @@ public class StockAdrCountControl {
                     continue;
                 }
                 entity.setMA_NET_60_60(breakMa.getMaNet());
-                isMa60 = breakMa.isUpMa();
+                isMa60 = breakMa.isMaBreakUp();
                 if (isMa60) {
                     entity.setUP_MA_60(KLT_60 + "(" + MA_60 + ")");
                 } else {
@@ -1250,7 +1250,7 @@ public class StockAdrCountControl {
                     continue;
                 }
                 entity.setMA_NET_60_101(breakMa.getMaNet());
-                isMa101 = breakMa.isUpMa();
+                isMa101 = breakMa.isMaBreakUp();
                 if (isMa101) {
                     entity.setUP_MA_101(KLT_101 + "(" + MA_60 + ")");
                 } else {
@@ -1264,7 +1264,7 @@ public class StockAdrCountControl {
                     continue;
                 }
                 entity.setMA_NET_60_102(breakMa.getMaNet());
-                isMa102 = breakMa.isUpMa();
+                isMa102 = breakMa.isMaBreakUp();
                 if (isMa102) {
                     entity.setUP_MA_102(KLT_102 + "(" + MA_60 + ")");
                 } else {
