@@ -36,6 +36,8 @@ public class KlineControl {
 //        saveKlineEtfMianSchedule(date);
         saveKlineAll();
 
+//        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101), handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS));//
+
         //  插入常用指数k线
 //        addZs(KLT_102);
 

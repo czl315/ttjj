@@ -23,7 +23,6 @@ public class EtfJob {
     private static void statShowEtfUpMaSchedule(String date) {
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
             System.out.println();
-            System.out.println();
             System.out.println("定时任务-etf-检查均线-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
             BizEtfDemo.showEtfUpMa(date);//etf-超过均线
             System.out.println("定时任务-etf-检查均线-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
