@@ -374,7 +374,7 @@ public class StockUtil {
             StringBuffer sb = new StringBuffer();
             sb.append(StockUtil.formatStName(String.valueOf(++number), sizeMap.get("序号")));
             if (isShowCode) {
-                sb.append(StockUtil.formatStName(dto.getF12(), size));
+                sb.append(StockUtil.formatStName(dto.getF12(),  sizeMap.get("代码")));
             }
             sb.append(StockUtil.formatStName(dto.getF14(), 16));
             sb.append(StockUtil.formatDouble(dto.getAreaF3(), size, null, "%"));

@@ -27,27 +27,27 @@ public class BizEtfDemo {
 //            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
 //        }
 
-        showEtfUpMa(date);//etf-超过均线
+//        showEtfUpMa(date);//etf-超过均线
 //        showEtfMv(date);//显示etf市值
 //        statDayMinMaxTime(date);//k线：每日最高点、最低点
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
-//        statListEtfAdrArea();//计算区间涨幅
+        statListEtfAdrArea();//计算区间涨幅
     }
 
     /**
      * ETF：计算区间涨幅
      */
     private static void statListEtfAdrArea() {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-08-26";
+//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+        String date = "2022-10-12";
 
 
-        int areaDays = 20;//4:近一周;20:近一月
+        int areaDays = 3;//4:近一周;20:近一月
         int limit = 1000;
 
-        BigDecimal mvMin = null;//NUM_YI_1000  NUM_YI_50  NUM_YI_100
+        BigDecimal mvMin = NUM_YI_0;//NUM_YI_1000  NUM_YI_50  NUM_YI_100
         BigDecimal mvMax = null;
 
         boolean isDesc = true;
@@ -69,7 +69,7 @@ public class BizEtfDemo {
      */
     private static void statListEtfAdrArea(String date, int areaDays, boolean isDesc, BigDecimal mvMin, BigDecimal mvMax, int limit, boolean isCheckMianEtf, String type) {
         boolean isShowCode = true;//是否显示编码
-        boolean isCheckFuQuan = true;//是否检查更新复权
+        boolean isCheckFuQuan = false;//是否检查更新复权
 
         String endDate = StockService.findBegDate(date, 0);
         String begDate = StockService.findBegDate(date, areaDays);
@@ -126,7 +126,6 @@ public class BizEtfDemo {
 
             rsMap.put(code, rsOne);
         }
-
 
         List<BizDto> rsList = new ArrayList<>();
         //计算区间涨幅
