@@ -158,8 +158,8 @@ public class BizEtfDemo {
             rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(BizDto::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
         }
         //区间涨幅
-        Map<String,Integer> sizeMap = StockUtil.showInfoHead(isShowMoreYes, isShowCode, false, null);
-        StockUtil.showInfoEtf(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode,sizeMap);
+        Map<String, Integer> sizeMap = StockUtil.showInfoHead(isShowMoreYes, isShowCode, false, null);
+        StockUtil.showInfoEtf(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, sizeMap);
         System.out.println();
 
         if (isCheckFuQuan) {
@@ -315,7 +315,7 @@ public class BizEtfDemo {
             BigDecimal adr = biz.getF3();
 //            //  名称过滤
 //            if (!name.contains("物流") && !name.contains("快递")) {
-//            if (!name.contains("物") || !name.contains("流")|| !name.contains("快")|| !name.contains("递")) {
+//            if (!name.contains("软") && !name.contains("数据") && !name.contains("云") && !name.contains("AI") && !name.contains("计算")) {
 //                continue;
 //            }
             //  特定类型
