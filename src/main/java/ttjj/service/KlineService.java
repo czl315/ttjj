@@ -1773,7 +1773,7 @@ public class KlineService {
 //                        if(kline.getKtime().equals(date)){//显示今天
 //                            sbDaysAdr.append("[").append(kline.getKtime().substring(5)).append("]");
 //                        }
-                        sbDaysAdr.append(StockUtil.formatDouble(kline.getZhangDieFu(), 6) + "%");
+                        sbDaysAdr.append(StockUtil.formatDouble(kline.getZhangDieFu(), 6) );
                     }
                 }
                 sbDaysAdr.append("\t");

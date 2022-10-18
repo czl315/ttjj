@@ -22,7 +22,7 @@ public class Content {
      * 常用指数
      * 000001	上证指数
      */
-    private static Map<String, String> zhishuMap = new HashMap<>();
+    public static Map<String, String> zhishuMap = new HashMap<>();
 
     static {
         zhishuMap.put(ZHISHU_CODE_000001, ZHISHU_NAME_000001);

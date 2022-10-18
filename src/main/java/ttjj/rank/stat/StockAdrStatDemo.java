@@ -37,23 +37,23 @@ public class StockAdrStatDemo {
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-09-30";
+//        String date = "2022-10-13";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
-//        String spDateBeg = "2022-09-20";//
-//        String spDateEnd = "2022-09-22";//
+//        String spDateBeg = "2022-10-18";//
+//        String spDateEnd = "2022-10-18";//
 
-        int limitCount = 20;
+        int limitCount = 2;
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
         Map<String, List<String>> bkMap = new HashMap<>();
-        bkMap = getBizListSp();//获取业务列表-特定
-//        bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
+//        bkMap = getBizListSp();//获取业务列表-特定
+        bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
 
         BigDecimal mvMinBig = NUM_YI_500;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
         BigDecimal mvMinSmall = NUM_YI_50;//
 
-        String orderField = ORDER_FIELD_ADR_UP_SUM_1_20;//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
+        String orderField = ORDER_FIELD_NET_AREA_DAY_60;//排序  ORDER_FIELD_ADR_UP_SUM_1_20   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
 
         CondStockAdrCount condFind = new CondStockAdrCount();
         condFind.setADR_UP_SUM_1_60(null);
@@ -64,9 +64,9 @@ public class StockAdrStatDemo {
 //        condFind.setUP_MA_30("30(60)");
 //        condFind.setUP_MA_60("60(60)");
 //        condFind.setUP_MA_101("101(60)");
-//        condFind.setUP_MA_102("102(60)");
+        condFind.setUP_MA_102("102(60)");
 
-//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
         condFind.setDate(date);
         condFind.setF139(DB_RANK_BIZ_F139_BK_MAIN);
@@ -101,7 +101,7 @@ public class StockAdrStatDemo {
             stockAdrCountListBkAll.add(stockAdrCount);
         }
 
-        stockAdrCountListBkAll = KlineService.handlerOrder(stockAdrCountListBkAll, orderField, true);//列表-排序：根据字段
+        stockAdrCountListBkAll = KlineService.handlerOrder(stockAdrCountListBkAll, orderField, false);//列表-排序：根据字段
 
         showStockAdrCountList(stockAdrCountListBkAll, spDateBeg, spDateEnd);//显示-涨幅列表
 
@@ -111,10 +111,14 @@ public class StockAdrStatDemo {
 
     /**
      * 返回排序字段
+     *
      * @param orderField 排序条件
      * @return rs
      */
     private static String getOrderBy(String orderField) {
+        if (orderField == null) {
+            return null;
+        }
         if (orderField.equals(ORDER_FIELD_ADR_UP_SUM_1_60)) {
             return " ADR_UP_SUM_1_60  DESC ";
         }
@@ -371,7 +375,7 @@ public class StockAdrStatDemo {
         sbHead.append(StockUtil.formatStName("区间20", 6));
         sbHead.append(StockUtil.formatStName("区间40", 6));
         sbHead.append(StockUtil.formatStName("区间60", 6));
-        sbHead.append(StockUtil.formatStName(" 超周", 6));
+        sbHead.append(StockUtil.formatStName("超周", 6));
         sbHead.append(StockUtil.formatStName("超日", 6));
         sbHead.append(StockUtil.formatStName("超60", 6));
         sbHead.append(StockUtil.formatStName("超30", 6));
