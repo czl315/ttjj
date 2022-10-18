@@ -39,7 +39,7 @@ public class FupanControl {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //                String date = "2022-08-19";
 
-        insertOrUpdate(date, KLT_101, DAYS_1,ContentCookie.COOKIE_DFCF);//保存复盘和仓位
+        insertOrUpdate(date, KLT_101, DAYS_1, ContentCookie.COOKIE_DFCF);//保存复盘和仓位
 //        checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
 
 //        System.out.println( getCookieHttp());//获取cookie
@@ -52,6 +52,7 @@ public class FupanControl {
 
     /**
      * 更新股票涨跌个数
+     *
      * @param date
      */
     private static void updateStUpDownCount(String date) {
@@ -59,42 +60,42 @@ public class FupanControl {
         CondStock condition = new CondStock();
         condition.setDate(date);
         Integer countAll = StockService.count(condition);
-        System.out.println("全市场个数-全部："+countAll);
+        System.out.println("全市场个数-全部：" + countAll);
 
         CondStock conditionUp = new CondStock();
         conditionUp.setDate(date);
         conditionUp.setMinF3(new BigDecimal("0"));
         Integer countAllUp = StockService.count(conditionUp);
-        System.out.println("全市场个数-上涨："+countAllUp);
+        System.out.println("全市场个数-上涨：" + countAllUp);
         CondStock conditionFlat = new CondStock();
         conditionFlat.setDate(date);
         conditionFlat.setF3(new BigDecimal("0"));
         Integer countAllFlat = StockService.count(conditionFlat);
-        System.out.println("全市场个数-平盘："+countAllFlat);
+        System.out.println("全市场个数-平盘：" + countAllFlat);
         CondStock conditionDown = new CondStock();
         conditionDown.setDate(date);
         conditionDown.setMaxF3(new BigDecimal("0"));
         Integer countAllDown = StockService.count(conditionDown);
-        System.out.println("全市场个数-下跌："+countAllDown);
+        System.out.println("全市场个数-下跌：" + countAllDown);
 
         CondStock conditionUpMianBord = new CondStock();
         conditionUpMianBord.setDate(date);
         conditionUpMianBord.setMinF3(new BigDecimal("0"));
         conditionUpMianBord.setF139(2L);
         Integer countAllUpMianBord = StockService.count(conditionUpMianBord);
-        System.out.println("主板个数-上涨："+countAllUpMianBord);
+        System.out.println("主板个数-上涨：" + countAllUpMianBord);
         CondStock conditionMianBordFlat = new CondStock();
         conditionMianBordFlat.setDate(date);
         conditionMianBordFlat.setF3(new BigDecimal("0"));
         conditionMianBordFlat.setF139(2L);
         Integer countAllMianBordFlat = StockService.count(conditionMianBordFlat);
-        System.out.println("主板个数-平盘："+countAllMianBordFlat);
+        System.out.println("主板个数-平盘：" + countAllMianBordFlat);
         CondStock conditionMianBordDown = new CondStock();
         conditionMianBordDown.setDate(date);
         conditionMianBordDown.setMaxF3(new BigDecimal("0"));
         conditionMianBordDown.setF139(2L);
         Integer countAllMianBordDown = StockService.count(conditionMianBordDown);
-        System.out.println("主板个数-下跌："+countAllMianBordDown);
+        System.out.println("主板个数-下跌：" + countAllMianBordDown);
 
         Fupan fupanRs = new Fupan();
         //where
@@ -112,7 +113,6 @@ public class FupanControl {
     }
 
 
-
     /**
      * 检查我的持仓：超过均线、价格区间、今日涨跌
      *
@@ -124,8 +124,8 @@ public class FupanControl {
         Map<String, AssetPositionDb> mapMyPosition = new HashMap<>();
         Map<String, String> mapStock = new HashMap<>();
         for (AssetPositionDb assetPositionDb : rs) {
-            mapMyPosition.put(assetPositionDb.getZqdm(),assetPositionDb);
-            mapStock.put(assetPositionDb.getZqdm(),assetPositionDb.getZqmc());
+            mapMyPosition.put(assetPositionDb.getZqdm(), assetPositionDb);
+            mapStock.put(assetPositionDb.getZqdm(), assetPositionDb.getZqmc());
         }
 
         CondMa condMa = new CondMa();
@@ -169,7 +169,6 @@ public class FupanControl {
             System.out.println();
         }
     }
-
 
 
     /**
@@ -307,10 +306,11 @@ public class FupanControl {
 
     /**
      * 保存或更新我的复盘和持仓
-     * @param date 日期
-     * @param klt 周期
+     *
+     * @param date     日期
+     * @param klt      周期
      * @param dateType 日期类型
-     * @param cookie 登录key
+     * @param cookie   登录key
      */
     public static void insertOrUpdate(String date, String klt, String dateType, String cookie) {
         boolean updateDaPanKline = true;//显示-大盘指数
@@ -356,7 +356,10 @@ public class FupanControl {
         if (updateMyStock) {
             //显示股票每日收益
             Fupan FupanMyStock = MyPositionService.queryAssetByDfcfStock(cookie, dateType);
-            FuPanDao.updateDb(FupanMyStock);
+            int updateRs = FuPanDao.updateDb(FupanMyStock);
+            if (updateRs != 1) {
+                throw new RuntimeException("更新失败");
+            }
         }
 
         if (updateMyStockAssetPosition) {
@@ -371,7 +374,7 @@ public class FupanControl {
         if (findDbMyPositionByDate) {
             String findDate = date;//查询日期
             String period = "1";
-            assetPositionList = findDbMyPositionByDate(findDate, period, dateType,cookie);
+            assetPositionList = findDbMyPositionByDate(findDate, period, dateType, cookie);
         }
 
         //  更新我的持仓盈亏明细
@@ -498,6 +501,7 @@ public class FupanControl {
 
     /**
      * 获取cookie
+     *
      * @return
      */
     private static String getCookieHttp() {
@@ -555,7 +559,6 @@ public class FupanControl {
 //        String rsDate = rsArray.getString("Data");
 //        System.out.println(rsDate);
     }
-
 
 
     /**
@@ -660,7 +663,7 @@ public class FupanControl {
 //        urlParam.append("moneyType=").append("RMB");
 
 //        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
-         assetPositionRs = HttpUtil.sendPost(url, urlParam.toString(), cookie);
+        assetPositionRs = HttpUtil.sendPost(url, urlParam.toString(), cookie);
         System.out.println("queryAssetPositionRs:" + assetPositionRs);
 
 
