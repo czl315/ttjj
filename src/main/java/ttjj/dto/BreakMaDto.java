@@ -21,6 +21,22 @@ public class BreakMaDto {
      * 均线净值
      */
     private BigDecimal maNet;
+    /**
+     * 突破均线次数-向上
+     */
+    private int breakCountUp;
+    /**
+     * 突破均线次数-向下
+     */
+    private int breakCountDown;
+    /**
+     * 突破百分比-向上
+     */
+    private BigDecimal breakPctUp;
+    /**
+     * 突破百分比-向下
+     */
+    private BigDecimal breakPctDown;
 
     public BigDecimal getMaNet() {
         return maNet;
@@ -44,5 +60,37 @@ public class BreakMaDto {
 
     public void setMaBreakUp(boolean maBreakUp) {
         isMaBreakUp = maBreakUp;
+    }
+
+    public int getBreakCountUp() {
+        return breakCountUp;
+    }
+
+    public void setBreakCountUp(int breakCountUp) {
+        this.breakCountUp = breakCountUp;
+    }
+
+    public int getBreakCountDown() {
+        return breakCountDown;
+    }
+
+    public void setBreakCountDown(int breakCountDown) {
+        this.breakCountDown = breakCountDown;
+    }
+
+    public BigDecimal getBreakPctUp() {
+        return breakPctUp;
+    }
+
+    public void setBreakPctUp(BigDecimal breakPctUp) {
+        this.breakPctUp = breakPctUp;
+    }
+
+    public BigDecimal getBreakPctDown() {
+        return breakPctDown;
+    }
+
+    public void setBreakPctDown(BigDecimal breakPctDown) {
+        this.breakPctDown = breakPctDown;
     }
 }

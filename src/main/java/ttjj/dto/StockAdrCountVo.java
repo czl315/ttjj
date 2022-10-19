@@ -82,6 +82,103 @@ public class StockAdrCountVo extends StockAdrCount {
      */
     private BigDecimal myPositionZxsz;
 
+    /**
+     * 突破均线次数-向上
+     */
+    private int breakCountUp5;
+    /**
+     * 突破均线次数-向上
+     */
+    private int breakCountUp15;
+    /**
+     * 突破均线次数-向上
+     */
+    private int breakCountUp30;
+    /**
+     * 突破均线次数-向上
+     */
+    private int breakCountUp60;
+    /**
+     * 突破均线次数-向上
+     */
+    private int breakCountUp101;
+    /**
+     * 突破均线次数-向上
+     */
+    private int breakCountUp102;
+    /**
+     * 突破均线次数-向下
+     */
+    private int breakCountDown5;
+    /**
+     * 突破均线次数-向下
+     */
+    private int breakCountDown15;
+    /**
+     * 突破均线次数-向下
+     */
+    private int breakCountDown30;
+    /**
+     * 突破均线次数-向下
+     */
+    private int breakCountDown60;
+    /**
+     * 突破均线次数-向下
+     */
+    private int breakCountDown101;
+    /**
+     * 突破均线次数-向下
+     */
+    private int breakCountDown102;
+    /**
+     * 突破百分比-向上
+     */
+    private BigDecimal breakPctUp5;
+    /**
+     * 突破百分比-向上
+     */
+    private BigDecimal breakPctUp15;
+    /**
+     * 突破百分比-向上
+     */
+    private BigDecimal breakPctUp30;
+    /**
+     * 突破百分比-向上
+     */
+    private BigDecimal breakPctUp60;
+    /**
+     * 突破百分比-向上
+     */
+    private BigDecimal breakPctUp101;
+    /**
+     * 突破百分比-向上
+     */
+    private BigDecimal breakPctUp102;
+    /**
+     * 突破百分比-向下
+     */
+    private BigDecimal breakPctDown5;
+    /**
+     * 突破百分比-向下
+     */
+    private BigDecimal breakPctDown15;
+    /**
+     * 突破百分比-向下
+     */
+    private BigDecimal breakPctDown30;
+    /**
+     * 突破百分比-向下
+     */
+    private BigDecimal breakPctDown60;
+    /**
+     * 突破百分比-向下
+     */
+    private BigDecimal breakPctDown101;
+    /**
+     * 突破百分比-向下
+     */
+    private BigDecimal breakPctDown102;
+
     public BigDecimal getCount() {
         return count;
     }
@@ -216,5 +313,197 @@ public class StockAdrCountVo extends StockAdrCount {
 
     public void setMyPositionZxsz(BigDecimal myPositionZxsz) {
         this.myPositionZxsz = myPositionZxsz;
+    }
+
+    public int getBreakCountUp5() {
+        return breakCountUp5;
+    }
+
+    public void setBreakCountUp5(int breakCountUp5) {
+        this.breakCountUp5 = breakCountUp5;
+    }
+
+    public int getBreakCountUp15() {
+        return breakCountUp15;
+    }
+
+    public void setBreakCountUp15(int breakCountUp15) {
+        this.breakCountUp15 = breakCountUp15;
+    }
+
+    public int getBreakCountUp30() {
+        return breakCountUp30;
+    }
+
+    public void setBreakCountUp30(int breakCountUp30) {
+        this.breakCountUp30 = breakCountUp30;
+    }
+
+    public int getBreakCountUp60() {
+        return breakCountUp60;
+    }
+
+    public void setBreakCountUp60(int breakCountUp60) {
+        this.breakCountUp60 = breakCountUp60;
+    }
+
+    public int getBreakCountUp101() {
+        return breakCountUp101;
+    }
+
+    public void setBreakCountUp101(int breakCountUp101) {
+        this.breakCountUp101 = breakCountUp101;
+    }
+
+    public int getBreakCountUp102() {
+        return breakCountUp102;
+    }
+
+    public void setBreakCountUp102(int breakCountUp102) {
+        this.breakCountUp102 = breakCountUp102;
+    }
+
+    public int getBreakCountDown5() {
+        return breakCountDown5;
+    }
+
+    public void setBreakCountDown5(int breakCountDown5) {
+        this.breakCountDown5 = breakCountDown5;
+    }
+
+    public int getBreakCountDown15() {
+        return breakCountDown15;
+    }
+
+    public void setBreakCountDown15(int breakCountDown15) {
+        this.breakCountDown15 = breakCountDown15;
+    }
+
+    public int getBreakCountDown30() {
+        return breakCountDown30;
+    }
+
+    public void setBreakCountDown30(int breakCountDown30) {
+        this.breakCountDown30 = breakCountDown30;
+    }
+
+    public int getBreakCountDown60() {
+        return breakCountDown60;
+    }
+
+    public void setBreakCountDown60(int breakCountDown60) {
+        this.breakCountDown60 = breakCountDown60;
+    }
+
+    public int getBreakCountDown101() {
+        return breakCountDown101;
+    }
+
+    public void setBreakCountDown101(int breakCountDown101) {
+        this.breakCountDown101 = breakCountDown101;
+    }
+
+    public int getBreakCountDown102() {
+        return breakCountDown102;
+    }
+
+    public void setBreakCountDown102(int breakCountDown102) {
+        this.breakCountDown102 = breakCountDown102;
+    }
+
+    public BigDecimal getBreakPctUp5() {
+        return breakPctUp5;
+    }
+
+    public void setBreakPctUp5(BigDecimal breakPctUp5) {
+        this.breakPctUp5 = breakPctUp5;
+    }
+
+    public BigDecimal getBreakPctUp15() {
+        return breakPctUp15;
+    }
+
+    public void setBreakPctUp15(BigDecimal breakPctUp15) {
+        this.breakPctUp15 = breakPctUp15;
+    }
+
+    public BigDecimal getBreakPctUp30() {
+        return breakPctUp30;
+    }
+
+    public void setBreakPctUp30(BigDecimal breakPctUp30) {
+        this.breakPctUp30 = breakPctUp30;
+    }
+
+    public BigDecimal getBreakPctUp60() {
+        return breakPctUp60;
+    }
+
+    public void setBreakPctUp60(BigDecimal breakPctUp60) {
+        this.breakPctUp60 = breakPctUp60;
+    }
+
+    public BigDecimal getBreakPctUp101() {
+        return breakPctUp101;
+    }
+
+    public void setBreakPctUp101(BigDecimal breakPctUp101) {
+        this.breakPctUp101 = breakPctUp101;
+    }
+
+    public BigDecimal getBreakPctUp102() {
+        return breakPctUp102;
+    }
+
+    public void setBreakPctUp102(BigDecimal breakPctUp102) {
+        this.breakPctUp102 = breakPctUp102;
+    }
+
+    public BigDecimal getBreakPctDown5() {
+        return breakPctDown5;
+    }
+
+    public void setBreakPctDown5(BigDecimal breakPctDown5) {
+        this.breakPctDown5 = breakPctDown5;
+    }
+
+    public BigDecimal getBreakPctDown15() {
+        return breakPctDown15;
+    }
+
+    public void setBreakPctDown15(BigDecimal breakPctDown15) {
+        this.breakPctDown15 = breakPctDown15;
+    }
+
+    public BigDecimal getBreakPctDown30() {
+        return breakPctDown30;
+    }
+
+    public void setBreakPctDown30(BigDecimal breakPctDown30) {
+        this.breakPctDown30 = breakPctDown30;
+    }
+
+    public BigDecimal getBreakPctDown60() {
+        return breakPctDown60;
+    }
+
+    public void setBreakPctDown60(BigDecimal breakPctDown60) {
+        this.breakPctDown60 = breakPctDown60;
+    }
+
+    public BigDecimal getBreakPctDown101() {
+        return breakPctDown101;
+    }
+
+    public void setBreakPctDown101(BigDecimal breakPctDown101) {
+        this.breakPctDown101 = breakPctDown101;
+    }
+
+    public BigDecimal getBreakPctDown102() {
+        return breakPctDown102;
+    }
+
+    public void setBreakPctDown102(BigDecimal breakPctDown102) {
+        this.breakPctDown102 = breakPctDown102;
     }
 }

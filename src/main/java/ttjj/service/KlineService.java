@@ -462,6 +462,48 @@ public class KlineService {
     }
 
     /**
+     * 查询-均值、k线列表
+     *
+     * @param zqdm
+     * @param lmt
+     * @param klt
+     * @param isHasBegDate
+     * @param begDate
+     * @param endDate
+     * @param klineType
+     * @return
+     */
+    public static KlineDto findHttpMaNet(String zqdm, int lmt, String klt, Boolean isHasBegDate, String begDate, String endDate, String klineType) {
+        KlineDto rs = null;
+        List<Kline> klines = KlineService.kline(zqdm, lmt, klt, isHasBegDate, begDate, endDate, klineType);
+        BigDecimal rsNetCloseAvg = new BigDecimal("0");//均值
+        BigDecimal rsNetCloseSum = new BigDecimal("0");//和值
+        BigDecimal rsNetClose = new BigDecimal("0");//收盘价
+        if (klines == null) {
+            System.out.println("k线为空！");
+            return rs;
+        }
+        rs = new KlineDto();
+        rs.setKlineList(klines);
+
+        for (Kline kline : klines) {
+            BigDecimal dwjzLong = kline.getCloseAmt();
+            rsNetCloseSum = rsNetCloseSum.add(dwjzLong);
+            rsNetClose = dwjzLong;
+        }
+
+        //计算均值
+        int size = klines.size();//个数
+        if (size > 0) {
+            rsNetCloseAvg = rsNetCloseSum.divide(new BigDecimal(size), 3, BigDecimal.ROUND_HALF_UP);
+        }
+        rs.setNetMa(rsNetCloseAvg);
+        rs.setNetCur(rsNetClose);
+        rs.setCount(size);
+        return rs;
+    }
+
+    /**
      * 计算最小净值、最大净值、均值、均量
      *
      * @param maType 均线类型
@@ -831,7 +873,7 @@ public class KlineService {
     }
 
     /**
-     * 突破均线-向上
+     * 突破均线-向上:是否突破、均线净值、连续突破次数、突破百分比
      *
      * @param stock  股票
      * @param klt    周期
@@ -844,26 +886,35 @@ public class KlineService {
         String zqdm = stock.getF12();
         ;
         // 查询今日价格
-        List<Kline> klines = KlineService.kline(zqdm, 1, KLT_101, true, date, date, "");
-        if (klines == null || klines.size() == 0) {
+        List<Kline> klineListDay = KlineService.kline(zqdm, 1, KLT_101, true, date, date, "");
+        if (klineListDay == null || klineListDay.size() == 0) {
 //            System.out.println(new StringBuffer().append(zqdm).append("，").append(zqmc).append(":k线null！"));
             return null;
         }
-        Kline todayKline = klines.get(0);
+        Kline todayKline = klineListDay.get(0);
         BigDecimal curAmt = todayKline.getCloseAmt();
         BigDecimal yesterdayCloseAmt = todayKline.getCloseLastAmt();
 
-        Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, maType, klt, false, "", date, "");
-        BigDecimal curMaAmt = netMap.get(Content.keyRsNetCloseAvg);
+//        Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, maType, klt, false, "", date, "");
+//        BigDecimal curMaAmt = netMap.get(Content.keyRsNetCloseAvg);
+        KlineDto maKline = KlineService.findHttpMaNet(zqdm, maType, klt, false, "", date, "");
+        BigDecimal curMaAmt = maKline.getNetMa();
+        curAmt = maKline.getNetCur();
 
         //涨破均线，买出信号
         if (yesterdayCloseAmt.compareTo(curMaAmt) < 0 && curAmt.compareTo(curMaAmt) >= 0) {
             rs.setMaBreakUp(true);
+            //计算连续突破次数
+            int breakCountUp = handlerBreakCount(maKline, true);
+            rs.setBreakCountUp(breakCountUp);
+            //计算连续突破百分比
+            rs.setBreakPctUp(curAmt.subtract(curMaAmt).divide(curMaAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")));
         }
         rs.setMaNet(curMaAmt);
 
         return rs;
     }
+
 
     /**
      * 突破均线-向下
@@ -888,17 +939,55 @@ public class KlineService {
         BigDecimal curAmt = todayKline.getCloseAmt();
         BigDecimal yesterdayCloseAmt = todayKline.getCloseLastAmt();
 
-        Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, maType, klt, false, "", date, "");
-        BigDecimal curMaAmt = netMap.get(Content.keyRsNetCloseAvg);
-
+//        Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, maType, klt, false, "", date, "");
+//        BigDecimal curMaAmt = netMap.get(Content.keyRsNetCloseAvg);
+        KlineDto maKline = KlineService.findHttpMaNet(zqdm, maType, klt, false, "", date, "");
+        BigDecimal curMaAmt = maKline.getNetMa();
+        curAmt = maKline.getNetCur();
         //跌破均线
         if (yesterdayCloseAmt.compareTo(curMaAmt) >= 0 && curAmt.compareTo(curMaAmt) < 0) {
             rs.setMaBreakDown(true);
+            //计算连续突破次数
+            int breakCount = handlerBreakCount(maKline, false);
+            rs.setBreakCountDown(breakCount);
+            //计算连续突破百分比
+            rs.setBreakPctDown(curAmt.subtract(curMaAmt).divide(curMaAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")));
         }
         rs.setMaNet(curMaAmt);
 
         return rs;
     }
+
+    /**
+     * 计算连续突破次数
+     *
+     * @param maKline  均线k线
+     * @param upOrDown 向上还是向下
+     * @return 连续突破次数
+     */
+    private static int handlerBreakCount(KlineDto maKline, boolean upOrDown) {
+        int count = 0;
+        BigDecimal netMa = maKline.getNetMa();
+        List<Kline> klineList = maKline.getKlineList().stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getKtime, Comparator.nullsFirst(String::compareTo)).reversed()).collect(Collectors.toList());
+        for (Kline kline : klineList) {
+            BigDecimal closeAmt = kline.getCloseAmt();
+            if (upOrDown){
+                if(closeAmt.compareTo(netMa) >= 0) {
+                    count++;
+                } else {
+                    break;
+                }
+            } else{
+                if(closeAmt.compareTo(netMa) < 0) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+
 
     /**
      * 获取-secid
@@ -993,36 +1082,9 @@ public class KlineService {
             }
 
             if (isShowUpMa) {
-                boolean isCheckMaDown = false;
                 for (String klt : kltList) {
                     handlerMaBreakUp(date, stock, klt, curMaType, stockAdrCountVo);
-//                    if (KLT_5.equals(klt)) {
-//                        String upMa5 = KlineService.checkMa(etfBizMapSub, KLT_5, maList, date, isUp, isCheckMaDown, null, false);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
-//                        stockAdrCountVo.setUpMaDay5(upMa5);
-//                    }
-//                    if (KLT_15.equals(klt)) {
-//                        String upMa15 = KlineService.checkMa(etfBizMapSub, KLT_15, maList, date, isUp, isCheckMaDown, null, false);
-//                        stockAdrCountVo.setUpMaDay15(upMa15);
-//                    }
-//                    if (KLT_30.equals(klt)) {
-//                        String upMa30 = KlineService.checkMa(etfBizMapSub, KLT_30, maList, date, isUp, isCheckMaDown, null, false);
-//                        stockAdrCountVo.setUpMaDay30(upMa30);
-//                    }
-//                    if (KLT_60.equals(klt)) {
-//                        String upMa60 = KlineService.checkMa(etfBizMapSub, KLT_60, maList, date, isUp, isCheckMaDown, null, false);
-//                        stockAdrCountVo.setUpMaDay60(upMa60);
-//                    }
-//                    if (KLT_101.equals(klt)) {
-//                        String upMa101 = KlineService.checkMa(etfBizMapSub, KLT_101, maList, date, isUp, isCheckMaDown, null, false);
-//                        stockAdrCountVo.setUpMaDay101(upMa101);
-//                    }
-//                    if (KLT_102.equals(klt)) {
-//                        String upMa102 = KlineService.checkMa(etfBizMapSub, KLT_102, maList, date, isUp, isCheckMaDown, null, false);
-//                        stockAdrCountVo.setUpMaDay102(upMa102);
-//                    }
                 }
-
-
             }
 
             //是否显示跌落均线
@@ -1125,6 +1187,8 @@ public class KlineService {
             return;
         }
         if (KLT_5.equals(klt)) {
+            stockAdrCountVo.setBreakCountUp5(breakMa.getBreakCountUp());
+            stockAdrCountVo.setBreakPctUp5(breakMa.getBreakPctUp());
             stockAdrCountVo.setMA_NET_60_5(breakMa.getMaNet());
             if (breakMa.isMaBreakUp()) {
                 stockAdrCountVo.setUpMaDay5(klt);
@@ -1132,6 +1196,8 @@ public class KlineService {
                 stockAdrCountVo.setUpMaDay5("");
             }
         } else if (KLT_15.equals(klt)) {
+            stockAdrCountVo.setBreakCountUp15(breakMa.getBreakCountUp());
+            stockAdrCountVo.setBreakPctUp15(breakMa.getBreakPctUp());
             stockAdrCountVo.setMA_NET_60_15(breakMa.getMaNet());
             if (breakMa.isMaBreakUp()) {
                 stockAdrCountVo.setUpMaDay15(klt);
@@ -1139,6 +1205,8 @@ public class KlineService {
                 stockAdrCountVo.setUpMaDay15("");
             }
         } else if (KLT_30.equals(klt)) {
+            stockAdrCountVo.setBreakCountUp30(breakMa.getBreakCountUp());
+            stockAdrCountVo.setBreakPctUp30(breakMa.getBreakPctUp());
             stockAdrCountVo.setMA_NET_60_30(breakMa.getMaNet());
             if (breakMa.isMaBreakUp()) {
                 stockAdrCountVo.setUpMaDay30(klt);
@@ -1146,6 +1214,8 @@ public class KlineService {
                 stockAdrCountVo.setUpMaDay30("");
             }
         } else if (KLT_60.equals(klt)) {
+            stockAdrCountVo.setBreakCountUp60(breakMa.getBreakCountUp());
+            stockAdrCountVo.setBreakPctUp60(breakMa.getBreakPctUp());
             stockAdrCountVo.setMA_NET_60_60(breakMa.getMaNet());
             if (breakMa.isMaBreakUp()) {
                 stockAdrCountVo.setUpMaDay60(klt);
@@ -1153,6 +1223,8 @@ public class KlineService {
                 stockAdrCountVo.setUpMaDay60("");
             }
         } else if (KLT_101.equals(klt)) {
+            stockAdrCountVo.setBreakCountUp101(breakMa.getBreakCountUp());
+            stockAdrCountVo.setBreakPctUp101(breakMa.getBreakPctUp());
             stockAdrCountVo.setMA_NET_60_101(breakMa.getMaNet());
             if (breakMa.isMaBreakUp()) {
                 stockAdrCountVo.setUpMaDay101(klt);
@@ -1160,6 +1232,8 @@ public class KlineService {
                 stockAdrCountVo.setUpMaDay101("");
             }
         } else if (KLT_102.equals(klt)) {
+            stockAdrCountVo.setBreakCountUp102(breakMa.getBreakCountUp());
+            stockAdrCountVo.setBreakPctUp102(breakMa.getBreakPctUp());
             stockAdrCountVo.setMA_NET_60_102(breakMa.getMaNet());
             if (breakMa.isMaBreakUp()) {
                 stockAdrCountVo.setUpMaDay102(klt);
@@ -1186,21 +1260,33 @@ public class KlineService {
         if (KLT_5.equals(klt)) {
             stockAdrCountVo.setMA_NET_60_5(breakMa.getMaNet());
             stockAdrCountVo.setMaDownDay5(breakMa.isMaBreakDown() ? klt : "");
+            stockAdrCountVo.setBreakCountDown5(breakMa.getBreakCountDown());
+            stockAdrCountVo.setBreakPctDown5(breakMa.getBreakPctDown());
         } else if (KLT_15.equals(klt)) {
             stockAdrCountVo.setMA_NET_60_15(breakMa.getMaNet());
             stockAdrCountVo.setMaDownDay15(breakMa.isMaBreakDown() ? klt : "");
+            stockAdrCountVo.setBreakCountDown15(breakMa.getBreakCountDown());
+            stockAdrCountVo.setBreakPctDown15(breakMa.getBreakPctDown());
         } else if (KLT_30.equals(klt)) {
             stockAdrCountVo.setMA_NET_60_30(breakMa.getMaNet());
             stockAdrCountVo.setMaDownDay30(breakMa.isMaBreakDown() ? klt : "");
+            stockAdrCountVo.setBreakCountDown30(breakMa.getBreakCountDown());
+            stockAdrCountVo.setBreakPctDown30(breakMa.getBreakPctDown());
         } else if (KLT_60.equals(klt)) {
             stockAdrCountVo.setMA_NET_60_60(breakMa.getMaNet());
             stockAdrCountVo.setMaDownDay60(breakMa.isMaBreakDown() ? klt : "");
+            stockAdrCountVo.setBreakCountDown60(breakMa.getBreakCountDown());
+            stockAdrCountVo.setBreakPctDown60(breakMa.getBreakPctDown());
         } else if (KLT_101.equals(klt)) {
             stockAdrCountVo.setMA_NET_60_101(breakMa.getMaNet());
             stockAdrCountVo.setMaDownDay101(breakMa.isMaBreakDown() ? klt : "");
+            stockAdrCountVo.setBreakCountDown101(breakMa.getBreakCountDown());
+            stockAdrCountVo.setBreakPctDown101(breakMa.getBreakPctDown());
         } else if (KLT_102.equals(klt)) {
             stockAdrCountVo.setMA_NET_60_102(breakMa.getMaNet());
             stockAdrCountVo.setMaDownDay102(breakMa.isMaBreakDown() ? klt : "");
+            stockAdrCountVo.setBreakCountDown102(breakMa.getBreakCountDown());
+            stockAdrCountVo.setBreakPctDown102(breakMa.getBreakPctDown());
         }
     }
 
@@ -1686,37 +1772,64 @@ public class KlineService {
             System.out.print(StockUtil.formatEtfName(stockAdrCountVo.getF14(), 8));
             System.out.print("\t");
 
+            int showSize = 6;
             if (isShowUpMa) {
                 System.out.print("超均线：");//显示信息-价格区间
                 if (kltList.contains(KLT_5)) {
                     String upMa = stockAdrCountVo.getUpMaDay5();
-                    System.out.print(StockUtil.formatStr(upMa, 4));
+                    int breakCountUp = stockAdrCountVo.getBreakCountUp5();//突破均线次数
+                    if (StringUtils.isNotBlank(upMa)) {
+                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountUp, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
+//                    System.out.print(StockUtil.formatStr(breakCountUp + "", 4));
 //                    System.out.print(StringUtils.isNotBlank(upMa5) ? "[" + upMa5 + "   " + "]" : "[        ]");
                 }
                 if (kltList.contains(KLT_15)) {
                     String upMa = stockAdrCountVo.getUpMaDay15();
-                    System.out.print(StockUtil.formatStr(upMa, 4));
-//                    System.out.print(StringUtils.isNotBlank(upMa15) ? "[" + upMa15 + " " + "]" : "[       ]");
+                    int breakCountUp = stockAdrCountVo.getBreakCountUp15();
+                    if (StringUtils.isNotBlank(upMa)) {
+                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountUp, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
                 }
                 if (kltList.contains(KLT_30)) {
                     String upMa = stockAdrCountVo.getUpMaDay30();
-                    System.out.print(StockUtil.formatStr(upMa, 4));
-//                    System.out.print(StringUtils.isNotBlank(upMa30) ? "[" + upMa30 + " " + "]" : "[       ]");
+                    int breakCountUp = stockAdrCountVo.getBreakCountUp30();
+                    if (StringUtils.isNotBlank(upMa)) {
+                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountUp, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
                 }
                 if (kltList.contains(KLT_60)) {
                     String upMa = stockAdrCountVo.getUpMaDay60();
-                    System.out.print(StockUtil.formatStr(upMa, 4));
-//                    System.out.print(StringUtils.isNotBlank(upMa60) ? "[" + upMa60 + " " + "]" : "[       ]");
+                    int breakCountUp = stockAdrCountVo.getBreakCountUp60();
+                    if (StringUtils.isNotBlank(upMa)) {
+                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountUp, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
                 }
                 if (kltList.contains(KLT_101)) {
                     String upMa = stockAdrCountVo.getUpMaDay101();
-                    System.out.print(StockUtil.formatStr(upMa, 4));
-//                    System.out.print(StringUtils.isNotBlank(upMa101) ? "[" + upMa101 + "]" : "[       ]");
+                    int breakCountUp = stockAdrCountVo.getBreakCountUp101();
+                    if (StringUtils.isNotBlank(upMa)) {
+                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountUp, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
                 }
                 if (kltList.contains(KLT_102)) {
                     String upMa = stockAdrCountVo.getUpMaDay102();
-                    System.out.print(StockUtil.formatStr(upMa, 4));
-//                    System.out.print(StringUtils.isNotBlank(upMa102) ? "[" + upMa102 + "]" : "[       ]");
+                    int breakCountUp = stockAdrCountVo.getBreakCountUp102();
+                    if (StringUtils.isNotBlank(upMa)) {
+                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountUp, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
                 }
             }
 
@@ -1724,33 +1837,59 @@ public class KlineService {
                 System.out.print("下均线：");//显示信息-价格区间
                 if (kltList.contains(KLT_5)) {
                     String upMa = stockAdrCountVo.getMaDownDay5();
-                    System.out.print(StockUtil.formatStr(upMa, 4));
+//                    System.out.print(StockUtil.formatStr(upMa, 4));
+                    int breakCountDown = stockAdrCountVo.getBreakCountDown5();//突破均线次数
+                    if (StringUtils.isNotBlank(upMa)) {
+                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountDown, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
 //                    System.out.print(StringUtils.isNotBlank(upMa5) ? "[" + upMa5 + "   " + "]" : "[        ]");
                 }
                 if (kltList.contains(KLT_15)) {
                     String upMa = stockAdrCountVo.getMaDownDay15();
-                    System.out.print(StockUtil.formatStr(upMa, 4));
-//                    System.out.print(StringUtils.isNotBlank(upMa15) ? "[" + upMa15 + " " + "]" : "[       ]");
+                    int breakCountDown = stockAdrCountVo.getBreakCountDown15();//突破均线次数
+                    if (StringUtils.isNotBlank(upMa)) {
+                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountDown, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
                 }
                 if (kltList.contains(KLT_30)) {
                     String upMa = stockAdrCountVo.getMaDownDay30();
-                    System.out.print(StockUtil.formatStr(upMa, 4));
-//                    System.out.print(StringUtils.isNotBlank(upMa30) ? "[" + upMa30 + " " + "]" : "[       ]");
+                    int breakCountDown = stockAdrCountVo.getBreakCountDown30();//突破均线次数
+                    if (StringUtils.isNotBlank(upMa)) {
+                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountDown, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
                 }
                 if (kltList.contains(KLT_60)) {
                     String upMa = stockAdrCountVo.getMaDownDay60();
-                    System.out.print(StockUtil.formatStr(upMa, 4));
-//                    System.out.print(StringUtils.isNotBlank(upMa60) ? "[" + upMa60 + " " + "]" : "[       ]");
+                    int breakCountDown = stockAdrCountVo.getBreakCountDown60();//突破均线次数
+                    if (StringUtils.isNotBlank(upMa)) {
+                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountDown, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
                 }
                 if (kltList.contains(KLT_101)) {
                     String upMa = stockAdrCountVo.getMaDownDay101();
-                    System.out.print(StockUtil.formatStr(upMa, 4));
-//                    System.out.print(StringUtils.isNotBlank(upMa101) ? "[" + upMa101 + "]" : "[       ]");
+                    int breakCountDown = stockAdrCountVo.getBreakCountDown101();//突破均线次数
+                    if (StringUtils.isNotBlank(upMa)) {
+                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountDown, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
                 }
                 if (kltList.contains(KLT_102)) {
                     String upMa = stockAdrCountVo.getMaDownDay102();
-                    System.out.print(StockUtil.formatStr(upMa, 4));
-//                    System.out.print(StringUtils.isNotBlank(upMa102) ? "[" + upMa102 + "]" : "[       ]");
+                    int breakCountDown = stockAdrCountVo.getBreakCountDown102();//突破均线次数
+                    if (StringUtils.isNotBlank(upMa)) {
+                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountDown, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
                 }
             }
 
@@ -1773,7 +1912,7 @@ public class KlineService {
 //                        if(kline.getKtime().equals(date)){//显示今天
 //                            sbDaysAdr.append("[").append(kline.getKtime().substring(5)).append("]");
 //                        }
-                        sbDaysAdr.append(StockUtil.formatDouble(kline.getZhangDieFu(), 6) );
+                        sbDaysAdr.append(StockUtil.formatDouble(kline.getZhangDieFu(), 6));
                     }
                 }
                 sbDaysAdr.append("\t");
