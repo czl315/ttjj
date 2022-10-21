@@ -1925,7 +1925,7 @@ public class KlineService {
                 stock.setF12(zqdm);
                 Kline kline = KlineService.findLast(stock, spDate, KLT_101);
                 if (kline != null) {
-                    System.out.print("[" + spDate.substring(5) + "]：" + StockUtil.formatDouble(kline.getZhangDieFu(), 6));
+                    System.out.print("[" + spDate.substring(5) + "]:" + StockUtil.formatDouble(kline.getZhangDieFu(), 6));
                 }
             }
 

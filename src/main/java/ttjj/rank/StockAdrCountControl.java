@@ -52,12 +52,13 @@ public class StockAdrCountControl {
 //        stockAdrCountCond.setUpdateOrder(true);
         stockAdrCountCond.setUpdateUpMa(true);//总花费时间：1225
         stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
-//        更新涨和+涨序，用时：1185
-//        更新均值+区间，用时：1790 1643 1527 1844
-//        更新涨和+涨序+均值+区间，用时：3225
 
 //        save(date, bizList, false, spBizName, stockAdrCountCond);
         updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
+
+        //        更新涨和+涨序，用时：1185
+//        更新均值+区间，用时：1790 1643 1527 1844
+//        更新涨和+涨序+均值+区间，用时：3225
 
 //        updateAdrCountAllBiz(date, bizList, board, mvMin, mvMax, spBizName);
 
@@ -689,7 +690,7 @@ public class StockAdrCountControl {
      * @param stockAdrCountCond 更新字段条件
      * @param begBiz            开始序号
      */
-    private static void updateListByBizAll(String date, List<RankBizDataDiff> bizList, int begBiz, String spBizName, CondStockAdrCount stockAdrCountCond) {
+    public static void updateListByBizAll(String date, List<RankBizDataDiff> bizList, int begBiz, String spBizName, CondStockAdrCount stockAdrCountCond) {
         long curTimeAll = System.currentTimeMillis();
         BigDecimal mvMin = stockAdrCountCond.getMvMin();
         BigDecimal mvMax = stockAdrCountCond.getMvMax();

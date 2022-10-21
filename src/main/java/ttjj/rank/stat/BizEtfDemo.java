@@ -339,8 +339,8 @@ public class BizEtfDemo {
      * @param date
      */
     public static void showEtfUpMa(String date) {
-        String spDate = DateUtil.getAddDays(YYYY_MM_DD, date, 1);//是否显示特定日期涨跌   "2022-05-18"
-//        String spDate = "2022-09-27";//
+        String spDate = null;//
+//        String spDate = DateUtil.getAddDays(YYYY_MM_DD, date, 1);//是否显示特定日期涨跌   "2022-05-18"
 
         CondMa condMa = new CondMa();
         condMa.setOrderField(ORDER_FIELD_NET_AREA_DAY_5);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3 ORDER_FIELD_MAXDOWN    ORDER_FIELD_MINRISE

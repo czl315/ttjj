@@ -37,11 +37,11 @@ public class StockAdrStatDemo {
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-10-13";
+//        String date = "2022-10-17";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
 //        String spDateBeg = "2022-10-18";//
-//        String spDateEnd = "2022-10-18";//
+//        String spDateEnd = "2022-10-20";//
 
         int limitCount = 2;
 
@@ -101,7 +101,7 @@ public class StockAdrStatDemo {
             stockAdrCountListBkAll.add(stockAdrCount);
         }
 
-        stockAdrCountListBkAll = KlineService.handlerOrder(stockAdrCountListBkAll, orderField, false);//列表-排序：根据字段
+        stockAdrCountListBkAll = KlineService.handlerOrder(stockAdrCountListBkAll, orderField, true);//列表-排序：根据字段
 
         showStockAdrCountList(stockAdrCountListBkAll, spDateBeg, spDateEnd);//显示-涨幅列表
 

@@ -37,7 +37,7 @@ import static utils.Content.*;
 public class FupanControl {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//                String date = "2022-08-19";
+//        String date = "2022-10-17";
 
         insertOrUpdate(date, KLT_101, DAYS_1, ContentCookie.COOKIE_DFCF);//保存复盘和仓位
 //        checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
@@ -120,6 +120,9 @@ public class FupanControl {
      */
     public static void checkMaByMyPosition(String date) {
         int days = 3;
+        String spDate = null;
+//        String spDate = "2022-10-19";//是否显示特定日期涨跌
+
         List<AssetPositionDb> rs = FupanPositionDao.listMyPositionByDate(date);//我的持仓
         Map<String, AssetPositionDb> mapMyPosition = new HashMap<>();
         Map<String, String> mapStock = new HashMap<>();
@@ -131,7 +134,7 @@ public class FupanControl {
         CondMa condMa = new CondMa();
         condMa.setDays(days);
         condMa.setDate(date);
-        condMa.setSpDate(null);
+        condMa.setSpDate(spDate);
         condMa.setShowPriceArea(true);//是否显示价格区间
         condMa.setKltList(Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101));//价格区间周期列表
         condMa.setShowUpMa(true);//是否显示-超过均线
