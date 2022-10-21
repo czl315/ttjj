@@ -27,7 +27,7 @@ import static utils.Content.*;
  * @author Administrator
  * @date 2022-02-25 10:41
  */
-public class StBizStatDemo {
+public class StBizStat {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-05-11";
@@ -67,7 +67,7 @@ public class StBizStatDemo {
 //        for (RankStockCommpanyDb stock : stList) {
 //            zqMap.put(stock.getF12(), stock.getF14());
 //        }
-//        StockStatDemo.checkMaDemo(zqMap, date);
+//        StockStat.checkMaDemo(zqMap, date);
 
 //        按板块查询
         List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
@@ -95,7 +95,7 @@ public class StBizStatDemo {
             for (RankStockCommpanyDb stock : stList) {
                 zqMap.put(stock.getF12(), stock.getF14());
             }
-            StockStatDemo.checkMaDemo(zqMap, date);
+            checkMaDemo(zqMap, date);
         }
 
 
@@ -113,6 +113,29 @@ public class StBizStatDemo {
 //        String endDate = date;//DateUtil.getToday(DateUtil.YYYY_MM_DD)
 //        statAdrCountByDay(zqmc, begDate, endDate);
 
+    }
+
+    /**
+     * 检查均线
+     *
+     * @param zqMap
+     */
+    public static void checkMaDemo(Map<String, String> zqMap, String date) {
+//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//                        String date = "2022-02-15";
+        boolean isUp = true;//检查上涨
+        boolean isDown = true;//检查
+//        boolean isUp = false;
+
+        List<Integer> maList = new ArrayList<>();
+//        maList.add(MA_30);
+        maList.add(MA_60);
+
+//        KlineService.checkMa(zqMap, KLT_5, maList, date, isUp,null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_15, maList, date, isUp, isDown, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_30, maList, date, isUp, isDown, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_60, maList, date, isUp, isDown, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_101, maList, date, isUp, isDown, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_102, maList, date, isUp, isDown, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
     }
 
 
@@ -371,7 +394,7 @@ public class StBizStatDemo {
      * @param date
      */
     private static void checkFundFlowByEtf(String date) {
-        List<RankBizDataDiff> etfList = StBizStatDemo.listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
+        List<RankBizDataDiff> etfList = StBizStat.listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
         for (RankBizDataDiff etf : etfList) {
             //限定总市值10亿
             if (etf.getF20().compareTo(new BigDecimal("1000000000")) > 0) {

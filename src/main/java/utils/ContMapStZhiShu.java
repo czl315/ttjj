@@ -1,6 +1,6 @@
 package utils;
 
-import ttjj.rank.stat.StockStatDemo;
+import ttjj.rank.stat.StockStat;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,6 +61,6 @@ public class ContMapStZhiShu {
 
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-03-25";
-        StockStatDemo.checkMaDemo(all, date);
+        StockStat.checkMaDemo(all, date);
     }
 }

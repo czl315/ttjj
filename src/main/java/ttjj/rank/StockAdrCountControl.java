@@ -1331,7 +1331,7 @@ public class StockAdrCountControl {
 //            for (RankStockCommpanyDb stock : stList) {
 //                zqMap.put(stock.getF12(), stock.getF14());
 //            }
-//            StockStatDemo.checkMaDemo(zqMap, date);
+//            StockStat.checkMaDemo(zqMap, date);
         }
     }
 
@@ -1488,7 +1488,7 @@ public class StockAdrCountControl {
         bizInfoEnd.append("}");
         System.out.println(bizInfoEnd);
 
-//        StockStatDemo.checkMaDemo(zqMap, date);
+//        StockStat.checkMaDemo(zqMap, date);
 
     }
 

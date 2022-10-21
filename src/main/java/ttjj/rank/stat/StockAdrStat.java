@@ -26,7 +26,7 @@ import static utils.Content.*;
  * @author Administrator
  * @date 2022-05-11 10:28
  */
-public class StockAdrStatDemo {
+public class StockAdrStat {
     public static void main(String[] args) {
         findListDemo();
 //        statStockAdrCountBatch(0);//统计股票涨跌次数:0,0为当天
@@ -757,7 +757,7 @@ public class StockAdrStatDemo {
         bizInfoEnd.append("}");
         System.out.println(bizInfoEnd);
 
-//        StockStatDemo.checkMaDemo(zqMap, date);
+//        StockStat.checkMaDemo(zqMap, date);
 
     }
 

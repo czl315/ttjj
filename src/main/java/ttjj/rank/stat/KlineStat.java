@@ -20,7 +20,7 @@ import static utils.Content.*;
 /**
  * k线
  */
-public class StatKlineDemo {
+public class KlineStat {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-09-26";
 //        // 统计涨跌次数-根据每月中的日期
@@ -81,7 +81,7 @@ public class StatKlineDemo {
                     sb.append(StockUtil.formatDouble(cjeCompRsPt, 5) + "%");
                 } else {
                     sb.append("    ");
-                    sb.append(StockUtil.formatDouble(cjeCompRsPt, 5)+ "%");
+                    sb.append(StockUtil.formatDouble(cjeCompRsPt, 5) + "%");
                 }
             } else {
                 sb.append("(" + StockUtil.formatDouble(cjeCompRs, 5) + ")亿,");
@@ -90,7 +90,7 @@ public class StatKlineDemo {
                     sb.append(StockUtil.formatDouble(cjeCompRsPt, 5) + "%");
                 } else {
                     sb.append("    ");
-                    sb.append(StockUtil.formatDouble(cjeCompRsPt, 5)+ "%");
+                    sb.append(StockUtil.formatDouble(cjeCompRsPt, 5) + "%");
                 }
             }
             BigDecimal adr = kline.getZhangDieFu();
@@ -110,9 +110,9 @@ public class StatKlineDemo {
      * @param date
      */
     private static void statAdrByTime(String date) {
-        //        String klt = KLT_101;
+        String klt = KLT_101;
 //        String klt = KLT_60;
-        String klt = KLT_30;
+//        String klt = KLT_30;
 //        String klt = KLT_15;
 //        String klt = KLT_5;
 
@@ -142,12 +142,15 @@ public class StatKlineDemo {
      */
     private static void statAdrByTime(String date, String time, String klt, boolean isShowSimpleUpOrDown) {
         //如果未到当前时间，不处理
-        String time1 = date + " " + time;
-        long timeLong = DateUtil.getTimeInMillisByDateStr(DateUtil.YYYY_MM_DD_HH_MM_SS, time1);
-        long curTime = Calendar.getInstance().getTimeInMillis();
-        if (timeLong > curTime) {
-            System.out.println("如果未到当前时间，不处理:" + time1);
-            return;
+        String datTime = date;
+        if (datTime.length() == 8) {
+            datTime = date + " " + time;
+            long timeLong = DateUtil.getTimeInMillisByDateStr(DateUtil.YYYY_MM_DD_HH_MM_SS, datTime);
+            long curTime = Calendar.getInstance().getTimeInMillis();
+            if (timeLong > curTime) {
+                System.out.println("如果未到当前时间，不处理:" + datTime);
+                return;
+            }
         }
 
         //首先查询k线类别

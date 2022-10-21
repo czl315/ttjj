@@ -1,6 +1,6 @@
 package utils;
 
-import ttjj.rank.stat.BizEtfDemo;
+import ttjj.rank.stat.BizEtf;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -165,7 +165,6 @@ public class ContMapEtf {
     public static Map<String, String> ZIYUAN = new HashMap<>();
 
     static {
-        KEJI.put("159611", "电力ETF       ");//12.86   	0.68
 //        KEJI.put("159967", "创成长ETF     ");//29.98   	0.15
         KEJI.put("515790", "光伏ETF       ");//147.52  	-0.18
         KEJI.put("515030", "新能源车ETF   ");//110.75  	-0.23
@@ -245,6 +244,7 @@ public class ContMapEtf {
         JINRONG.put("512200", "房地产ETF     ");//52.10   	-0.14
         JINRONG.put("512880", "证券ETF       ");//316.81  	-0.22
         JINRONG.put("516970", "基建50ETF     ");//98.25   	-0.27
+        JINRONG.put("159611", "电力ETF       ");//12.86   	0.68
         JINRONG.put("512800", "银行ETF       ");//97.45   	-0.47
         JINRONG.put("518880", "黄金ETF       ");//112.54  	-0.55
 
@@ -885,6 +885,6 @@ public class ContMapEtf {
     }
 
     public static void main(String[] args) {
-        BizEtfDemo.showEtfMv(DateUtil.getToday(DateUtil.YYYY_MM_DD));//显示etf市值
+        BizEtf.showEtfMv(DateUtil.getToday(DateUtil.YYYY_MM_DD));//显示etf市值
     }
 }

@@ -1,6 +1,6 @@
 package utils;
 
-import ttjj.rank.stat.StockStatDemo;
+import ttjj.rank.stat.StockStat;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -394,8 +394,8 @@ public class ContMapStXiaoFei {
 
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-03-25";
-        StockStatDemo.checkMaDemo(ContMapStXiaoFei.all, date);//all nongYe
-//        StockStatDemo.checkMaDemo(ContMapStXiaoFei.lvYou, date);//all nongYe lvYou
-//        StockStatDemo.checkMaDemo(ContMapStXiaoFei.shiPin, date);//
+        StockStat.checkMaDemo(ContMapStXiaoFei.all, date);//all nongYe
+//        StockStat.checkMaDemo(ContMapStXiaoFei.lvYou, date);//all nongYe lvYou
+//        StockStat.checkMaDemo(ContMapStXiaoFei.shiPin, date);//
     }
 }

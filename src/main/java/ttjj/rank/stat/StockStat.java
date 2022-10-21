@@ -39,6 +39,29 @@ public class StockStat {
     }
 
     /**
+     * 检查均线
+     *
+     * @param zqMap
+     */
+    public static void checkMaDemo(Map<String, String> zqMap, String date) {
+//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//                        String date = "2022-02-15";
+        boolean isUp = true;//检查上涨
+        boolean isDown = true;//检查
+//        boolean isUp = false;
+
+        List<Integer> maList = new ArrayList<>();
+//        maList.add(MA_30);
+        maList.add(MA_60);
+
+//        KlineService.checkMa(zqMap, KLT_5, maList, date, isUp,null);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_15, maList, date, isUp, isDown, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_30, maList, date, isUp, isDown, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_60, maList, date, isUp, isDown, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_101, maList, date, isUp, isDown, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+        KlineService.checkMa(zqMap, KLT_102, maList, date, isUp, isDown, null, true);// //    检查均线:买入信号   KLT_15 KLT_30  KLT_60 KLT_101
+    }
+
+    /**
      * 股票涨跌个数:A股、上证指数沪市、深证成指深市、主板、创业板、科创板、B股、北交所
      *
      * @param date
