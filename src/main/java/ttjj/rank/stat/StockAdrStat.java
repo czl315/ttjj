@@ -53,7 +53,7 @@ public class StockAdrStat {
         BigDecimal mvMinBig = NUM_YI_500;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
         BigDecimal mvMinSmall = NUM_YI_50;//
 
-        String orderField = ORDER_FIELD_NET_AREA_DAY_60;//排序  ORDER_FIELD_ADR_UP_SUM_1_20   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
+        String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;//排序  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
 
         CondStockAdrCount condFind = new CondStockAdrCount();
         condFind.setADR_UP_SUM_1_60(null);

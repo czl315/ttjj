@@ -145,6 +145,7 @@ public class FupanControl {
         condMa.setOrderDesc(false);//是否倒序
         condMa.setShowMyPosition(true);
         condMa.setMapStock(mapStock);
+        condMa.setShowDateMinMax(true);//是否显示日最低点、最高点
 
         System.out.println("我的持仓：");
         condMa.setMapMyPosition(mapMyPosition);
