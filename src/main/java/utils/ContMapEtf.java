@@ -1,6 +1,6 @@
 package utils;
 
-import ttjj.rank.stat.BizEtf;
+import ttjj.rank.stat.BizEtfStat;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -885,6 +885,6 @@ public class ContMapEtf {
     }
 
     public static void main(String[] args) {
-        BizEtf.showEtfMv(DateUtil.getToday(DateUtil.YYYY_MM_DD));//显示etf市值
+        BizEtfStat.showEtfMv(DateUtil.getToday(DateUtil.YYYY_MM_DD));//显示etf市值
     }
 }

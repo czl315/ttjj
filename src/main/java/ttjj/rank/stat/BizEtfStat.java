@@ -18,7 +18,7 @@ import static utils.DateUtil.YYYY_MM_DD;
 /**
  * etf
  */
-public class BizEtf {
+public class BizEtfStat {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-10-12";

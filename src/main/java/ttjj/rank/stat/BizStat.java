@@ -27,7 +27,7 @@ import static utils.Content.*;
  * @author Administrator
  * @date 2022-02-25 10:41
  */
-public class StBizStat {
+public class BizStat {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-05-11";
@@ -394,7 +394,7 @@ public class StBizStat {
      * @param date
      */
     private static void checkFundFlowByEtf(String date) {
-        List<RankBizDataDiff> etfList = StBizStat.listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
+        List<RankBizDataDiff> etfList = BizStat.listEtf(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//2021-04-16:425;
         for (RankBizDataDiff etf : etfList) {
             //限定总市值10亿
             if (etf.getF20().compareTo(new BigDecimal("1000000000")) > 0) {
