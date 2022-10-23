@@ -40,20 +40,20 @@ public class BizEtfStat {
      * ETF：计算区间涨幅
      */
     private static void statListEtfAdrArea() {
-//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-        String date = "2022-10-12";
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-10-12";
 
 
-        int areaDays = 3;//4:近一周;20:近一月
+        int areaDays = 0;//4:近一周;20:近一月
         int limit = 1000;
 
-        BigDecimal mvMin = NUM_YI_0;//NUM_YI_1000  NUM_YI_50  NUM_YI_100
+        BigDecimal mvMin = null;//NUM_YI_1000  NUM_YI_50  NUM_YI_100    NUM_YI_0
         BigDecimal mvMax = null;
 
         boolean isDesc = true;
 //        boolean isDesc = false;
 
-        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, false, DB_RANK_BIZ_TYPE_ETF);
+        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, false, DB_RANK_BIZ_TYPE_ETF);//DB_RANK_BIZ_TYPE_ZS  DB_RANK_BIZ_TYPE_ETF
 //        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, false,DB_RANK_BIZ_TYPE_BAN_KUAI);
 
     }

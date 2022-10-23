@@ -108,7 +108,7 @@ public class RankBizDataDiff {
     private BigDecimal f18;
 
     /**
-     * f19 ？2-板块；9-沪市；10-深市：
+     * f19 市场；9-沪市；10-深市：
      */
     private Long f19;
     /**
@@ -131,6 +131,9 @@ public class RankBizDataDiff {
      * f27 ？1-沪市；0-深市：
      */
     private Long f27;
+    /**
+     * etf：8；
+     */
     private Double f28;
     private Long f29;
     private Long f30;
