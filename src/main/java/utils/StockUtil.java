@@ -350,46 +350,6 @@ public class StockUtil {
         }
     }
 
-    /**
-     * 显示集合
-     *
-     * @param rsList   列表
-     * @param begDate  开始时间
-     * @param endDate  结束时间
-     * @param limit
-     * @param showMore 显示更多字段
-     * @param sizeMap
-     */
-    public static void showInfoEtf(List<BizDto> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, Map<String, Integer> sizeMap) {
-        if (rsList == null) {
-            return;
-        }
-        int size = 10;
-        int sizeDate14 = 14;
-        int number = 0;
-        for (BizDto dto : rsList) {
-            if (limit-- <= 0) {
-                break;
-            }
-            StringBuffer sb = new StringBuffer();
-            sb.append(StockUtil.formatStName(String.valueOf(++number), sizeMap.get("序号")));
-            if (isShowCode) {
-                sb.append(StockUtil.formatStName(dto.getF12(),  sizeMap.get("代码")));
-            }
-            sb.append(StockUtil.formatStName(dto.getF14(), 16));
-            sb.append(StockUtil.formatDouble(dto.getAreaF3(), size, null, "%"));
-            if (showMore) {
-                sb.append(StockUtil.formatDouble(dto.getF3(), size, null, "%"));
-                sb.append(StockUtil.formatDouble(dto.getF20(), sizeDate14));
-                sb.append(StockUtil.formatStName(begDate, sizeDate14));
-                sb.append(StockUtil.formatStName(endDate, sizeDate14));
-//                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
-//                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
-            }
-
-            System.out.println(sb);
-        }
-    }
 
 
     /**

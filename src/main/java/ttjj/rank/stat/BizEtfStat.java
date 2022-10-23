@@ -48,7 +48,7 @@ public class BizEtfStat {
         int areaDays = 60;//4:近一周;20:近一月
         int limit = 1000;
 
-        BigDecimal mvMin = NUM_YI_0;//NUM_YI_1000  NUM_YI_50  NUM_YI_100    NUM_YI_0
+        BigDecimal mvMin = null;//NUM_YI_1000  NUM_YI_50  NUM_YI_100    NUM_YI_0
         BigDecimal mvMax = null;
 
         boolean isDesc = true;
@@ -167,8 +167,8 @@ public class BizEtfStat {
             rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(BizDto::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
         }
         //区间涨幅
-        Map<String, Integer> sizeMap = StockUtil.showInfoHead(isShowMoreYes, isShowCode, false, null);
-        StockUtil.showInfoEtf(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, sizeMap);
+        Map<String, Integer> sizeMap = EtfUtil.showInfoHead(isShowMoreYes, isShowCode, false, null);
+        EtfUtil.showInfoEtf(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, sizeMap);
         System.out.println();
 
         if (isCheckFuQuan) {
