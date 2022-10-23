@@ -22,6 +22,14 @@ public class BizDto extends RankBizDataDiff {
      */
     private BigDecimal mvMax;
     /**
+     * 最低市值-或关系-股票代码列表
+     */
+    private List<String> mvMinStCodeOrList;
+    /**
+     * 最高市值-或关系-股票代码列表
+     */
+    private List<String> mvMaxStCodeOrList;
+    /**
      * 涨跌率-最低
      */
     private BigDecimal adrMin;
@@ -49,6 +57,7 @@ public class BizDto extends RankBizDataDiff {
      * stCodeList 限定股票代码列表
      */
     private List<String> stCodeList;
+
     /**
      * orderBy 排序
      */
@@ -268,5 +277,21 @@ public class BizDto extends RankBizDataDiff {
 
     public void setF139notList(List<Long> f139notList) {
         this.f139notList = f139notList;
+    }
+
+    public List<String> getMvMinStCodeOrList() {
+        return mvMinStCodeOrList;
+    }
+
+    public void setMvMinStCodeOrList(List<String> mvMinStCodeOrList) {
+        this.mvMinStCodeOrList = mvMinStCodeOrList;
+    }
+
+    public List<String> getMvMaxStCodeOrList() {
+        return mvMaxStCodeOrList;
+    }
+
+    public void setMvMaxStCodeOrList(List<String> mvMaxStCodeOrList) {
+        this.mvMaxStCodeOrList = mvMaxStCodeOrList;
     }
 }

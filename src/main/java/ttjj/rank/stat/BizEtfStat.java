@@ -12,6 +12,7 @@ import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static utils.ContMapEtf.ETF_All;
 import static utils.Content.*;
 import static utils.DateUtil.YYYY_MM_DD;
 
@@ -44,10 +45,10 @@ public class BizEtfStat {
 //        String date = "2022-10-12";
 
 
-        int areaDays = 0;//4:近一周;20:近一月
+        int areaDays = 60;//4:近一周;20:近一月
         int limit = 1000;
 
-        BigDecimal mvMin = null;//NUM_YI_1000  NUM_YI_50  NUM_YI_100    NUM_YI_0
+        BigDecimal mvMin = NUM_YI_0;//NUM_YI_1000  NUM_YI_50  NUM_YI_100    NUM_YI_0
         BigDecimal mvMax = null;
 
         boolean isDesc = true;
@@ -70,6 +71,8 @@ public class BizEtfStat {
     private static void statListEtfAdrArea(String date, int areaDays, boolean isDesc, BigDecimal mvMin, BigDecimal mvMax, int limit, boolean isCheckMianEtf, String type) {
         boolean isShowCode = true;//是否显示编码
         boolean isCheckFuQuan = false;//是否检查更新复权
+        boolean isOrMianEtf = true;//是否必须查询我的主要etf
+
 
         String endDate = StockService.findBegDate(date, 0);
         String begDate = StockService.findBegDate(date, areaDays);
@@ -81,6 +84,9 @@ public class BizEtfStat {
         condition.setType(type);
         condition.setMvMin(mvMin);
         condition.setMvMax(mvMax);
+        if (isOrMianEtf) {//我的主要etf
+            condition.setMvMinStCodeOrList(new ArrayList<>(ETF_All.keySet()));
+        }
         List<BizDto> etfListEndDate = BizService.findListDbBiz(condition);
 
         for (BizDto etf : etfListEndDate) {
@@ -104,6 +110,9 @@ public class BizEtfStat {
         condBegDate.setType(type);
         condBegDate.setMvMin(mvMin);
         condBegDate.setMvMax(mvMax);
+        if (isOrMianEtf) {//我的主要etf
+            condBegDate.setMvMinStCodeOrList(new ArrayList<>(ETF_All.keySet()));
+        }
         List<BizDto> etfListBegDate = BizService.findListDbBiz(condBegDate);
 
         for (BizDto etfBegDate : etfListBegDate) {
