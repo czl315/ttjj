@@ -233,7 +233,9 @@ public class EtfUtil {
 //            if (!name.contains("稀") ) { continue; }
 //            if (!name.contains("新能源") && !name.contains("电池")) { continue; }
 
-            if (ContMapEtfType.ETF_TYPE_ALL.keySet().contains(code)) {
+//            if (ContMapEtfType.ETF_TYPE_ALL.keySet().contains(code)) {
+
+            if (!ContMapEtfType.YILIAO_MORE.keySet().contains(code)) {
                 continue;
             }
             StringBuffer sb = new StringBuffer();
@@ -251,12 +253,12 @@ public class EtfUtil {
 //                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
 //                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
             }
-//            System.out.println("ZHISHU.put(\"" + dto.getF12() + "\", \"" + "指数" + "\");//" + sb);
-            System.out.println("KEJI.put(\"" + dto.getF12() + "\", \"" + "科技" + "\");//" + sb);
-//            System.out.println("XIAOFEI.put(\"" + dto.getF12() + "\", \"" + "消费" + "\");//" + sb);
-//            System.out.println("JINRONG.put(\"" + dto.getF12() + "\", \"" + "金融" + "\");//" + sb);
-//            System.out.println("ZIYUAN.put(\"" + dto.getF12() + "\", \"" + "资源" + "\");//" + sb);
-//            System.out.println("YILIAO.put(\"" + dto.getF12() + "\", \"" + "医疗" + "\");//" + sb);
+            System.out.println("YILIAO_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
+//            System.out.println("XIAOFEI_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
+//            System.out.println("KEJI_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
+//            System.out.println("ZIYUAN_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
+//            System.out.println("JINRONG_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
+//            System.out.println("ZHISHU_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
 //            System.out.println(sb);
         }
     }

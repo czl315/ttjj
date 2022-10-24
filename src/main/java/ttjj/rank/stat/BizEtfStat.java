@@ -28,13 +28,14 @@ public class BizEtfStat {
 //            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
 //        }
 
-//        showEtfUpMa(date);//etf-超过均线
+        showEtfUpMa(date);//etf-超过均线
+//        statListEtfAdrArea();//计算区间涨幅
+
 //        showEtfMv(date);//显示etf市值
 //        statDayMinMaxTime(date);//k线：每日最高点、最低点
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
 
-        statListEtfAdrArea();//计算区间涨幅
     }
 
     /**
@@ -168,7 +169,8 @@ public class BizEtfStat {
         }
         //区间涨幅
         Map<String, Integer> sizeMap = EtfUtil.showInfoHead(isShowMoreYes, isShowCode, false, null);
-        EtfUtil.showInfoEtf(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, sizeMap);
+//        EtfUtil.showInfoEtf(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, sizeMap);
+        EtfUtil.showInfoEtfType(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, sizeMap);
         System.out.println();
 
         if (isCheckFuQuan) {
@@ -351,8 +353,11 @@ public class BizEtfStat {
         String spDate = null;//
 //        String spDate = DateUtil.getAddDays(YYYY_MM_DD, date, 1);//是否显示特定日期涨跌   "2022-05-18"
 
+        long begTime = System.currentTimeMillis();
+        System.out.println("etf-检查均线-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
+
         CondMa condMa = new CondMa();
-        condMa.setOrderField(ORDER_FIELD_NET_AREA_DAY_5);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3 ORDER_FIELD_MAXDOWN    ORDER_FIELD_MINRISE
+        condMa.setOrderField(ORDER_FIELD_F3);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3 ORDER_FIELD_MAXDOWN    ORDER_FIELD_MINRISE
         condMa.setDate(date);
         condMa.setDays(3);
         condMa.setSpDate(spDate);
@@ -368,24 +373,47 @@ public class BizEtfStat {
 
         List<StockAdrCountVo> rs = null;
 
-        System.out.println("资源：");
-        condMa.setMapStock(ContMapEtf.ZIYUAN);
-        KlineService.showStockMa(condMa);
+//        System.out.println("科技：");
+//        condMa.setMapStock(ContMapEtf.KEJI);
+//        KlineService.showStockMa(condMa);
+//        System.out.println("资源：");
+//        condMa.setMapStock(ContMapEtf.ZIYUAN);
+//        KlineService.showStockMa(condMa);
+//        System.out.println("消费：");
+//        condMa.setMapStock(ContMapEtf.XIAOFEI);
+//        KlineService.showStockMa(condMa);
+//        System.out.println("医疗：");
+//        condMa.setMapStock(ContMapEtf.YILIAO);
+//        KlineService.showStockMa(condMa);
+//        System.out.println("金融：");
+//        condMa.setMapStock(ContMapEtf.JINRONG);
+//        KlineService.showStockMa(condMa);
+//        System.out.println("指数：");
+//        condMa.setMapStock(ContMapEtf.ETF_ZS);
+//        KlineService.showStockMa(condMa);
+
+        //etf-超过均线:更多检查
         System.out.println("科技：");
-        condMa.setMapStock(ContMapEtf.KEJI);
+        condMa.setMapStock(ContMapEtf.KEJI_MORE);
+        KlineService.showStockMa(condMa);
+        System.out.println("资源：");
+        condMa.setMapStock(ContMapEtf.ZIYUAN_MORE);
         KlineService.showStockMa(condMa);
         System.out.println("消费：");
-        condMa.setMapStock(ContMapEtf.XIAOFEI);
+        condMa.setMapStock(ContMapEtf.XIAOFEI_MORE);
         KlineService.showStockMa(condMa);
         System.out.println("医疗：");
-        condMa.setMapStock(ContMapEtf.YILIAO);
+        condMa.setMapStock(ContMapEtf.YILIAO_MORE);
         KlineService.showStockMa(condMa);
         System.out.println("金融：");
-        condMa.setMapStock(ContMapEtf.JINRONG);
+        condMa.setMapStock(ContMapEtf.JINRONG_MORE);
         KlineService.showStockMa(condMa);
         System.out.println("指数：");
-        condMa.setMapStock(ContMapEtf.ETF_ZS);
+        condMa.setMapStock(ContMapEtf.ZHISHU_MORE);
         KlineService.showStockMa(condMa);
+
+        System.out.println("etf-检查均线-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0) + "，用时：" + (System.currentTimeMillis() - begTime) / 1000);
+
     }
 
 

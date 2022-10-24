@@ -153,17 +153,36 @@ public class ContMapEtf {
 //        ETF_ZS.putAll(ETF_MV_ZS_SZ100);
 //        ETF_ZS.putAll(ETF_MV_ZS_SC);
     }
+    public static Map<String, String> ZHISHU_MORE = new HashMap<>();//指数
+    static {
+        ZHISHU_MORE.put("512100", "中证1000ETF     ");//1    512100  中证1000ETF     148.31%   91.70         2022-07-22    2022-10-24
+        ZHISHU_MORE.put("513080", "法国CAC40ETF    ");//2    513080  法国CAC40ETF    1.45%     0.62          2022-07-22    2022-10-24
+        ZHISHU_MORE.put("513500", "标普500ETF      ");//3    513500  标普500ETF      -0.24%    81.52         2022-07-22    2022-10-24
+        ZHISHU_MORE.put("159941", "纳指ETF         ");//4    159941  纳指ETF         -2.01%    113.78        2022-07-22    2022-10-24
+        ZHISHU_MORE.put("512750", "基本面50ETF     ");//5    512750  基本面50ETF     -4.78%    1.23          2022-07-22    2022-10-24
+        ZHISHU_MORE.put("159966", "创蓝筹ETF       ");//6    159966  创蓝筹ETF       -5.69%    5.18          2022-07-22    2022-10-24
+        ZHISHU_MORE.put("159628", "国证2000ETF     ");//7    159628  国证2000ETF     -6.22%    2.76          2022-07-22    2022-10-24
+        ZHISHU_MORE.put("510210", "上证指数ETF     ");//8    510210  上证指数ETF     -7.17%    9.64          2022-07-22    2022-10-24
+        ZHISHU_MORE.put("159781", "双创50ETF       ");//9    159781  双创50ETF       -9.20%    60.51         2022-07-22    2022-10-24
+        ZHISHU_MORE.put("515800", "800ETF          ");//10   515800  800ETF          -9.97%    18.32         2022-07-22    2022-10-24
+        ZHISHU_MORE.put("159902", "中小100ETF      ");//11   159902  中小100ETF      -10.18%   4.61          2022-07-22    2022-10-24
+        ZHISHU_MORE.put("510180", "上证180ETF      ");//12   510180  上证180ETF      -10.59%   183.13        2022-07-22    2022-10-24
+        ZHISHU_MORE.put("510300", "沪深300ETF      ");//13   510300  沪深300ETF      -10.90%   514.83        2022-07-22    2022-10-24
+        ZHISHU_MORE.put("588000", "科创50ETF       ");//14   588000  科创50ETF       -11.03%   313.71        2022-07-22    2022-10-24
+        ZHISHU_MORE.put("510050", "上证50ETF       ");//15   510050  上证50ETF       -11.90%   615.68        2022-07-22    2022-10-24
+        ZHISHU_MORE.put("159915", "创业板ETF       ");//16   159915  创业板ETF       -12.10%   174.49        2022-07-22    2022-10-24
+        ZHISHU_MORE.put("159901", "深证100ETF易方达");//17   159901  深证100ETF易方达-12.26%   59.47         2022-07-22    2022-10-24
+        ZHISHU_MORE.put("159949", "创业板50ETF     ");//18   159949  创业板50ETF     -12.92%   95.63         2022-07-22    2022-10-24
+        ZHISHU_MORE.put("159920", "恒生ETF         ");//19   159920  恒生ETF         -16.14%   154.51        2022-07-22    2022-10-24
+        ZHISHU_MORE.put("510900", "H股ETF          ");//20   510900  H股ETF          -16.20%   79.78         2022-07-22    2022-10-24
+        ZHISHU_MORE.put("510500", "中证500ETF      ");//21   510500  中证500ETF      -17.61%   421.08        2022-07-22    2022-10-24
+    }
 
 
     /**
-     * mapEtfZiYuan etf-资源
+     * 科技-最少元素
      */
     public static Map<String, String> KEJI = new HashMap<>();
-    public static Map<String, String> YILIAO = new HashMap<>();
-    public static Map<String, String> JINRONG = new HashMap<>();
-    public static Map<String, String> XIAOFEI = new HashMap<>();
-    public static Map<String, String> ZIYUAN = new HashMap<>();
-
     static {
 //        KEJI.put("159967", "创成长ETF     ");//29.98   	0.15
         KEJI.put("515790", "光伏ETF       ");//147.52  	-0.18
@@ -239,8 +258,68 @@ public class ContMapEtf {
 //        KEJI.put("588330", "11.38");//双创龙头ETF
 //        KEJI.put("159740", "10.19");//恒生科技ETF
     }
+    public static Map<String, String> KEJI_MORE = new HashMap<>();
+    static {
+        KEJI_MORE.put("513360", "教育ETF         ");//1    513360  教育ETF         5.26%     5.10          2022-07-22    2022-10-24
+        KEJI_MORE.put("159852", "软件ETF         ");//2    159852  软件ETF         -0.76%    3.15          2022-07-22    2022-10-24
+        KEJI_MORE.put("512670", "国防ETF         ");//3    512670  国防ETF         -1.42%    23.28         2022-07-22    2022-10-24
+        KEJI_MORE.put("159611", "电力ETF         ");//4    159611  电力ETF         -2.93%    16.67         2022-07-22    2022-10-24
+        KEJI_MORE.put("159998", "计算机ETF       ");//5    159998  计算机ETF       -3.02%    19.23         2022-07-22    2022-10-24
+        KEJI_MORE.put("159851", "金融科技ETF     ");//6    159851  金融科技ETF     -3.56%    2.07          2022-07-22    2022-10-24
+        KEJI_MORE.put("512660", "军工ETF         ");//7    512660  军工ETF         -3.60%    114.18        2022-07-22    2022-10-24
+        KEJI_MORE.put("510160", "产业升级ETF     ");//8    510160  产业升级ETF     -6.36%    2.33          2022-07-22    2022-10-24
+        KEJI_MORE.put("515400", "大数据ETF       ");//9    515400  大数据ETF       -7.97%    2.58          2022-07-22    2022-10-24
+        KEJI_MORE.put("515880", "通信ETF         ");//10   515880  通信ETF         -8.59%    13.57         2022-07-22    2022-10-24
+        KEJI_MORE.put("159939", "信息技术ETF     ");//11   159939  信息技术ETF     -8.93%    22.11         2022-07-22    2022-10-24
+        KEJI_MORE.put("515000", "科技ETF         ");//12   515000  科技ETF         -9.91%    32.49         2022-07-22    2022-10-24
+        KEJI_MORE.put("515790", "光伏ETF         ");//13   515790  光伏ETF         -10.86%   140.24        2022-07-22    2022-10-24
+        KEJI_MORE.put("560800", "数字经济ETF     ");//14   560800  数字经济ETF     -11.07%   5.49          2022-07-22    2022-10-24
+        KEJI_MORE.put("159819", "人工智能ETF     ");//15   159819  人工智能ETF     -13.55%   13.76         2022-07-22    2022-10-24
+        KEJI_MORE.put("512480", "半导体ETF       ");//16   512480  半导体ETF       -14.08%   128.60        2022-07-22    2022-10-24
+        KEJI_MORE.put("159790", "碳中和ETF       ");//17   159790  碳中和ETF       -15.59%   28.58         2022-07-22    2022-10-24
+        KEJI_MORE.put("517050", "互联网50ETF     ");//18   517050  互联网50ETF     -15.97%   5.30          2022-07-22    2022-10-24
+        KEJI_MORE.put("159995", "芯片ETF         ");//19   159995  芯片ETF         -16.32%   181.40        2022-07-22    2022-10-24
+        KEJI_MORE.put("515050", "5GETF           ");//20   515050  5GETF           -16.38%   81.08         2022-07-22    2022-10-24
+        KEJI_MORE.put("516160", "新能源ETF       ");//21   516160  新能源ETF       -16.73%   25.44         2022-07-22    2022-10-24
+        KEJI_MORE.put("513050", "中概互联网ETF   ");//22   513050  中概互联网ETF   -17.64%   325.52        2022-07-22    2022-10-24
+        KEJI_MORE.put("515250", "智能汽车ETF     ");//23   515250  智能汽车ETF     -19.31%   6.25          2022-07-22    2022-10-24
+        KEJI_MORE.put("515030", "新能源车ETF     ");//24   515030  新能源车ETF     -20.90%   96.47         2022-07-22    2022-10-24
+        KEJI_MORE.put("159755", "电池ETF         ");//25   159755  电池ETF         -21.52%   20.88         2022-07-22    2022-10-24
+        KEJI_MORE.put("513330", "恒生互联网ETF   ");//26   513330  恒生互联网ETF   -23.51%   202.23        2022-07-22    2022-10-24
+        KEJI_MORE.put("513180", "恒生科技指数ETF ");//27   513180  恒生科技指数ETF -27.03%   124.92        2022-07-22    2022-10-24
+    }
+
+    //资源
+    public static Map<String, String> ZIYUAN = new HashMap<>();
+    static {
+        ZIYUAN.put("515220", "煤炭ETF       ");//51.65   	1.62
+        ZIYUAN.put("159930", "能源ETF       ");//2.67    	1.41
+//        ZIYUAN.put("515210", "钢铁ETF       ");//17.02   	1.1
+        ZIYUAN.put("516150", "稀土ETF基金   ");//24.14   	0.36
+        ZIYUAN.put("159870", "化工ETF       ");//7.80    	0.34
+        ZIYUAN.put("512400", "有色金属ETF   ");//30.77   	-0.08
+        ZIYUAN.put("159865", "养殖ETF       ");//41.80   	0.59
+//        ZIYUAN.put("159825", "农业ETF       ");//17.63   	0.41
+        ZIYUAN.put("159985", "豆粕ETF");//豆粕ETF	159985	2.43
+    }
+    //资源
+    public static Map<String, String> ZIYUAN_MORE = new HashMap<>();
+    static {
+        ZIYUAN_MORE.put("159985", "豆粕ETF         ");//1    159985  豆粕ETF         16.30%    2.90          2022-07-22    2022-10-24
+        ZIYUAN_MORE.put("159930", "能源ETF         ");//2    159930  能源ETF         9.85%     4.47          2022-07-22    2022-10-24
+        ZIYUAN_MORE.put("515220", "煤炭ETF         ");//3    515220  煤炭ETF         5.19%     49.32         2022-07-22    2022-10-24
+        ZIYUAN_MORE.put("159865", "养殖ETF         ");//4    159865  养殖ETF         -4.04%    36.40         2022-07-22    2022-10-24
+        ZIYUAN_MORE.put("159825", "农业ETF         ");//5    159825  农业ETF         -10.63%   19.37         2022-07-22    2022-10-24
+        ZIYUAN_MORE.put("515210", "钢铁ETF         ");//6    515210  钢铁ETF         -12.25%   14.25         2022-07-22    2022-10-24
+        ZIYUAN_MORE.put("512400", "有色金属ETF     ");//7    512400  有色金属ETF     -13.78%   26.69         2022-07-22    2022-10-24
+        ZIYUAN_MORE.put("159870", "化工ETF         ");//8    159870  化工ETF         -14.19%   9.56          2022-07-22    2022-10-24
+        ZIYUAN_MORE.put("159745", "建材ETF         ");//9    159745  建材ETF         -16.28%   7.47          2022-07-22    2022-10-24
+        ZIYUAN_MORE.put("516150", "稀土ETF基金     ");//10   516150  稀土ETF基金     -16.42%   20.58         2022-07-22    2022-10-24
+        ZIYUAN_MORE.put("562800", "稀有金属ETF     ");//11   562800  稀有金属ETF     -18.40%   6.70          2022-07-22    2022-10-24
+    }
 
     //金融
+    public static Map<String, String> JINRONG = new HashMap<>();
     static {
 //        JINRONG.put("510880", "红利ETF       ");//166.99  	0.6
         JINRONG.put("512200", "房地产ETF     ");//52.10   	-0.14
@@ -288,8 +367,22 @@ public class ContMapEtf {
 //        JINRONG.put("511020", "11.94");//活跃国债ETF
 //        JINRONG.put("513090", "11.86");//香港证券ETF
     }
+    public static Map<String, String> JINRONG_MORE = new HashMap<>();//金融
+    static {
+        JINRONG_MORE.put("518880", "黄金ETF         ");//1    518880  黄金ETF         5.33%     87.56         2022-07-22    2022-10-24
+        JINRONG_MORE.put("510880", "红利ETF         ");//2    510880  红利ETF         2.19%     140.50        2022-07-22    2022-10-24
+        JINRONG_MORE.put("511880", "银华日利ETF     ");//4    511880  银华日利ETF     0.38%     1364.23       2022-07-22    2022-10-24
+        JINRONG_MORE.put("511030", "公司债ETF       ");//5    511030  公司债ETF       -0.91%    52.42         2022-07-22    2022-10-24
+        JINRONG_MORE.put("511380", "可转债ETF       ");//6    511380  可转债ETF       -3.04%    13.42         2022-07-22    2022-10-24
+        JINRONG_MORE.put("512200", "房地产ETF       ");//7    512200  房地产ETF       -3.32%    44.38         2022-07-22    2022-10-24
+        JINRONG_MORE.put("510230", "金融ETF         ");//8    510230  金融ETF         -5.72%    31.93         2022-07-22    2022-10-24
+        JINRONG_MORE.put("512800", "银行ETF         ");//9    512800  银行ETF         -6.07%    86.00         2022-07-22    2022-10-24
+        JINRONG_MORE.put("512880", "证券ETF         ");//10   512880  证券ETF         -7.77%    294.07        2022-07-22    2022-10-24
+        JINRONG_MORE.put("516970", "基建50ETF       ");//11   516970  基建50ETF       -7.90%    90.14         2022-07-22    2022-10-24
+    }
 
     //医疗
+    public static Map<String, String> YILIAO = new HashMap<>();
     static {
 //        YILIAO.put("513060", "恒生医疗ETF   ");//55.08   	-0.18
         YILIAO.put("512170", "医疗ETF       ");//148.20  	-0.37
@@ -305,8 +398,16 @@ public class ContMapEtf {
 //        YILIAO.put("159859", "12.95");//生物医药ETF
 //        YILIAO.put("159929", "10.15");//医药ETF
     }
+    public static Map<String, String> YILIAO_MORE = new HashMap<>();//医疗
+    static {
+        YILIAO_MORE.put("159883", "医疗器械ETF     ");//1    159883  医疗器械ETF     2.64%     18.02         2022-07-22    2022-10-24
+        YILIAO_MORE.put("512170", "医疗ETF         ");//2    512170  医疗ETF         -9.25%    170.43        2022-07-22    2022-10-24
+        YILIAO_MORE.put("159992", "创新药ETF       ");//3    159992  创新药ETF       -12.13%   43.71         2022-07-22    2022-10-24
+        YILIAO_MORE.put("513060", "恒生医疗ETF     ");//4    513060  恒生医疗ETF     -17.74%   53.44         2022-07-22    2022-10-24
+    }
 
     //消费
+    public static Map<String, String> XIAOFEI = new HashMap<>();
     static {
         XIAOFEI.put("159996", "家电ETF       ");//27.23   	0.65
 //        XIAOFEI.put("515170", "食品饮料ETF   ");//39.01   	-0.26
@@ -324,19 +425,18 @@ public class ContMapEtf {
 
 //        XIAOFEI.put("560880", "11.53");//家电ETF基金
     }
-
-    //资源
+    public static Map<String, String> XIAOFEI_MORE = new HashMap<>();//消费
     static {
-        ZIYUAN.put("515220", "煤炭ETF       ");//51.65   	1.62
-        ZIYUAN.put("159930", "能源ETF       ");//2.67    	1.41
-//        ZIYUAN.put("515210", "钢铁ETF       ");//17.02   	1.1
-        ZIYUAN.put("516150", "稀土ETF基金   ");//24.14   	0.36
-        ZIYUAN.put("159870", "化工ETF       ");//7.80    	0.34
-        ZIYUAN.put("512400", "有色金属ETF   ");//30.77   	-0.08
-        ZIYUAN.put("159865", "养殖ETF       ");//41.80   	0.59
-//        ZIYUAN.put("159825", "农业ETF       ");//17.63   	0.41
-        ZIYUAN.put("159985", "豆粕ETF");//豆粕ETF	159985	2.43
+        XIAOFEI_MORE.put("516530", "物流快递ETF     ");//1    516530  物流快递ETF     -0.11%    0.95          2022-07-22    2022-10-24
+        XIAOFEI_MORE.put("159766", "旅游ETF         ");//2    159766  旅游ETF         -6.03%    19.43         2022-07-22    2022-10-24
+        XIAOFEI_MORE.put("159928", "消费ETF         ");//3    159928  消费ETF         -12.33%   94.45         2022-07-22    2022-10-24
+        XIAOFEI_MORE.put("159996", "家电ETF         ");//4    159996  家电ETF         -13.12%   20.16         2022-07-22    2022-10-24
+        XIAOFEI_MORE.put("512690", "酒ETF           ");//5    512690  酒ETF           -13.65%   98.31         2022-07-22    2022-10-24
+        XIAOFEI_MORE.put("159736", "饮食ETF         ");//6    159736  饮食ETF         -13.92%   67.55         2022-07-22    2022-10-24
+        XIAOFEI_MORE.put("512980", "传媒ETF         ");//7    512980  传媒ETF         -14.98%   44.36         2022-07-22    2022-10-24
     }
+
+
 
     /**
      * etf-市值-行业板块

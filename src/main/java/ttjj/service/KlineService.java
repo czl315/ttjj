@@ -1768,9 +1768,8 @@ public class KlineService {
             String zqdm = stockAdrCountVo.getF12();
 //            String zqdm = stockAdrCountVo.getF12();
             System.out.print(zqdm);
-            System.out.print("\t");
-            System.out.print(StockUtil.formatEtfName(stockAdrCountVo.getF14(), 8));
-            System.out.print("\t");
+            System.out.print("  ");
+            System.out.print(StockUtil.formatEtfName(stockAdrCountVo.getF14(), 16));
 
             int showSize = 6;
             if (isShowUpMa) {
