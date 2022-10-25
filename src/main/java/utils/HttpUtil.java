@@ -2,6 +2,10 @@ package utils;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.RandomUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.util.EntityUtils;
 import ttjj.dto.LsjzDataLsjz;
 import ttjj.dto.LsjzPt;
 
@@ -9,10 +13,7 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -26,6 +27,53 @@ public class HttpUtil {
      * @return URL 所代表远程资源的响应结果
      */
     public static String sendGet(String url, String param, String cookie) {
+        return sendGetJavaUrl( url,  param,  cookie);
+//        return sendGetHttpClient(url, param, cookie);
+    }
+
+    /**
+     * @param url
+     * @param param
+     * @param cookie
+     * @return
+     */
+    public static String sendGetHttpClient(String url, String param, String cookie) {
+        Map<String, String> map = new HashMap<String, String>();
+        String[] params = param.split("&");
+        if (params != null && params.length > 0) {
+            for (String str : params) {
+                String[] paramOne = str.split("=");
+                map.put(paramOne[0], paramOne[1]);
+            }
+        }
+
+        try {
+            HttpClient client = HttpClientUtils.getConnection();
+            HttpUriRequest httpUriRequest = HttpClientUtils.getRequestMethod(map, url, "get");
+            HttpResponse response = client.execute(httpUriRequest);
+            if (response.getStatusLine().getStatusCode() == 200) {
+//            HttpEntity entity = response.getEntity();
+//            String message = EntityUtils.toString(entity, "utf-8");
+//            System.out.println(message);
+                return EntityUtils.toString(response.getEntity(), "utf-8");
+            } else {
+                System.out.println("请求失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * Java原生url调用
+     *
+     * @param url   发送请求的URL
+     * @param param 请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
+     * @return URL 所代表远程资源的响应结果
+     */
+    public static String sendGetJavaUrl(String url, String param, String cookie) {
         String result = "";
         BufferedReader in = null;
         String urlNameString = url + "?" + param;
@@ -41,6 +89,7 @@ public class HttpUtil {
             connection.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36");
             connection.setRequestProperty("Cookie", cookie);
             connection.setConnectTimeout(3000);
+            connection.setReadTimeout(3000);
             // 建立实际的连接
             connection.connect();
 
@@ -61,7 +110,7 @@ public class HttpUtil {
 //            System.out.println(urlNameString);
 //            System.out.println(e);
 //            throw new RuntimeException();
-//            e.printStackTrace();
+            e.printStackTrace();
         }
         // 使用finally块来关闭输入流
         finally {

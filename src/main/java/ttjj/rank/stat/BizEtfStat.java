@@ -21,9 +21,8 @@ import static utils.DateUtil.YYYY_MM_DD;
  */
 public class BizEtfStat {
     public static void main(String[] args) {
-//        showEtfUpMa();//etf-超过均线
-
-        statListEtfAdrArea();//计算区间涨幅
+        showEtfUpMa();//etf-超过均线
+//        statListEtfAdrArea();//计算区间涨幅
 
 //        showEtfMv(date);//显示etf市值
 //        statDayMinMaxTime(date);//k线：每日最高点、最低点
@@ -37,8 +36,7 @@ public class BizEtfStat {
      */
     private static void statListEtfAdrArea() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-10-12";
-
+//        String date = "2022-10-19";
 
         int areaDays = 4;//4:近一周;20:近一月
         int limit = 500;
@@ -355,7 +353,7 @@ public class BizEtfStat {
      */
     public static void showEtfUpMa() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-10-12";
+//        String date = "2022-10-25";
 //        List<String> dateList = StockService.findListDateAfter(date, 2);
 //        if (dateList != null && dateList.size() > 1) {
 //            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
