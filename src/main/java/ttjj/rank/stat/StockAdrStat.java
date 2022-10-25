@@ -43,7 +43,7 @@ public class StockAdrStat {
 //        String spDateBeg = "2022-10-18";//
 //        String spDateEnd = "2022-10-20";//
 
-        int limitCount = 2;
+        int limitCount = 10;
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
         Map<String, List<String>> bkMap = new HashMap<>();
@@ -66,7 +66,7 @@ public class StockAdrStat {
 //        condFind.setUP_MA_101("101(60)");
         condFind.setUP_MA_102("102(60)");
 
-        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
         condFind.setDate(date);
         condFind.setF139(DB_RANK_BIZ_F139_BK_MAIN);

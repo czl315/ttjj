@@ -235,7 +235,7 @@ public class EtfUtil {
 
 //            if (ContMapEtfType.ETF_TYPE_ALL.keySet().contains(code)) {
 
-            if (!ContMapEtfType.YILIAO_MORE.keySet().contains(code)) {
+            if (!ContMapEtfType.ZHISHU_MORE.keySet().contains(code)) {
                 continue;
             }
             StringBuffer sb = new StringBuffer();
@@ -253,12 +253,12 @@ public class EtfUtil {
 //                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
 //                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
             }
-            System.out.println("YILIAO_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
+//            System.out.println("YILIAO_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
 //            System.out.println("XIAOFEI_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
 //            System.out.println("KEJI_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
 //            System.out.println("ZIYUAN_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
 //            System.out.println("JINRONG_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
-//            System.out.println("ZHISHU_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
+            System.out.println("ZHISHU_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
 //            System.out.println(sb);
         }
     }

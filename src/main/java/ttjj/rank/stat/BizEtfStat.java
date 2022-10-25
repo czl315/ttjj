@@ -21,15 +21,9 @@ import static utils.DateUtil.YYYY_MM_DD;
  */
 public class BizEtfStat {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-10-12";
-//        List<String> dateList = StockService.findListDateAfter(date, 2);
-//        if (dateList != null && dateList.size() > 1) {
-//            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
-//        }
+//        showEtfUpMa();//etf-超过均线
 
-        showEtfUpMa(date);//etf-超过均线
-//        statListEtfAdrArea();//计算区间涨幅
+        statListEtfAdrArea();//计算区间涨幅
 
 //        showEtfMv(date);//显示etf市值
 //        statDayMinMaxTime(date);//k线：每日最高点、最低点
@@ -46,8 +40,8 @@ public class BizEtfStat {
 //        String date = "2022-10-12";
 
 
-        int areaDays = 60;//4:近一周;20:近一月
-        int limit = 1000;
+        int areaDays = 4;//4:近一周;20:近一月
+        int limit = 500;
 
         BigDecimal mvMin = null;//NUM_YI_1000  NUM_YI_50  NUM_YI_100    NUM_YI_0
         BigDecimal mvMax = null;
@@ -55,7 +49,7 @@ public class BizEtfStat {
         boolean isDesc = true;
 //        boolean isDesc = false;
 
-        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, false, DB_RANK_BIZ_TYPE_ETF);//DB_RANK_BIZ_TYPE_ZS  DB_RANK_BIZ_TYPE_ETF
+        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, true, DB_RANK_BIZ_TYPE_ETF);//DB_RANK_BIZ_TYPE_ZS  DB_RANK_BIZ_TYPE_ETF
 //        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, false,DB_RANK_BIZ_TYPE_BAN_KUAI);
 
     }
@@ -72,8 +66,7 @@ public class BizEtfStat {
     private static void statListEtfAdrArea(String date, int areaDays, boolean isDesc, BigDecimal mvMin, BigDecimal mvMax, int limit, boolean isCheckMianEtf, String type) {
         boolean isShowCode = true;//是否显示编码
         boolean isCheckFuQuan = false;//是否检查更新复权
-        boolean isOrMianEtf = true;//是否必须查询我的主要etf
-
+        boolean isOrMianEtf = false;//是否必须查询我的主要etf
 
         String endDate = StockService.findBegDate(date, 0);
         String begDate = StockService.findBegDate(date, areaDays);
@@ -85,8 +78,11 @@ public class BizEtfStat {
         condition.setType(type);
         condition.setMvMin(mvMin);
         condition.setMvMax(mvMax);
-        if (isOrMianEtf) {//我的主要etf
-            condition.setMvMinStCodeOrList(new ArrayList<>(ETF_All.keySet()));
+        if (isCheckMianEtf) {//检查是否是主要etf
+            condition.setStCodeList(getMainEtf());
+        }
+        if (isOrMianEtf) {
+            condition.setMvMinStCodeOrList(getMainEtf());//我的主要etf
         }
         List<BizDto> etfListEndDate = BizService.findListDbBiz(condition);
 
@@ -111,8 +107,11 @@ public class BizEtfStat {
         condBegDate.setType(type);
         condBegDate.setMvMin(mvMin);
         condBegDate.setMvMax(mvMax);
-        if (isOrMianEtf) {//我的主要etf
-            condBegDate.setMvMinStCodeOrList(new ArrayList<>(ETF_All.keySet()));
+        if (isCheckMianEtf) {//检查是否是主要etf
+            condBegDate.setStCodeList(getMainEtf());
+        }
+        if (isOrMianEtf) {
+            condBegDate.setMvMinStCodeOrList(getMainEtf());//我的主要etf
         }
         List<BizDto> etfListBegDate = BizService.findListDbBiz(condBegDate);
 
@@ -152,10 +151,6 @@ public class BizEtfStat {
             }
             BigDecimal adrArea = (endDateF2.subtract(begDateF18)).multiply(new BigDecimal("100")).divide(begDateF18, 2, RoundingMode.HALF_UP);
             dto.setAreaF3(adrArea);
-
-            if (isCheckMianEtf && !EtfUtil.isMainEtf(dto.getF12())) {//检查是否是主要etf
-                continue;
-            }
             rsList.add(dto);
         }
 
@@ -169,8 +164,8 @@ public class BizEtfStat {
         }
         //区间涨幅
         Map<String, Integer> sizeMap = EtfUtil.showInfoHead(isShowMoreYes, isShowCode, false, null);
-//        EtfUtil.showInfoEtf(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, sizeMap);
-        EtfUtil.showInfoEtfType(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, sizeMap);
+        EtfUtil.showInfoEtf(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, sizeMap);
+//        EtfUtil.showInfoEtfType(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, sizeMap);
         System.out.println();
 
         if (isCheckFuQuan) {
@@ -179,6 +174,16 @@ public class BizEtfStat {
                 statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, isCheckMianEtf, type);
             }
         }
+    }
+
+    /**
+     * 获取主要etf
+     * @return
+     */
+    private static List getMainEtf() {
+//        return new ArrayList<>(ETF_All.keySet());
+        return new ArrayList<>(ContMapEtf.ZHISHU_MORE.keySet());
+//        return new ArrayList<>(ContMapEtf.ZHISHU_ALL.keySet());
     }
 
 
@@ -347,9 +352,15 @@ public class BizEtfStat {
      * etf-超过均线:
      * 显示最近3个K线交易日的涨跌
      *
-     * @param date
      */
-    public static void showEtfUpMa(String date) {
+    public static void showEtfUpMa() {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-10-12";
+//        List<String> dateList = StockService.findListDateAfter(date, 2);
+//        if (dateList != null && dateList.size() > 1) {
+//            spDate = dateList.get(1);//是否显示特定日期涨跌   "2022-05-18"
+//        }
+
         String spDate = null;//
 //        String spDate = DateUtil.getAddDays(YYYY_MM_DD, date, 1);//是否显示特定日期涨跌   "2022-05-18"
 

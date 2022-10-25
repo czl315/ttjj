@@ -1773,7 +1773,7 @@ public class KlineService {
 
             int showSize = 6;
             if (isShowUpMa) {
-                System.out.print("超均线：");//显示信息-价格区间
+                System.out.print("上均线：");//显示信息-价格区间
                 if (kltList.contains(KLT_5)) {
                     String upMa = stockAdrCountVo.getUpMaDay5();
                     int breakCountUp = stockAdrCountVo.getBreakCountUp5();//突破均线次数

@@ -110,10 +110,10 @@ public class KlineStat {
      * @param date
      */
     private static void statAdrByTime(String date) {
-        String klt = KLT_101;
+//        String klt = KLT_101;
 //        String klt = KLT_60;
 //        String klt = KLT_30;
-//        String klt = KLT_15;
+        String klt = KLT_15;
 //        String klt = KLT_5;
 
 //        String orderTime = TIME_11_30;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
@@ -142,9 +142,8 @@ public class KlineStat {
      */
     private static void statAdrByTime(String date, String time, String klt, boolean isShowSimpleUpOrDown) {
         //如果未到当前时间，不处理
-        String datTime = date;
-        if (datTime.length() == 8) {
-            datTime = date + " " + time;
+        String datTime = date + " " + time;
+        if (datTime.length() == 19) {
             long timeLong = DateUtil.getTimeInMillisByDateStr(DateUtil.YYYY_MM_DD_HH_MM_SS, datTime);
             long curTime = Calendar.getInstance().getTimeInMillis();
             if (timeLong > curTime) {
