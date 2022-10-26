@@ -47,7 +47,7 @@ public class BizEtfStat {
         boolean isDesc = true;
 //        boolean isDesc = false;
 
-        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, false, DB_RANK_BIZ_TYPE_ETF);//DB_RANK_BIZ_TYPE_ZS  DB_RANK_BIZ_TYPE_ETF
+        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, DB_RANK_BIZ_TYPE_ETF);//DB_RANK_BIZ_TYPE_ZS  DB_RANK_BIZ_TYPE_ETF
 //        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, false,DB_RANK_BIZ_TYPE_BAN_KUAI);
 
     }
@@ -61,13 +61,14 @@ public class BizEtfStat {
      * @param mvMin
      * @param mvMax
      */
-    private static void statListEtfAdrArea(String date, int areaDays, boolean isDesc, BigDecimal mvMin, BigDecimal mvMax, int limit, boolean isCheckMianEtf, String type) {
+    private static void statListEtfAdrArea(String date, int areaDays, boolean isDesc, BigDecimal mvMin, BigDecimal mvMax, int limit, String type) {
         boolean isShowCode = true;//是否显示编码
         boolean isCheckFuQuan = false;//是否检查更新复权
         boolean isOrMianEtf = false;//是否必须查询我的主要etf
-        isCheckMianEtf = true;//是否必须查询我的主要etf
+        boolean isCheckMianEtf = true;//是否必须查询我的主要etf
 
-        String endDate = StockService.findBegDate(date, 0);
+//        String endDate = StockService.findBegDate(date, 0);
+        String endDate = date;
         String begDate = StockService.findBegDate(date, areaDays);
 
         Map<String, BizDto> rsMap = new HashMap<>();
@@ -170,7 +171,7 @@ public class BizEtfStat {
         if (isCheckFuQuan) {
             boolean isUpdate = BizService.updateFuQuanBiz(rsList, limit, begDate);//更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
             if (isUpdate) {
-                statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, isCheckMianEtf, type);
+                statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, type);
             }
         }
     }
