@@ -313,7 +313,7 @@ public class BizService {
             Kline todayKline = klines.get(0);
             BigDecimal closeAmt = todayKline.getCloseAmt();
             if (closeAmtDb.compareTo(closeAmt) != 0) {
-                System.out.println("k线收盘价与数据库收盘价不符：" + zqmc + "," + closeAmt + ":" + closeAmtDb);
+                System.out.println("k线收盘价与数据库收盘价不符：" + zqmc + ":" + zqdm + "," + closeAmt + ":" + closeAmtDb + ":" + dateCheck);
                 RankBizDataDiff entity = new RankBizDataDiff();
                 entity.setF12(zqdm);
                 entity.setDate(dateCheck);
@@ -648,6 +648,32 @@ public class BizService {
         }
 
         return rankBizDataDiffList;
+    }
+
+    public static void main(String[] args) {
+        updateFuQuanBizByZqdm();
+    }
+
+    /**
+     * 复权更新-特定编码-特定日期
+     */
+    private static void updateFuQuanBizByZqdm() {
+        List<BizDto> rsList = new ArrayList<>();
+        BizDto dto = new BizDto();
+        dto.setF12("512100");
+        dto.setF14("XXX");
+        dto.setF2(new BigDecimal("1"));
+        rsList.add(dto);
+        String begDate = "2022-09-05";
+        int year = DateUtil.getCurYear();//2021
+        int month = 7;//DateUtil.getCurMonth()
+        int day = 1;//DateUtil.getCurDay()
+        for (int i = 0; i < 365; i++) {
+            begDate = DateUtil.getDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD, year, month, day, -i);//查询新增交易的开始时间
+            BizService.updateFuQuanBiz(rsList, 2, begDate);//更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
+
+        }
+
     }
 
 }
