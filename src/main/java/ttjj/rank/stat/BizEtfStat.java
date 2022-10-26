@@ -21,8 +21,8 @@ import static utils.DateUtil.YYYY_MM_DD;
  */
 public class BizEtfStat {
     public static void main(String[] args) {
-        showEtfUpMa();//etf-超过均线
-//        statListEtfAdrArea();//计算区间涨幅
+//        showEtfUpMa();//etf-超过均线
+        statListEtfAdrArea();//计算区间涨幅
 
 //        showEtfMv(date);//显示etf市值
 //        statDayMinMaxTime(date);//k线：每日最高点、最低点
@@ -38,7 +38,7 @@ public class BizEtfStat {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-10-19";
 
-        int areaDays = 4;//4:近一周;20:近一月
+        int areaDays = 0;//4:近一周;20:近一月
         int limit = 500;
 
         BigDecimal mvMin = null;//NUM_YI_1000  NUM_YI_50  NUM_YI_100    NUM_YI_0
@@ -47,7 +47,7 @@ public class BizEtfStat {
         boolean isDesc = true;
 //        boolean isDesc = false;
 
-        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, true, DB_RANK_BIZ_TYPE_ETF);//DB_RANK_BIZ_TYPE_ZS  DB_RANK_BIZ_TYPE_ETF
+        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, false, DB_RANK_BIZ_TYPE_ETF);//DB_RANK_BIZ_TYPE_ZS  DB_RANK_BIZ_TYPE_ETF
 //        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, false,DB_RANK_BIZ_TYPE_BAN_KUAI);
 
     }
@@ -65,6 +65,7 @@ public class BizEtfStat {
         boolean isShowCode = true;//是否显示编码
         boolean isCheckFuQuan = false;//是否检查更新复权
         boolean isOrMianEtf = false;//是否必须查询我的主要etf
+        isCheckMianEtf = true;//是否必须查询我的主要etf
 
         String endDate = StockService.findBegDate(date, 0);
         String begDate = StockService.findBegDate(date, areaDays);
@@ -374,10 +375,11 @@ public class BizEtfStat {
         condMa.setKltList(Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101));//价格区间周期列表
         condMa.setShowUpMa(true);//是否显示-超过均线
         condMa.setShowDownMa(true);//是否显示-跌落均线
+        condMa.setShowBreakDownMaMax(true);//是否显示-跌落均线-最高
         condMa.setFindKline(true);//是否查询最新k线
         condMa.setShowFlowIn(false);//是否显示资金流入
         condMa.setOrderDesc(false);//是否倒序
-        condMa.setShowDateMinMax(true);//是否显示日最低点、最高点
+        condMa.setShowDateMinMax(false);//是否显示日最低点、最高点
         condMa.setShowMaxMin(true);//是否显最低、最高
 
         List<StockAdrCountVo> rs = null;

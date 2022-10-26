@@ -18,6 +18,10 @@ public class BreakMaDto {
      */
     private boolean isMaBreakDown;
     /**
+     * 突破均线-向下-最高净值
+     */
+    private boolean isMaBreakDownMax;
+    /**
      * 均线净值
      */
     private BigDecimal maNet;
@@ -29,6 +33,10 @@ public class BreakMaDto {
      * 突破均线次数-向下
      */
     private int breakCountDown;
+    /**
+     * 突破均线次数-向下-最高净值
+     */
+    private int breakCountDownMax;
     /**
      * 突破百分比-向上
      */
@@ -92,5 +100,21 @@ public class BreakMaDto {
 
     public void setBreakPctDown(BigDecimal breakPctDown) {
         this.breakPctDown = breakPctDown;
+    }
+
+    public boolean isMaBreakDownMax() {
+        return isMaBreakDownMax;
+    }
+
+    public void setMaBreakDownMax(boolean maBreakDownMax) {
+        isMaBreakDownMax = maBreakDownMax;
+    }
+
+    public int getBreakCountDownMax() {
+        return breakCountDownMax;
+    }
+
+    public void setBreakCountDownMax(int breakCountDownMax) {
+        this.breakCountDownMax = breakCountDownMax;
     }
 }

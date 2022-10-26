@@ -937,6 +937,7 @@ public class KlineService {
         }
         Kline todayKline = klines.get(0);
         BigDecimal curAmt = todayKline.getCloseAmt();
+        BigDecimal maxAmt = todayKline.getMaxAmt();
         BigDecimal yesterdayCloseAmt = todayKline.getCloseLastAmt();
 
 //        Map<String, BigDecimal> netMap = KlineService.findNetMinMaxAvg(zqdm, maType, klt, false, "", date, "");
@@ -952,6 +953,13 @@ public class KlineService {
             rs.setBreakCountDown(breakCount);
             //计算连续突破百分比
             rs.setBreakPctDown(curAmt.subtract(curMaAmt).divide(curMaAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")));
+        }
+        //最高净值跌破均线
+        if (yesterdayCloseAmt.compareTo(curMaAmt) >= 0 && maxAmt.compareTo(curMaAmt) > 0 && curAmt.compareTo(curMaAmt) < 0) {
+            rs.setMaBreakDownMax(true);
+            //计算连续突破次数
+            int breakCount = handlerBreakCountDownMax(maKline);
+            rs.setBreakCountDownMax(breakCount);
         }
         rs.setMaNet(curMaAmt);
 
@@ -983,6 +991,26 @@ public class KlineService {
                 } else {
                     break;
                 }
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 计算连续突破次数-向下-最高净值
+     * @param maKline
+     * @return
+     */
+    private static int handlerBreakCountDownMax(KlineDto maKline) {
+        int count = 0;
+        BigDecimal netMa = maKline.getNetMa();
+        List<Kline> klineList = maKline.getKlineList().stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getKtime, Comparator.nullsFirst(String::compareTo)).reversed()).collect(Collectors.toList());
+        for (Kline kline : klineList) {
+            BigDecimal maxAmt = kline.getMaxAmt();
+            if(maxAmt.compareTo(netMa) < 0) {
+                count++;
+            } else {
+                break;
             }
         }
         return count;
@@ -1262,31 +1290,43 @@ public class KlineService {
             stockAdrCountVo.setMaDownDay5(breakMa.isMaBreakDown() ? klt : "");
             stockAdrCountVo.setBreakCountDown5(breakMa.getBreakCountDown());
             stockAdrCountVo.setBreakPctDown5(breakMa.getBreakPctDown());
+            stockAdrCountVo.setMaBreakDownMax5(breakMa.isMaBreakDownMax() ? klt : "");
+            stockAdrCountVo.setBreakCountDownMax5(breakMa.getBreakCountDownMax());
         } else if (KLT_15.equals(klt)) {
             stockAdrCountVo.setMA_NET_60_15(breakMa.getMaNet());
             stockAdrCountVo.setMaDownDay15(breakMa.isMaBreakDown() ? klt : "");
             stockAdrCountVo.setBreakCountDown15(breakMa.getBreakCountDown());
             stockAdrCountVo.setBreakPctDown15(breakMa.getBreakPctDown());
+            stockAdrCountVo.setMaBreakDownMax15(breakMa.isMaBreakDownMax() ? klt : "");
+            stockAdrCountVo.setBreakCountDownMax15(breakMa.getBreakCountDownMax());
         } else if (KLT_30.equals(klt)) {
             stockAdrCountVo.setMA_NET_60_30(breakMa.getMaNet());
             stockAdrCountVo.setMaDownDay30(breakMa.isMaBreakDown() ? klt : "");
             stockAdrCountVo.setBreakCountDown30(breakMa.getBreakCountDown());
             stockAdrCountVo.setBreakPctDown30(breakMa.getBreakPctDown());
+            stockAdrCountVo.setMaBreakDownMax30(breakMa.isMaBreakDownMax() ? klt : "");
+            stockAdrCountVo.setBreakCountDownMax30(breakMa.getBreakCountDownMax());
         } else if (KLT_60.equals(klt)) {
             stockAdrCountVo.setMA_NET_60_60(breakMa.getMaNet());
             stockAdrCountVo.setMaDownDay60(breakMa.isMaBreakDown() ? klt : "");
             stockAdrCountVo.setBreakCountDown60(breakMa.getBreakCountDown());
             stockAdrCountVo.setBreakPctDown60(breakMa.getBreakPctDown());
+            stockAdrCountVo.setMaBreakDownMax60(breakMa.isMaBreakDownMax() ? klt : "");
+            stockAdrCountVo.setBreakCountDownMax60(breakMa.getBreakCountDownMax());
         } else if (KLT_101.equals(klt)) {
             stockAdrCountVo.setMA_NET_60_101(breakMa.getMaNet());
             stockAdrCountVo.setMaDownDay101(breakMa.isMaBreakDown() ? klt : "");
             stockAdrCountVo.setBreakCountDown101(breakMa.getBreakCountDown());
             stockAdrCountVo.setBreakPctDown101(breakMa.getBreakPctDown());
+            stockAdrCountVo.setMaBreakDownMax101(breakMa.isMaBreakDownMax() ? klt : "");
+            stockAdrCountVo.setBreakCountDownMax101(breakMa.getBreakCountDownMax());
         } else if (KLT_102.equals(klt)) {
             stockAdrCountVo.setMA_NET_60_102(breakMa.getMaNet());
             stockAdrCountVo.setMaDownDay102(breakMa.isMaBreakDown() ? klt : "");
             stockAdrCountVo.setBreakCountDown102(breakMa.getBreakCountDown());
             stockAdrCountVo.setBreakPctDown102(breakMa.getBreakPctDown());
+            stockAdrCountVo.setMaBreakDownMax102(breakMa.isMaBreakDownMax() ? klt : "");
+            stockAdrCountVo.setBreakCountDownMax102(breakMa.getBreakCountDownMax());
         }
     }
 
@@ -1740,6 +1780,7 @@ public class KlineService {
         String orderField = condMa.getOrderField();
         boolean isOrderDesc = condMa.getOrderDesc();
         boolean isShowDownMa = condMa.getShowDownMa();
+        Boolean isShowDownMaMax = condMa.getShowBreakDownMaMax();
         boolean isShowFlowIn = condMa.getShowFlowIn();
         Boolean isShowMaxMin = condMa.getShowMaxMin();
         Boolean isShowDateMinMax = condMa.getShowDateMinMax();//是否显示日最低点、最高点
@@ -1773,7 +1814,7 @@ public class KlineService {
 
             int showSize = 6;
             if (isShowUpMa) {
-                System.out.print("上均线：");//显示信息-价格区间
+                System.out.print("上均 ");//显示信息-价格区间
                 if (kltList.contains(KLT_5)) {
                     String upMa = stockAdrCountVo.getUpMaDay5();
                     int breakCountUp = stockAdrCountVo.getBreakCountUp5();//突破均线次数
@@ -1833,7 +1874,7 @@ public class KlineService {
             }
 
             if (isShowDownMa) {
-                System.out.print("下均线：");//显示信息-价格区间
+                System.out.print("下均 ");//显示信息-价格区间
                 if (kltList.contains(KLT_5)) {
                     String upMa = stockAdrCountVo.getMaDownDay5();
 //                    System.out.print(StockUtil.formatStr(upMa, 4));
@@ -1886,6 +1927,64 @@ public class KlineService {
                     int breakCountDown = stockAdrCountVo.getBreakCountDown102();//突破均线次数
                     if (StringUtils.isNotBlank(upMa)) {
                         System.out.print(StockUtil.formatStr(upMa + ":" + breakCountDown, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
+                }
+            }
+
+            if (isShowDownMaMax != null && isShowDownMaMax) {//是否查询向下跌破均线-最高净值
+                System.out.print("高下均 ");
+                if (kltList.contains(KLT_5)) {
+                    String breakDownMax = stockAdrCountVo.getMaBreakDownMax5();
+                    int breakCountDown = stockAdrCountVo.getBreakCountDownMax5();//突破均线次数
+                    if (StringUtils.isNotBlank(breakDownMax)) {
+                        System.out.print(StockUtil.formatStr(breakDownMax + ":" + breakCountDown, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
+                }
+                if (kltList.contains(KLT_15)) {
+                    String breakDownMax = stockAdrCountVo.getMaBreakDownMax15();
+                    int breakCountDown = stockAdrCountVo.getBreakCountDownMax15();//突破均线次数
+                    if (StringUtils.isNotBlank(breakDownMax)) {
+                        System.out.print(StockUtil.formatStr(breakDownMax + ":" + breakCountDown, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
+                }
+                if (kltList.contains(KLT_30)) {
+                    String breakDownMax = stockAdrCountVo.getMaBreakDownMax30();
+                    int breakCountDown = stockAdrCountVo.getBreakCountDownMax30();//突破均线次数
+                    if (StringUtils.isNotBlank(breakDownMax)) {
+                        System.out.print(StockUtil.formatStr(breakDownMax + ":" + breakCountDown, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
+                }
+                if (kltList.contains(KLT_60)) {
+                    String breakDownMax = stockAdrCountVo.getMaBreakDownMax60();
+                    int breakCountDown = stockAdrCountVo.getBreakCountDownMax60();//突破均线次数
+                    if (StringUtils.isNotBlank(breakDownMax)) {
+                        System.out.print(StockUtil.formatStr(breakDownMax + ":" + breakCountDown, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
+                }
+                if (kltList.contains(KLT_101)) {
+                    String breakDownMax = stockAdrCountVo.getMaBreakDownMax101();
+                    int breakCountDown = stockAdrCountVo.getBreakCountDownMax101();//突破均线次数
+                    if (StringUtils.isNotBlank(breakDownMax)) {
+                        System.out.print(StockUtil.formatStr(breakDownMax + ":" + breakCountDown, showSize));
+                    } else {
+                        System.out.print(StockUtil.formatStr("", showSize));
+                    }
+                }
+                if (kltList.contains(KLT_102)) {
+                    String breakDownMax = stockAdrCountVo.getMaBreakDownMax102();
+                    int breakCountDown = stockAdrCountVo.getBreakCountDownMax102();//突破均线次数
+                    if (StringUtils.isNotBlank(breakDownMax)) {
+                        System.out.print(StockUtil.formatStr(breakDownMax + ":" + breakCountDown, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1985,9 +2084,9 @@ public class KlineService {
         StringBuffer sb = new StringBuffer();
         List<Kline> klineList = getKlineListByDate(date, code, null, KLT_5);
         klineList = klineList.stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getCloseAmt, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
-        sb.append("最低点：").append(getTimeByOrderNo(klineList, 0)).append(" ");
+        sb.append("低时:").append(getTimeByOrderNo(klineList, 0)).append(" ");
         List<Kline> klineListDesc = klineList.stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getCloseAmt, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
-        sb.append("最高点：").append(getTimeByOrderNo(klineListDesc, 0)).append(" ");
+        sb.append("高时:").append(getTimeByOrderNo(klineListDesc, 0)).append(" ");
         System.out.print(sb);
     }
 

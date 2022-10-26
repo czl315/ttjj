@@ -88,8 +88,8 @@ public class HttpUtil {
 //            connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             connection.setRequestProperty("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36");
             connection.setRequestProperty("Cookie", cookie);
-            connection.setConnectTimeout(3000);
-            connection.setReadTimeout(3000);
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
             // 建立实际的连接
             connection.connect();
 
@@ -106,11 +106,11 @@ public class HttpUtil {
                 result += line;
             }
         } catch (Exception e) {
-//            System.out.println("/**发送GET请求出现异常！");
-//            System.out.println(urlNameString);
+            System.out.println("/**发送GET请求出现异常！");
+            System.out.println(urlNameString);
+            e.printStackTrace();
 //            System.out.println(e);
 //            throw new RuntimeException();
-            e.printStackTrace();
         }
         // 使用finally块来关闭输入流
         finally {

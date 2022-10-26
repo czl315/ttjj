@@ -34,7 +34,7 @@ public class StockAdrCountControl {
         String spBizName = null;//特定业务：半导体 "半导体"
 //        String spBizName = "电力行业";//特定业务：半导体 "半导体"
         int begBiz = 0;//map的开始，中断后使用，默认可设置为0
-        BigDecimal mvMin = NUM_YI_50;//NUM_YI_1000  NUM_YI_50  NUM_YI_100
+        BigDecimal mvMin = NUM_YI_40;//NUM_YI_1000  NUM_YI_50  NUM_YI_100
         BigDecimal mvMax = null;
         List<String> maKltList = Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101, KLT_102);//价格区间周期列表
 //        List<String> maKltList = Arrays.asList(KLT_102, KLT_101, KLT_60);//价格区间周期列表
@@ -56,7 +56,7 @@ public class StockAdrCountControl {
 //        save(date, bizList, false, spBizName, stockAdrCountCond);
         updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
 
-        //        更新涨和+涨序，用时：1185
+        //        更新涨和+涨序(50亿以上)，用时：1185
 //        更新均值+区间，用时：1790 1643 1527 1844
 //        更新涨和+涨序+均值+区间，用时：3225
 

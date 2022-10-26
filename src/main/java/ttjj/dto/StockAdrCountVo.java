@@ -49,6 +49,30 @@ public class StockAdrCountVo extends StockAdrCount {
      */
     private String maDownDay5;
     /**
+     * 突破均线-向下-5-最高净值
+     */
+    private String maBreakDownMax5;
+    /**
+     * maBreakDownMax15
+     */
+    private String maBreakDownMax15;
+    /**
+     * maBreakDownMax30
+     */
+    private String maBreakDownMax30;
+    /**
+     * maBreakDownMax60
+     */
+    private String maBreakDownMax60;
+    /**
+     * maBreakDownMax101
+     */
+    private String maBreakDownMax101;
+    /**
+     * maBreakDownMax102
+     */
+    private String maBreakDownMax102;
+    /**
      * maDownDay15
      */
     private String maDownDay15;
@@ -110,6 +134,30 @@ public class StockAdrCountVo extends StockAdrCount {
      * 突破均线次数-向下
      */
     private int breakCountDown5;
+    /**
+     * 突破均线次数-向下-最高净值
+     */
+    private int breakCountDownMax5;
+    /**
+     * 突破均线次数-向下-最高净值
+     */
+    private int breakCountDownMax15;
+    /**
+     * 突破均线次数-向下-最高净值
+     */
+    private int breakCountDownMax30;
+    /**
+     * 突破均线次数-向下-最高净值
+     */
+    private int breakCountDownMax60;
+    /**
+     * 突破均线次数-向下-最高净值
+     */
+    private int breakCountDownMax101;
+    /**
+     * 突破均线次数-向下-最高净值
+     */
+    private int breakCountDownMax102;
     /**
      * 突破均线次数-向下
      */
@@ -505,5 +553,101 @@ public class StockAdrCountVo extends StockAdrCount {
 
     public void setBreakPctDown102(BigDecimal breakPctDown102) {
         this.breakPctDown102 = breakPctDown102;
+    }
+
+    public String getMaBreakDownMax5() {
+        return maBreakDownMax5;
+    }
+
+    public void setMaBreakDownMax5(String maBreakDownMax5) {
+        this.maBreakDownMax5 = maBreakDownMax5;
+    }
+
+    public String getMaBreakDownMax15() {
+        return maBreakDownMax15;
+    }
+
+    public void setMaBreakDownMax15(String maBreakDownMax15) {
+        this.maBreakDownMax15 = maBreakDownMax15;
+    }
+
+    public String getMaBreakDownMax30() {
+        return maBreakDownMax30;
+    }
+
+    public void setMaBreakDownMax30(String maBreakDownMax30) {
+        this.maBreakDownMax30 = maBreakDownMax30;
+    }
+
+    public String getMaBreakDownMax60() {
+        return maBreakDownMax60;
+    }
+
+    public void setMaBreakDownMax60(String maBreakDownMax60) {
+        this.maBreakDownMax60 = maBreakDownMax60;
+    }
+
+    public String getMaBreakDownMax101() {
+        return maBreakDownMax101;
+    }
+
+    public void setMaBreakDownMax101(String maBreakDownMax101) {
+        this.maBreakDownMax101 = maBreakDownMax101;
+    }
+
+    public String getMaBreakDownMax102() {
+        return maBreakDownMax102;
+    }
+
+    public void setMaBreakDownMax102(String maBreakDownMax102) {
+        this.maBreakDownMax102 = maBreakDownMax102;
+    }
+
+    public int getBreakCountDownMax5() {
+        return breakCountDownMax5;
+    }
+
+    public void setBreakCountDownMax5(int breakCountDownMax5) {
+        this.breakCountDownMax5 = breakCountDownMax5;
+    }
+
+    public int getBreakCountDownMax15() {
+        return breakCountDownMax15;
+    }
+
+    public void setBreakCountDownMax15(int breakCountDownMax15) {
+        this.breakCountDownMax15 = breakCountDownMax15;
+    }
+
+    public int getBreakCountDownMax30() {
+        return breakCountDownMax30;
+    }
+
+    public void setBreakCountDownMax30(int breakCountDownMax30) {
+        this.breakCountDownMax30 = breakCountDownMax30;
+    }
+
+    public int getBreakCountDownMax60() {
+        return breakCountDownMax60;
+    }
+
+    public void setBreakCountDownMax60(int breakCountDownMax60) {
+        this.breakCountDownMax60 = breakCountDownMax60;
+    }
+
+    public int getBreakCountDownMax101() {
+        return breakCountDownMax101;
+    }
+
+    public void setBreakCountDownMax101(int breakCountDownMax101) {
+        this.breakCountDownMax101 = breakCountDownMax101;
+    }
+
+    public int getBreakCountDownMax102() {
+        return breakCountDownMax102;
+    }
+
+    public void setBreakCountDownMax102(int breakCountDownMax102) {
+        this.breakCountDownMax102 = breakCountDownMax102;
     }
 }
