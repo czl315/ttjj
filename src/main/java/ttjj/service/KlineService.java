@@ -2030,10 +2030,10 @@ public class KlineService {
             if (isShowMaxMin != null && isShowMaxMin) {
                 StringBuffer sbMaxMin = new StringBuffer();
                 BigDecimal yesterdayAmt = stockAdrCountVo.getF18();
-                sbMaxMin.append("回撤：").append(stockAdrCountVo.getMaxDown()).append(" ");
-                sbMaxMin.append("低涨：").append(stockAdrCountVo.getMinRise()).append(" ");
-                sbMaxMin.append("最高：").append(StockUtil.formatDouble(stockAdrCountVo.getF15().subtract(yesterdayAmt).divide(yesterdayAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_UP), 5)).append(" ");
-                sbMaxMin.append("最低：").append(StockUtil.formatDouble(stockAdrCountVo.getF16().subtract(yesterdayAmt).divide(yesterdayAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_UP), 5)).append(" ");
+                sbMaxMin.append("撤:").append(stockAdrCountVo.getMaxDown()).append(" ");
+                sbMaxMin.append("低涨:").append(stockAdrCountVo.getMinRise()).append(" ");
+                sbMaxMin.append("高:").append(StockUtil.formatDouble(stockAdrCountVo.getF15().subtract(yesterdayAmt).divide(yesterdayAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_UP), 5)).append(" ");
+                sbMaxMin.append("低:").append(StockUtil.formatDouble(stockAdrCountVo.getF16().subtract(yesterdayAmt).divide(yesterdayAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, RoundingMode.HALF_UP), 5)).append(" ");
                 sbMaxMin.append("\t");
                 System.out.print(sbMaxMin);
             }
