@@ -23,8 +23,13 @@ public class BizEtfStat {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-10-26";
 
-        showEtfUpMa(date);//etf-超过均线
-//        statListEtfAdrArea(null);//计算区间涨幅
+//        showEtfUpMa(date);//etf-超过均线
+
+        statListEtfAdrArea(4);//计算区间涨幅
+        statListEtfAdrArea(10);//计算区间涨幅
+        statListEtfAdrArea(20);//计算区间涨幅
+        statListEtfAdrArea(40);//计算区间涨幅
+        statListEtfAdrArea(60);//计算区间涨幅
 
 //        showEtfMv(date);//显示etf市值
 //        statDayMinMaxTime(date);//k线：每日最高点、最低点
@@ -38,9 +43,11 @@ public class BizEtfStat {
      */
     private static void statListEtfAdrArea(Integer areaDays) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-10-19";
+//        String date = "2022-10-28";
 
-        areaDays = 60;//4:近一周;20:近一月
+        if (areaDays == null) {
+            areaDays = 60;//4:近一周;20:近一月
+        }
         int limit = 500;
 
         BigDecimal mvMin = null;//NUM_YI_1000  NUM_YI_50  NUM_YI_100    NUM_YI_0
@@ -180,12 +187,15 @@ public class BizEtfStat {
 
     /**
      * 获取主要etf
+     *
      * @return
      */
     private static List getMainEtf() {
 //        return new ArrayList<>(ETF_All.keySet());
-        return new ArrayList<>(ContMapEtf.ZHISHU_MORE.keySet());
-//        return new ArrayList<>(ContMapEtf.ZHISHU_ALL.keySet());
+        return new ArrayList<>(ContMapEtf.INDEX_MORE.keySet());
+//        return new ArrayList<>(ContMapEtf.INDEX_ALL.keySet());
+//        return new ArrayList<>(ContMapEtf.INDEX_MORE_NOT_CN.keySet());
+//        return new ArrayList<>(ContMapEtf.INDEX_MORE_CN.keySet());
     }
 
 
@@ -423,7 +433,7 @@ public class BizEtfStat {
         condMa.setMapStock(ContMapEtf.JINRONG_MORE);
         KlineService.showStockMa(condMa);
         System.out.println("指数：");
-        condMa.setMapStock(ContMapEtf.ZHISHU_MORE);
+        condMa.setMapStock(ContMapEtf.INDEX_MORE);
         KlineService.showStockMa(condMa);
 
         System.out.println("etf-检查均线-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0) + "，用时：" + (System.currentTimeMillis() - begTime) / 1000);
