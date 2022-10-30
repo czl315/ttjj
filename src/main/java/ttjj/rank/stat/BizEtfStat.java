@@ -25,11 +25,12 @@ public class BizEtfStat {
 
 //        showEtfUpMa(date);//etf-超过均线
 
-        statListEtfAdrArea(4);//计算区间涨幅
-        statListEtfAdrArea(10);//计算区间涨幅
-        statListEtfAdrArea(20);//计算区间涨幅
-        statListEtfAdrArea(40);//计算区间涨幅
-        statListEtfAdrArea(60);//计算区间涨幅
+        statListEtfAdrArea(null);//计算区间涨幅
+//        statListEtfAdrArea(4);//计算区间涨幅
+//        statListEtfAdrArea(10);//计算区间涨幅
+//        statListEtfAdrArea(20);//计算区间涨幅
+//        statListEtfAdrArea(40);//计算区间涨幅
+//        statListEtfAdrArea(60);//计算区间涨幅
 
 //        showEtfMv(date);//显示etf市值
 //        statDayMinMaxTime(date);//k线：每日最高点、最低点
@@ -46,7 +47,7 @@ public class BizEtfStat {
 //        String date = "2022-10-28";
 
         if (areaDays == null) {
-            areaDays = 60;//4:近一周;20:近一月
+            areaDays = 4;//4:近一周;20:近一月
         }
         int limit = 500;
 
