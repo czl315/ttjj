@@ -46,6 +46,7 @@ public interface KlineMapper {
             ");",
             "</script>"})
     void insert(Kline entity);
+
     @Update({"<script>",
             "update kline",
             "  <set>",
@@ -112,6 +113,7 @@ public interface KlineMapper {
             " LIMIT 100 ",
             "</script>"})
     int deleteByCondition(Kline condition);
+
     /**
      * 查询-涨跌次数
      *
@@ -170,6 +172,12 @@ public interface KlineMapper {
             "   </if> ",
             "   <if test='ktime != null'> ",
             "       <![CDATA[ AND kline.ktime = #{ktime} ]]> ",
+            "   </if> ",
+            "   <if test='stCodeList != null'> ",
+            "   AND kline.zqdm IN  ",
+            "   <foreach collection='stCodeList' item='item' open='(' separator=',' close=')'>  ",
+            "       #{item} ",
+            "   </foreach> ",
             "   </if> ",
             " ORDER BY ",
             "   kline.zhangDieFu DESC  ",

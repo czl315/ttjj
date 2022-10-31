@@ -16,7 +16,7 @@ public class ContMapEtf {
      * etf-市值-指数-A50
      */
     public static Map<String, String> ETF_MV_ZS_A50 = new HashMap<>();
-    public static Map<String, String> ETF_MV_ZS_ZZ100= new HashMap<>();
+    public static Map<String, String> ETF_MV_ZS_ZZ100 = new HashMap<>();
     public static Map<String, String> ETF_MV_ZS_HS300 = new HashMap<>();
     public static Map<String, String> ETF_MV_ZS_ZZ500 = new HashMap<>();
     public static Map<String, String> ETF_MV_ZS_KCB = new HashMap<>();
@@ -31,12 +31,15 @@ public class ContMapEtf {
     static {
         ETF_MV_ZS_A50.put("510050", "上证50ETF");//上证50ETF
     }
+
     static {
         ETF_MV_ZS_ZZ100.put("562000", "华宝中证100ETF");//华宝中证100ETF
     }
+
     static {
         ETF_MV_ZS_ZS180.put("510180", "上证180ETF");//上证180ETF
     }
+
     static {
         ETF_MV_ZS_HS300.put("510300", "沪深300ETF");//沪深300ETF
 //        ETF_MV_ZS_HS300.put("510330", "209.41");//300ETF基金
@@ -86,6 +89,7 @@ public class ContMapEtf {
 //        ETF_MV_ZS_CYB.put("588380", "19.12");//创50ETF
 //        ETF_MV.put("159952", "18.22");//创业板ETF广发
     }
+
     static {
         ETF_MV_ZS_SC.put("159781", "双创50ETF");//双创50ETF
 //        ETF_MV_ZS_SC.put("159783", "45.56");//双创基金ETF
@@ -93,7 +97,6 @@ public class ContMapEtf {
 //        ETF_MV_ZS_SC.put("588400", "18.82");//双创50ETF
 //        ETF_MV_ZS_SC.put("588300", "15.63");//双创ETF
     }
-
 
 
     static {
@@ -117,18 +120,19 @@ public class ContMapEtf {
      * etf-市值-指数
      */
     public static Map<String, String> ETF_ZS = new HashMap<>();
+
     static {
-        ETF_ZS.put("512100", "中证1000ETF");		//103.53	0.19
-        ETF_ZS.put("510500", "中证500ETF");		//375.91	0.17
+        ETF_ZS.put("512100", "中证1000ETF");        //103.53	0.19
+        ETF_ZS.put("510500", "中证500ETF");        //375.91	0.17
 //        ETF_ZS.put("159901", "深证100ETF易方达");		//65.12	-0.12
-        ETF_ZS.put("510300", "沪深300ETF");		//434.68	-0.24
-        ETF_ZS.put("510050", "上证50ETF");		//492.63	-0.5
-        ETF_ZS.put("159949", "创业板50ETF");		//89.61	-0.51
-        ETF_ZS.put("159920", "恒生ETF");		//136.84	-0.54
-        ETF_ZS.put("159941", "纳指ETF");		//120.13	-0.72
+        ETF_ZS.put("510300", "沪深300ETF");        //434.68	-0.24
+        ETF_ZS.put("510050", "上证50ETF");        //492.63	-0.5
+        ETF_ZS.put("159949", "创业板50ETF");        //89.61	-0.51
+        ETF_ZS.put("159920", "恒生ETF");        //136.84	-0.54
+        ETF_ZS.put("159941", "纳指ETF");        //120.13	-0.72
 //        ETF_ZS.put("513500", "标普500ETF");		//74.86	-0.38
 //        ETF_ZS.put("159781", "双创50ETF");		//63.51	-0.74
-        ETF_ZS.put("588000", "科创50ETF");		//305.66	-1.23
+        ETF_ZS.put("588000", "科创50ETF");        //305.66	-1.23
 //        ETF_ZS.put("562000", "华宝中证100ETF");		//5.05	-0.41
 //        ETF_ZS.put("510180", "上证180ETF");		//199.61	-0.36
 
@@ -147,14 +151,17 @@ public class ContMapEtf {
     }
 
     public static Map<String, String> INDEX_MORE_NOT_CN = new HashMap<>();//指数-较多-非中国
-    static{
+
+    static {
         INDEX_MORE_NOT_CN.put("513080", "法国CAC40ETF    ");//1    513080  法国CAC40ETF    4.08%     0.64          2022-07-25    2022-10-25
         INDEX_MORE_NOT_CN.put("513030", "德国ETF         ");//2    513030  德国ETF         2.40%     6.11          2022-07-25    2022-10-25
         INDEX_MORE_NOT_CN.put("513500", "标普500ETF      ");//3    513500  标普500ETF      1.34%     83.39         2022-07-25    2022-10-25
         INDEX_MORE_NOT_CN.put("159941", "纳指ETF         ");//4    159941  纳指ETF         -1.53%    115.89        2022-07-25    2022-10-25
         INDEX_MORE_NOT_CN.put("513880", "日经225ETF      ");//2    513880  日经225ETF      -1.22%    0.53          2022-07-28    2022-10-28
     }
+
     public static Map<String, String> INDEX_MORE_CN = new HashMap<>();//指数-较多-中国
+
     static {
         //        INDEX_MORE_CN.put("512750", "基本面50ETF     ");//9    512750  基本面50ETF     -7.46%    1.19          2022-07-25    2022-10-25
         INDEX_MORE_CN.put("159966", "创蓝筹ETF       ");//10   159966  创蓝筹ETF       -8.06%    5.06          2022-07-25    2022-10-25
@@ -180,13 +187,15 @@ public class ContMapEtf {
 //        INDEX_MORE_CN.put("510900", "H股ETF          ");//24   510900  H股ETF          -20.95%   75.26         2022-07-25    2022-10-25
         INDEX_MORE_CN.put("159920", "恒生ETF         ");//25   159920  恒生ETF         -21.45%   151.72        2022-07-25    2022-10-25
     }
+
     public static Map<String, String> INDEX_MORE = new HashMap<>();//指数
+
     static {
         INDEX_MORE.putAll(INDEX_MORE_NOT_CN);
         INDEX_MORE.putAll(INDEX_MORE_CN);
     }
 
-    public static Map<String, String> INDEX_ALL_NOT_CN= new HashMap<>();//指数-全部-etf-国外指数
+    public static Map<String, String> INDEX_ALL_NOT_CN = new HashMap<>();//指数-全部-etf-国外指数
     static {
         INDEX_ALL_NOT_CN.put("513300", "指数");//1    513300  纳斯达克ETF     -4.07%    11.72         2022-07-21    2022-10-21
         INDEX_ALL_NOT_CN.put("159941", "指数");//2    159941  纳指ETF         -4.22%    110.10        2022-07-21    2022-10-21
@@ -204,7 +213,9 @@ public class ContMapEtf {
         INDEX_ALL_NOT_CN.put("513880", "指数");//15   513880  日经225ETF      -3.18%    0.50          2022-07-21    2022-10-21
         INDEX_ALL_NOT_CN.put("513000", "指数");//17   513000  日经225ETF易方达-3.43%    0.60          2022-07-21    2022-10-21
     }
-    public static Map<String, String> INDEX_ALL_CN_H= new HashMap<>();//指数-全部-香港指数
+
+    public static Map<String, String> INDEX_ALL_CN_H = new HashMap<>();//指数-全部-香港指数
+
     static {
         INDEX_ALL_CN_H.put("513990", "指数");//1    513990  港股通ETF       -16.03%   0.58          2022-07-21    2022-10-21
         INDEX_ALL_CN_H.put("159954", "指数");//2    159954  H股ETF          -16.09%   2.15          2022-07-21    2022-10-21
@@ -228,7 +239,7 @@ public class ContMapEtf {
         INDEX_ALL_CN_H.put("517270", "指数");//2    517270  沪港深科技TOPETF-15.55%   0.28          2022-07-21    2022-10-21
     }
 
-    public static Map<String, String> INDEX_ALL= new HashMap<>();//指数-全部-etf
+    public static Map<String, String> INDEX_ALL = new HashMap<>();//指数-全部-etf
     static {
         INDEX_ALL.putAll(INDEX_ALL_NOT_CN);
         INDEX_ALL.putAll(INDEX_ALL_CN_H);
@@ -419,6 +430,7 @@ public class ContMapEtf {
      * 科技-最少元素
      */
     public static Map<String, String> KEJI = new HashMap<>();
+
     static {
 //        KEJI.put("159967", "创成长ETF     ");//29.98   	0.15
         KEJI.put("515790", "光伏ETF       ");//147.52  	-0.18
@@ -494,7 +506,9 @@ public class ContMapEtf {
 //        KEJI.put("588330", "11.38");//双创龙头ETF
 //        KEJI.put("159740", "10.19");//恒生科技ETF
     }
+
     public static Map<String, String> KEJI_MORE = new HashMap<>();
+
     static {
         KEJI_MORE.put("513360", "教育ETF         ");//1    513360  教育ETF         5.26%     5.10          2022-07-22    2022-10-24
         KEJI_MORE.put("159852", "软件ETF         ");//2    159852  软件ETF         -0.76%    3.15          2022-07-22    2022-10-24
@@ -513,7 +527,7 @@ public class ContMapEtf {
         KEJI_MORE.put("159819", "人工智能ETF     ");//15   159819  人工智能ETF     -13.55%   13.76         2022-07-22    2022-10-24
         KEJI_MORE.put("512480", "半导体ETF       ");//16   512480  半导体ETF       -14.08%   128.60        2022-07-22    2022-10-24
         KEJI_MORE.put("159790", "碳中和ETF       ");//17   159790  碳中和ETF       -15.59%   28.58         2022-07-22    2022-10-24
-        KEJI_MORE.put("517050", "互联网50ETF     ");//18   517050  互联网50ETF     -15.97%   5.30          2022-07-22    2022-10-24
+//        KEJI_MORE.put("517050", "互联网50ETF     ");//18   517050  互联网50ETF     -15.97%   5.30          2022-07-22    2022-10-24
         KEJI_MORE.put("159995", "芯片ETF         ");//19   159995  芯片ETF         -16.32%   181.40        2022-07-22    2022-10-24
         KEJI_MORE.put("515050", "5GETF           ");//20   515050  5GETF           -16.38%   81.08         2022-07-22    2022-10-24
         KEJI_MORE.put("516160", "新能源ETF       ");//21   516160  新能源ETF       -16.73%   25.44         2022-07-22    2022-10-24
@@ -526,6 +540,7 @@ public class ContMapEtf {
     }
 
     public static Map<String, String> ZIYUAN = new HashMap<>();//资源
+
     static {
         ZIYUAN.put("515220", "煤炭ETF       ");//51.65   	1.62
         ZIYUAN.put("159930", "能源ETF       ");//2.67    	1.41
@@ -537,7 +552,9 @@ public class ContMapEtf {
 //        ZIYUAN.put("159825", "农业ETF       ");//17.63   	0.41
         ZIYUAN.put("159985", "豆粕ETF");//豆粕ETF	159985	2.43
     }
+
     public static Map<String, String> ZIYUAN_MORE = new HashMap<>();//资源
+
     static {
         ZIYUAN_MORE.put("159985", "豆粕ETF         ");//1    159985  豆粕ETF         16.30%    2.90          2022-07-22    2022-10-24
         ZIYUAN_MORE.put("159930", "能源ETF         ");//2    159930  能源ETF         9.85%     4.47          2022-07-22    2022-10-24
@@ -554,6 +571,7 @@ public class ContMapEtf {
 
     //金融
     public static Map<String, String> JINRONG = new HashMap<>();
+
     static {
 //        JINRONG.put("510880", "红利ETF       ");//166.99  	0.6
         JINRONG.put("512200", "房地产ETF     ");//52.10   	-0.14
@@ -601,11 +619,13 @@ public class ContMapEtf {
 //        JINRONG.put("511020", "11.94");//活跃国债ETF
 //        JINRONG.put("513090", "11.86");//香港证券ETF
     }
+
     public static Map<String, String> JINRONG_MORE = new HashMap<>();//金融
+
     static {
         JINRONG_MORE.put("518880", "黄金ETF         ");//1    518880  黄金ETF         5.33%     87.56         2022-07-22    2022-10-24
         JINRONG_MORE.put("510880", "红利ETF         ");//2    510880  红利ETF         2.19%     140.50        2022-07-22    2022-10-24
-        JINRONG_MORE.put("511880", "银华日利ETF     ");//4    511880  银华日利ETF     0.38%     1364.23       2022-07-22    2022-10-24
+//        JINRONG_MORE.put("511880", "银华日利ETF     ");//4    511880  银华日利ETF     0.38%     1364.23       2022-07-22    2022-10-24
         JINRONG_MORE.put("511030", "公司债ETF       ");//5    511030  公司债ETF       -0.91%    52.42         2022-07-22    2022-10-24
         JINRONG_MORE.put("511380", "可转债ETF       ");//6    511380  可转债ETF       -3.04%    13.42         2022-07-22    2022-10-24
         JINRONG_MORE.put("512200", "房地产ETF       ");//7    512200  房地产ETF       -3.32%    44.38         2022-07-22    2022-10-24
@@ -618,6 +638,7 @@ public class ContMapEtf {
 
     //医疗
     public static Map<String, String> YILIAO = new HashMap<>();
+
     static {
 //        YILIAO.put("513060", "恒生医疗ETF   ");//55.08   	-0.18
         YILIAO.put("512170", "医疗ETF       ");//148.20  	-0.37
@@ -633,7 +654,9 @@ public class ContMapEtf {
 //        YILIAO.put("159859", "12.95");//生物医药ETF
 //        YILIAO.put("159929", "10.15");//医药ETF
     }
+
     public static Map<String, String> YILIAO_MORE = new HashMap<>();//医疗
+
     static {
         YILIAO_MORE.put("159883", "医疗器械ETF     ");//1    159883  医疗器械ETF     2.64%     18.02         2022-07-22    2022-10-24
         YILIAO_MORE.put("512170", "医疗ETF         ");//2    512170  医疗ETF         -9.25%    170.43        2022-07-22    2022-10-24
@@ -643,6 +666,7 @@ public class ContMapEtf {
 
     //消费
     public static Map<String, String> XIAOFEI = new HashMap<>();
+
     static {
         XIAOFEI.put("159996", "家电ETF       ");//27.23   	0.65
 //        XIAOFEI.put("515170", "食品饮料ETF   ");//39.01   	-0.26
@@ -660,16 +684,167 @@ public class ContMapEtf {
 
 //        XIAOFEI.put("560880", "11.53");//家电ETF基金
     }
+
     public static Map<String, String> XIAOFEI_MORE = new HashMap<>();//消费
+
     static {
-        XIAOFEI_MORE.put("516530", "物流快递ETF     ");//1    516530  物流快递ETF     -0.11%    0.95          2022-07-22    2022-10-24
-        XIAOFEI_MORE.put("159766", "旅游ETF         ");//2    159766  旅游ETF         -6.03%    19.43         2022-07-22    2022-10-24
-        XIAOFEI_MORE.put("159928", "消费ETF         ");//3    159928  消费ETF         -12.33%   94.45         2022-07-22    2022-10-24
-        XIAOFEI_MORE.put("159996", "家电ETF         ");//4    159996  家电ETF         -13.12%   20.16         2022-07-22    2022-10-24
-        XIAOFEI_MORE.put("512690", "酒ETF           ");//5    512690  酒ETF           -13.65%   98.31         2022-07-22    2022-10-24
-        XIAOFEI_MORE.put("159736", "饮食ETF         ");//6    159736  饮食ETF         -13.92%   67.55         2022-07-22    2022-10-24
-        XIAOFEI_MORE.put("512980", "传媒ETF         ");//7    512980  传媒ETF         -14.98%   44.36         2022-07-22    2022-10-24
+        XIAOFEI_MORE.put("516530", "物流快递ETF     ");//1    516530  物流快递ETF     -10.57%   0.85          2022-07-29    2022-10-31
+        XIAOFEI_MORE.put("159766", "旅游ETF         ");//2    159766  旅游ETF         -11.06%   18.23         2022-07-29    2022-10-31
+        XIAOFEI_MORE.put("159869", "游戏ETF         ");//3    159869  游戏ETF         -15.09%   6.04          2022-07-29    2022-10-31
+//        XIAOFEI_MORE.put("561100", "消费电子龙头ETF ");//4    561100  消费电子龙头ETF -15.18%   1.92          2022-07-29    2022-10-31
+        XIAOFEI_MORE.put("159855", "影视ETF         ");//5    159855  影视ETF         -15.65%   0.82          2022-07-29    2022-10-31
+        XIAOFEI_MORE.put("512980", "传媒ETF         ");//6    512980  传媒ETF         -17.24%   42.99         2022-07-29    2022-10-31
+        XIAOFEI_MORE.put("159996", "家电ETF         ");//7    159996  家电ETF         -20.40%   17.74         2022-07-29    2022-10-31
+        XIAOFEI_MORE.put("159928", "消费ETF         ");//8    159928  消费ETF         -21.83%   84.35         2022-07-29    2022-10-31
+        XIAOFEI_MORE.put("159736", "饮食ETF         ");//9    159736  饮食ETF         -23.57%   59.65         2022-07-29    2022-10-31
+        XIAOFEI_MORE.put("512690", "酒ETF           ");//10   512690  酒ETF           -24.00%   89.94         2022-07-29    2022-10-31
     }
+
+    public static Map<String, String> XIAOFEI_ALL = new HashMap<>();//消费
+
+    static {
+        XIAOFEI.put("159736", "消费");//1    159736  饮食ETF         -14.88%   67.30         2022-07-21    2022-10-21
+        XIAOFEI.put("159789", "消费");//2    159789  饮料ETF         -14.92%   0.56          2022-07-21    2022-10-21
+        XIAOFEI.put("516900", "消费");//3    516900  食品50ETF       -15.12%   0.34          2022-07-21    2022-10-21
+        XIAOFEI.put("159862", "消费");//4    159862  食品ETF         -15.24%   0.58          2022-07-21    2022-10-21
+        XIAOFEI.put("159843", "消费");//5    159843  食品饮料ETF     -15.26%   2.41          2022-07-21    2022-10-21
+        XIAOFEI.put("515710", "消费");//6    515710  食品ETF         -15.41%   9.35          2022-07-21    2022-10-21
+        XIAOFEI.put("515170", "消费");//7    515170  食品饮料ETF     -15.74%   38.43         2022-07-21    2022-10-21
+
+        XIAOFEI.put("512690", "消费");//1    512690  酒ETF           -15.09%   97.03         2022-07-21    2022-10-21
+
+        XIAOFEI.put("561130", "消费");//2    561130  国货ETF         -13.94%   2.15          2022-07-21    2022-10-21
+
+        XIAOFEI.put("159805", "消费");//1    159805  传媒ETF         -13.83%   1.68          2022-07-21    2022-10-21
+        XIAOFEI.put("516770", "消费");//2    516770  游戏动漫ETF     -14.02%   1.02          2022-07-21    2022-10-21
+        XIAOFEI.put("516010", "消费");//3    516010  游戏ETF         -14.30%   3.82          2022-07-21    2022-10-21
+        XIAOFEI.put("512980", "消费");//4    512980  传媒ETF         -14.47%   44.11         2022-07-21    2022-10-21
+        XIAOFEI.put("159869", "消费");//5    159869  游戏ETF         -14.66%   6.25          2022-07-21    2022-10-21
+        XIAOFEI.put("516190", "消费");//6    516190  文娱传媒ETF     -14.75%   0.13          2022-07-21    2022-10-21
+        XIAOFEI.put("517500", "消费");//7    517500  游戏沪港深ETF   -15.44%   0.51          2022-07-21    2022-10-21
+        XIAOFEI.put("517770", "消费");//8    517770  游戏传媒ETF     -19.13%   0.28          2022-07-21    2022-10-21
+        XIAOFEI.put("159786", "消费");//4    159786  VRETF           -14.21%   2.47          2022-07-21    2022-10-21
+
+        XIAOFEI.put("159855", "消费");//44   159855  影视ETF         -13.05%   0.83          2022-07-21    2022-10-21
+        XIAOFEI.put("516620", "消费");//3    516620  影视ETF         -14.08%   0.96          2022-07-21    2022-10-21
+
+        XIAOFEI.put("516600", "消费");//1    516600  消费服务ETF     -11.57%   1.07          2022-07-21    2022-10-21
+        XIAOFEI.put("159725", "消费");//2    159725  线上消费ETF     -11.85%   0.59          2022-07-21    2022-10-21
+        XIAOFEI.put("512600", "消费");//3    512600  必选消费ETF     -11.89%   5.98          2022-07-21    2022-10-21
+        XIAOFEI.put("159728", "消费");//4    159728  在线消费ETF     -12.20%   0.33          2022-07-21    2022-10-21
+        XIAOFEI.put("159928", "消费");//5    159928  消费ETF         -12.33%   95.06         2022-07-21    2022-10-21
+        XIAOFEI.put("510150", "消费");//8    510150  消费ETF         -13.49%   11.64         2022-07-21    2022-10-21
+        XIAOFEI.put("510630", "消费");//10   510630  消费30ETF       -13.64%   3.96          2022-07-21    2022-10-21
+        XIAOFEI.put("159798", "消费");//16   159798  消费50ETF       -15.25%   0.61          2022-07-21    2022-10-21
+        XIAOFEI.put("159936", "消费");//17   159936  可选消费ETF     -15.42%   1.82          2022-07-21    2022-10-21
+        XIAOFEI.put("515650", "消费");//18   515650  消费50ETF       -15.72%   15.68         2022-07-21    2022-10-21
+        XIAOFEI.put("517760", "消费");//19   517760  消费TOPETF      -16.21%   0.07          2022-07-21    2022-10-21
+        XIAOFEI.put("516130", "消费");//20   516130  消费龙头ETF     -16.41%   0.87          2022-07-21    2022-10-21
+
+        XIAOFEI.put("515920", "消费");//6    515920  智能消费ETF     -12.57%   2.12          2022-07-21    2022-10-21
+        XIAOFEI.put("562950", "消费");//7    562950  消费电子50ETF   -13.37%   0.70          2022-07-21    2022-10-21
+        XIAOFEI.put("159769", "消费");//9    159769  消费电子龙头ETF -13.63%   0.46          2022-07-21    2022-10-21
+        XIAOFEI.put("561100", "消费");//11   561100  消费电子龙头ETF -13.76%   1.98          2022-07-21    2022-10-21
+        XIAOFEI.put("159733", "消费");//12   159733  消费电子50ETF   -13.79%   0.35          2022-07-21    2022-10-21
+        XIAOFEI.put("561600", "消费");//13   561600  消费电子ETF     -13.88%   0.52          2022-07-21    2022-10-21
+        XIAOFEI.put("159779", "消费");//14   159779  消费电子ETF基金 -13.92%   0.64          2022-07-21    2022-10-21
+        XIAOFEI.put("159732", "消费");//15   159732  消费电子ETF     -14.09%   1.13          2022-07-21    2022-10-21
+
+        XIAOFEI.put("517550", "消费");//21   517550  消费ETF沪港深   -16.82%   0.16          2022-07-21    2022-10-21
+        XIAOFEI.put("517880", "消费");//22   517880  品牌消费ETF     -18.16%   0.43          2022-07-21    2022-10-21
+        XIAOFEI.put("159793", "消费");//23   159793  线上消费ETF平安 -19.29%   0.44          2022-07-21    2022-10-21
+        XIAOFEI.put("513590", "消费");//24   513590  香港消费ETF     -21.94%   0.31          2022-07-21    2022-10-21
+        XIAOFEI.put("159735", "消费");//25   159735  港股消费ETF     -22.68%   0.69          2022-07-21    2022-10-21
+        XIAOFEI.put("513230", "消费");//26   513230  港股消费ETF     -22.93%   0.46          2022-07-21    2022-10-21
+        XIAOFEI.put("513070", "消费");//27   513070  港股消费50ETF   -23.64%   0.44          2022-07-21    2022-10-21
+        XIAOFEI.put("513960", "消费");//28   513960  港股通消费ETF   -24.03%   0.65          2022-07-21    2022-10-21
+
+        XIAOFEI.put("159730", "消费");//1    159730  龙头家电ETF     -11.30%   0.45          2022-07-21    2022-10-21
+        XIAOFEI.put("560880", "消费");//2    560880  家电ETF基金     -13.12%   8.72          2022-07-21    2022-10-21
+        XIAOFEI.put("561120", "消费");//3    561120  家电ETF         -13.49%   1.21          2022-07-21    2022-10-21
+        XIAOFEI.put("159996", "消费");//4    159996  家电ETF         -14.04%   20.14         2022-07-21    2022-10-21
+
+        XIAOFEI.put("159766", "消费");//1    159766  旅游ETF         -6.77%    19.57         2022-07-21    2022-10-21
+        XIAOFEI.put("562510", "消费");//2    562510  旅游ETF         -6.84%    4.30          2022-07-21    2022-10-21
+
+        XIAOFEI.put("516530", "消费");//1    516530  物流快递ETF     -2.12%    0.94          2022-07-21    2022-10-21
+        XIAOFEI.put("516910", "消费");//2    516910  物流ETF         -2.38%    0.82          2022-07-21    2022-10-21
+
+    }
+
+    public static Map<String, String> XIAOFEI_ALL_TO_MORE = new HashMap<>();//消费
+
+    static {
+        XIAOFEI_ALL_TO_MORE.put("159736", "消费");//1    159736  饮食ETF         -14.88%   67.30         2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("159789", "消费");//2    159789  饮料ETF         -14.92%   0.56          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("516900", "消费");//3    516900  食品50ETF       -15.12%   0.34          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("159862", "消费");//4    159862  食品ETF         -15.24%   0.58          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("159843", "消费");//5    159843  食品饮料ETF     -15.26%   2.41          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("515710", "消费");//6    515710  食品ETF         -15.41%   9.35          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("515170", "消费");//7    515170  食品饮料ETF     -15.74%   38.43         2022-07-21    2022-10-21
+
+        XIAOFEI_ALL_TO_MORE.put("512690", "消费");//1    512690  酒ETF           -15.09%   97.03         2022-07-21    2022-10-21
+
+//        XIAOFEI_ALL_TO_MORE.put("561130", "消费");//2    561130  国货ETF         -13.94%   2.15          2022-07-21    2022-10-21
+
+//        XIAOFEI_ALL_TO_MORE.put("159805", "消费");//1    159805  传媒ETF         -13.83%   1.68          2022-07-21    2022-10-21
+        XIAOFEI_ALL_TO_MORE.put("512980", "消费");//4    512980  传媒ETF         -14.47%   44.11         2022-07-21    2022-10-21
+
+//        XIAOFEI_ALL_TO_MORE.put("516770", "消费");//2    516770  游戏动漫ETF     -14.02%   1.02          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("159786", "消费");//4    159786  VRETF           -14.21%   2.47          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("516010", "消费");//3    516010  游戏ETF         -14.30%   3.82          2022-07-21    2022-10-21
+        XIAOFEI_ALL_TO_MORE.put("159869", "消费");//5    159869  游戏ETF         -14.66%   6.25          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("516190", "消费");//6    516190  文娱传媒ETF     -14.75%   0.13          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("517500", "消费");//7    517500  游戏沪港深ETF   -15.44%   0.51          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("517770", "消费");//8    517770  游戏传媒ETF     -19.13%   0.28          2022-07-21    2022-10-21
+
+        XIAOFEI_ALL_TO_MORE.put("159855", "消费");//44   159855  影视ETF         -13.05%   0.83          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("516620", "消费");//3    516620  影视ETF         -14.08%   0.96          2022-07-21    2022-10-21
+//
+//        XIAOFEI_ALL_TO_MORE.put("516600", "消费");//1    516600  消费服务ETF     -11.57%   1.07          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("159725", "消费");//2    159725  线上消费ETF     -11.85%   0.59          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("512600", "消费");//3    512600  必选消费ETF     -11.89%   5.98          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("159728", "消费");//4    159728  在线消费ETF     -12.20%   0.33          2022-07-21    2022-10-21
+        XIAOFEI_ALL_TO_MORE.put("159928", "消费");//5    159928  消费ETF         -12.33%   95.06         2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("510150", "消费");//8    510150  消费ETF         -13.49%   11.64         2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("510630", "消费");//10   510630  消费30ETF       -13.64%   3.96          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("159798", "消费");//16   159798  消费50ETF       -15.25%   0.61          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("159936", "消费");//17   159936  可选消费ETF     -15.42%   1.82          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("515650", "消费");//18   515650  消费50ETF       -15.72%   15.68         2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("517760", "消费");//19   517760  消费TOPETF      -16.21%   0.07          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("516130", "消费");//20   516130  消费龙头ETF     -16.41%   0.87          2022-07-21    2022-10-21
+
+//        XIAOFEI_ALL_TO_MORE.put("515920", "消费");//6    515920  智能消费ETF     -12.57%   2.12          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("562950", "消费");//7    562950  消费电子50ETF   -13.37%   0.70          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("159769", "消费");//9    159769  消费电子龙头ETF -13.63%   0.46          2022-07-21    2022-10-21
+        XIAOFEI_ALL_TO_MORE.put("561100", "消费");//11   561100  消费电子龙头ETF -13.76%   1.98          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("159733", "消费");//12   159733  消费电子50ETF   -13.79%   0.35          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("561600", "消费");//13   561600  消费电子ETF     -13.88%   0.52          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("159779", "消费");//14   159779  消费电子ETF基金 -13.92%   0.64          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("159732", "消费");//15   159732  消费电子ETF     -14.09%   1.13          2022-07-21    2022-10-21
+
+//        XIAOFEI_ALL_TO_MORE.put("517550", "消费");//21   517550  消费ETF沪港深   -16.82%   0.16          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("517880", "消费");//22   517880  品牌消费ETF     -18.16%   0.43          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("159793", "消费");//23   159793  线上消费ETF平安 -19.29%   0.44          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("513590", "消费");//24   513590  香港消费ETF     -21.94%   0.31          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("159735", "消费");//25   159735  港股消费ETF     -22.68%   0.69          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("513230", "消费");//26   513230  港股消费ETF     -22.93%   0.46          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("513070", "消费");//27   513070  港股消费50ETF   -23.64%   0.44          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("513960", "消费");//28   513960  港股通消费ETF   -24.03%   0.65          2022-07-21    2022-10-21
+
+//        XIAOFEI_ALL_TO_MORE.put("159730", "消费");//1    159730  龙头家电ETF     -11.30%   0.45          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("560880", "消费");//2    560880  家电ETF基金     -13.12%   8.72          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("561120", "消费");//3    561120  家电ETF         -13.49%   1.21          2022-07-21    2022-10-21
+        XIAOFEI_ALL_TO_MORE.put("159996", "消费");//4    159996  家电ETF         -14.04%   20.14         2022-07-21    2022-10-21
+
+        XIAOFEI_ALL_TO_MORE.put("159766", "消费");//1    159766  旅游ETF         -6.77%    19.57         2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("562510", "消费");//2    562510  旅游ETF         -6.84%    4.30          2022-07-21    2022-10-21
+
+        XIAOFEI_ALL_TO_MORE.put("516530", "消费");//1    516530  物流快递ETF     -2.12%    0.94          2022-07-21    2022-10-21
+//        XIAOFEI_ALL_TO_MORE.put("516910", "消费");//2    516910  物流ETF         -2.38%    0.82          2022-07-21    2022-10-21
+
+    }
+
 
     /**
      * etf-市值-行业板块

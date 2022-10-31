@@ -3,6 +3,7 @@ package utils;
 
 import org.apache.commons.lang3.StringUtils;
 import ttjj.dto.BizDto;
+import ttjj.dto.CondKline;
 import ttjj.dto.RankBizDataDiff;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static utils.ContMapEtf.ETF_All;
 import static utils.Content.DB_RANK_BIZ_TYPE_ETF;
 
 /**
@@ -171,6 +173,51 @@ public class EtfUtil {
      * @param showMore 显示更多字段
      * @param sizeMap
      */
+    public static void showInfoEtfKline(List<CondKline> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, Map<String, Integer> sizeMap) {
+        if (rsList == null) {
+            return;
+        }
+        int size = 10;
+        int sizeDate14 = 14;
+        int number = 0;
+        for (CondKline dto : rsList) {
+            if (limit-- <= 0) {
+                break;
+            }
+            String name = dto.getZqmc();
+            String code = dto.getZqdm();
+//            if (!name.contains("色")) {
+//                continue;
+//            }
+            StringBuffer sb = new StringBuffer();
+            sb.append(StockUtil.formatStName(String.valueOf(++number), sizeMap.get("序号")));
+            if (isShowCode) {
+                sb.append(StockUtil.formatStName(code, sizeMap.get("代码")));
+            }
+            sb.append(StockUtil.formatStName(name, 16));
+            sb.append(StockUtil.formatDouble(dto.getAreaF3(), size, null, "%"));
+            if (showMore) {
+                sb.append(StockUtil.formatDouble(dto.getZhangDieFu(), size, null, "%"));
+                sb.append(StockUtil.formatDouble(dto.getF20(), sizeDate14));
+                sb.append(StockUtil.formatStName(begDate, sizeDate14));
+                sb.append(StockUtil.formatStName(endDate, sizeDate14));
+//                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
+//                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
+            }
+            System.out.println(sb);
+        }
+    }
+
+    /**
+     * 显示集合-k线
+     *
+     * @param rsList   列表
+     * @param begDate  开始时间
+     * @param endDate  结束时间
+     * @param limit
+     * @param showMore 显示更多字段
+     * @param sizeMap
+     */
     public static void showInfoEtf(List<BizDto> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, Map<String, Integer> sizeMap) {
         if (rsList == null) {
             return;
@@ -235,9 +282,9 @@ public class EtfUtil {
 
 //            if (ContMapEtfType.ETF_TYPE_ALL.keySet().contains(code)) {
 
-            if (!ContMapEtfType.ZHISHU_MORE.keySet().contains(code)) {
-                continue;
-            }
+//            if (!ContMapEtfType.ZHISHU_MORE.keySet().contains(code)) {
+//                continue;
+//            }
             StringBuffer sb = new StringBuffer();
             sb.append(StockUtil.formatStName(String.valueOf(++number), sizeMap.get("序号")));
             if (isShowCode) {
@@ -254,13 +301,29 @@ public class EtfUtil {
 //                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
             }
 //            System.out.println("YILIAO_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
-//            System.out.println("XIAOFEI_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
+            System.out.println("XIAOFEI_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
 //            System.out.println("KEJI_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
 //            System.out.println("ZIYUAN_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
 //            System.out.println("JINRONG_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
-            System.out.println("ZHISHU_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
+//            System.out.println("ZHISHU_MORE.put(\"" + code + "\", \"" + StockUtil.formatStName(name, 16) + "\");//" + sb);
 //            System.out.println(sb);
         }
+    }
+
+    /**
+     * 获取主要etf
+     *
+     * @return
+     */
+    public static List getMainEtf(Map<String, String> etfMap) {
+        if (etfMap != null) {
+            return new ArrayList<>(etfMap.keySet());
+        }
+        return new ArrayList<>(ETF_All.keySet());
+//        return new ArrayList<>(ContMapEtf.INDEX_MORE.keySet());
+//        return new ArrayList<>(ContMapEtf.INDEX_ALL.keySet());
+//        return new ArrayList<>(ContMapEtf.INDEX_MORE_NOT_CN.keySet());
+//        return new ArrayList<>(ContMapEtf.INDEX_MORE_CN.keySet());
     }
 
 }

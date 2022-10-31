@@ -2,10 +2,8 @@ package ttjj.rank.stat;
 
 import com.alibaba.fastjson.JSON;
 import ttjj.dao.KlineDao;
-import ttjj.dto.CondKline;
-import ttjj.dto.Kline;
-import ttjj.dto.StatCondStAdrCountKline;
-import ttjj.dto.StatRsStAdrCountKline;
+import ttjj.dto.*;
+import ttjj.service.BizService;
 import ttjj.service.KlineService;
 import ttjj.service.StockService;
 import utils.*;
@@ -15,6 +13,7 @@ import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static utils.ContMapEtf.INDEX_MORE;
 import static utils.Content.*;
 
 /**
@@ -27,11 +26,125 @@ public class KlineStat {
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
 
-        statAdrByTime(date);//统计涨幅-根据日期
+//        statAdrByTime(date);//统计涨幅-根据日期
 //        statAdrCjl(date);
+
+        statListEtfAdrArea(4, true, 500, DB_RANK_BIZ_TYPE_ETF);//DB_RANK_BIZ_TYPE_ZS  DB_RANK_BIZ_TYPE_ETF
 
 //        findKline();
 
+
+    }
+
+    /**
+     * K线：统计区间涨幅:etf
+     *
+     * @param areaDays
+     * @param isDesc
+     */
+    private static void statListEtfAdrArea(int areaDays, boolean isDesc, int limit, String type) {
+//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+                String date = "2022-10-31";
+        boolean isShowCode = true;//是否显示编码
+        boolean isCheckFuQuan = false;//是否检查更新复权
+        boolean isOrMianEtf = false;//是否必须查询我的主要etf
+        boolean isCheckMianEtf = true;//是否必须查询我的主要etf
+        boolean isShowEtfInfo = false;//是否显示etf信息
+        Map<String, String> etfMap = INDEX_MORE;//INDEX_ALL     INDEX_MORE   XIAOFEI_ALL_TO_MORE
+        String klt = KLT_101;
+        BigDecimal mvMin = null;
+        BigDecimal mvMax = null;
+
+//        String endDate = StockService.findBegDate(date, 0);
+        String endDate = date;
+        String begDate = StockService.findBegDate(date, areaDays);
+
+        Map<String, CondKline> rsMap = new HashMap<>();
+
+        CondKline condEndDate = new CondKline();
+        condEndDate.setDate(endDate);
+        condEndDate.setType(type);
+        condEndDate.setKlt(klt);
+//        cond.setKtime(orderTime);//时间类型
+        if (isCheckMianEtf) {//检查是否是主要etf
+            condEndDate.setStCodeList(EtfUtil.getMainEtf(etfMap));
+        }
+        List<Kline> klineListEndDate = KlineService.listKine(condEndDate);
+
+        for (Kline kline : klineListEndDate) {
+            CondKline rsOne = new CondKline();
+            rsOne.setZqmc(kline.getZqmc());
+            rsOne.setZqdm(kline.getZqdm());
+            rsOne.setZhangDieFu(kline.getZhangDieFu());
+            BigDecimal marketValue = null;
+            if (kline.getF20() != null) {
+                marketValue = kline.getF20().divide(NUM_YI_1, 2, BigDecimal.ROUND_HALF_UP);
+            }
+            rsOne.setF20(marketValue);
+            rsOne.setBegDate(begDate);
+            rsOne.setEndDate(endDate);
+            rsOne.setEndDateF2(kline.getCloseAmt());
+            rsMap.put(kline.getZqdm(), rsOne);
+        }
+
+        CondKline condBegDate = new CondKline();
+        condBegDate.setDate(begDate);
+        condBegDate.setType(type);
+        if (isCheckMianEtf) {//检查是否是主要etf
+            condBegDate.setStCodeList(EtfUtil.getMainEtf(etfMap));
+        }
+        List<Kline> klineListBegDate = KlineService.listKine(condBegDate);
+
+        for (Kline etfBegDate : klineListBegDate) {
+            String code = etfBegDate.getZqdm();
+            BigDecimal yestodayNet = etfBegDate.getCloseLastAmt();
+            CondKline rsOne = rsMap.get(code);
+            if (rsOne == null) {
+//                System.out.println("市值已减小：" + JSON.toJSONString(rankStockCommpanyDb));
+                continue;
+            }
+            if (yestodayNet == null) {
+//                System.out.println("昨日净值为空：" + JSON.toJSONString(rankStockCommpanyDb));
+                continue;
+            }
+            rsOne.setBegDateF18(yestodayNet);
+//            rsOne.setF18(yestodayNet);
+
+            rsMap.put(code, rsOne);
+        }
+
+        List<CondKline> rsList = new ArrayList<>();
+        //计算区间涨幅
+        for (CondKline dto : rsMap.values()) {
+            BigDecimal endDateF2 = dto.getEndDateF2();
+            BigDecimal begDateF18 = dto.getBegDateF18();
+            if (endDateF2 == null) {
+//                System.out.println("结束净值为空：" + JSON.toJSONString(dto));
+                continue;
+            }
+            if (begDateF18 == null) {
+//                System.out.println("开始净值为空：" + JSON.toJSONString(dto));
+                continue;
+            }
+            BigDecimal adrArea = (endDateF2.subtract(begDateF18)).multiply(new BigDecimal("100")).divide(begDateF18, 2, RoundingMode.HALF_UP);
+            dto.setAreaF3(adrArea);
+            rsList.add(dto);
+        }
+
+        boolean isShowMoreYes = true;
+        boolean isShowMoreNo = false;
+        if (isDesc) {
+            //排序
+            rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        } else {
+            rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+        }
+        //区间涨幅
+        Map<String, Integer> sizeMap = EtfUtil.showInfoHead(isShowMoreYes, isShowCode, false, null);
+        EtfUtil.showInfoEtfKline(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, sizeMap);
+        System.out.println();
+
+        //更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
 
     }
 
