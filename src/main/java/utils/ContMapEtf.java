@@ -850,9 +850,13 @@ public class ContMapEtf {
      * etf-市值-行业板块
      */
     public static Map<String, String> ETF_BK = new HashMap<>();
+    /**
+     * etf-行业-all
+     */
+    public static Map<String, String> ETF_BIZ_ALL = new HashMap<>();
 
     static {
-        ETF_BK.putAll(KEJI);
+        ETF_BK.putAll(KEJI_MORE);
         ETF_BK.putAll(YILIAO);
         ETF_BK.putAll(JINRONG);
         ETF_BK.putAll(XIAOFEI);
@@ -865,7 +869,7 @@ public class ContMapEtf {
     public static Map<String, String> ETF_All = new HashMap<>();
 
     static {
-        ETF_All.putAll(ETF_ZS);
+        ETF_All.putAll(INDEX_ALL);
         ETF_All.putAll(ETF_BK);
     }
 

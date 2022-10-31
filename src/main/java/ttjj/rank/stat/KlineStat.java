@@ -29,7 +29,7 @@ public class KlineStat {
 //        statAdrByTime(date);//统计涨幅-根据日期
 //        statAdrCjl(date);
 
-        statListEtfAdrArea(4, true, 500, DB_RANK_BIZ_TYPE_ETF);//DB_RANK_BIZ_TYPE_ZS  DB_RANK_BIZ_TYPE_ETF
+        statListEtfAdrArea(0, true, 500, DB_RANK_BIZ_TYPE_ETF);//DB_RANK_BIZ_TYPE_ZS  DB_RANK_BIZ_TYPE_ETF
 
 //        findKline();
 
@@ -37,21 +37,22 @@ public class KlineStat {
     }
 
     /**
-     * K线：统计区间涨幅:etf
+     * K线：统计区间涨幅,etf,限定时间段(结束时间)
      *
      * @param areaDays
      * @param isDesc
      */
     private static void statListEtfAdrArea(int areaDays, boolean isDesc, int limit, String type) {
 //        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-                String date = "2022-10-31";
+        String date = "2022-10-31";
         boolean isShowCode = true;//是否显示编码
         boolean isCheckFuQuan = false;//是否检查更新复权
         boolean isOrMianEtf = false;//是否必须查询我的主要etf
         boolean isCheckMianEtf = true;//是否必须查询我的主要etf
         boolean isShowEtfInfo = false;//是否显示etf信息
         Map<String, String> etfMap = INDEX_MORE;//INDEX_ALL     INDEX_MORE   XIAOFEI_ALL_TO_MORE
-        String klt = KLT_101;
+        String klt = KLT_60;//KLT_60
+        String ktime = "15:00:00";//时间段(结束时间)
         BigDecimal mvMin = null;
         BigDecimal mvMax = null;
 
@@ -65,7 +66,7 @@ public class KlineStat {
         condEndDate.setDate(endDate);
         condEndDate.setType(type);
         condEndDate.setKlt(klt);
-//        cond.setKtime(orderTime);//时间类型
+        condEndDate.setKtime(ktime);//时间类型
         if (isCheckMianEtf) {//检查是否是主要etf
             condEndDate.setStCodeList(EtfUtil.getMainEtf(etfMap));
         }
@@ -90,6 +91,8 @@ public class KlineStat {
         CondKline condBegDate = new CondKline();
         condBegDate.setDate(begDate);
         condBegDate.setType(type);
+        condBegDate.setKlt(klt);
+        condBegDate.setKtime(ktime);//时间类型
         if (isCheckMianEtf) {//检查是否是主要etf
             condBegDate.setStCodeList(EtfUtil.getMainEtf(etfMap));
         }
@@ -140,8 +143,7 @@ public class KlineStat {
             rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
         }
         //区间涨幅
-        Map<String, Integer> sizeMap = EtfUtil.showInfoHead(isShowMoreYes, isShowCode, false, null);
-        EtfUtil.showInfoEtfKline(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, sizeMap);
+        EtfUtil.showInfoEtfKline(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, klt, ktime);
         System.out.println();
 
         //更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新

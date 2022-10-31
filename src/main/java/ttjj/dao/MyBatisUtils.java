@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author chenzhilong
+ * @author
  * @date 2021/4/27
  */
 /*工具类MyBatisUtils，用双检锁简单的实现了一个线程安全的工具类。核心代码在最内层的if判断中。

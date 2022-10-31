@@ -165,20 +165,45 @@ public class EtfUtil {
 
     /**
      * 显示集合
-     *
      * @param rsList   列表
      * @param begDate  开始时间
      * @param endDate  结束时间
      * @param limit
      * @param showMore 显示更多字段
-     * @param sizeMap
+     * @param klt 周期类型
+     * @param ktime 时间段
      */
-    public static void showInfoEtfKline(List<CondKline> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, Map<String, Integer> sizeMap) {
+    public static void showInfoEtfKline(List<CondKline> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, String klt, String ktime) {
+        Map<String, Integer> sizeMap = new HashMap<>();
+        String orderNo = "序号";
+        sizeMap.put("序号", 5);
+        sizeMap.put("名称", 16);
+        sizeMap.put("概念", 16);
+        sizeMap.put("代码", 8);
+        int size = 10;
+        int sizeBiz = 14;
+        int sizeDate14 = 14;
+        int sizeKtime = 20;
+        StringBuffer sbHead = new StringBuffer();
+        sbHead.append(StockUtil.formatStName(orderNo, sizeMap.get(orderNo)));
+        if (isShowCode) {
+            sbHead.append(StockUtil.formatStName("代码", sizeMap.get("代码")));
+        }
+        sbHead.append(StockUtil.formatStName("名称", sizeMap.get("名称")));
+        sbHead.append(StockUtil.formatStName("区间涨幅", size));
+        if (showMore) {
+            sbHead.append(StockUtil.formatStName("最新涨幅", size));
+            sbHead.append(StockUtil.formatStName("最新市值(亿)", sizeDate14));
+            sbHead.append(StockUtil.formatStName("开始日期", sizeDate14));
+            sbHead.append(StockUtil.formatStName("结束日期", sizeDate14));
+        }
+        sbHead.append(StockUtil.formatStName("周期类型", size));
+        sbHead.append(StockUtil.formatStName("时间段", sizeKtime));
+        System.out.println(sbHead);
+
         if (rsList == null) {
             return;
         }
-        int size = 10;
-        int sizeDate14 = 14;
         int number = 0;
         for (CondKline dto : rsList) {
             if (limit-- <= 0) {
@@ -204,6 +229,8 @@ public class EtfUtil {
 //                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
 //                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
             }
+                sb.append(StockUtil.formatStName(klt, size));
+                sb.append(StockUtil.formatStName(ktime, sizeKtime));
             System.out.println(sb);
         }
     }
