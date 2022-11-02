@@ -2,18 +2,23 @@ package ttjj.rank.stat;
 
 import com.alibaba.fastjson.JSON;
 import ttjj.dao.KlineDao;
-import ttjj.dto.*;
-import ttjj.service.BizService;
+import ttjj.dto.CondKline;
+import ttjj.dto.Kline;
+import ttjj.dto.StatCondStAdrCountKline;
+import ttjj.dto.StatRsStAdrCountKline;
 import ttjj.service.KlineService;
 import ttjj.service.StockService;
-import utils.*;
+import utils.Content;
+import utils.DateUtil;
+import utils.EtfUtil;
+import utils.StockUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static utils.ContMapEtf.INDEX_MORE;
+import static utils.ContMapEtf.*;
 import static utils.Content.*;
 
 /**
@@ -29,7 +34,12 @@ public class KlineStat {
 //        statAdrByTime(date);//统计涨幅-根据日期
 //        statAdrCjl(date);
 
-        statListEtfAdrArea(0, true, 500, DB_RANK_BIZ_TYPE_ETF);//DB_RANK_BIZ_TYPE_ZS  DB_RANK_BIZ_TYPE_ETF
+        statListEtfAdrArea(INDEX_MORE);//K线：统计区间涨幅,etf
+        statListEtfAdrArea(ZIYUAN_MORE);//K线：统计区间涨幅,etf
+        statListEtfAdrArea(KEJI_MORE);//K线：统计区间涨幅,etf
+        statListEtfAdrArea(XIAOFEI_MORE);//K线：统计区间涨幅,etf
+        statListEtfAdrArea(YILIAO_MORE);//K线：统计区间涨幅,etf
+        statListEtfAdrArea(JINRONG_MORE);//K线：统计区间涨幅,etf
 
 //        findKline();
 
@@ -39,20 +49,25 @@ public class KlineStat {
     /**
      * K线：统计区间涨幅,etf,限定时间段(结束时间)
      *
-     * @param areaDays
-     * @param isDesc
+     * @param etfMap 限定etf
      */
-    private static void statListEtfAdrArea(int areaDays, boolean isDesc, int limit, String type) {
-//        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-        String date = "2022-10-31";
+    private static void statListEtfAdrArea( Map<String, String> etfMap) {
+//        Map<String, String> etfMap = KEJI_MORE;//INDEX_ALL     INDEX_MORE   XIAOFEI_ALL_TO_MORE    KEJI_MORE
+        boolean isDesc = true;
+        int limit = 500;
+        String type = DB_RANK_BIZ_TYPE_ETF;
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-11-01";
         boolean isShowCode = true;//是否显示编码
         boolean isCheckFuQuan = false;//是否检查更新复权
         boolean isOrMianEtf = false;//是否必须查询我的主要etf
         boolean isCheckMianEtf = true;//是否必须查询我的主要etf
         boolean isShowEtfInfo = false;//是否显示etf信息
-        Map<String, String> etfMap = INDEX_MORE;//INDEX_ALL     INDEX_MORE   XIAOFEI_ALL_TO_MORE
+//        String klt = KLT_101;//KLT_60
+//        String ktime = date;//时间段(结束时间)
         String klt = KLT_60;//KLT_60
         String ktime = "15:00:00";//时间段(结束时间)
+        int areaDays = 0;//4:近一周;20:近一月
         BigDecimal mvMin = null;
         BigDecimal mvMax = null;
 
@@ -92,7 +107,11 @@ public class KlineStat {
         condBegDate.setDate(begDate);
         condBegDate.setType(type);
         condBegDate.setKlt(klt);
-        condBegDate.setKtime(ktime);//时间类型
+        if (KLT_101.equals(klt)) {
+            condBegDate.setKtime(begDate);//时间类型
+        } else {
+            condBegDate.setKtime(ktime);//时间类型
+        }
         if (isCheckMianEtf) {//检查是否是主要etf
             condBegDate.setStCodeList(EtfUtil.getMainEtf(etfMap));
         }
@@ -135,7 +154,6 @@ public class KlineStat {
         }
 
         boolean isShowMoreYes = true;
-        boolean isShowMoreNo = false;
         if (isDesc) {
             //排序
             rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());

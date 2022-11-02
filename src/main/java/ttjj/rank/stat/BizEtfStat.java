@@ -44,11 +44,8 @@ public class BizEtfStat {
      * ETF：计算区间涨幅
      */
     private static void statListEtfAdrArea(Integer areaDays) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-10-31";
-
         if (areaDays == null) {
-            areaDays = 0;//4:近一周;20:近一月
+            areaDays = 4;//4:近一周;20:近一月
         }
         int limit = 500;
 
@@ -58,7 +55,7 @@ public class BizEtfStat {
         boolean isDesc = true;
 //        boolean isDesc = false;
 
-        statListEtfAdrArea(areaDays, isDesc, mvMin, mvMax, limit, DB_RANK_BIZ_TYPE_ETF);//DB_RANK_BIZ_TYPE_ZS  DB_RANK_BIZ_TYPE_ETF
+        statListEtfAdrArea(areaDays, isDesc, mvMin, mvMax, limit, DB_RANK_BIZ_TYPE_ETF);//DB_RANK_BIZ_TYPE_ZS  DB_RANK_BIZ_TYPE_ETF DB_RANK_BIZ_TYPE_BAN_KUAI
 //        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, false,DB_RANK_BIZ_TYPE_BAN_KUAI);
 
     }
@@ -72,14 +69,14 @@ public class BizEtfStat {
      * @param mvMax
      */
     private static void statListEtfAdrArea(int areaDays, boolean isDesc, BigDecimal mvMin, BigDecimal mvMax, int limit, String type) {
-        //        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-        String date = "2022-10-31";
+                String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-11-01";
         boolean isShowCode = true;//是否显示编码
         boolean isCheckFuQuan = false;//是否检查更新复权
         boolean isOrMianEtf = false;//是否必须查询我的主要etf
         boolean isCheckMianEtf = true;//是否必须查询我的主要etf
         boolean isShowEtfInfo = false;//是否显示etf信息
-        Map<String, String> etfMap = INDEX_MORE;//INDEX_ALL     INDEX_MORE   XIAOFEI_ALL_TO_MORE
+        Map<String, String> etfMap = YILIAO_MORE;//INDEX_ALL     INDEX_MORE   XIAOFEI_ALL_TO_MORE
 
 //        String endDate = StockService.findBegDate(date, 0);
         String endDate = date;
