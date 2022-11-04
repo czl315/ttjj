@@ -47,15 +47,7 @@ public class BizEtfStat {
         if (areaDays == null) {
             areaDays = 4;//4:近一周;20:近一月
         }
-        int limit = 500;
-
-        BigDecimal mvMin = null;//NUM_YI_1000  NUM_YI_50  NUM_YI_100    NUM_YI_0
-        BigDecimal mvMax = null;
-
-        boolean isDesc = true;
-//        boolean isDesc = false;
-
-        statListEtfAdrArea(areaDays, isDesc, mvMin, mvMax, limit, DB_RANK_BIZ_TYPE_ETF);//DB_RANK_BIZ_TYPE_ZS  DB_RANK_BIZ_TYPE_ETF DB_RANK_BIZ_TYPE_BAN_KUAI
+        statListEtfAdrArea(areaDays, DB_RANK_BIZ_TYPE_ETF);//DB_RANK_BIZ_TYPE_ZS  DB_RANK_BIZ_TYPE_ETF DB_RANK_BIZ_TYPE_BAN_KUAI
 //        statListEtfAdrArea(date, areaDays, isDesc, mvMin, mvMax, limit, false,DB_RANK_BIZ_TYPE_BAN_KUAI);
 
     }
@@ -64,19 +56,23 @@ public class BizEtfStat {
      * 统计区间涨幅
      *
      * @param areaDays
-     * @param isDesc
-     * @param mvMin
-     * @param mvMax
      */
-    private static void statListEtfAdrArea(int areaDays, boolean isDesc, BigDecimal mvMin, BigDecimal mvMax, int limit, String type) {
-                String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+    private static void statListEtfAdrArea(int areaDays, String type) {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-11-01";
         boolean isShowCode = true;//是否显示编码
         boolean isCheckFuQuan = false;//是否检查更新复权
         boolean isOrMianEtf = false;//是否必须查询我的主要etf
         boolean isCheckMianEtf = true;//是否必须查询我的主要etf
         boolean isShowEtfInfo = false;//是否显示etf信息
-        Map<String, String> etfMap = YILIAO_MORE;//INDEX_ALL     INDEX_MORE   XIAOFEI_ALL_TO_MORE
+        Map<String, String> etfMap = INDEX_MORE;//INDEX_ALL     INDEX_MORE   XIAOFEI_ALL_TO_MORE
+
+        BigDecimal mvMin = null;//NUM_YI_1000  NUM_YI_50  NUM_YI_100    NUM_YI_0
+        BigDecimal mvMax = null;
+        int limit = 500;
+
+        boolean isDesc = true;
+//        boolean isDesc = false;
 
 //        String endDate = StockService.findBegDate(date, 0);
         String endDate = date;
@@ -182,12 +178,10 @@ public class BizEtfStat {
         if (isCheckFuQuan) {
             boolean isUpdate = BizService.updateFuQuanBiz(rsList, limit, begDate);//更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
             if (isUpdate) {
-                statListEtfAdrArea(areaDays, isDesc, mvMin, mvMax, limit, type);
+                statListEtfAdrArea(areaDays, type);
             }
         }
     }
-
-
 
 
     /**

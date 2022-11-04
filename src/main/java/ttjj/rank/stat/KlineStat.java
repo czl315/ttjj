@@ -63,10 +63,10 @@ public class KlineStat {
         boolean isOrMianEtf = false;//是否必须查询我的主要etf
         boolean isCheckMianEtf = true;//是否必须查询我的主要etf
         boolean isShowEtfInfo = false;//是否显示etf信息
-//        String klt = KLT_101;//KLT_60
-//        String ktime = date;//时间段(结束时间)
-        String klt = KLT_60;//KLT_60
-        String ktime = "15:00:00";//时间段(结束时间)
+        String klt = KLT_101;//KLT_60
+        String ktime = date;//时间段(结束时间)
+//        String klt = KLT_60;//KLT_60
+//        String ktime = "15:00:00";//时间段(结束时间)
         int areaDays = 0;//4:近一周;20:近一月
         BigDecimal mvMin = null;
         BigDecimal mvMax = null;

@@ -204,7 +204,7 @@ public class KlineControl {
      * @param bizType 业务
      * @return 证券列表
      */
-    private static Map<String, String> handlerZqMap(String date, String bizType) {
+    public static Map<String, String> handlerZqMap(String date, String bizType) {
         Map<String, String> zhishuMap = new HashMap<>();
         if (bizType.equals(DB_RANK_BIZ_TYPE_ZS)) {
             zhishuMap = Content.getZhishuMap();//        Map<String, String>  zhishuMap = new HashMap<>();zhishuMap.put("000001","上证指数");//特定测试
