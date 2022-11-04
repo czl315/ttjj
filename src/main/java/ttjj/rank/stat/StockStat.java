@@ -87,7 +87,7 @@ public class StockStat {
         int countShDown = StockService.count(new CondStock(date, F13_SHANGHAI, null, Arrays.asList(F139_BK_B), null, null, zero));
         System.out.print(StockUtil.formatStName("上证指数沪市(涨/平/跌):", 30) + StockUtil.formatStName(countShUp + ":" + countShFlat + ":" + countShDown, 20));
         CondKline conditionKlineList = new CondKline();
-        conditionKlineList.setZqdm(ZHISHU_CODE_000001);
+        conditionKlineList.setZqdm(INDEX_SHANG_HAI);
         conditionKlineList.setDate(date);
         conditionKlineList.setType(DB_RANK_BIZ_TYPE_ZS);
         conditionKlineList.setKlt(KLT_101);
@@ -106,7 +106,7 @@ public class StockStat {
         int countSzczDown = StockService.count(new CondStock(date, F13_SHENZHEN, null, Arrays.asList(F139_BK_BJS), null, null, zero));
         System.out.print(StockUtil.formatStName("深证成指深市(涨/平/跌):", 30) + StockUtil.formatStName(countSzczUp + ":" + countSzczFlat + ":" + countSzczDown, 20));
         CondKline condSzcz = new CondKline();
-        condSzcz.setZqdm(ZHISHU_CODE_399001);
+        condSzcz.setZqdm(INDEX_SHEN_ZHEN);
         condSzcz.setDate(date);
         condSzcz.setType(DB_RANK_BIZ_TYPE_ZS);
         condSzcz.setKlt(KLT_101);

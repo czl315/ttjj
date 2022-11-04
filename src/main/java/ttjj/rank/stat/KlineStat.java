@@ -8,38 +8,38 @@ import ttjj.dto.StatCondStAdrCountKline;
 import ttjj.dto.StatRsStAdrCountKline;
 import ttjj.service.KlineService;
 import ttjj.service.StockService;
-import utils.Content;
-import utils.DateUtil;
-import utils.EtfUtil;
-import utils.StockUtil;
+import utils.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static utils.ContMapEtf.*;
+import static utils.ContMapEtf.JINRONG_MORE;
 import static utils.Content.*;
-
 /**
  * k线
  */
 public class KlineStat {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-09-26";
+
 //        // 统计涨跌次数-根据每月中的日期
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
 
 //        statAdrByTime(date);//统计涨幅-根据日期
-//        statAdrCjl(date);
 
-        statListEtfAdrArea(INDEX_MORE);//K线：统计区间涨幅,etf
-        statListEtfAdrArea(ZIYUAN_MORE);//K线：统计区间涨幅,etf
-        statListEtfAdrArea(KEJI_MORE);//K线：统计区间涨幅,etf
-        statListEtfAdrArea(XIAOFEI_MORE);//K线：统计区间涨幅,etf
-        statListEtfAdrArea(YILIAO_MORE);//K线：统计区间涨幅,etf
-        statListEtfAdrArea(JINRONG_MORE);//K线：统计区间涨幅,etf
+//        statAdrCjl(ContIndex.SHANG_HAI);
+//        statAdrCjl(ContIndex.SHEN_ZHEN);
+//        statAdrCjl(ContIndex.CYB);
+//        statAdrCjl(ContIndex.ZZ_1000);
+
+        statListEtfAdrArea(ContMapEtf.INDEX_MORE);//K线：统计区间涨幅,etf
+        statListEtfAdrArea(ContMapEtf.ZIYUAN_MORE);//K线：统计区间涨幅,etf
+        statListEtfAdrArea(ContMapEtf.KEJI_MORE);//K线：统计区间涨幅,etf
+        statListEtfAdrArea(ContMapEtf.XIAOFEI_MORE);//K线：统计区间涨幅,etf
+        statListEtfAdrArea(ContMapEtf.YILIAO_MORE);//K线：统计区间涨幅,etf
+        statListEtfAdrArea(ContMapEtf.JINRONG_MORE);//K线：统计区间涨幅,etf
 
 //        findKline();
 
@@ -63,10 +63,10 @@ public class KlineStat {
         boolean isOrMianEtf = false;//是否必须查询我的主要etf
         boolean isCheckMianEtf = true;//是否必须查询我的主要etf
         boolean isShowEtfInfo = false;//是否显示etf信息
-        String klt = KLT_101;//KLT_60
-        String ktime = date;//时间段(结束时间)
-//        String klt = KLT_60;//KLT_60
-//        String ktime = "15:00:00";//时间段(结束时间)
+//        String klt = KLT_101;//KLT_60
+//        String ktime = date;//时间段(结束时间)
+        String klt = KLT_60;//KLT_60
+        String ktime = "15:00:00";//时间段(结束时间)
         int areaDays = 0;//4:近一周;20:近一月
         BigDecimal mvMin = null;
         BigDecimal mvMax = null;
@@ -169,15 +169,15 @@ public class KlineStat {
     }
 
     /**
-     * 统计-成交量-根据日期
+     * 统计-成交量
      *
-     * @param date
      */
-    private static void statAdrCjl(String date) {
-        String zqdm = ZHISHU_CODE_000001;
-        String zqmc = Content.zhishuMap.get(ZHISHU_CODE_000001);
-        String klt = Content.KLT_30;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+    private static void statAdrCjl(String zqdm) {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-09-26";
+        String zqmc = Content.zhishuMap.get(zqdm);
+        String klt = Content.KLT_120;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
         System.out.println("指数：" + zqmc + ",周期(" + klt + "):");
+//        logger.info("指数：{},周期({}):" + zqmc + ",周期(" + klt + "):",zqmc,klt);
 
         Map<String, BigDecimal> cjeMap = new HashMap<>();
         //上一交易日

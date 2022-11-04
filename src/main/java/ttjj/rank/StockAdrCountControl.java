@@ -48,15 +48,15 @@ public class StockAdrCountControl {
         stockAdrCountCond.setF139(board);
         stockAdrCountCond.setMaKltList(maKltList);
         stockAdrCountCond.setUpdateNet(true);//用时：16
-        stockAdrCountCond.setUpdateSum(true);//总花费时间：1381   (50)1116
-        stockAdrCountCond.setUpdateOrder(true);
-//        stockAdrCountCond.setUpdateUpMa(true);//总花费时间：1225
-//        stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
+//        stockAdrCountCond.setUpdateSum(true);//总花费时间：1381   (50)1116
+//        stockAdrCountCond.setUpdateOrder(true);
+        stockAdrCountCond.setUpdateUpMa(true);//总花费时间：1225
+        stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
 
         save(date, bizList, false, spBizName, stockAdrCountCond);
         updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
 
-        //        更新涨和+涨序：(40亿以上)用时：1447 1418；(50亿以上)，用时：1185
+        //        更新涨和+涨序：(40亿以上)用时：1447 1418   1556；(50亿以上)，用时：1185
 //        更新均值+区间，用时：(40亿以上)用时：2085 1963  ；(50亿以上)，用时：1790 1643 1527 1844
 //        更新涨和+涨序+均值+区间，用时：3225 用时：3119
 

@@ -11,8 +11,9 @@ public class Content {
     /**
      * ZHISHU_CODE_000001
      */
-    public static String ZHISHU_CODE_000001 = "000001";
-    public static String ZHISHU_CODE_399001 = "399001";
+    public static String INDEX_SHANG_HAI = "000001";
+    public static String INDEX_SHEN_ZHEN = "399001";//深证成指
+    public static String INDEX_CYB = "399006";//创业板指
     /**
      * ZHISHU_NAME_000001
      */
@@ -25,7 +26,7 @@ public class Content {
     public static Map<String, String> zhishuMap = new HashMap<>();
 
     static {
-        zhishuMap.put(ZHISHU_CODE_000001, ZHISHU_NAME_000001);
+        zhishuMap.put(INDEX_SHANG_HAI, ZHISHU_NAME_000001);
         zhishuMap.put("000300", "沪深300");
         zhishuMap.put("000016", "上证50");
         zhishuMap.put("000903", "中证100");

@@ -37,11 +37,11 @@ public class StockAdrStat {
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-10-17";
+//        String date = "2022-11-03";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
-//        String spDateBeg = "2022-10-18";//
-//        String spDateEnd = "2022-10-20";//
+//        String spDateBeg = "2022-11-04";//
+//        String spDateEnd = "2022-11-04";//
 
         int limitCount = 10;
 
@@ -76,12 +76,12 @@ public class StockAdrStat {
         Map<String, StockAdrCountVo> stockAdrCountMap = new HashMap<>();
         for (List<String> bks : bkMap.values()) {
             condFind.setBizList(bks);
-            condFind.setMvMin(mvMinBig);
             //查询大票
-            List<StockAdrCountVo> stockAdrCountList500 = StockAdrCountService.findListByCondition(condFind);
-            for (StockAdrCountVo stockAdrCount : stockAdrCountList500) {
-                stockAdrCountMap.put(stockAdrCount.getF12(), stockAdrCount);
-            }
+//            condFind.setMvMin(mvMinBig);
+//            List<StockAdrCountVo> stockAdrCountList500 = StockAdrCountService.findListByCondition(condFind);
+//            for (StockAdrCountVo stockAdrCount : stockAdrCountList500) {
+//                stockAdrCountMap.put(stockAdrCount.getF12(), stockAdrCount);
+//            }
 
             //查询中票，去重
             condFind.setMvMin(mvMinSmall);
