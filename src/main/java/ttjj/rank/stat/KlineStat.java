@@ -29,17 +29,17 @@ public class KlineStat {
 
 //        statAdrByTime(date);//统计涨幅-根据日期
 
-//        statAdrCjl(ContIndex.SHANG_HAI);
-//        statAdrCjl(ContIndex.SHEN_ZHEN);
-//        statAdrCjl(ContIndex.CYB);
-//        statAdrCjl(ContIndex.ZZ_1000);
+        statAdrCjl(ContIndex.SHANG_HAI);
+        statAdrCjl(ContIndex.SHEN_ZHEN);
+        statAdrCjl(ContIndex.CYB);
+        statAdrCjl(ContIndex.ZZ_1000);
 
-        statListEtfAdrArea(ContMapEtf.INDEX_MORE);//K线：统计区间涨幅,etf
-        statListEtfAdrArea(ContMapEtf.ZIYUAN_MORE);//K线：统计区间涨幅,etf
-        statListEtfAdrArea(ContMapEtf.KEJI_MORE);//K线：统计区间涨幅,etf
-        statListEtfAdrArea(ContMapEtf.XIAOFEI_MORE);//K线：统计区间涨幅,etf
-        statListEtfAdrArea(ContMapEtf.YILIAO_MORE);//K线：统计区间涨幅,etf
-        statListEtfAdrArea(ContMapEtf.JINRONG_MORE);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(ContMapEtf.INDEX_MORE);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(ContMapEtf.ZIYUAN_MORE);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(ContMapEtf.KEJI_MORE);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(ContMapEtf.XIAOFEI_MORE);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(ContMapEtf.YILIAO_MORE);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(ContMapEtf.JINRONG_MORE);//K线：统计区间涨幅,etf
 
 //        findKline();
 
@@ -173,10 +173,10 @@ public class KlineStat {
      *
      */
     private static void statAdrCjl(String zqdm) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);//        String date = "2022-09-26";
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-11-01";
         String zqmc = Content.zhishuMap.get(zqdm);
-        String klt = Content.KLT_120;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
-        System.out.println("指数：" + zqmc + ",周期(" + klt + "):");
+        String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
 //        logger.info("指数：{},周期({}):" + zqmc + ",周期(" + klt + "):",zqmc,klt);
 
         Map<String, BigDecimal> cjeMap = new HashMap<>();
@@ -184,6 +184,7 @@ public class KlineStat {
         String tradeDaySub1 = StockService.findBegDate(date, 1);
         List<Kline> klineTradeDaySub1 = KlineService.kline(zqdm, NUM_MAX_999, klt, true, tradeDaySub1, tradeDaySub1, DB_RANK_BIZ_TYPE_ZS);
 //        System.out.println(JSON.toJSONString(klineTradeDaySub1));
+        System.out.println("指数：" + zqmc + ",周期(" + klt + "):");
         for (Kline kline : klineTradeDaySub1) {
             BigDecimal cje = kline.getCje().divide(NUM_YI_1, 0, BigDecimal.ROUND_HALF_UP);
             String timeCur = kline.getKtime().substring(10);
@@ -191,11 +192,10 @@ public class KlineStat {
 //            System.out.println("上一交易日" + "(" + kline.getKtime() + ")" + StockUtil.formatStName("成交额(亿):" + cje, 20));
         }
 
-        //查询K线-昨天到今天
-        String today = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-        List<Kline> klineToday = KlineService.kline(zqdm, NUM_MAX_999, klt, true, today, today, DB_RANK_BIZ_TYPE_ZS);
+        //查询K线
+        List<Kline> klineCurDay = KlineService.kline(zqdm, NUM_MAX_999, klt, true, date, date, DB_RANK_BIZ_TYPE_ZS);
 //        System.out.println(JSON.toJSONString(klineToday));
-        for (Kline kline : klineToday) {
+        for (Kline kline : klineCurDay) {
             StringBuffer sb = new StringBuffer();
             BigDecimal cjeToday = kline.getCje().divide(NUM_YI_1, 0, BigDecimal.ROUND_HALF_UP);
             String timeCur = kline.getKtime().substring(10);
@@ -204,12 +204,16 @@ public class KlineStat {
             BigDecimal cjeCompRsPt = cjeCompRs.divide(cjeTradeDaySub1, 2, RoundingMode.HALF_UP);//前一日量比
             sb.append(kline.getKtime() + "成交额(亿):" + StockUtil.formatDouble(cjeToday, 5) + "-" + StockUtil.formatDouble(cjeTradeDaySub1, 5) + "=");
 
-            long klineTime = DateUtil.getTimeInMillisByDateStr(DateUtil.YYYY_MM_DD_HH_MM_SS, kline.getKtime());
+                long klineTime = Calendar.getInstance().getTimeInMillis();
+            if(kline.getKtime().length()>10){
+                klineTime = DateUtil.getTimeInMillisByDateStr(DateUtil.YYYY_MM_DD_HH_MM_SS, kline.getKtime());
+            }
+
             long curTime = Calendar.getInstance().getTimeInMillis();
             if (cjeCompRs.compareTo(new BigDecimal("0")) > 0) {
                 sb.append("(" + StockUtil.formatDouble(cjeCompRs, 5) + ")亿,");
                 //如果k线时间大于当前时间，不比较
-                if (klineTime < curTime) {
+                if (klineTime <= curTime) {
                     sb.append("放量");
                     sb.append(StockUtil.formatDouble(cjeCompRsPt, 5) + "%");
                 } else {
@@ -218,7 +222,7 @@ public class KlineStat {
                 }
             } else {
                 sb.append("(" + StockUtil.formatDouble(cjeCompRs, 5) + ")亿,");
-                if (klineTime < curTime) {
+                if (klineTime <= curTime) {
                     sb.append("缩量");
                     sb.append(StockUtil.formatDouble(cjeCompRsPt, 5) + "%");
                 } else {
