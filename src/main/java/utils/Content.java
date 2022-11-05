@@ -872,5 +872,6 @@ public class Content {
      */
     public static String FIND_MODEL_CACHE = "CACHE";
 
+    public static List<String> CACHE_DATE_LIST = new ArrayList<>();//缓存日期列表
 
 }

@@ -29,6 +29,27 @@ public class KlineDto extends Kline {
      */
     private BigDecimal score;
 
+    /**
+     * 前一日k线列表
+     */
+    private List<KlineDto> preDayKlineList;
+    /**
+     * 量比(与前一个)
+     */
+    private BigDecimal preDayLiangBi;
+    /**
+     * 个数-上涨
+     */
+    private Integer countUp;
+    /**
+     * 个数-下跌
+     */
+    private Integer countDown;
+    /**
+     * 个数-平盘
+     */
+    private Integer countFlat;
+
     public BigDecimal getScore() {
         return score;
     }
@@ -67,5 +88,45 @@ public class KlineDto extends Kline {
 
     public void setNetCur(BigDecimal netCur) {
         this.netCur = netCur;
+    }
+
+    public BigDecimal getPreDayLiangBi() {
+        return preDayLiangBi;
+    }
+
+    public void setPreDayLiangBi(BigDecimal preDayLiangBi) {
+        this.preDayLiangBi = preDayLiangBi;
+    }
+
+    public Integer getCountUp() {
+        return countUp;
+    }
+
+    public void setCountUp(Integer countUp) {
+        this.countUp = countUp;
+    }
+
+    public Integer getCountDown() {
+        return countDown;
+    }
+
+    public void setCountDown(Integer countDown) {
+        this.countDown = countDown;
+    }
+
+    public Integer getCountFlat() {
+        return countFlat;
+    }
+
+    public void setCountFlat(Integer countFlat) {
+        this.countFlat = countFlat;
+    }
+
+    public List<KlineDto> getPreDayKlineList() {
+        return preDayKlineList;
+    }
+
+    public void setPreDayKlineList(List<KlineDto> preDayKlineList) {
+        this.preDayKlineList = preDayKlineList;
     }
 }
