@@ -131,7 +131,7 @@ public class KlineService {
 //        String name = szzzMonthDataJson.getString("name");
 //        System.out.println("指数名称："+name);
         if (szzzMonthDataJson == null || !szzzMonthDataJson.containsKey("klines")) {
-            System.out.println("klines数据异常：" + JSON.toJSONString(szzzMonthDataJson));
+            System.out.println("klines数据异常：" + rs);
             System.out.println(rs);
             return null;
         }

@@ -164,16 +164,17 @@ public class EtfUtil {
 
 
     /**
-     * 显示集合
+     * etf,显示排名，显示简单排名
+     *
      * @param rsList   列表
      * @param begDate  开始时间
      * @param endDate  结束时间
      * @param limit
      * @param showMore 显示更多字段
-     * @param klt 周期类型
-     * @param ktime 时间段
+     * @param klt      周期类型
+     * @param ktime    时间段
      */
-    public static void showInfoEtfKline(List<CondKline> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, String klt, String ktime) {
+    public static void showInfoEtfKline(List<CondKline> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, String klt, String ktime, boolean isShowSimple) {
         Map<String, Integer> sizeMap = new HashMap<>();
         String orderNo = "序号";
         sizeMap.put("序号", 5);
@@ -205,6 +206,7 @@ public class EtfUtil {
             return;
         }
         int number = 0;
+        StringBuffer sbSimple = new StringBuffer();//简单信息
         for (CondKline dto : rsList) {
             if (limit-- <= 0) {
                 break;
@@ -215,12 +217,15 @@ public class EtfUtil {
 //                continue;
 //            }
             StringBuffer sb = new StringBuffer();
+
             sb.append(StockUtil.formatStName(String.valueOf(++number), sizeMap.get("序号")));
             if (isShowCode) {
                 sb.append(StockUtil.formatStName(code, sizeMap.get("代码")));
             }
-            sb.append(StockUtil.formatStName(name, 16));
-            sb.append(StockUtil.formatDouble(dto.getAreaF3(), size, null, "%"));
+            String formatName = EtfUtil.formatNameEtf(name, 16, false);
+            sb.append(formatName);
+            String formatAdr = StockUtil.formatDouble(dto.getAreaF3(), size, null, "%");
+            sb.append(formatAdr);
             if (showMore) {
                 sb.append(StockUtil.formatDouble(dto.getZhangDieFu(), size, null, "%"));
                 sb.append(StockUtil.formatDouble(dto.getF20(), sizeDate14));
@@ -229,10 +234,18 @@ public class EtfUtil {
 //                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
 //                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
             }
-                sb.append(StockUtil.formatStName(klt, size));
-                sb.append(StockUtil.formatStName(ktime, sizeKtime));
+            sb.append(StockUtil.formatStName(klt, size));
+            sb.append(StockUtil.formatStName(ktime, sizeKtime));
             System.out.println(sb);
+            if (isShowSimple) {
+                //简单排名
+                sbSimple.append(formatName.replace(" ", ""));
+//                sbSimple.append(":");
+//                sbSimple.append(formatAdr.replace(" ", ""));
+                sbSimple.append(";");
+            }
         }
+        System.out.println(sbSimple);
     }
 
     /**
@@ -351,6 +364,43 @@ public class EtfUtil {
 //        return new ArrayList<>(ContMapEtf.INDEX_ALL.keySet());
 //        return new ArrayList<>(ContMapEtf.INDEX_MORE_NOT_CN.keySet());
 //        return new ArrayList<>(ContMapEtf.INDEX_MORE_CN.keySet());
+    }
+
+    /**
+     * 格式化名称
+     *
+     * @param name
+     * @param length
+     * @return rs
+     */
+    public static String formatNameEtf(String name, int length, boolean isHasEtfStr) {
+        if (!isHasEtfStr) {
+            name = name.replace("ETF", "");
+            name = name.replace("易方达", "");
+        }
+        StringBuffer rs = new StringBuffer();
+        if (name == null || name.length() == 0) {
+            for (int i = 0; i < length; i++) {
+                rs.append(" ");
+            }
+            return rs.toString();
+        }
+        char[] chars = name.toCharArray();
+        for (char aChar : chars) {
+            if (StockUtil.isChineseChar(aChar)) {
+                length = length - 2;
+            } else if (StockUtil.isCharQuanJiao(aChar)) {
+                length = length - 2;
+            } else {
+//                System.out.println("名称非中文或全角：["+aChar+"]");
+                length = length - 1;
+            }
+        }
+        rs.append(name);
+        for (int i = 0; i < length; i++) {
+            rs.append(" ");
+        }
+        return rs.toString();
     }
 
 }
