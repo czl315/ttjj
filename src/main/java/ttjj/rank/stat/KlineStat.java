@@ -228,7 +228,9 @@ public class KlineStat {
             rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
         }
         //区间涨幅
-        EtfUtil.showInfoEtfKline(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, klt, ktime,true);
+        EtfUtil.showInfoEtfKline(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, klt, ktime);
+        EtfUtil.showInfoEtfSimple(rsList,limit,false);
+        EtfUtil.showInfoEtfSimple(rsList,limit,true);
         System.out.println();
 
         //更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新

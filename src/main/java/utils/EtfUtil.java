@@ -6,10 +6,9 @@ import ttjj.dto.BizDto;
 import ttjj.dto.CondKline;
 import ttjj.dto.RankBizDataDiff;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static utils.ContMapEtf.ETF_All;
 import static utils.Content.DB_RANK_BIZ_TYPE_ETF;
@@ -174,7 +173,7 @@ public class EtfUtil {
      * @param klt      周期类型
      * @param ktime    时间段
      */
-    public static void showInfoEtfKline(List<CondKline> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, String klt, String ktime, boolean isShowSimple) {
+    public static void showInfoEtfKline(List<CondKline> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, String klt, String ktime) {
         Map<String, Integer> sizeMap = new HashMap<>();
         String orderNo = "序号";
         sizeMap.put("序号", 5);
@@ -206,7 +205,6 @@ public class EtfUtil {
             return;
         }
         int number = 0;
-        StringBuffer sbSimple = new StringBuffer();//简单信息
         for (CondKline dto : rsList) {
             if (limit-- <= 0) {
                 break;
@@ -217,7 +215,6 @@ public class EtfUtil {
 //                continue;
 //            }
             StringBuffer sb = new StringBuffer();
-
             sb.append(StockUtil.formatStName(String.valueOf(++number), sizeMap.get("序号")));
             if (isShowCode) {
                 sb.append(StockUtil.formatStName(code, sizeMap.get("代码")));
@@ -237,13 +234,39 @@ public class EtfUtil {
             sb.append(StockUtil.formatStName(klt, size));
             sb.append(StockUtil.formatStName(ktime, sizeKtime));
             System.out.println(sb);
-            if (isShowSimple) {
-                //简单排名
-                sbSimple.append(formatName.replace(" ", ""));
-//                sbSimple.append(":");
-//                sbSimple.append(formatAdr.replace(" ", ""));
-                sbSimple.append(";");
+        }
+    }
+
+    /**
+     * etf,显示简单排名
+     *
+     * @param rsList
+     * @param limit
+     */
+    public static void showInfoEtfSimple(List<CondKline> rsList, int limit, boolean isAsc) {
+        StringBuffer sbSimple = new StringBuffer();//简单信息
+        if (isAsc) {
+            //排序
+            rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+        } else {
+            rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        }
+        for (CondKline dto : rsList) {
+            if (limit-- <= 0) {
+                break;
             }
+            if (isAsc && dto.getAreaF3().compareTo(new BigDecimal("0")) >= 0) {//只显示正负排序
+                break;
+            } else if (!isAsc && dto.getAreaF3().compareTo(new BigDecimal("0")) < 0) {
+                break;
+            }
+            String formatName = EtfUtil.formatNameEtf(dto.getZqmc(), 16, false);
+            String formatAdr = StockUtil.formatDouble(dto.getAreaF3(), 6, null, "%");
+            //简单排名
+            sbSimple.append(formatName.replace(" ", ""));
+            sbSimple.append(":");
+            sbSimple.append(formatAdr.replace(" ", ""));
+            sbSimple.append(";");
         }
         System.out.println(sbSimple);
     }
@@ -402,5 +425,6 @@ public class EtfUtil {
         }
         return rs.toString();
     }
+
 
 }
