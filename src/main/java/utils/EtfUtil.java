@@ -382,7 +382,8 @@ public class EtfUtil {
         if (etfMap != null) {
             return new ArrayList<>(etfMap.keySet());
         }
-        return new ArrayList<>(ETF_All.keySet());
+//        return new ArrayList<>(ETF_All.keySet());
+        return new ArrayList<>(ContMapEtf.ETF_MORE.keySet());
 //        return new ArrayList<>(ContMapEtf.INDEX_MORE.keySet());
 //        return new ArrayList<>(ContMapEtf.INDEX_ALL.keySet());
 //        return new ArrayList<>(ContMapEtf.INDEX_MORE_NOT_CN.keySet());

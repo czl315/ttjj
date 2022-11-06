@@ -1048,13 +1048,29 @@ public class ContMapEtf {
      * etf-行业-all
      */
     public static Map<String, String> ETF_BIZ_ALL = new HashMap<>();
-
     static {
-        ETF_BIZ_ALL.putAll(KEJI_MORE);
+        ETF_BIZ_ALL.putAll(KEJI);
         ETF_BIZ_ALL.putAll(YILIAO);
         ETF_BIZ_ALL.putAll(JINRONG);
         ETF_BIZ_ALL.putAll(XIAOFEI);
         ETF_BIZ_ALL.putAll(ZIYUAN_ALL);
+    }
+    /**
+     * ETF_BIZ_MORE
+     */
+    public static Map<String, String> ETF_BIZ_MORE = new HashMap<>();
+
+    static {
+        ETF_BIZ_MORE.putAll(KEJI_MORE);
+        ETF_BIZ_MORE.putAll(YILIAO_MORE);
+        ETF_BIZ_MORE.putAll(JINRONG_MORE);
+        ETF_BIZ_MORE.putAll(XIAOFEI_MORE);
+        ETF_BIZ_MORE.putAll(ZIYUAN_MORE);
+    }
+    public static Map<String, String> ETF_MORE = new HashMap<>();
+    static {
+        ETF_MORE.putAll(ETF_BIZ_MORE);
+        ETF_MORE.putAll(INDEX_MORE);
     }
 
     /**
