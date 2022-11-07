@@ -955,7 +955,7 @@ public class KlineService {
             rs.setBreakPctDown(curAmt.subtract(curMaAmt).divide(curMaAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")));
         }
         //最高净值跌破均线
-        if (yesterdayCloseAmt.compareTo(curMaAmt) >= 0 && maxAmt.compareTo(curMaAmt) > 0 && curAmt.compareTo(curMaAmt) < 0) {
+        if (maxAmt.compareTo(curMaAmt) > 0 && curAmt.compareTo(curMaAmt) < 0) {
             rs.setMaBreakDownMax(true);
             //计算连续突破次数
             int breakCount = handlerBreakCountDownMax(maKline);

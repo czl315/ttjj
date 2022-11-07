@@ -5,6 +5,7 @@ import utils.ContMapEtf;
 import utils.DateUtil;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +25,9 @@ public class KlineJob {
     private static void saveKlineEtfMianSchedule(String date) {
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
             System.out.println("定时任务-保存常用etf-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
-            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101), KlineControl.handlerZqMap(date, DB_RANK_BIZ_TYPE_ETF));
+            List<String> kltList_101_5 = Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101);
+            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, kltList_101_5, KlineControl.handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS));//
+            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_5, KlineControl.handlerZqMap(date, DB_RANK_BIZ_TYPE_ETF));
 //            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101), ContMapEtf.ETF_All);//保存常用etf
             System.out.println("定时任务-保存常用etf-end:");
         }, 0, 5, TimeUnit.MINUTES);

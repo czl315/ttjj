@@ -26,7 +26,7 @@ public class KlineStat {
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
 
-//        statAdrByTime(date);//统计涨幅-根据日期
+        statAdrByTime();//统计涨幅-根据日期
 
 //        statAdrCjlCnA();//统计中国A股全市场
 //        statAdrCjl(ContIndex.SHANG_HAI);
@@ -34,7 +34,7 @@ public class KlineStat {
 //        statAdrCjl(ContIndex.CYB);
 //        statAdrCjl(ContIndex.ZZ_1000);
 
-        statListEtfAdrArea(ContMapEtf.ETF_MORE);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(ContMapEtf.ETF_MORE);//K线：统计区间涨幅,etf
 //        statListEtfAdrArea(ContMapEtf.INDEX_MORE);//K线：统计区间涨幅,etf
 //        statListEtfAdrArea(ContMapEtf.ZIYUAN_MORE);//K线：统计区间涨幅,etf
 //        statListEtfAdrArea(ContMapEtf.KEJI_MORE);//K线：统计区间涨幅,etf
@@ -123,6 +123,7 @@ public class KlineStat {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-11-04";
 //        Map<String, String> etfMap = KEJI_MORE;//INDEX_ALL     INDEX_MORE   XIAOFEI_ALL_TO_MORE    KEJI_MORE
+        int areaDays = 0;//4:近一周;20:近一月
         boolean isDesc = true;
         int limit = 500;
         String type = DB_RANK_BIZ_TYPE_ETF;//DB_RANK_BIZ_TYPE_BAN_KUAI  DB_RANK_BIZ_TYPE_ETF   DB_RANK_BIZ_TYPE_GAI_NIAN
@@ -135,7 +136,6 @@ public class KlineStat {
         String ktime = date;//时间段(结束时间)
 //        String klt = KLT_60;//KLT_60
 //        String ktime = "15:00:00";//时间段(结束时间)
-        int areaDays = 4;//4:近一周;20:近一月
         BigDecimal mvMin = null;
         BigDecimal mvMax = null;
 
@@ -402,13 +402,15 @@ public class KlineStat {
     /**
      * 统计涨幅-根据日期
      *
-     * @param date
      */
-    private static void statAdrByTime(String date) {
+    private static void statAdrByTime() {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-11-04";
+
 //        String klt = KLT_101;
 //        String klt = KLT_60;
-//        String klt = KLT_30;
-        String klt = KLT_15;
+        String klt = KLT_30;
+//        String klt = KLT_15;
 //        String klt = KLT_5;
 
 //        String orderTime = TIME_11_30;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
@@ -442,7 +444,7 @@ public class KlineStat {
             long timeLong = DateUtil.getTimeInMillisByDateStr(DateUtil.YYYY_MM_DD_HH_MM_SS, datTime);
             long curTime = Calendar.getInstance().getTimeInMillis();
             if (timeLong > curTime) {
-                System.out.println("如果未到当前时间，不处理:" + datTime);
+//                System.out.println("如果未到当前时间，不处理:" + datTime);
                 return;
             }
         }
