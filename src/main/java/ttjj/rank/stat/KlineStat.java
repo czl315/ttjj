@@ -26,7 +26,7 @@ public class KlineStat {
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
 
-        statAdrByTime();//统计涨幅-根据日期
+//        statAdrByTime();//统计涨幅-根据日期
 
 //        statAdrCjlCnA();//统计中国A股全市场
 //        statAdrCjl(ContIndex.SHANG_HAI);
@@ -35,7 +35,10 @@ public class KlineStat {
 //        statAdrCjl(ContIndex.ZZ_1000);
 
 //        statListEtfAdrArea(ContMapEtf.ETF_MORE);//K线：统计区间涨幅,etf
-//        statListEtfAdrArea(ContMapEtf.INDEX_MORE);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(DB_RANK_BIZ_TYPE_ETF, ContMapEtf.INDEX_MORE,999);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(DB_RANK_BIZ_TYPE_BAN_KUAI, ContMapEtf.INDEX_MORE,99);//K线：统计区间涨幅,etf
+        statListEtfAdrArea(DB_RANK_BIZ_TYPE_GAI_NIAN, ContMapEtf.INDEX_MORE,999);//K线：统计区间涨幅,etf
+
 //        statListEtfAdrArea(ContMapEtf.ZIYUAN_MORE);//K线：统计区间涨幅,etf
 //        statListEtfAdrArea(ContMapEtf.KEJI_MORE);//K线：统计区间涨幅,etf
 //        statListEtfAdrArea(ContMapEtf.XIAOFEI_MORE);//K线：统计区间涨幅,etf
@@ -119,14 +122,13 @@ public class KlineStat {
      *
      * @param etfMap 限定etf
      */
-    private static void statListEtfAdrArea(Map<String, String> etfMap) {
+    private static void statListEtfAdrArea(String type, Map<String, String> etfMap,int limit) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-11-04";
+//        String date = "2022-11-07";
+//        String type = DB_RANK_BIZ_TYPE_ETF;//DB_RANK_BIZ_TYPE_BAN_KUAI  DB_RANK_BIZ_TYPE_ETF   DB_RANK_BIZ_TYPE_GAI_NIAN
 //        Map<String, String> etfMap = KEJI_MORE;//INDEX_ALL     INDEX_MORE   XIAOFEI_ALL_TO_MORE    KEJI_MORE
         int areaDays = 0;//4:近一周;20:近一月
         boolean isDesc = true;
-        int limit = 500;
-        String type = DB_RANK_BIZ_TYPE_ETF;//DB_RANK_BIZ_TYPE_BAN_KUAI  DB_RANK_BIZ_TYPE_ETF   DB_RANK_BIZ_TYPE_GAI_NIAN
         boolean isShowCode = true;//是否显示编码
         boolean isCheckFuQuan = false;//是否检查更新复权
         boolean isOrMianEtf = false;//是否必须查询我的主要etf
@@ -150,7 +152,7 @@ public class KlineStat {
         condEndDate.setType(type);
         condEndDate.setKlt(klt);
         condEndDate.setKtime(ktime);//时间类型
-        if (isCheckMianEtf) {//检查是否是主要etf
+        if (isCheckMianEtf && type.equals(DB_RANK_BIZ_TYPE_ETF)) {//检查是否是主要etf
             condEndDate.setStCodeList(EtfUtil.getMainEtf(etfMap));
         }
         List<Kline> klineListEndDate = KlineService.listKine(condEndDate);
@@ -180,7 +182,7 @@ public class KlineStat {
         } else {
             condBegDate.setKtime(ktime);//时间类型
         }
-        if (isCheckMianEtf) {//检查是否是主要etf
+        if (isCheckMianEtf && type.equals(DB_RANK_BIZ_TYPE_ETF)) {//检查是否是主要etf
             condBegDate.setStCodeList(EtfUtil.getMainEtf(etfMap));
         }
         List<Kline> klineListBegDate = KlineService.listKine(condBegDate);
@@ -230,8 +232,8 @@ public class KlineStat {
         }
         //区间涨幅
         EtfUtil.showInfoEtfKline(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, klt, ktime);
-        EtfUtil.showInfoEtfSimple(rsList,limit,false);
-        EtfUtil.showInfoEtfSimple(rsList,limit,true);
+        EtfUtil.showInfoEtfSimple(rsList, limit, false);
+        EtfUtil.showInfoEtfSimple(rsList, limit, true);
         System.out.println();
 
         //更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
@@ -401,7 +403,6 @@ public class KlineStat {
 
     /**
      * 统计涨幅-根据日期
-     *
      */
     private static void statAdrByTime() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);

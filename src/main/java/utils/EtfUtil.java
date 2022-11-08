@@ -264,8 +264,8 @@ public class EtfUtil {
             String formatAdr = StockUtil.formatDouble(dto.getAreaF3(), 6, null, "%");
             //简单排名
             sbSimple.append(formatName.replace(" ", ""));
-            sbSimple.append(":");
-            sbSimple.append(formatAdr.replace(" ", ""));
+//            sbSimple.append(":");
+//            sbSimple.append(formatAdr.replace(" ", ""));
             sbSimple.append(";");
         }
         System.out.println(sbSimple);

@@ -375,6 +375,7 @@ public class BizEtfStat {
         condMa.setShowUpMa(true);//是否显示-超过均线
         condMa.setShowDownMa(true);//是否显示-跌落均线
         condMa.setShowBreakDownMaMax(true);//是否显示-跌落均线-最高
+        condMa.setShowBreakUpMaMin(true);//是否显示-涨上均线-最低
         condMa.setFindKline(true);//是否查询最新k线
         condMa.setShowFlowIn(false);//是否显示资金流入
         condMa.setShowDateMinMax(false);//是否显示日最低点、最高点

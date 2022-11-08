@@ -54,6 +54,10 @@ public class CondMa {
      */
     private Boolean isShowBreakDownMaMax;
     /**
+     * 是否查询向上涨破均线-最低净值
+     */
+    private Boolean isShowBreakUpMaMin;
+    /**
      * isShowFlowIn 是否查询资金流入
      */
     private Boolean isShowFlowIn;
@@ -216,5 +220,13 @@ public class CondMa {
 
     public void setShowBreakDownMaMax(Boolean showBreakDownMaMax) {
         isShowBreakDownMaMax = showBreakDownMaMax;
+    }
+
+    public Boolean getShowBreakUpMaMin() {
+        return isShowBreakUpMaMin;
+    }
+
+    public void setShowBreakUpMaMin(Boolean showBreakUpMaMin) {
+        isShowBreakUpMaMin = showBreakUpMaMin;
     }
 }

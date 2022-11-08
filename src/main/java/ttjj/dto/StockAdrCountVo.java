@@ -73,6 +73,30 @@ public class StockAdrCountVo extends StockAdrCount {
      */
     private String maBreakDownMax102;
     /**
+     * 突破均线-向上-最低净值-5
+     */
+    private String maBreakUpMin5;
+    /**
+     * maBreakUpMin15
+     */
+    private String maBreakUpMin15;
+    /**
+     * maBreakUpMin30
+     */
+    private String maBreakUpMin30;
+    /**
+     * maBreakUpMin60
+     */
+    private String maBreakUpMin60;
+    /**
+     * maBreakUpMin101
+     */
+    private String maBreakUpMin101;
+    /**
+     * maBreakUpMin102
+     */
+    private String maBreakUpMin102;
+    /**
      * maDownDay15
      */
     private String maDownDay15;
@@ -158,6 +182,15 @@ public class StockAdrCountVo extends StockAdrCount {
      * 突破均线次数-向下-最高净值
      */
     private int breakCountDownMax102;
+    /**
+     * 突破均线次数-向上-最低净值
+     */
+    private int breakCountUpMin5;
+    private int breakCountUpMin15;
+    private int breakCountUpMin30;
+    private int breakCountUpMin60;
+    private int breakCountUpMin101;
+    private int breakCountUpMin102;
     /**
      * 突破均线次数-向下
      */
@@ -649,5 +682,101 @@ public class StockAdrCountVo extends StockAdrCount {
 
     public void setBreakCountDownMax102(int breakCountDownMax102) {
         this.breakCountDownMax102 = breakCountDownMax102;
+    }
+
+    public String getMaBreakUpMin5() {
+        return maBreakUpMin5;
+    }
+
+    public void setMaBreakUpMin5(String maBreakUpMin5) {
+        this.maBreakUpMin5 = maBreakUpMin5;
+    }
+
+    public String getMaBreakUpMin15() {
+        return maBreakUpMin15;
+    }
+
+    public void setMaBreakUpMin15(String maBreakUpMin15) {
+        this.maBreakUpMin15 = maBreakUpMin15;
+    }
+
+    public String getMaBreakUpMin30() {
+        return maBreakUpMin30;
+    }
+
+    public void setMaBreakUpMin30(String maBreakUpMin30) {
+        this.maBreakUpMin30 = maBreakUpMin30;
+    }
+
+    public String getMaBreakUpMin60() {
+        return maBreakUpMin60;
+    }
+
+    public void setMaBreakUpMin60(String maBreakUpMin60) {
+        this.maBreakUpMin60 = maBreakUpMin60;
+    }
+
+    public String getMaBreakUpMin101() {
+        return maBreakUpMin101;
+    }
+
+    public void setMaBreakUpMin101(String maBreakUpMin101) {
+        this.maBreakUpMin101 = maBreakUpMin101;
+    }
+
+    public String getMaBreakUpMin102() {
+        return maBreakUpMin102;
+    }
+
+    public void setMaBreakUpMin102(String maBreakUpMin102) {
+        this.maBreakUpMin102 = maBreakUpMin102;
+    }
+
+    public int getBreakCountUpMin5() {
+        return breakCountUpMin5;
+    }
+
+    public void setBreakCountUpMin5(int breakCountUpMin5) {
+        this.breakCountUpMin5 = breakCountUpMin5;
+    }
+
+    public int getBreakCountUpMin15() {
+        return breakCountUpMin15;
+    }
+
+    public void setBreakCountUpMin15(int breakCountUpMin15) {
+        this.breakCountUpMin15 = breakCountUpMin15;
+    }
+
+    public int getBreakCountUpMin30() {
+        return breakCountUpMin30;
+    }
+
+    public void setBreakCountUpMin30(int breakCountUpMin30) {
+        this.breakCountUpMin30 = breakCountUpMin30;
+    }
+
+    public int getBreakCountUpMin60() {
+        return breakCountUpMin60;
+    }
+
+    public void setBreakCountUpMin60(int breakCountUpMin60) {
+        this.breakCountUpMin60 = breakCountUpMin60;
+    }
+
+    public int getBreakCountUpMin101() {
+        return breakCountUpMin101;
+    }
+
+    public void setBreakCountUpMin101(int breakCountUpMin101) {
+        this.breakCountUpMin101 = breakCountUpMin101;
+    }
+
+    public int getBreakCountUpMin102() {
+        return breakCountUpMin102;
+    }
+
+    public void setBreakCountUpMin102(int breakCountUpMin102) {
+        this.breakCountUpMin102 = breakCountUpMin102;
     }
 }
