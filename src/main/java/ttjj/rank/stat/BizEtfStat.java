@@ -21,9 +21,6 @@ import static utils.DateUtil.YYYY_MM_DD;
  */
 public class BizEtfStat {
     public static void main(String[] args) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-10-26";
-
 //        showEtfUpMa(date);//etf-超过均线
 
         statListEtfAdrArea(null);//计算区间涨幅
@@ -382,25 +379,6 @@ public class BizEtfStat {
         condMa.setShowMaxMin(true);//是否显最低、最高
 
         List<StockAdrCountVo> rs = null;
-
-//        System.out.println("科技：");
-//        condMa.setMapStock(ContMapEtf.KEJI);
-//        KlineService.showStockMa(condMa);
-//        System.out.println("资源：");
-//        condMa.setMapStock(ContMapEtf.ZIYUAN);
-//        KlineService.showStockMa(condMa);
-//        System.out.println("消费：");
-//        condMa.setMapStock(ContMapEtf.XIAOFEI);
-//        KlineService.showStockMa(condMa);
-//        System.out.println("医疗：");
-//        condMa.setMapStock(ContMapEtf.YILIAO);
-//        KlineService.showStockMa(condMa);
-//        System.out.println("金融：");
-//        condMa.setMapStock(ContMapEtf.JINRONG);
-//        KlineService.showStockMa(condMa);
-//        System.out.println("指数：");
-//        condMa.setMapStock(ContMapEtf.ETF_ZS);
-//        KlineService.showStockMa(condMa);
 
         //etf-超过均线:更多检查
         System.out.println("科技：");

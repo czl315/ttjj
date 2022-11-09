@@ -21,7 +21,6 @@ import static utils.Content.*;
  */
 public class KlineStat {
     public static void main(String[] args) {
-
 //        // 统计涨跌次数-根据每月中的日期
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
@@ -34,9 +33,9 @@ public class KlineStat {
 //        statAdrCjl(ContIndex.CYB);
 //        statAdrCjl(ContIndex.ZZ_1000);
 
-//        statListEtfAdrArea(ContMapEtf.ETF_MORE);//K线：统计区间涨幅,etf
-//        statListEtfAdrArea(DB_RANK_BIZ_TYPE_ETF, ContMapEtf.INDEX_MORE,999);//K线：统计区间涨幅,etf
-//        statListEtfAdrArea(DB_RANK_BIZ_TYPE_BAN_KUAI, ContMapEtf.INDEX_MORE,99);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(DB_RANK_BIZ_TYPE_ETF, ContMapEtf.ETF_MORE, 999);//K线：统计区间涨幅,etf
+        statListEtfAdrArea(DB_RANK_BIZ_TYPE_ETF, ContMapEtf.INDEX_MORE,999);//K线：统计区间涨幅,etf
+        statListEtfAdrArea(DB_RANK_BIZ_TYPE_BAN_KUAI, ContMapEtf.INDEX_MORE,99);//K线：统计区间涨幅,etf
         statListEtfAdrArea(DB_RANK_BIZ_TYPE_GAI_NIAN, ContMapEtf.INDEX_MORE,999);//K线：统计区间涨幅,etf
 
 //        statListEtfAdrArea(ContMapEtf.ZIYUAN_MORE);//K线：统计区间涨幅,etf
@@ -122,7 +121,7 @@ public class KlineStat {
      *
      * @param etfMap 限定etf
      */
-    private static void statListEtfAdrArea(String type, Map<String, String> etfMap,int limit) {
+    private static void statListEtfAdrArea(String type, Map<String, String> etfMap, int limit) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-11-07";
 //        String type = DB_RANK_BIZ_TYPE_ETF;//DB_RANK_BIZ_TYPE_BAN_KUAI  DB_RANK_BIZ_TYPE_ETF   DB_RANK_BIZ_TYPE_GAI_NIAN
