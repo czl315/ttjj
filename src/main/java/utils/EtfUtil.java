@@ -115,7 +115,8 @@ public class EtfUtil {
      * @return 是否是主要etf
      */
     public static boolean isMainEtf(String zqdm) {
-        if (ContMapEtf.ETF_All.keySet().contains(zqdm)) {
+//        if (ContMapEtf.ETF_All.keySet().contains(zqdm)) {
+        if (ContMapEtf.ETF_MORE.keySet().contains(zqdm)) {
             return true;
         }
         return false;

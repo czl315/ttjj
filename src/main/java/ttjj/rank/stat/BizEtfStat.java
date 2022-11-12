@@ -21,6 +21,8 @@ import static utils.DateUtil.YYYY_MM_DD;
  */
 public class BizEtfStat {
     public static void main(String[] args) {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-10-26";
 //        showEtfUpMa(date);//etf-超过均线
 
         statListEtfAdrArea(null);//计算区间涨幅
@@ -30,7 +32,7 @@ public class BizEtfStat {
 //        statListEtfAdrArea(40);//计算区间涨幅
 //        statListEtfAdrArea(60);//计算区间涨幅
 
-//        showEtfMv(date);//显示etf市值
+//        showEtfMv();//显示etf市值
 //        statDayMinMaxTime(date);//k线：每日最高点、最低点
 
 //        listEtfBizDb(ContentEtf.mapEtfAll.keySet(), 0, true, true);//列表查询-行业etf-排序：涨跌幅
@@ -307,13 +309,16 @@ public class BizEtfStat {
 
     /**
      * 显示-etf-市值
-     *
-     * @param date
      */
-    public static void showEtfMv(String date) {
-        List<RankBizDataDiff> bizList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_999);//查询板块行业列表
+    public static void showEtfMv() {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-11-01";
+        Map<String, String> mapMyEtf = ContMapEtf.ETF_All;
+        System.out.println(date + "我的etf共收录：" + mapMyEtf.size());
+        List<RankBizDataDiff> bizList = BizService.listBiz(date, DB_RANK_BIZ_TYPE_ETF, NUM_MAX_9999);//查询板块行业列表
 //        bizList = bizList.stream().filter(e -> e != null).sorted(Comparator.comparing(RankBizDataDiff::getF20, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
         bizList = bizList.stream().filter(e -> e != null).sorted(Comparator.comparing(RankBizDataDiff::getF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        System.out.println("http etf共：" + bizList.size());
         for (RankBizDataDiff biz : bizList) {
             StringBuffer sb = new StringBuffer();
 //            mapMv.put(rankBizDataDiff.getF12(), rankBizDataDiff.getF20());
@@ -328,17 +333,18 @@ public class BizEtfStat {
 //            if (!name.contains("软") && !name.contains("数据") && !name.contains("云") && !name.contains("AI") && !name.contains("计算")) {
 //                continue;
 //            }
-            //  特定类型
-//            Map<String, String> mapZq = ContMapEtf.ZIYUAN;
-//            if (!mapZq.keySet().contains(code)) {
-//                continue;
-//            }
+
+//              特定类型
+
+            if (mapMyEtf.keySet().contains(code)) {
+                continue;
+            }
 
             sb.append(StockUtil.formatStName(code, 6)).append(" ");
             sb.append(nameFormat).append(" ");
             sb.append(marketValue).append(" ");
 //            System.out.println(sb);
-            System.out.println("etf.put(\"" + code + "\", \"" + nameFormat + "\");//" + mvFormat + "\t" + adr);
+            System.out.println("etf.put(\"" + code + "\", \"" + nameFormat + "\");//" + mvFormat + "\t" + adr+"%");
         }
     }
 

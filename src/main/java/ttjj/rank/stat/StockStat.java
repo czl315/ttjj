@@ -29,8 +29,8 @@ public class StockStat {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-08-04";
 
-        statListAdrArea();//计算区间涨幅
-//        statStockUpDownCount(date);//股票涨跌个数
+//        statListAdrArea();//计算区间涨幅
+        statStockUpDownCount(date);//股票涨跌个数
 
 //        statSuperDropBounce();//  超跌反弹
 //        statMaBreakUp();//突破均线

@@ -1828,7 +1828,7 @@ public class KlineService {
             System.out.print("  ");
             System.out.print(StockUtil.formatEtfName(stockAdrCountVo.getF14(), 16));
 
-            int showSize = 6;
+            int showSize = 4;
             //突破均线-向上
             if (isShowUpMa) {
                 System.out.print("上均 ");//显示信息-价格区间
@@ -1836,7 +1836,7 @@ public class KlineService {
                     String upMa = stockAdrCountVo.getUpMaDay5();
                     int breakCountUp = stockAdrCountVo.getBreakCountUp5();//突破均线次数
                     if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountUp, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountUp, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1847,7 +1847,7 @@ public class KlineService {
                     String upMa = stockAdrCountVo.getUpMaDay15();
                     int breakCountUp = stockAdrCountVo.getBreakCountUp15();
                     if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountUp, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountUp, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1856,7 +1856,7 @@ public class KlineService {
                     String upMa = stockAdrCountVo.getUpMaDay30();
                     int breakCountUp = stockAdrCountVo.getBreakCountUp30();
                     if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountUp, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountUp, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1865,7 +1865,7 @@ public class KlineService {
                     String upMa = stockAdrCountVo.getUpMaDay60();
                     int breakCountUp = stockAdrCountVo.getBreakCountUp60();
                     if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountUp, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountUp, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1874,7 +1874,7 @@ public class KlineService {
                     String upMa = stockAdrCountVo.getUpMaDay101();
                     int breakCountUp = stockAdrCountVo.getBreakCountUp101();
                     if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountUp, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountUp, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1883,7 +1883,7 @@ public class KlineService {
                     String upMa = stockAdrCountVo.getUpMaDay102();
                     int breakCountUp = stockAdrCountVo.getBreakCountUp102();
                     if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountUp, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountUp, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1891,12 +1891,13 @@ public class KlineService {
             }
             //是否查询向上涨破均线-最低净值
             if (isShowBreakUpMaMin != null && isShowBreakUpMaMin) {
-                System.out.print("低上均 ");
+                System.out.print("低上 ");
                 if (kltList.contains(KLT_5)) {
                     String breakUpMin5 = stockAdrCountVo.getMaBreakUpMin5();
                     int breakCount = stockAdrCountVo.getBreakCountUpMin5();//突破均线次数
                     if (StringUtils.isNotBlank(breakUpMin5)) {
-                        System.out.print(StockUtil.formatStr(breakUpMin5 + ":" + breakCount, showSize));
+//                        System.out.print(StockUtil.formatStr(breakUpMin5 + ":" + breakCount, showSize));
+                        System.out.print(StockUtil.formatStr(":" +breakCount, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1905,7 +1906,8 @@ public class KlineService {
                     String breakUpMin = stockAdrCountVo.getMaBreakUpMin15();
                     int breakCount = stockAdrCountVo.getBreakCountUpMin15();//突破均线次数
                     if (StringUtils.isNotBlank(breakUpMin)) {
-                        System.out.print(StockUtil.formatStr(breakUpMin + ":" + breakCount, showSize));
+//                        System.out.print(StockUtil.formatStr(breakUpMin + ":" + breakCount, showSize));
+                        System.out.print(StockUtil.formatStr(":" +breakCount, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1914,7 +1916,8 @@ public class KlineService {
                     String breakUpMin = stockAdrCountVo.getMaBreakUpMin30();
                     int breakCount = stockAdrCountVo.getBreakCountUpMin30();//突破均线次数
                     if (StringUtils.isNotBlank(breakUpMin)) {
-                        System.out.print(StockUtil.formatStr(breakUpMin + ":" + breakCount, showSize));
+//                        System.out.print(StockUtil.formatStr(breakUpMin + ":" + breakCount, showSize));
+                        System.out.print(StockUtil.formatStr(":" +breakCount, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1923,7 +1926,8 @@ public class KlineService {
                     String breakUpMin = stockAdrCountVo.getMaBreakUpMin60();
                     int breakCount = stockAdrCountVo.getBreakCountUpMin60();//突破均线次数
                     if (StringUtils.isNotBlank(breakUpMin)) {
-                        System.out.print(StockUtil.formatStr(breakUpMin + ":" + breakCount, showSize));
+//                        System.out.print(StockUtil.formatStr(breakUpMin + ":" + breakCount, showSize));
+                        System.out.print(StockUtil.formatStr(":" +breakCount, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1932,7 +1936,8 @@ public class KlineService {
                     String breakUpMin = stockAdrCountVo.getMaBreakUpMin101();
                     int breakCount = stockAdrCountVo.getBreakCountUpMin101();//突破均线次数
                     if (StringUtils.isNotBlank(breakUpMin)) {
-                        System.out.print(StockUtil.formatStr(breakUpMin + ":" + breakCount, showSize));
+//                        System.out.print(StockUtil.formatStr(breakUpMin + ":" + breakCount, showSize));
+                        System.out.print(StockUtil.formatStr(":" +breakCount, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1941,7 +1946,8 @@ public class KlineService {
                     String breakUpMin = stockAdrCountVo.getMaBreakUpMin102();
                     int breakCount = stockAdrCountVo.getBreakCountUpMin102();//突破均线次数
                     if (StringUtils.isNotBlank(breakUpMin)) {
-                        System.out.print(StockUtil.formatStr(breakUpMin + ":" + breakCount, showSize));
+//                        System.out.print(StockUtil.formatStr(breakUpMin + ":" + breakCount, showSize));
+                        System.out.print(StockUtil.formatStr(":" +breakCount, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1955,7 +1961,7 @@ public class KlineService {
 //                    System.out.print(StockUtil.formatStr(upMa, 4));
                     int breakCountDown = stockAdrCountVo.getBreakCountDown5();//突破均线次数
                     if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountDown, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1965,7 +1971,7 @@ public class KlineService {
                     String upMa = stockAdrCountVo.getMaDownDay15();
                     int breakCountDown = stockAdrCountVo.getBreakCountDown15();//突破均线次数
                     if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountDown, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1974,7 +1980,7 @@ public class KlineService {
                     String upMa = stockAdrCountVo.getMaDownDay30();
                     int breakCountDown = stockAdrCountVo.getBreakCountDown30();//突破均线次数
                     if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountDown, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1983,7 +1989,7 @@ public class KlineService {
                     String upMa = stockAdrCountVo.getMaDownDay60();
                     int breakCountDown = stockAdrCountVo.getBreakCountDown60();//突破均线次数
                     if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountDown, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -1992,7 +1998,7 @@ public class KlineService {
                     String upMa = stockAdrCountVo.getMaDownDay101();
                     int breakCountDown = stockAdrCountVo.getBreakCountDown101();//突破均线次数
                     if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountDown, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -2001,19 +2007,19 @@ public class KlineService {
                     String upMa = stockAdrCountVo.getMaDownDay102();
                     int breakCountDown = stockAdrCountVo.getBreakCountDown102();//突破均线次数
                     if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(upMa + ":" + breakCountDown, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
                 }
             }
             if (isShowDownMaMax != null && isShowDownMaMax) {//是否查询向下跌破均线-最高净值
-                System.out.print("高下均 ");
+                System.out.print("高下 ");
                 if (kltList.contains(KLT_5)) {
                     String breakDownMax = stockAdrCountVo.getMaBreakDownMax5();
                     int breakCountDown = stockAdrCountVo.getBreakCountDownMax5();//突破均线次数
                     if (StringUtils.isNotBlank(breakDownMax)) {
-                        System.out.print(StockUtil.formatStr(breakDownMax + ":" + breakCountDown, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -2022,7 +2028,7 @@ public class KlineService {
                     String breakDownMax = stockAdrCountVo.getMaBreakDownMax15();
                     int breakCountDown = stockAdrCountVo.getBreakCountDownMax15();//突破均线次数
                     if (StringUtils.isNotBlank(breakDownMax)) {
-                        System.out.print(StockUtil.formatStr(breakDownMax + ":" + breakCountDown, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -2031,7 +2037,7 @@ public class KlineService {
                     String breakDownMax = stockAdrCountVo.getMaBreakDownMax30();
                     int breakCountDown = stockAdrCountVo.getBreakCountDownMax30();//突破均线次数
                     if (StringUtils.isNotBlank(breakDownMax)) {
-                        System.out.print(StockUtil.formatStr(breakDownMax + ":" + breakCountDown, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -2040,7 +2046,7 @@ public class KlineService {
                     String breakDownMax = stockAdrCountVo.getMaBreakDownMax60();
                     int breakCountDown = stockAdrCountVo.getBreakCountDownMax60();//突破均线次数
                     if (StringUtils.isNotBlank(breakDownMax)) {
-                        System.out.print(StockUtil.formatStr(breakDownMax + ":" + breakCountDown, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -2049,7 +2055,7 @@ public class KlineService {
                     String breakDownMax = stockAdrCountVo.getMaBreakDownMax101();
                     int breakCountDown = stockAdrCountVo.getBreakCountDownMax101();//突破均线次数
                     if (StringUtils.isNotBlank(breakDownMax)) {
-                        System.out.print(StockUtil.formatStr(breakDownMax + ":" + breakCountDown, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }
@@ -2058,7 +2064,7 @@ public class KlineService {
                     String breakDownMax = stockAdrCountVo.getMaBreakDownMax102();
                     int breakCountDown = stockAdrCountVo.getBreakCountDownMax102();//突破均线次数
                     if (StringUtils.isNotBlank(breakDownMax)) {
-                        System.out.print(StockUtil.formatStr(breakDownMax + ":" + breakCountDown, showSize));
+                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
                     } else {
                         System.out.print(StockUtil.formatStr("", showSize));
                     }

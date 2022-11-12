@@ -25,7 +25,7 @@ public class KlineStat {
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
 
-//        statAdrByTime();//统计涨幅-根据日期
+        statAdrByTime();//统计涨幅-根据日期
 
 //        statAdrCjlCnA();//统计中国A股全市场
 //        statAdrCjl(ContIndex.SHANG_HAI);
@@ -34,9 +34,9 @@ public class KlineStat {
 //        statAdrCjl(ContIndex.ZZ_1000);
 
 //        statListEtfAdrArea(DB_RANK_BIZ_TYPE_ETF, ContMapEtf.ETF_MORE, 999);//K线：统计区间涨幅,etf
-        statListEtfAdrArea(DB_RANK_BIZ_TYPE_ETF, ContMapEtf.INDEX_MORE,999);//K线：统计区间涨幅,etf
-        statListEtfAdrArea(DB_RANK_BIZ_TYPE_BAN_KUAI, ContMapEtf.INDEX_MORE,99);//K线：统计区间涨幅,etf
-        statListEtfAdrArea(DB_RANK_BIZ_TYPE_GAI_NIAN, ContMapEtf.INDEX_MORE,999);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(DB_RANK_BIZ_TYPE_ETF, ContMapEtf.INDEX_MORE,999);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(DB_RANK_BIZ_TYPE_BAN_KUAI, ContMapEtf.INDEX_MORE,99);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(DB_RANK_BIZ_TYPE_GAI_NIAN, ContMapEtf.INDEX_MORE,999);//K线：统计区间涨幅,etf
 
 //        statListEtfAdrArea(ContMapEtf.ZIYUAN_MORE);//K线：统计区间涨幅,etf
 //        statListEtfAdrArea(ContMapEtf.KEJI_MORE);//K线：统计区间涨幅,etf
@@ -53,7 +53,7 @@ public class KlineStat {
      * 统计中国A股全市场
      */
     private static void statAdrCjlCnA() {
-        int days = 20;
+        int days = 1;
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-11-04";
         List<String> dateList = new ArrayList<>();
@@ -240,7 +240,7 @@ public class KlineStat {
     }
 
     private static void statAdrCjl(String zqdm) {
-        int days = 5;
+        int days = 1;
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-11-04";
         List<String> dateList = null;
@@ -462,6 +462,8 @@ public class KlineStat {
     private static void showUpOrDownInfo(String date, String type, String klt, String adrUp, String adrDown, int limit) {
         int sizeName = 14;
         int sizeAdr = 6;
+        boolean isCheckMianEtf = true;//是否必须查询我的主要etf
+        Map<String, String> etfMap = ContMapEtf.ETF_MORE;
 
         System.out.println("A股主要ETF涨幅榜");
         int i = 0;//计数器
@@ -500,6 +502,9 @@ public class KlineStat {
                 conditionKlineList.setKtime(date);
             } else {
                 conditionKlineList.setKtime(time);//排序时间点
+            }
+            if (isCheckMianEtf && type.equals(DB_RANK_BIZ_TYPE_ETF)) {//检查是否是主要etf
+                conditionKlineList.setStCodeList(EtfUtil.getMainEtf(etfMap));
             }
             List<Kline> klineList = KlineService.listKine(conditionKlineList);
             if (klineList == null || klineList.size() == 0) {
