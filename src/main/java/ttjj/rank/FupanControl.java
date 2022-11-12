@@ -42,8 +42,6 @@ public class FupanControl {
         insertOrUpdate(date, KLT_101, DAYS_1, ContentCookie.COOKIE_DFCF);//保存复盘和仓位
         checkMaByMyPosition(date);//检查我的持仓：超过均线、价格区间、今日涨跌
 
-//        System.out.println( getCookieHttp());//获取cookie
-
 //        checkFundFlowByMyPosition(date);//检查资金流向-我的仓位
 
 //        listMyPosition(date, KLT_101);//查询我的仓位 KLT_102;//检查周期类型
@@ -331,8 +329,6 @@ public class FupanControl {
 //        boolean updateMyTtjj = true;//显示-我的基金
         boolean updateMyTtjj = false;//不显示-我的基金
 
-//        String cookieHttp = getCookieHttp();//获取cookie
-
         if (updateDaPanKline) {
             //k线
             int count = 1;
@@ -502,25 +498,6 @@ public class FupanControl {
         updateStUpDownCount(date);//更新股票涨跌个数
 
     }
-
-    /**
-     * 获取cookie
-     *
-     * @return
-     */
-    private static String getCookieHttp() {
-        String cookie = "";
-        String url = "https://jywg.18.cn/Search/GetFundsFlow?validatekey=ed8500c4-5784-4d16-a2d8-14641c8d59c3";
-
-        StringBuffer urlParam = new StringBuffer();
-//        urlParam.append("moneyType=").append("RMB");
-
-//        System.out.println("请求url:"+url+ JSON.toJSONString(urlParam));
-        String rs = HttpUtil.sendPost(url, urlParam.toString(), cookie);
-        System.out.println("GetFundsFlow:" + rs);
-        return cookie;
-    }
-
 
     /**
      * 查询ttjj资产
