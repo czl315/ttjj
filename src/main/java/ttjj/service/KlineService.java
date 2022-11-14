@@ -901,18 +901,18 @@ public class KlineService {
         BigDecimal curMaAmt = maKline.getNetMa();
         curAmt = maKline.getNetCur();
 
+        //计算连续突破百分比
+        rs.setBreakPctUp(curAmt.subtract(curMaAmt).divide(curMaAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")));
         //涨破均线，买出信号
         if (yesterdayCloseAmt.compareTo(curMaAmt) < 0 && curAmt.compareTo(curMaAmt) >= 0) {
             rs.setMaBreakUp(true);
             //计算连续突破次数
             int breakCountUp = handlerBreakCount(maKline, true);
             rs.setBreakCountUp(breakCountUp);
-            //计算连续突破百分比
-            rs.setBreakPctUp(curAmt.subtract(curMaAmt).divide(curMaAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")));
         }
         //最低净值跌破均线后突破均线向上
         BigDecimal minAmt = todayKline.getMinAmt();
-        if (minAmt.compareTo(curMaAmt) < 0 && curAmt.compareTo(curMaAmt) > 0) {
+        if (minAmt.compareTo(curMaAmt) <= 0 && curAmt.compareTo(curMaAmt) > 0) {
             rs.setMaBreakUpMin(true);
             //计算连续突破次数
             int breakCount = handlerBreakCountUpMin(maKline);
@@ -988,14 +988,14 @@ public class KlineService {
         List<Kline> klineList = maKline.getKlineList().stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getKtime, Comparator.nullsFirst(String::compareTo)).reversed()).collect(Collectors.toList());
         for (Kline kline : klineList) {
             BigDecimal closeAmt = kline.getCloseAmt();
-            if (upOrDown){
-                if(closeAmt.compareTo(netMa) >= 0) {
+            if (upOrDown) {
+                if (closeAmt.compareTo(netMa) >= 0) {
                     count++;
                 } else {
                     break;
                 }
-            } else{
-                if(closeAmt.compareTo(netMa) < 0) {
+            } else {
+                if (closeAmt.compareTo(netMa) < 0) {
                     count++;
                 } else {
                     break;
@@ -1007,6 +1007,7 @@ public class KlineService {
 
     /**
      * 计算连续突破次数-向下-最高净值
+     *
      * @param maKline
      * @return
      */
@@ -1015,8 +1016,8 @@ public class KlineService {
         BigDecimal netMa = maKline.getNetMa();
         List<Kline> klineList = maKline.getKlineList().stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getKtime, Comparator.nullsFirst(String::compareTo)).reversed()).collect(Collectors.toList());
         for (Kline kline : klineList) {
-            BigDecimal maxAmt = kline.getMaxAmt();
-            if(maxAmt.compareTo(netMa) < 0) {
+            BigDecimal curAmt = kline.getCloseAmt();
+            if (curAmt.compareTo(netMa) < 0) {
                 count++;
             } else {
                 break;
@@ -1027,6 +1028,7 @@ public class KlineService {
 
     /**
      * 计算连续突破次数-向上-最低净值
+     *
      * @param maKline
      * @return
      */
@@ -1035,8 +1037,8 @@ public class KlineService {
         BigDecimal netMa = maKline.getNetMa();
         List<Kline> klineList = maKline.getKlineList().stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getKtime, Comparator.nullsFirst(String::compareTo)).reversed()).collect(Collectors.toList());
         for (Kline kline : klineList) {
-            BigDecimal minAmt = kline.getMinAmt();
-            if(minAmt.compareTo(netMa) >= 0) {
+            BigDecimal curAmt = kline.getCloseAmt();
+            if (curAmt.compareTo(netMa) >= 0) {
                 count++;
             } else {
                 break;
@@ -1225,7 +1227,6 @@ public class KlineService {
             } else {
                 stockAdrCountVo.setUpMaDay5("");
             }
-
             stockAdrCountVo.setMaBreakUpMin5((breakMa.isMaBreakUpMin() ? klt : ""));
             stockAdrCountVo.setBreakCountUpMin5(breakMa.getBreakCountUpMin());
         } else if (KLT_15.equals(klt)) {
@@ -1778,7 +1779,12 @@ public class KlineService {
     }
 
     /**
-     * 查询并显示突破均线信息
+     * 检查均线:
+     * 1、查询k线，http，对查询的k线进行排序
+     * 2、突破均线；向上突破均线，显示是否突破(距离均线百分比)，连续突破次数，可选5，15，30,60，日线、周线；
+     * 3、突破均线；向下突破均线，显示是否突破(距离均线百分比)，连续突破次数，可选5，15，30,60，日线、周线；
+     * 4、突破均线；向上突破均线(最低值)，显示是否突破(距离均线百分比)，连续突破次数，可选5，15，30,60，日线、周线；
+     * 5、突破均线；向下突破均线(最低值)，显示是否突破(距离均线百分比)，连续突破次数，可选5，15，30,60，日线、周线；
      *
      * @param condMa 均线条件
      */
@@ -1801,6 +1807,7 @@ public class KlineService {
         Boolean isShowMaxMin = condMa.getShowMaxMin();
         Boolean isShowDateMinMax = condMa.getShowDateMinMax();//是否显示日最低点、最高点
         Map<String, String> mapMySt = condMa.getMapStock();
+        //我的持仓
         Map<String, AssetPositionDb> mapMyPosition = condMa.getMapMyPosition();
         if (mapMyPosition != null) {
             for (String code : mapMyPosition.keySet()) {
@@ -1813,14 +1820,16 @@ public class KlineService {
             }
         }
 
+        //查询k线，http，对查询的k线进行排序
         List<StockAdrCountVo> stockAdrCountVoRs = KlineService.checkMaDemo(mapMySt, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList, mapMyPosition);
-
         if (stockAdrCountVoRs == null || stockAdrCountVoRs.size() == 0) {
             return;
         }
         if (StringUtils.isNotBlank(orderField)) {
             stockAdrCountVoRs = handlerOrder(stockAdrCountVoRs, orderField, isOrderDesc);//列表-排序：根据字段
         }
+
+        //遍历k线，
         for (StockAdrCountVo stockAdrCountVo : stockAdrCountVoRs) {
             String zqdm = stockAdrCountVo.getF12();
 //            String zqdm = stockAdrCountVo.getF12();
@@ -1828,247 +1837,31 @@ public class KlineService {
             System.out.print("  ");
             System.out.print(StockUtil.formatEtfName(stockAdrCountVo.getF14(), 16));
 
-            int showSize = 4;
+            int showSize = 10;
+            int pctScale = 1;
+            boolean isShowPct = condMa.getShowPct();//是否显示均线百分比
             //突破均线-向上
             if (isShowUpMa) {
-                System.out.print("上均 ");//显示信息-价格区间
-                if (kltList.contains(KLT_5)) {
-                    String upMa = stockAdrCountVo.getUpMaDay5();
-                    int breakCountUp = stockAdrCountVo.getBreakCountUp5();//突破均线次数
-                    if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountUp, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-//                    System.out.print(StockUtil.formatStr(breakCountUp + "", 4));
-//                    System.out.print(StringUtils.isNotBlank(upMa5) ? "[" + upMa5 + "   " + "]" : "[        ]");
-                }
-                if (kltList.contains(KLT_15)) {
-                    String upMa = stockAdrCountVo.getUpMaDay15();
-                    int breakCountUp = stockAdrCountVo.getBreakCountUp15();
-                    if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountUp, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_30)) {
-                    String upMa = stockAdrCountVo.getUpMaDay30();
-                    int breakCountUp = stockAdrCountVo.getBreakCountUp30();
-                    if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountUp, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_60)) {
-                    String upMa = stockAdrCountVo.getUpMaDay60();
-                    int breakCountUp = stockAdrCountVo.getBreakCountUp60();
-                    if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountUp, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_101)) {
-                    String upMa = stockAdrCountVo.getUpMaDay101();
-                    int breakCountUp = stockAdrCountVo.getBreakCountUp101();
-                    if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountUp, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_102)) {
-                    String upMa = stockAdrCountVo.getUpMaDay102();
-                    int breakCountUp = stockAdrCountVo.getBreakCountUp102();
-                    if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountUp, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
+                System.out.print("上 ");//向上突破均线，显示是否突破(距离均线百分比)，连续突破次数，可选5，15，30,60，日线、周线；
+                StringBuffer maBreakUpInfo = handlerMaBreakUpInfo(kltList, stockAdrCountVo, pctScale, showSize,isShowPct);//处理均线突破信息
+                System.out.print(maBreakUpInfo);
             }
             //是否查询向上涨破均线-最低净值
             if (isShowBreakUpMaMin != null && isShowBreakUpMaMin) {
-                System.out.print("低上 ");
-                if (kltList.contains(KLT_5)) {
-                    String breakUpMin5 = stockAdrCountVo.getMaBreakUpMin5();
-                    int breakCount = stockAdrCountVo.getBreakCountUpMin5();//突破均线次数
-                    if (StringUtils.isNotBlank(breakUpMin5)) {
-//                        System.out.print(StockUtil.formatStr(breakUpMin5 + ":" + breakCount, showSize));
-                        System.out.print(StockUtil.formatStr(":" +breakCount, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_15)) {
-                    String breakUpMin = stockAdrCountVo.getMaBreakUpMin15();
-                    int breakCount = stockAdrCountVo.getBreakCountUpMin15();//突破均线次数
-                    if (StringUtils.isNotBlank(breakUpMin)) {
-//                        System.out.print(StockUtil.formatStr(breakUpMin + ":" + breakCount, showSize));
-                        System.out.print(StockUtil.formatStr(":" +breakCount, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_30)) {
-                    String breakUpMin = stockAdrCountVo.getMaBreakUpMin30();
-                    int breakCount = stockAdrCountVo.getBreakCountUpMin30();//突破均线次数
-                    if (StringUtils.isNotBlank(breakUpMin)) {
-//                        System.out.print(StockUtil.formatStr(breakUpMin + ":" + breakCount, showSize));
-                        System.out.print(StockUtil.formatStr(":" +breakCount, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_60)) {
-                    String breakUpMin = stockAdrCountVo.getMaBreakUpMin60();
-                    int breakCount = stockAdrCountVo.getBreakCountUpMin60();//突破均线次数
-                    if (StringUtils.isNotBlank(breakUpMin)) {
-//                        System.out.print(StockUtil.formatStr(breakUpMin + ":" + breakCount, showSize));
-                        System.out.print(StockUtil.formatStr(":" +breakCount, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_101)) {
-                    String breakUpMin = stockAdrCountVo.getMaBreakUpMin101();
-                    int breakCount = stockAdrCountVo.getBreakCountUpMin101();//突破均线次数
-                    if (StringUtils.isNotBlank(breakUpMin)) {
-//                        System.out.print(StockUtil.formatStr(breakUpMin + ":" + breakCount, showSize));
-                        System.out.print(StockUtil.formatStr(":" +breakCount, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_102)) {
-                    String breakUpMin = stockAdrCountVo.getMaBreakUpMin102();
-                    int breakCount = stockAdrCountVo.getBreakCountUpMin102();//突破均线次数
-                    if (StringUtils.isNotBlank(breakUpMin)) {
-//                        System.out.print(StockUtil.formatStr(breakUpMin + ":" + breakCount, showSize));
-                        System.out.print(StockUtil.formatStr(":" +breakCount, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
+                System.out.print("低上 ");//最低净值向上突破均线，显示是否突破(距离均线百分比)，连续突破次数，可选5，15，30,60，日线、周线；
+                StringBuffer maBreakUpInfo = handlerMaMinBreakUpInfo(kltList, stockAdrCountVo, pctScale, showSize,isShowPct);//处理均线突破信息
+                System.out.print(maBreakUpInfo);
             }
 
             if (isShowDownMa) {
-                System.out.print("下均 ");//显示信息-价格区间
-                if (kltList.contains(KLT_5)) {
-                    String upMa = stockAdrCountVo.getMaDownDay5();
-//                    System.out.print(StockUtil.formatStr(upMa, 4));
-                    int breakCountDown = stockAdrCountVo.getBreakCountDown5();//突破均线次数
-                    if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-//                    System.out.print(StringUtils.isNotBlank(upMa5) ? "[" + upMa5 + "   " + "]" : "[        ]");
-                }
-                if (kltList.contains(KLT_15)) {
-                    String upMa = stockAdrCountVo.getMaDownDay15();
-                    int breakCountDown = stockAdrCountVo.getBreakCountDown15();//突破均线次数
-                    if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_30)) {
-                    String upMa = stockAdrCountVo.getMaDownDay30();
-                    int breakCountDown = stockAdrCountVo.getBreakCountDown30();//突破均线次数
-                    if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_60)) {
-                    String upMa = stockAdrCountVo.getMaDownDay60();
-                    int breakCountDown = stockAdrCountVo.getBreakCountDown60();//突破均线次数
-                    if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_101)) {
-                    String upMa = stockAdrCountVo.getMaDownDay101();
-                    int breakCountDown = stockAdrCountVo.getBreakCountDown101();//突破均线次数
-                    if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_102)) {
-                    String upMa = stockAdrCountVo.getMaDownDay102();
-                    int breakCountDown = stockAdrCountVo.getBreakCountDown102();//突破均线次数
-                    if (StringUtils.isNotBlank(upMa)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
+                System.out.print("下 ");//显示信息-价格区间
+                StringBuffer maBreakUpInfo = handlerMaBreakDownInfo(kltList, stockAdrCountVo, pctScale, showSize,isShowPct);//处理均线突破信息
+                System.out.print(maBreakUpInfo);
             }
             if (isShowDownMaMax != null && isShowDownMaMax) {//是否查询向下跌破均线-最高净值
                 System.out.print("高下 ");
-                if (kltList.contains(KLT_5)) {
-                    String breakDownMax = stockAdrCountVo.getMaBreakDownMax5();
-                    int breakCountDown = stockAdrCountVo.getBreakCountDownMax5();//突破均线次数
-                    if (StringUtils.isNotBlank(breakDownMax)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_15)) {
-                    String breakDownMax = stockAdrCountVo.getMaBreakDownMax15();
-                    int breakCountDown = stockAdrCountVo.getBreakCountDownMax15();//突破均线次数
-                    if (StringUtils.isNotBlank(breakDownMax)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_30)) {
-                    String breakDownMax = stockAdrCountVo.getMaBreakDownMax30();
-                    int breakCountDown = stockAdrCountVo.getBreakCountDownMax30();//突破均线次数
-                    if (StringUtils.isNotBlank(breakDownMax)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_60)) {
-                    String breakDownMax = stockAdrCountVo.getMaBreakDownMax60();
-                    int breakCountDown = stockAdrCountVo.getBreakCountDownMax60();//突破均线次数
-                    if (StringUtils.isNotBlank(breakDownMax)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_101)) {
-                    String breakDownMax = stockAdrCountVo.getMaBreakDownMax101();
-                    int breakCountDown = stockAdrCountVo.getBreakCountDownMax101();//突破均线次数
-                    if (StringUtils.isNotBlank(breakDownMax)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
-                if (kltList.contains(KLT_102)) {
-                    String breakDownMax = stockAdrCountVo.getMaBreakDownMax102();
-                    int breakCountDown = stockAdrCountVo.getBreakCountDownMax102();//突破均线次数
-                    if (StringUtils.isNotBlank(breakDownMax)) {
-                        System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
-                    } else {
-                        System.out.print(StockUtil.formatStr("", showSize));
-                    }
-                }
+                StringBuffer maBreakUpInfo = handlerMaMaxBreakDownInfo(kltList, stockAdrCountVo, pctScale, showSize,isShowPct);//处理均线突破信息
+                System.out.print(maBreakUpInfo);
             }
 
             if (isShowMyPosition != null && isShowMyPosition) {
@@ -2093,7 +1886,7 @@ public class KlineService {
                         sbDaysAdr.append(StockUtil.formatDouble(kline.getZhangDieFu(), 6));
                     }
                 }
-                sbDaysAdr.append("\t");
+                sbDaysAdr.append(" ");
                 System.out.print(sbDaysAdr);
             }
 
@@ -2105,6 +1898,17 @@ public class KlineService {
                 if (kline != null) {
                     System.out.print("[" + spDate.substring(5) + "]:" + StockUtil.formatDouble(kline.getZhangDieFu(), 6));
                 }
+            }
+
+            if (isShowPriceArea) {
+                System.out.print("\t");
+                System.out.print("5日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_5(), 6));//显示信息-价格区间
+                System.out.print("10日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_10(), 6));//显示信息-价格区间
+                System.out.print("20日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_20(), 6));//显示信息-价格区间
+//                System.out.print("40日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_40(), 6));//显示信息-价格区间
+//                System.out.print("60日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_60(), 6));//显示信息-价格区间
+//                System.out.print("120日:"+stockAdrCountVo.getNET_AREA_DAY_120() + "\t");//显示信息-价格区间
+//                System.out.print("250日:"+stockAdrCountVo.getNET_AREA_DAY_250() + "\t");//显示信息-价格区间
             }
 
             if (isShowMaxMin != null && isShowMaxMin) {
@@ -2133,24 +1937,266 @@ public class KlineService {
                 }
             }
 
-
             //是否显示日最低点、最高点
             if (isShowDateMinMax != null && isShowDateMinMax) {
                 showDateMinMax(date, zqdm);
             }
 
-            if (isShowPriceArea) {
-                System.out.print("\t");
-                System.out.print("5日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_5(), 6));//显示信息-价格区间
-                System.out.print("10日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_10(), 6));//显示信息-价格区间
-                System.out.print("20日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_20(), 6));//显示信息-价格区间
-                System.out.print("40日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_40(), 6));//显示信息-价格区间
-                System.out.print("60日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_60(), 6));//显示信息-价格区间
-//                System.out.print("120日:"+stockAdrCountVo.getNET_AREA_DAY_120() + "\t");//显示信息-价格区间
-//                System.out.print("250日:"+stockAdrCountVo.getNET_AREA_DAY_250() + "\t");//显示信息-价格区间
-            }
-
             System.out.println();
+        }
+    }
+
+    /**
+     *
+     * 处理均线突破信息:向下跌破均线-最高净值
+     *
+     * @param kltList         均线列表
+     * @param stockAdrCountVo 突破均线信息
+     * @param pctScale        百分比精度
+     * @param showSize        显示大小
+     * @param isShowPct
+     * @return 突破均线结果信息
+     */
+    private static StringBuffer handlerMaMaxBreakDownInfo(List<String> kltList, StockAdrCountVo stockAdrCountVo, int pctScale, int showSize, boolean isShowPct) {
+        StringBuffer rs = new StringBuffer();
+        String upMa = null;
+        int breakCountUp = 0;//突破均线次数
+        BigDecimal pct = null;
+        if (kltList.contains(KLT_5)) {
+            upMa = stockAdrCountVo.getMaBreakDownMax5();
+            breakCountUp = stockAdrCountVo.getBreakCountDownMax5();//突破均线次数
+            pct = stockAdrCountVo.getBreakPctUp5().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_15)) {
+            upMa = stockAdrCountVo.getMaBreakDownMax15();
+            breakCountUp = stockAdrCountVo.getBreakCountDownMax15();
+            pct = stockAdrCountVo.getBreakPctUp15().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_30)) {
+            upMa = stockAdrCountVo.getMaBreakDownMax30();
+            breakCountUp = stockAdrCountVo.getBreakCountDownMax30();
+            pct = stockAdrCountVo.getBreakPctUp30().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+
+        }
+        if (kltList.contains(KLT_60)) {
+            upMa = stockAdrCountVo.getMaBreakDownMax60();
+            breakCountUp = stockAdrCountVo.getBreakCountDownMax60();
+            pct = stockAdrCountVo.getBreakPctUp60().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_101)) {
+            upMa = stockAdrCountVo.getMaBreakDownMax101();
+            breakCountUp = stockAdrCountVo.getBreakCountDownMax101();
+            pct = stockAdrCountVo.getBreakPctUp101().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_102)) {
+            upMa = stockAdrCountVo.getMaBreakDownMax102();
+            breakCountUp = stockAdrCountVo.getBreakCountDownMax102();
+            pct = stockAdrCountVo.getBreakPctUp102().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_5)) {
+            String breakDownMax = stockAdrCountVo.getMaBreakDownMax5();
+            int breakCountDown = stockAdrCountVo.getBreakCountDownMax5();//突破均线次数
+            if (StringUtils.isNotBlank(breakDownMax)) {
+                System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
+            } else {
+                System.out.print(StockUtil.formatStr("", showSize));
+            }
+        }
+        return rs;
+    }
+
+    /**
+     * 处理均线突破信息:向下涨破均线
+     *
+     * @param kltList         均线列表
+     * @param stockAdrCountVo 突破均线信息
+     * @param pctScale        百分比精度
+     * @param showSize        显示大小
+     * @param isShowPct 是否显示百分比
+     * @return 突破均线结果信息
+     */
+    private static StringBuffer handlerMaBreakDownInfo(List<String> kltList, StockAdrCountVo stockAdrCountVo, int pctScale, int showSize, boolean isShowPct) {
+        StringBuffer rs = new StringBuffer();
+        String upMa = null;
+        int breakCount = 0;//突破均线次数
+        BigDecimal pct = null;
+        if (kltList.contains(KLT_5)) {
+            upMa = stockAdrCountVo.getMaDownDay5();
+            breakCount = stockAdrCountVo.getBreakCountDown5();//突破均线次数
+            pct = stockAdrCountVo.getBreakPctUp5().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCount, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_15)) {
+            upMa = stockAdrCountVo.getMaDownDay15();
+            breakCount = stockAdrCountVo.getBreakCountDown15();
+            pct = stockAdrCountVo.getBreakPctUp15().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCount, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_30)) {
+            upMa = stockAdrCountVo.getMaDownDay30();
+            breakCount = stockAdrCountVo.getBreakCountDown30();
+            pct = stockAdrCountVo.getBreakPctUp30().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCount, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_60)) {
+            upMa = stockAdrCountVo.getMaDownDay60();
+            breakCount = stockAdrCountVo.getBreakCountDown60();
+            pct = stockAdrCountVo.getBreakPctUp60().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCount, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_101)) {
+            upMa = stockAdrCountVo.getMaDownDay101();
+            breakCount = stockAdrCountVo.getBreakCountDown101();
+            pct = stockAdrCountVo.getBreakPctUp101().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCount, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_102)) {
+            upMa = stockAdrCountVo.getMaDownDay102();
+            breakCount = stockAdrCountVo.getBreakCountDown102();
+            pct = stockAdrCountVo.getBreakPctUp102().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCount, pct, isShowPct);
+        }
+        return rs;
+    }
+
+    /**
+     * 处理均线突破信息:向上涨破均线-最低净值
+     *
+     * @param kltList         均线列表
+     * @param stockAdrCountVo 突破均线信息
+     * @param pctScale        百分比精度
+     * @param showSize        显示大小
+     * @param isShowPct
+     * @return 突破均线结果信息
+     */
+    private static StringBuffer handlerMaMinBreakUpInfo(List<String> kltList, StockAdrCountVo stockAdrCountVo, int pctScale, int showSize, boolean isShowPct) {
+        StringBuffer rs = new StringBuffer();
+        String upMa = null;
+        int breakCountUp = 0;//突破均线次数
+        BigDecimal pct = null;
+        if (kltList.contains(KLT_5)) {
+            upMa = stockAdrCountVo.getMaBreakUpMin5();
+            breakCountUp = stockAdrCountVo.getBreakCountUpMin5();//突破均线次数
+            pct = stockAdrCountVo.getBreakPctUp5().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_15)) {
+            upMa = stockAdrCountVo.getMaBreakUpMin15();
+            breakCountUp = stockAdrCountVo.getBreakCountUpMin15();
+            pct = stockAdrCountVo.getBreakPctUp15().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_30)) {
+            upMa = stockAdrCountVo.getMaBreakUpMin30();
+            breakCountUp = stockAdrCountVo.getBreakCountUpMin30();
+            pct = stockAdrCountVo.getBreakPctUp30().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+
+        }
+        if (kltList.contains(KLT_60)) {
+            upMa = stockAdrCountVo.getMaBreakUpMin60();
+            breakCountUp = stockAdrCountVo.getBreakCountUpMin60();
+            pct = stockAdrCountVo.getBreakPctUp60().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_101)) {
+            upMa = stockAdrCountVo.getMaBreakUpMin101();
+            breakCountUp = stockAdrCountVo.getBreakCountUpMin101();
+            pct = stockAdrCountVo.getBreakPctUp101().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_102)) {
+            upMa = stockAdrCountVo.getMaBreakUpMin102();
+            breakCountUp = stockAdrCountVo.getBreakCountUpMin102();
+            pct = stockAdrCountVo.getBreakPctUp102().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        return rs;
+    }
+
+    /**
+     * 处理均线突破信息:向上涨破均线
+     *
+     * @param kltList         均线列表
+     * @param stockAdrCountVo 突破均线信息
+     * @param pctScale        百分比精度
+     * @param showSize        显示大小
+     * @param isShowPct
+     * @return 突破均线结果信息
+     */
+    private static StringBuffer handlerMaBreakUpInfo(List<String> kltList, StockAdrCountVo stockAdrCountVo, int pctScale, int showSize, boolean isShowPct) {
+        StringBuffer rs = new StringBuffer();
+        String upMa = null;
+        int breakCountUp = 0;//突破均线次数
+        BigDecimal pct = null;
+        if (kltList.contains(KLT_5)) {
+            upMa = stockAdrCountVo.getMaBreakUpMin5();
+            breakCountUp = stockAdrCountVo.getBreakCountUp5();//突破均线次数
+            pct = stockAdrCountVo.getBreakPctUp5().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_15)) {
+            upMa = stockAdrCountVo.getUpMaDay15();
+            breakCountUp = stockAdrCountVo.getBreakCountUp15();
+            pct = stockAdrCountVo.getBreakPctUp15().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_30)) {
+            upMa = stockAdrCountVo.getUpMaDay30();
+            breakCountUp = stockAdrCountVo.getBreakCountUp30();
+            pct = stockAdrCountVo.getBreakPctUp30().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_60)) {
+            upMa = stockAdrCountVo.getUpMaDay60();
+            breakCountUp = stockAdrCountVo.getBreakCountUp60();
+            pct = stockAdrCountVo.getBreakPctUp60().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_101)) {
+            upMa = stockAdrCountVo.getUpMaDay101();
+            breakCountUp = stockAdrCountVo.getBreakCountUp101();
+            pct = stockAdrCountVo.getBreakPctUp101().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        if (kltList.contains(KLT_102)) {
+            upMa = stockAdrCountVo.getUpMaDay102();
+            breakCountUp = stockAdrCountVo.getBreakCountUp102();
+            pct = stockAdrCountVo.getBreakPctUp102().setScale(pctScale, RoundingMode.HALF_UP);
+            handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
+        }
+        return rs;
+    }
+
+    /**
+     * @param rs
+     * @param pctScale
+     * @param showSize
+     * @param isShowPct
+     */
+    private static void handlerMaBreakInfoSb(StringBuffer rs, int pctScale, int showSize, String upMa, int breakCount, BigDecimal pct, boolean isShowPct) {
+        if (StringUtils.isNotBlank(upMa)) {
+            if (upMa.equals(KLT_101)) {
+                upMa = "D";
+            }
+            if (upMa.equals(KLT_102)) {
+                upMa = "W";
+            }
+            if (isShowPct) {
+                rs.append(StockUtil.formatStr(upMa + ":" + pct + ":" + breakCount, showSize));
+            } else {
+                rs.append(StockUtil.formatStr(upMa + ":" + breakCount, showSize));
+            }
+//            rs.append("[" +StockUtil.formatStr(upMa + ":" + pct + ":" + breakCountUp, showSize)+ "]");
+        } else {
+            rs.append(StockUtil.formatStr("", showSize));
+//            rs.append("[" +StockUtil.formatStr("", showSize)+ "]");
         }
     }
 

@@ -78,6 +78,11 @@ public class CondMa {
      */
     private Boolean isShowMaxMin;
     /**
+     * 是否显示均线百分比
+     */
+    private Boolean isShowPct;
+
+    /**
      * kltList 周期列表
      */
     private List<String> kltList;
@@ -228,5 +233,13 @@ public class CondMa {
 
     public void setShowBreakUpMaMin(Boolean showBreakUpMaMin) {
         isShowBreakUpMaMin = showBreakUpMaMin;
+    }
+
+    public Boolean getShowPct() {
+        return isShowPct;
+    }
+
+    public void setShowPct(Boolean showPct) {
+        isShowPct = showPct;
     }
 }

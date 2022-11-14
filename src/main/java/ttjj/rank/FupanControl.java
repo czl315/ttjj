@@ -135,8 +135,11 @@ public class FupanControl {
         condMa.setSpDate(spDate);
         condMa.setShowPriceArea(true);//是否显示价格区间
         condMa.setKltList(Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101));//价格区间周期列表
+//        condMa.setKltList(Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101));//价格区间周期列表
         condMa.setShowUpMa(true);//是否显示-超过均线
         condMa.setShowDownMa(true);//是否显示-跌落均线
+        condMa.setShowBreakDownMaMax(true);
+        condMa.setShowBreakUpMaMin(true);
         condMa.setFindKline(true);//是否查询最新k线
         condMa.setShowFlowIn(false);//是否显示资金流入
         condMa.setOrderField(ORDER_FIELD_MY_ZXSZ);//ORDER_FIELD_NET_AREA_DAY_5 ORDER_FIELD_F3   ORDER_FIELD_MAXDOWN ORDER_FIELD_MINRISE`ORDER_FIELD_MY_ZXSZ

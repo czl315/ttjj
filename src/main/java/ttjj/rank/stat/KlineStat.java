@@ -108,6 +108,9 @@ public class KlineStat {
         showInfoKlineCompPreDay(klineDtoShangHai, false);//显示k线与前一日比较数据
     }
 
+    /**
+     *
+     */
     private static void statListAdrArea() {
         int days = 0;
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
@@ -120,9 +123,9 @@ public class KlineStat {
             CACHE_DATE_LIST = dateList;
         }
         for (String curDate : dateList) {
-//            statListAdrArea(DB_RANK_BIZ_TYPE_ETF, ContMapEtf.INDEX_MORE,999,curDate);//K线：统计区间涨幅,etf
+            statListAdrArea(DB_RANK_BIZ_TYPE_ETF, ContMapEtf.INDEX_MORE,999,curDate);//K线：统计区间涨幅,etf
 //             statListAdrArea(DB_RANK_BIZ_TYPE_BAN_KUAI, ContMapEtf.INDEX_MORE, 99, curDate);//K线：统计区间涨幅,etf
-            statListAdrArea(DB_RANK_BIZ_TYPE_GAI_NIAN, ContMapEtf.INDEX_MORE,999, curDate);//K线：统计区间涨幅,etf
+//            statListAdrArea(DB_RANK_BIZ_TYPE_GAI_NIAN, ContMapEtf.INDEX_MORE,999, curDate);//K线：统计区间涨幅,etf
 //        statListEtfAdrArea(ContMapEtf.ZIYUAN_MORE);//K线：统计区间涨幅,etf
 //        statListEtfAdrArea(ContMapEtf.KEJI_MORE);//K线：统计区间涨幅,etf
 //        statListEtfAdrArea(ContMapEtf.XIAOFEI_MORE);//K线：统计区间涨幅,etf
@@ -138,7 +141,7 @@ public class KlineStat {
      * @param date
      */
     private static void statListAdrArea(String type, Map<String, String> etfMap, int limit, String date) {
-        int areaDays = 4;//4:近一周;20:近一月
+        int areaDays = 0;//4:近一周;20:近一月
 //        String endDate = StockService.findBegDate(date, 0);
         String endDate = date;
         String begDate = StockService.findBegDate(date, areaDays);

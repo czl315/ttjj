@@ -1,5 +1,6 @@
 package ttjj.rank.stat;
 
+import org.springframework.util.StopWatch;
 import ttjj.dao.BizRankDao;
 import ttjj.dto.*;
 import ttjj.service.BizService;
@@ -23,9 +24,9 @@ public class BizEtfStat {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-10-26";
-//        showEtfUpMa(date);//etf-超过均线
+        showEtfUpMa(date);//etf-超过均线
 
-        statListEtfAdrArea(null);//计算区间涨幅
+//        statListEtfAdrArea(null);//计算区间涨幅
 //        statListEtfAdrArea(4);//计算区间涨幅
 //        statListEtfAdrArea(10);//计算区间涨幅
 //        statListEtfAdrArea(20);//计算区间涨幅
@@ -344,7 +345,7 @@ public class BizEtfStat {
             sb.append(nameFormat).append(" ");
             sb.append(marketValue).append(" ");
 //            System.out.println(sb);
-            System.out.println("etf.put(\"" + code + "\", \"" + nameFormat + "\");//" + mvFormat + "\t" + adr+"%");
+            System.out.println("etf.put(\"" + code + "\", \"" + nameFormat + "\");//" + mvFormat + "\t" + adr + "%");
         }
     }
 
@@ -375,6 +376,7 @@ public class BizEtfStat {
         condMa.setSpDate(spDate);
         condMa.setShowPriceArea(true);//是否显示价格区间
         condMa.setKltList(Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101));//价格区间周期列表
+//        condMa.setKltList(Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101));//价格区间周期列表
         condMa.setShowUpMa(true);//是否显示-超过均线
         condMa.setShowDownMa(true);//是否显示-跌落均线
         condMa.setShowBreakDownMaMax(true);//是否显示-跌落均线-最高
@@ -383,28 +385,57 @@ public class BizEtfStat {
         condMa.setShowFlowIn(false);//是否显示资金流入
         condMa.setShowDateMinMax(false);//是否显示日最低点、最高点
         condMa.setShowMaxMin(true);//是否显最低、最高
+        condMa.setShowPct(true);//是否显示均线百分比
 
         List<StockAdrCountVo> rs = null;
 
         //etf-超过均线:更多检查
-        System.out.println("科技：");
+        String name = "";
+        StopWatch sw = new StopWatch("etf-检查均线");
+        name = "科技:";
+        System.out.println(name);
+        sw.start(name);
         condMa.setMapStock(ContMapEtf.KEJI_MORE);
         KlineService.showStockMa(condMa);
-        System.out.println("资源：");
+        sw.stop();
+        System.out.println(name + sw.getTotalTimeSeconds());
+        name = "资源";
+        System.out.println(name);
+        sw.start(name);
         condMa.setMapStock(ContMapEtf.ZIYUAN_MORE);
         KlineService.showStockMa(condMa);
-        System.out.println("消费：");
+        sw.stop();
+        System.out.println(name + sw.getTotalTimeSeconds());
+        name = "消费";
+        System.out.println(name);
+        sw.start(name);
         condMa.setMapStock(ContMapEtf.XIAOFEI_MORE);
         KlineService.showStockMa(condMa);
-        System.out.println("医疗：");
+        sw.stop();
+        System.out.println(name + sw.getTotalTimeSeconds());
+        name = "医疗";
+        System.out.println(name);
+        sw.start(name);
         condMa.setMapStock(ContMapEtf.YILIAO_MORE);
         KlineService.showStockMa(condMa);
-        System.out.println("金融：");
+        sw.stop();
+        System.out.println(name + sw.getTotalTimeSeconds());
+        name = "金融";
+        System.out.println(name);
+        sw.start(name);
         condMa.setMapStock(ContMapEtf.JINRONG_MORE);
         KlineService.showStockMa(condMa);
-        System.out.println("指数：");
+        sw.stop();
+        System.out.println(name + sw.getTotalTimeSeconds());
+        name = "指数";
+        System.out.println(name);
+        sw.start(name);
         condMa.setMapStock(ContMapEtf.INDEX_MORE);
         KlineService.showStockMa(condMa);
+        sw.stop();
+        System.out.println(name + sw.getTotalTimeSeconds());
+        System.out.println(sw.prettyPrint());
+        System.out.println(sw.shortSummary());
 
         System.out.println("etf-检查均线-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0) + "，用时：" + (System.currentTimeMillis() - begTime) / 1000);
 
