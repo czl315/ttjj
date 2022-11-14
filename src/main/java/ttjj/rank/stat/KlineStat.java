@@ -25,7 +25,9 @@ public class KlineStat {
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
 
-        statAdrByTime();//统计涨幅-根据日期
+        statListAdrArea();
+
+//        statAdrByTime();//统计涨幅-根据日期
 
 //        statAdrCjlCnA();//统计中国A股全市场
 //        statAdrCjl(ContIndex.SHANG_HAI);
@@ -33,16 +35,6 @@ public class KlineStat {
 //        statAdrCjl(ContIndex.CYB);
 //        statAdrCjl(ContIndex.ZZ_1000);
 
-//        statListEtfAdrArea(DB_RANK_BIZ_TYPE_ETF, ContMapEtf.ETF_MORE, 999);//K线：统计区间涨幅,etf
-//        statListEtfAdrArea(DB_RANK_BIZ_TYPE_ETF, ContMapEtf.INDEX_MORE,999);//K线：统计区间涨幅,etf
-//        statListEtfAdrArea(DB_RANK_BIZ_TYPE_BAN_KUAI, ContMapEtf.INDEX_MORE,99);//K线：统计区间涨幅,etf
-//        statListEtfAdrArea(DB_RANK_BIZ_TYPE_GAI_NIAN, ContMapEtf.INDEX_MORE,999);//K线：统计区间涨幅,etf
-
-//        statListEtfAdrArea(ContMapEtf.ZIYUAN_MORE);//K线：统计区间涨幅,etf
-//        statListEtfAdrArea(ContMapEtf.KEJI_MORE);//K线：统计区间涨幅,etf
-//        statListEtfAdrArea(ContMapEtf.XIAOFEI_MORE);//K线：统计区间涨幅,etf
-//        statListEtfAdrArea(ContMapEtf.YILIAO_MORE);//K线：统计区间涨幅,etf
-//        statListEtfAdrArea(ContMapEtf.JINRONG_MORE);//K线：统计区间涨幅,etf
 
 //        findKline();
 
@@ -116,36 +108,73 @@ public class KlineStat {
         showInfoKlineCompPreDay(klineDtoShangHai, false);//显示k线与前一日比较数据
     }
 
+    private static void statListAdrArea() {
+        int days = 0;
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-11-11";
+        List<String> dateList = new ArrayList<>();
+        if (CACHE_DATE_LIST.size() > days) {
+            dateList = CACHE_DATE_LIST.subList(0, days);
+        } else {
+            dateList = StockService.findListDateBefore(date, days);
+            CACHE_DATE_LIST = dateList;
+        }
+        for (String curDate : dateList) {
+//            statListAdrArea(DB_RANK_BIZ_TYPE_ETF, ContMapEtf.INDEX_MORE,999,curDate);//K线：统计区间涨幅,etf
+//             statListAdrArea(DB_RANK_BIZ_TYPE_BAN_KUAI, ContMapEtf.INDEX_MORE, 99, curDate);//K线：统计区间涨幅,etf
+            statListAdrArea(DB_RANK_BIZ_TYPE_GAI_NIAN, ContMapEtf.INDEX_MORE,999, curDate);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(ContMapEtf.ZIYUAN_MORE);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(ContMapEtf.KEJI_MORE);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(ContMapEtf.XIAOFEI_MORE);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(ContMapEtf.YILIAO_MORE);//K线：统计区间涨幅,etf
+//        statListEtfAdrArea(ContMapEtf.JINRONG_MORE);//K线：统计区间涨幅,etf
+        }
+    }
+
     /**
      * K线：统计区间涨幅,etf,限定时间段(结束时间)
      *
      * @param etfMap 限定etf
+     * @param date
      */
-    private static void statListEtfAdrArea(String type, Map<String, String> etfMap, int limit) {
-        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-11-07";
-//        String type = DB_RANK_BIZ_TYPE_ETF;//DB_RANK_BIZ_TYPE_BAN_KUAI  DB_RANK_BIZ_TYPE_ETF   DB_RANK_BIZ_TYPE_GAI_NIAN
-//        Map<String, String> etfMap = KEJI_MORE;//INDEX_ALL     INDEX_MORE   XIAOFEI_ALL_TO_MORE    KEJI_MORE
-        int areaDays = 0;//4:近一周;20:近一月
-        boolean isDesc = true;
-        boolean isShowCode = true;//是否显示编码
-        boolean isCheckFuQuan = false;//是否检查更新复权
-        boolean isOrMianEtf = false;//是否必须查询我的主要etf
-        boolean isCheckMianEtf = true;//是否必须查询我的主要etf
-        boolean isShowEtfInfo = false;//是否显示etf信息
+    private static void statListAdrArea(String type, Map<String, String> etfMap, int limit, String date) {
+        int areaDays = 4;//4:近一周;20:近一月
+//        String endDate = StockService.findBegDate(date, 0);
+        String endDate = date;
+        String begDate = StockService.findBegDate(date, areaDays);
         String klt = KLT_101;//KLT_60
         String ktime = date;//时间段(结束时间)
 //        String klt = KLT_60;//KLT_60
 //        String ktime = "15:00:00";//时间段(结束时间)
+        boolean isShowCode = true;//是否显示编码
+        boolean isShowMoreYes = true;
+        List<CondKline> rsList = statListAdrArea(type, etfMap, limit, begDate, endDate, klt, ktime);
+        //区间涨幅
+        EtfUtil.showInfoEtfKline(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, klt, ktime,true);
+        System.out.println();
+        EtfUtil.showInfoEtfKline(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, klt, ktime,false);
+        System.out.println();
+        System.out.println(begDate + "至" + endDate +  "上涨：");
+        EtfUtil.showInfoEtfSimple(rsList, 15, true);
+        System.out.println(begDate + "-" + endDate + "下跌：");
+        EtfUtil.showInfoEtfSimple(rsList, 15, false);
+        System.out.println();
+
+        //更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
+
+    }
+
+    private static List<CondKline> statListAdrArea(String type, Map<String, String> etfMap, int limit, String begDate, String endDate, String klt, String ktime) {
+//        String type = DB_RANK_BIZ_TYPE_ETF;//DB_RANK_BIZ_TYPE_BAN_KUAI  DB_RANK_BIZ_TYPE_ETF   DB_RANK_BIZ_TYPE_GAI_NIAN
+//        Map<String, String> etfMap = KEJI_MORE;//INDEX_ALL     INDEX_MORE   XIAOFEI_ALL_TO_MORE    KEJI_MORE
+        boolean isDesc = true;
+        boolean isCheckFuQuan = false;//是否检查更新复权
+        boolean isOrMianEtf = false;//是否必须查询我的主要etf
+        boolean isCheckMianEtf = true;//是否必须查询我的主要etf
+        boolean isShowEtfInfo = false;//是否显示etf信息
         BigDecimal mvMin = null;
         BigDecimal mvMax = null;
-
-//        String endDate = StockService.findBegDate(date, 0);
-        String endDate = date;
-        String begDate = StockService.findBegDate(date, areaDays);
-
         Map<String, CondKline> rsMap = new HashMap<>();
-
         CondKline condEndDate = new CondKline();
         condEndDate.setDate(endDate);
         condEndDate.setType(type);
@@ -221,22 +250,14 @@ public class KlineStat {
             dto.setAreaF3(adrArea);
             rsList.add(dto);
         }
-
-        boolean isShowMoreYes = true;
         if (isDesc) {
             //排序
             rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
         } else {
             rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
         }
-        //区间涨幅
-        EtfUtil.showInfoEtfKline(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, klt, ktime);
-        EtfUtil.showInfoEtfSimple(rsList, limit, false);
-        EtfUtil.showInfoEtfSimple(rsList, limit, true);
-        System.out.println();
-
+        return rsList;
         //更新复权：前复权，检查当日K线与数据库的数据是否相符，如果不符，进行复权更新
-
     }
 
     private static void statAdrCjl(String zqdm) {
@@ -405,7 +426,7 @@ public class KlineStat {
      */
     private static void statAdrByTime() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-11-04";
+//        String date = "2022-11-11";
 
 //        String klt = KLT_101;
 //        String klt = KLT_60;
