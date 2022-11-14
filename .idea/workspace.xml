@@ -6,21 +6,11 @@
     <bookmark url="file://$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java" description="String rs = klineRsStrHttpDfcf(zhiShu, lmt, klt, i..." line="66" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5bd85961-7909-47c9-b982-674cc25fb273" name="my Changelist" comment="代码走查">
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/ContIndex.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ttjj/rank/StockControl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/rank/StockAdrCountControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/rank/StockAdrCountControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/rank/StockControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/rank/StockControl.java" afterDir="false" />
+    <list default="true" id="5bd85961-7909-47c9-b982-674cc25fb273" name="my Changelist" comment="k线:检查均线：突破均线，显示是否突破(距离均线百分比)，连续突破次数，可选5，15，30,60，日线、周线；">
       <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/KlineStat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/KlineStat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StockAdrStat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StockAdrStat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StockStat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StockStat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/StAdrJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/StAdrJob.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/utils/ContMapEtf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/ContMapEtf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Content.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Content.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/logback_BAK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logback-bak.xml" afterDir="false" />
     </list>
-    <list id="ed2e1449-ef22-4f61-a315-cbcd50c17e28" name="no Changelist" comment="no Changelist">
+    <list id="ed2e1449-ef22-4f61-a315-cbcd50c17e28" name="no Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/target/classes/com/example/DemoApplication.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/target/classes/com/example/dao/PersonMapper.class" afterDir="false" />
@@ -125,6 +115,7 @@
       <change afterPath="$PROJECT_DIR$/target/classes/ttjj/rank/FupanControl.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/target/classes/ttjj/rank/KlineControl.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/target/classes/ttjj/rank/StockAdrCountControl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ttjj/rank/StockControl.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/target/classes/ttjj/rank/history/KlineHistoryTest.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/target/classes/ttjj/rank/history/ReportDemo.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/target/classes/ttjj/rank/history/StockTradeDemo.class" afterDir="false" />
@@ -240,77 +231,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/FupanControl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="42" column="57" selection-start-line="42" selection-start-column="57" selection-end-line="42" selection-end-column="57" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="7" column="59" selection-start-line="7" selection-start-column="59" selection-end-line="7" selection-end-column="59" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/StockAdrCountControl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="57" selection-start-line="57" selection-end-line="57" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/BizControl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="34" column="47" selection-start-line="34" selection-start-column="47" selection-end-line="34" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/StockControl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="40" column="51" selection-start-line="40" selection-start-column="51" selection-end-line="40" selection-end-column="51" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/config-mybatis.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/KlineControl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/KlineStat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="38" column="64" lean-forward="true" selection-start-line="38" selection-start-column="64" selection-end-line="38" selection-end-column="64" />
+            <state relative-caret-position="275">
+              <caret line="135" lean-forward="true" selection-start-line="135" selection-end-line="135" />
               <folding>
+                <element signature="method#statListAdrArea#2;class#KlineStat#0" />
+                <element signature="method#showInfoKlineCompPreDay#0;class#KlineStat#0" />
                 <element signature="method#showUpOrDownInfoByList#0;class#KlineStat#0" />
-                <element signature="method#handlerInfo#0;class#KlineStat#0" />
                 <element signature="method#handlerHeadInfo#0;class#KlineStat#0" />
                 <element signature="method#getTimeList#0;class#KlineStat#0" />
                 <element signature="method#statAdrCountByDay#0;class#KlineStat#0" />
@@ -322,35 +251,187 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/utils/ContMapEtf.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/utils/Content.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="689" column="38" selection-start-line="689" selection-start-column="38" selection-end-line="689" selection-end-column="38" />
+            <state relative-caret-position="409">
+              <caret line="874" column="46" selection-start-line="874" selection-start-column="31" selection-end-line="874" selection-end-column="46" />
               <folding>
-                <element signature="initializer##12;class#ContMapEtf#0" />
-                <element signature="initializer##16;class#ContMapEtf#0" />
-                <element signature="initializer##17;class#ContMapEtf#0" />
-                <element signature="initializer##18;class#ContMapEtf#0" />
-                <element signature="initializer##19;class#ContMapEtf#0" />
-                <element signature="initializer##21;class#ContMapEtf#0" />
-                <element signature="initializer##23;class#ContMapEtf#0" />
-                <element signature="initializer##24;class#ContMapEtf#0" />
-                <element signature="initializer##25;class#ContMapEtf#0" />
-                <element signature="initializer##26;class#ContMapEtf#0" />
-                <element signature="initializer##28;class#ContMapEtf#0" />
-                <element signature="initializer##29;class#ContMapEtf#0" />
-                <element signature="initializer##30;class#ContMapEtf#0" />
-                <element signature="initializer##31;class#ContMapEtf#0" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#1336#1337#0" expanded="true" />
+                <element signature="e#1368#1369#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/logback-bak.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/utils/ContMapEtf.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="13" column="51" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
+            <state relative-caret-position="384">
+              <caret line="193" column="39" selection-start-line="193" selection-start-column="39" selection-end-line="193" selection-end-column="39" />
+              <folding>
+                <element signature="initializer##12;class#ContMapEtf#0" />
+                <element signature="initializer##16;class#ContMapEtf#0" />
+                <element signature="initializer##17;class#ContMapEtf#0" />
+                <element signature="initializer##18;class#ContMapEtf#0" />
+                <element signature="initializer##20;class#ContMapEtf#0" />
+                <element signature="initializer##21;class#ContMapEtf#0" />
+                <element signature="initializer##22;class#ContMapEtf#0" />
+                <element signature="initializer##23;class#ContMapEtf#0" />
+                <element signature="initializer##24;class#ContMapEtf#0" />
+                <element signature="initializer##25;class#ContMapEtf#0" />
+                <element signature="initializer##26;class#ContMapEtf#0" />
+                <element signature="initializer##27;class#ContMapEtf#0" />
+                <element signature="initializer##28;class#ContMapEtf#0" />
+                <element signature="initializer##29;class#ContMapEtf#0" />
+                <element signature="initializer##30;class#ContMapEtf#0" />
+                <element signature="initializer##31;class#ContMapEtf#0" />
+                <element signature="initializer##32;class#ContMapEtf#0" />
+                <element signature="initializer##33;class#ContMapEtf#0" />
+                <element signature="initializer##34;class#ContMapEtf#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="636">
+              <caret line="1793" column="43" lean-forward="true" selection-start-line="1793" selection-start-column="43" selection-end-line="1793" selection-end-column="43" />
+              <folding>
+                <element signature="method#handlerBreakCount#0;class#KlineService#0" />
+                <element signature="method#showStockMa#0;class#KlineService#0" />
+                <element signature="method#handlerOrder#0;class#KlineService#0" />
+                <element signature="method#saveKlineByType#0;class#KlineService#0" />
+                <element signature="method#updateFundFlow#0;class#KlineService#0" />
+                <element signature="method#updateFundFlow#1;class#KlineService#0" />
+                <element signature="e#97021#99490#0" />
+                <element signature="method#getTimeByOrderNo#0;class#KlineService#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/BreakMaDto.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="305">
+              <caret line="124" column="23" lean-forward="true" selection-start-line="124" selection-start-column="23" selection-end-line="124" selection-end-column="23" />
+              <folding>
+                <element signature="e#1760#1761#0" expanded="true" />
+                <element signature="e#1793#1794#0" expanded="true" />
+                <element signature="e#2310#2311#0" expanded="true" />
+                <element signature="e#2350#2351#0" expanded="true" />
+                <element signature="e#2510#2511#0" expanded="true" />
+                <element signature="e#2547#2548#0" expanded="true" />
+                <element signature="e#2604#2605#0" expanded="true" />
+                <element signature="e#2649#2650#0" expanded="true" />
+                <element signature="e#2688#2689#0" expanded="true" />
+                <element signature="e#2726#2727#0" expanded="true" />
+                <element signature="e#2785#2786#0" expanded="true" />
+                <element signature="e#2839#2840#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/StockAdrCountVo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="305">
+              <caret line="674" column="27" selection-start-line="674" selection-start-column="27" selection-end-line="674" selection-end-column="27" />
+              <folding>
+                <element signature="e#4756#4757#0" expanded="true" />
+                <element signature="e#4787#4788#0" expanded="true" />
+                <element signature="e#4911#4912#0" expanded="true" />
+                <element signature="e#4943#4944#0" expanded="true" />
+                <element signature="e#7470#7471#0" expanded="true" />
+                <element signature="e#7506#7507#0" expanded="true" />
+                <element signature="e#9767#9768#0" expanded="true" />
+                <element signature="e#9801#9802#0" expanded="true" />
+                <element signature="e#13301#13302#0" expanded="true" />
+                <element signature="e#13342#13343#0" expanded="true" />
+                <element signature="e#14153#14154#0" expanded="true" />
+                <element signature="e#14196#14197#0" expanded="true" />
+                <element signature="e#15735#15736#0" expanded="true" />
+                <element signature="e#15774#15775#0" expanded="true" />
+                <element signature="e#15835#15836#0" expanded="true" />
+                <element signature="e#15891#15892#0" expanded="true" />
+                <element signature="e#15932#15933#0" expanded="true" />
+                <element signature="e#15972#15973#0" expanded="true" />
+                <element signature="e#16035#16036#0" expanded="true" />
+                <element signature="e#16093#16094#0" expanded="true" />
+                <element signature="e#16134#16135#0" expanded="true" />
+                <element signature="e#16174#16175#0" expanded="true" />
+                <element signature="e#16237#16238#0" expanded="true" />
+                <element signature="e#16295#16296#0" expanded="true" />
+                <element signature="e#16336#16337#0" expanded="true" />
+                <element signature="e#16376#16377#0" expanded="true" />
+                <element signature="e#16439#16440#0" expanded="true" />
+                <element signature="e#16497#16498#0" expanded="true" />
+                <element signature="e#16539#16540#0" expanded="true" />
+                <element signature="e#16580#16581#0" expanded="true" />
+                <element signature="e#16645#16646#0" expanded="true" />
+                <element signature="e#16705#16706#0" expanded="true" />
+                <element signature="e#16747#16748#0" expanded="true" />
+                <element signature="e#16788#16789#0" expanded="true" />
+                <element signature="e#16853#16854#0" expanded="true" />
+                <element signature="e#16913#16914#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/BizEtfStat.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="638">
+              <caret line="405" column="41" lean-forward="true" selection-start-line="405" selection-start-column="41" selection-end-line="405" selection-end-column="41" />
+              <folding>
+                <element signature="method#statDayMinMaxTime#1;class#BizEtfStat#0" />
+                <element signature="method#listEtfBizDb#0;class#BizEtfStat#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/CondMa.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="326">
+              <caret line="215" column="5" lean-forward="true" selection-start-line="215" selection-start-column="5" selection-end-line="215" selection-end-column="5" />
+              <folding>
+                <element signature="e#3673#3674#0" expanded="true" />
+                <element signature="e#3713#3714#0" expanded="true" />
+                <element signature="e#4163#4164#0" expanded="true" />
+                <element signature="e#4204#4205#0" expanded="true" />
+                <element signature="e#4723#4724#0" expanded="true" />
+                <element signature="e#4755#4756#0" expanded="true" />
+                <element signature="e#4802#4803#0" expanded="true" />
+                <element signature="e#4837#4838#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/FupanControl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="140" column="43" lean-forward="true" selection-start-line="140" selection-start-column="43" selection-end-line="140" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/StockAdrCountControl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="253">
+              <caret line="53" column="60" lean-forward="true" selection-start-line="53" selection-start-column="60" selection-end-line="53" selection-end-column="60" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -367,53 +448,38 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>当前板块</find>
-      <find>消费电子龙头</find>
-      <find>银华日利</find>
-      <find>statListEtfAdrArea</find>
-      <find>listKline</find>
-      <find>collection='stCodeLis</find>
-      <find>stCodeList</find>
-      <find>logback</find>
-      <find>OINSERT</find>
-      <find>#INSERT</find>
-      <find>KEJI_MORE</find>
-      <find>碳中和</find>
-      <find>稀有金属</find>
-      <find>562800</find>
-      <find>ZIYUAN</find>
-      <find>YILIAO</find>
-      <find>最新涨幅</find>
-      <find>XIAOFEI_ALL_TO_MORE</find>
-      <find>YILIAO_ALL</find>
-      <find>中药</find>
-      <find>INDEX_ALL</find>
-      <find>创蓝筹</find>
-      <find>创业板</find>
-      <find>515000</find>
-      <find>159949</find>
-      <find>放量</find>
-      <find>zhishuMap</find>
-      <find>上证180</find>
-      <find>org.slf4j&lt;</find>
-      <find>org.slf4j</find>
+      <find>5日</find>
+      <find>5日:</find>
+      <find>低上均</find>
+      <find>System.out.print(StockUtil.formatStr(upMa + &quot;:&quot; + breakCountUp, showSize));</find>
+      <find>System.out.print(StockUtil.formatStr(breakDownMax + &quot;:&quot; + breakCountDown, showSize));</find>
+      <find>高下</find>
+      <find>CodeList(EtfUtil.getMainEtf(etfMap</find>
+      <find>isCheckMianEtf &amp;&amp; ty</find>
+      <find>getCookieHttp</find>
+      <find>isShowMoreYes</find>
+      <find>Content.endDate</find>
+      <find>String date =</find>
+      <find>int areaDays</find>
+      <find>for (int</find>
+      <find>(0)</find>
+      <find>上证50</find>
+      <find>纳指</find>
+      <find>1000成长</find>
+      <find>中证100</find>
+      <find>512910</find>
+      <find>低上</find>
+      <find>System.out.print</find>
+      <find>BigDecimal pct =</find>
+      <find>getUpMaDay</find>
+      <find>getBreakCountUp</find>
+      <find>getMaBreakUpMin5</find>
+      <find>getMaBreakUpMin</find>
+      <find>getBreakCountUpMin</find>
+      <find>159901</find>
+      <find>159781</find>
     </findStrings>
     <replaceStrings>
-      <replace>maMinute5</replace>
-      <replace>=%28</replace>
-      <replace>%28</replace>
-      <replace>sb.append(</replace>
-      <replace>breakCountDown</replace>
-      <replace>StockStat.checkMaDemo</replace>
-      <replace>KEJI_BIG</replace>
-      <replace>KEJI_MORE</replace>
-      <replace>ZIYUAN_MORE</replace>
-      <replace>code</replace>
-      <replace>StockUtil.formatStName(name, 16)</replace>
-      <replace>XIAOFEI_MORE</replace>
-      <replace>YILIAO_MORE</replace>
-      <replace>ZHISHU_MORE</replace>
-      <replace>JINRONG_MORE</replace>
       <replace>//        ZHISHU_ALL</replace>
       <replace>ZHISHU_ALL.put</replace>
       <replace>breakDownMax</replace>
@@ -429,6 +495,21 @@
       <replace>YILIAO_ALL_TO_MORE</replace>
       <replace>INDEX_ALL_CN</replace>
       <replace>mapIndex</replace>
+      <replace>BreakCountUpMin</replace>
+      <replace>getMaBreakUpMin</replace>
+      <replace>JINRONG_ALL</replace>
+      <replace>KEJI_ALL</replace>
+      <replace>XIAOFEI_ALL</replace>
+      <replace>System.out.print(StockUtil.formatStr(&quot;:&quot; + breakCountUp, showSize));</replace>
+      <replace>System.out.print(StockUtil.formatStr(&quot;:&quot; + breakCountDown, showSize));</replace>
+      <replace>rs.append</replace>
+      <replace>upMa =</replace>
+      <replace>breakCountUp =</replace>
+      <replace>pct =</replace>
+      <replace>getMaDownDay</replace>
+      <replace>getBreakCountDown</replace>
+      <replace>getMaBreakDownMax</replace>
+      <replace>getBreakCountDownMax</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -437,10 +518,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/BizEtfDemo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StockAdrStatDemo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StatKlineDemo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StatKline.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/BizEtf.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StBizStat.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StockStatDemo.java" />
@@ -455,39 +532,43 @@
         <option value="$PROJECT_DIR$/src/main/resources/commons-logging.properties" />
         <option value="$PROJECT_DIR$/src/main/resources/application.yml" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/StockJob.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/BreakMaDto.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/StockAdrCountVo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/CondMa.java" />
         <option value="$PROJECT_DIR$/src/main/java/utils/HttpUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/service/BizService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/FupanControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/EtfJob.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/CondKline.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/KlineMapper.java" />
         <option value="$PROJECT_DIR$/src/main/resources/logbackAAA.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/utils/EtfUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/dao/MyBatisUtils.java" />
         <option value="$PROJECT_DIR$/src/main/resources/config-mybatis.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/logback.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/doc/fund-迭代.txt" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/MyPositionJob.java" />
-        <option value="$PROJECT_DIR$/src/main/java/utils/ContMapEtfType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/BizEtfStat.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/KlineControl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/KlineJob.java" />
-        <option value="$PROJECT_DIR$/src/main/java/utils/ContentCookie.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/StockAdrCountControl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StockStat.java" />
-        <option value="$PROJECT_DIR$/src/main/java/utils/Content.java" />
         <option value="$PROJECT_DIR$/src/main/java/utils/ContIndex.java" />
         <option value="$PROJECT_DIR$/src/main/resources/log4j.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/utils/ContMapEtf.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StockAdrStat.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/StockControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/StAdrJob.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/IndexDto.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/KlineDto.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/BreakMaDto.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/StockAdrCountVo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/ContMapEtfType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/KlineJob.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StockStat.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/ContTradeDay.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/KlineControl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/EtfUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/ContentCookie.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/StockControl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StockAdrStat.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/StockAdrCountControl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/dto/CondMa.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/BizEtfStat.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/doc/fund-迭代.txt" />
+        <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/FupanControl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/Content.java" />
+        <option value="$PROJECT_DIR$/src/main/java/utils/ContMapEtf.java" />
         <option value="$PROJECT_DIR$/src/main/java/ttjj/rank/stat/KlineStat.java" />
+        <option value="$PROJECT_DIR$/target/classes/application.yml" />
       </list>
     </option>
   </component>
@@ -554,93 +635,30 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="ttjj2210" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj2210" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj2210" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj2210" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj2210" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj2210" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj2210" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj2210" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj2210" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj2210" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj2210" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj2210" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-              <item name="rank" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj2210" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj2210" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="ttjj" type="462c0819:PsiDirectoryNode" />
-              <item name="rank" type="462c0819:PsiDirectoryNode" />
-              <item name="stat" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj2210" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj2210" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj2210" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ttjj2210" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ttjj2210" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
-    <property name="settings.editor.selected.configurable" value="preferences.jdPluginManager" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\study\base\principle" />
+      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\sql" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="ttjj.db" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ttjj.dto" />
+      <recent name="utils" />
+      <recent name="ttjj.rank.stat.schedule" />
+      <recent name="ttjj.rank" />
+      <recent name="ttjj.stat" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj2210\src\main\resources" />
@@ -648,17 +666,6 @@
       <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\ttjj\doc" />
       <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\game" />
       <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\ttjj\sql" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="utils" />
-      <recent name="ttjj.rank.stat.schedule" />
-      <recent name="ttjj.dto" />
-      <recent name="ttjj.rank" />
-      <recent name="ttjj.stat" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\study\base\principle" />
-      <recent name="L:\live\back\百度云同步盘\work\java\project\ttjj202004\src\main\java\sql" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -674,12 +681,12 @@
     </option>
   </component>
   <component name="RunManager" selected="Application.KlineStat">
-    <configuration name="FupanControl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ttjj.rank.FupanControl" />
+    <configuration name="BizEtfStat" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ttjj.rank.stat.BizEtfStat" />
       <module name="ttjj2210" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ttjj.rank.*" />
+          <option name="PATTERN" value="ttjj.rank.stat.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -687,8 +694,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="KlineControl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ttjj.rank.KlineControl" />
+    <configuration name="FupanControl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ttjj.rank.FupanControl" />
       <module name="ttjj2210" />
       <extension name="coverage">
         <pattern>
@@ -742,9 +749,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.KlineStat" />
-        <item itemvalue="Application.StockAdrCountControl" />
+        <item itemvalue="Application.BizEtfStat" />
         <item itemvalue="Application.FupanControl" />
-        <item itemvalue="Application.KlineControl" />
+        <item itemvalue="Application.StockAdrCountControl" />
         <item itemvalue="Application.StockControl" />
       </list>
     </recent_temporary>
@@ -760,104 +767,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1590287300739</updated>
-    </task>
-    <task id="LOCAL-00341" summary="st：所属板块">
-      <created>1641576144913</created>
-      <option name="number" value="00341" />
-      <option name="presentableId" value="LOCAL-00341" />
-      <option name="project" value="LOCAL" />
-      <updated>1641576144913</updated>
-    </task>
-    <task id="LOCAL-00342" summary="代码走查">
-      <created>1641744161177</created>
-      <option name="number" value="00342" />
-      <option name="presentableId" value="LOCAL-00342" />
-      <option name="project" value="LOCAL" />
-      <updated>1641744161179</updated>
-    </task>
-    <task id="LOCAL-00343" summary="st：检查均线">
-      <created>1641865773845</created>
-      <option name="number" value="00343" />
-      <option name="presentableId" value="LOCAL-00343" />
-      <option name="project" value="LOCAL" />
-      <updated>1641865773846</updated>
-    </task>
-    <task id="LOCAL-00344" summary="st：检查均线">
-      <created>1641879567608</created>
-      <option name="number" value="00344" />
-      <option name="presentableId" value="LOCAL-00344" />
-      <option name="project" value="LOCAL" />
-      <updated>1641879567609</updated>
-    </task>
-    <task id="LOCAL-00345" summary="st：检查均线">
-      <created>1641913444070</created>
-      <option name="number" value="00345" />
-      <option name="presentableId" value="LOCAL-00345" />
-      <option name="project" value="LOCAL" />
-      <updated>1641913444072</updated>
-    </task>
-    <task id="LOCAL-00346" summary="业绩报表">
-      <created>1641913475970</created>
-      <option name="number" value="00346" />
-      <option name="presentableId" value="LOCAL-00346" />
-      <option name="project" value="LOCAL" />
-      <updated>1641913475971</updated>
-    </task>
-    <task id="LOCAL-00347" summary="代码走查">
-      <created>1642039242825</created>
-      <option name="number" value="00347" />
-      <option name="presentableId" value="LOCAL-00347" />
-      <option name="project" value="LOCAL" />
-      <updated>1642039242826</updated>
-    </task>
-    <task id="LOCAL-00348" summary="代码走查">
-      <created>1642087710746</created>
-      <option name="number" value="00348" />
-      <option name="presentableId" value="LOCAL-00348" />
-      <option name="project" value="LOCAL" />
-      <updated>1642087710746</updated>
-    </task>
-    <task id="LOCAL-00349" summary="etf：增加lof类型">
-      <created>1642090605033</created>
-      <option name="number" value="00349" />
-      <option name="presentableId" value="LOCAL-00349" />
-      <option name="project" value="LOCAL" />
-      <updated>1642090605034</updated>
-    </task>
-    <task id="LOCAL-00350" summary="代码走查">
-      <created>1642090662153</created>
-      <option name="number" value="00350" />
-      <option name="presentableId" value="LOCAL-00350" />
-      <option name="project" value="LOCAL" />
-      <updated>1642090662153</updated>
-    </task>
-    <task id="LOCAL-00351" summary="st：更新股票">
-      <created>1642387427894</created>
-      <option name="number" value="00351" />
-      <option name="presentableId" value="LOCAL-00351" />
-      <option name="project" value="LOCAL" />
-      <updated>1642387427895</updated>
-    </task>
-    <task id="LOCAL-00352" summary="st：更新股票">
-      <created>1642411550989</created>
-      <option name="number" value="00352" />
-      <option name="presentableId" value="LOCAL-00352" />
-      <option name="project" value="LOCAL" />
-      <updated>1642411550989</updated>
-    </task>
-    <task id="LOCAL-00353" summary="etf：删除-根据日期">
-      <created>1642489603333</created>
-      <option name="number" value="00353" />
-      <option name="presentableId" value="LOCAL-00353" />
-      <option name="project" value="LOCAL" />
-      <updated>1642489603334</updated>
-    </task>
-    <task id="LOCAL-00354" summary="代码走查">
-      <created>1642611821934</created>
-      <option name="number" value="00354" />
-      <option name="presentableId" value="LOCAL-00354" />
-      <option name="project" value="LOCAL" />
-      <updated>1642611821938</updated>
     </task>
     <task id="LOCAL-00355" summary="代码走查">
       <created>1665672356338</created>
@@ -1104,7 +1013,105 @@
       <option name="project" value="LOCAL" />
       <updated>1667526413667</updated>
     </task>
-    <option name="localTasksCounter" value="390" />
+    <task id="LOCAL-00390" summary="代码走查">
+      <created>1667555793002</created>
+      <option name="number" value="00390" />
+      <option name="presentableId" value="LOCAL-00390" />
+      <option name="project" value="LOCAL" />
+      <updated>1667555793003</updated>
+    </task>
+    <task id="LOCAL-00391" summary="K线:指数，成交量统计">
+      <created>1667624482527</created>
+      <option name="number" value="00391" />
+      <option name="presentableId" value="LOCAL-00391" />
+      <option name="project" value="LOCAL" />
+      <updated>1667624482528</updated>
+    </task>
+    <task id="LOCAL-00392" summary="K线:指数，成交量统计，涨跌家数">
+      <created>1667644250536</created>
+      <option name="number" value="00392" />
+      <option name="presentableId" value="LOCAL-00392" />
+      <option name="project" value="LOCAL" />
+      <updated>1667644250536</updated>
+    </task>
+    <task id="LOCAL-00393" summary="K线:etf,显示排名，显示简单排名。">
+      <created>1667750543996</created>
+      <option name="number" value="00393" />
+      <option name="presentableId" value="LOCAL-00393" />
+      <option name="project" value="LOCAL" />
+      <updated>1667750544007</updated>
+    </task>
+    <task id="LOCAL-00394" summary="K线:etf,显示简单排名。">
+      <created>1667753408668</created>
+      <option name="number" value="00394" />
+      <option name="presentableId" value="LOCAL-00394" />
+      <option name="project" value="LOCAL" />
+      <updated>1667753408668</updated>
+    </task>
+    <task id="LOCAL-00395" summary="代码走查">
+      <created>1667824568033</created>
+      <option name="number" value="00395" />
+      <option name="presentableId" value="LOCAL-00395" />
+      <option name="project" value="LOCAL" />
+      <updated>1667824568052</updated>
+    </task>
+    <task id="LOCAL-00396" summary="k线:检查均线：最低净值向上突破均线">
+      <created>1667878237611</created>
+      <option name="number" value="00396" />
+      <option name="presentableId" value="LOCAL-00396" />
+      <option name="project" value="LOCAL" />
+      <updated>1667878237612</updated>
+    </task>
+    <task id="LOCAL-00397" summary="代码走查">
+      <created>1667960443810</created>
+      <option name="number" value="00397" />
+      <option name="presentableId" value="LOCAL-00397" />
+      <option name="project" value="LOCAL" />
+      <updated>1667960443811</updated>
+    </task>
+    <task id="LOCAL-00398" summary="工具:StopWatch用时分析">
+      <created>1668215692410</created>
+      <option name="number" value="00398" />
+      <option name="presentableId" value="LOCAL-00398" />
+      <option name="project" value="LOCAL" />
+      <updated>1668215692426</updated>
+    </task>
+    <task id="LOCAL-00399" summary="代码走查">
+      <created>1668215866225</created>
+      <option name="number" value="00399" />
+      <option name="presentableId" value="LOCAL-00399" />
+      <option name="project" value="LOCAL" />
+      <updated>1668215866227</updated>
+    </task>
+    <task id="LOCAL-00400" summary="代码走查">
+      <created>1668216093993</created>
+      <option name="number" value="00400" />
+      <option name="presentableId" value="LOCAL-00400" />
+      <option name="project" value="LOCAL" />
+      <updated>1668216093993</updated>
+    </task>
+    <task id="LOCAL-00401" summary="代码走查">
+      <created>1668389198141</created>
+      <option name="number" value="00401" />
+      <option name="presentableId" value="LOCAL-00401" />
+      <option name="project" value="LOCAL" />
+      <updated>1668389198142</updated>
+    </task>
+    <task id="LOCAL-00402" summary="k线:检查均线：突破均线，显示是否突破(距离均线百分比)，连续突破次数，可选5，15，30,60，日线、周线；">
+      <created>1668436487597</created>
+      <option name="number" value="00402" />
+      <option name="presentableId" value="LOCAL-00402" />
+      <option name="project" value="LOCAL" />
+      <updated>1668436487597</updated>
+    </task>
+    <task id="LOCAL-00403" summary="class">
+      <created>1668438148117</created>
+      <option name="number" value="00403" />
+      <option name="presentableId" value="LOCAL-00403" />
+      <option name="project" value="LOCAL" />
+      <updated>1668438148118</updated>
+    </task>
+    <option name="localTasksCounter" value="404" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1120,7 +1127,7 @@
     <frame x="-11" y="-11" width="2582" height="1406" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49802372" visible="true" weight="0.16292135" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49802372" visible="true" weight="0.13001606" />
       <window_info id="Structure" order="1" sideWeight="0.5019763" side_tool="true" weight="0.21669342" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -1129,14 +1136,14 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3291874" />
-      <window_info anchor="bottom" id="Debug" order="2" weight="0.5414594" />
+      <window_info anchor="bottom" id="Debug" order="2" weight="0.40215588" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.49839488" visible="true" weight="0.50248754" />
+      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.4979936" visible="true" weight="0.60613596" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3283582" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4995987" weight="0.327529" />
       <window_info anchor="bottom" id="风险组件扫描" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50160515" side_tool="true" weight="0.6973466" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5020064" side_tool="true" weight="0.55638474" />
       <window_info anchor="bottom" id="Duplication Code Results" order="10" weight="0.3286424" />
       <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.4995987" weight="0.38391376" />
       <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.50040126" weight="0.5140962" />
@@ -1149,6 +1156,36 @@
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49802372" weight="0.08105939" />
+      <window_info id="Structure" order="1" sideWeight="0.5019763" side_tool="true" weight="0.21669342" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3291874" />
+      <window_info anchor="bottom" id="Debug" order="2" weight="0.40215588" />
+      <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Run" order="5" sideWeight="0.4979936" visible="true" weight="0.4751244" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3283582" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4995987" weight="0.327529" />
+      <window_info anchor="bottom" id="风险组件扫描" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5020064" side_tool="true" weight="0.55638474" />
+      <window_info anchor="bottom" id="Duplication Code Results" order="10" weight="0.3286424" />
+      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.4995987" weight="0.38391376" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.50040126" weight="0.5140962" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Maven" order="4" weight="0.32985553" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+    </layout-to-restore>
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.sql" />
@@ -1206,14 +1243,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="仓位：修复总资产" />
-    <MESSAGE value="仓位：修复总资产：总资产 = 场内资产+场外资产" />
-    <MESSAGE value="st：板块个股" />
-    <MESSAGE value="st：股票统计数据" />
-    <MESSAGE value="k线:检查均线" />
-    <MESSAGE value="st：所属板块" />
-    <MESSAGE value="st：检查均线" />
-    <MESSAGE value="业绩报表" />
     <MESSAGE value="etf：增加lof类型" />
     <MESSAGE value="st：更新股票" />
     <MESSAGE value="etf：删除-根据日期" />
@@ -1230,8 +1259,16 @@
     <MESSAGE value="业务:复权更新-特定编码-特定日期" />
     <MESSAGE value="业务:etf，计算区间涨幅" />
     <MESSAGE value="K线:统计区间涨幅，etf" />
+    <MESSAGE value="K线:指数，成交量统计" />
+    <MESSAGE value="K线:指数，成交量统计，涨跌家数" />
+    <MESSAGE value="K线:etf,显示排名，显示简单排名。" />
+    <MESSAGE value="K线:etf,显示简单排名。" />
+    <MESSAGE value="k线:检查均线：最低净值向上突破均线" />
+    <MESSAGE value="工具:StopWatch用时分析" />
     <MESSAGE value="代码走查" />
-    <option name="LAST_COMMIT_MESSAGE" value="代码走查" />
+    <MESSAGE value="k线:检查均线：突破均线，显示是否突破(距离均线百分比)，连续突破次数，可选5，15，30,60，日线、周线；" />
+    <MESSAGE value="class" />
+    <option name="LAST_COMMIT_MESSAGE" value="class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1267,20 +1304,8 @@
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java</url>
-          <line>1818</line>
-          <properties />
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/KlineStat.java</url>
-          <line>278</line>
-          <properties />
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ttjj/rank/FupanControl.java</url>
-          <line>121</line>
+          <line>119</line>
           <properties />
           <option name="timeStamp" value="29" />
         </line-breakpoint>
@@ -1298,9 +1323,15 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/KlineStat.java</url>
-          <line>105</line>
+          <line>529</line>
           <properties />
-          <option name="timeStamp" value="35" />
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/KlineStat.java</url>
+          <line>118</line>
+          <properties />
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1315,108 +1346,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://L:/work/Java/repository/log4j/log4j/1.2.16/log4j-1.2.16.jar!/org/apache/log4j/pattern/PropertiesPatternConverter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="37" column="51" lean-forward="true" selection-start-line="37" selection-start-column="51" selection-end-line="37" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://L:/work/Java/repository/org/apache/httpcomponents/httpclient/4.5.8/httpclient-4.5.8.jar!/org/apache/http/impl/client/HttpClientBuilder.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="27" column="47" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://L:/work/Java/repository/org/apache/httpcomponents/httpclient/4.5.8/httpclient-4.5.8.jar!/META-INF/maven/org.apache.httpcomponents/httpclient/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="48" column="33" selection-start-line="48" selection-start-column="18" selection-end-line="48" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/commons-logging.properties" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/utils/HttpClientUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/BreakMaDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="85" column="22" lean-forward="true" selection-start-line="85" selection-start-column="22" selection-end-line="85" selection-end-column="22" />
-          <folding>
-            <element signature="e#1526#1527#0" expanded="true" />
-            <element signature="e#1578#1579#0" expanded="true" />
-            <element signature="e#1979#1980#0" expanded="true" />
-            <element signature="e#2018#2019#0" expanded="true" />
-            <element signature="e#2079#2080#0" expanded="true" />
-            <element signature="e#2128#2129#0" expanded="true" />
-            <element signature="e#2169#2170#0" expanded="true" />
-            <element signature="e#2209#2210#0" expanded="true" />
-            <element signature="e#2272#2273#0" expanded="true" />
-            <element signature="e#2330#2331#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/StockNotice.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/utils/HttpUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-649">
           <caret line="75" column="25" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/StockAdrCountVo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="561" column="27" selection-start-line="561" selection-start-column="27" selection-end-line="561" selection-end-column="27" />
-          <folding>
-            <element signature="e#8379#8380#0" expanded="true" />
-            <element signature="e#8435#8436#0" expanded="true" />
-            <element signature="e#11393#11394#0" expanded="true" />
-            <element signature="e#11431#11432#0" expanded="true" />
-            <element signature="e#11792#11793#0" expanded="true" />
-            <element signature="e#11831#11832#0" expanded="true" />
-            <element signature="e#12611#12612#0" expanded="true" />
-            <element signature="e#12652#12653#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/service/StockService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="285" column="29" selection-start-line="285" selection-start-column="29" selection-end-line="285" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/service/BizService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18900">
-          <caret line="650" column="5" selection-start-line="650" selection-start-column="5" selection-end-line="650" selection-end-column="5" />
-          <folding>
-            <element signature="e#6979#6980#0" expanded="true" />
-            <element signature="e#7037#7038#0" expanded="true" />
-            <element signature="e#28547#28548#0" expanded="true" />
-            <element signature="e#28586#28587#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1427,62 +1360,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/CondMa.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="192" column="24" selection-start-line="192" selection-start-column="24" selection-end-line="192" selection-end-column="24" />
-          <folding>
-            <element signature="e#2184#2185#0" expanded="true" />
-            <element signature="e#2231#2232#0" expanded="true" />
-            <element signature="e#3676#3677#0" expanded="true" />
-            <element signature="e#3713#3714#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/KlineDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
           <caret line="74" column="30" selection-start-line="74" selection-start-column="30" selection-end-line="74" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/Kline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="298" column="15" lean-forward="true" selection-start-line="298" selection-start-column="15" selection-end-line="298" selection-end-column="15" />
-          <folding>
-            <element signature="e#5704#5705#0" expanded="true" />
-            <element signature="e#5734#5735#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/KlineDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-240">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/CondKline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="100" column="5" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
-          <folding>
-            <element signature="e#1926#1927#0" expanded="true" />
-            <element signature="e#1959#1960#0" expanded="true" />
-            <element signature="e#2015#2016#0" expanded="true" />
-            <element signature="e#2059#2060#0" expanded="true" />
-            <element signature="e#2099#2100#0" expanded="true" />
-            <element signature="e#2131#2132#0" expanded="true" />
-            <element signature="e#2185#2186#0" expanded="true" />
-            <element signature="e#2227#2228#0" expanded="true" />
-            <element signature="e#2264#2265#0" expanded="true" />
-            <element signature="e#2293#2294#0" expanded="true" />
-            <element signature="e#2341#2342#0" expanded="true" />
-            <element signature="e#2377#2378#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1497,40 +1378,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/BizDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
-          <folding>
-            <element signature="e#3559#3560#0" expanded="true" />
-            <element signature="e#3603#3604#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dao/mapper/KlineMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="176" column="30" selection-start-line="176" selection-start-column="30" selection-end-line="176" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-282">
-          <caret line="1596" column="23" selection-start-line="1596" selection-start-column="23" selection-end-line="1596" selection-end-column="23" />
-          <folding>
-            <element signature="method#handlerBreakCount#0;class#KlineService#0" />
-            <element signature="method#getSecid#0;class#KlineService#0" />
-            <element signature="method#showStockMa#0;class#KlineService#0" />
-            <element signature="method#handlerOrder#0;class#KlineService#0" />
-            <element signature="method#saveKlineByType#0;class#KlineService#0" />
-            <element signature="method#updateFundFlow#0;class#KlineService#0" />
-            <element signature="method#updateFundFlow#1;class#KlineService#0" />
-            <element signature="method#getTimeByOrderNo#0;class#KlineService#0" />
-            <element signature="e#100849#100850#0" expanded="true" />
-            <element signature="e#100916#100917#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1552,174 +1403,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/doc/fund-迭代.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1110">
-          <caret line="37" column="24" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/utils/ContMapEtfType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="1146" column="36" lean-forward="true" selection-start-line="1146" selection-start-column="36" selection-end-line="1146" selection-end-column="36" />
-          <folding>
-            <element signature="initializer##0;class#ContMapEtfType#0" />
-            <element signature="initializer##3;class#ContMapEtfType#0" />
-            <element signature="initializer##5;class#ContMapEtfType#0" />
-            <element signature="initializer##7;class#ContMapEtfType#0" />
-            <element signature="initializer##8;class#ContMapEtfType#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/utils/EtfUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="344" column="23" selection-start-line="344" selection-start-column="23" selection-end-line="344" selection-end-column="23" />
-          <folding>
-            <element signature="method#handlerEtfNameSimple#0;class#EtfUtil#0" />
-            <element signature="method#handlerEtfName#0;class#EtfUtil#0" />
-            <element signature="method#showInfoEtf#0;class#EtfUtil#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/utils/ContentCookie.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="10" column="464" selection-start-line="10" selection-start-column="464" selection-end-line="10" selection-end-column="464" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/MyPositionJob.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="35" column="35" lean-forward="true" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/KlineJob.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/StockJob.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="27" column="57" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/StAdrJob.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/BizStat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/BizEtfStat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
-          <folding>
-            <element signature="method#statDayMinMaxTime#1;class#BizEtfStat#0" />
-            <element signature="method#showEtfMv#0;class#BizEtfStat#0" />
-            <element signature="method#listEtfBizDb#0;class#BizEtfStat#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/EtfJob.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="25" column="65" selection-start-line="25" selection-start-column="65" selection-end-line="25" selection-end-column="65" />
-          <folding>
-            <element signature="e#273#274#0" expanded="true" />
-            <element signature="e#329#330#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StockAdrStat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2010">
-          <caret line="85" column="21" selection-start-line="85" selection-start-column="21" selection-end-line="85" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StockStat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1620">
-          <caret line="89" column="50" selection-start-line="89" selection-start-column="50" selection-end-line="89" selection-end-column="50" />
-          <folding>
-            <element signature="method#checkMaDemo#0;class#StockStat#0" />
-            <element signature="method#updateFuQuan#0;class#StockStat#0" />
-            <element signature="method#showHeadAdrRank#0;class#StockStat#0" />
-            <element signature="method#statFindListTongJj#0;class#StockStat#0" />
-            <element signature="method#statSuperDropBounce#0;class#StockStat#0" />
-            <element signature="method#superDropBounce#0;class#StockStat#0" />
-            <element signature="method#maBreakUp#0;class#StockStat#0" />
-            <element signature="method#findListTongJj#0;class#StockStat#0" />
-            <element signature="method#listBiz#0;class#StockStat#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/utils/Content.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19080">
-          <caret line="639" column="25" selection-start-line="639" selection-start-column="25" selection-end-line="639" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/utils/ContIndex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/BizControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="34" column="47" selection-start-line="34" selection-start-column="47" selection-end-line="34" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/StockControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="40" column="51" selection-start-line="40" selection-start-column="51" selection-end-line="40" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/KlineControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/StockAdrCountControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://L:/work/Java/repository/org/slf4j/slf4j-api/1.7.22/slf4j-api-1.7.22.jar!/org/slf4j/Logger.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1727,24 +1410,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/FupanControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="42" column="57" selection-start-line="42" selection-start-column="57" selection-end-line="42" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/logback-bak.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="376">
           <caret line="13" column="51" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/config-mybatis.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -1762,36 +1431,492 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/BizDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
+          <folding>
+            <element signature="e#3559#3560#0" expanded="true" />
+            <element signature="e#3603#3604#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/config-mybatis.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/IndexDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="13" selection-start-line="13" selection-end-line="36" selection-end-column="30" />
+          <folding>
+            <element signature="e#586#587#0" expanded="true" />
+            <element signature="e#620#621#0" expanded="true" />
+            <element signature="e#674#675#0" expanded="true" />
+            <element signature="e#720#721#0" expanded="true" />
+            <element signature="e#756#757#0" expanded="true" />
+            <element signature="e#788#789#0" expanded="true" />
+            <element signature="e#838#839#0" expanded="true" />
+            <element signature="e#880#881#0" expanded="true" />
+            <element signature="e#924#925#0" expanded="true" />
+            <element signature="e#960#961#0" expanded="true" />
+            <element signature="e#1022#1023#0" expanded="true" />
+            <element signature="e#1072#1073#0" expanded="true" />
+            <element signature="e#1107#1108#0" expanded="true" />
+            <element signature="e#1137#1138#0" expanded="true" />
+            <element signature="e#1184#1185#0" expanded="true" />
+            <element signature="e#1222#1223#0" expanded="true" />
+            <element signature="e#1259#1260#0" expanded="true" />
+            <element signature="e#1291#1292#0" expanded="true" />
+            <element signature="e#1342#1343#0" expanded="true" />
+            <element signature="e#1384#1385#0" expanded="true" />
+            <element signature="e#1421#1422#0" expanded="true" />
+            <element signature="e#1453#1454#0" expanded="true" />
+            <element signature="e#1504#1505#0" expanded="true" />
+            <element signature="e#1546#1547#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/KlineDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding>
+            <element signature="e#2205#2206#0" expanded="true" />
+            <element signature="e#2243#2244#0" expanded="true" />
+            <element signature="e#2313#2314#0" expanded="true" />
+            <element signature="e#2367#2368#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://L:/work/Java/repository/org/springframework/spring-beans/4.3.25.RELEASE/spring-beans-4.3.25.RELEASE.jar!/org/springframework/beans/BeanUtils.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="288" column="23" selection-start-line="288" selection-start-column="23" selection-end-line="288" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/point/SzzsDataDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="924">
+          <caret line="744" column="28" selection-start-line="744" selection-start-column="28" selection-end-line="744" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/CondStock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="157" column="14" lean-forward="true" selection-start-line="157" selection-start-column="14" selection-end-line="157" selection-end-column="14" />
+          <folding>
+            <element signature="e#5366#5367#0" expanded="true" />
+            <element signature="e#5404#5405#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/db/RankStockCommpanyDb.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10770">
+          <caret line="360" column="19" selection-start-line="360" selection-start-column="19" selection-end-line="360" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/ContIndex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="13" column="25" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/StockUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5430">
+          <caret line="193" selection-start-line="193" selection-end-line="224" selection-end-column="5" />
+          <folding>
+            <element signature="e#5985#5986#0" expanded="true" />
+            <element signature="e#6052#6053#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/service/BizService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="64" column="39" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="39" />
+          <folding>
+            <element signature="e#6979#6980#0" expanded="true" />
+            <element signature="e#7037#7038#0" expanded="true" />
+            <element signature="e#28547#28548#0" expanded="true" />
+            <element signature="e#28586#28587#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/ContMapEtfType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2580">
+          <caret line="314" column="11" selection-start-line="314" selection-start-column="11" selection-end-line="314" selection-end-column="11" />
+          <folding>
+            <element signature="initializer##0;class#ContMapEtfType#0" />
+            <element signature="initializer##2;class#ContMapEtfType#0" />
+            <element signature="initializer##5;class#ContMapEtfType#0" />
+            <element signature="initializer##6;class#ContMapEtfType#0" />
+            <element signature="initializer##7;class#ContMapEtfType#0" />
+            <element signature="initializer##8;class#ContMapEtfType#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/StAdrJob.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1320">
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/ContTradeDay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2242">
+          <caret line="81" column="41" selection-start-line="81" selection-start-column="41" selection-end-line="81" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/service/StockService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="787" column="40" lean-forward="true" selection-start-line="787" selection-start-column="40" selection-end-line="787" selection-end-column="40" />
+          <folding>
+            <element signature="e#35702#35703#0" expanded="true" />
+            <element signature="e#35776#35777#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StockStat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+          <folding>
+            <element signature="method#checkMaDemo#0;class#StockStat#0" />
+            <element signature="method#updateFuQuan#0;class#StockStat#0" />
+            <element signature="method#showHeadAdrRank#0;class#StockStat#0" />
+            <element signature="method#statFindListTongJj#0;class#StockStat#0" />
+            <element signature="method#statSuperDropBounce#0;class#StockStat#0" />
+            <element signature="method#superDropBounce#0;class#StockStat#0" />
+            <element signature="method#maBreakUp#0;class#StockStat#0" />
+            <element signature="method#findListTongJj#0;class#StockStat#0" />
+            <element signature="method#listBiz#0;class#StockStat#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/EtfUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7920">
+          <caret line="274" column="81" selection-start-line="274" selection-start-column="81" selection-end-line="274" selection-end-column="81" />
+          <folding>
+            <element signature="method#showInfoEtf#0;class#EtfUtil#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/CondKline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2670">
+          <caret line="126" column="21" selection-start-line="126" selection-start-column="11" selection-end-line="126" selection-end-column="21" />
+          <folding>
+            <element signature="e#1926#1927#0" expanded="true" />
+            <element signature="e#1959#1960#0" expanded="true" />
+            <element signature="e#2015#2016#0" expanded="true" />
+            <element signature="e#2059#2060#0" expanded="true" />
+            <element signature="e#2099#2100#0" expanded="true" />
+            <element signature="e#2131#2132#0" expanded="true" />
+            <element signature="e#2185#2186#0" expanded="true" />
+            <element signature="e#2227#2228#0" expanded="true" />
+            <element signature="e#2264#2265#0" expanded="true" />
+            <element signature="e#2293#2294#0" expanded="true" />
+            <element signature="e#2341#2342#0" expanded="true" />
+            <element signature="e#2377#2378#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/BizStat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/ContentCookie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="10" column="464" selection-start-line="10" selection-start-column="464" selection-end-line="10" selection-end-column="464" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/Kline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding>
+            <element signature="e#4468#4469#0" expanded="true" />
+            <element signature="e#4494#4495#0" expanded="true" />
+            <element signature="e#5704#5705#0" expanded="true" />
+            <element signature="e#5734#5735#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/StockJob.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="27" column="57" lean-forward="true" selection-start-line="27" selection-start-column="57" selection-end-line="27" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/MyPositionJob.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="39" column="35" lean-forward="true" selection-start-line="39" selection-start-column="35" selection-end-line="39" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/KlineJob.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="31" column="12" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/schedule/EtfJob.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="27" column="28" lean-forward="true" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+          <folding>
+            <element signature="e#273#274#0" expanded="true" />
+            <element signature="e#329#330#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/StockAdrStat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="64" column="41" selection-start-line="64" selection-start-column="41" selection-end-line="64" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/BizControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="30" column="33" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/KlineControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="36" column="23" lean-forward="true" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/StockControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="39" column="55" lean-forward="true" selection-start-line="39" selection-start-column="55" selection-end-line="39" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/StockAdrCountControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="53" column="60" lean-forward="true" selection-start-line="53" selection-start-column="60" selection-end-line="53" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/FupanControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="140" column="43" lean-forward="true" selection-start-line="140" selection-start-column="43" selection-end-line="140" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/StockAdrCountVo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="674" column="27" selection-start-line="674" selection-start-column="27" selection-end-line="674" selection-end-column="27" />
+          <folding>
+            <element signature="e#4756#4757#0" expanded="true" />
+            <element signature="e#4787#4788#0" expanded="true" />
+            <element signature="e#4911#4912#0" expanded="true" />
+            <element signature="e#4943#4944#0" expanded="true" />
+            <element signature="e#7470#7471#0" expanded="true" />
+            <element signature="e#7506#7507#0" expanded="true" />
+            <element signature="e#9767#9768#0" expanded="true" />
+            <element signature="e#9801#9802#0" expanded="true" />
+            <element signature="e#13301#13302#0" expanded="true" />
+            <element signature="e#13342#13343#0" expanded="true" />
+            <element signature="e#14153#14154#0" expanded="true" />
+            <element signature="e#14196#14197#0" expanded="true" />
+            <element signature="e#15735#15736#0" expanded="true" />
+            <element signature="e#15774#15775#0" expanded="true" />
+            <element signature="e#15835#15836#0" expanded="true" />
+            <element signature="e#15891#15892#0" expanded="true" />
+            <element signature="e#15932#15933#0" expanded="true" />
+            <element signature="e#15972#15973#0" expanded="true" />
+            <element signature="e#16035#16036#0" expanded="true" />
+            <element signature="e#16093#16094#0" expanded="true" />
+            <element signature="e#16134#16135#0" expanded="true" />
+            <element signature="e#16174#16175#0" expanded="true" />
+            <element signature="e#16237#16238#0" expanded="true" />
+            <element signature="e#16295#16296#0" expanded="true" />
+            <element signature="e#16336#16337#0" expanded="true" />
+            <element signature="e#16376#16377#0" expanded="true" />
+            <element signature="e#16439#16440#0" expanded="true" />
+            <element signature="e#16497#16498#0" expanded="true" />
+            <element signature="e#16539#16540#0" expanded="true" />
+            <element signature="e#16580#16581#0" expanded="true" />
+            <element signature="e#16645#16646#0" expanded="true" />
+            <element signature="e#16705#16706#0" expanded="true" />
+            <element signature="e#16747#16748#0" expanded="true" />
+            <element signature="e#16788#16789#0" expanded="true" />
+            <element signature="e#16853#16854#0" expanded="true" />
+            <element signature="e#16913#16914#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/BreakMaDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="124" column="23" lean-forward="true" selection-start-line="124" selection-start-column="23" selection-end-line="124" selection-end-column="23" />
+          <folding>
+            <element signature="e#1760#1761#0" expanded="true" />
+            <element signature="e#1793#1794#0" expanded="true" />
+            <element signature="e#2310#2311#0" expanded="true" />
+            <element signature="e#2350#2351#0" expanded="true" />
+            <element signature="e#2510#2511#0" expanded="true" />
+            <element signature="e#2547#2548#0" expanded="true" />
+            <element signature="e#2604#2605#0" expanded="true" />
+            <element signature="e#2649#2650#0" expanded="true" />
+            <element signature="e#2688#2689#0" expanded="true" />
+            <element signature="e#2726#2727#0" expanded="true" />
+            <element signature="e#2785#2786#0" expanded="true" />
+            <element signature="e#2839#2840#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/dto/CondMa.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="215" column="5" lean-forward="true" selection-start-line="215" selection-start-column="5" selection-end-line="215" selection-end-column="5" />
+          <folding>
+            <element signature="e#3673#3674#0" expanded="true" />
+            <element signature="e#3713#3714#0" expanded="true" />
+            <element signature="e#4163#4164#0" expanded="true" />
+            <element signature="e#4204#4205#0" expanded="true" />
+            <element signature="e#4723#4724#0" expanded="true" />
+            <element signature="e#4755#4756#0" expanded="true" />
+            <element signature="e#4802#4803#0" expanded="true" />
+            <element signature="e#4837#4838#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/utils/ContMapEtf.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="689" column="38" selection-start-line="689" selection-start-column="38" selection-end-line="689" selection-end-column="38" />
+        <state relative-caret-position="384">
+          <caret line="193" column="39" selection-start-line="193" selection-start-column="39" selection-end-line="193" selection-end-column="39" />
           <folding>
             <element signature="initializer##12;class#ContMapEtf#0" />
             <element signature="initializer##16;class#ContMapEtf#0" />
             <element signature="initializer##17;class#ContMapEtf#0" />
             <element signature="initializer##18;class#ContMapEtf#0" />
-            <element signature="initializer##19;class#ContMapEtf#0" />
+            <element signature="initializer##20;class#ContMapEtf#0" />
             <element signature="initializer##21;class#ContMapEtf#0" />
+            <element signature="initializer##22;class#ContMapEtf#0" />
             <element signature="initializer##23;class#ContMapEtf#0" />
             <element signature="initializer##24;class#ContMapEtf#0" />
             <element signature="initializer##25;class#ContMapEtf#0" />
             <element signature="initializer##26;class#ContMapEtf#0" />
+            <element signature="initializer##27;class#ContMapEtf#0" />
             <element signature="initializer##28;class#ContMapEtf#0" />
             <element signature="initializer##29;class#ContMapEtf#0" />
             <element signature="initializer##30;class#ContMapEtf#0" />
             <element signature="initializer##31;class#ContMapEtf#0" />
+            <element signature="initializer##32;class#ContMapEtf#0" />
+            <element signature="initializer##33;class#ContMapEtf#0" />
+            <element signature="initializer##34;class#ContMapEtf#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/doc/fund-迭代.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="593">
+          <caret line="40" column="41" lean-forward="true" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/service/KlineService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="636">
+          <caret line="1793" column="43" lean-forward="true" selection-start-line="1793" selection-start-column="43" selection-end-line="1793" selection-end-column="43" />
+          <folding>
+            <element signature="method#handlerBreakCount#0;class#KlineService#0" />
+            <element signature="method#showStockMa#0;class#KlineService#0" />
+            <element signature="method#handlerOrder#0;class#KlineService#0" />
+            <element signature="method#saveKlineByType#0;class#KlineService#0" />
+            <element signature="method#updateFundFlow#0;class#KlineService#0" />
+            <element signature="method#updateFundFlow#1;class#KlineService#0" />
+            <element signature="e#97021#99490#0" />
+            <element signature="method#getTimeByOrderNo#0;class#KlineService#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/BizEtfStat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="638">
+          <caret line="405" column="41" lean-forward="true" selection-start-line="405" selection-start-column="41" selection-end-line="405" selection-end-column="41" />
+          <folding>
+            <element signature="method#statDayMinMaxTime#1;class#BizEtfStat#0" />
+            <element signature="method#listEtfBizDb#0;class#BizEtfStat#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/utils/Content.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="409">
+          <caret line="874" column="46" selection-start-line="874" selection-start-column="31" selection-end-line="874" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1336#1337#0" expanded="true" />
+            <element signature="e#1368#1369#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ttjj/rank/stat/KlineStat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="38" column="64" lean-forward="true" selection-start-line="38" selection-start-column="64" selection-end-line="38" selection-end-column="64" />
+        <state relative-caret-position="275">
+          <caret line="135" lean-forward="true" selection-start-line="135" selection-end-line="135" />
           <folding>
+            <element signature="method#statListAdrArea#2;class#KlineStat#0" />
+            <element signature="method#showInfoKlineCompPreDay#0;class#KlineStat#0" />
             <element signature="method#showUpOrDownInfoByList#0;class#KlineStat#0" />
-            <element signature="method#handlerInfo#0;class#KlineStat#0" />
             <element signature="method#handlerHeadInfo#0;class#KlineStat#0" />
             <element signature="method#getTimeList#0;class#KlineStat#0" />
             <element signature="method#statAdrCountByDay#0;class#KlineStat#0" />
