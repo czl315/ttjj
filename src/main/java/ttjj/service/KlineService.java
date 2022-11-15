@@ -1837,7 +1837,7 @@ public class KlineService {
             System.out.print("  ");
             System.out.print(StockUtil.formatEtfName(stockAdrCountVo.getF14(), 16));
 
-            int showSize = 10;
+            int showSize = 6;
             int pctScale = 1;
             boolean isShowPct = condMa.getShowPct();//是否显示均线百分比
             //突破均线-向上
@@ -1998,15 +1998,6 @@ public class KlineService {
             breakCountUp = stockAdrCountVo.getBreakCountDownMax102();
             pct = stockAdrCountVo.getBreakPctUp102().setScale(pctScale, RoundingMode.HALF_UP);
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
-        }
-        if (kltList.contains(KLT_5)) {
-            String breakDownMax = stockAdrCountVo.getMaBreakDownMax5();
-            int breakCountDown = stockAdrCountVo.getBreakCountDownMax5();//突破均线次数
-            if (StringUtils.isNotBlank(breakDownMax)) {
-                System.out.print(StockUtil.formatStr(":" + breakCountDown, showSize));
-            } else {
-                System.out.print(StockUtil.formatStr("", showSize));
-            }
         }
         return rs;
     }

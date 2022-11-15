@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import static utils.ContMapEtf.ETF_All;
 import static utils.Content.DB_RANK_BIZ_TYPE_ETF;
+import static utils.Content.NUM_YI_1;
 
 /**
  * EtfUtil简介
@@ -174,10 +175,10 @@ public class EtfUtil {
      * @param klt      周期类型
      * @param ktime    时间段
      */
-    public static void showInfoEtfKline(List<CondKline> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, String klt, String ktime,Boolean isDesc) {
+    public static void showInfoEtfKline(List<CondKline> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, String klt, String ktime, Boolean isDesc) {
         if (isDesc) {//排序
             rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
-        } else if (!isDesc){
+        } else if (!isDesc) {
             rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
         }
         Map<String, Integer> sizeMap = new HashMap<>();
@@ -186,6 +187,8 @@ public class EtfUtil {
         sizeMap.put("名称", 16);
         sizeMap.put("概念", 16);
         sizeMap.put("代码", 8);
+        sizeMap.put("主流", 12);
+        int sizeFlowInMian = sizeMap.get("主流");
         int size = 10;
         int sizeBiz = 14;
         int sizeDate14 = 14;
@@ -200,7 +203,9 @@ public class EtfUtil {
         if (showMore) {
             sbHead.append(StockUtil.formatStName("最新涨幅", size));
             sbHead.append(StockUtil.formatStName("最新市值(亿)", sizeDate14));
-            sbHead.append(StockUtil.formatStName("开始日期", sizeDate14));
+            sbHead.append(StockUtil.formatStName("主流(亿)", sizeFlowInMian));
+
+                sbHead.append(StockUtil.formatStName("开始日期", sizeDate14));
             sbHead.append(StockUtil.formatStName("结束日期", sizeDate14));
 //            sbHead.append(StockUtil.formatStName("周期类型", size));
 //            sbHead.append(StockUtil.formatStName("时间段", sizeKtime));
@@ -236,8 +241,17 @@ public class EtfUtil {
             String formatAdr = StockUtil.formatDouble(areaAdr, size, null, "%");
             sb.append(formatAdr);
             if (showMore) {
+                BigDecimal flowInMain = dto.getFlowInMain();
+                BigDecimal marketValue = dto.getF20();
+                BigDecimal flowRate  = null;
+                if (flowInMain != null) {
+                    flowInMain = dto.getFlowInMain().divide(NUM_YI_1, 2, BigDecimal.ROUND_HALF_UP);
+                    flowRate  = flowInMain.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
+                }
+
                 sb.append(StockUtil.formatDouble(dto.getZhangDieFu(), size, null, "%"));
-                sb.append(StockUtil.formatDouble(dto.getF20(), sizeDate14));
+                sb.append(StockUtil.formatDouble(marketValue, sizeDate14));
+                sb.append(StockUtil.formatDouble(flowInMain, sizeFlowInMian));
                 sb.append(StockUtil.formatStName(begDate, sizeDate14));
                 sb.append(StockUtil.formatStName(endDate, sizeDate14));
 //                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));

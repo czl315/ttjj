@@ -48,6 +48,10 @@ public class CondKline extends Kline {
      */
     private BigDecimal areaF3;
     /**
+     * 流市比：主力净流入与市值的百分比
+     */
+    private BigDecimal flowInMainPct;
+    /**
      * orderBy 排序
      */
     private String orderBy;
@@ -130,5 +134,13 @@ public class CondKline extends Kline {
 
     public void setAreaF3(BigDecimal areaF3) {
         this.areaF3 = areaF3;
+    }
+
+    public BigDecimal getFlowInMainPct() {
+        return flowInMainPct;
+    }
+
+    public void setFlowInMainPct(BigDecimal flowInMainPct) {
+        this.flowInMainPct = flowInMainPct;
     }
 }
