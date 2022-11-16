@@ -117,8 +117,12 @@ public class StockUtil {
      * @param length 长度
      * @return 格式化结果
      */
-    public static String formatDouble(BigDecimal number, int length, String prefix, String suffix) {
+    public static String formatDouble(BigDecimal number, Integer length, String prefix, String suffix) {
         StringBuffer rs = new StringBuffer();
+        if (length == null) {
+            rs.append(number);
+            return rs.toString();
+        }
         if (number == null) {
             for (int i = 0; i < length; i++) {
                 rs.append(" ");
@@ -198,8 +202,11 @@ public class StockUtil {
      * @param length
      * @return rs
      */
-    public static String formatStName(String name, int length) {
+    public static String formatStName(String name, Integer length) {
         StringBuffer rs = new StringBuffer();
+        if (length == null) {
+            return rs.append(name).toString();
+        }
         if (name == null || name.length() == 0) {
             for (int i = 0; i < length; i++) {
                 rs.append(" ");
@@ -349,7 +356,6 @@ public class StockUtil {
             System.out.println(sb);
         }
     }
-
 
 
     /**

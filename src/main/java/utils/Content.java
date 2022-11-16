@@ -718,6 +718,13 @@ public class Content {
      * 排序字段-我的仓位-最新市值
      */
     public static String ORDER_FIELD_MY_ZXSZ = "myPositionZxsz";
+    /**
+     * ORDER_FIELD_AREA_ADR
+     */
+    public static String ORDER_FIELD_AREA_ADR = "areaAdr";
+    public static String ORDER_FIELD_MARKET_VALUE = "marketValue";
+    public static String ORDER_FIELD_FLOW_IN_MAIN = "flowInMain";
+    public static String ORDER_FIELD_FLOW_IN_MAIN_PCT = "flowInMainPct";
 
     /**
      * 报表数据-业绩快报

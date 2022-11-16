@@ -47,24 +47,27 @@ public class StockAdrStat {
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
         Map<String, List<String>> bkMap = new HashMap<>();
-//        bkMap = getBizListSp();//获取业务列表-特定
-        bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
+        bkMap = getBizListSp();//获取业务列表-特定
+//        bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
 
-        BigDecimal mvMinBig = NUM_YI_500;//NUM_YI_1000  NUM_YI_50  NUM_YI_200
-        BigDecimal mvMinSmall = NUM_YI_50;//
+        BigDecimal mvMin1000= NUM_YI_1000;//
+        BigDecimal mvMin500 = NUM_YI_500;//
+        BigDecimal mvMin200 = NUM_YI_200;//
+        BigDecimal mvMin50 = NUM_YI_50;//
+        BigDecimal mvMin40 = NUM_YI_40;//
 
         String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;//排序  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
 
         CondStockAdrCount condFind = new CondStockAdrCount();
         condFind.setADR_UP_SUM_1_60(null);
         condFind.setADR_UP_SUM_1_40(null);
-//        condFind.setADR_UP_SUM_40_60(new BigDecimal("10"));//
+        condFind.setADR_UP_SUM_40_60(new BigDecimal("1"));//
         condFind.setADR_UP_SUM_20_40(null);
 
 //        condFind.setUP_MA_30("30(60)");
 //        condFind.setUP_MA_60("60(60)");
 //        condFind.setUP_MA_101("101(60)");
-        condFind.setUP_MA_102("102(60)");
+//        condFind.setUP_MA_102("102(60)");
 
 //        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
@@ -74,29 +77,12 @@ public class StockAdrStat {
         condFind.setLimitCount(limitCount);
 
         Map<String, StockAdrCountVo> stockAdrCountMap = new HashMap<>();
-        for (List<String> bks : bkMap.values()) {
-            condFind.setBizList(bks);
-            //查询大票
-//            condFind.setMvMin(mvMinBig);
-//            List<StockAdrCountVo> stockAdrCountList500 = StockAdrCountService.findListByCondition(condFind);
-//            for (StockAdrCountVo stockAdrCount : stockAdrCountList500) {
-//                stockAdrCountMap.put(stockAdrCount.getF12(), stockAdrCount);
-//            }
-
-            //查询中票，去重
-            condFind.setMvMin(mvMinSmall);
-            List<StockAdrCountVo> stockAdrCountList100 = StockAdrCountService.findListByCondition(condFind);
-            ;//中票
-            for (StockAdrCountVo stockAdrCount : stockAdrCountList100) {
-                String zqdm = stockAdrCount.getF12();
-                String zqmc = stockAdrCount.getF14();
-                if (stockAdrCountMap.containsKey(zqdm)) {
-//                    System.out.println("检查中票：大票也存在：" + zqmc);
-                } else {
-                    stockAdrCountMap.put(zqdm, stockAdrCount);
-                }
-            }
-        }
+        //查询大票
+        handlerStAdrCountMap(stockAdrCountMap,mvMin40,bkMap,condFind);
+        handlerStAdrCountMap(stockAdrCountMap,mvMin50,bkMap,condFind);
+        handlerStAdrCountMap(stockAdrCountMap,mvMin200,bkMap,condFind);
+        handlerStAdrCountMap(stockAdrCountMap,mvMin500,bkMap,condFind);
+        handlerStAdrCountMap(stockAdrCountMap,mvMin1000,bkMap,condFind);
         for (StockAdrCountVo stockAdrCount : stockAdrCountMap.values()) {
             stockAdrCountListBkAll.add(stockAdrCount);
         }
@@ -107,6 +93,32 @@ public class StockAdrStat {
 
         return stockAdrCountListBkAll;
 
+    }
+
+    /**
+     * 获取
+     * @param stockAdrCountMap
+     * @param mvMin
+     * @param bkMap
+     * @param condFind
+     */
+    private static void handlerStAdrCountMap(Map<String, StockAdrCountVo> stockAdrCountMap, BigDecimal mvMin, Map<String, List<String>> bkMap, CondStockAdrCount condFind) {
+        for (List<String> bks : bkMap.values()) {
+            condFind.setBizList(bks);
+            //查询中票，去重
+            condFind.setMvMin(mvMin);
+            List<StockAdrCountVo> stockAdrCountList100 = StockAdrCountService.findListByCondition(condFind);
+            ;//中票
+            for (StockAdrCountVo stockAdrCount : stockAdrCountList100) {
+                String zqdm = stockAdrCount.getF12();
+                String zqmc = stockAdrCount.getF14();
+                if (stockAdrCountMap.containsKey(zqdm)) {
+                    System.out.println("检查已["+mvMin+"]存在：" + zqmc);
+                } else {
+                    stockAdrCountMap.put(zqdm, stockAdrCount);
+                }
+            }
+        }
     }
 
     /**
@@ -140,9 +152,10 @@ public class StockAdrStat {
     private static Map<String, List<String>> getBizListSp() {
         Map<String, List<String>> bkMap = new HashMap<>();
         List<String> bizList = null;//
-        bizList = Arrays.asList("生物制品", "医药商业", "医疗服务", "中药", "医疗器械", "化学制药");//医疗
+//        bizList = Arrays.asList("生物制品", "医药商业", "医疗服务", "中药", "医疗器械", "化学制药");//医疗
 //        bizList = Arrays.asList("中药");//医疗
-//        bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");//科技:电力
+//        bizList = Arrays.asList("光伏设备");//科技:电力
+        bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");//科技:电力
 //        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
 //        bizList = Arrays.asList("化肥行业","农牧饲渔","农药兽药");//资源-农业:
 //        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")

@@ -1594,6 +1594,49 @@ public class KlineService {
     }
 
     /**
+     * 处理-列表-排序：根据字段
+     *
+     * @param rs          原始数据handlerOrder
+     * @param orderField  排序字段
+     * @param isOrderDesc 是否倒序
+     * @return 排序结果
+     */
+    public static List<CondKline> handlerOrderKline(List<CondKline> rs, String orderField, boolean isOrderDesc) {
+        if (rs == null) {
+            return null;
+        }
+        if (ORDER_FIELD_AREA_ADR.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+        if (ORDER_FIELD_MARKET_VALUE.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getF20, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getF20, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+        if (ORDER_FIELD_FLOW_IN_MAIN.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMain, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMain, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+        if (ORDER_FIELD_FLOW_IN_MAIN_PCT.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMainPct, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMainPct, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+        return rs;
+    }
+
+    /**
      * 遍历板块，插入K线
      *
      * @param bizList  行业列表
