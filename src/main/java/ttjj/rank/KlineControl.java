@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.StopWatch;
 import ttjj.dao.KlineDao;
 import ttjj.dto.FundFlow;
 import ttjj.dto.Kline;
@@ -129,22 +130,35 @@ public class KlineControl {
     public static void saveKlineAndMv(String date, String bizType, List<String> kltList, Map<String, String> mapZq, Boolean isUpdateMv) {
         long timeBeg = System.currentTimeMillis();
         System.out.println("保存K线，更新市值,更新均线价格" + date + "," + bizType + "-beg");
+        StopWatch sw = new StopWatch("保存K线，更新市值,更新均线价格");
+        sw.start("保存K线");
         for (String klt : kltList) {
             // 保存指数k线：5分钟-天, date, KLT_60, bizType);
             KlineService.saveKlineByType(mapZq, date, klt, bizType, true);
         }
+        sw.stop();
 
         //更新-市值
         if (isUpdateMv) {
+            sw.start("更新-市值");
             updateMv(date, bizType, mapZq);
+            sw.stop();
         }
 
         //更新均线价格-天
-        for (String zqdm : mapZq.keySet()) {
-            updateNetByDate(zqdm, KLT_101, true, date, date, bizType);
+        if (isUpdateMv) {
+            sw.start("更新均线价格-天");
+            for (String zqdm : mapZq.keySet()) {
+                updateNetByDate(zqdm, KLT_101, true, date, date, bizType);
+            }
+            sw.stop();
         }
+
+        System.out.println(sw.prettyPrint());
+        System.out.println(sw.shortSummary());
+        System.out.println(sw.getTotalTimeSeconds());
         long timeEnd = System.currentTimeMillis();
-        System.out.println("保存K线，更新市值,更新均线价格" + date + "," + bizType + "-end:" + (timeEnd - timeBeg) / 1000);
+        System.out.println("保存K线，更新市值,更新均线价格" + DateUtil.getCurDateTime() + "," + bizType + "-end:" + (timeEnd - timeBeg) / 1000);
     }
 
     /**

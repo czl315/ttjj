@@ -25,8 +25,8 @@ public class KlineStat {
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
 
-        statListAdrArea();//区间涨幅
-//        statAdrByTime();//统计涨幅-分时
+//        statListAdrArea();//区间涨幅
+        statAdrByTime();//统计涨幅-分时
 
 //        statAdrCjlCnA();//统计中国A股全市场
 //        statAdrCjl(ContIndex.SHANG_HAI);
@@ -122,7 +122,7 @@ public class KlineStat {
 
     /**
      * K线：统计区间涨幅,etf,限定时间段(结束时间)
-     *      排序：区间涨幅、市值、主力净流入、流市比
+     * 排序：区间涨幅、市值、主力净流入、流市比
      *
      * @param endDate
      */
@@ -131,14 +131,17 @@ public class KlineStat {
 //        String endDate = StockService.findBegDate(date, 0);
         String begDate = StockService.findBegDate(endDate, areaDays);
 //        String bizType = DB_RANK_BIZ_TYPE_ETF;//DB_RANK_BIZ_TYPE_ETF   DB_RANK_BIZ_TYPE_BAN_KUAI
-//        String bizType = DB_RANK_BIZ_TYPE_BAN_KUAI;//
-        String bizType = DB_RANK_BIZ_TYPE_GAI_NIAN;
+        String bizType = DB_RANK_BIZ_TYPE_BAN_KUAI;//
+//        String bizType = DB_RANK_BIZ_TYPE_GAI_NIAN;
         Map<String, String> etfMap = ContMapEtf.INDEX_MORE;//ETF_MORE   INDEX_MORE
         String orderField = ORDER_FIELD_FLOW_IN_MAIN_PCT;//ORDER_FIELD_AREA_ADR ORDER_FIELD_FLOW_IN_MAIN_PCT
+        if (DB_RANK_BIZ_TYPE_ETF.equals(bizType) && ContMapEtf.INDEX_MORE.equals(etfMap)) {
+            orderField = ORDER_FIELD_AREA_ADR;
+        }
         String klt = KLT_101;//KLT_60
         String ktime = endDate;//时间段(结束时间)
-//        String klt = KLT_60;//KLT_60
-//        String ktime = "15:00:00";//时间段(结束时间)
+//        String klt = KLT_30;//KLT_60
+//        String ktime = "14:00:00";//时间段(结束时间)
         boolean isShowCode = true;//是否显示编码
         boolean isShowMoreYes = true;
         List<CondKline> rsList = statListAdrArea(bizType, etfMap, limit, begDate, endDate, klt, ktime);
@@ -448,8 +451,8 @@ public class KlineStat {
         boolean isMainEtf = false;
 
 //        String klt = KLT_101;
-        String klt = KLT_60;
-//        String klt = KLT_30;
+//        String klt = KLT_60;
+        String klt = KLT_30;
 //        String klt = KLT_15;
 //        String klt = KLT_5;
 
@@ -470,14 +473,14 @@ public class KlineStat {
             orderTimeList.add(date);
         }
         for (String time : orderTimeList) {
-            statAdrByTime(date, time, klt, false,type,isMainEtf);
+            statAdrByTime(date, time, klt, false, type, isMainEtf);
         }
     }
 
     /**
      * 统计涨幅-根据时间、类型等:如果未到当前时间，不处理
      */
-    private static void statAdrByTime(String date, String time, String klt, boolean isShowSimpleUpOrDown,String type,boolean isMainEtf) {
+    private static void statAdrByTime(String date, String time, String klt, boolean isShowSimpleUpOrDown, String type, boolean isMainEtf) {
         //如果未到当前时间，不处理
         String datTime = date + " " + time;
         if (datTime.length() == 19) {

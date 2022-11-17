@@ -160,6 +160,21 @@ public class DateUtil {
     }
 
     /**
+     *
+     * @return
+     */
+    public static String getCurDateTime() {
+        return DateUtil.getCurDateStrAddDaysByFormat(DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0), 0);
+    }
+    /**
+     *
+     * @param format
+     * @return
+     */
+    public static String getCurDateTime(String format) {
+        return DateUtil.getCurDateStrAddDaysByFormat(format, 0);
+    }
+    /**
      * 获取当前日期增加或减少天数的日期格式
      *
      * @param format

@@ -21,24 +21,24 @@ public class KlineJob {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-07-22";
 
-        saveKlineEtfMianSchedule(date);
-        saveKlineIndexJob();
+//        saveKlineIndexJob();
+//        saveKlineEtfJob();
+        saveKlineBroadAndZsAndEtfJob();
+        saveKlineConceptionSchedule(date);
     }
 
     /**
      * 定时保存指数
-     *
      */
     private static void saveKlineIndexJob() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-07-22";
         int period = 5;
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            Boolean isUpdateMv=false;//是否更新市值
             List<String> kltList_101_5 = Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101);
             StopWatch sw = new StopWatch("保存K线");
             sw.start("保存K线-指数");
-            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, kltList_101_5, KlineControl.handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS),isUpdateMv);//
+            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, kltList_101_5, KlineControl.handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS), false);//
             sw.stop();
             System.out.println(sw.prettyPrint());
             System.out.println(sw.shortSummary());
@@ -46,9 +46,62 @@ public class KlineJob {
         }, 0, period, TimeUnit.MINUTES);
     }
 
-    private static void saveKlineEtfMianSchedule(String date) {
+    /**
+     * 定时保存
+     */
+    private static void saveKlineBroadAndZsAndEtfJob() {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-07-22";
+        int period = 5;
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            Boolean isUpdateMv=false;//是否更新市值
+            Boolean isUpdateMv = false;//是否更新市值
+            List<String> kltList_101_15 = Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101);
+            StopWatch sw = new StopWatch("保存K线");
+
+            sw.start("保存K线-指数");
+            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101), KlineControl.handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS), isUpdateMv);//
+            sw.stop();
+
+            sw.start("保存K线-板块");
+            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15, KlineControl.handlerZqMap(date, DB_RANK_BIZ_TYPE_BAN_KUAI), true);//
+            KlineControl.updateFundFlow(date, DB_RANK_BIZ_TYPE_BAN_KUAI, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
+            sw.stop();
+
+            sw.start("保存K线-ETF");
+            Map<String, String> mapEtf = ContMapEtf.ETF_MORE;//K线-ETF-主要
+            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_15, mapEtf, true);
+            sw.stop();
+
+            System.out.println(sw.prettyPrint());
+            System.out.println(sw.shortSummary());
+            System.out.println(sw.getTotalTimeMillis());
+        }, 0, period, TimeUnit.MINUTES);
+    }
+
+    /**
+     * 定时保存
+     */
+    private static void saveKlineEtfJob() {
+        String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+//        String date = "2022-07-22";
+        int period = 5;
+        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
+            Map<String, String> mapEtf = ContMapEtf.ETF_MORE;//K线-ETF-主要
+            List<String> kltList_101_15 = Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101);
+            StopWatch sw = new StopWatch("保存K线");
+            sw.start("保存K线-ETF");
+            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_15, mapEtf, true);
+            sw.stop();
+            System.out.println(sw.prettyPrint());
+            System.out.println(sw.shortSummary());
+            System.out.println(sw.getTotalTimeMillis());
+        }, 0, period, TimeUnit.MINUTES);
+    }
+
+    private static void saveKlineConceptionSchedule(String date) {
+        int period = 15;
+        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
+            Boolean isUpdateMv = false;//是否更新市值
             //            Map<String, String> mapEtf = KlineControl.handlerZqMap(date, DB_RANK_BIZ_TYPE_ETF);//K线-ETF-所有
             Map<String, String> mapEtf = ContMapEtf.ETF_MORE;//K线-ETF-主要
             long begTime = System.currentTimeMillis();
@@ -56,22 +109,15 @@ public class KlineJob {
             List<String> kltList_101_5 = Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101);
             List<String> kltList_101_15 = Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101);
             StopWatch sw = new StopWatch("保存K线");
-            sw.start("保存K线-板块");
-            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15, KlineControl.handlerZqMap(date, DB_RANK_BIZ_TYPE_BAN_KUAI), true);//
-            KlineControl.updateFundFlow(date, DB_RANK_BIZ_TYPE_BAN_KUAI, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
-            sw.stop();
-            sw.start("保存K线-ETF");
-            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_15, mapEtf, true);
-            sw.stop();
             sw.start("保存K线-概念");
-            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_101_15, KlineControl.handlerZqMap(date, DB_RANK_BIZ_TYPE_GAI_NIAN),false);//
+            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_101_15, KlineControl.handlerZqMap(date, DB_RANK_BIZ_TYPE_GAI_NIAN), false);//
             sw.stop();
 //            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101), ContMapEtf.ETF_All);//保存常用etf
             System.out.println(sw.prettyPrint());
             System.out.println(sw.shortSummary());
             System.out.println(sw.getTotalTimeMillis());
             System.out.println("定时任务-保存K线-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0) + "，用时：" + (System.currentTimeMillis() - begTime) / 1000);
-        }, 0, 5, TimeUnit.MINUTES);
+        }, 1, period, TimeUnit.MINUTES);
     }
 
 }

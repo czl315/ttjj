@@ -23,7 +23,7 @@ import static utils.DateUtil.YYYY_MM_DD;
 public class BizEtfStat {
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-10-26";
+//        String date = "2022-11-16";
         showEtfUpMa(date);//etf-超过均线
 
 //        statListEtfAdrArea(null);//计算区间涨幅

@@ -110,7 +110,7 @@ public interface KlineMapper {
             "   <if test='type != null'> AND type=#{type}</if> ",
             "   <if test='zqdm != null'> AND zqdm=#{zqdm}</if> ",
             "   <if test='klt != null'> AND klt=#{klt}</if> ",
-            " LIMIT 100 ",
+            " LIMIT 10000 ",
             "</script>"})
     int deleteByCondition(Kline condition);
 
