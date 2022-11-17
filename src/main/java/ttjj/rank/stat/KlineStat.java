@@ -13,7 +13,6 @@ import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static utils.ContMapEtf.JINRONG_MORE;
 import static utils.Content.*;
 
 /**
@@ -25,8 +24,8 @@ public class KlineStat {
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
 
-//        statListAdrArea();//区间涨幅
-        statAdrByTime();//统计涨幅-分时
+        statListAdrArea();//区间涨幅
+//        statAdrByTime();//统计涨幅-分时
 
 //        statAdrCjlCnA();//统计中国A股全市场
 //        statAdrCjl(ContIndex.SHANG_HAI);
@@ -130,11 +129,11 @@ public class KlineStat {
         int areaDays = 0;//4:近一周;20:近一月
 //        String endDate = StockService.findBegDate(date, 0);
         String begDate = StockService.findBegDate(endDate, areaDays);
-//        String bizType = DB_RANK_BIZ_TYPE_ETF;//DB_RANK_BIZ_TYPE_ETF   DB_RANK_BIZ_TYPE_BAN_KUAI
-        String bizType = DB_RANK_BIZ_TYPE_BAN_KUAI;//
+        String bizType = DB_RANK_BIZ_TYPE_ETF;//DB_RANK_BIZ_TYPE_ETF   DB_RANK_BIZ_TYPE_BAN_KUAI
+//        String bizType = DB_RANK_BIZ_TYPE_BAN_KUAI;//
 //        String bizType = DB_RANK_BIZ_TYPE_GAI_NIAN;
         Map<String, String> etfMap = ContMapEtf.INDEX_MORE;//ETF_MORE   INDEX_MORE
-        String orderField = ORDER_FIELD_FLOW_IN_MAIN_PCT;//ORDER_FIELD_AREA_ADR ORDER_FIELD_FLOW_IN_MAIN_PCT
+        String orderField = ORDER_FIELD_AREA_ADR;//ORDER_FIELD_AREA_ADR ORDER_FIELD_FLOW_IN_MAIN_PCT
         if (DB_RANK_BIZ_TYPE_ETF.equals(bizType) && ContMapEtf.INDEX_MORE.equals(etfMap)) {
             orderField = ORDER_FIELD_AREA_ADR;
         }
@@ -637,7 +636,8 @@ public class KlineStat {
 
         List<String> timeList = getTimeList(date, klt);//获取时段列表，根据时间类型
 
-        StringBuffer sbHead = handlerHeadInfo(timeList, klt);//首行标题信息
+        Map<String, Integer> sizeMap = new HashMap<>();
+        StringBuffer sbHead = handlerHeadInfo(timeList, klt, sizeMap);//首行标题信息
 
         //查询当日涨幅
         CondKline condCurDay = new CondKline();
@@ -652,7 +652,7 @@ public class KlineStat {
 
         List<StringBuffer> sbList = null;
         if (isShowAll) {
-            sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, false, null, false, null);
+            sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, false, null, false, null, sizeMap);
             System.out.println(sbHead);
             for (StringBuffer sb : sbList) {
                 System.out.println(sb);
@@ -663,7 +663,7 @@ public class KlineStat {
                 System.out.println();
                 System.out.println(new StringBuffer("当前时间：").append(orderTime).append(",上涨列表"));
                 System.out.println(sbHead);
-                sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, true, up, false, down);
+                sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, true, up, false, down, sizeMap);
                 for (StringBuffer sb : sbList) {
                     System.out.println(sb);
                 }
@@ -674,7 +674,7 @@ public class KlineStat {
                 System.out.println();
                 System.out.println(new StringBuffer("当前时间：").append(orderTime).append(",下跌列表"));
                 System.out.println(sbHead);
-                sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, false, up, true, down);
+                sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, false, up, true, down, sizeMap);
                 for (StringBuffer sb : sbList) {
                     System.out.println(sb);
                 }
@@ -801,11 +801,14 @@ public class KlineStat {
      * @param timeList
      * @param isMainEtf
      * @param isOnlyUp           只处理上涨
+     * @param sizeMap
      * @return
      */
-    private static List<StringBuffer> handlerInfo(List<Kline> orderList, Map<String, Kline> mapKlineListCurDay, String date, String type, String klt, List<String> timeList, boolean isMainEtf, boolean isOnlyUp, BigDecimal up, boolean isOnlyDown, BigDecimal down) {
+    private static List<StringBuffer> handlerInfo(List<Kline> orderList, Map<String, Kline> mapKlineListCurDay, String date, String type, String klt, List<String> timeList, boolean isMainEtf, boolean isOnlyUp, BigDecimal up, boolean isOnlyDown, BigDecimal down, Map<String, Integer> sizeMap) {
         int sizeName = 16;
         int sizeAdr = 10;
+        String flowInMainName = "流市比";
+        String timePried = "时段";
         boolean isShowCode = false;
         List<StringBuffer> sbList = new ArrayList<>();
         if (isOnlyDown) {
@@ -860,7 +863,16 @@ public class KlineStat {
                     }
                     if (time.equals(kline.getKtime())) {
 //                        sb.append("[");
-                        sb.append(StockUtil.formatDouble(kline.getZhangDieFu(), sizeAdr));
+                        sb.append(StockUtil.formatDouble(kline.getZhangDieFu(), sizeMap.get(timePried)));
+                        if (sizeMap.containsKey(flowInMainName)) {
+                            if (dto.getFlowInMain() != null) {
+                                BigDecimal flowInMain = dto.getFlowInMain().divide(NUM_YI_1, 1, BigDecimal.ROUND_HALF_UP);
+                                BigDecimal flowRate = flowInMain.divide(dto.getF20(), 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(1, BigDecimal.ROUND_HALF_UP);
+                                sb.append(StockUtil.formatDouble(flowRate, sizeMap.get(flowInMainName)));
+                            } else {
+                                sb.append(StockUtil.formatDouble(null, sizeMap.get(flowInMainName)));
+                            }
+                        }
 //                        sb.append("]");
                         break;
                     }
@@ -876,11 +888,18 @@ public class KlineStat {
      *
      * @param timeList
      * @param klt
+     * @param sizeMap
      * @return
      */
-    private static StringBuffer handlerHeadInfo(List<String> timeList, String klt) {
+    private static StringBuffer handlerHeadInfo(List<String> timeList, String klt, Map<String, Integer> sizeMap) {
         int sizeName = 16;
         int sizeAdr = 10;
+        String flowInMainName = "流市比";
+        String timePried = "时段";
+        int sizeFlowInMainName = 6;
+        int sizeTime = 6;
+        sizeMap.put(flowInMainName, sizeFlowInMainName);
+        sizeMap.put(timePried, sizeTime);
         StringBuffer sbHead = new StringBuffer();//首行标题信息
         boolean isShowCode = false;
         if (isShowCode) {
@@ -897,7 +916,8 @@ public class KlineStat {
             sbHead.append(StockUtil.formatStName("日涨幅", sizeAdr));
         }
         for (String time : timeList) {
-            sbHead.append(StockUtil.formatStName(time, 10));
+            sbHead.append(StockUtil.formatStName(time.substring(0, 6), 6));
+            sbHead.append(StockUtil.formatStName(flowInMainName, sizeMap.get(flowInMainName)));
         }
         return sbHead;
     }

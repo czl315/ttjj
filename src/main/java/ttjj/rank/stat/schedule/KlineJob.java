@@ -106,7 +106,6 @@ public class KlineJob {
             Map<String, String> mapEtf = ContMapEtf.ETF_MORE;//K线-ETF-主要
             long begTime = System.currentTimeMillis();
             System.out.println("定时任务-保存常用etf-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
-            List<String> kltList_101_5 = Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101);
             List<String> kltList_101_15 = Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101);
             StopWatch sw = new StopWatch("保存K线");
             sw.start("保存K线-概念");
