@@ -1886,24 +1886,24 @@ public class KlineService {
             //突破均线-向上
             if (isShowUpMa) {
                 System.out.print("上 ");//向上突破均线，显示是否突破(距离均线百分比)，连续突破次数，可选5，15，30,60，日线、周线；
-                StringBuffer maBreakUpInfo = handlerMaBreakUpInfo(kltList, stockAdrCountVo, pctScale, showSize,isShowPct);//处理均线突破信息
+                StringBuffer maBreakUpInfo = handlerMaBreakUpInfo(kltList, stockAdrCountVo, pctScale, showSize, isShowPct);//处理均线突破信息
                 System.out.print(maBreakUpInfo);
             }
             //是否查询向上涨破均线-最低净值
             if (isShowBreakUpMaMin != null && isShowBreakUpMaMin) {
                 System.out.print("低上 ");//最低净值向上突破均线，显示是否突破(距离均线百分比)，连续突破次数，可选5，15，30,60，日线、周线；
-                StringBuffer maBreakUpInfo = handlerMaMinBreakUpInfo(kltList, stockAdrCountVo, pctScale, showSize,isShowPct);//处理均线突破信息
+                StringBuffer maBreakUpInfo = handlerMaMinBreakUpInfo(kltList, stockAdrCountVo, pctScale, showSize, isShowPct);//处理均线突破信息
                 System.out.print(maBreakUpInfo);
             }
 
             if (isShowDownMa) {
                 System.out.print("下 ");//显示信息-价格区间
-                StringBuffer maBreakUpInfo = handlerMaBreakDownInfo(kltList, stockAdrCountVo, pctScale, showSize,isShowPct);//处理均线突破信息
+                StringBuffer maBreakUpInfo = handlerMaBreakDownInfo(kltList, stockAdrCountVo, pctScale, showSize, isShowPct);//处理均线突破信息
                 System.out.print(maBreakUpInfo);
             }
             if (isShowDownMaMax != null && isShowDownMaMax) {//是否查询向下跌破均线-最高净值
                 System.out.print("高下 ");
-                StringBuffer maBreakUpInfo = handlerMaMaxBreakDownInfo(kltList, stockAdrCountVo, pctScale, showSize,isShowPct);//处理均线突破信息
+                StringBuffer maBreakUpInfo = handlerMaMaxBreakDownInfo(kltList, stockAdrCountVo, pctScale, showSize, isShowPct);//处理均线突破信息
                 System.out.print(maBreakUpInfo);
             }
 
@@ -1990,7 +1990,6 @@ public class KlineService {
     }
 
     /**
-     *
      * 处理均线突破信息:向下跌破均线-最高净值
      *
      * @param kltList         均线列表
@@ -2052,7 +2051,7 @@ public class KlineService {
      * @param stockAdrCountVo 突破均线信息
      * @param pctScale        百分比精度
      * @param showSize        显示大小
-     * @param isShowPct 是否显示百分比
+     * @param isShowPct       是否显示百分比
      * @return 突破均线结果信息
      */
     private static StringBuffer handlerMaBreakDownInfo(List<String> kltList, StockAdrCountVo stockAdrCountVo, int pctScale, int showSize, boolean isShowPct) {
@@ -2172,7 +2171,7 @@ public class KlineService {
         if (kltList.contains(KLT_5)) {
             upMa = stockAdrCountVo.getMaBreakUpMin5();
             breakCountUp = stockAdrCountVo.getBreakCountUp5();//突破均线次数
-            pct = stockAdrCountVo.getBreakPctUp5().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp5() != null ? stockAdrCountVo.getBreakPctUp5().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         if (kltList.contains(KLT_15)) {

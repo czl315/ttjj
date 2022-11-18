@@ -24,8 +24,8 @@ public class KlineStat {
 //        String zqmc = ZHISHU_NAME_399673;//ZHISHU_NAME_399673 ZHISHU_NAME_000001
 //        statAdrCountByDay(zqmc);
 
-        statListAdrArea();//区间涨幅
-//        statAdrByTime();//统计涨幅-分时
+//        statListAdrArea();//区间涨幅
+        statAdrByTime();//统计涨幅-分时
 
 //        statAdrCjlCnA();//统计中国A股全市场
 //        statAdrCjl(ContIndex.SHANG_HAI);
@@ -129,8 +129,8 @@ public class KlineStat {
         int areaDays = 0;//4:近一周;20:近一月
 //        String endDate = StockService.findBegDate(date, 0);
         String begDate = StockService.findBegDate(endDate, areaDays);
-        String bizType = DB_RANK_BIZ_TYPE_ETF;//DB_RANK_BIZ_TYPE_ETF   DB_RANK_BIZ_TYPE_BAN_KUAI
-//        String bizType = DB_RANK_BIZ_TYPE_BAN_KUAI;//
+//        String bizType = DB_RANK_BIZ_TYPE_ETF;//DB_RANK_BIZ_TYPE_ETF   DB_RANK_BIZ_TYPE_BAN_KUAI
+        String bizType = DB_RANK_BIZ_TYPE_BAN_KUAI;//
 //        String bizType = DB_RANK_BIZ_TYPE_GAI_NIAN;
         Map<String, String> etfMap = ContMapEtf.INDEX_MORE;//ETF_MORE   INDEX_MORE
         String orderField = ORDER_FIELD_AREA_ADR;//ORDER_FIELD_AREA_ADR ORDER_FIELD_FLOW_IN_MAIN_PCT
@@ -440,7 +440,7 @@ public class KlineStat {
      */
     private static void statAdrByTime() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-11-14";
+//        String date = "2022-11-17";
 
 //        String type = DB_RANK_BIZ_TYPE_ETF;
         String type = DB_RANK_BIZ_TYPE_BAN_KUAI;
@@ -661,7 +661,7 @@ public class KlineStat {
             //显示上涨
             if (isOnlyUp) {
                 System.out.println();
-                System.out.println(new StringBuffer("当前时间：").append(orderTime).append(",上涨列表"));
+                System.out.println(new StringBuffer("当前时间：").append(date +" " +orderTime).append(",上涨列表"));
                 System.out.println(sbHead);
                 sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, true, up, false, down, sizeMap);
                 for (StringBuffer sb : sbList) {
@@ -857,17 +857,17 @@ public class KlineStat {
                 if (klineTimeList == null || klineTimeList.size() == 0) {
                     break;
                 }
-                for (Kline kline : klineTimeList) {
-                    if (!code.equals(kline.getZqdm())) {
+                for (Kline klineTime : klineTimeList) {
+                    if (!code.equals(klineTime.getZqdm())) {
                         continue;
                     }
-                    if (time.equals(kline.getKtime())) {
+                    if (time.equals(klineTime.getKtime())) {
 //                        sb.append("[");
-                        sb.append(StockUtil.formatDouble(kline.getZhangDieFu(), sizeMap.get(timePried)));
+                        sb.append(StockUtil.formatDouble(klineTime.getZhangDieFu(), sizeMap.get(timePried)));
                         if (sizeMap.containsKey(flowInMainName)) {
-                            if (dto.getFlowInMain() != null) {
-                                BigDecimal flowInMain = dto.getFlowInMain().divide(NUM_YI_1, 1, BigDecimal.ROUND_HALF_UP);
-                                BigDecimal flowRate = flowInMain.divide(dto.getF20(), 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(1, BigDecimal.ROUND_HALF_UP);
+                            if (klineTime.getFlowInMain() != null) {
+                                BigDecimal flowInMain = klineTime.getFlowInMain();
+                                BigDecimal flowRate = flowInMain.divide(klineTime.getF20(), 12, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100000").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(1, BigDecimal.ROUND_HALF_UP);
                                 sb.append(StockUtil.formatDouble(flowRate, sizeMap.get(flowInMainName)));
                             } else {
                                 sb.append(StockUtil.formatDouble(null, sizeMap.get(flowInMainName)));
@@ -896,7 +896,7 @@ public class KlineStat {
         int sizeAdr = 10;
         String flowInMainName = "流市比";
         String timePried = "时段";
-        int sizeFlowInMainName = 6;
+        int sizeFlowInMainName = 8;
         int sizeTime = 6;
         sizeMap.put(flowInMainName, sizeFlowInMainName);
         sizeMap.put(timePried, sizeTime);
