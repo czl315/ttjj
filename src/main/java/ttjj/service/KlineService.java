@@ -2315,4 +2315,134 @@ public class KlineService {
     }
 
 
+    /**
+     * etf,显示排名，显示简单排名
+     *
+     * @param rsList   列表
+     * @param begDate  开始时间
+     * @param endDate  结束时间
+     * @param limit
+     * @param showMore 显示更多字段
+     * @param klt      周期类型
+     * @param ktime    时间段
+     */
+    public static void showKlineAllList(List<CondKline> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, String klt, String ktime, Boolean isDesc) {
+        Map<String, Integer> sizeMap = new HashMap<>();
+        int sizeKtime = 12;
+        String orderNo = "序号";
+        sizeMap.put("序号", 5);
+        sizeMap.put("名称", 16);
+        sizeMap.put("概念", 16);
+        sizeMap.put("代码", 8);
+        sizeMap.put("主流", 12);
+        sizeMap.put("流市比", 8);
+        sizeMap.put("时段", sizeKtime);
+        int sizeFlowInMian = sizeMap.get("主流");
+        Integer sizeFlowInMianPct = sizeMap.get("流市比");
+        int size = 10;
+        int sizeBiz = 14;
+        int sizeDate14 = 14;
+        StringBuffer sbHead = new StringBuffer();
+        if (isShowCode) {
+            sbHead.append(StockUtil.formatStName(orderNo, sizeMap.get(orderNo)));
+            sbHead.append(StockUtil.formatStName("代码", sizeMap.get("代码")));
+        }
+        sbHead.append(StockUtil.formatStName("名称", sizeMap.get("名称")));
+        sbHead.append(StockUtil.formatStName("区间涨幅", size));
+        if (showMore) {
+            sbHead.append(StockUtil.formatStName("最新涨幅", size));
+            sbHead.append(StockUtil.formatStName("最新市值(亿)", sizeDate14));
+            sbHead.append(StockUtil.formatStName("主流(亿)", sizeFlowInMian));
+            sbHead.append(StockUtil.formatStName("流市比", sizeFlowInMianPct));
+            sbHead.append(StockUtil.formatStName("开始日期", sizeDate14));
+            sbHead.append(StockUtil.formatStName("结束日期", sizeDate14));
+            sbHead.append(StockUtil.formatStName("周期类型", size));
+            sbHead.append(StockUtil.formatStName("时段", sizeKtime));
+//            sbHead.append(StockUtil.formatStName("时间段", sizeKtime));
+        }
+        System.out.println(sbHead);
+
+        if (rsList == null) {
+            return;
+        }
+        int number = 0;
+        for (CondKline dto : rsList) {
+            if (limit-- <= 0) {
+                break;
+            }
+//            if (isDesc && dto.getAreaF3().compareTo(new BigDecimal("0")) < 0) {//只显示正负排序
+//                break;
+//            } else if (!isDesc && dto.getAreaF3().compareTo(new BigDecimal("0")) >= 0) {
+//                break;
+//            }
+            String name = dto.getZqmc();
+            String code = dto.getZqdm();
+            BigDecimal areaAdr = dto.getAreaF3();
+//            if (!name.contains("色")) {
+//                continue;
+//            }
+            StringBuffer sb = new StringBuffer();
+            if (isShowCode) {
+                sb.append(StockUtil.formatStName(String.valueOf(++number), sizeMap.get("序号")));
+                sb.append(StockUtil.formatStName(code, sizeMap.get("代码")));
+            }
+            String formatName = EtfUtil.formatNameEtf(name, 16, false);
+            sb.append(formatName);
+            String formatAdr = StockUtil.formatDouble(areaAdr, size, null, "%");
+            sb.append(formatAdr);
+            if (showMore) {
+                BigDecimal flowInMain = dto.getFlowInMain();
+                BigDecimal marketValue = dto.getF20();
+                BigDecimal flowRate  = null;
+                if (flowInMain != null) {
+                    flowInMain = dto.getFlowInMain().divide(NUM_YI_1, 2, BigDecimal.ROUND_HALF_UP);
+                    flowRate  = flowInMain.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
+                }
+
+                sb.append(StockUtil.formatDouble(dto.getZhangDieFu(), size, null, "%"));
+                sb.append(StockUtil.formatDouble(marketValue, sizeDate14));
+                sb.append(StockUtil.formatDouble(flowInMain, sizeFlowInMian));
+                sb.append(StockUtil.formatDouble(flowRate, sizeFlowInMianPct, null, ""));
+                sb.append(StockUtil.formatStName(begDate, sizeDate14));
+                sb.append(StockUtil.formatStName(endDate, sizeDate14));
+//                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
+//                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
+                sb.append(StockUtil.formatStName(klt, size));
+                sb.append(StockUtil.formatStName(ktime, sizeKtime));
+            }
+            System.out.println(sb);
+        }
+    }
+    /**
+     * etf,显示简单排名
+     *
+     * @param rsList
+     * @param limit
+     */
+    public static void showInfoEtfSimple(List<CondKline> rsList, int limit, boolean isDesc) {
+        StringBuffer sbSimple = new StringBuffer();//简单信息
+        if (isDesc) {//排序
+            rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        } else {
+            rsList = rsList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getAreaF3, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+        }
+        for (CondKline dto : rsList) {
+            if (limit-- <= 0) {
+                break;
+            }
+            if (isDesc && dto.getAreaF3().compareTo(new BigDecimal("0")) < 0) {//只显示正负排序
+                break;
+            } else if (!isDesc && dto.getAreaF3().compareTo(new BigDecimal("0")) >= 0) {
+                break;
+            }
+            String formatName = EtfUtil.formatNameEtf(dto.getZqmc(), 16, false);
+            String formatAdr = StockUtil.formatDouble(dto.getAreaF3(), 6, null, "");
+            //简单排名
+            sbSimple.append(formatName.replace(" ", ""));
+            sbSimple.append(":");
+            sbSimple.append(formatAdr.replace(" ", ""));
+            sbSimple.append(";");
+        }
+        System.out.println(sbSimple);
+    }
 }
