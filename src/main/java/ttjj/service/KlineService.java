@@ -801,6 +801,31 @@ public class KlineService {
     }
 
     /**
+     * 特定日期
+     * @param zqdm
+     * @param spDate
+     * @param klt
+     * @return
+     */
+    public static Kline findByDate(String zqdm, String spDate, String klt) {
+        BigDecimal areaAdr = null;
+        // 查询开始日期
+        List<Kline> klines = KlineService.kline(zqdm, 1, klt, false, spDate, spDate, "");
+        if (klines == null || klines.size() == 0) {
+//            System.out.println(new StringBuffer().append(zqdm).append("，").append(zqdm).append(":k线异常！"));
+            return null;
+        }
+        Kline klineBeg = klines.get(0);
+        // 查询结束日期
+        List<Kline> klinesEnd = KlineService.kline(zqdm, 1, klt, false, spDate, spDate, "");
+        if (klinesEnd == null || klinesEnd.size() == 0) {
+//            System.out.println(new StringBuffer().append(zqdm).append("，").append(zqdm).append(":k线异常！"));
+            return null;
+        }
+        return klinesEnd.get(0);
+    }
+
+    /**
      * @param stock
      * @param klt
      * @param maList

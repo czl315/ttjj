@@ -47,8 +47,8 @@ public class StockAdrStat {
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
         Map<String, List<String>> bkMap = new HashMap<>();
-        bkMap = getBizListSp();//获取业务列表-特定
-//        bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
+//        bkMap = getBizListSp();//获取业务列表-特定
+        bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
 
         BigDecimal mvMin1000= NUM_YI_1000;//
         BigDecimal mvMin500 = NUM_YI_500;//
@@ -61,7 +61,7 @@ public class StockAdrStat {
         CondStockAdrCount condFind = new CondStockAdrCount();
         condFind.setADR_UP_SUM_1_60(null);
         condFind.setADR_UP_SUM_1_40(null);
-        condFind.setADR_UP_SUM_40_60(new BigDecimal("1"));//
+//        condFind.setADR_UP_SUM_40_60(new BigDecimal("1"));//
         condFind.setADR_UP_SUM_20_40(null);
 
 //        condFind.setUP_MA_30("30(60)");
@@ -69,7 +69,9 @@ public class StockAdrStat {
 //        condFind.setUP_MA_101("101(60)");
 //        condFind.setUP_MA_102("102(60)");
 
-//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
+
+        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
         condFind.setDate(date);
         condFind.setF139(DB_RANK_BIZ_F139_BK_MAIN);
@@ -113,7 +115,7 @@ public class StockAdrStat {
                 String zqdm = stockAdrCount.getF12();
                 String zqmc = stockAdrCount.getF14();
                 if (stockAdrCountMap.containsKey(zqdm)) {
-                    System.out.println("检查已["+mvMin+"]存在：" + zqmc);
+//                    System.out.println("检查已["+mvMin+"]存在：" + zqmc);
                 } else {
                     stockAdrCountMap.put(zqdm, stockAdrCount);
                 }

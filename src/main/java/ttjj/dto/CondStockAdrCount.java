@@ -86,6 +86,14 @@ public class CondStockAdrCount extends StockAdrCount {
      * 均线之上-60-周线
      */
     private BigDecimal minMa60Up102;
+    /**
+     * minNetAreaDay5
+     */
+    private BigDecimal minNetAreaDay5;
+    /**
+     * maxNetAreaDay5
+     */
+    private BigDecimal maxNetAreaDay5;
 
     public BigDecimal getAdrUpSumOrder1to60Min() {
         return adrUpSumOrder1to60Min;
@@ -222,5 +230,21 @@ public class CondStockAdrCount extends StockAdrCount {
 
     public void setMinMa60Up102(BigDecimal minMa60Up102) {
         this.minMa60Up102 = minMa60Up102;
+    }
+
+    public BigDecimal getMinNetAreaDay5() {
+        return minNetAreaDay5;
+    }
+
+    public void setMinNetAreaDay5(BigDecimal minNetAreaDay5) {
+        this.minNetAreaDay5 = minNetAreaDay5;
+    }
+
+    public BigDecimal getMaxNetAreaDay5() {
+        return maxNetAreaDay5;
+    }
+
+    public void setMaxNetAreaDay5(BigDecimal maxNetAreaDay5) {
+        this.maxNetAreaDay5 = maxNetAreaDay5;
     }
 }

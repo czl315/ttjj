@@ -206,6 +206,9 @@ public interface StockAdrCountMapper {
             "       <if test='minMa60Up102 != null'> ",
             "       <![CDATA[ AND f2 >= MA_NET_60_102 ]]> ",
             "       </if> ",
+            "       <if test='maxNetAreaDay5 != null'> ",
+            "       <![CDATA[ AND NET_AREA_DAY_5 <= #{maxNetAreaDay5} ]]> ",
+            "       </if> ",
 
             "       <if test='orderBy != null '> ",
             "        ORDER BY  ${orderBy} ",
