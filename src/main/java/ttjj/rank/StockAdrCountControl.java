@@ -123,7 +123,7 @@ public class StockAdrCountControl {
             if (StringUtils.isNotBlank(bizName)) {
                 condition.setType_name(bizName);
             }
-            rs.addAll(StockAdrCountService.findListByCondition(condition));
+            rs.addAll(StockAdrCountService.listStAdrCount(condition));
         }
 
         return rs;
@@ -203,7 +203,7 @@ public class StockAdrCountControl {
         CondStockAdrCount condition = new CondStockAdrCount();
         condition.setDate(date);
         condition.setType_name(bizName);
-        List<StockAdrCountVo> stList = StockAdrCountService.findListByCondition(condition);
+        List<StockAdrCountVo> stList = StockAdrCountService.listStAdrCount(condition);
 
         //排序
         if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1.equals(dbField)) {
@@ -283,7 +283,7 @@ public class StockAdrCountControl {
         CondStockAdrCount condition = new CondStockAdrCount();
         condition.setDate(date);
         condition.setType_name(bizName);
-        List<StockAdrCountVo> stList = StockAdrCountService.findListByCondition(condition);
+        List<StockAdrCountVo> stList = StockAdrCountService.listStAdrCount(condition);
 
         //计算3个月相加
         for (StockAdrCount stockAdrCount : stList) {
@@ -1166,7 +1166,7 @@ public class StockAdrCountControl {
      * @return 结果
      */
     private static List<StockAdrCountVo> findListByCondition(CondStockAdrCount condFind) {
-        return StockAdrCountService.findListByCondition(condFind);
+        return StockAdrCountService.listStAdrCount(condFind);
     }
 
     /**

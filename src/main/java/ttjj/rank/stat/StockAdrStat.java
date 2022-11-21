@@ -15,6 +15,7 @@ import utils.DateUtil;
 import utils.StockUtil;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 import static utils.ContMapBizBaord.BOARD_NAME_CODE;
@@ -37,20 +38,22 @@ public class StockAdrStat {
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-11-03";
+//        String date = "2022-11-21";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
 //        String spDateBeg = "2022-11-04";//
 //        String spDateEnd = "2022-11-04";//
-
-        int limitCount = 10;
+        Long board = DB_RANK_BIZ_F139_BK_MAIN;
+        int limitCount = 2;
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
-        Map<String, List<String>> bkMap = new HashMap<>();
-//        bkMap = getBizListSp();//获取业务列表-特定
-        bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
+//        Map<String, List<String>> bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
+        Map<String, List<String>> bkMap = getBizListSp();//获取业务列表-特定
 
-        BigDecimal mvMin1000= NUM_YI_1000;//
+        //编码限定-概念
+//        findStCodeLikeConception(condFind, date, board, null);
+
+        BigDecimal mvMin1000 = NUM_YI_1000;//
         BigDecimal mvMin500 = NUM_YI_500;//
         BigDecimal mvMin200 = NUM_YI_200;//
         BigDecimal mvMin50 = NUM_YI_50;//
@@ -74,17 +77,17 @@ public class StockAdrStat {
 //        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
         condFind.setDate(date);
-        condFind.setF139(DB_RANK_BIZ_F139_BK_MAIN);
+        condFind.setF139(board);
         condFind.setOrderBy(getOrderBy(orderField));
         condFind.setLimitCount(limitCount);
 
         Map<String, StockAdrCountVo> stockAdrCountMap = new HashMap<>();
         //查询大票
-        handlerStAdrCountMap(stockAdrCountMap,mvMin40,bkMap,condFind);
-        handlerStAdrCountMap(stockAdrCountMap,mvMin50,bkMap,condFind);
-        handlerStAdrCountMap(stockAdrCountMap,mvMin200,bkMap,condFind);
-        handlerStAdrCountMap(stockAdrCountMap,mvMin500,bkMap,condFind);
-        handlerStAdrCountMap(stockAdrCountMap,mvMin1000,bkMap,condFind);
+        handlerStAdrCountMap(stockAdrCountMap, mvMin40, bkMap, condFind);
+        handlerStAdrCountMap(stockAdrCountMap, mvMin50, bkMap, condFind);
+        handlerStAdrCountMap(stockAdrCountMap, mvMin200, bkMap, condFind);
+        handlerStAdrCountMap(stockAdrCountMap, mvMin500, bkMap, condFind);
+        handlerStAdrCountMap(stockAdrCountMap, mvMin1000, bkMap, condFind);
         for (StockAdrCountVo stockAdrCount : stockAdrCountMap.values()) {
             stockAdrCountListBkAll.add(stockAdrCount);
         }
@@ -98,7 +101,58 @@ public class StockAdrStat {
     }
 
     /**
+     * 编码限定-概念
+     *
+     * @param condFind
+     * @param date
+     * @param board
+     * @param mvMin
+     */
+    private static void findStCodeLikeConception(CondStockAdrCount condFind, String date, Long board, BigDecimal mvMin) {
+//                String conceptions = "注射器概念";//科技-芯片：汽车芯片,IGBT概念,中芯概念,第三代半导体,PVDF概念,光刻胶,半导体概念,
+//        String conceptions = "HIT电池";//科技-光伏: HIT电池,光伏建筑一体化      ,太阳能        ["太阳能"];股票个数：168;
+
+//        String conceptions = "煤化工";//资源-煤炭：煤化工,稀缺资源,
+//        String conceptions = "油价相关";//资源-石油：可燃冰,页岩气,油气设服,天然气,油价相关
+
+//        String conceptions = "退税商店";//消费-零售:免税概念,退税商店,新零售,C2M概念,抖音小店
+//        String conceptions = "白酒";//消费-酒:白酒,啤酒概念
+
+//        String conceptions = "券商概念";//金融-券商:券商概念,互联金融,参股期货
+//        String conceptions = "银行 ";//金融-银行:银行,互联金融
+        String conceptions = "REITs概念";//金融-房地产：地下管网,建筑节能,民爆概念,REITs概念,海绵城市,租售同权,赛马概念,装配建筑,工程机械概念,水利建设,京津冀,中超概念,
+
+//        String conceptions = "毛发医疗";//医疗-医美：毛发医疗,医疗美容,
+//        String conceptions = "医废处理";//医疗-制药：维生素,地塞米松,疫苗冷链,阿兹海默,基因测序
+
+//        String conceptions = "低碳冶金";//资源-钢铁：低碳冶金,基本金属,稀土永磁,钛白粉
+//        String conceptions = "氦气概念";//资源-气体：氢能源,氦气概念,工业气体
+//        String conceptions = "航母概念";//科技-军工: 航母概念,海工装备,军民融合,大飞机,通用航空,天基互联,航天概念,空间站概念,北斗导航,
+//        String conceptions = "云游戏";//科技-传媒：云游戏,手游概念,电子竞技,网络游戏,
+//        String conceptions = "地热能";//科技-电力:抽水蓄能,虚拟电厂,特高压,绿色电力,风能,
+//        String conceptions = "磁悬浮概念";//科技-汽车: 激光雷达,胎压监测,华为汽车,特斯拉
+//        String conceptions = "工业母机";//科技-工业: 工业母机,工业4.0
+//        String conceptions = "培育钻石";//消费-贵金属: 培育钻石,黄金概念,
+//        String conceptions = "人脑工程";//科技-智能: 人脑工程
+//        String conceptions = "体育产业";//消费-体育：体育产业,
+//        String conceptions = "职业教育";//科技-教育:职业教育
+//        String conceptions = "上海自贸";//：上海自贸
+//        String conceptions = "辅助生殖";//辅助生殖,婴童概念,托育服务
+//        String conceptions = "杭州亚运会";//最新概念：土壤修复,智慧灯杆,净水概念,杭州亚运会
+        List<RankStockCommpanyDb> stockList = StockService.listlikeConception(date, conceptions, board, mvMin);
+        List<String> stCodeList = null;
+        if (stockList != null && stockList.size() > 0) {
+            stCodeList = new ArrayList<>();
+            for (RankStockCommpanyDb stock : stockList) {
+                stCodeList.add(stock.getF12());
+            }
+        }
+        condFind.setStCodeList(stCodeList);
+    }
+
+    /**
      * 获取
+     *
      * @param stockAdrCountMap
      * @param mvMin
      * @param bkMap
@@ -109,7 +163,7 @@ public class StockAdrStat {
             condFind.setBizList(bks);
             //查询中票，去重
             condFind.setMvMin(mvMin);
-            List<StockAdrCountVo> stockAdrCountList100 = StockAdrCountService.findListByCondition(condFind);
+            List<StockAdrCountVo> stockAdrCountList100 = StockAdrCountService.listStAdrCount(condFind);
             ;//中票
             for (StockAdrCountVo stockAdrCount : stockAdrCountList100) {
                 String zqdm = stockAdrCount.getF12();
@@ -157,7 +211,7 @@ public class StockAdrStat {
 //        bizList = Arrays.asList("生物制品", "医药商业", "医疗服务", "中药", "医疗器械", "化学制药");//医疗
 //        bizList = Arrays.asList("中药");//医疗
 //        bizList = Arrays.asList("光伏设备");//科技:电力
-        bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备","通用设备");//科技:电力
+//        bizList = Arrays.asList("光伏设备", "电网设备", "电源设备", "电池", "电力行业", "电机", "风电设备", "通用设备");//科技:电力
 //        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
 //        bizList = Arrays.asList("化肥行业","农牧饲渔","农药兽药");//资源-农业:
 //        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
@@ -166,7 +220,7 @@ public class StockAdrStat {
 //        bizList = Arrays.asList("多元金融", "银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
 //        bizList = Arrays.asList("证券");
         //金融-房地产、基建:"水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");//
-//        bizList = Arrays.asList("水泥建材", "房地产服务", "工程机械", "房地产开发", "铁路公路", "装修建材", "装修装饰", "工程建设", "公用事业", "工程咨询服务");//
+        bizList = Arrays.asList("水泥建材", "房地产服务", "工程机械", "房地产开发", "铁路公路", "装修建材", "装修装饰", "工程建设", "公用事业", "工程咨询服务");//
 
         bkMap.put(bizList.get(0), bizList);//特定板块
         return bkMap;
@@ -201,7 +255,7 @@ public class StockAdrStat {
             if (StringUtils.isNotBlank(bizName)) {
                 condition.setType_name(bizName);
             }
-            rs.addAll(StockAdrCountService.findListByCondition(condition));
+            rs.addAll(StockAdrCountService.listStAdrCount(condition));
         }
 
         return rs;
@@ -275,14 +329,20 @@ public class StockAdrStat {
             sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_40(), 8));
 //            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_20_40().add(stockAdrCount.getADR_UP_SUM_1_20()),8));
 
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_40_60(), 8));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_20_40(), 8));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_20(), 8));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_10(), 6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_5(), 6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_3(), 10));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_2(), 6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_1(), 6));
+            String keyNameAdrSumMonth3 = "3月涨";
+            String keyNameAdrSumMonth2 = "2月涨";
+            if (sizeMap.containsKey(keyNameAdrSumMonth3)) {
+                sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_40_60() != null ? stockAdrCount.getADR_UP_SUM_40_60().setScale(1, RoundingMode.HALF_UP) : stockAdrCount.getADR_UP_SUM_40_60(), sizeMap.get(keyNameAdrSumMonth3)));
+            }
+            if (sizeMap.containsKey(keyNameAdrSumMonth2)) {
+                sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_20_40() != null ? stockAdrCount.getADR_UP_SUM_20_40().setScale(1, RoundingMode.HALF_UP) : stockAdrCount.getADR_UP_SUM_20_40(), sizeMap.get(keyNameAdrSumMonth2)));
+            }
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_20() != null ? stockAdrCount.getADR_UP_SUM_1_20().setScale(1, RoundingMode.HALF_UP) : stockAdrCount.getADR_UP_SUM_1_20(), 8));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_10() != null ? stockAdrCount.getADR_UP_SUM_1_10().setScale(1, RoundingMode.HALF_UP) : stockAdrCount.getADR_UP_SUM_1_10(), 6));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_5() != null ? stockAdrCount.getADR_UP_SUM_1_5().setScale(1, RoundingMode.HALF_UP) : stockAdrCount.getADR_UP_SUM_1_5(), 6));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_3() != null ? stockAdrCount.getADR_UP_SUM_1_3().setScale(1, RoundingMode.HALF_UP) : stockAdrCount.getADR_UP_SUM_1_3(), 10));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_2() != null ? stockAdrCount.getADR_UP_SUM_1_2().setScale(1, RoundingMode.HALF_UP) : stockAdrCount.getADR_UP_SUM_1_2(), 6));
+            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_1() != null ? stockAdrCount.getADR_UP_SUM_1_1().setScale(1, RoundingMode.HALF_UP) : stockAdrCount.getADR_UP_SUM_1_1(), 6));
             sb.append(StockUtil.formatDouble(stockAdrCount.getF3(), 8));
             //特定日期区间涨幅
             if (StringUtils.isNotBlank(spDateBeg)) {
@@ -347,9 +407,13 @@ public class StockAdrStat {
     private static StringBuffer showHead(boolean isShowCode, boolean isShowCurNet, boolean isShowAreaAdr, Map<String, Integer> sizeMap) {
         StringBuffer sbHead = new StringBuffer();
         String orderNo = "序号";
+        String keyNameAdrSumMonth3 = "3月涨";
+        String keyNameAdrSumMonth2 = "2月涨";
         sizeMap.put("序号", 5);
         sizeMap.put("编码", 8);
         sizeMap.put("名称", 16);
+        sizeMap.put(keyNameAdrSumMonth3, 6);
+        sizeMap.put(keyNameAdrSumMonth2, 6);
         sbHead.append(StockUtil.formatStName(orderNo, sizeMap.get(orderNo)));
         if (isShowCode) {
             sbHead.append(StockUtil.formatStName("编码", sizeMap.get("编码")));
@@ -367,8 +431,8 @@ public class StockAdrStat {
         sbHead.append(StockUtil.formatStName("5天排", 6));
         sbHead.append(StockUtil.formatStName("3月涨和", 8));
         sbHead.append(StockUtil.formatStName("2月涨和", 8));
-        sbHead.append(StockUtil.formatStName("3月涨", 8));
-        sbHead.append(StockUtil.formatStName("2月涨", 8));
+        sbHead.append(StockUtil.formatStName(keyNameAdrSumMonth3, sizeMap.get(keyNameAdrSumMonth3)));
+        sbHead.append(StockUtil.formatStName(keyNameAdrSumMonth2, sizeMap.get(keyNameAdrSumMonth2)));
         sbHead.append(StockUtil.formatStName("1月涨", 8));
         sbHead.append(StockUtil.formatStName("10天涨", 6));
         sbHead.append(StockUtil.formatStName("5天涨", 6));
@@ -618,16 +682,6 @@ public class StockAdrStat {
             System.out.println(sb);
             return true;
         }
-    }
-
-    /**
-     * 查询列表-根据条件
-     *
-     * @param condFind 条件
-     * @return 结果
-     */
-    private static List<StockAdrCountVo> findListByCondition(CondStockAdrCount condFind) {
-        return StockAdrCountService.findListByCondition(condFind);
     }
 
     /**

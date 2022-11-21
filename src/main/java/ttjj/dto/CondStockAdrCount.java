@@ -16,6 +16,10 @@ public class CondStockAdrCount extends StockAdrCount {
      * order_num 查询条件：排序号列表
      */
     private List<BigDecimal> orderNumList;
+    /**
+     * stCodeList 限定股票代码列表
+     */
+    private List<String> stCodeList;
 
     /**
      * orderBy 排序字段
@@ -246,5 +250,13 @@ public class CondStockAdrCount extends StockAdrCount {
 
     public void setMaxNetAreaDay5(BigDecimal maxNetAreaDay5) {
         this.maxNetAreaDay5 = maxNetAreaDay5;
+    }
+
+    public List<String> getStCodeList() {
+        return stCodeList;
+    }
+
+    public void setStCodeList(List<String> stCodeList) {
+        this.stCodeList = stCodeList;
     }
 }

@@ -157,6 +157,12 @@ public interface StockAdrCountMapper {
             "               #{item} ",
             "           </foreach> ",
             "       </if> ",
+            "       <if test='stCodeList != null'> ",
+            "           AND stock_adr_count.f12 IN  ",
+            "           <foreach collection='stCodeList' item='item' open='(' separator=',' close=')'>  ",
+            "               #{item} ",
+            "           </foreach> ",
+            "       </if> ",
             "       <if test='ADR_UP_SUM_1_60 != null'> ",
             "       <![CDATA[ AND ADR_UP_SUM_1_60 >= #{ADR_UP_SUM_1_60} ]]> ",
             "       </if> ",
@@ -217,7 +223,7 @@ public interface StockAdrCountMapper {
             "        LIMIT #{limitCount} ",
             "       </if> ",
             "</script>"})
-    List<StockAdrCountVo> findListByCondition(CondStockAdrCount condition);
+    List<StockAdrCountVo> listStAdrCount(CondStockAdrCount condition);
 
     /**
      * @param condition

@@ -65,8 +65,8 @@ public class StockAdrCountService {
      * @param condition
      * @return
      */
-    public static List<StockAdrCountVo> findListByCondition(CondStockAdrCount condition) {
-        return StockAdrCountDao.findListByCondition(condition);
+    public static List<StockAdrCountVo> listStAdrCount(CondStockAdrCount condition) {
+        return StockAdrCountDao.listStAdrCount(condition);
     }
 
     /**

@@ -74,11 +74,11 @@ public class StockAdrCountDao {
      * @param condition
      * @return
      */
-    public static List<StockAdrCountVo> findListByCondition(CondStockAdrCount condition) {
+    public static List<StockAdrCountVo> listStAdrCount(CondStockAdrCount condition) {
         SqlSession session = sqlSessionFactory.openSession();
         List<StockAdrCountVo> rs = null;
         try {
-            rs = session.selectList("ttjj.dao.mapper.StockAdrCountMapper.findListByCondition", condition);
+            rs = session.selectList("ttjj.dao.mapper.StockAdrCountMapper.listStAdrCount", condition);
             session.commit();
         } catch (Exception e) {
             System.out.println(e.getMessage());
