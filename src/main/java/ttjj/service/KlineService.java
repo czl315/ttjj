@@ -2317,16 +2317,17 @@ public class KlineService {
 
     /**
      * etf,显示排名，显示简单排名
-     *
-     * @param rsList   列表
+     *  @param rsList   列表
      * @param begDate  开始时间
      * @param endDate  结束时间
      * @param limit
      * @param showMore 显示更多字段
      * @param klt      周期类型
      * @param ktime    时间段
+     * @param orderField
      */
-    public static void showKlineAllList(List<CondKline> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, String klt, String ktime, Boolean isDesc) {
+    public static void showKlineAllList(List<CondKline> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, String klt, String ktime, Boolean isDesc, String orderField) {
+        rsList = KlineService.handlerOrderKline(rsList, orderField, isDesc);//列表-排序：根据字段
         Map<String, Integer> sizeMap = new HashMap<>();
         int sizeKtime = 12;
         String orderNo = "序号";

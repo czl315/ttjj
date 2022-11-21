@@ -69,9 +69,9 @@ public class StockAdrStat {
 //        condFind.setUP_MA_101("101(60)");
 //        condFind.setUP_MA_102("102(60)");
 
-        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
+//        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
 
-        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
         condFind.setDate(date);
         condFind.setF139(DB_RANK_BIZ_F139_BK_MAIN);
@@ -157,7 +157,7 @@ public class StockAdrStat {
 //        bizList = Arrays.asList("生物制品", "医药商业", "医疗服务", "中药", "医疗器械", "化学制药");//医疗
 //        bizList = Arrays.asList("中药");//医疗
 //        bizList = Arrays.asList("光伏设备");//科技:电力
-        bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备");//科技:电力
+        bizList = Arrays.asList("光伏设备","电网设备","电源设备","电池","电力行业","电机","风电设备","通用设备");//科技:电力
 //        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
 //        bizList = Arrays.asList("化肥行业","农牧饲渔","农药兽药");//资源-农业:
 //        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
