@@ -111,6 +111,34 @@ public class StockUtil {
     }
 
     /**
+     *
+     * 格式化-数字，根据长度
+     *
+     * @param number 输入值
+     * @param length 长度
+     * @return 格式化结果
+     */
+    public static String formatBigDecimal(BigDecimal number, int length, Integer scale) {
+        StringBuffer rs = new StringBuffer();
+        if (number == null) {
+            for (int i = 0; i < length; i++) {
+                rs.append(" ");
+            }
+            return rs.toString();
+        }
+        if(scale!=null){
+            number = number.setScale(scale, RoundingMode.HALF_UP);
+        }
+        String numberStr = number.toString();
+        int kong = length - numberStr.length();
+        rs.append(numberStr);
+        for (int i = 0; i < kong; i++) {
+            rs.append(" ");
+        }
+        return rs.toString();
+    }
+
+    /**
      * 格式化-数字，根据长度，带前缀，后缀
      *
      * @param number 输入值

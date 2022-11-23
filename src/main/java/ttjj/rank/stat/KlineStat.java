@@ -156,8 +156,8 @@ public class KlineStat {
         if (isAllList) {
             System.out.println(begDate + "至" + endDate);// + "上涨：");
             KlineService.showKlineAllList(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, klt, ktime, true, orderField);
-            System.out.println(begDate + "至" + endDate + "下跌：");
-            KlineService.showKlineAllList(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, klt, ktime, false, orderField);
+//            System.out.println(begDate + "至" + endDate + "下跌：");
+//            KlineService.showKlineAllList(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, klt, ktime, false, orderField);
         }
 
         //查询结束日期的后一日的k线涨幅、最高涨幅、最低涨幅

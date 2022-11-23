@@ -802,6 +802,7 @@ public class KlineService {
 
     /**
      * 特定日期
+     *
      * @param zqdm
      * @param spDate
      * @param klt
@@ -2141,38 +2142,38 @@ public class KlineService {
         if (kltList.contains(KLT_5)) {
             upMa = stockAdrCountVo.getMaBreakUpMin5();
             breakCountUp = stockAdrCountVo.getBreakCountUpMin5();//突破均线次数
-            pct = stockAdrCountVo.getBreakPctUp5().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp5() != null ? stockAdrCountVo.getBreakPctUp5().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         if (kltList.contains(KLT_15)) {
             upMa = stockAdrCountVo.getMaBreakUpMin15();
             breakCountUp = stockAdrCountVo.getBreakCountUpMin15();
-            pct = stockAdrCountVo.getBreakPctUp15().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp15() != null ? stockAdrCountVo.getBreakPctUp15().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         if (kltList.contains(KLT_30)) {
             upMa = stockAdrCountVo.getMaBreakUpMin30();
             breakCountUp = stockAdrCountVo.getBreakCountUpMin30();
-            pct = stockAdrCountVo.getBreakPctUp30().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp30() != null ? stockAdrCountVo.getBreakPctUp30().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
 
         }
         if (kltList.contains(KLT_60)) {
             upMa = stockAdrCountVo.getMaBreakUpMin60();
             breakCountUp = stockAdrCountVo.getBreakCountUpMin60();
-            pct = stockAdrCountVo.getBreakPctUp60().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp60() != null ? stockAdrCountVo.getBreakPctUp60().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         if (kltList.contains(KLT_101)) {
             upMa = stockAdrCountVo.getMaBreakUpMin101();
             breakCountUp = stockAdrCountVo.getBreakCountUpMin101();
-            pct = stockAdrCountVo.getBreakPctUp101().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp101() != null ? stockAdrCountVo.getBreakPctUp101().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         if (kltList.contains(KLT_102)) {
             upMa = stockAdrCountVo.getMaBreakUpMin102();
             breakCountUp = stockAdrCountVo.getBreakCountUpMin102();
-            pct = stockAdrCountVo.getBreakPctUp102().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp102() != null ? stockAdrCountVo.getBreakPctUp102().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         return rs;
@@ -2202,31 +2203,31 @@ public class KlineService {
         if (kltList.contains(KLT_15)) {
             upMa = stockAdrCountVo.getUpMaDay15();
             breakCountUp = stockAdrCountVo.getBreakCountUp15();
-            pct = stockAdrCountVo.getBreakPctUp15().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp15() != null ? stockAdrCountVo.getBreakPctUp15().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         if (kltList.contains(KLT_30)) {
             upMa = stockAdrCountVo.getUpMaDay30();
             breakCountUp = stockAdrCountVo.getBreakCountUp30();
-            pct = stockAdrCountVo.getBreakPctUp30().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp30() != null ? stockAdrCountVo.getBreakPctUp30().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         if (kltList.contains(KLT_60)) {
             upMa = stockAdrCountVo.getUpMaDay60();
             breakCountUp = stockAdrCountVo.getBreakCountUp60();
-            pct = stockAdrCountVo.getBreakPctUp60().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp60() != null ? stockAdrCountVo.getBreakPctUp60().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         if (kltList.contains(KLT_101)) {
             upMa = stockAdrCountVo.getUpMaDay101();
             breakCountUp = stockAdrCountVo.getBreakCountUp101();
-            pct = stockAdrCountVo.getBreakPctUp101().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp101() != null ? stockAdrCountVo.getBreakPctUp101().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         if (kltList.contains(KLT_102)) {
             upMa = stockAdrCountVo.getUpMaDay102();
             breakCountUp = stockAdrCountVo.getBreakCountUp102();
-            pct = stockAdrCountVo.getBreakPctUp102().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp102() != null ? stockAdrCountVo.getBreakPctUp102().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         return rs;
@@ -2317,13 +2318,14 @@ public class KlineService {
 
     /**
      * etf,显示排名，显示简单排名
-     *  @param rsList   列表
-     * @param begDate  开始时间
-     * @param endDate  结束时间
+     *
+     * @param rsList     列表
+     * @param begDate    开始时间
+     * @param endDate    结束时间
      * @param limit
-     * @param showMore 显示更多字段
-     * @param klt      周期类型
-     * @param ktime    时间段
+     * @param showMore   显示更多字段
+     * @param klt        周期类型
+     * @param ktime      时间段
      * @param orderField
      */
     public static void showKlineAllList(List<CondKline> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, String klt, String ktime, Boolean isDesc, String orderField) {
@@ -2394,10 +2396,10 @@ public class KlineService {
             if (showMore) {
                 BigDecimal flowInMain = dto.getFlowInMain();
                 BigDecimal marketValue = dto.getF20();
-                BigDecimal flowRate  = null;
+                BigDecimal flowRate = null;
                 if (flowInMain != null) {
                     flowInMain = dto.getFlowInMain().divide(NUM_YI_1, 2, BigDecimal.ROUND_HALF_UP);
-                    flowRate  = flowInMain.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
+                    flowRate = flowInMain.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
                 }
 
                 sb.append(StockUtil.formatDouble(dto.getZhangDieFu(), size, null, "%"));
@@ -2414,6 +2416,7 @@ public class KlineService {
             System.out.println(sb);
         }
     }
+
     /**
      * etf,显示简单排名
      *

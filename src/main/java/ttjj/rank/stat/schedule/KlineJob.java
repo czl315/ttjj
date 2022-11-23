@@ -61,7 +61,7 @@ public class KlineJob {
     }
 
     private static void saveKlineConceptionSchedule(String date) {
-        int period = 15;
+        int period = 10;
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
             Boolean isUpdateMv = false;//是否更新市值
             String funcName = "保存K线";

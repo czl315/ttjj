@@ -45,10 +45,11 @@ public class StockAdrStat {
 //        String spDateEnd = "2022-11-04";//
         Long board = DB_RANK_BIZ_F139_BK_MAIN;
         int limitCount = 2;
+        CondStockAdrCount condFind = new CondStockAdrCount();
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
-//        Map<String, List<String>> bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
-        Map<String, List<String>> bkMap = getBizListSp();//获取业务列表-特定
+        Map<String, List<String>> bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
+//        Map<String, List<String>> bkMap = getBizListSp();//获取业务列表-特定
 
         //编码限定-概念
 //        findStCodeLikeConception(condFind, date, board, null);
@@ -61,7 +62,6 @@ public class StockAdrStat {
 
         String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;//排序  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
 
-        CondStockAdrCount condFind = new CondStockAdrCount();
         condFind.setADR_UP_SUM_1_60(null);
         condFind.setADR_UP_SUM_1_40(null);
 //        condFind.setADR_UP_SUM_40_60(new BigDecimal("1"));//
@@ -70,7 +70,7 @@ public class StockAdrStat {
 //        condFind.setUP_MA_30("30(60)");
 //        condFind.setUP_MA_60("60(60)");
 //        condFind.setUP_MA_101("101(60)");
-//        condFind.setUP_MA_102("102(60)");
+        condFind.setUP_MA_102("102(60)");
 
 //        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
 
@@ -109,7 +109,7 @@ public class StockAdrStat {
      * @param mvMin
      */
     private static void findStCodeLikeConception(CondStockAdrCount condFind, String date, Long board, BigDecimal mvMin) {
-//                String conceptions = "注射器概念";//科技-芯片：汽车芯片,IGBT概念,中芯概念,第三代半导体,PVDF概念,光刻胶,半导体概念,
+        String conceptions = "复合集流体,eSIM,Chiplet概念,汽车芯片,IGBT概念,中芯概念,第三代半导体,PVDF概念,光刻胶,半导体概念";//科技-芯片：复合集流体,eSIM,Chiplet概念,汽车芯片,IGBT概念,中芯概念,第三代半导体,PVDF概念,光刻胶,半导体概念,
 //        String conceptions = "HIT电池";//科技-光伏: HIT电池,光伏建筑一体化      ,太阳能        ["太阳能"];股票个数：168;
 
 //        String conceptions = "煤化工";//资源-煤炭：煤化工,稀缺资源,
@@ -120,7 +120,7 @@ public class StockAdrStat {
 
 //        String conceptions = "券商概念";//金融-券商:券商概念,互联金融,参股期货
 //        String conceptions = "银行 ";//金融-银行:银行,互联金融
-        String conceptions = "REITs概念";//金融-房地产：地下管网,建筑节能,民爆概念,REITs概念,海绵城市,租售同权,赛马概念,装配建筑,工程机械概念,水利建设,京津冀,中超概念,
+//        String conceptions = "REITs概念";//金融-房地产：地下管网,建筑节能,民爆概念,REITs概念,海绵城市,租售同权,赛马概念,装配建筑,工程机械概念,水利建设,京津冀,中超概念,
 
 //        String conceptions = "毛发医疗";//医疗-医美：毛发医疗,医疗美容,
 //        String conceptions = "医废处理";//医疗-制药：维生素,地塞米松,疫苗冷链,阿兹海默,基因测序
@@ -357,11 +357,27 @@ public class StockAdrStat {
                 sb.append("[" + StockUtil.formatDouble(areaAdr, 8) + "]");
             }
             sb.append(StockUtil.formatDouble(marketValue, 8));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_5(), 6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_10(), 6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_20(), 6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_40(), 6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_60(), 6));
+            String keyNameArea5 = "区5";
+            String keyNameArea10 = "区10";
+            String keyNameArea20 = "区20";
+            String keyNameArea40 = "区40";
+            String keyNameArea60 = "区60";
+            Integer scale = 0;
+            if (sizeMap.containsKey(keyNameArea5)) {
+                sb.append(StockUtil.formatBigDecimal(stockAdrCount.getNET_AREA_DAY_5(), sizeMap.get(keyNameArea5), scale));
+            }
+            if (sizeMap.containsKey(keyNameArea10)) {
+                sb.append(StockUtil.formatBigDecimal(stockAdrCount.getNET_AREA_DAY_10(), sizeMap.get(keyNameArea10), scale));
+            }
+            if (sizeMap.containsKey(keyNameArea20)) {
+                sb.append(StockUtil.formatBigDecimal(stockAdrCount.getNET_AREA_DAY_20(), sizeMap.get(keyNameArea20), scale));
+            }
+            if (sizeMap.containsKey(keyNameArea40)) {
+                sb.append(StockUtil.formatBigDecimal(stockAdrCount.getNET_AREA_DAY_40(), sizeMap.get(keyNameArea40), scale));
+            }
+            if (sizeMap.containsKey(keyNameArea60)) {
+                sb.append(StockUtil.formatBigDecimal(stockAdrCount.getNET_AREA_DAY_60(), sizeMap.get(keyNameArea60), scale));
+            }
             if (stockAdrCount.getUP_MA_102() != null) {
                 sb.append(StockUtil.formatStName(stockAdrCount.getUP_MA_102().replace("(60)", ""), 6));
             } else {
@@ -409,11 +425,21 @@ public class StockAdrStat {
         String orderNo = "序号";
         String keyNameAdrSumMonth3 = "3月涨";
         String keyNameAdrSumMonth2 = "2月涨";
+        String keyNameArea5 = "区5";
+        String keyNameArea10 = "区10";
+        String keyNameArea20 = "区20";
+        String keyNameArea40 = "区40";
+        String keyNameArea60 = "区60";
         sizeMap.put("序号", 5);
         sizeMap.put("编码", 8);
         sizeMap.put("名称", 16);
         sizeMap.put(keyNameAdrSumMonth3, 6);
         sizeMap.put(keyNameAdrSumMonth2, 6);
+        sizeMap.put(keyNameArea5, 4);
+        sizeMap.put(keyNameArea10, 4);
+        sizeMap.put(keyNameArea20, 4);
+        sizeMap.put(keyNameArea40, 4);
+        sizeMap.put(keyNameArea60, 4);
         sbHead.append(StockUtil.formatStName(orderNo, sizeMap.get(orderNo)));
         if (isShowCode) {
             sbHead.append(StockUtil.formatStName("编码", sizeMap.get("编码")));
@@ -449,11 +475,12 @@ public class StockAdrStat {
 //            sbHead.append(StockUtil.formatStName(spDateEnd.substring(5), 7));
 //        }
         sbHead.append(StockUtil.formatStName("市值", 8));
-        sbHead.append(StockUtil.formatStName("区间5", 6));
-        sbHead.append(StockUtil.formatStName("区间10", 6));
-        sbHead.append(StockUtil.formatStName("区间20", 6));
-        sbHead.append(StockUtil.formatStName("区间40", 6));
-        sbHead.append(StockUtil.formatStName("区间60", 6));
+
+        sbHead.append(StockUtil.formatStName(keyNameArea5, sizeMap.get(keyNameArea5)));
+        sbHead.append(StockUtil.formatStName(keyNameArea10, sizeMap.get(keyNameArea5)));
+        sbHead.append(StockUtil.formatStName(keyNameArea20, sizeMap.get(keyNameArea5)));
+        sbHead.append(StockUtil.formatStName(keyNameArea40, sizeMap.get(keyNameArea5)));
+        sbHead.append(StockUtil.formatStName(keyNameArea60, sizeMap.get(keyNameArea5)));
         sbHead.append(StockUtil.formatStName("超周", 6));
         sbHead.append(StockUtil.formatStName("超日", 6));
         sbHead.append(StockUtil.formatStName("超60", 6));
