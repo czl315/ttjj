@@ -1971,9 +1971,29 @@ public class KlineService {
 
             if (isShowPriceArea) {
                 System.out.print("\t");
-                System.out.print("5日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_5(), 6));//显示信息-价格区间
-                System.out.print("10日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_10(), 6));//显示信息-价格区间
-                System.out.print("20日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_20(), 6));//显示信息-价格区间
+                String keyNameAreaDay5 = "5日:";
+                String keyNameAreaDay10 = "10日:";
+                String keyNameAreaDay20 = "20日:";
+                String keyNameAreaDay40 = "40日:";
+                String keyNameAreaDay60 = "60日:";
+                Map<String, Integer> sizeMap = new HashMap<>();
+                sizeMap.put(keyNameAreaDay5, 5);
+                Integer scale = 1;
+                if (stockAdrCountVo.getNET_AREA_DAY_5() != null && sizeMap.containsKey(keyNameAreaDay5)) {
+                    System.out.print(keyNameAreaDay5 + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_5().setScale(scale, RoundingMode.HALF_UP), sizeMap.get(keyNameAreaDay5)));//显示信息-价格区间
+                } else {
+                    System.out.print(keyNameAreaDay5 + StockUtil.formatDouble(null, 6));
+                }
+                if (stockAdrCountVo.getNET_AREA_DAY_10() != null) {
+                    System.out.print("10日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_10(), 6));//显示信息-价格区间
+                } else {
+                    System.out.print("10日:" + StockUtil.formatDouble(null, 6));
+                }
+                if (stockAdrCountVo.getNET_AREA_DAY_20() != null) {
+                    System.out.print("20日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_20(), 6));//显示信息-价格区间
+                } else {
+                    System.out.print("20日:" + StockUtil.formatDouble(null, 6));
+                }
 //                System.out.print("40日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_40(), 6));//显示信息-价格区间
 //                System.out.print("60日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_60(), 6));//显示信息-价格区间
 //                System.out.print("120日:"+stockAdrCountVo.getNET_AREA_DAY_120() + "\t");//显示信息-价格区间
@@ -2088,37 +2108,37 @@ public class KlineService {
         if (kltList.contains(KLT_5)) {
             upMa = stockAdrCountVo.getMaDownDay5();
             breakCount = stockAdrCountVo.getBreakCountDown5();//突破均线次数
-            pct = stockAdrCountVo.getBreakPctUp5().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp5() != null ? stockAdrCountVo.getBreakPctUp5().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCount, pct, isShowPct);
         }
         if (kltList.contains(KLT_15)) {
             upMa = stockAdrCountVo.getMaDownDay15();
             breakCount = stockAdrCountVo.getBreakCountDown15();
-            pct = stockAdrCountVo.getBreakPctUp15().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp15() != null ? stockAdrCountVo.getBreakPctUp15().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCount, pct, isShowPct);
         }
         if (kltList.contains(KLT_30)) {
             upMa = stockAdrCountVo.getMaDownDay30();
             breakCount = stockAdrCountVo.getBreakCountDown30();
-            pct = stockAdrCountVo.getBreakPctUp30().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp30() != null ? stockAdrCountVo.getBreakPctUp30().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCount, pct, isShowPct);
         }
         if (kltList.contains(KLT_60)) {
             upMa = stockAdrCountVo.getMaDownDay60();
             breakCount = stockAdrCountVo.getBreakCountDown60();
-            pct = stockAdrCountVo.getBreakPctUp60().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp60() != null ? stockAdrCountVo.getBreakPctUp60().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCount, pct, isShowPct);
         }
         if (kltList.contains(KLT_101)) {
             upMa = stockAdrCountVo.getMaDownDay101();
             breakCount = stockAdrCountVo.getBreakCountDown101();
-            pct = stockAdrCountVo.getBreakPctUp101().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp101() != null ? stockAdrCountVo.getBreakPctUp101().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCount, pct, isShowPct);
         }
         if (kltList.contains(KLT_102)) {
             upMa = stockAdrCountVo.getMaDownDay102();
             breakCount = stockAdrCountVo.getBreakCountDown102();
-            pct = stockAdrCountVo.getBreakPctUp102().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp102() != null ? stockAdrCountVo.getBreakPctUp102().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCount, pct, isShowPct);
         }
         return rs;

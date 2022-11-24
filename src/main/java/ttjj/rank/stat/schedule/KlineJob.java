@@ -24,7 +24,7 @@ public class KlineJob {
 //        saveKlineIndexJob();
 //        saveKlineEtfJob();
         saveKlineBroadAndZsAndEtfJob();
-        saveKlineConceptionSchedule(date);
+//        saveKlineConceptionSchedule(date);
     }
 
     /**
@@ -52,6 +52,10 @@ public class KlineJob {
             sw.start("保存K线-ETF");
             Map<String, String> mapEtf = ContMapEtf.ETF_MORE;//K线-ETF-主要
             KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_15, mapEtf, true, funcName);
+            sw.stop();
+
+            sw.start("保存K线-概念");
+            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_101_15, KlineControl.handlerZqMap(date, DB_RANK_BIZ_TYPE_GAI_NIAN), isUpdateMv, funcName);//
             sw.stop();
 
             System.out.println(sw.prettyPrint());

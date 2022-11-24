@@ -115,7 +115,7 @@ public class KlineStat {
      */
     private static void statListAdrArea(String bizType) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-11-18";
+//        String date = "2022-11-23";
 //        boolean isAllList = true;//是否显示全列表
         boolean isAllList = false;//是否显示全列表
         int areaDays = 0;//4:近一周;20:近一月
