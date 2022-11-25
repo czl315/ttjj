@@ -1903,8 +1903,8 @@ public class KlineService {
             String zqdm = stockAdrCountVo.getF12();
 //            String zqdm = stockAdrCountVo.getF12();
             System.out.print(zqdm);
-            System.out.print("  ");
-            System.out.print(StockUtil.formatEtfName(stockAdrCountVo.getF14(), 16));
+            System.out.print(" ");
+            System.out.print(StockUtil.formatEtfName(stockAdrCountVo.getF14(), 12));
 
             int showSize = 6;
             int pctScale = 1;
@@ -2053,38 +2053,38 @@ public class KlineService {
         if (kltList.contains(KLT_5)) {
             upMa = stockAdrCountVo.getMaBreakDownMax5();
             breakCountUp = stockAdrCountVo.getBreakCountDownMax5();//突破均线次数
-            pct = stockAdrCountVo.getBreakPctUp5().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp5() != null ? stockAdrCountVo.getBreakPctUp5().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         if (kltList.contains(KLT_15)) {
             upMa = stockAdrCountVo.getMaBreakDownMax15();
             breakCountUp = stockAdrCountVo.getBreakCountDownMax15();
-            pct = stockAdrCountVo.getBreakPctUp15().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp15() != null ? stockAdrCountVo.getBreakPctUp15().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         if (kltList.contains(KLT_30)) {
             upMa = stockAdrCountVo.getMaBreakDownMax30();
             breakCountUp = stockAdrCountVo.getBreakCountDownMax30();
-            pct = stockAdrCountVo.getBreakPctUp30().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp30() != null ? stockAdrCountVo.getBreakPctUp30().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
 
         }
         if (kltList.contains(KLT_60)) {
             upMa = stockAdrCountVo.getMaBreakDownMax60();
             breakCountUp = stockAdrCountVo.getBreakCountDownMax60();
-            pct = stockAdrCountVo.getBreakPctUp60().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp60() != null ? stockAdrCountVo.getBreakPctUp60().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         if (kltList.contains(KLT_101)) {
             upMa = stockAdrCountVo.getMaBreakDownMax101();
             breakCountUp = stockAdrCountVo.getBreakCountDownMax101();
-            pct = stockAdrCountVo.getBreakPctUp101().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp101() != null ? stockAdrCountVo.getBreakPctUp101().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         if (kltList.contains(KLT_102)) {
             upMa = stockAdrCountVo.getMaBreakDownMax102();
             breakCountUp = stockAdrCountVo.getBreakCountDownMax102();
-            pct = stockAdrCountVo.getBreakPctUp102().setScale(pctScale, RoundingMode.HALF_UP);
+            pct = stockAdrCountVo.getBreakPctUp102() != null ? stockAdrCountVo.getBreakPctUp102().setScale(pctScale, RoundingMode.HALF_UP) : pct;
             handlerMaBreakInfoSb(rs, pctScale, showSize, upMa, breakCountUp, pct, isShowPct);
         }
         return rs;
