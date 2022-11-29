@@ -393,53 +393,34 @@ public class BizEtfStat {
         //etf-超过均线:更多检查
         String name = "";
         StopWatch sw = new StopWatch("etf-检查均线");
-        name = "科技:";
-        System.out.println(name);
-        sw.start(name);
-        condMa.setMapStock(ContMapEtf.KEJI_MORE);
-        KlineService.showStockMa(condMa);
-        sw.stop();
-        System.out.println(name + sw.getTotalTimeSeconds());
-        name = "资源";
-        System.out.println(name);
-        sw.start(name);
-        condMa.setMapStock(ContMapEtf.ZIYUAN_MORE);
-        KlineService.showStockMa(condMa);
-        sw.stop();
-        System.out.println(name + sw.getTotalTimeSeconds());
-        name = "消费";
-        System.out.println(name);
-        sw.start(name);
-        condMa.setMapStock(ContMapEtf.XIAOFEI_MORE);
-        KlineService.showStockMa(condMa);
-        sw.stop();
-        System.out.println(name + sw.getTotalTimeSeconds());
-        name = "医疗";
-        System.out.println(name);
-        sw.start(name);
-        condMa.setMapStock(ContMapEtf.YILIAO_MORE);
-        KlineService.showStockMa(condMa);
-        sw.stop();
-        System.out.println(name + sw.getTotalTimeSeconds());
-        name = "金融";
-        System.out.println(name);
-        sw.start(name);
-        condMa.setMapStock(ContMapEtf.JINRONG_MORE);
-        KlineService.showStockMa(condMa);
-        sw.stop();
-        System.out.println(name + sw.getTotalTimeSeconds());
-        name = "指数";
-        System.out.println(name);
-        sw.start(name);
-        condMa.setMapStock(ContMapEtf.INDEX_MORE);
-        KlineService.showStockMa(condMa);
-        sw.stop();
+        checkMaEtfStat("科技:",ContMapEtf.KEJI_MORE,condMa);
+        checkMaEtfStat("金融:",ContMapEtf.JINRONG_MORE,condMa);
+        checkMaEtfStat("资源:",ContMapEtf.ZIYUAN_MORE,condMa);
+        checkMaEtfStat("消费:",ContMapEtf.XIAOFEI_MORE,condMa);
+        checkMaEtfStat("医疗:",ContMapEtf.YILIAO_MORE,condMa);
+        checkMaEtfStat("指数:",ContMapEtf.INDEX_MORE,condMa);
         System.out.println(name + sw.getTotalTimeSeconds());
         System.out.println(sw.prettyPrint());
         System.out.println(sw.shortSummary());
 
         System.out.println("etf-检查均线-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0) + "，用时：" + (System.currentTimeMillis() - begTime) / 1000);
 
+    }
+
+    /**
+     * 检查均线
+     * @param name 类别
+     * @param etfmap  类别列表
+     * @param condMa 条件
+     */
+    private static void checkMaEtfStat(String name, Map<String, String> etfmap, CondMa condMa) {
+        System.out.println(name);
+        StopWatch sw = new StopWatch("etf-检查均线-"+name);
+        sw.start(name);
+        condMa.setMapStock(etfmap);
+        KlineService.showStockMa(condMa);
+        sw.stop();
+        System.out.println(name + sw.getTotalTimeSeconds());
     }
 
 

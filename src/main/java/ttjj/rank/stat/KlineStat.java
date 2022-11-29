@@ -25,11 +25,11 @@ public class KlineStat {
 //        statAdrCountByDay(zqmc);
 
         //区间涨幅
-        statListAdrArea(DB_RANK_BIZ_TYPE_ETF);
-        statListAdrArea(DB_RANK_BIZ_TYPE_BAN_KUAI);
-        statListAdrArea(DB_RANK_BIZ_TYPE_GAI_NIAN);
-
-//        statAdrByTime();//      统计涨幅-分时
+//        statListAdrArea(DB_RANK_BIZ_TYPE_ETF);
+//        statListAdrArea(DB_RANK_BIZ_TYPE_BAN_KUAI);
+//        statListAdrArea(DB_RANK_BIZ_TYPE_GAI_NIAN);
+//
+        statAdrByTime();//      统计涨幅-分时
 
 //        statAdrCjlCnA();//统计中国A股全市场
 //        statAdrCjl(ContIndex.SHANG_HAI);
@@ -57,6 +57,7 @@ public class KlineStat {
         }
         for (String curDate : dateList) {
             statAdrCjlCnA(curDate);
+            System.out.println();
         }
     }
 
@@ -66,7 +67,8 @@ public class KlineStat {
      * @param date
      */
     private static void statAdrCjlCnA(String date) {
-        String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+        String klt = Content.KLT_15;//KLT_120  KLT_120  KLT_101
+        boolean isShowAdr = true;
         String preTradeDay = StockService.findBegDate(date, 1);//上一交易日
         KlineDto klineDtoShangHai = handlerKlinePreDay(ContIndex.SHANG_HAI, preTradeDay, date, klt);//获得k线信息：前一交易日信息
         KlineDto klineDtoShenZhen = handlerKlinePreDay(ContIndex.SHEN_ZHEN, preTradeDay, date, klt);//获得k线信息：前一交易日信息
@@ -105,7 +107,7 @@ public class KlineStat {
         klineDtoShangHai.setCountFlat(countFlat);
         klineDtoShangHai.setCountDown(countDown);
 
-        showInfoKlineCompPreDay(klineDtoShangHai, false);//显示k线与前一日比较数据
+        showInfoKlineCompPreDay(klineDtoShangHai, isShowAdr);//显示k线与前一日比较数据
     }
 
     /**
@@ -324,15 +326,16 @@ public class KlineStat {
             CACHE_DATE_LIST = dateList;
         }
         for (String curDate : dateList) {
-            statAdrCjl(curDate, zqdm);
+            String klt = Content.KLT_30;//KLT_120  KLT_120  KLT_101
+            statAdrCjl(curDate, zqdm,klt);
+            System.out.println();
         }
     }
 
     /**
      * K线:指数，统计成交量，增减，放量缩量，上涨下跌。
      */
-    private static void statAdrCjl(String date, String zqdm) {
-        String klt = Content.KLT_101;//klt=5:5分钟;15:15分钟;30:30分钟;60:60分钟;120:120分钟;101:日;102:周;103:月;104:3月;105:6月;106:12月
+    private static void statAdrCjl(String date, String zqdm,String klt) {
         String preTradeDay = StockService.findBegDate(date, 1);//上一交易日
         KlineDto klineDto = handlerKlinePreDay(zqdm, preTradeDay, date, klt);//获得k线信息：前一交易日信息
         showInfoKlineCompPreDay(klineDto, true);//显示k线与前一日比较数据
@@ -478,7 +481,7 @@ public class KlineStat {
      */
     private static void statAdrByTime() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-11-17";
+//        String date = "2022-11-28";
 
 //        String type = DB_RANK_BIZ_TYPE_ETF;
         String type = DB_RANK_BIZ_TYPE_BAN_KUAI;
@@ -493,9 +496,9 @@ public class KlineStat {
 //        boolean isShowOnlyDown = false;
 
 //        String klt = KLT_101;
-//        String klt = KLT_60;
+        String klt = KLT_60;
 //        String klt = KLT_30;
-        String klt = KLT_15;
+//        String klt = KLT_15;
 //        String klt = KLT_5;
 
 //        String orderTime = TIME_11_30;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
@@ -661,10 +664,7 @@ public class KlineStat {
      * @param isShowAll 是否显示所有
      */
     private static void showKline(String date, String type, String klt, String orderTime, String orderKlt, boolean isMainEtf, boolean isShowAll, boolean isOnlyUp, BigDecimal up, boolean isOnlyDown, BigDecimal down) {
-        int sizeName = 16;
-        int sizeAdr = 10;
         boolean isShowCode = false;
-
         //排序列表
         CondKline cond = new CondKline();
         cond.setDate(date);
