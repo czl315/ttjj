@@ -36,8 +36,6 @@ public class KlineStat {
 //        statAdrCjl(ContIndex.SHEN_ZHEN);
 //        statAdrCjl(ContIndex.CYB);
 //        statAdrCjl(ContIndex.ZZ_1000);
-
-
 //        findKline();
 
 
@@ -496,8 +494,8 @@ public class KlineStat {
 
 //        String klt = KLT_101;
 //        String klt = KLT_60;
-        String klt = KLT_30;
-//        String klt = KLT_15;
+//        String klt = KLT_30;
+        String klt = KLT_15;
 //        String klt = KLT_5;
 
 //        String orderTime = TIME_11_30;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
@@ -673,10 +671,22 @@ public class KlineStat {
         cond.setType(type);
         cond.setKlt(orderKlt);
         cond.setKtime(orderTime);//排序时间点
+        List<CondKline> orderDtoList = new ArrayList<>();
         List<Kline> orderList = KlineService.listKine(cond);
         if (orderList == null) {
             System.out.println("klineList==null");
             return;
+        }
+        for (Kline kline : orderList) {
+            CondKline condKline = new CondKline();
+            BeanUtils.copyProperties(kline, condKline);
+            BigDecimal flowInMain = kline.getFlowInMain();
+            BigDecimal mv = kline.getF20();
+            if (flowInMain != null && mv != null) {
+                BigDecimal flowRate = flowInMain.divide(mv, 12, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100000").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(1, BigDecimal.ROUND_HALF_UP);
+                condKline.setFlowInMainPct(flowRate);
+            }
+            orderDtoList.add(condKline);
         }
 
         List<String> timeList = getTimeList(date, klt);//获取时段列表，根据时间类型
@@ -697,7 +707,7 @@ public class KlineStat {
 
         List<StringBuffer> sbList = null;
         if (isShowAll) {
-            sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, false, null, false, null, sizeMap);
+            sbList = handlerInfo(orderDtoList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, false, null, false, null, sizeMap);
             System.out.println(sbHead);
             for (StringBuffer sb : sbList) {
                 System.out.println(sb);
@@ -708,7 +718,7 @@ public class KlineStat {
                 System.out.println();
                 System.out.println(new StringBuffer("当前时间：").append(date + " " + orderTime).append(",上涨列表"));
                 System.out.println(sbHead);
-                sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, true, up, false, down, sizeMap);
+                sbList = handlerInfo(orderDtoList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, true, up, false, down, sizeMap);
                 for (StringBuffer sb : sbList) {
                     System.out.println(sb);
                 }
@@ -719,7 +729,7 @@ public class KlineStat {
                 System.out.println();
                 System.out.println(new StringBuffer("当前时间：").append(orderTime).append(",下跌列表"));
                 System.out.println(sbHead);
-                sbList = handlerInfo(orderList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, false, up, true, down, sizeMap);
+                sbList = handlerInfo(orderDtoList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, false, up, true, down, sizeMap);
                 for (StringBuffer sb : sbList) {
                     System.out.println(sb);
                 }
@@ -849,7 +859,7 @@ public class KlineStat {
      * @param sizeMap
      * @return
      */
-    private static List<StringBuffer> handlerInfo(List<Kline> orderList, Map<String, Kline> mapKlineListCurDay, String date, String type, String klt, List<String> timeList, boolean isMainEtf, boolean isOnlyUp, BigDecimal up, boolean isOnlyDown, BigDecimal down, Map<String, Integer> sizeMap) {
+    private static List<StringBuffer> handlerInfo(List<CondKline> orderList, Map<String, Kline> mapKlineListCurDay, String date, String type, String klt, List<String> timeList, boolean isMainEtf, boolean isOnlyUp, BigDecimal up, boolean isOnlyDown, BigDecimal down, Map<String, Integer> sizeMap) {
         int sizeName = 16;
         int sizeAdr = 10;
         String flowInMainName = "流市比";
@@ -857,22 +867,24 @@ public class KlineStat {
         boolean isShowCode = false;
         List<StringBuffer> sbList = new ArrayList<>();
         if (isOnlyDown) {
-            orderList = orderList.stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getZhangDieFu, Comparator.nullsLast(BigDecimal::compareTo))).collect(Collectors.toList());
+            orderList = orderList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getZhangDieFu, Comparator.nullsLast(BigDecimal::compareTo))).collect(Collectors.toList());
+//            orderList = orderList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMainPct, Comparator.nullsLast(BigDecimal::compareTo))).collect(Collectors.toList());
         }
-//        if (isOnlyUp) {
-//            orderList = orderList.stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getZhangDieFu, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
-//        }
-        for (Kline dto : orderList) {
+        if (isOnlyUp) {
+            orderList = orderList.stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getZhangDieFu, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+//            orderList = orderList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMainPct, Comparator.nullsLast(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+        }
+        for (CondKline dto : orderList) {
             //检查是否是主要etf
             if (isMainEtf && !EtfUtil.isMainEtf(dto.getZqdm())) {
                 continue;
             }
-            if (isOnlyUp && dto.getZhangDieFu().compareTo(up) <= 0) {
-                break;
-            }
-            if (isOnlyDown && dto.getZhangDieFu().compareTo(down) >= 0) {
-                break;
-            }
+//            if (isOnlyUp && dto.getZhangDieFu().compareTo(up) <= 0) {
+//                break;
+//            }
+//            if (isOnlyDown && dto.getZhangDieFu().compareTo(down) >= 0) {
+//                break;
+//            }
 //            System.out.println(JSON.toJSONString(stockAdrCount));
             StringBuffer sb = new StringBuffer();
             String code = StockUtil.formatStName(dto.getZqdm(), 6);

@@ -343,7 +343,19 @@ public class StockAdrStat {
             sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_3() != null ? stockAdrCount.getADR_UP_SUM_1_3().setScale(1, RoundingMode.HALF_UP) : stockAdrCount.getADR_UP_SUM_1_3(), 10));
             sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_2() != null ? stockAdrCount.getADR_UP_SUM_1_2().setScale(1, RoundingMode.HALF_UP) : stockAdrCount.getADR_UP_SUM_1_2(), 6));
             sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_1() != null ? stockAdrCount.getADR_UP_SUM_1_1().setScale(1, RoundingMode.HALF_UP) : stockAdrCount.getADR_UP_SUM_1_1(), 6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getF3(), 8));
+            String keyNameTodayAdr = "今涨";
+            sb.append(StockUtil.formatDouble(stockAdrCount.getF3(), sizeMap.get(keyNameTodayAdr)));
+
+            String keyNameMaxDown = "回撤";
+            BigDecimal curAmt = stockAdrCount.getF2();
+            BigDecimal maxAmt = stockAdrCount.getF15();
+            if (curAmt != null && maxAmt != null) {
+                BigDecimal maxDown = curAmt.subtract(maxAmt).divide(curAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
+                sb.append(StockUtil.formatDouble(maxDown, sizeMap.get(keyNameMaxDown)));
+            } else {
+                sb.append(StockUtil.formatDouble(null, sizeMap.get(keyNameMaxDown)));
+            }
+
             //特定日期区间涨幅
             if (StringUtils.isNotBlank(spDateBeg)) {
 //                RankStockCommpanyDb stock = new RankStockCommpanyDb();
@@ -430,6 +442,8 @@ public class StockAdrStat {
         String keyNameArea20 = "区20";
         String keyNameArea40 = "区40";
         String keyNameArea60 = "区60";
+        String keyNameTodayAdr = "今涨";
+        String keyNameMaxDown = "回撤";
         sizeMap.put("序号", 5);
         sizeMap.put("编码", 8);
         sizeMap.put("名称", 16);
@@ -440,6 +454,8 @@ public class StockAdrStat {
         sizeMap.put(keyNameArea20, 4);
         sizeMap.put(keyNameArea40, 4);
         sizeMap.put(keyNameArea60, 4);
+        sizeMap.put(keyNameTodayAdr, 6);
+        sizeMap.put(keyNameMaxDown, 6);
         sbHead.append(StockUtil.formatStName(orderNo, sizeMap.get(orderNo)));
         if (isShowCode) {
             sbHead.append(StockUtil.formatStName("编码", sizeMap.get("编码")));
@@ -465,7 +481,8 @@ public class StockAdrStat {
         sbHead.append(StockUtil.formatStName("3天涨", 10));
         sbHead.append(StockUtil.formatStName("2天涨", 6));
         sbHead.append(StockUtil.formatStName("1天涨", 6));
-        sbHead.append(StockUtil.formatStName("今涨", 8));
+        sbHead.append(StockUtil.formatStName(keyNameTodayAdr, sizeMap.get(keyNameTodayAdr)));
+        sbHead.append(StockUtil.formatStName(keyNameMaxDown, sizeMap.get(keyNameMaxDown)));
         if (isShowAreaAdr) {
 //            sbHead.append(StockUtil.formatStName(spDateBeg.substring(5), 5));
             sbHead.append(StockUtil.formatStName("区间涨幅", 5));
