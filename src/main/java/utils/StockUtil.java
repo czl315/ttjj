@@ -3,8 +3,8 @@ package utils;
 import org.apache.commons.lang3.StringUtils;
 import ttjj.db.AssetPositionDb;
 import ttjj.db.Fupan;
-import ttjj.dto.BizDto;
 import ttjj.dto.CondStock;
+import ttjj.dto.StockAdrCountVo;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -111,7 +111,6 @@ public class StockUtil {
     }
 
     /**
-     *
      * 格式化-数字，根据长度
      *
      * @param number 输入值
@@ -126,7 +125,7 @@ public class StockUtil {
             }
             return rs.toString();
         }
-        if(scale!=null){
+        if (scale != null) {
             number = number.setScale(scale, RoundingMode.HALF_UP);
         }
         String numberStr = number.toString();
@@ -231,6 +230,7 @@ public class StockUtil {
      * @return rs
      */
     public static String formatStName(String name, Integer length) {
+        name = name.replace(" ", "");
         StringBuffer rs = new StringBuffer();
         if (length == null) {
             return rs.append(name).toString();
@@ -476,4 +476,21 @@ public class StockUtil {
         return fupanRs;
     }
 
+    /**
+     * 计算最大回撤
+     *
+     * @param stockAdrCount ori
+     * @return 最大回撤
+     */
+    public static BigDecimal handlerMaxDown(StockAdrCountVo stockAdrCount) {
+        if (stockAdrCount == null) {
+            return null;
+        }
+        BigDecimal curAmt = stockAdrCount.getF2();
+        BigDecimal maxAmt = stockAdrCount.getF15();
+        if (curAmt != null && maxAmt != null) {
+            return curAmt.subtract(maxAmt).divide(curAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
+        }
+        return null;
+    }
 }

@@ -98,6 +98,10 @@ public class CondStockAdrCount extends StockAdrCount {
      * maxNetAreaDay5
      */
     private BigDecimal maxNetAreaDay5;
+    private BigDecimal maxNetAreaDay10;
+    private BigDecimal maxNetAreaDay20;
+    private BigDecimal maxNetAreaDay40;
+    private BigDecimal maxNetAreaDay60;
 
     public BigDecimal getAdrUpSumOrder1to60Min() {
         return adrUpSumOrder1to60Min;
@@ -258,5 +262,37 @@ public class CondStockAdrCount extends StockAdrCount {
 
     public void setStCodeList(List<String> stCodeList) {
         this.stCodeList = stCodeList;
+    }
+
+    public BigDecimal getMaxNetAreaDay10() {
+        return maxNetAreaDay10;
+    }
+
+    public void setMaxNetAreaDay10(BigDecimal maxNetAreaDay10) {
+        this.maxNetAreaDay10 = maxNetAreaDay10;
+    }
+
+    public BigDecimal getMaxNetAreaDay20() {
+        return maxNetAreaDay20;
+    }
+
+    public void setMaxNetAreaDay20(BigDecimal maxNetAreaDay20) {
+        this.maxNetAreaDay20 = maxNetAreaDay20;
+    }
+
+    public BigDecimal getMaxNetAreaDay40() {
+        return maxNetAreaDay40;
+    }
+
+    public void setMaxNetAreaDay40(BigDecimal maxNetAreaDay40) {
+        this.maxNetAreaDay40 = maxNetAreaDay40;
+    }
+
+    public BigDecimal getMaxNetAreaDay60() {
+        return maxNetAreaDay60;
+    }
+
+    public void setMaxNetAreaDay60(BigDecimal maxNetAreaDay60) {
+        this.maxNetAreaDay60 = maxNetAreaDay60;
     }
 }

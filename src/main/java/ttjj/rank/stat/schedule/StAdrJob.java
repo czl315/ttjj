@@ -58,7 +58,7 @@ public class StAdrJob {
 //        save(date, bizList, false, spBizName, stockAdrCountCond);
             StockAdrCountControl.updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
             System.out.println("定时任务-"+jobName+"-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
-        }, 0, 15, TimeUnit.MINUTES);
+        }, 0, 5, TimeUnit.MINUTES);
     }
 
 }

@@ -38,11 +38,11 @@ public class StockAdrStat {
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-11-21";
+//        String date = "2022-11-28";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
-//        String spDateBeg = "2022-11-04";//
-//        String spDateEnd = "2022-11-04";//
+//        String spDateBeg = "2022-11-29";//
+//        String spDateEnd = "2022-11-30";//
         Long board = DB_RANK_BIZ_F139_BK_MAIN;
         int limitCount = 2;
         CondStockAdrCount condFind = new CondStockAdrCount();
@@ -60,7 +60,8 @@ public class StockAdrStat {
         BigDecimal mvMin50 = NUM_YI_50;//
         BigDecimal mvMin40 = NUM_YI_40;//
 
-        String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;//排序  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
+//        String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;//排序  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
+        String orderField = ORDER_FIELD_MAXDOWN;//排序  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
 
         condFind.setADR_UP_SUM_1_60(null);
         condFind.setADR_UP_SUM_1_40(null);
@@ -167,8 +168,9 @@ public class StockAdrStat {
             ;//中票
             for (StockAdrCountVo stockAdrCount : stockAdrCountList100) {
                 String zqdm = stockAdrCount.getF12();
-                String zqmc = stockAdrCount.getF14();
+                stockAdrCount.setMaxDown(StockUtil.handlerMaxDown(stockAdrCount));//计算最大回撤
                 if (stockAdrCountMap.containsKey(zqdm)) {
+//                    String zqmc = stockAdrCount.getF14();
 //                    System.out.println("检查已["+mvMin+"]存在：" + zqmc);
                 } else {
                     stockAdrCountMap.put(zqdm, stockAdrCount);
@@ -210,8 +212,9 @@ public class StockAdrStat {
         List<String> bizList = null;//
 //        bizList = Arrays.asList("生物制品", "医药商业", "医疗服务", "中药", "医疗器械", "化学制药");//医疗
 //        bizList = Arrays.asList("中药");//医疗
-        bizList = Arrays.asList("光伏设备");//科技:电力
+//        bizList = Arrays.asList("光伏设备");//科技:电力
 //        bizList = Arrays.asList("光伏设备", "电网设备", "电源设备", "电池", "电力行业", "电机", "风电设备", "通用设备");//科技:电力
+        bizList = Arrays.asList("有色金属");//板块-分类-科技:电力
 //        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
 //        bizList = Arrays.asList("化肥行业","农牧饲渔","农药兽药");//资源-农业:
 //        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
@@ -416,8 +419,17 @@ public class StockAdrStat {
                 sb.append(StockUtil.formatStName("", 6));
             }
             if (isShowCurNet) {
-                sb.append(StockUtil.formatDouble(stockAdrCount.getF2(), 6));
-                sb.append(StockUtil.formatDouble(stockAdrCount.getMA_NET_60_102(), 6));
+                String keyNameMaWeek60Pct = "60周比";
+                BigDecimal maWeek60 =stockAdrCount.getMA_NET_60_102();
+                if (curAmt != null && maxAmt != null) {
+                    BigDecimal week60Pct = curAmt.subtract(maWeek60).divide(curAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
+                    sb.append(StockUtil.formatDouble(week60Pct, sizeMap.get(keyNameMaWeek60Pct)));
+                } else {
+                    sb.append(StockUtil.formatDouble(null, sizeMap.get(keyNameMaWeek60Pct)));
+                }
+                sb.append(StockUtil.formatDouble(maWeek60, 6));
+                sb.append(StockUtil.formatDouble(curAmt, 6));
+
             }
 
             System.out.println(sb);
@@ -444,6 +456,7 @@ public class StockAdrStat {
         String keyNameArea60 = "区60";
         String keyNameTodayAdr = "今涨";
         String keyNameMaxDown = "回撤";
+        String keyNameMaWeek60Pct = "60周比";
         sizeMap.put("序号", 5);
         sizeMap.put("编码", 8);
         sizeMap.put("名称", 16);
@@ -456,6 +469,7 @@ public class StockAdrStat {
         sizeMap.put(keyNameArea60, 4);
         sizeMap.put(keyNameTodayAdr, 6);
         sizeMap.put(keyNameMaxDown, 6);
+        sizeMap.put(keyNameMaWeek60Pct, 6);
         sbHead.append(StockUtil.formatStName(orderNo, sizeMap.get(orderNo)));
         if (isShowCode) {
             sbHead.append(StockUtil.formatStName("编码", sizeMap.get("编码")));
@@ -504,6 +518,7 @@ public class StockAdrStat {
         sbHead.append(StockUtil.formatStName("超30", 6));
         sbHead.append(StockUtil.formatStName("超15", 6));
         if (isShowCurNet) {
+            sbHead.append(StockUtil.formatStName(keyNameMaWeek60Pct, sizeMap.get(keyNameMaWeek60Pct)));
             sbHead.append(StockUtil.formatStName("净值", 6));
             sbHead.append(StockUtil.formatStName("60周", 6));
         }

@@ -140,7 +140,7 @@ public class KlineStat {
 //        String endDate = StockService.findBegDate(date, 0);
         String begDate = StockService.findBegDate(endDate, areaDays);
         Map<String, String> etfMap = ContMapEtf.INDEX_MORE;//ETF_MORE   INDEX_MORE
-        String orderField = ORDER_FIELD_FLOW_IN_MAIN_PCT;//ORDER_FIELD_AREA_ADR ORDER_FIELD_FLOW_IN_MAIN_PCT
+        String orderField = ORDER_FIELD_AREA_ADR;//ORDER_FIELD_AREA_ADR ORDER_FIELD_FLOW_IN_MAIN_PCT
         if (DB_RANK_BIZ_TYPE_ETF.equals(bizType) && ContMapEtf.INDEX_MORE.equals(etfMap)) {
             orderField = ORDER_FIELD_AREA_ADR;
         }
@@ -477,7 +477,7 @@ public class KlineStat {
     }
 
     /**
-     * 统计涨幅-根据日期
+     * 统计区间涨幅：分时统计。排序：按照指定字段排序：主力净流入百分比
      */
     private static void statAdrByTime() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
@@ -496,9 +496,9 @@ public class KlineStat {
 //        boolean isShowOnlyDown = false;
 
 //        String klt = KLT_101;
-        String klt = KLT_60;
+//        String klt = KLT_60;
 //        String klt = KLT_30;
-//        String klt = KLT_15;
+        String klt = KLT_15;
 //        String klt = KLT_5;
 
 //        String orderTime = TIME_11_30;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
@@ -704,6 +704,11 @@ public class KlineStat {
         for (Kline kline : listKlineCurDay) {
             mapKlineListCurDay.put(kline.getZqdm(), kline);
         }
+
+        //排序：按照指定字段排序。
+        String orderField = ORDER_FIELD_FLOW_IN_MAIN_PCT;//ORDER_FIELD_AREA_ADR ORDER_FIELD_FLOW_IN_MAIN_PCT
+        boolean isDesc = true;
+        orderDtoList = KlineService.handlerOrderKline(orderDtoList, orderField, isDesc);//列表-排序：根据字段
 
         List<StringBuffer> sbList = null;
         if (isShowAll) {
