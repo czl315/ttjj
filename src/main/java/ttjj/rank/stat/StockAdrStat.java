@@ -48,8 +48,8 @@ public class StockAdrStat {
         CondStockAdrCount condFind = new CondStockAdrCount();
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
-        Map<String, List<String>> bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
-//        Map<String, List<String>> bkMap = getBizListSp();//获取业务列表-特定
+//        Map<String, List<String>> bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
+        Map<String, List<String>> bkMap = getBizListSp();//获取业务列表-特定
 
         //编码限定-概念
 //        findStCodeLikeConception(condFind, date, board, null);
@@ -60,8 +60,8 @@ public class StockAdrStat {
         BigDecimal mvMin50 = NUM_YI_50;//
         BigDecimal mvMin40 = NUM_YI_40;//
 
-//        String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;//排序  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
-        String orderField = ORDER_FIELD_MAXDOWN;//排序  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
+        String orderFieldDb = ORDER_FIELD_ADR_UP_SUM_1_60;//排序-数据库字段  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
+        String orderField = ORDER_FIELD_MAXDOWN;//排序-查询后  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
 
         condFind.setADR_UP_SUM_1_60(null);
         condFind.setADR_UP_SUM_1_40(null);
@@ -75,11 +75,11 @@ public class StockAdrStat {
 
 //        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
 
-        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
         condFind.setDate(date);
         condFind.setF139(board);
-        condFind.setOrderBy(getOrderBy(orderField));
+        condFind.setOrderBy(getOrderBy(orderFieldDb));
         condFind.setLimitCount(limitCount);
 
         Map<String, StockAdrCountVo> stockAdrCountMap = new HashMap<>();
@@ -211,10 +211,11 @@ public class StockAdrStat {
         Map<String, List<String>> bkMap = new HashMap<>();
         List<String> bizList = null;//
 //        bizList = Arrays.asList("生物制品", "医药商业", "医疗服务", "中药", "医疗器械", "化学制药");//医疗
-//        bizList = Arrays.asList("中药");//医疗
-//        bizList = Arrays.asList("光伏设备");//科技:电力
+        bizList = Arrays.asList("橡胶制品");//医疗
+//        bizList = Arrays.asList("风电设备");//科技:电力
 //        bizList = Arrays.asList("光伏设备", "电网设备", "电源设备", "电池", "电力行业", "电机", "风电设备", "通用设备");//科技:电力
-        bizList = Arrays.asList("有色金属");//板块-分类-科技:电力
+//        bizList = Arrays.asList("互联网服务","软件开发");//板块-分类-科技:电力
+//        bizList = Arrays.asList("有色金属");//板块-分类-科技:电力
 //        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
 //        bizList = Arrays.asList("化肥行业","农牧饲渔","农药兽药");//资源-农业:
 //        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")

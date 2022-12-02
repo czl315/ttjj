@@ -860,6 +860,7 @@ public class Content {
      * 每天时间段列表-n分钟-开始时间-至-结束时间
      */
     public static List<String> TIME_TYPE_30_1000_TO_1500 = Arrays.asList(TIME_10_00, TIME_10_30, TIME_11_00, TIME_11_30, TIME_13_30, TIME_14_00, TIME_14_30, TIME_15_00);
+    public static List<String> TIME_TYPE_30_1300_TO_1500 = Arrays.asList(TIME_13_30, TIME_14_00, TIME_14_30, TIME_15_00);
     public static List<String> TIME_TYPE_30_1500_TO_1000 = Arrays.asList(TIME_15_00, TIME_14_30, TIME_14_00, TIME_13_30, TIME_11_30, TIME_11_00, TIME_10_30, TIME_10_00);
     /**
      * 每天时间段列表-n分钟-开始时间-至-结束时间

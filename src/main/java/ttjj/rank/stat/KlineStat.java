@@ -25,11 +25,11 @@ public class KlineStat {
 //        statAdrCountByDay(zqmc);
 
         //区间涨幅
-//        statListAdrArea(DB_RANK_BIZ_TYPE_ETF);
-//        statListAdrArea(DB_RANK_BIZ_TYPE_BAN_KUAI);
-//        statListAdrArea(DB_RANK_BIZ_TYPE_GAI_NIAN);
-//
-        statAdrByTime();//      统计涨幅-分时
+        statListAdrArea(DB_RANK_BIZ_TYPE_ETF);
+        statListAdrArea(DB_RANK_BIZ_TYPE_BAN_KUAI);
+        statListAdrArea(DB_RANK_BIZ_TYPE_GAI_NIAN);
+
+//        statAdrByTime();//      统计涨幅-分时
 
 //        statAdrCjlCnA();//统计中国A股全市场
 //        statAdrCjl(ContIndex.SHANG_HAI);
@@ -327,7 +327,7 @@ public class KlineStat {
         }
         for (String curDate : dateList) {
             String klt = Content.KLT_30;//KLT_120  KLT_120  KLT_101
-            statAdrCjl(curDate, zqdm,klt);
+            statAdrCjl(curDate, zqdm, klt);
             System.out.println();
         }
     }
@@ -335,7 +335,7 @@ public class KlineStat {
     /**
      * K线:指数，统计成交量，增减，放量缩量，上涨下跌。
      */
-    private static void statAdrCjl(String date, String zqdm,String klt) {
+    private static void statAdrCjl(String date, String zqdm, String klt) {
         String preTradeDay = StockService.findBegDate(date, 1);//上一交易日
         KlineDto klineDto = handlerKlinePreDay(zqdm, preTradeDay, date, klt);//获得k线信息：前一交易日信息
         showInfoKlineCompPreDay(klineDto, true);//显示k线与前一日比较数据
@@ -487,19 +487,19 @@ public class KlineStat {
         String type = DB_RANK_BIZ_TYPE_BAN_KUAI;
 //        String type = DB_RANK_BIZ_TYPE_GAI_NIAN;
 
+//        String klt = KLT_101;
+//        String klt = KLT_60;
+        String klt = KLT_30;
+//        String klt = KLT_15;
+//        String klt = KLT_5;
+
         //        boolean isMainEtf = true;
         boolean isMainEtf = false;
         boolean isShowOnlyUp = true;
 //        boolean isShowOnlyUp = false;
 
-        boolean isShowOnlyDown = true;
-//        boolean isShowOnlyDown = false;
-
-//        String klt = KLT_101;
-//        String klt = KLT_60;
-//        String klt = KLT_30;
-        String klt = KLT_15;
-//        String klt = KLT_5;
+//        boolean isShowOnlyDown = true;
+        boolean isShowOnlyDown = false;
 
 //        String orderTime = TIME_11_30;//TIME_10_30 TIME_11_30  TIME_14_00   TIME_15_00 TIME_09_45, TIME_10_00, TIME_10_15, TIME_10_30, TIME_10_45, TIME_11_00, TIME_11_15, TIME_11_30, TIME_13_15, TIME_13_30, TIME_13_45, TIME_14_00, TIME_14_15, TIME_14_30, TIME_14_45, TIME_15_00
         List<String> orderTimeList = new ArrayList<>();
@@ -871,14 +871,14 @@ public class KlineStat {
         String timePried = "时段";
         boolean isShowCode = false;
         List<StringBuffer> sbList = new ArrayList<>();
-        if (isOnlyDown) {
-            orderList = orderList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getZhangDieFu, Comparator.nullsLast(BigDecimal::compareTo))).collect(Collectors.toList());
-//            orderList = orderList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMainPct, Comparator.nullsLast(BigDecimal::compareTo))).collect(Collectors.toList());
-        }
-        if (isOnlyUp) {
-            orderList = orderList.stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getZhangDieFu, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
-//            orderList = orderList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMainPct, Comparator.nullsLast(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
-        }
+//        if (isOnlyDown) {
+//            orderList = orderList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getZhangDieFu, Comparator.nullsLast(BigDecimal::compareTo))).collect(Collectors.toList());
+////            orderList = orderList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMainPct, Comparator.nullsLast(BigDecimal::compareTo))).collect(Collectors.toList());
+//        }
+//        if (isOnlyUp) {
+//            orderList = orderList.stream().filter(e -> e != null).sorted(Comparator.comparing(Kline::getZhangDieFu, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+////            orderList = orderList.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMainPct, Comparator.nullsLast(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+//        }
         for (CondKline dto : orderList) {
             //检查是否是主要etf
             if (isMainEtf && !EtfUtil.isMainEtf(dto.getZqdm())) {
@@ -929,7 +929,7 @@ public class KlineStat {
                         if (sizeMap.containsKey(flowInMainName)) {
                             if (klineTime.getFlowInMain() != null) {
                                 BigDecimal flowInMain = klineTime.getFlowInMain();
-                                BigDecimal flowRate = flowInMain.divide(klineTime.getF20(), 12, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100000").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(1, BigDecimal.ROUND_HALF_UP);
+                                BigDecimal flowRate = flowInMain.divide(klineTime.getF20(), 12, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100000").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(0, BigDecimal.ROUND_HALF_UP);
                                 sb.append(StockUtil.formatDouble(flowRate, sizeMap.get(flowInMainName)));
                             } else {
                                 sb.append(StockUtil.formatDouble(null, sizeMap.get(flowInMainName)));
