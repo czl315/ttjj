@@ -1969,35 +1969,18 @@ public class KlineService {
                 }
             }
 
+            //显示价格区间
             if (isShowPriceArea) {
-                System.out.print("\t");
+
+                Map<String, Integer> sizeMap = new HashMap<>();
+                System.out.print(" ");
                 String keyNameAreaDay5 = "5日:";
                 String keyNameAreaDay10 = "10日:";
                 String keyNameAreaDay20 = "20日:";
                 String keyNameAreaDay40 = "40日:";
                 String keyNameAreaDay60 = "60日:";
-                Map<String, Integer> sizeMap = new HashMap<>();
                 sizeMap.put(keyNameAreaDay5, 5);
-                Integer scale = 1;
-                if (stockAdrCountVo.getNET_AREA_DAY_5() != null && sizeMap.containsKey(keyNameAreaDay5)) {
-                    System.out.print(keyNameAreaDay5 + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_5().setScale(scale, RoundingMode.HALF_UP), sizeMap.get(keyNameAreaDay5)));//显示信息-价格区间
-                } else {
-                    System.out.print(keyNameAreaDay5 + StockUtil.formatDouble(null, 6));
-                }
-                if (stockAdrCountVo.getNET_AREA_DAY_10() != null) {
-                    System.out.print("10日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_10(), 6));//显示信息-价格区间
-                } else {
-                    System.out.print("10日:" + StockUtil.formatDouble(null, 6));
-                }
-                if (stockAdrCountVo.getNET_AREA_DAY_20() != null) {
-                    System.out.print("20日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_20(), 6));//显示信息-价格区间
-                } else {
-                    System.out.print("20日:" + StockUtil.formatDouble(null, 6));
-                }
-//                System.out.print("40日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_40(), 6));//显示信息-价格区间
-//                System.out.print("60日:" + StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_60(), 6));//显示信息-价格区间
-//                System.out.print("120日:"+stockAdrCountVo.getNET_AREA_DAY_120() + "\t");//显示信息-价格区间
-//                System.out.print("250日:"+stockAdrCountVo.getNET_AREA_DAY_250() + "\t");//显示信息-价格区间
+                showNetAreaDay(sizeMap,stockAdrCountVo);
             }
 
             if (isShowMaxMin != null && isShowMaxMin) {
@@ -2033,6 +2016,44 @@ public class KlineService {
 
             System.out.println();
         }
+    }
+
+    /**
+     * 显示价格区间
+     * @param sizeMap
+     * @param stockAdrCountVo
+     */
+    private static void showNetAreaDay(Map<String, Integer> sizeMap, StockAdrCountVo stockAdrCountVo) {
+        StringBuffer sbNetAreaDay = new StringBuffer();
+        sbNetAreaDay.append(" ");
+        Integer scaleNetAreaDay = 0;//小数精度
+        int showSizeNetAreaDay = 3;
+        String keyNameAreaDay5 = "5日:";
+        String keyNameAreaDay10 = "10日:";
+        String keyNameAreaDay20 = "20日:";
+        String keyNameAreaDay40 = "40日:";
+        String keyNameAreaDay60 = "60日:";
+        if (stockAdrCountVo.getNET_AREA_DAY_5() != null && sizeMap.containsKey(keyNameAreaDay5)) {
+            sbNetAreaDay.append(keyNameAreaDay5).append(StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_5().setScale(scaleNetAreaDay, RoundingMode.HALF_UP), showSizeNetAreaDay));
+        } else {
+            sbNetAreaDay.append(keyNameAreaDay5).append(StockUtil.formatDouble(null, showSizeNetAreaDay));
+        }
+        if (stockAdrCountVo.getNET_AREA_DAY_10() != null) {
+            sbNetAreaDay.append(keyNameAreaDay10).append(StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_10().setScale(scaleNetAreaDay, RoundingMode.HALF_UP), showSizeNetAreaDay));//显示信息-价格区间
+        } else {
+            sbNetAreaDay.append(keyNameAreaDay10).append(StockUtil.formatDouble(null, showSizeNetAreaDay));
+        }
+        if (stockAdrCountVo.getNET_AREA_DAY_20() != null) {
+            sbNetAreaDay.append(keyNameAreaDay20).append(StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_20().setScale(scaleNetAreaDay, RoundingMode.HALF_UP), showSizeNetAreaDay));//显示信息-价格区间
+        } else {
+            sbNetAreaDay.append(keyNameAreaDay20).append(StockUtil.formatDouble(null, showSizeNetAreaDay));
+        }
+        if (stockAdrCountVo.getNET_AREA_DAY_40() != null) {
+            sbNetAreaDay.append(keyNameAreaDay40).append(StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_40().setScale(scaleNetAreaDay, RoundingMode.HALF_UP), showSizeNetAreaDay));//显示信息-价格区间
+        } else {
+            sbNetAreaDay.append(keyNameAreaDay40).append(StockUtil.formatDouble(null, showSizeNetAreaDay));
+        }
+        System.out.print(sbNetAreaDay.toString());
     }
 
     /**

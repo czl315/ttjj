@@ -48,8 +48,8 @@ public class StockAdrStat {
         CondStockAdrCount condFind = new CondStockAdrCount();
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
-//        Map<String, List<String>> bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
-        Map<String, List<String>> bkMap = getBizListSp();//获取业务列表-特定
+        Map<String, List<String>> bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
+//        Map<String, List<String>> bkMap = getBizListSp();//获取业务列表-特定
 
         //编码限定-概念
 //        findStCodeLikeConception(condFind, date, board, null);
@@ -71,11 +71,11 @@ public class StockAdrStat {
 //        condFind.setUP_MA_30("30(60)");
 //        condFind.setUP_MA_60("60(60)");
 //        condFind.setUP_MA_101("101(60)");
-//        condFind.setUP_MA_102("102(60)");
+        condFind.setUP_MA_102("102(60)");
 
-//        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
+        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
 
-//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
         condFind.setDate(date);
         condFind.setF139(board);
