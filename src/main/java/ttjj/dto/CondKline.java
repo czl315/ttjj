@@ -52,6 +52,14 @@ public class CondKline extends Kline {
      */
     private BigDecimal flowInMainPct;
     /**
+     * flowInMainPctSum
+     */
+    private BigDecimal flowInMainPctSum;
+    /**
+     *  主力净流入和
+     */
+    private BigDecimal flowInMainSum;
+    /**
      * orderBy 排序
      */
     private String orderBy;
@@ -142,5 +150,21 @@ public class CondKline extends Kline {
 
     public void setFlowInMainPct(BigDecimal flowInMainPct) {
         this.flowInMainPct = flowInMainPct;
+    }
+
+    public BigDecimal getFlowInMainSum() {
+        return flowInMainSum;
+    }
+
+    public void setFlowInMainSum(BigDecimal flowInMainSum) {
+        this.flowInMainSum = flowInMainSum;
+    }
+
+    public BigDecimal getFlowInMainPctSum() {
+        return flowInMainPctSum;
+    }
+
+    public void setFlowInMainPctSum(BigDecimal flowInMainPctSum) {
+        this.flowInMainPctSum = flowInMainPctSum;
     }
 }

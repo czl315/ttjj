@@ -1652,11 +1652,25 @@ public class KlineService {
                 rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMain, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
             }
         }
+        if (ORDER_FIELD_FLOW_IN_MAIN_SUM.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMainSum, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMainSum, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
         if (ORDER_FIELD_FLOW_IN_MAIN_PCT.equals(orderField)) {
             if (isOrderDesc) {
                 rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMainPct, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
             } else {
                 rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMainPct, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
+            }
+        }
+        if (ORDER_FIELD_FLOW_IN_MAIN_PCT_SUM.equals(orderField)) {
+            if (isOrderDesc) {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMainPctSum, Comparator.nullsFirst(BigDecimal::compareTo)).reversed()).collect(Collectors.toList());
+            } else {
+                rs = rs.stream().filter(e -> e != null).sorted(Comparator.comparing(CondKline::getFlowInMainPctSum, Comparator.nullsFirst(BigDecimal::compareTo))).collect(Collectors.toList());
             }
         }
         return rs;
@@ -1980,7 +1994,7 @@ public class KlineService {
                 String keyNameAreaDay40 = "40日:";
                 String keyNameAreaDay60 = "60日:";
                 sizeMap.put(keyNameAreaDay5, 5);
-                showNetAreaDay(sizeMap,stockAdrCountVo);
+                showNetAreaDay(sizeMap, stockAdrCountVo);
             }
 
             if (isShowMaxMin != null && isShowMaxMin) {
@@ -2020,6 +2034,7 @@ public class KlineService {
 
     /**
      * 显示价格区间
+     *
      * @param sizeMap
      * @param stockAdrCountVo
      */
@@ -2364,29 +2379,44 @@ public class KlineService {
     /**
      * etf,显示排名，显示简单排名
      *
-     * @param rsList     列表
-     * @param begDate    开始时间
-     * @param endDate    结束时间
-     * @param limit
-     * @param showMore   显示更多字段
-     * @param klt        周期类型
-     * @param ktime      时间段
+     * @param rsList       列表
+     * @param begDate      开始时间
+     * @param endDate      结束时间
+     * @param days         天数
+     * @param limit        限定个数
+     * @param showMore     显示更多字段
+     * @param klt          周期类型
+     * @param ktime        时间段
      * @param orderField
+     * @param isFindSpDate
+     * @param spDate
      */
-    public static void showKlineAllList(List<CondKline> rsList, String begDate, String endDate, int limit, boolean showMore, boolean isShowCode, String klt, String ktime, Boolean isDesc, String orderField) {
+    public static void showKlineAllList(List<CondKline> rsList, String begDate, String endDate, int days, int limit, boolean showMore, boolean isShowCode, String klt, String ktime, Boolean isDesc, String orderField, boolean isFindSpDate, String spDate) {
         rsList = KlineService.handlerOrderKline(rsList, orderField, isDesc);//列表-排序：根据字段
+
+        //查询结束日期的后一日的k线涨幅、最高涨幅、最低涨幅
+        Map<String, Kline> mapSpDateKline = showSpDateAdr(isFindSpDate, spDate, rsList, limit);
+
         Map<String, Integer> sizeMap = new HashMap<>();
         int sizeKtime = 12;
         String orderNo = "序号";
+        String flowInMianSum = "主流和";
+        String keyNameDays = "天数";
+        String keyNameFlowInMianEndDate = "主流end";
+        String keyNameFlowInMianPct = "流率end";
+        String keyNameFlowInMianPctSum = "流率和";
+        String keyNameSpDateAdr = spDate.substring(5);
         sizeMap.put("序号", 5);
         sizeMap.put("名称", 16);
         sizeMap.put("概念", 16);
         sizeMap.put("代码", 8);
-        sizeMap.put("主流", 12);
-        sizeMap.put("流市比", 8);
+        sizeMap.put(keyNameFlowInMianEndDate, 8);
+        sizeMap.put(flowInMianSum, 8);
+        sizeMap.put(keyNameFlowInMianPct, 8);
+        sizeMap.put(keyNameFlowInMianPctSum, 8);
+        sizeMap.put(keyNameSpDateAdr, 8);
         sizeMap.put("时段", sizeKtime);
-        int sizeFlowInMian = sizeMap.get("主流");
-        Integer sizeFlowInMianPct = sizeMap.get("流市比");
+        sizeMap.put(keyNameDays, 2);
         int size = 10;
         int sizeBiz = 14;
         int sizeDate14 = 14;
@@ -2398,14 +2428,20 @@ public class KlineService {
         sbHead.append(StockUtil.formatStName("名称", sizeMap.get("名称")));
         sbHead.append(StockUtil.formatStName("区间涨幅", size));
         if (showMore) {
-            sbHead.append(StockUtil.formatStName("最新涨幅", size));
+            sbHead.append(StockUtil.formatStName(endDate.substring(5), size));
+            if (isFindSpDate) {
+                sbHead.append(StockUtil.formatStName(keyNameSpDateAdr, sizeMap.get(keyNameSpDateAdr) + 2));
+            }
             sbHead.append(StockUtil.formatStName("最新市值(亿)", sizeDate14));
-            sbHead.append(StockUtil.formatStName("主流(亿)", sizeFlowInMian));
-            sbHead.append(StockUtil.formatStName("流市比", sizeFlowInMianPct));
+            sbHead.append(StockUtil.formatStName(keyNameFlowInMianEndDate, sizeMap.get(keyNameFlowInMianEndDate)));
+            sbHead.append(StockUtil.formatStName(keyNameFlowInMianPct, sizeMap.get(keyNameFlowInMianPct)));
+            sbHead.append(StockUtil.formatStName(flowInMianSum, sizeMap.get(flowInMianSum)));
+            sbHead.append(StockUtil.formatStName(keyNameFlowInMianPctSum, sizeMap.get(keyNameFlowInMianPctSum)));
             sbHead.append(StockUtil.formatStName("开始日期", sizeDate14));
             sbHead.append(StockUtil.formatStName("结束日期", sizeDate14));
             sbHead.append(StockUtil.formatStName("周期类型", size));
             sbHead.append(StockUtil.formatStName("时段", sizeKtime));
+            sbHead.append(StockUtil.formatStName(keyNameDays, sizeMap.get(keyNameDays)));
 //            sbHead.append(StockUtil.formatStName("时间段", sizeKtime));
         }
         System.out.println(sbHead);
@@ -2439,27 +2475,73 @@ public class KlineService {
             String formatAdr = StockUtil.formatDouble(areaAdr, size, null, "%");
             sb.append(formatAdr);
             if (showMore) {
+                String zqdm = dto.getZqdm();
                 BigDecimal flowInMain = dto.getFlowInMain();
                 BigDecimal marketValue = dto.getF20();
                 BigDecimal flowRate = null;
+                BigDecimal flowRateSum = null;
                 if (flowInMain != null) {
-                    flowInMain = dto.getFlowInMain().divide(NUM_YI_1, 2, BigDecimal.ROUND_HALF_UP);
+                    flowInMain = dto.getFlowInMain().divide(NUM_YI_1, 1, BigDecimal.ROUND_HALF_UP);
                     flowRate = flowInMain.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
+                }
+                BigDecimal flowInMainSum = dto.getFlowInMainSum();
+                if (flowInMainSum != null) {
+                    flowInMainSum = dto.getFlowInMainSum().divide(NUM_YI_1, 1, BigDecimal.ROUND_HALF_UP);
+                    flowRateSum = flowInMainSum.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
                 }
 
                 sb.append(StockUtil.formatDouble(dto.getZhangDieFu(), size, null, "%"));
+                if (isFindSpDate) {
+                    if (mapSpDateKline != null && mapSpDateKline.containsKey(zqdm)) {
+                        sb.append(StockUtil.formatDouble(mapSpDateKline.get(zqdm).getZhangDieFu(), size, null, "%"));
+                    } else {
+                        sb.append(StockUtil.formatDouble(null, size, null, "%"));
+                    }
+                }
+
                 sb.append(StockUtil.formatDouble(marketValue, sizeDate14));
-                sb.append(StockUtil.formatDouble(flowInMain, sizeFlowInMian));
-                sb.append(StockUtil.formatDouble(flowRate, sizeFlowInMianPct, null, ""));
+                sb.append(StockUtil.formatDouble(flowInMain, sizeMap.get(keyNameFlowInMianEndDate)));
+                sb.append(StockUtil.formatDouble(flowRate, sizeMap.get(keyNameFlowInMianPct), null, ""));
+                sb.append(StockUtil.formatDouble(flowInMainSum, sizeMap.get(flowInMianSum)));
+                sb.append(StockUtil.formatDouble(flowRateSum, sizeMap.get(keyNameFlowInMianPctSum), null, ""));
                 sb.append(StockUtil.formatStName(begDate, sizeDate14));
                 sb.append(StockUtil.formatStName(endDate, sizeDate14));
 //                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
 //                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
                 sb.append(StockUtil.formatStName(klt, size));
                 sb.append(StockUtil.formatStName(ktime, sizeKtime));
+                sb.append(StockUtil.formatStName(days + "", sizeMap.get(keyNameDays)));
             }
             System.out.println(sb);
         }
+    }
+
+    /**
+     * 查询结束日期的后一日的k线涨幅、最高涨幅、最低涨幅
+     *
+     * @param isFindKlineByDate
+     * @param spDate
+     * @param rsList
+     * @param limit
+     */
+    private static Map<String, Kline> showSpDateAdr(boolean isFindKlineByDate, String spDate, List<CondKline> rsList, int limit) {
+        Map<String, Kline> mapSpDateKline = new HashMap<>();
+        if (!isFindKlineByDate) {
+            return null;
+        }
+        for (CondKline condKline : rsList) {
+            if (limit-- <= 0) {
+                break;
+            }
+//                BigDecimal areaAdr = KlineService.findAreaAdr(condKline.getZqdm(), spDateBeg, spDateBeg, KLT_101);
+            String zqdm = condKline.getZqdm();
+            Kline kline = KlineService.findByDate(zqdm, spDate, KLT_101);
+//                BigDecimal maxAdr = kline.getMaxAmt().subtract(kline.getCloseLastAmt()).divide(kline.getCloseLastAmt(), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).setScale(2, RoundingMode.HALF_UP);
+//                BigDecimal minAdr = kline.getMinAmt().subtract(kline.getCloseLastAmt()).divide(kline.getCloseLastAmt(), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).setScale(2, RoundingMode.HALF_UP);
+//                System.out.println(spDate + "," + StockUtil.formatStr(condKline.getZqmc(), 6) + "，日涨幅:" + kline.getZhangDieFu() + ",最高涨幅:" + maxAdr + ",最低涨幅:" + minAdr);
+            mapSpDateKline.put(zqdm, kline);
+        }
+        return mapSpDateKline;
     }
 
     /**

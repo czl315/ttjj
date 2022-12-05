@@ -215,6 +215,26 @@ public class RankStockCommpanyDao {
     }
 
     /**
+     * 查询交易日期列表
+     *
+     * @param dateCond
+     * @return
+     */
+    public static List<String> findListDateByBegToEnd(DateCond dateCond) {
+        SqlSession session = sqlSessionFactory.openSession();
+        List<String> rs = null;
+        try {
+            rs = session.selectList("ttjj.dao.mapper.RankStockCommpanyMapper.findListDateByBegToEnd", dateCond);
+            session.commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
      * 更新业务板块-根据code
      *
      * @param entity

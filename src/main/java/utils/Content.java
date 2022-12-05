@@ -724,7 +724,9 @@ public class Content {
     public static String ORDER_FIELD_AREA_ADR = "areaAdr";
     public static String ORDER_FIELD_MARKET_VALUE = "marketValue";
     public static String ORDER_FIELD_FLOW_IN_MAIN = "flowInMain";
+    public static String ORDER_FIELD_FLOW_IN_MAIN_SUM = "flowInMainSum";
     public static String ORDER_FIELD_FLOW_IN_MAIN_PCT = "flowInMainPct";
+    public static String ORDER_FIELD_FLOW_IN_MAIN_PCT_SUM = "flowInMainPctSum";
 
     /**
      * 报表数据-业绩快报

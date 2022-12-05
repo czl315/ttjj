@@ -283,6 +283,23 @@ public interface RankStockCommpanyMapper {
             "</script>"})
     List<String> findListDateAfter(DateCond condition);
 
+    /**
+     * 查询某日之前的交易日期列表
+     *
+     * @param condition
+     * @return
+     */
+    @Select({"<script>",
+            " <![CDATA[  ",
+            "SELECT t.date ",
+            "FROM rank_st_biz_com t ",
+            "WHERE t.date >= #{begDate} ",
+            "   AND t.date <= #{endDate} ",
+            "GROUP BY t.date ORDER BY t.date desc ",
+            " ]]> ",
+            "</script>"})
+    List<String> findListDateByBegToEnd(DateCond condition);
+
     @Insert({"<script>",
             "INSERT INTO `bank19`.`rank_st_biz_com`(",
             "`rs`,`date`,`type`,`type_name`,`order_num`",

@@ -115,10 +115,10 @@ public class KlineStat {
      */
     private static void statListAdrArea(String bizType) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-11-23";
-//        boolean isAllList = true;//是否显示全列表
-        boolean isAllList = false;//是否显示全列表
-        int areaDays = 0;//4:近一周;20:近一月
+//        String date = "2022-12-05";
+        boolean isAllList = true;//是否显示全列表
+//        boolean isAllList = false;//是否显示全列表
+        int areaDays = 1;//4:近一周;20:近一月
         int days = 0;
         List<String> dateList = StockService.findListDateBefore(date, days);
         for (String curDate : dateList) {
@@ -131,16 +131,31 @@ public class KlineStat {
      * etf,限定时间段(结束时间)
      * 排序：区间涨幅、市值、主力净流入、流市比
      * 查询结束日期的后一日的k线涨幅、最高涨幅、最低涨幅
+     * 查询主力净流入之和、主力净流入之和与市值比
      *
      * @param endDate
      */
     private static void statListAdrArea(int limit, String endDate, int areaDays, String bizType, boolean isAllList) {
-        boolean isFindKlineByDate = false;//查询结束日期的后一日的k线涨幅
+//        boolean isFindSpDate = true;//查询结束日期的后一日的k线涨幅
+        boolean isFindSpDate = false;//查询结束日期的后一日的k线涨幅
         //每周一放量板块是否本周继续上涨
 //        String endDate = StockService.findBegDate(date, 0);
         String begDate = StockService.findBegDate(endDate, areaDays);
+        String spDate = endDate;
+//        String spDate = "2022-12-05";
+
+        //查询交易日天数
+        int days = 0;
+        DateCond dateCond = new DateCond();
+        dateCond.setBegDate(begDate);
+        dateCond.setEndDate(endDate);
+        List<String> dateList = StockService.findListDateByBegToEnd(dateCond);
+        if (dateList != null) {
+            days = dateList.size();
+        }
+
         Map<String, String> etfMap = ContMapEtf.INDEX_MORE;//ETF_MORE   INDEX_MORE
-        String orderField = ORDER_FIELD_AREA_ADR;//ORDER_FIELD_AREA_ADR ORDER_FIELD_FLOW_IN_MAIN_PCT
+        String orderField = ORDER_FIELD_FLOW_IN_MAIN_SUM;//ORDER_FIELD_AREA_ADR ORDER_FIELD_FLOW_IN_MAIN_PCT    ORDER_FIELD_FLOW_IN_MAIN    ORDER_FIELD_FLOW_IN_MAIN_SUM    ORDER_FIELD_FLOW_IN_MAIN_PCT_SUM
         if (DB_RANK_BIZ_TYPE_ETF.equals(bizType) && ContMapEtf.INDEX_MORE.equals(etfMap)) {
             orderField = ORDER_FIELD_AREA_ADR;
         }
@@ -155,13 +170,11 @@ public class KlineStat {
         //区间涨幅
         if (isAllList) {
             System.out.println(begDate + "至" + endDate);// + "上涨：");
-            KlineService.showKlineAllList(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, klt, ktime, true, orderField);
+            KlineService.showKlineAllList(rsList, begDate, endDate, days, limit, isShowMoreYes, isShowCode, klt, ktime, true, orderField, isFindSpDate,spDate);
 //            System.out.println(begDate + "至" + endDate + "下跌：");
 //            KlineService.showKlineAllList(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, klt, ktime, false, orderField);
         }
 
-        //查询结束日期的后一日的k线涨幅、最高涨幅、最低涨幅
-        showSpDateAdr(isFindKlineByDate, endDate, rsList, limit);
 
         System.out.println();
         System.out.println(begDate + "至" + endDate + "上涨：");
@@ -174,33 +187,6 @@ public class KlineStat {
 
     }
 
-    /**
-     * 查询结束日期的后一日的k线涨幅、最高涨幅、最低涨幅
-     *
-     * @param isFindKlineByDate
-     * @param endDate
-     * @param rsList
-     * @param limit
-     */
-    private static void showSpDateAdr(boolean isFindKlineByDate, String endDate, List<CondKline> rsList, int limit) {
-        if (!isFindKlineByDate) {
-            return;
-        }
-        List<String> dateList = StockService.findListDateAfter(endDate, 2);//查询n个交易日之前的日期
-        if (dateList != null && dateList.size() > 1) {
-            String spDate = dateList.get(1);
-            for (CondKline condKline : rsList) {
-                if (limit-- <= 0) {
-                    break;
-                }
-//                BigDecimal areaAdr = KlineService.findAreaAdr(condKline.getZqdm(), spDateBeg, spDateBeg, KLT_101);
-                Kline kline = KlineService.findByDate(condKline.getZqdm(), spDate, KLT_101);
-                BigDecimal maxAdr = kline.getMaxAmt().subtract(kline.getCloseLastAmt()).divide(kline.getCloseLastAmt(), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).setScale(2, RoundingMode.HALF_UP);
-                BigDecimal minAdr = kline.getMinAmt().subtract(kline.getCloseLastAmt()).divide(kline.getCloseLastAmt(), 4, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).setScale(2, RoundingMode.HALF_UP);
-                System.out.println(spDate + "," + StockUtil.formatStr(condKline.getZqmc(), 6) + "，日涨幅:" + kline.getZhangDieFu() + ",最高涨幅:" + maxAdr + ",最低涨幅:" + minAdr);
-            }
-        }
-    }
 
     /**
      * @param type
@@ -219,6 +205,7 @@ public class KlineStat {
         boolean isOrMianEtf = false;//是否必须查询我的主要etf
         boolean isCheckMianEtf = true;//是否必须查询我的主要etf
         boolean isShowEtfInfo = false;//是否显示etf信息
+        boolean isFindFlowInMainSum = true;//是否查询主力净流入合计
         BigDecimal mvMin = null;
         BigDecimal mvMax = null;
         Map<String, CondKline> rsMap = new HashMap<>();
@@ -300,12 +287,36 @@ public class KlineStat {
             dto.setAreaF3(adrArea);
 
             //流市比
+            BigDecimal flowInMainSum = new BigDecimal("0");
+            if (isFindFlowInMainSum) {
+                //查询主力净流入
+                CondKline condFlowInMain = new CondKline();
+                condFlowInMain.setBegDate(begDate);
+                condFlowInMain.setEndDate(endDate);
+                condFlowInMain.setType(type);
+                condFlowInMain.setKlt(klt);
+                condFlowInMain.setZqdm(dto.getZqdm());
+                List<Kline> klineListFlowInMain = KlineService.listKine(condFlowInMain);
+                if (klineListFlowInMain != null) {
+                    for (Kline kline : klineListFlowInMain) {
+                        if (kline.getFlowInMain() != null) {
+                            flowInMainSum = flowInMainSum.add(kline.getFlowInMain());
+                        }
+                    }
+                }
+            }
             BigDecimal flowInMain = dto.getFlowInMain();
             BigDecimal flowRate = null;
             if (flowInMain != null) {
                 flowRate = flowInMain.divide(dto.getF20(), 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
             }
+            BigDecimal flowRateSum = null;
+            if (flowInMain != null) {
+                flowRateSum = flowInMainSum.divide(dto.getF20(), 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
+            }
             dto.setFlowInMainPct(flowRate);
+            dto.setFlowInMainSum(flowInMainSum);
+            dto.setFlowInMainPctSum(flowRateSum);
 
             rsList.add(dto);
         }

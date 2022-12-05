@@ -317,6 +317,15 @@ public class StockService {
     }
 
     /**
+     * 查询交易日期列表
+     * @param dateCond
+     * @return
+     */
+    public static List<String> findListDateByBegToEnd(DateCond dateCond) {
+        return RankStockCommpanyDao.findListDateByBegToEnd(dateCond);
+    }
+
+    /**
      * 统计涨跌次数
      */
     public static void statStAdrCount(List<RankStockCommpanyDb> stListLikeConception, String endDate, Integer days, BigDecimal adrMin, Long bk, BigDecimal mvMin, BigDecimal mvMax, Map<String, StockAdrCount> statRsStAdrCountMap) {

@@ -12,6 +12,14 @@ public class DateCond {
      */
     private String curDate;
     /**
+     * 开始时间
+     */
+    private String begDate;
+    /**
+     * 结束时间
+     */
+    private String endDate;
+    /**
      * count 个数
      */
     private int count;
@@ -38,5 +46,21 @@ public class DateCond {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public String getBegDate() {
+        return begDate;
+    }
+
+    public void setBegDate(String begDate) {
+        this.begDate = begDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 }
