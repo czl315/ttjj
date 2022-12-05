@@ -2029,10 +2029,14 @@ public class KlineService {
         Integer scaleNetAreaDay = 0;//小数精度
         int showSizeNetAreaDay = 3;
         String keyNameAreaDay5 = "5日:";
-        String keyNameAreaDay10 = "10日:";
-        String keyNameAreaDay20 = "20日:";
-        String keyNameAreaDay40 = "40日:";
-        String keyNameAreaDay60 = "60日:";
+//        String keyNameAreaDay10 = "10日:";
+//        String keyNameAreaDay20 = "20日:";
+//        String keyNameAreaDay40 = "40日:";
+//        String keyNameAreaDay60 = "60日:";
+        String keyNameAreaDay10 = "";
+        String keyNameAreaDay20 = "";
+        String keyNameAreaDay40 = "";
+        String keyNameAreaDay60 = "";
         if (stockAdrCountVo.getNET_AREA_DAY_5() != null && sizeMap.containsKey(keyNameAreaDay5)) {
             sbNetAreaDay.append(keyNameAreaDay5).append(StockUtil.formatDouble(stockAdrCountVo.getNET_AREA_DAY_5().setScale(scaleNetAreaDay, RoundingMode.HALF_UP), showSizeNetAreaDay));
         } else {
