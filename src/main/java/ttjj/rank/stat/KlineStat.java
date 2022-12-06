@@ -115,10 +115,10 @@ public class KlineStat {
      */
     private static void statListAdrArea(String bizType) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-12-05";
+//        String date = "2022-12-04";
         boolean isAllList = true;//是否显示全列表
 //        boolean isAllList = false;//是否显示全列表
-        int areaDays = 1;//4:近一周;20:近一月
+        int areaDays = 0;//4:近一周;20:近一月
         int days = 0;
         List<String> dateList = StockService.findListDateBefore(date, days);
         for (String curDate : dateList) {
@@ -132,17 +132,18 @@ public class KlineStat {
      * 排序：区间涨幅、市值、主力净流入、流市比
      * 查询结束日期的后一日的k线涨幅、最高涨幅、最低涨幅
      * 查询主力净流入之和、主力净流入之和与市值比
+     * 查询当日分时端主流、涨幅
      *
      * @param endDate
      */
     private static void statListAdrArea(int limit, String endDate, int areaDays, String bizType, boolean isAllList) {
-//        boolean isFindSpDate = true;//查询结束日期的后一日的k线涨幅
-        boolean isFindSpDate = false;//查询结束日期的后一日的k线涨幅
+        boolean isFindSpDate = true;//查询结束日期的后一日的k线涨幅
+//        boolean isFindSpDate = false;//查询结束日期的后一日的k线涨幅
         //每周一放量板块是否本周继续上涨
 //        String endDate = StockService.findBegDate(date, 0);
         String begDate = StockService.findBegDate(endDate, areaDays);
         String spDate = endDate;
-//        String spDate = "2022-12-05";
+//        String spDate = "2022-12-06";
 
         //查询交易日天数
         int days = 0;
@@ -155,7 +156,7 @@ public class KlineStat {
         }
 
         Map<String, String> etfMap = ContMapEtf.INDEX_MORE;//ETF_MORE   INDEX_MORE
-        String orderField = ORDER_FIELD_FLOW_IN_MAIN_SUM;//ORDER_FIELD_AREA_ADR ORDER_FIELD_FLOW_IN_MAIN_PCT    ORDER_FIELD_FLOW_IN_MAIN    ORDER_FIELD_FLOW_IN_MAIN_SUM    ORDER_FIELD_FLOW_IN_MAIN_PCT_SUM
+        String orderField = ORDER_FIELD_AREA_ADR;//ORDER_FIELD_AREA_ADR ORDER_FIELD_FLOW_IN_MAIN_PCT    ORDER_FIELD_FLOW_IN_MAIN    ORDER_FIELD_FLOW_IN_MAIN_SUM    ORDER_FIELD_FLOW_IN_MAIN_PCT_SUM
         if (DB_RANK_BIZ_TYPE_ETF.equals(bizType) && ContMapEtf.INDEX_MORE.equals(etfMap)) {
             orderField = ORDER_FIELD_AREA_ADR;
         }
@@ -170,7 +171,7 @@ public class KlineStat {
         //区间涨幅
         if (isAllList) {
             System.out.println(begDate + "至" + endDate);// + "上涨：");
-            KlineService.showKlineAllList(rsList, begDate, endDate, days, limit, isShowMoreYes, isShowCode, klt, ktime, true, orderField, isFindSpDate,spDate);
+            KlineService.showKlineAllList(rsList, begDate, endDate, days, limit, isShowMoreYes, isShowCode, klt, ktime, true, orderField, isFindSpDate,spDate,bizType);
 //            System.out.println(begDate + "至" + endDate + "下跌：");
 //            KlineService.showKlineAllList(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, klt, ktime, false, orderField);
         }
@@ -993,36 +994,6 @@ public class KlineStat {
             sbHead.append(StockUtil.formatStName(flowInMainName, sizeMap.get(flowInMainName)));
         }
         return sbHead;
-    }
-
-    /**
-     * 获取时段列表，根据时间类型
-     *
-     * @param date 日期
-     * @param klt  时间类型
-     * @return 时段列表
-     */
-    private static List<String> getTimeList(String date, String klt) {
-        if (klt.equals(KLT_15)) {
-            return TIME_TYPE_15_0945_TO_1500;
-        }
-        if (klt.equals(KLT_30)) {
-            return TIME_TYPE_30_1000_TO_1500;
-        }
-        if (klt.equals(KLT_60)) {
-            return TIME_TYPE_60_1030_TO_1500;
-        }
-        if (klt.equals(KLT_101)) {
-            List<String> timeList = new ArrayList<>();
-            timeList.add(date);
-            return timeList;
-        }
-        if (klt.equals(KLT_5)) {
-//            return TIME_TYPE_5_1305_TO_1330;
-            return TIME_TYPE_5_0935_TO_1030;
-//            timeList.addAll(TIME_TYPE_5_0935_TO_1000);//TIME_TYPE_5_0935_TO_1000
-        }
-        return null;
     }
 
     /**

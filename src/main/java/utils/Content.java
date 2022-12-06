@@ -884,4 +884,34 @@ public class Content {
 
     public static List<String> CACHE_DATE_LIST = new ArrayList<>();//缓存日期列表
 
+    /**
+     * 获取时段列表，根据时间类型
+     *
+     * @param date 日期
+     * @param klt  时间类型
+     * @return 时段列表
+     */
+    public static List<String> getTimeList(String date, String klt) {
+        if (klt.equals(KLT_15)) {
+            return TIME_TYPE_15_0945_TO_1500;
+        }
+        if (klt.equals(KLT_30)) {
+            return TIME_TYPE_30_1000_TO_1500;
+        }
+        if (klt.equals(KLT_60)) {
+            return TIME_TYPE_60_1030_TO_1500;
+        }
+        if (klt.equals(KLT_101)) {
+            List<String> timeList = new ArrayList<>();
+            timeList.add(date);
+            return timeList;
+        }
+        if (klt.equals(KLT_5)) {
+//            return TIME_TYPE_5_1305_TO_1330;
+            return TIME_TYPE_5_0935_TO_1030;
+//            timeList.addAll(TIME_TYPE_5_0935_TO_1000);//TIME_TYPE_5_0935_TO_1000
+        }
+        return null;
+    }
+
 }

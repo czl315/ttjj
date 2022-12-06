@@ -2391,9 +2391,11 @@ public class KlineService {
      * @param isFindSpDate
      * @param spDate
      */
-    public static void showKlineAllList(List<CondKline> rsList, String begDate, String endDate, int days, int limit, boolean showMore, boolean isShowCode, String klt, String ktime, Boolean isDesc, String orderField, boolean isFindSpDate, String spDate) {
-        rsList = KlineService.handlerOrderKline(rsList, orderField, isDesc);//列表-排序：根据字段
+    public static void showKlineAllList(List<CondKline> rsList, String begDate, String endDate, int days, int limit, boolean showMore, boolean isShowCode, String klt, String ktime, Boolean isDesc, String orderField, boolean isFindSpDate, String spDate, String bizType) {
+        String timeKlt = KLT_30;//时段类型
+        List<String> timeList = Content.getTimeList(spDate, timeKlt);//获取时段列表，根据时间类型
 
+        rsList = KlineService.handlerOrderKline(rsList, orderField, isDesc);//列表-排序：根据字段
         //查询结束日期的后一日的k线涨幅、最高涨幅、最低涨幅
         Map<String, Kline> mapSpDateKline = showSpDateAdr(isFindSpDate, spDate, rsList, limit);
 
@@ -2416,9 +2418,8 @@ public class KlineService {
         sizeMap.put(keyNameFlowInMianPctSum, 8);
         sizeMap.put(keyNameSpDateAdr, 8);
         sizeMap.put("时段", sizeKtime);
-        sizeMap.put(keyNameDays, 2);
+        sizeMap.put(keyNameDays, 6);
         int size = 10;
-        int sizeBiz = 14;
         int sizeDate14 = 14;
         StringBuffer sbHead = new StringBuffer();
         if (isShowCode) {
@@ -2437,14 +2438,16 @@ public class KlineService {
             sbHead.append(StockUtil.formatStName(keyNameFlowInMianPct, sizeMap.get(keyNameFlowInMianPct)));
             sbHead.append(StockUtil.formatStName(flowInMianSum, sizeMap.get(flowInMianSum)));
             sbHead.append(StockUtil.formatStName(keyNameFlowInMianPctSum, sizeMap.get(keyNameFlowInMianPctSum)));
-            sbHead.append(StockUtil.formatStName("开始日期", sizeDate14));
-            sbHead.append(StockUtil.formatStName("结束日期", sizeDate14));
-            sbHead.append(StockUtil.formatStName("周期类型", size));
-            sbHead.append(StockUtil.formatStName("时段", sizeKtime));
+//            sbHead.append(StockUtil.formatStName("开始日期", sizeDate14));
+//            sbHead.append(StockUtil.formatStName("结束日期", sizeDate14));
+//            sbHead.append(StockUtil.formatStName("周期类型", size));
             sbHead.append(StockUtil.formatStName(keyNameDays, sizeMap.get(keyNameDays)));
 //            sbHead.append(StockUtil.formatStName("时间段", sizeKtime));
+
+            showKlineAllListHandlerTimeListHead(sbHead, timeList);//构造表头-时段列表
         }
         System.out.println(sbHead);
+
 
         if (rsList == null) {
             return;
@@ -2504,15 +2507,80 @@ public class KlineService {
                 sb.append(StockUtil.formatDouble(flowRate, sizeMap.get(keyNameFlowInMianPct), null, ""));
                 sb.append(StockUtil.formatDouble(flowInMainSum, sizeMap.get(flowInMianSum)));
                 sb.append(StockUtil.formatDouble(flowRateSum, sizeMap.get(keyNameFlowInMianPctSum), null, ""));
-                sb.append(StockUtil.formatStName(begDate, sizeDate14));
-                sb.append(StockUtil.formatStName(endDate, sizeDate14));
+//                sb.append(StockUtil.formatStName(begDate, sizeDate14));
+//                sb.append(StockUtil.formatStName(endDate, sizeDate14));
 //                sb.append(StockUtil.formatDouble(dto.getBegDateF18(), size));
 //                sb.append(StockUtil.formatDouble(dto.getEndDateF2(), size));
-                sb.append(StockUtil.formatStName(klt, size));
-                sb.append(StockUtil.formatStName(ktime, sizeKtime));
+//                sb.append(StockUtil.formatStName(klt, size));
+//                sb.append(StockUtil.formatStName(ktime, sizeKtime));
                 sb.append(StockUtil.formatStName(days + "", sizeMap.get(keyNameDays)));
+
+                showKlineAllListHandlerTimeListData(sb, timeList, spDate, bizType, timeKlt, dto);//构造数据-时段列表
             }
             System.out.println(sb);
+        }
+    }
+
+    /**
+     * 构造数据-时段列表
+     * @param sb 结果
+     * @param timeList 时段
+     * @param spDate 特定日期
+     * @param bizType 业务
+     * @param timeKlt 时间类型
+     * @param dto 数据
+     */
+    private static void showKlineAllListHandlerTimeListData(StringBuffer sb, List<String> timeList, String spDate, String bizType, String timeKlt, CondKline dto) {
+        int size = 6;
+        Map<String, Kline> mapTimeKline = new HashMap<>();
+        if (timeList == null) {
+            return;
+        }
+        //查询主力净流入，根据时段
+        CondKline condSpDate = new CondKline();
+        condSpDate.setDate(spDate);
+        condSpDate.setType(bizType);
+        condSpDate.setKlt(timeKlt);
+        if (dto != null && dto.getZqdm() != null) {
+            condSpDate.setZqdm(dto.getZqdm());
+            List<Kline> timeKlineList = KlineService.listKine(condSpDate);
+            if (timeKlineList != null) {
+                for (Kline kline : timeKlineList) {
+                    mapTimeKline.put(kline.getKtime(), kline);
+                }
+            }
+        }
+
+        for (String time : timeList) {
+            if (mapTimeKline.containsKey(time) && mapTimeKline.get(time).getFlowInMain() != null) {
+                BigDecimal flowInMainTime = mapTimeKline.get(time).getFlowInMain().divide(NUM_YI_1, 1, BigDecimal.ROUND_HALF_UP);
+                BigDecimal adr = mapTimeKline.get(time).getZhangDieFu();
+                sb.append(StockUtil.formatDouble(adr, size));
+                sb.append(StockUtil.formatDouble(flowInMainTime, size));
+            } else {
+                sb.append(StockUtil.formatStName("", size));
+            }
+        }
+    }
+
+    /**
+     * 显示k线列表-构造表头-时段列表
+     *
+     * @param sbHead
+     * @param timeList
+     */
+    private static void showKlineAllListHandlerTimeListHead(StringBuffer sbHead, List<String> timeList) {
+        int size = 6;
+        if (timeList == null) {
+            return;
+        }
+        for (String time : timeList) {
+            if (time != null && time.length() >= size) {
+                sbHead.append(StockUtil.formatStName(time.substring(0, (size - 1)), size));
+                sbHead.append(StockUtil.formatStName("主流", size));
+            } else {
+                sbHead.append(StockUtil.formatStName(time, size));
+            }
         }
     }
 
