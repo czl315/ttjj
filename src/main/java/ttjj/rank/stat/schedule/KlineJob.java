@@ -55,7 +55,7 @@ public class KlineJob {
             sw.stop();
 
             sw.start("保存K线-概念");
-            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_GAI_NIAN, kltList_101_15, KlineControl.handlerZqMap(date, DB_RANK_BIZ_TYPE_GAI_NIAN), isUpdateMv, funcName);//
+            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_GAI_NIAN, Arrays.asList(KLT_30, KLT_60, KLT_101), KlineControl.handlerZqMap(date, DB_RANK_BIZ_TYPE_GAI_NIAN), isUpdateMv, funcName);//
             sw.stop();
 
             System.out.println(sw.prettyPrint());

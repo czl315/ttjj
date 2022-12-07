@@ -2392,7 +2392,7 @@ public class KlineService {
      * @param spDate
      */
     public static void showKlineAllList(List<CondKline> rsList, String begDate, String endDate, int days, int limit, boolean showMore, boolean isShowCode, String klt, String ktime, Boolean isDesc, String orderField, boolean isFindSpDate, String spDate, String bizType) {
-        String timeKlt = KLT_60;//时段类型
+        String timeKlt = KLT_30;//时段类型
 //        boolean isShowTimeListAdr = true;
         boolean isShowTimeListAdr = false;
         List<String> timeList = Content.getTimeList(spDate, timeKlt);//获取时段列表，根据时间类型
@@ -2490,7 +2490,7 @@ public class KlineService {
                     flowRate = flowInMain.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
                 }
                 BigDecimal flowInMainSum = dto.getFlowInMainSum();
-                if (flowInMainSum != null) {
+                if (flowInMainSum != null && marketValue != null) {
                     flowInMainSum = dto.getFlowInMainSum().divide(NUM_YI_1, 1, BigDecimal.ROUND_HALF_UP);
                     flowRateSum = flowInMainSum.divide(marketValue, 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10000").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
                 }
@@ -2517,7 +2517,7 @@ public class KlineService {
 //                sb.append(StockUtil.formatStName(ktime, sizeKtime));
                 sb.append(StockUtil.formatStName(days + "", sizeMap.get(keyNameDays)));
 
-                showKlineAllListHandlerTimeListData(sb, timeList, spDate, bizType, timeKlt, dto,isShowTimeListAdr);//构造数据-时段列表
+                showKlineAllListHandlerTimeListData(sb, timeList, spDate, bizType, timeKlt, dto, isShowTimeListAdr);//构造数据-时段列表
             }
             System.out.println(sb);
         }
@@ -2525,12 +2525,13 @@ public class KlineService {
 
     /**
      * 构造数据-时段列表
-     *  @param sb       结果
-     * @param timeList 时段
-     * @param spDate   特定日期
-     * @param bizType  业务
-     * @param timeKlt  时间类型
-     * @param dto      数据
+     *
+     * @param sb                结果
+     * @param timeList          时段
+     * @param spDate            特定日期
+     * @param bizType           业务
+     * @param timeKlt           时间类型
+     * @param dto               数据
      * @param isShowTimeListAdr
      */
     private static void showKlineAllListHandlerTimeListData(StringBuffer sb, List<String> timeList, String spDate, String bizType, String timeKlt, CondKline dto, boolean isShowTimeListAdr) {

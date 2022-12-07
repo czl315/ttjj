@@ -38,7 +38,7 @@ public class StockAdrStat {
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-11-28";
+//        String date = "2022-12-06";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
 //        String spDateBeg = "2022-11-29";//
@@ -209,8 +209,11 @@ public class StockAdrStat {
     private static Map<String, List<String>> getBizListSp() {
         Map<String, List<String>> bkMap = new HashMap<>();
         List<String> bizList = null;//
+        // 消费："纺织服装","航空机场","食品饮料","家电行业","酿酒行业","贸易行业","文化传媒","物流行业","商业百货","旅游酒店","游戏","美容护理"
+//        bizList = Arrays.asList("纺织服装","航空机场","食品饮料","家电行业","酿酒行业","贸易行业","文化传媒","物流行业","商业百货","旅游酒店","游戏","美容护理");//消费:("家电行业","商业百货")
+        bizList = Arrays.asList("化学制药");//医疗
 //        bizList = Arrays.asList("生物制品", "医药商业", "医疗服务", "中药", "医疗器械", "化学制药");//医疗
-        bizList = Arrays.asList("橡胶制品");//医疗
+//        bizList = Arrays.asList("橡胶制品");//医疗
 //        bizList = Arrays.asList("风电设备");//科技:电力
 //        bizList = Arrays.asList("光伏设备", "电网设备", "电源设备", "电池", "电力行业", "电机", "风电设备", "通用设备");//科技:电力
 //        bizList = Arrays.asList("互联网服务","软件开发");//板块-分类-科技:电力
@@ -219,7 +222,6 @@ public class StockAdrStat {
 //        bizList = Arrays.asList("化肥行业","农牧饲渔","农药兽药");//资源-农业:
 //        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
 //        bizList = Arrays.asList("船舶制造");//资源:交运:("船舶制造")
-//        bizList = Arrays.asList("家电行业");//消费:("家电行业")
 //        bizList = Arrays.asList("多元金融", "银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
 //        bizList = Arrays.asList("证券");
         //金融-房地产、基建:"水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");//

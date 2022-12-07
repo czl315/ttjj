@@ -171,7 +171,7 @@ public class KlineStat {
         //区间涨幅
         if (isAllList) {
             System.out.println(begDate + "至" + endDate);// + "上涨：");
-            KlineService.showKlineAllList(rsList, begDate, endDate, days, limit, isShowMoreYes, isShowCode, klt, ktime, true, orderField, isFindSpDate,spDate,bizType);
+            KlineService.showKlineAllList(rsList, begDate, endDate, days, limit, isShowMoreYes, isShowCode, klt, ktime, true, orderField, isFindSpDate, spDate, bizType);
 //            System.out.println(begDate + "至" + endDate + "下跌：");
 //            KlineService.showKlineAllList(rsList, begDate, endDate, limit, isShowMoreYes, isShowCode, klt, ktime, false, orderField);
         }
@@ -288,7 +288,7 @@ public class KlineStat {
             dto.setAreaF3(adrArea);
 
             //流市比
-            BigDecimal flowInMainSum = new BigDecimal("0");
+            BigDecimal flowInMainSum = null;
             if (isFindFlowInMainSum) {
                 //查询主力净流入
                 CondKline condFlowInMain = new CondKline();
@@ -300,6 +300,9 @@ public class KlineStat {
                 List<Kline> klineListFlowInMain = KlineService.listKine(condFlowInMain);
                 if (klineListFlowInMain != null) {
                     for (Kline kline : klineListFlowInMain) {
+                        if (flowInMainSum == null) {
+                            flowInMainSum = new BigDecimal("0");
+                        }
                         if (kline.getFlowInMain() != null) {
                             flowInMainSum = flowInMainSum.add(kline.getFlowInMain());
                         }
@@ -312,7 +315,7 @@ public class KlineStat {
                 flowRate = flowInMain.divide(dto.getF20(), 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
             }
             BigDecimal flowRateSum = null;
-            if (flowInMain != null) {
+            if (flowInMainSum != null && dto.getF20() != null) {
                 flowRateSum = flowInMainSum.divide(dto.getF20(), 6, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(4, BigDecimal.ROUND_HALF_UP);
             }
             dto.setFlowInMainPct(flowRate);

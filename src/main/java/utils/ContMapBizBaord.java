@@ -161,6 +161,25 @@ public class ContMapBizBaord {
         BOARD_TYPE_YI_LIAO.put("生物制品", "BK1044");//84
     }
 
+    /**
+     * 板块-分类-医疗
+     */
+    public static Map<String, String> BOARD_TYPE_XIAO_FEI = new HashMap<>();
+    static {
+        // 消费
+        BOARD_TYPE_XIAO_FEI.put("航空机场", "BK0420");//1
+        BOARD_TYPE_XIAO_FEI.put("物流行业", "BK0422");//3
+        BOARD_TYPE_XIAO_FEI.put("纺织服装", "BK0436");//10
+        BOARD_TYPE_XIAO_FEI.put("食品饮料", "BK0438");//12
+        BOARD_TYPE_XIAO_FEI.put("家电行业", "BK0456");//19
+        BOARD_TYPE_XIAO_FEI.put("酿酒行业", "BK0477");//31
+        BOARD_TYPE_XIAO_FEI.put("商业百货", "BK0482");//36
+        BOARD_TYPE_XIAO_FEI.put("贸易行业", "BK0484");//37
+        BOARD_TYPE_XIAO_FEI.put("旅游酒店", "BK0485");//38
+        BOARD_TYPE_XIAO_FEI.put("文化传媒", "BK0486");//39
+        BOARD_TYPE_XIAO_FEI.put("美容护理", "BK1035");//75
+        BOARD_TYPE_XIAO_FEI.put("游戏", "BK1046");//86
+    }
 
     //分类
     static {
@@ -193,6 +212,7 @@ public class ContMapBizBaord {
         BOARD_NAME_CODE.put("旅游酒店", "BK0485");//38
         BOARD_NAME_CODE.put("文化传媒", "BK0486");//39
         BOARD_NAME_CODE.put("美容护理", "BK1035");//75
+        BOARD_NAME_CODE.put("游戏", "BK1046");//86
 
         //科技
         BOARD_NAME_CODE.put("电力行业", "BK0428");//7
@@ -226,7 +246,7 @@ public class ContMapBizBaord {
         BOARD_NAME_CODE.put("光学光电子", "BK1038");//78
         BOARD_NAME_CODE.put("电子化学品", "BK1039");//79
         BOARD_NAME_CODE.put("专业服务", "BK1043");//83
-        BOARD_NAME_CODE.put("游戏", "BK1046");//86
+
         BOARD_NAME_CODE.put("综合行业", "BK0539");//41
 
         //资源
@@ -456,7 +476,8 @@ public class ContMapBizBaord {
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_KE_JI_DIAN;//板块-分类-科技:电力：BOARD_TYPE_KE_JI_XIN_PIAN BOARD_TYPE_KE_JI_FENG_DIAN BOARD_TYPE_KE_JI_GUANG_FU
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_JIN_RONG_JI_JIAN;//板块-分类-金融-基建
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_ZI_YUAN;//资源
-        mapBiz = ContMapBizBaord.BOARD_TYPE_YI_LIAO;//医疗
+//        mapBiz = ContMapBizBaord.BOARD_TYPE_YI_LIAO;//医疗
+        mapBiz = ContMapBizBaord.BOARD_TYPE_XIAO_FEI;//医疗
         boolean isFirst = true;
         System.out.print("Arrays.asList(");
         for (String bk : mapBiz.keySet()) {
