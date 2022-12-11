@@ -33,11 +33,11 @@ public class KlineControl {
 
 //        saveKlineEtfMianSchedule(date);
         saveKlineAll();
+//        addZs(KLT_102);//  插入常用指数k线
 
 //        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101), handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS));//
 
-        //  插入常用指数k线
-//        addZs(KLT_102);
+
 
 //        updateHisDateKlineFundFlow(DB_RANK_BIZ_TYPE_BAN_KUAI);//更新历史日期-资金流向
 

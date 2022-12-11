@@ -115,7 +115,7 @@ public class KlineStat {
      */
     private static void statListAdrArea(String bizType) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-12-04";
+//        String date = "2022-12-08";
         boolean isAllList = true;//是否显示全列表
 //        boolean isAllList = false;//是否显示全列表
         int areaDays = 0;//4:近一周;20:近一月
@@ -143,7 +143,7 @@ public class KlineStat {
 //        String endDate = StockService.findBegDate(date, 0);
         String begDate = StockService.findBegDate(endDate, areaDays);
         String spDate = endDate;
-//        String spDate = "2022-12-06";
+//        String spDate = "2022-12-09";
 
         //查询交易日天数
         int days = 0;
@@ -156,7 +156,8 @@ public class KlineStat {
         }
 
         Map<String, String> etfMap = ContMapEtf.INDEX_MORE;//ETF_MORE   INDEX_MORE
-        String orderField = ORDER_FIELD_AREA_ADR;//ORDER_FIELD_AREA_ADR ORDER_FIELD_FLOW_IN_MAIN_PCT    ORDER_FIELD_FLOW_IN_MAIN    ORDER_FIELD_FLOW_IN_MAIN_SUM    ORDER_FIELD_FLOW_IN_MAIN_PCT_SUM
+//        Map<String, String> etfMap = ContMapEtf.INDEX_ALL;//ETF_MORE   INDEX_MORE
+        String orderField = ORDER_FIELD_FLOW_IN_MAIN_PCT_SUM;//ORDER_FIELD_AREA_ADR ORDER_FIELD_FLOW_IN_MAIN_PCT    ORDER_FIELD_FLOW_IN_MAIN    ORDER_FIELD_FLOW_IN_MAIN_SUM    ORDER_FIELD_FLOW_IN_MAIN_PCT_SUM
         if (DB_RANK_BIZ_TYPE_ETF.equals(bizType) && ContMapEtf.INDEX_MORE.equals(etfMap)) {
             orderField = ORDER_FIELD_AREA_ADR;
         }
@@ -204,7 +205,8 @@ public class KlineStat {
 //        Map<String, String> etfMap = KEJI_MORE;//INDEX_ALL     INDEX_MORE   XIAOFEI_ALL_TO_MORE    KEJI_MORE
         boolean isCheckFuQuan = false;//是否检查更新复权
         boolean isOrMianEtf = false;//是否必须查询我的主要etf
-        boolean isCheckMianEtf = true;//是否必须查询我的主要etf
+//        boolean isCheckMianEtf = true;//是否必须查询我的主要etf
+        boolean isCheckMianEtf = false;//是否必须查询我的主要etf
         boolean isShowEtfInfo = false;//是否显示etf信息
         boolean isFindFlowInMainSum = true;//是否查询主力净流入合计
         BigDecimal mvMin = null;
