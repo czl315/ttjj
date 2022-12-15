@@ -2382,7 +2382,6 @@ public class KlineService {
      * @param rsList       列表
      * @param begDate      开始时间
      * @param endDate      结束时间
-     * @param days         天数
      * @param limit        限定个数
      * @param showMore     显示更多字段
      * @param klt          周期类型
@@ -2391,11 +2390,17 @@ public class KlineService {
      * @param isFindSpDate
      * @param spDate
      */
-    public static void showKlineAllList(List<CondKline> rsList, String begDate, String endDate, int days, int limit, boolean showMore, boolean isShowCode, String klt, String ktime, Boolean isDesc, String orderField, boolean isFindSpDate, String spDate, String bizType) {
+    public static void showKlineAllList(List<CondKline> rsList, String begDate, String endDate, List<String> dateList, int limit, boolean showMore, boolean isShowCode, String klt, String ktime, Boolean isDesc, String orderField, boolean isFindSpDate, String spDate, String bizType) {
         String timeKlt = KLT_30;//时段类型
 //        boolean isShowTimeListAdr = true;
         boolean isShowTimeListAdr = false;
+        boolean isShowDateListAdr = true;
         List<String> timeList = Content.getTimeList(spDate, timeKlt);//获取时段列表，根据时间类型
+
+        int days = 0;
+        if (dateList != null) {
+            days = dateList.size();
+        }
 
         rsList = KlineService.handlerOrderKline(rsList, orderField, isDesc);//列表-排序：根据字段
         //查询结束日期的后一日的k线涨幅、最高涨幅、最低涨幅
@@ -2429,7 +2434,7 @@ public class KlineService {
             sbHead.append(StockUtil.formatStName("代码", sizeMap.get("代码")));
         }
         sbHead.append(StockUtil.formatStName("名称", sizeMap.get("名称")));
-        sbHead.append(StockUtil.formatStName("区间涨幅", size));
+        sbHead.append(StockUtil.formatStName("区涨", size));
         if (showMore) {
             sbHead.append(StockUtil.formatStName(endDate.substring(5), size));
             if (isFindSpDate) {
@@ -2447,6 +2452,7 @@ public class KlineService {
 //            sbHead.append(StockUtil.formatStName("时间段", sizeKtime));
 
             showKlineAllListHandlerTimeListHead(sbHead, timeList, isShowTimeListAdr);//构造表头-时段列表
+            showKlineAllListHandlerHeadList(sbHead, dateList, isShowDateListAdr);//构造表头列表--主力净流入-根据日期列表
         }
         System.out.println(sbHead);
 
@@ -2518,9 +2524,72 @@ public class KlineService {
                 sb.append(StockUtil.formatStName(days + "", sizeMap.get(keyNameDays)));
 
                 showKlineAllListHandlerTimeListData(sb, timeList, spDate, bizType, timeKlt, dto, isShowTimeListAdr);//构造数据-时段列表
+                sb.append(showKlineAllListHandlerFlowInMianList(dateList, bizType, KLT_101, dto, isShowDateListAdr));//构造数据列表-主力净流入-根据日期列表
             }
             System.out.println(sb);
         }
+    }
+
+    private static void showKlineAllListHandlerHeadList(StringBuffer sbHead, List<String> timeList, boolean isShowTimeListAdr) {
+        int size = 6;
+        if (timeList == null) {
+            return;
+        }
+        for (String time : timeList) {
+            if (time != null && time.length() >= 10) {
+                sbHead.append(StockUtil.formatStName(time.substring(5, 10), size));
+                if (isShowTimeListAdr) {
+                    sbHead.append(StockUtil.formatStName("涨", size));
+                }
+            } else {
+                sbHead.append(StockUtil.formatStName(time, size));
+            }
+        }
+    }
+
+    /**
+     * 构造数据列表-主力净流入-根据日期列表
+     * @param dateList
+     * @param bizType
+     * @param timeKlt
+     * @param dto
+     * @param isShowTimeListAdr
+     */
+    private static StringBuffer showKlineAllListHandlerFlowInMianList(List<String> dateList, String bizType, String timeKlt, CondKline dto, boolean isShowTimeListAdr) {
+        StringBuffer sb = new StringBuffer();
+        int size = 6;
+        Map<String, Kline> mapTimeKline = new HashMap<>();
+        if (dateList == null) {
+            return sb;
+        }
+        //查询主力净流入，根据时段
+        CondKline condSpDate = new CondKline();
+        condSpDate.setDateList(dateList);
+        condSpDate.setType(bizType);
+        condSpDate.setKlt(timeKlt);
+        if (dto != null && dto.getZqdm() != null) {
+            condSpDate.setZqdm(dto.getZqdm());
+            List<Kline> timeKlineList = KlineService.listKine(condSpDate);
+            if (timeKlineList != null) {
+                for (Kline kline : timeKlineList) {
+                    mapTimeKline.put(kline.getDate(), kline);
+                }
+            }
+        }
+
+        for (String date : dateList) {
+            if (mapTimeKline.containsKey(date) && mapTimeKline.get(date).getFlowInMain() != null) {
+                BigDecimal flowInMain = mapTimeKline.get(date).getFlowInMain().divide(NUM_YI_1, 1, BigDecimal.ROUND_HALF_UP);
+                sb.append(StockUtil.formatDouble(flowInMain, size));
+                if (isShowTimeListAdr) {
+                    BigDecimal adr = mapTimeKline.get(date).getZhangDieFu();
+                    sb.append(StockUtil.formatDouble(adr, size));
+                }
+            } else {
+                sb.append(StockUtil.formatStName("", size));
+            }
+        }
+        return sb;
     }
 
     /**

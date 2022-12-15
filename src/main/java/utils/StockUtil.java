@@ -318,7 +318,7 @@ public class StockUtil {
         if (StringUtils.isNotBlank(conception)) {
             sb.append(StockUtil.formatStName("概念", sizeMap.get("概念")));
         }
-        sb.append(StockUtil.formatStName("区间涨幅", size));
+        sb.append(StockUtil.formatStName("区涨", size));
         if (showMore) {
             sb.append(StockUtil.formatStName("最新涨幅", size));
             if (isShowBoard) {

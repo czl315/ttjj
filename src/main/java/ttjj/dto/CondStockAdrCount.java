@@ -103,6 +103,15 @@ public class CondStockAdrCount extends StockAdrCount {
     private BigDecimal maxNetAreaDay40;
     private BigDecimal maxNetAreaDay60;
 
+    /**
+     * 最低-量比
+     */
+    private BigDecimal f10Min;
+    /**
+     * 最高-量比
+     */
+    private BigDecimal f10Max;
+
     public BigDecimal getAdrUpSumOrder1to60Min() {
         return adrUpSumOrder1to60Min;
     }
@@ -294,5 +303,21 @@ public class CondStockAdrCount extends StockAdrCount {
 
     public void setMaxNetAreaDay60(BigDecimal maxNetAreaDay60) {
         this.maxNetAreaDay60 = maxNetAreaDay60;
+    }
+
+    public BigDecimal getF10Min() {
+        return f10Min;
+    }
+
+    public void setF10Min(BigDecimal f10Min) {
+        this.f10Min = f10Min;
+    }
+
+    public BigDecimal getF10Max() {
+        return f10Max;
+    }
+
+    public void setF10Max(BigDecimal f10Max) {
+        this.f10Max = f10Max;
     }
 }

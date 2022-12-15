@@ -477,7 +477,8 @@ public class ContMapBizBaord {
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_JIN_RONG_JI_JIAN;//板块-分类-金融-基建
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_ZI_YUAN;//资源
 //        mapBiz = ContMapBizBaord.BOARD_TYPE_YI_LIAO;//医疗
-        mapBiz = ContMapBizBaord.BOARD_TYPE_XIAO_FEI;//医疗
+//        mapBiz = ContMapBizBaord.BOARD_TYPE_XIAO_FEI;//医疗
+        mapBiz = ContMapBizBaord.BOARD_TYPE_KE_JI_XIN_PIAN;//医疗
         boolean isFirst = true;
         System.out.print("Arrays.asList(");
         for (String bk : mapBiz.keySet()) {

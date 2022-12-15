@@ -228,6 +228,13 @@ public interface StockAdrCountMapper {
             "       <![CDATA[ AND NET_AREA_DAY_60 <= #{maxNetAreaDay60} ]]> ",
             "       </if> ",
 
+            "       <if test='f10Min != null'> ",
+            "       <![CDATA[ AND f10 >= #{f10Min} ]]> ",
+            "       </if> ",
+            "       <if test='f10Max != null'> ",
+            "       <![CDATA[ AND f10 <= #{f10Max} ]]> ",
+            "       </if> ",
+
             "       <if test='orderBy != null '> ",
             "        ORDER BY  ${orderBy} ",
             "       </if> ",

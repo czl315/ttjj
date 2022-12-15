@@ -36,6 +36,10 @@ public class CondKline extends Kline {
      */
     private List<String> stCodeList;
     /**
+     *  限定列表-日期
+     */
+    private List<String> dateList;
+    /**
      * 净值-开始日期
      */
     private BigDecimal begDateF18;
@@ -166,5 +170,13 @@ public class CondKline extends Kline {
 
     public void setFlowInMainPctSum(BigDecimal flowInMainPctSum) {
         this.flowInMainPctSum = flowInMainPctSum;
+    }
+
+    public List<String> getDateList() {
+        return dateList;
+    }
+
+    public void setDateList(List<String> dateList) {
+        this.dateList = dateList;
     }
 }

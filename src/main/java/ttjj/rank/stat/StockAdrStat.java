@@ -38,30 +38,26 @@ public class StockAdrStat {
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-12-06";
+//        String date = "2022-12-13";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
-//        String spDateBeg = "2022-11-29";//
-//        String spDateEnd = "2022-11-30";//
+//        String spDateBeg = "2022-12-14";//
+//        String spDateEnd = "2022-12-14";//
         Long board = DB_RANK_BIZ_F139_BK_MAIN;
-        int limitCount = 2;
+        int limitCount = 11;
         CondStockAdrCount condFind = new CondStockAdrCount();
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
-        Map<String, List<String>> bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
-//        Map<String, List<String>> bkMap = getBizListSp();//获取业务列表-特定
+//        Map<String, List<String>> bkMap = BizService.getBizListAll(FIND_MODEL_CACHE);//获取业务列表-全部板块
+        Map<String, List<String>> bkMap = getBizListSp();//获取业务列表-特定
 
         //编码限定-概念
 //        findStCodeLikeConception(condFind, date, board, null);
 
-        BigDecimal mvMin1000 = NUM_YI_1000;//
-        BigDecimal mvMin500 = NUM_YI_500;//
-        BigDecimal mvMin200 = NUM_YI_200;//
-        BigDecimal mvMin50 = NUM_YI_50;//
-        BigDecimal mvMin40 = NUM_YI_40;//
+
 
         String orderFieldDb = ORDER_FIELD_ADR_UP_SUM_1_60;//排序-数据库字段  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
-        String orderField = ORDER_FIELD_MAXDOWN;//排序-查询后  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_MAXDOWN   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
+        String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;//排序-查询后  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_MAXDOWN   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
 
         condFind.setADR_UP_SUM_1_60(null);
         condFind.setADR_UP_SUM_1_40(null);
@@ -74,7 +70,10 @@ public class StockAdrStat {
 //        condFind.setUP_MA_102("102(60)");
 
 //        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
-        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+//        condFind.setMaxNetAreaDay60(new BigDecimal("25"));
+//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+
+//        condFind.setF10Min(new BigDecimal("2.0"));
 
         condFind.setDate(date);
         condFind.setF139(board);
@@ -83,11 +82,16 @@ public class StockAdrStat {
 
         Map<String, StockAdrCountVo> stockAdrCountMap = new HashMap<>();
         //查询大票
-        handlerStAdrCountMap(stockAdrCountMap, mvMin40, bkMap, condFind);
-        handlerStAdrCountMap(stockAdrCountMap, mvMin50, bkMap, condFind);
-        handlerStAdrCountMap(stockAdrCountMap, mvMin200, bkMap, condFind);
-        handlerStAdrCountMap(stockAdrCountMap, mvMin500, bkMap, condFind);
-        handlerStAdrCountMap(stockAdrCountMap, mvMin1000, bkMap, condFind);
+//        BigDecimal mvMin1000 = NUM_YI_1000;//
+//        BigDecimal mvMin500 = NUM_YI_500;//
+//        BigDecimal mvMin200 = NUM_YI_200;//
+//        BigDecimal mvMin50 = NUM_YI_50;//
+//        BigDecimal mvMin40 = NUM_YI_40;//
+        handlerStAdrCountMap(stockAdrCountMap, NUM_YI_40, bkMap, condFind);
+        handlerStAdrCountMap(stockAdrCountMap, NUM_YI_50, bkMap, condFind);
+        handlerStAdrCountMap(stockAdrCountMap, NUM_YI_200, bkMap, condFind);
+        handlerStAdrCountMap(stockAdrCountMap, NUM_YI_500, bkMap, condFind);
+        handlerStAdrCountMap(stockAdrCountMap, NUM_YI_1000, bkMap, condFind);
         for (StockAdrCountVo stockAdrCount : stockAdrCountMap.values()) {
             stockAdrCountListBkAll.add(stockAdrCount);
         }
@@ -209,17 +213,22 @@ public class StockAdrStat {
     private static Map<String, List<String>> getBizListSp() {
         Map<String, List<String>> bkMap = new HashMap<>();
         List<String> bizList = null;//
-        // 消费："纺织服装","航空机场","食品饮料","家电行业","酿酒行业","贸易行业","文化传媒","物流行业","商业百货","旅游酒店","游戏","美容护理"
-//        bizList = Arrays.asList("纺织服装","航空机场","食品饮料","家电行业","酿酒行业","贸易行业","文化传媒","物流行业","商业百货","旅游酒店","游戏","美容护理");//消费:("家电行业","商业百货")
-        bizList = Arrays.asList("化学制药");//医疗
+//        bizList = Arrays.asList("半导体","消费电子","光学光电子","电子化学品");//科技:芯片
+
+        bizList = Arrays.asList("酿酒行业");//消费："旅游酒店","航空机场","食品饮料","铁路公路","商业百货","纺织服装","物流行业","酿酒行业","装修装饰","家电行业","贸易行业","文化传媒","游戏","美容护理"
+//
+//        bizList = Arrays.asList("航运港口");//资源-:"航运港口"
+//        bizList = Arrays.asList("小金属");//资源:
+//        bizList = Arrays.asList("包装材料");//资源:
+//        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
+
+//        bizList = Arrays.asList("农牧饲渔");//资源-农业:"化肥行业","农牧饲渔","农药兽药"
+//        bizList = Arrays.asList("化学制药");//医疗
 //        bizList = Arrays.asList("生物制品", "医药商业", "医疗服务", "中药", "医疗器械", "化学制药");//医疗
 //        bizList = Arrays.asList("橡胶制品");//医疗
 //        bizList = Arrays.asList("风电设备");//科技:电力
 //        bizList = Arrays.asList("光伏设备", "电网设备", "电源设备", "电池", "电力行业", "电机", "风电设备", "通用设备");//科技:电力
 //        bizList = Arrays.asList("互联网服务","软件开发");//板块-分类-科技:电力
-//        bizList = Arrays.asList("有色金属");//板块-分类-科技:电力
-//        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
-//        bizList = Arrays.asList("化肥行业","农牧饲渔","农药兽药");//资源-农业:
 //        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
 //        bizList = Arrays.asList("船舶制造");//资源:交运:("船舶制造")
 //        bizList = Arrays.asList("多元金融", "银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
@@ -371,7 +380,8 @@ public class StockAdrStat {
 //                }
 
                 BigDecimal areaAdr = KlineService.findAreaAdr(code, spDateBeg, spDateEnd, KLT_101);
-                sb.append("[" + StockUtil.formatDouble(areaAdr, 8) + "]");
+//                sb.append("[" + StockUtil.formatDouble(areaAdr, 8) + "]");
+                sb.append(StockUtil.formatDouble(areaAdr, sizeMap.get("区涨")));
             }
             sb.append(StockUtil.formatDouble(marketValue, 8));
             String keyNameArea5 = "区5";
@@ -423,7 +433,7 @@ public class StockAdrStat {
             if (isShowCurNet) {
                 String keyNameMaWeek60Pct = "60周比";
                 BigDecimal maWeek60 =stockAdrCount.getMA_NET_60_102();
-                if (curAmt != null && maxAmt != null) {
+                if (curAmt != null && maWeek60 != null) {
                     BigDecimal week60Pct = curAmt.subtract(maWeek60).divide(curAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
                     sb.append(StockUtil.formatDouble(week60Pct, sizeMap.get(keyNameMaWeek60Pct)));
                 } else {
@@ -472,6 +482,8 @@ public class StockAdrStat {
         sizeMap.put(keyNameTodayAdr, 6);
         sizeMap.put(keyNameMaxDown, 6);
         sizeMap.put(keyNameMaWeek60Pct, 6);
+        String keyAreaAdr = "区涨";
+        sizeMap.put(keyAreaAdr, 6);
         sbHead.append(StockUtil.formatStName(orderNo, sizeMap.get(orderNo)));
         if (isShowCode) {
             sbHead.append(StockUtil.formatStName("编码", sizeMap.get("编码")));
@@ -501,7 +513,7 @@ public class StockAdrStat {
         sbHead.append(StockUtil.formatStName(keyNameMaxDown, sizeMap.get(keyNameMaxDown)));
         if (isShowAreaAdr) {
 //            sbHead.append(StockUtil.formatStName(spDateBeg.substring(5), 5));
-            sbHead.append(StockUtil.formatStName("区间涨幅", 5));
+            sbHead.append(StockUtil.formatStName(keyAreaAdr, sizeMap.get(keyAreaAdr)));
         }
 //        if (StringUtils.isNotBlank(spDateEnd)) {
 //            sbHead.append("至");

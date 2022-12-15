@@ -185,6 +185,12 @@ public interface KlineMapper {
             "       #{item} ",
             "   </foreach> ",
             "   </if> ",
+            "   <if test='dateList != null'> ",
+            "   AND kline.date IN  ",
+            "   <foreach collection='dateList' item='item' open='(' separator=',' close=')'>  ",
+            "       #{item} ",
+            "   </foreach> ",
+            "   </if> ",
             " ORDER BY ",
             "   kline.zhangDieFu DESC  ",
             "</script>"})
