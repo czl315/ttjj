@@ -56,11 +56,11 @@ public class KlineControl {
         List<String> kltList_101_5 = Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101);
         List<String> kltList_101 = Arrays.asList(KLT_101);
 
-        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, kltList_101_5, handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS), isUpdateMv, funcName);//
-        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_ETF), isUpdateMv, funcName);
-        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_BAN_KUAI), isUpdateMv, funcName);//
-        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_GAI_NIAN, Arrays.asList(KLT_101, KLT_60), handlerZqMap(date, DB_RANK_BIZ_TYPE_GAI_NIAN), isUpdateMv, funcName);//
-        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ETF), isUpdateMv, funcName);//全部etf
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ZS, kltList_101_5, handlerZqMap(date, DB_RANK_BIZ_TYPE_ZS), isUpdateMv, funcName,true);//
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_ETF), isUpdateMv, funcName,true);
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_BAN_KUAI, kltList_101_15, handlerZqMap(date, DB_RANK_BIZ_TYPE_BAN_KUAI), isUpdateMv, funcName,true);//
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_GAI_NIAN, Arrays.asList(KLT_101, KLT_60), handlerZqMap(date, DB_RANK_BIZ_TYPE_GAI_NIAN), isUpdateMv, funcName,true);//
+        saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101, handlerZqMap(date, DB_RANK_BIZ_TYPE_ETF), isUpdateMv, funcName,true);//全部etf
 
         updateFundFlow(date, DB_RANK_BIZ_TYPE_ZS, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
         updateFundFlow(date, DB_RANK_BIZ_TYPE_BAN_KUAI, Arrays.asList(KLT_101, KLT_60, KLT_30, KLT_15));
@@ -126,14 +126,14 @@ public class KlineControl {
      * @param isUpdateMv
      * @param funcName
      */
-    public static void saveKlineAndMv(String date, String bizType, List<String> kltList, Map<String, String> mapZq, Boolean isUpdateMv, String funcName) {
+    public static void saveKlineAndMv(String date, String bizType, List<String> kltList, Map<String, String> mapZq, Boolean isUpdateMv, String funcName, boolean isDelete) {
         long timeBeg = System.currentTimeMillis();
         System.out.println("保存K线，更新市值,更新均线价格" + date + "," + bizType + "-beg");
         StopWatch sw = new StopWatch(funcName + ":" + bizType);
         sw.start(bizType);
         for (String klt : kltList) {
             // 保存指数k线：5分钟-天, date, KLT_60, bizType);
-            KlineService.saveKlineByType(mapZq, date, klt, bizType, true);
+            KlineService.saveKlineByType(mapZq, date, klt, bizType, isDelete);
         }
         sw.stop();
 

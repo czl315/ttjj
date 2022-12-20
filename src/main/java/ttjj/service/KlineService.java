@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import ttjj.dao.KlineDao;
 import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.AssetPositionDb;
@@ -1697,6 +1698,7 @@ public class KlineService {
         boolean isShowLog = true;
         int deleRs = 0;
         int saveRs = 0;
+        int updateRs = 0;
         for (String zqdm : mapZq.keySet()) {
             String zqmc = mapZq.get(zqdm);
             List<Kline> klines = null;
@@ -1717,7 +1719,6 @@ public class KlineService {
                 condition.setType(type);
                 condition.setKlt(klt);
                 deleRs += KlineService.deleteByCondition(condition);
-//                System.out.println(zqdm + "," + date + ",删除结果：" + deleRs);
             }
 
             if (klines == null) {
@@ -1730,14 +1731,27 @@ public class KlineService {
                 kline.setDate(date);
                 kline.setType(type);
                 kline.setRs(null);
-                /**
-                 * 插入数据库-K线
-                 */
-                saveRs += KlineService.insert(kline);
+
+                //如果数据已存在，更新，否则插入
+                CondKline condition = new CondKline();
+                BeanUtils.copyProperties(kline, condition);
+                List<Kline> klineList = KlineService.listKine(condition);
+                if (klineList != null && klineList.size() > 0) {
+                    updateRs += KlineService.update(kline);
+//                    System.out.println(date + "," + type + "," + klt + ",更新K线：" + updateRs);
+                } else {
+                    /**
+                     * 插入数据库-K线
+                     */
+                    saveRs += KlineService.insert(kline);
+//                    System.out.println(date + "," + type + "," + klt + ",插入K线：" + saveRs);
+                }
             }
         }
         System.out.println(date + ",删除结果：" + deleRs);
+        System.out.println(date + "," + type + "," + klt + ",更新K线：" + updateRs);
         System.out.println(date + "," + type + "," + klt + ",插入K线：" + saveRs);
+
     }
 
     /**
@@ -2549,6 +2563,7 @@ public class KlineService {
 
     /**
      * 构造数据列表-主力净流入-根据日期列表
+     *
      * @param dateList
      * @param bizType
      * @param timeKlt

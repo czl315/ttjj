@@ -494,15 +494,15 @@ public class KlineStat {
      */
     private static void statAdrByTime() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-12-15";
+//        String date = "2022-12-14";
 
 //        String type = DB_RANK_BIZ_TYPE_ETF;
         String type = DB_RANK_BIZ_TYPE_BAN_KUAI;
 //        String type = DB_RANK_BIZ_TYPE_GAI_NIAN;
 
 //        String klt = KLT_101;
-        String klt = KLT_60;
-//        String klt = KLT_30;
+//        String klt = KLT_60;
+        String klt = KLT_30;
 //        String klt = KLT_15;
 //        String klt = KLT_5;
 
@@ -677,6 +677,8 @@ public class KlineStat {
      * @param isShowAll 是否显示所有
      */
     private static void showKline(String date, String type, String klt, String orderTime, String orderKlt, boolean isMainEtf, boolean isShowAll, boolean isOnlyUp, BigDecimal up, boolean isOnlyDown, BigDecimal down) {
+        String bizName = null;
+//        String bizName = "半导体";
         boolean isShowCode = false;
         //排序列表
         CondKline cond = new CondKline();
@@ -719,13 +721,13 @@ public class KlineStat {
         }
 
         //排序：按照指定字段排序。
-        String orderField = ORDER_FIELD_FLOW_IN_MAIN_PCT;//ORDER_FIELD_AREA_ADR ORDER_FIELD_FLOW_IN_MAIN_PCT
+        String orderField = ORDER_FIELD_FLOW_IN_MAIN;//ORDER_FIELD_AREA_ADR ORDER_FIELD_FLOW_IN_MAIN_PCT
         boolean isDesc = true;
         orderDtoList = KlineService.handlerOrderKline(orderDtoList, orderField, isDesc);//列表-排序：根据字段
 
         List<StringBuffer> sbList = null;
         if (isShowAll) {
-            sbList = handlerInfo(orderDtoList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, false, null, false, null, sizeMap);
+            sbList = handlerInfo(orderDtoList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, false, null, false, null, sizeMap, bizName);
 
             for (StringBuffer sb : sbList) {
                 System.out.println(sb);
@@ -735,7 +737,7 @@ public class KlineStat {
             if (isOnlyUp) {
                 System.out.println();
                 System.out.println(new StringBuffer("当前时间：").append(date + " " + orderTime).append(",上涨列表"));
-                sbList = handlerInfo(orderDtoList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, true, up, false, down, sizeMap);
+                sbList = handlerInfo(orderDtoList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, true, up, false, down, sizeMap, bizName);
                 for (StringBuffer sb : sbList) {
                     System.out.println(sb);
                 }
@@ -745,7 +747,7 @@ public class KlineStat {
             if (isOnlyDown) {
                 System.out.println();
                 System.out.println(new StringBuffer("当前时间：").append(orderTime).append(",下跌列表"));
-                sbList = handlerInfo(orderDtoList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, false, up, true, down, sizeMap);
+                sbList = handlerInfo(orderDtoList, mapKlineListCurDay, date, type, klt, timeList, isMainEtf, false, up, true, down, sizeMap, bizName);
                 for (StringBuffer sb : sbList) {
                     System.out.println(sb);
                 }
@@ -873,17 +875,21 @@ public class KlineStat {
      * @param isMainEtf
      * @param isOnlyUp           只处理上涨
      * @param sizeMap
+     * @param bizName
      * @return
      */
-    private static List<StringBuffer> handlerInfo(List<CondKline> orderList, Map<String, Kline> mapKlineListCurDay, String date, String type, String klt, List<String> timeList, boolean isMainEtf, boolean isOnlyUp, BigDecimal up, boolean isOnlyDown, BigDecimal down, Map<String, Integer> sizeMap) {
+    private static List<StringBuffer> handlerInfo(List<CondKline> orderList, Map<String, Kline> mapKlineListCurDay, String date, String type, String klt, List<String> timeList, boolean isMainEtf, boolean isOnlyUp, BigDecimal up, boolean isOnlyDown, BigDecimal down, Map<String, Integer> sizeMap, String bizName) {
         int sizeName = 16;
         int sizeAdr = 10;
         int sizeFlowInCurDay = 6;
-        String flowInMainName = "流市比";
-        String timePried = "时段";
-        int sizeFlowInMainName = 8;
-        int sizeTime = 6;
+        String flowInMainName = "流率";
+        int sizeFlowInMainName = 4;
         sizeMap.put(flowInMainName, sizeFlowInMainName);
+        String keyFlowInMain = "流入";
+        int keySizeFlowInMain = 6;
+        sizeMap.put(keyFlowInMain, keySizeFlowInMain);
+        String timePried = "时段";
+        int sizeTime = 6;
         sizeMap.put(timePried, sizeTime);
         StringBuffer sbHead = new StringBuffer();//首行标题信息
         boolean isShowCode = false;
@@ -903,7 +909,8 @@ public class KlineStat {
         }
         for (String time : timeList) {
             sbHead.append(StockUtil.formatStName(time.substring(0, 6), 6));
-            sbHead.append(StockUtil.formatStName(flowInMainName, sizeMap.get(flowInMainName)));
+//            sbHead.append(StockUtil.formatStName(flowInMainName, sizeMap.get(flowInMainName)));
+            sbHead.append(StockUtil.formatStName(":" + keyFlowInMain, sizeMap.get(keyFlowInMain)));
         }
         System.out.println(sbHead);//首行标题信息);
 
@@ -919,6 +926,9 @@ public class KlineStat {
         for (CondKline dto : orderList) {
             //检查是否是主要etf
             if (isMainEtf && !EtfUtil.isMainEtf(dto.getZqdm())) {
+                continue;
+            }
+            if (bizName != null && !bizName.equals(dto.getZqmc())) {
                 continue;
             }
 //            if (isOnlyUp && dto.getZhangDieFu().compareTo(up) <= 0) {
@@ -970,10 +980,12 @@ public class KlineStat {
                         if (sizeMap.containsKey(flowInMainName)) {
                             if (klineTime.getFlowInMain() != null) {
                                 BigDecimal flowInMain = klineTime.getFlowInMain();
-                                BigDecimal flowRate = flowInMain.divide(klineTime.getF20(), 12, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100000").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(0, BigDecimal.ROUND_HALF_UP);
-                                sb.append(StockUtil.formatDouble(flowRate, sizeMap.get(flowInMainName)));
+                                BigDecimal flowInMainYi = klineTime.getFlowInMain().divide(NUM_YI_1, 1, BigDecimal.ROUND_HALF_UP);
+//                                BigDecimal flowRate = flowInMain.divide(klineTime.getF20(), 12, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("100000").setScale(4, BigDecimal.ROUND_HALF_UP)).setScale(0, BigDecimal.ROUND_HALF_UP);
+//                                sb.append(StockUtil.formatStr(":" + flowRate, sizeMap.get(flowInMainName)));
+                                sb.append(StockUtil.formatStr(":" + flowInMainYi, sizeMap.get(keyFlowInMain)));
                             } else {
-                                sb.append(StockUtil.formatDouble(null, sizeMap.get(flowInMainName)));
+                                sb.append(StockUtil.formatStr(":", sizeMap.get(flowInMainName)));
                             }
                         }
 //                        sb.append("]");
@@ -998,7 +1010,7 @@ public class KlineStat {
         int sizeName = 16;
         int sizeAdr = 10;
         int sizeFlowInCurDay = 6;
-        String flowInMainName = "流市比";
+        String flowInMainName = "流率";
         String timePried = "时段";
         int sizeFlowInMainName = 8;
         int sizeTime = 6;
