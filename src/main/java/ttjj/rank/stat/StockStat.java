@@ -29,8 +29,8 @@ public class StockStat {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-08-04";
 
-//        statListAdrArea();//计算区间涨幅
-        statStockUpDownCount(date);//股票涨跌个数
+        statListAdrArea();//计算区间涨幅
+//        statStockUpDownCount(date);//股票涨跌个数
 
 //        statSuperDropBounce();//  超跌反弹
 //        statMaBreakUp();//突破均线
@@ -155,13 +155,13 @@ public class StockStat {
 //        String date = "2022-08-26";
 
 
-        int areaDays = 4;//4:近一周;20:近一月
+        int areaDays = 0;//4:近一周;20:近一月
 //        Long board = null;
         Long board = DB_RANK_BIZ_F19_BK_MAIN;
 //        BigDecimal mvMin = null;//
-        BigDecimal mvMin = NUM_YI_200;//NUM_YI_1000
+        BigDecimal mvMin = NUM_YI_1000;//NUM_YI_1000
         BigDecimal mvMax = null;
-        int limit = 20;
+        int limit = 50;
 
         boolean isDesc = true;
 //        boolean isDesc = false;

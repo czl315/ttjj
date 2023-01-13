@@ -2552,11 +2552,11 @@ public class KlineService {
         for (String time : timeList) {
             if (time != null && time.length() >= 10) {
                 sbHead.append(StockUtil.formatStName(time.substring(5, 10), size));
-                if (isShowTimeListAdr) {
-                    sbHead.append(StockUtil.formatStName("涨", size));
-                }
             } else {
                 sbHead.append(StockUtil.formatStName(time, size));
+            }
+            if (isShowTimeListAdr) {
+                sbHead.append(StockUtil.formatStName("涨", size));
             }
         }
     }
@@ -2603,6 +2603,7 @@ public class KlineService {
             } else {
                 sb.append(StockUtil.formatStName("", size));
             }
+
         }
         return sb;
     }

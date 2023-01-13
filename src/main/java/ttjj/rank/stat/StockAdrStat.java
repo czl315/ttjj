@@ -38,13 +38,13 @@ public class StockAdrStat {
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-12-13";
+//        String date = "2023-01-03";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
 //        String spDateBeg = "2022-12-14";//
 //        String spDateEnd = "2022-12-14";//
         Long board = DB_RANK_BIZ_F139_BK_MAIN;
-        int limitCount = 11;
+        int limitCount = 3;
         CondStockAdrCount condFind = new CondStockAdrCount();
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
@@ -69,7 +69,7 @@ public class StockAdrStat {
 
 //        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
 //        condFind.setMaxNetAreaDay60(new BigDecimal("25"));
-        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
 //        condFind.setF10Min(new BigDecimal("2.0"));
 
@@ -111,7 +111,7 @@ public class StockAdrStat {
      * @param mvMin
      */
     private static void findStCodeLikeConception(CondStockAdrCount condFind, String date, Long board, BigDecimal mvMin) {
-        String conceptions = "复合集流体,eSIM,Chiplet概念,汽车芯片,IGBT概念,中芯概念,第三代半导体,PVDF概念,光刻胶,半导体概念";//科技-芯片：复合集流体,eSIM,Chiplet概念,汽车芯片,IGBT概念,中芯概念,第三代半导体,PVDF概念,光刻胶,半导体概念,
+//        String conceptions = "复合集流体,eSIM,Chiplet概念,汽车芯片,IGBT概念,中芯概念,第三代半导体,PVDF概念,光刻胶,半导体概念";//科技-芯片：复合集流体,eSIM,Chiplet概念,汽车芯片,IGBT概念,中芯概念,第三代半导体,PVDF概念,光刻胶,半导体概念,
 //        String conceptions = "HIT电池";//科技-光伏: HIT电池,光伏建筑一体化      ,太阳能        ["太阳能"];股票个数：168;
 
 //        String conceptions = "煤化工";//资源-煤炭：煤化工,稀缺资源,
@@ -119,6 +119,7 @@ public class StockAdrStat {
 
 //        String conceptions = "退税商店";//消费-零售:免税概念,退税商店,新零售,C2M概念,抖音小店
 //        String conceptions = "白酒";//消费-酒:白酒,啤酒概念
+        String conceptions = "预制菜概念";//消费-食品: 转基因,代糖概念,社区团购,预制菜概念,超级品牌,调味品概念,水产养殖,鸡肉概念,猪肉概念,乳业,人造肉
 
 //        String conceptions = "券商概念";//金融-券商:券商概念,互联金融,参股期货
 //        String conceptions = "银行 ";//金融-银行:银行,互联金融
@@ -211,28 +212,31 @@ public class StockAdrStat {
     private static Map<String, List<String>> getBizListSp() {
         Map<String, List<String>> bkMap = new HashMap<>();
         List<String> bizList = null;//
-        bizList = Arrays.asList("医疗器械");//医疗
+//        bizList = Arrays.asList("医疗器械");//医疗
 //        bizList = Arrays.asList("生物制品", "医药商业", "医疗服务", "中药", "医疗器械", "化学制药");//医疗
 
-//        bizList = Arrays.asList("半导体","消费电子","光学光电子","电子化学品");//科技:芯片
-
+//        bizList = Arrays.asList("航空机场");//消费：
 //        bizList = Arrays.asList("酿酒行业");//消费："旅游酒店","航空机场","食品饮料","铁路公路","商业百货","纺织服装","物流行业","酿酒行业","装修装饰","家电行业","贸易行业","文化传媒","游戏","美容护理"
 //
+//        bizList = Arrays.asList("化肥行业","农牧饲渔","农药兽药");//资源-农业:"化肥行业","农牧饲渔","农药兽药"
 //        bizList = Arrays.asList("航运港口");//资源-:"航运港口"
 //        bizList = Arrays.asList("小金属");//资源:
 //        bizList = Arrays.asList("包装材料");//资源:
+//        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
 //        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
 
-//        bizList = Arrays.asList("农牧饲渔");//资源-农业:"化肥行业","农牧饲渔","农药兽药"
-//        bizList = Arrays.asList("橡胶制品");//医疗
 //        bizList = Arrays.asList("风电设备");//科技:电力
+        bizList = Arrays.asList("交运设备");//科技:
+//        bizList = Arrays.asList("半导体","消费电子","光学光电子","电子化学品");//科技:芯片
 //        bizList = Arrays.asList("光伏设备", "电网设备", "电源设备", "电池", "电力行业", "电机", "风电设备", "通用设备");//科技:电力
+
+//        bizList = Arrays.asList("橡胶制品");//医疗
 //        bizList = Arrays.asList("互联网服务","软件开发");//板块-分类-科技:电力
-//        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
 //        bizList = Arrays.asList("船舶制造");//资源:交运:("船舶制造")
-//        bizList = Arrays.asList("多元金融", "银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
+
 //        bizList = Arrays.asList("证券");
-        //金融-房地产、基建:"水泥建材","房地产服务","工程机械","房地产开发","铁路公路","装修建材","装修装饰","工程建设","公用事业","工程咨询服务");//
+//        bizList = Arrays.asList("房地产开发");
+//        bizList = Arrays.asList("多元金融", "银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
 //        bizList = Arrays.asList("水泥建材", "房地产服务", "工程机械", "房地产开发", "铁路公路", "装修建材", "装修装饰", "工程建设", "公用事业", "工程咨询服务");//
 
         bkMap.put(bizList.get(0), bizList);//特定板块
@@ -319,7 +323,7 @@ public class StockAdrStat {
             BigDecimal order20to40 = stockAdrCount.getADR_UP_SUM_ORDER_20_40() != null ? stockAdrCount.getADR_UP_SUM_ORDER_20_40() : new BigDecimal("0");
             BigDecimal order40to60 = stockAdrCount.getADR_UP_SUM_ORDER_40_60() != null ? stockAdrCount.getADR_UP_SUM_ORDER_40_60() : new BigDecimal("0");
 
-            BigDecimal marketValue = stockAdrCount.getF20().divide(new BigDecimal("100000000"), 2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal marketValue = stockAdrCount.getF20().divide(NUM_YI_1, 0, BigDecimal.ROUND_HALF_UP);
             BigDecimal order_1_60 = order1to20.add(order20to40).add(order40to60);
 
             sb.append(StockUtil.formatStName(String.valueOf(++number), sizeMap.get("序号")));

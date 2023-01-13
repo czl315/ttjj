@@ -842,7 +842,7 @@ public class StockControl {
      *
      * @param date
      */
-    private static void addTodayStCom(String date, int startNum) {
+    public static void addTodayStCom(String date, int startNum) {
         List<RankBizDataDiff> bkList = StockService.listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
         int bizCountLimit = NUM_MAX_999;
         int bizCountTemp = 0;
@@ -877,7 +877,7 @@ public class StockControl {
      * @param startNum
      * @param isReport
      */
-    private static void updateNetToday(String date, int startNum, Map<String, Boolean> maUpdateMap, boolean isReport, BigDecimal limitMarketValue) {
+    public static void updateNetToday(String date, int startNum, Map<String, Boolean> maUpdateMap, boolean isReport, BigDecimal limitMarketValue) {
         List<RankBizDataDiff> bkList = StockService.listBiz(NUM_MAX_999);//查询主题排名by时间类型、显示个数
         int bizCountLimit = NUM_MAX_999;
         int bizCountTemp = 0;
@@ -1384,7 +1384,7 @@ public class StockControl {
      * @param date
      * @param startNum
      */
-    private static void updateConception(String date, int startNum) {
+    public static void updateConception(String date, int startNum) {
         List<RankBizDataDiff> bkList = StockService.listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
         List<RankBizDataDiff> bkListMust = new ArrayList<>();//查询主题排名by时间类型、显示个数
         int bizCountLimit = NUM_MAX_999;

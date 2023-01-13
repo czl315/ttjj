@@ -115,10 +115,10 @@ public class KlineStat {
      */
     private static void statListAdrArea(String bizType) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-12-08";
+//        String date = "2022-12-21";
         boolean isAllList = true;//是否显示全列表
 //        boolean isAllList = false;//是否显示全列表
-        int areaDays = 0;//4:近一周;20:近一月
+        int areaDays = 2;//4:近一周;20:近一月
         int days = 0;
         List<String> dateList = StockService.findListDateBefore(date, days);
         for (String curDate : dateList) {
@@ -494,15 +494,15 @@ public class KlineStat {
      */
     private static void statAdrByTime() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2022-12-14";
+//        String date = "2022-12-28";
 
 //        String type = DB_RANK_BIZ_TYPE_ETF;
         String type = DB_RANK_BIZ_TYPE_BAN_KUAI;
 //        String type = DB_RANK_BIZ_TYPE_GAI_NIAN;
 
 //        String klt = KLT_101;
-//        String klt = KLT_60;
-        String klt = KLT_30;
+        String klt = KLT_60;
+//        String klt = KLT_30;
 //        String klt = KLT_15;
 //        String klt = KLT_5;
 
@@ -908,7 +908,7 @@ public class KlineStat {
             sbHead.append(StockUtil.formatStName("日主流", sizeFlowInCurDay));
         }
         for (String time : timeList) {
-            sbHead.append(StockUtil.formatStName(time.substring(0, 6), 6));
+            sbHead.append(StockUtil.formatStName(time.substring(0, 5), 6));
 //            sbHead.append(StockUtil.formatStName(flowInMainName, sizeMap.get(flowInMainName)));
             sbHead.append(StockUtil.formatStName(":" + keyFlowInMain, sizeMap.get(keyFlowInMain)));
         }
@@ -976,7 +976,8 @@ public class KlineStat {
                     }
                     if (time.equals(klineTime.getKtime())) {
 //                        sb.append("[");
-                        sb.append(StockUtil.formatDouble(klineTime.getZhangDieFu(), sizeMap.get(timePried)));
+//                        sb.append(StockUtil.formatDouble(klineTime.getZhangDieFu(), sizeMap.get(timePried)));
+                        sb.append(StockUtil.formatStr("", sizeMap.get(timePried)));
                         if (sizeMap.containsKey(flowInMainName)) {
                             if (klineTime.getFlowInMain() != null) {
                                 BigDecimal flowInMain = klineTime.getFlowInMain();

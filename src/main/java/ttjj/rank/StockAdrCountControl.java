@@ -650,7 +650,7 @@ public class StockAdrCountControl {
     }
 
 
-    private static void save(String date, List<RankBizDataDiff> bizList, boolean isDelete, String spBizName, CondStockAdrCount stockAdrCountCond) {
+    public static void save(String date, List<RankBizDataDiff> bizList, boolean isDelete, String spBizName, CondStockAdrCount stockAdrCountCond) {
         String spDate = "";//        String spDate = "2022-05-18";//是否显示特定日期涨跌
         List<BigDecimal> adrMinList = Arrays.asList(new BigDecimal("1"), new BigDecimal("2"), new BigDecimal("3"), new BigDecimal("4"), new BigDecimal("5"), new BigDecimal("6"), new BigDecimal("7"), new BigDecimal("8"), new BigDecimal("9"), new BigDecimal("9.9"));
         List<Integer> daysList = Arrays.asList(TRADE_DAYS_60, TRADE_DAYS_40, TRADE_DAYS_20, TRADE_DAYS_10, TRADE_DAYS_5, TRADE_DAYS_3, TRADE_DAYS_2, TRADE_DAYS_1);

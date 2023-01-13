@@ -59,6 +59,7 @@ public interface KlineMapper {
             "    <if test='cjl != null'>cjl=#{cjl},</if>",
             "    <if test='cje != null'>cje=#{cje},</if>",
             "    <if test='zhenFu != null'>zhenFu=#{zhenFu},</if>",
+            "    <if test='zhangDieFu != null'>zhangDieFu=#{zhangDieFu},</if>",
             "    <if test='zhangDieE != null'>zhangDieE=#{zhangDieE},</if>",
             "    <if test='huanShouLv != null'>huanShouLv=#{huanShouLv},</if>",
             "    <if test='month != null'>month=#{month},</if>",

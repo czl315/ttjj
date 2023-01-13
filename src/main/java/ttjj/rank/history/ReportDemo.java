@@ -27,8 +27,8 @@ public class ReportDemo {
         // String date = "2021-09-24";
         int indexBeg = 0;//行业序号：从0开始
         int indexEnd = NUM_MAX_999;//行业序号-结束
-        String reportQuete = "2022Q2";
-        String reportDate = "2022-06-30 00:00:00";
+        String reportQuete = "2022Q4";
+        String reportDate = "2022-12-31 00:00:00";
         String reportName = REPORT_NAME_RPT_PUBLIC_OP_NEWPREDICT;
 
         //查询所有行业列表
