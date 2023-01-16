@@ -43,7 +43,7 @@ public class StockJob {
 //            StockControl.updateConception(date, startNum);//更新题材概念
             StockControl.updateTodayStCom(date, startNum);//更新股票
             System.out.println("运行次数" + (++countThread));
-            if (countThread % 2 == 0) {
+            if (countThread % 10 == 0) {
                 StockControl.updateNetToday(date, startNum, maUpdateMap, false, NUM_YI_40);//  更新净值
             }
             System.out.println("定时任务-股票-更新-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0) + "，用时：" + (System.currentTimeMillis() - begTime) / 1000);

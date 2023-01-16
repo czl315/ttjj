@@ -49,8 +49,8 @@ public class StockAdrCountControl {
         stockAdrCountCond.setMaKltList(maKltList);
         stockAdrCountCond.setUpdateNet(true);//用时：16
 
-//        stockAdrCountCond.setUpdateSum(true);//总花费时间：1381   (50)1116
-//        stockAdrCountCond.setUpdateOrder(true);
+        stockAdrCountCond.setUpdateSum(true);//总花费时间：1381   (50)1116
+        stockAdrCountCond.setUpdateOrder(true);
         stockAdrCountCond.setUpdateUpMa(true);//总花费时间：1225
         stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
         save(date, bizList, false, spBizName, stockAdrCountCond);

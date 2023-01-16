@@ -18,6 +18,8 @@ import static utils.Content.*;
  * 定时任务-etf
  */
 public class StAdrJob {
+    private static volatile int countThread = 0;//线程次数
+
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
         updateStAdrSchedule(date);//定时任务
@@ -51,10 +53,16 @@ public class StAdrJob {
             stockAdrCountCond.setMaKltList(maKltList);
             stockAdrCountCond.setUpdateNet(true);//用时：16
 
-//            stockAdrCountCond.setUpdateSum(true);//总花费时间：1116
-//            stockAdrCountCond.setUpdateOrder(true);
+
             stockAdrCountCond.setUpdateUpMa(true);//总花费时间：(40亿)用时：1454  (50亿)1225
-            stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
+            System.out.println("运行次数" + (++countThread));
+            if (countThread % 10 == 1) {
+                stockAdrCountCond.setUpdateSum(true);//总花费时间：1116
+                stockAdrCountCond.setUpdateOrder(true);
+            }
+            if (countThread % 15 == 1 && countThread > 1) {
+                stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
+            }
 
             StockAdrCountControl.save(date, bizList, false, spBizName, stockAdrCountCond);
             StockAdrCountControl.updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
