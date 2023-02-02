@@ -54,18 +54,19 @@ public class StAdrJob {
             stockAdrCountCond.setUpdateNet(true);//用时：16
 
 
-            stockAdrCountCond.setUpdateUpMa(true);//总花费时间：(40亿)用时：1454  (50亿)1225
-            System.out.println("运行次数" + (++countThread));
-            if (countThread % 10 == 1) {
+            if (countThread % 10 == 0) {
+                StockAdrCountControl.save(date, bizList, false, spBizName, stockAdrCountCond);
                 stockAdrCountCond.setUpdateSum(true);//总花费时间：1116
                 stockAdrCountCond.setUpdateOrder(true);
             }
-            if (countThread % 15 == 1 && countThread > 1) {
+            if (countThread % 5 == 1 ) {
                 stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
             }
+            stockAdrCountCond.setUpdateUpMa(true);//总花费时间：(40亿)用时：1454  (50亿)1225
 
-            StockAdrCountControl.save(date, bizList, false, spBizName, stockAdrCountCond);
             StockAdrCountControl.updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
+
+            System.out.println("运行次数" + (++countThread));
             System.out.println("定时任务-" + jobName + "-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
         }, 0, 5, TimeUnit.MINUTES);
     }

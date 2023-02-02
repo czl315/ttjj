@@ -81,6 +81,10 @@ public class CondMa {
      * 是否显示均线百分比
      */
     private Boolean isShowPct;
+    /**
+     * 显示均线百分比 -周期列表
+     */
+    private List<String> showPctKltList;
 
     /**
      * kltList 周期列表
@@ -241,5 +245,13 @@ public class CondMa {
 
     public void setShowPct(Boolean showPct) {
         isShowPct = showPct;
+    }
+
+    public List<String> getShowPctKltList() {
+        return showPctKltList;
+    }
+
+    public void setShowPctKltList(List<String> showPctKltList) {
+        this.showPctKltList = showPctKltList;
     }
 }

@@ -39,13 +39,15 @@ public class StockJob {
             StockControl.setMaMapType(MA_TYPE_MINUTE15, maUpdateMap);
             StockControl.setMaMapType(MA_TYPE_WEEK, maUpdateMap);
 
-//            StockControl.addTodayStCom(date, startNum);//  添加或更新股票-根据日期
-//            StockControl.updateConception(date, startNum);//更新题材概念
+            StockControl.addTodayStCom(date, startNum);//  添加或更新股票-根据日期
             StockControl.updateTodayStCom(date, startNum);//更新股票
-            System.out.println("运行次数" + (++countThread));
-            if (countThread % 10 == 0) {
+            if (countThread % 20 == 0) {
+                StockControl.updateConception(date, startNum);//更新题材概念
+            }
+            if (countThread % 5 == 1) {
                 StockControl.updateNetToday(date, startNum, maUpdateMap, false, NUM_YI_40);//  更新净值
             }
+            System.out.println("运行次数" + (++countThread));
             System.out.println("定时任务-股票-更新-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0) + "，用时：" + (System.currentTimeMillis() - begTime) / 1000);
         }, 0, 5, TimeUnit.MINUTES);
     }
