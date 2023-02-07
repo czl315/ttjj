@@ -289,7 +289,13 @@ public class StockService {
         BigDecimal minPrice = netMap.get(keyRsMin);
         BigDecimal maxPrice = netMap.get(keyRsMax);
         if (curPrice != null && minPrice != null && maxPrice != null) {
-            curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal maxSubMinPrice = maxPrice.subtract(minPrice);
+            BigDecimal zero = new BigDecimal("0");
+            if (maxSubMinPrice.compareTo(zero) == 0) {
+                curPriceArea = zero;
+            } else {
+                curPriceArea = curPrice.subtract(minPrice).divide(maxSubMinPrice, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
+            }
         }
         return curPriceArea;
     }
@@ -318,6 +324,7 @@ public class StockService {
 
     /**
      * 查询交易日期列表
+     *
      * @param dateCond
      * @return
      */

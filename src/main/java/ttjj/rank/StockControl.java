@@ -1921,26 +1921,33 @@ public class StockControl {
      */
     private static String handlerAvgLine(String strHead, Map<String, BigDecimal> netMap) {
         StringBuffer sb = new StringBuffer();
+        String curPriceAreaStr = "";
 
         BigDecimal curPrice = netMap.get(keyRsNetClose);
         BigDecimal minPrice = netMap.get(keyRsMin);
         BigDecimal maxPrice = netMap.get(keyRsMax);
         if (curPrice != null && minPrice != null && maxPrice != null && maxPrice.compareTo(new BigDecimal("0")) != 0) {
-            BigDecimal curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
+            BigDecimal zero = new BigDecimal("0");
+            BigDecimal maxSubMinPrice = maxPrice.subtract(minPrice);
+            if (maxSubMinPrice.compareTo(zero) == 0) {
+                sb.append(strHead).append(zero).append("\t");
+            } else {
+                BigDecimal curPriceArea = curPrice.subtract(minPrice).divide(maxPrice.subtract(minPrice), 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
 //            sb.append(strHead).append("区间：").append("\t").append(curPriceArea).append("%").append(",");
 //            sb.append(strHead).append(curPriceArea).append("%").append(",");
-            String curPriceAreaStr = "";
-            int priceSize = curPriceArea.toString().length();
-            if (curPriceArea != null) {
-                curPriceAreaStr = curPriceArea.toString();
+                int priceSize = curPriceArea.toString().length();
+                if (curPriceArea != null) {
+                    curPriceAreaStr = curPriceArea.toString();
+                }
+                if (priceSize <= 4) {
+                    curPriceAreaStr = curPriceArea.toString() + "  ";
+                }
+                if (priceSize > 4 && priceSize < 6) {
+                    curPriceAreaStr = curPriceArea.toString() + " ";
+                }
+                sb.append(strHead).append(curPriceAreaStr).append("\t");
             }
-            if (priceSize <= 4) {
-                curPriceAreaStr = curPriceArea.toString() + "  ";
-            }
-            if (priceSize > 4 && priceSize < 6) {
-                curPriceAreaStr = curPriceArea.toString() + " ";
-            }
-            sb.append(strHead).append(curPriceAreaStr).append("\t");
+
         }
 //        sb.append("\t").append(strHead).append("：").append("\t").append(netMap.get(keyRsNetCloseAvg));
 //        sb.append("\t").append(",最低：").append("\t").append(minPrice);
