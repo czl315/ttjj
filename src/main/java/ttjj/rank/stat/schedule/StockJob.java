@@ -41,8 +41,8 @@ public class StockJob {
 
             StockControl.updateTodayStCom(date, startNum);//更新股票
             if (countThread % 20 == 0) {
-//                StockControl.addTodayStCom(date, startNum);//  添加或更新股票-根据日期
-//                StockControl.updateConception(date, startNum);//更新题材概念
+                StockControl.addTodayStCom(date, startNum);//  添加或更新股票-根据日期
+                StockControl.updateConception(date, startNum);//更新题材概念
             }
             if (countThread % 5 == 1) {
                 StockControl.updateNetToday(date, startNum, maUpdateMap, false, NUM_YI_40);//  更新净值

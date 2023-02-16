@@ -53,7 +53,6 @@ public class StAdrJob {
             stockAdrCountCond.setMaKltList(maKltList);
             stockAdrCountCond.setUpdateNet(true);//用时：16
 
-
             if (countThread % 10 == 0) {
                 StockAdrCountControl.save(date, bizList, false, spBizName, stockAdrCountCond);
                 stockAdrCountCond.setUpdateSum(true);//总花费时间：1116

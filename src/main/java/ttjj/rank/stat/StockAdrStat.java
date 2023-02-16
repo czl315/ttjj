@@ -63,9 +63,9 @@ public class StockAdrStat {
         condFind.setADR_UP_SUM_20_40(null);
 
 //        condFind.setUP_MA_30("30(60)");
-//        condFind.setUP_MA_60("60(60)");
+        condFind.setUP_MA_60("60(60)");
 //        condFind.setUP_MA_101("101(60)");
-        condFind.setUP_MA_102("102(60)");
+//        condFind.setUP_MA_102("102(60)");
 
 //        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
 //        condFind.setMaxNetAreaDay60(new BigDecimal("25"));
