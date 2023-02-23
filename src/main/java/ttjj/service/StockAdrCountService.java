@@ -17,6 +17,16 @@ public class StockAdrCountService {
     /**
      * 批量插入
      *
+     * @param stockAdrCount
+     * @return
+     */
+    public static Integer insert(StockAdrCount stockAdrCount) {
+        return StockAdrCountDao.insert(stockAdrCount);
+    }
+
+    /**
+     * 批量插入
+     *
      * @param list
      * @return
      */
@@ -34,6 +44,7 @@ public class StockAdrCountService {
         return rs;
     }
 
+
     /**
      * 批量插入：插入之前先查询是否存在(日期和code)，如果存在则先删除再插入
      *
@@ -49,7 +60,7 @@ public class StockAdrCountService {
             StockAdrCount entity = StockAdrCountDao.findByCondition(stockAdrCount);
             if (entity != null) {
                 int deleRs = StockAdrCountDao.deleteByCondition(entity);
-                System.out.println("数据已存在，先删除:" + deleRs + ";" );//+ JSON.toJSONString(entity)
+                System.out.println("数据已存在，先删除:" + deleRs + ";");//+ JSON.toJSONString(entity)
             }
             /**
              * 插入数据库-K线
@@ -62,6 +73,7 @@ public class StockAdrCountService {
 
     /**
      * 查询列表-根据条件
+     *
      * @param condition
      * @return
      */
@@ -71,6 +83,7 @@ public class StockAdrCountService {
 
     /**
      * 更新
+     *
      * @param stockAdrCount 更新内容和条件
      * @return 结果
      */
