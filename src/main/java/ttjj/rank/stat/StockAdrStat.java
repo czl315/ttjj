@@ -44,7 +44,7 @@ public class StockAdrStat {
 //        String spDateBeg = "2022-12-14";//
 //        String spDateEnd = "2022-12-14";//
         Long board = DB_RANK_BIZ_F139_BK_MAIN;
-        int limitCount = 3;
+        int limitCount = 5;
         CondStockAdrCount condFind = new CondStockAdrCount();
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
@@ -59,11 +59,11 @@ public class StockAdrStat {
 
 //        condFind.setADR_UP_SUM_1_60(new BigDecimal("50"));
         condFind.setADR_UP_SUM_1_40(null);
-//        condFind.setADR_UP_SUM_40_60(new BigDecimal("1"));//
+        condFind.setADR_UP_SUM_40_60(new BigDecimal("1"));//
         condFind.setADR_UP_SUM_20_40(null);
 
 //        condFind.setUP_MA_30("30(60)");
-        condFind.setUP_MA_60("60(60)");
+//        condFind.setUP_MA_60("60(60)");
 //        condFind.setUP_MA_101("101(60)");
 //        condFind.setUP_MA_102("102(60)");
 
@@ -226,7 +226,7 @@ public class StockAdrStat {
 //        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
 
 //        bizList = Arrays.asList("风电设备");//科技:电力
-        bizList = Arrays.asList("交运设备");//科技:
+//        bizList = Arrays.asList("交运设备");//科技:
 //        bizList = Arrays.asList("半导体","消费电子","光学光电子","电子化学品");//科技:芯片
 //        bizList = Arrays.asList("光伏设备", "电网设备", "电源设备", "电池", "电力行业", "电机", "风电设备", "通用设备");//科技:电力
 
@@ -236,7 +236,8 @@ public class StockAdrStat {
 
 //        bizList = Arrays.asList("证券");
 //        bizList = Arrays.asList("房地产开发");
-//        bizList = Arrays.asList("多元金融", "银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
+        bizList = Arrays.asList("多元金融", "银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
+//        bizList = Arrays.asList("银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
 //        bizList = Arrays.asList("水泥建材", "房地产服务", "工程机械", "房地产开发", "铁路公路", "装修建材", "装修装饰", "工程建设", "公用事业", "工程咨询服务");//
 
         bkMap.put(bizList.get(0), bizList);//特定板块

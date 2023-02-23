@@ -1279,7 +1279,7 @@ public class StockAdrCountControl {
                 //更新
                 int rs = StockAdrCountService.update(entity);
                 updateRs += rs;
-                System.out.print(new StringBuffer("超过均线信息:").append(StockUtil.formatStName(stockAdrCount.getF14(), 8)).append(",是否成功：").append(rs).append(",f3:").append(StockUtil.formatDouble(stockAdrCount.getF3(), 6)));
+                System.out.print(new StringBuffer("超过均线信息:").append(stockAdrCount.getF12()).append(",").append(StockUtil.formatStName(stockAdrCount.getF14(), 8)).append(",是否成功：").append(rs).append(",f3:").append(StockUtil.formatDouble(stockAdrCount.getF3(), 6)));
                 System.out.println(new StringBuffer(StockUtil.formatStName(entity.getUP_MA_102(), 8)).append(StockUtil.formatStName(entity.getUP_MA_101(), 8)).append(StockUtil.formatStName(entity.getUP_MA_60(), 8)).append(StockUtil.formatStName(entity.getUP_MA_30(), 8)).append(StockUtil.formatStName(entity.getUP_MA_15(), 8)));
             } else {
                 int rs = StockAdrCountService.update(entity);
