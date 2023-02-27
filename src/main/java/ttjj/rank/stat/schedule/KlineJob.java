@@ -53,7 +53,7 @@ public class KlineJob {
 
             sw.start("保存K线-ETF");
             Map<String, String> mapEtf = ContMapEtf.ETF_MORE;//K线-ETF-主要
-            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_15, mapEtf, true, funcName,isDelete);
+            KlineControl.saveKlineAndMv(date, DB_RANK_BIZ_TYPE_ETF, kltList_101_15, mapEtf, isUpdateMv, funcName,isDelete);
             sw.stop();
 
             sw.start("保存K线-概念");
