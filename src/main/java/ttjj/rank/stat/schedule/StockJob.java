@@ -31,6 +31,8 @@ public class StockJob {
      */
     private static void scheduleStock(String date) {
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
+            Integer countNotNullLimit = 5000;//数据已存在阈值限定5000，5222(2023.02)
+            Integer countConceptionNotNullLimit = 4000;//概念非空数据已存在阈值限定4000，4741(2023.02)
             System.out.println();
             long begTime = System.currentTimeMillis();
             System.out.println("定时任务-股票-更新-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
@@ -42,24 +44,24 @@ public class StockJob {
             StockControl.setMaMapType(MA_TYPE_WEEK, maUpdateMap);
 
             if (countThread % 10 == 0) {
-                //查询指定日期的个数,如果低于阈值：1000，添加
+                //查询指定日期的个数,如果低于阈值：1000，添加。否则，数据已存在，无需新增：5222
                 CondStock conditionCountNotNull = new CondStock();
                 conditionCountNotNull.setDate(date);
                 Integer countNotNull = StockService.findCountByCondition(conditionCountNotNull);
-                if (countNotNull == null || countNotNull < 1000) {
-                    System.out.print("查询指定日期的个数,如果低于1000，添加：" + countNotNull);
+                if (countNotNull == null || countNotNull < countNotNullLimit) {
+                    System.out.print("查询指定日期的个数,如果低于" + countNotNullLimit + "，添加：" + countNotNull);
                     Integer rs = StockControl.addTodayStCom(date, startNum);//  添加或更新股票-根据日期
                     System.out.println("，保存成功个数：" + rs);
                 } else {
                     System.out.println("查询指定日期的个数,数据已存在，无需新增：" + countNotNull);
                 }
 
-                //查询概念非空的个数,如果低于4000，更新概念
+                //查询概念非空的个数,如果低于阈值：1000，更新概念。否则，数据已存在，无需更新概念：4741
                 CondStock conditionConceptionNotNull = new CondStock();
                 conditionConceptionNotNull.setDate(date);
                 conditionConceptionNotNull.setConceptionNotNull(true);
                 Integer countConceptionNotNull = StockService.findCountByCondition(conditionConceptionNotNull);
-                if (countNotNull == null || countNotNull < 1000) {
+                if (countNotNull == null || countNotNull < countConceptionNotNullLimit) {
                     System.out.println("概念非空个数：" + countConceptionNotNull);
                     StockControl.updateConception(date, startNum);//更新题材概念
                 } else {
