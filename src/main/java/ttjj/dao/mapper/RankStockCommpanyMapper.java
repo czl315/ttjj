@@ -731,7 +731,7 @@ public interface RankStockCommpanyMapper {
             "       <if test='conception != null'> ",
             "       AND rank_st_biz_com.conception LIKE CONCAT('%',#{conception},'%')",
             "       </if> ",
-            "       <if test='conpetionNotNull != null'> ",
+            "       <if test='conceptionNotNull != null and conceptionNotNull==true '> ",
             "       AND rank_st_biz_com.conception IS NOT NULL",
             "       </if> ",
             "       <if test='f20 != null'> ",

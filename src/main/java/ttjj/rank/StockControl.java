@@ -784,7 +784,8 @@ public class StockControl {
             }
             List<RankStockCommpanyDb> rankBizDataDiffListBiz = BizService.listRankStockByBiz(500, bizCode);
 
-            addRankStockCommpanyDbByList(rankBizDataDiffListBiz, begDate, endDate, days, bizCode, bizMap.get(bizCode));//插入行业内的股票,根据开始日期，截止天数
+            Integer rs = addRankStockCommpanyDbByList(rankBizDataDiffListBiz, begDate, endDate, days, bizCode, bizMap.get(bizCode));//插入行业内的股票,根据开始日期，截止天数
+            System.out.println("已完成:" + bizMap.get(bizCode) + ",个数：" + rs);
         }
     }
 
@@ -798,7 +799,8 @@ public class StockControl {
      * @param bizCode
      * @param bizName
      */
-    private static void addRankStockCommpanyDbByList(List<RankStockCommpanyDb> rankBizDataDiffListBiz, String startDate, String endDate, int count, String bizCode, String bizName) {
+    private static Integer addRankStockCommpanyDbByList(List<RankStockCommpanyDb> rankBizDataDiffListBiz, String startDate, String endDate, int count, String bizCode, String bizName) {
+        Integer rs = null;
         for (RankStockCommpanyDb rankStockCommpanyDbBiz : rankBizDataDiffListBiz) {
             String zqdm = rankStockCommpanyDbBiz.getF12();
             List<Kline> klines = KlineService.kline(zqdm, count, Content.KLT_101, true, startDate, endDate, KLINE_TYPE_STOCK);
@@ -832,9 +834,10 @@ public class StockControl {
 
                 List<RankStockCommpanyDb> rankBizDataDiffListDb = new ArrayList<>();
                 rankBizDataDiffListDb.add(rankStockCommpanyDb);
-                showBizSql(rankBizDataDiffListDb, bizCode, bizName, kline.getKtime());//显示业务排行-插入sql
+                rs = showBizSql(rankBizDataDiffListDb, bizCode, bizName, kline.getKtime());//显示业务排行-插入sql
             }
         }
+        return rs;
     }
 
     /**
@@ -842,7 +845,8 @@ public class StockControl {
      *
      * @param date
      */
-    public static void addTodayStCom(String date, int startNum) {
+    public static Integer addTodayStCom(String date, int startNum) {
+        Integer addCount = null;
         List<RankBizDataDiff> bkList = StockService.listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
         int bizCountLimit = NUM_MAX_999;
         int bizCountTemp = 0;
@@ -865,9 +869,10 @@ public class StockControl {
 //            System.out.println();
 //            System.out.println();
 
-            showBizSql(stockList, banKuaiCode, banKuaiName, date);//显示业务排行-插入sql
+            addCount += showBizSql(stockList, banKuaiCode, banKuaiName, date);//显示业务排行-插入sql
             System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName + "---[" + banKuai.getF3() + "]---" + stockList.size());
         }
+        return addCount;
     }
 
     /**
@@ -1857,7 +1862,7 @@ public class StockControl {
                 entity.setF14(entity.getF14().replace(" ", ""));
 
                 //db-更新要点内容
-                rs = RankStockCommpanyDao.insertDb(entity);//
+                rs += RankStockCommpanyDao.insertDb(entity);//
 
 //                RankStockCommpanyDb entity = new RankStockCommpanyDb();
 //                entity.setRs("");
