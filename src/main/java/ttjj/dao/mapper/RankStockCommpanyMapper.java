@@ -753,7 +753,7 @@ public interface RankStockCommpanyMapper {
             "           <![CDATA[ AND rank_st_biz_com.f26 <= #{maxF26} ]]> ",
             "       </if> ",
             "</script>"})
-    List<RankStockCommpanyDb> findCountByCondition(CondStock condition);
+    public Integer findCountByCondition(CondStock condition);
 
     /**
      * 查询个数
