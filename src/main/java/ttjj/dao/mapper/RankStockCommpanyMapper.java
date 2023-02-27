@@ -708,6 +708,53 @@ public interface RankStockCommpanyMapper {
             "</script>"})
     List<RankStockCommpanyDb> findListByCondition(CondStock condition);
 
+    @Select({"<script>",
+            "   SELECT ",
+            "       count(*) ",
+            "   FROM rank_st_biz_com ",
+            "   WHERE 1=1  ",
+            "       <if test='date != null'> ",
+            "       AND rank_st_biz_com.date = #{date}  ",
+            "       </if> ",
+            "       <if test='begDate != null'> ",
+            "       <![CDATA[ AND rank_st_biz_com.date >= #{begDate} ]]> ",
+            "       </if> ",
+            "       <if test='endDate != null'> ",
+            "       <![CDATA[ AND rank_st_biz_com.date <= #{endDate} ]]> ",
+            "       </if> ",
+            "       <if test='f12 != null'> ",
+            "       AND rank_st_biz_com.f12 = #{f12} ",
+            "       </if> ",
+            "       <if test='f139 != null'> ",
+            "       AND rank_st_biz_com.f139=#{f139} ",
+            "       </if> ",
+            "       <if test='conception != null'> ",
+            "       AND rank_st_biz_com.conception LIKE CONCAT('%',#{conception},'%')",
+            "       </if> ",
+            "       <if test='conpetionNotNull != null'> ",
+            "       AND rank_st_biz_com.conception IS NOT NULL",
+            "       </if> ",
+            "       <if test='f20 != null'> ",
+            "       AND rank_st_biz_com.f20 >= #{f20} ",
+            "       </if> ",
+            "       <if test='mvMin != null'> ",
+            "       <![CDATA[ AND rank_st_biz_com.f20 >= #{mvMin} ]]> ",
+            "       </if> ",
+            "       <if test='mvMax != null'> ",
+            "       <![CDATA[ AND rank_st_biz_com.f20 <= #{mvMax} ]]> ",
+            "       </if> ",
+            "       <if test='type_name != null'> ",
+            "       AND rank_st_biz_com.type_name = #{type_name} ",
+            "       </if> ",
+            "       <if test='minF26 != null'> ",
+            "           <![CDATA[ AND rank_st_biz_com.f26 >= #{minF26} ]]> ",
+            "       </if> ",
+            "       <if test='maxF26 != null'> ",
+            "           <![CDATA[ AND rank_st_biz_com.f26 <= #{maxF26} ]]> ",
+            "       </if> ",
+            "</script>"})
+    List<RankStockCommpanyDb> findCountByCondition(CondStock condition);
+
     /**
      * 查询个数
      *

@@ -363,6 +363,26 @@ public class RankStockCommpanyDao {
 
     /**
      * 查询个数
+     * @param condition
+     * @return
+     */
+    public static Integer findCountByCondition(CondStock condition) {
+        SqlSession session = sqlSessionFactory.openSession();
+        Integer rs = null;
+        try {
+            rs = session.selectOne("ttjj.dao.mapper.RankStockCommpanyMapper.findCountByCondition", condition);
+            session.commit();
+        } catch (Exception e) {
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return rs;
+    }
+
+    /**
+     * 查询个数
      * @param entity
      * @return
      */

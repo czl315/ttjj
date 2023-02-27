@@ -191,6 +191,15 @@ public class StockService {
     }
 
     /**
+     * 查询个数
+     * @param condition
+     * @return
+     */
+    public static Integer findCountByCondition(CondStock condition) {
+        return RankStockCommpanyDao.findCountByCondition(condition);
+    }
+
+    /**
      * 查询昨日主题排名
      *
      * @param endCount

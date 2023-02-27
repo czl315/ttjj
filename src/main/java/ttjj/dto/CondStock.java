@@ -62,6 +62,10 @@ public class CondStock extends RankStockCommpanyDb {
      * conpetionList 概念列表
      */
     List<String> conpetionList;
+    /**
+     * 概念非空
+     */
+    private String conpetionNotNull;
 
     /**
      * 最低-涨幅
@@ -307,5 +311,13 @@ public class CondStock extends RankStockCommpanyDb {
 
     public void setMaxF26(String maxF26) {
         this.maxF26 = maxF26;
+    }
+
+    public String getConpetionNotNull() {
+        return conpetionNotNull;
+    }
+
+    public void setConpetionNotNull(String conpetionNotNull) {
+        this.conpetionNotNull = conpetionNotNull;
     }
 }
