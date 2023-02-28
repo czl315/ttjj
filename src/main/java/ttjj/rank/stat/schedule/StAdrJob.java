@@ -38,7 +38,7 @@ public class StAdrJob {
             Long board = DB_RANK_BIZ_F139_BK_MAIN;//
             String spBizName = null;//特定业务：半导体 "半导体"
             int begBiz = 0;//map的开始，中断后使用，默认可设置为0
-            BigDecimal mvMin = NUM_YI_40;//NUM_YI_1000  NUM_YI_50  NUM_YI_100
+            BigDecimal mvMin = NUM_YI_50;//NUM_YI_1000  NUM_YI_50  NUM_YI_100
             BigDecimal mvMax = null;
             List<String> maKltList = Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101, KLT_102);//价格区间周期列表
 //        List<String> maKltList = Arrays.asList(KLT_102, KLT_101, KLT_60);//价格区间周期列表
@@ -55,8 +55,8 @@ public class StAdrJob {
 
             if (countThread % 10 == 0) {
                 StockAdrCountControl.save(date, bizList, false, spBizName, stockAdrCountCond);
-//                stockAdrCountCond.setUpdateSum(true);//总花费时间：1116
-//                stockAdrCountCond.setUpdateOrder(true);
+                stockAdrCountCond.setUpdateSum(true);//总花费时间：1116
+                stockAdrCountCond.setUpdateOrder(true);
             }
             if (countThread % 5 == 1 ) {
                 stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613

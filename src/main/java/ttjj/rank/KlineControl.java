@@ -27,7 +27,7 @@ import static utils.Content.*;
  * k线
  */
 public class KlineControl {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 //        String date = "2022-07-22";
 
@@ -46,7 +46,7 @@ public class KlineControl {
 
     }
 
-    private static void saveKlineAll() {
+    private static void saveKlineAll() throws Exception{
         String funcName = "保存K线-全部-板块、概念、指数、etf:";
         System.out.println(funcName);
         Boolean isUpdateMv = true;//是否更新市值
@@ -91,7 +91,7 @@ public class KlineControl {
      * @param bizType
      * @param kltList
      */
-    private static void saveKlineByType(String date, String bizType, List<String> kltList) {
+    private static void saveKlineByType(String date, String bizType, List<String> kltList) throws Exception{
         Map<String, String> zhishuMap = handlerZqMap(date, bizType);
 
         for (String klt : kltList) {
@@ -126,7 +126,7 @@ public class KlineControl {
      * @param isUpdateMv
      * @param funcName
      */
-    public static void saveKlineAndMv(String date, String bizType, List<String> kltList, Map<String, String> mapZq, Boolean isUpdateMv, String funcName, boolean isDelete) {
+    public static void saveKlineAndMv(String date, String bizType, List<String> kltList, Map<String, String> mapZq, Boolean isUpdateMv, String funcName, boolean isDelete) throws Exception{
         long timeBeg = System.currentTimeMillis();
         System.out.println("保存K线，更新市值,更新均线价格" + date + "," + bizType + "-beg");
         StopWatch sw = new StopWatch(funcName + ":" + bizType);

@@ -62,7 +62,8 @@ public class KlineService {
      * @return 删除个数
      */
     public static Integer deleteByCondition(Kline condition) {
-        return KlineDao.deleteByCondition(condition);
+        Integer rs = KlineDao.deleteByCondition(condition);
+        return rs;
     }
 
     /**
@@ -342,9 +343,13 @@ public class KlineService {
                 break;
             }
         }
-        rs = rs.substring(rs.indexOf("({"));
-        rs = rs.replace("({", "{");
-        rs = rs.replace("});", "}");
+        if (rs.contains("({")) {
+            rs = rs.substring(rs.indexOf("({"));
+            rs = rs.replace("({", "{");
+        }
+        if (rs.contains("});")) {
+            rs = rs.replace("});", "}");
+        }
 //        System.out.println("szKline:" + rs);
 
         return rs;
@@ -1686,7 +1691,7 @@ public class KlineService {
      * @param type     类型
      * @param isDelete 是否先删除
      */
-    public static void saveKlineByType(List<RankBizDataDiff> bizList, String date, String klt, String type, boolean isDelete) {
+    public static void saveKlineByType(List<RankBizDataDiff> bizList, String date, String klt, String type, boolean isDelete) throws Exception {
         Map<String, String> mapZq = new HashMap<>();
         for (RankBizDataDiff rankBizDataDiff : bizList) {
             mapZq.put(rankBizDataDiff.getF12(), rankBizDataDiff.getF14());
@@ -1694,9 +1699,9 @@ public class KlineService {
         saveKlineByType(mapZq, date, klt, type, isDelete);
     }
 
-    public static void saveKlineByType(Map<String, String> mapZq, String date, String klt, String type, boolean isDelete) {
+    public static void saveKlineByType(Map<String, String> mapZq, String date, String klt, String type, boolean isDelete) throws Exception {
         boolean isShowLog = true;
-        int deleRs = 0;
+        Integer deleteRs = 0;
         int saveRs = 0;
         int updateRs = 0;
         for (String zqdm : mapZq.keySet()) {
@@ -1718,7 +1723,7 @@ public class KlineService {
                 condition.setZqdm(zqdm);
                 condition.setType(type);
                 condition.setKlt(klt);
-                deleRs += KlineService.deleteByCondition(condition);
+                deleteRs = KlineService.deleteByCondition(condition);
             }
 
             if (klines == null) {
@@ -1748,7 +1753,7 @@ public class KlineService {
                 }
             }
         }
-        System.out.println(date + ",删除结果：" + deleRs);
+        System.out.println(date + ",删除结果：" + deleteRs);
         System.out.println(date + "," + type + "," + klt + ",更新K线：" + updateRs);
         System.out.println(date + "," + type + "," + klt + ",插入K线：" + saveRs);
 

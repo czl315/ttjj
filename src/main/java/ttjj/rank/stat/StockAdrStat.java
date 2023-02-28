@@ -69,7 +69,9 @@ public class StockAdrStat {
 
 //        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
 //        condFind.setMaxNetAreaDay60(new BigDecimal("25"));
-//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+
+        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)"));
 
 //        condFind.setF10Min(new BigDecimal("2.0"));
 
@@ -167,7 +169,7 @@ public class StockAdrStat {
             //查询中票，去重
             condFind.setMvMin(mvMin);
             List<StockAdrCountVo> stockAdrCountList100 = StockAdrCountService.listStAdrCount(condFind);
-            ;//中票
+            //中票
             for (StockAdrCountVo stockAdrCount : stockAdrCountList100) {
                 String zqdm = stockAdrCount.getF12();
                 stockAdrCount.setMaxDown(StockUtil.handlerMaxDown(stockAdrCount));//计算最大回撤

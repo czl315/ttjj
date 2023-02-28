@@ -49,7 +49,7 @@ public class StockJob {
                 conditionCountNotNull.setDate(date);
                 Integer countNotNull = StockService.findCountByCondition(conditionCountNotNull);
                 if (countNotNull == null || countNotNull < countNotNullLimit) {
-                    System.out.print("查询指定日期的个数,如果低于" + countNotNullLimit + "，添加：" + countNotNull);
+                    System.out.print("查询指定日期的个数低于阈值" + countNotNullLimit + "，已存在：" + countNotNull);
                     Integer rs = StockControl.addTodayStCom(date, startNum);//  添加或更新股票-根据日期
                     System.out.println("，保存成功个数：" + rs);
                 } else {
@@ -61,9 +61,10 @@ public class StockJob {
                 conditionConceptionNotNull.setDate(date);
                 conditionConceptionNotNull.setConceptionNotNull(true);
                 Integer countConceptionNotNull = StockService.findCountByCondition(conditionConceptionNotNull);
-                if (countNotNull == null || countNotNull < countConceptionNotNullLimit) {
-                    System.out.println("概念非空个数：" + countConceptionNotNull);
-                    StockControl.updateConception(date, startNum);//更新题材概念
+                if (countConceptionNotNull == null || countConceptionNotNull < countConceptionNotNullLimit) {
+                    System.out.print("概念非空个数低于阈值" + countConceptionNotNullLimit + "，已存在：" + countConceptionNotNull);
+                    int rsUpdate = StockControl.updateConception(date, startNum);//更新题材概念
+                    System.out.println("更新概念个数:" + rsUpdate);
                 } else {
                     System.out.println("概念非空个数,数据已存在，无需更新概念：" + countConceptionNotNull);
                 }

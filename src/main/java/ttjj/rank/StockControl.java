@@ -846,7 +846,7 @@ public class StockControl {
      * @param date
      */
     public static Integer addTodayStCom(String date, int startNum) {
-        Integer addCount = null;
+        Integer addCount = 0;
         List<RankBizDataDiff> bkList = StockService.listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
         int bizCountLimit = NUM_MAX_999;
         int bizCountTemp = 0;
@@ -1389,7 +1389,8 @@ public class StockControl {
      * @param date
      * @param startNum
      */
-    public static void updateConception(String date, int startNum) {
+    public static int updateConception(String date, int startNum) {
+        int rsUpdate = 0;
         List<RankBizDataDiff> bkList = StockService.listBiz(NUM_MAX_99);//查询主题排名by时间类型、显示个数
         List<RankBizDataDiff> bkListMust = new ArrayList<>();//查询主题排名by时间类型、显示个数
         int bizCountLimit = NUM_MAX_999;
@@ -1489,13 +1490,12 @@ public class StockControl {
                 entity.setF12(stockInfo.getF12());
                 entity.setDate(date);
                 entity.setConception(ssbk.toString());//所属板块
-                int rsUpdate = RankStockCommpanyDao.updateByCode(entity);
+                rsUpdate = RankStockCommpanyDao.updateByCode(entity);
 
-                System.out.println(sb + " rsUpdate:" + rsUpdate);
+
             }
         }
-
-
+        return rsUpdate;
     }
 
     /**
