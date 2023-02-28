@@ -71,7 +71,7 @@ public class StockAdrStat {
 //        condFind.setMaxNetAreaDay60(new BigDecimal("25"));
         condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
-        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)"));
+        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
 
 //        condFind.setF10Min(new BigDecimal("2.0"));
 

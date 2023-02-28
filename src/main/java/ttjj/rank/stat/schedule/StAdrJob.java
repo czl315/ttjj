@@ -55,8 +55,8 @@ public class StAdrJob {
 
             if (countThread % 10 == 0) {
                 StockAdrCountControl.save(date, bizList, false, spBizName, stockAdrCountCond);
-                stockAdrCountCond.setUpdateSum(true);//总花费时间：1116
-                stockAdrCountCond.setUpdateOrder(true);
+//                stockAdrCountCond.setUpdateSum(true);//总花费时间：1116
+//                stockAdrCountCond.setUpdateOrder(true);
             }
             if (countThread % 5 == 1 ) {
                 stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
