@@ -59,7 +59,7 @@ public class StockAdrStat {
 
 //        condFind.setADR_UP_SUM_1_60(new BigDecimal("50"));
         condFind.setADR_UP_SUM_1_40(null);
-        condFind.setADR_UP_SUM_40_60(new BigDecimal("1"));//
+//        condFind.setADR_UP_SUM_40_60(new BigDecimal("1"));//
         condFind.setADR_UP_SUM_20_40(null);
 
 //        condFind.setUP_MA_30("30(60)");
@@ -69,9 +69,10 @@ public class StockAdrStat {
 
 //        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
 //        condFind.setMaxNetAreaDay60(new BigDecimal("25"));
-        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
-        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
+//        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
+        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)"));
 
 //        condFind.setF10Min(new BigDecimal("2.0"));
 
