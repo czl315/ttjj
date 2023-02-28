@@ -161,6 +161,15 @@ public class Content {
     public static String ST_PLATE_F139_CTPZ = "33";
 
     /**
+     * 股票编码-开头：60XXXX：沪市；
+     */
+    public static String ST_MARKET_CODE_START_SHANG_HAI = "60";
+    /**
+     * 股票编码-开头：00XXXX：深市；
+     */
+    public static String ST_MARKET_CODE_START_SHEN_ZHEN = "00";
+
+    /**
      * ST_BIZ_TYPE_ZAOZHIYINSHUA 造纸印刷-BK0470
      */
     public static String ST_BIZ_TYPE_ZAOZHIYINSHUA = "造纸印刷";

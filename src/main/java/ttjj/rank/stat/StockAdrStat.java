@@ -72,7 +72,7 @@ public class StockAdrStat {
 //        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
-        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)"));
+        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)"));
 
 //        condFind.setF10Min(new BigDecimal("2.0"));
 
@@ -82,13 +82,19 @@ public class StockAdrStat {
         condFind.setLimitCount(limitCount);
 
         Map<String, StockAdrCountVo> stockAdrCountMap = new HashMap<>();
+
+        //过滤编码，以XX开头的(沪市60XXXX，深市00XXXX)
+//        String filterCodeStart = null;
+//        String filterCodeStart = ST_MARKET_CODE_START_SHANG_HAI;//沪市
+        String filterCodeStart = ST_MARKET_CODE_START_SHEN_ZHEN;//00XXXX：深市；
+
         //查询大票
 //        BigDecimal mvMin1000 = NUM_YI_1000;//
 //        BigDecimal mvMin500 = NUM_YI_500;//
 //        BigDecimal mvMin200 = NUM_YI_200;//
 //        BigDecimal mvMin50 = NUM_YI_50;//
 //        BigDecimal mvMin40 = NUM_YI_40;//
-        handlerStAdrCountMap(stockAdrCountMap, NUM_YI_40, bkMap, condFind);
+        handlerStAdrCountMap(stockAdrCountMap, NUM_YI_40, bkMap, condFind, filterCodeStart);
 //        handlerStAdrCountMap(stockAdrCountMap, NUM_YI_50, bkMap, condFind);
 //        handlerStAdrCountMap(stockAdrCountMap, NUM_YI_200, bkMap, condFind);
 //        handlerStAdrCountMap(stockAdrCountMap, NUM_YI_500, bkMap, condFind);
@@ -163,23 +169,34 @@ public class StockAdrStat {
      * @param mvMin
      * @param bkMap
      * @param condFind
+     * @param filterCodeStart  过滤编码，以XX开头的(沪市60XXXX，深市00XXXX)
      */
-    private static void handlerStAdrCountMap(Map<String, StockAdrCountVo> stockAdrCountMap, BigDecimal mvMin, Map<String, List<String>> bkMap, CondStockAdrCount condFind) {
+    private static void handlerStAdrCountMap(Map<String, StockAdrCountVo> stockAdrCountMap, BigDecimal mvMin, Map<String, List<String>> bkMap, CondStockAdrCount condFind, String filterCodeStart) {
         for (List<String> bks : bkMap.values()) {
             condFind.setBizList(bks);
             //查询中票，去重
             condFind.setMvMin(mvMin);
-            List<StockAdrCountVo> stockAdrCountList100 = StockAdrCountService.listStAdrCount(condFind);
+            List<StockAdrCountVo> stockAdrCountList = StockAdrCountService.listStAdrCount(condFind);
             //中票
-            for (StockAdrCountVo stockAdrCount : stockAdrCountList100) {
+            for (StockAdrCountVo stockAdrCount : stockAdrCountList) {
                 String zqdm = stockAdrCount.getF12();
                 stockAdrCount.setMaxDown(StockUtil.handlerMaxDown(stockAdrCount));//计算最大回撤
-                if (stockAdrCountMap.containsKey(zqdm)) {
-//                    String zqmc = stockAdrCount.getF14();
-//                    System.out.println("检查已["+mvMin+"]存在：" + zqmc);
-                } else {
+
+                //判断是否过滤编码，以XX开头的(沪市60XXXX，深市00XXXX)
+                if (filterCodeStart == null) {
+                    stockAdrCountMap.put(zqdm, stockAdrCount);
+                    continue;
+                }
+                if (zqdm.startsWith(filterCodeStart)) {
                     stockAdrCountMap.put(zqdm, stockAdrCount);
                 }
+
+//                if (stockAdrCountMap.containsKey(zqdm)) {
+//                    String zqmc = stockAdrCount.getF14();
+//                    System.out.println("检查已["+mvMin+"]存在：" + zqmc);
+//                } else {
+//                    stockAdrCountMap.put(zqdm, stockAdrCount);
+//                }
             }
         }
     }
@@ -439,7 +456,7 @@ public class StockAdrStat {
             }
             if (isShowCurNet) {
                 String keyNameMaWeek60Pct = "60周比";
-                BigDecimal maWeek60 =stockAdrCount.getMA_NET_60_102();
+                BigDecimal maWeek60 = stockAdrCount.getMA_NET_60_102();
                 if (curAmt != null && maWeek60 != null) {
                     BigDecimal week60Pct = curAmt.subtract(maWeek60).divide(curAmt, 4, RoundingMode.HALF_UP).multiply(new BigDecimal("100")).setScale(2, BigDecimal.ROUND_HALF_UP);
                     sb.append(StockUtil.formatDouble(week60Pct, sizeMap.get(keyNameMaWeek60Pct)));
