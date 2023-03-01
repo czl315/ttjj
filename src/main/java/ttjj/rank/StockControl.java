@@ -1418,6 +1418,7 @@ public class StockControl {
 
             for (RankStockCommpanyDb stockInfo : stockList) {
                 String stCode = stockInfo.getF12();
+                String stName = stockInfo.getF14();
                 StringBuffer url = new StringBuffer();
                 url.append(ContentUrl.URL_CORE_CONCEPTION);
 
@@ -1463,7 +1464,7 @@ public class StockControl {
                     httpRsHxtc = JSON.parseObject(rs, HttpRsHxtc.class);
                 } catch (Exception e) {
                     System.out.println(e);
-                    System.out.println(rs);
+                    System.out.println(stCode + "," + stName + "," + rs);
                 }
                 if (httpRsHxtc == null) {
 //            System.out.println("klines未查询到："+zhiShu);
@@ -1490,9 +1491,9 @@ public class StockControl {
                 entity.setF12(stockInfo.getF12());
                 entity.setDate(date);
                 entity.setConception(ssbk.toString());//所属板块
-                rsUpdate = RankStockCommpanyDao.updateByCode(entity);
 
-
+                rsUpdate += RankStockCommpanyDao.updateByCode(entity);
+//                System.out.println(sb + " rsUpdate:" + rsUpdate);
             }
         }
         return rsUpdate;

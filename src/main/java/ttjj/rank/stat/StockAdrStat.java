@@ -45,6 +45,12 @@ public class StockAdrStat {
 //        String spDateEnd = "2022-12-14";//
         Long board = DB_RANK_BIZ_F139_BK_MAIN;
         int limitCount = 5;
+
+        //过滤编码，以XX开头的(沪市60XXXX，深市00XXXX)
+        String filterCodeStart = null;
+//        String filterCodeStart = ST_MARKET_CODE_START_SHANG_HAI;//沪市
+//        String filterCodeStart = ST_MARKET_CODE_START_SHEN_ZHEN;//00XXXX：深市；
+
         CondStockAdrCount condFind = new CondStockAdrCount();
 
         List<StockAdrCountVo> stockAdrCountListBkAll = new ArrayList<>();
@@ -69,7 +75,7 @@ public class StockAdrStat {
 
 //        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
 //        condFind.setMaxNetAreaDay60(new BigDecimal("25"));
-//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
         condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)"));
@@ -83,10 +89,7 @@ public class StockAdrStat {
 
         Map<String, StockAdrCountVo> stockAdrCountMap = new HashMap<>();
 
-        //过滤编码，以XX开头的(沪市60XXXX，深市00XXXX)
-//        String filterCodeStart = null;
-//        String filterCodeStart = ST_MARKET_CODE_START_SHANG_HAI;//沪市
-        String filterCodeStart = ST_MARKET_CODE_START_SHEN_ZHEN;//00XXXX：深市；
+
 
         //查询大票
 //        BigDecimal mvMin1000 = NUM_YI_1000;//

@@ -31,8 +31,8 @@ public class StockJob {
      */
     private static void scheduleStock(String date) {
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            Integer countNotNullLimit = 5000;//数据已存在阈值限定5000，5222(2023.02)
-            Integer countConceptionNotNullLimit = 4000;//概念非空数据已存在阈值限定4000，4741(2023.02)
+            Integer countNotNullLimit = 5000;//数据已存在阈值限定5000，5222(2023.02.27)
+            Integer countConceptionNotNullLimit = 4500;//概念非空数据已存在阈值限定4000，4741(2023.02.27)
             System.out.println();
             long begTime = System.currentTimeMillis();
             System.out.println("定时任务-股票-更新-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
