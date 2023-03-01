@@ -159,9 +159,9 @@ public class StockStat {
 //        Long board = null;
         Long board = DB_RANK_BIZ_F19_BK_MAIN;
 //        BigDecimal mvMin = null;//
-        BigDecimal mvMin = NUM_YI_1000;//NUM_YI_1000
+        BigDecimal mvMin = NUM_YI_200;// NUM_YI_40   NUM_YI_500  NUM_YI_1000
         BigDecimal mvMax = null;
-        int limit = 50;
+        int limit = 30;
 
         boolean isDesc = true;
 //        boolean isDesc = false;

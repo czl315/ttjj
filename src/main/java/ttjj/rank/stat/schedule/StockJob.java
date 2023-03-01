@@ -30,52 +30,52 @@ public class StockJob {
      * @param date 日期
      */
     private static void scheduleStock(String date) {
+        int period = 5;
+
+        //新增保存今日股票
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
             Integer countNotNullLimit = 5000;//数据已存在阈值限定5000，5222(2023.02.27)
+            //查询指定日期的个数,如果低于阈值，添加。否则，数据已存在，无需新增：5222
+            StockControl.addTodayStComByExistCount(date, countNotNullLimit);//数据已存在阈值限定5000，5222(2023.02.27)
+        }, 0, 30, TimeUnit.MINUTES);
+
+
+        //更新概念
+        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
             Integer countConceptionNotNullLimit = 4500;//概念非空数据已存在阈值限定4000，4741(2023.02.27)
+            StockControl.updateConceptionByExistCount(date, countConceptionNotNullLimit);//数据已存在阈值限定5000，5222(2023.02.27)
+        }, 0, 30, TimeUnit.MINUTES);
+
+        //更新股票
+        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
             System.out.println();
             long begTime = System.currentTimeMillis();
             System.out.println("定时任务-股票-更新-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
 
+            int startNum = 0;//开始位置，默认0
+            StockControl.updateTodayStCom(date, startNum);//更新股票
+
+            System.out.println("运行次数" + (++countThread));
+            System.out.println("定时任务-股票-更新-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0) + "，用时：" + (System.currentTimeMillis() - begTime) / 1000);
+
+        }, 0, 5, TimeUnit.MINUTES);
+
+        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
+            try {
+                Thread.sleep(60000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             int startNum = 0;//开始位置，默认0
             Map<String, Boolean> maUpdateMap = new HashMap<>();
             StockControl.setMaMapType(MA_TYPE_DAY, maUpdateMap);
             StockControl.setMaMapType(MA_TYPE_MINUTE15, maUpdateMap);
             StockControl.setMaMapType(MA_TYPE_WEEK, maUpdateMap);
 
-            if (countThread % 10 == 0) {
-                //查询指定日期的个数,如果低于阈值：1000，添加。否则，数据已存在，无需新增：5222
-                CondStock conditionCountNotNull = new CondStock();
-                conditionCountNotNull.setDate(date);
-                Integer countNotNull = StockService.findCountByCondition(conditionCountNotNull);
-                if (countNotNull == null || countNotNull < countNotNullLimit) {
-                    System.out.print("查询指定日期的个数低于阈值" + countNotNullLimit + "，已存在：" + countNotNull);
-                    Integer rs = StockControl.addTodayStCom(date, startNum);//  添加或更新股票-根据日期
-                    System.out.println("，保存成功个数：" + rs);
-                } else {
-                    System.out.println("查询指定日期的个数,数据已存在，无需新增：" + countNotNull);
-                }
-
-                //查询概念非空的个数,如果低于阈值：1000，更新概念。否则，数据已存在，无需更新概念：4741
-                CondStock conditionConceptionNotNull = new CondStock();
-                conditionConceptionNotNull.setDate(date);
-                conditionConceptionNotNull.setConceptionNotNull(true);
-                Integer countConceptionNotNull = StockService.findCountByCondition(conditionConceptionNotNull);
-                if (countConceptionNotNull == null || countConceptionNotNull < countConceptionNotNullLimit) {
-                    System.out.print("概念非空个数低于阈值" + countConceptionNotNullLimit + "，已存在：" + countConceptionNotNull);
-                    int rsUpdate = StockControl.updateConception(date, startNum);//更新题材概念
-                    System.out.println("更新概念个数:" + rsUpdate);
-                } else {
-                    System.out.println("概念非空个数,数据已存在，无需更新概念：" + countConceptionNotNull);
-                }
-            }
-            StockControl.updateTodayStCom(date, startNum);//更新股票
-            if (countThread % 5 == 1) {
+//            if (countThread % 5 == 1) {
                 StockControl.updateNetToday(date, startNum, maUpdateMap, false, NUM_YI_40);//  更新净值
-            }
-            System.out.println("运行次数" + (++countThread));
-            System.out.println("定时任务-股票-更新-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0) + "，用时：" + (System.currentTimeMillis() - begTime) / 1000);
-        }, 0, 5, TimeUnit.MINUTES);
+//            }
+        }, 0, 30, TimeUnit.MINUTES);
     }
 
 }

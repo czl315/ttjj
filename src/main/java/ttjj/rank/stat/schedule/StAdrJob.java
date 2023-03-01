@@ -58,7 +58,7 @@ public class StAdrJob {
                 stockAdrCountCond.setUpdateSum(true);//总花费时间：1116
                 stockAdrCountCond.setUpdateOrder(true);
             }
-            if (countThread % 5 == 1 ) {
+            if (countThread % 5 == 0 ) {
                 stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
             }
             stockAdrCountCond.setUpdateUpMa(true);//总花费时间：(40亿)用时：1454  (50亿)1225
