@@ -1999,7 +1999,7 @@ public class StockControl {
         if (countConceptionNotNull == null || countConceptionNotNull < countConceptionNotNullLimit) {
             System.out.println("概念非空个数低于阈值" + countConceptionNotNullLimit + "，已存在：" + countConceptionNotNull);
             int rsUpdate = StockControl.updateConception(date, 0);//更新题材概念
-            System.out.println("更新概念个数:" + rsUpdate);
+            System.out.println("更新概念个数:" + rsUpdate);//更新概念个数:4995(20230302)
         } else {
             System.out.println("概念非空个数,数据已存在，无需更新概念：" + countConceptionNotNull);
         }
