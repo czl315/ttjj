@@ -38,6 +38,8 @@ public class StockControl {
 
 //            addTodayStCom(date, startNum);//  添加或更新股票-根据日期
 //            updateConception(date, startNum);//更新题材概念
+            addTodayStComByExistCount(date, 5000);//  添加或更新股票-根据日期
+            updateConceptionByExistCount(date, 4500);//更新题材概念
             updateTodayStCom(date, startNum);//更新股票
             updateNetToday(date, startNum, maUpdateMap, isReport, NUM_YI_40);//  更新净值
 
@@ -138,7 +140,7 @@ public class StockControl {
             stBizCountTemp++;
             List<RankStockCommpanyDb> stockList = BizService.listRankStockByBiz(NUM_MAX_999, banKuaiCode);
 //            System.out.println();
-            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName + "---[" + bk.getF3() + "]---" + stockList.size());
+            System.out.println("-------------------------更新股票：" + stBizCountTemp + "---" + banKuaiName + "---[" + bk.getF3() + "]---" + stockList.size());
 //            System.out.println();
 
             for (RankStockCommpanyDb stockInfo : stockList) {
@@ -870,7 +872,7 @@ public class StockControl {
 //            System.out.println();
 
             addCount += showBizSql(stockList, banKuaiCode, banKuaiName, date);//显示业务排行-插入sql
-            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName + "---[" + banKuai.getF3() + "]---" + stockList.size());
+            System.out.println("-------------------------保存今日股票：" + stBizCountTemp + "---" + banKuaiName + "---[" + banKuai.getF3() + "]---" + stockList.size());
         }
         return addCount;
     }
@@ -1413,7 +1415,7 @@ public class StockControl {
             stBizCountTemp++;
             List<RankStockCommpanyDb> stockList = BizService.listRankStockByBiz(NUM_MAX_999, banKuaiCode);
 //            System.out.println();
-            System.out.println("-------------------------当前stBizCountTemp：" + stBizCountTemp + "---" + banKuaiName + "---[" + bk.getF3() + "]---" + stockList.size());
+            System.out.println("-------------------------更新概念,当前：" + stBizCountTemp + "---" + banKuaiName + "---[" + bk.getF3() + "]---" + stockList.size());
 //            System.out.println();
 
             for (RankStockCommpanyDb stockInfo : stockList) {
@@ -1995,8 +1997,8 @@ public class StockControl {
         conditionConceptionNotNull.setConceptionNotNull(true);
         Integer countConceptionNotNull = StockService.findCountByCondition(conditionConceptionNotNull);
         if (countConceptionNotNull == null || countConceptionNotNull < countConceptionNotNullLimit) {
-            System.out.print("概念非空个数低于阈值" + countConceptionNotNullLimit + "，已存在：" + countConceptionNotNull);
-            int rsUpdate = StockControl.updateConception(date, countConceptionNotNullLimit);//更新题材概念
+            System.out.println("概念非空个数低于阈值" + countConceptionNotNullLimit + "，已存在：" + countConceptionNotNull);
+            int rsUpdate = StockControl.updateConception(date, 0);//更新题材概念
             System.out.println("更新概念个数:" + rsUpdate);
         } else {
             System.out.println("概念非空个数,数据已存在，无需更新概念：" + countConceptionNotNull);

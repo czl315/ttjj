@@ -21,6 +21,11 @@ public class StockJob {
 
     public static void main(String[] args) {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
+
+        //查询指定日期的个数,如果低于阈值，添加。否则，数据已存在，无需新增：5222
+        Integer countNotNullLimit = 5000;//数据已存在阈值限定5000，5222(2023.02.27)
+        StockControl.addTodayStComByExistCount(date, countNotNullLimit);//数据已存在阈值限定5000，5222(2023.02.27)
+
         scheduleStock(date);//定时任务
     }
 
@@ -61,11 +66,6 @@ public class StockJob {
         }, 0, 5, TimeUnit.MINUTES);
 
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            try {
-                Thread.sleep(60000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             int startNum = 0;//开始位置，默认0
             Map<String, Boolean> maUpdateMap = new HashMap<>();
             StockControl.setMaMapType(MA_TYPE_DAY, maUpdateMap);
@@ -75,7 +75,7 @@ public class StockJob {
 //            if (countThread % 5 == 1) {
                 StockControl.updateNetToday(date, startNum, maUpdateMap, false, NUM_YI_40);//  更新净值
 //            }
-        }, 0, 30, TimeUnit.MINUTES);
+        }, 2, 30, TimeUnit.MINUTES);
     }
 
 }
