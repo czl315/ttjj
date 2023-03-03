@@ -1977,7 +1977,7 @@ public class StockControl {
         conditionCountNotNull.setDate(date);
         Integer countNotNull = StockService.findCountByCondition(conditionCountNotNull);
         if (countNotNull == null || countNotNull < countNotNullLimit) {
-            System.out.print("查询指定日期的个数低于阈值" + countNotNullLimit + "，已存在：" + countNotNull);
+            System.out.println("查询指定日期的个数低于阈值" + countNotNullLimit + "，已存在：" + countNotNull);
             Integer rs = StockControl.addTodayStCom(date, 0);//  添加或更新股票-根据日期
             System.out.println("，保存成功个数：" + rs);
         } else {

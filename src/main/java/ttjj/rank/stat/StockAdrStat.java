@@ -79,6 +79,7 @@ public class StockAdrStat {
 
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
         condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)","60(60)"));
+//        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)"));
 
 //        condFind.setF10Min(new BigDecimal("2.0"));
 
@@ -238,7 +239,7 @@ public class StockAdrStat {
 //        bizList = Arrays.asList("医疗器械");//医疗
 //        bizList = Arrays.asList("生物制品", "医药商业", "医疗服务", "中药", "医疗器械", "化学制药");//医疗
 
-//        bizList = Arrays.asList("航空机场");//消费：
+        bizList = Arrays.asList("商业百货");//消费：
 //        bizList = Arrays.asList("酿酒行业");//消费："旅游酒店","航空机场","食品饮料","铁路公路","商业百货","纺织服装","物流行业","酿酒行业","装修装饰","家电行业","贸易行业","文化传媒","游戏","美容护理"
 //
 //        bizList = Arrays.asList("化肥行业","农牧饲渔","农药兽药");//资源-农业:"化肥行业","农牧饲渔","农药兽药"
@@ -248,19 +249,20 @@ public class StockAdrStat {
 //        bizList = Arrays.asList("燃气");//资源:大宗商品:("煤炭行业", "采掘行业", "石油行业", "燃气")
 //        bizList = Arrays.asList("钢铁行业","包装材料","有色金属","化肥行业","贵金属","橡胶制品","化学原料","化纤行业","非金属材料","玻璃玻纤","能源金属","煤炭行业","农牧饲渔","采掘行业","造纸印刷","农药兽药","小金属","石油行业","化学制品","塑料制品","燃气");//板块-分类-科技:电力
 
+//        bizList = Arrays.asList("电子化学品");//科技:芯片
+//        bizList = Arrays.asList("半导体","消费电子","光学光电子","电子化学品");//科技:芯片
 //        bizList = Arrays.asList("风电设备");//科技:电力
 //        bizList = Arrays.asList("交运设备");//科技:
-        bizList = Arrays.asList("通信服务","通信设备","计算机设备");//科技:
+//        bizList = Arrays.asList("通信服务","通信设备","计算机设备");//科技:
 //        bizList = Arrays.asList("互联网服务","软件开发");//板块-分类-科技:电力
-//        bizList = Arrays.asList("半导体","消费电子","光学光电子","电子化学品");//科技:芯片
 //        bizList = Arrays.asList("光伏设备", "电网设备", "电源设备", "电池", "电力行业", "电机", "风电设备", "通用设备");//科技:电力
 
 //        bizList = Arrays.asList("橡胶制品");//医疗
 //        bizList = Arrays.asList("船舶制造");//资源:交运:("船舶制造")
 
-//        bizList = Arrays.asList("证券");
-//        bizList = Arrays.asList("房地产开发");
+//        bizList = Arrays.asList("银行");
 //        bizList = Arrays.asList("多元金融", "银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
+//        bizList = Arrays.asList("房地产开发");
 //        bizList = Arrays.asList("银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
 //        bizList = Arrays.asList("水泥建材", "房地产服务", "工程机械", "房地产开发", "铁路公路", "装修建材", "装修装饰", "工程建设", "公用事业", "工程咨询服务");//
 

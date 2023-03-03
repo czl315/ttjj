@@ -197,7 +197,7 @@ public class StockAdrCountControl {
      * @param bizName 业务名称
      * @param dbField 字段
      */
-    private static void updateAdrSumOrderByBiz(String date, String bizName, String dbField) {
+    private static int updateAdrSumOrderByBiz(String date, String bizName, String dbField) {
         int rs = 0;
         //查询股票列表-根据板块
         CondStockAdrCount condition = new CondStockAdrCount();
@@ -268,6 +268,7 @@ public class StockAdrCountControl {
             }
         }
         System.out.println("更新-上涨之和排序-成功：" + rs);
+        return rs;
     }
 
     /**
@@ -370,32 +371,39 @@ public class StockAdrCountControl {
             System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
 
             if (isUpdateSum) {
-                //更新-上涨之和
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_2, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_3, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60, dateList);
+                //查询涨幅数据，如果涨幅合计已存在，无需更新
+                if (!findCheckDbAdrSum(date, board, bizName, mvMin, mvMax)) {
+                    //更新-上涨之和
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_2, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_3, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60, dateList);
+                }
             }
 
             if (isUpdateOrder) {
-                //更新-上涨之和排序
+                //查询涨幅数据，如果涨幅合计已存在，无需更新
+                if (!findCheckDbAdrSum(date, board, bizName, mvMin, mvMax)) {
+                    //更新-上涨之和排序
 //                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1);
 //                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_2);
 //                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_3);
 
-                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5);
-                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10);
-                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20);
+                    updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5);
+                    updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10);
+                    updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20);
 //                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40);
-                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40);
-                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60);
+                    updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40);
+                    updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60);
 
-                updateUpSumAndOrder(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_60);
+                    updateUpSumAndOrder(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_60);
+                }
+
             }
         }
     }
@@ -423,6 +431,7 @@ public class StockAdrCountControl {
         condition.setType_name(bizName);
         List<RankStockCommpanyDb> stList = StockService.findListByCondition(condition);
 
+
         String endDate = handlerEndDateByDbField(date, dbField, dateList);
         String begDate = handlerBegDateByDbField(date, dbField, dateList);
 
@@ -433,8 +442,11 @@ public class StockAdrCountControl {
                 continue;
             }
 
+            String code = stock.getF12();
+            String name = stock.getF14();
+
             CondStock conditionStock = new CondStock();//查询条件
-            conditionStock.setF12(stock.getF12());
+            conditionStock.setF12(code);
             conditionStock.setBegDate(begDate);
             conditionStock.setEndDate(endDate);
             BigDecimal adrSum = getAdrSumByModel(conditionStock, FIND_MODEL_HTTP);
@@ -445,7 +457,7 @@ public class StockAdrCountControl {
 //            }
 
             StockAdrCount entity = new StockAdrCount();
-            entity.setF12(stock.getF12());
+            entity.setF12(code);
             entity.setF14(stock.getF14());
             entity.setDate(date);
             if (adrSum == null) {
@@ -493,6 +505,58 @@ public class StockAdrCountControl {
         }
         System.out.println(bizName + ",更新-上涨之和-成功：" + rs);
         return rs;
+    }
+
+    /**
+     * 查询涨幅数据，如果涨幅合计已存在，无需更新
+     *
+     * @param date
+     * @param board
+     * @param bizName
+     * @param mvMin
+     * @param mvMax
+     */
+    private static boolean findCheckDbAdrSum(String date, Long board, String bizName, BigDecimal mvMin, BigDecimal mvMax) {
+        int countNotNull = 0;//非空个数
+        CondStockAdrCount condFind = new CondStockAdrCount();
+        condFind.setDate(date);
+        condFind.setF139(board);
+        condFind.setType_name(bizName);//特定业务
+        condFind.setMvMin(mvMin);
+        condFind.setMvMax(mvMax);
+        List<StockAdrCountVo> stockAdrCountVoList = StockAdrCountService.listStAdrCount(condFind);
+
+        //查询股票列表-根据板块
+        CondStock condition = new CondStock();
+        condition.setDate(date);
+        condition.setF139(board);
+        condition.setMvMin(mvMin);
+        condition.setMvMax(mvMax);
+        condition.setType_name(bizName);
+        List<RankStockCommpanyDb> stList = StockService.findListByCondition(condition);
+
+        for (StockAdrCountVo stockAdrCountVo : stockAdrCountVoList) {
+//            Map<String, StockAdrCountVo> stockAdrCountMap = new HashMap<>();
+//            stockAdrCountMap.put(stockAdrCountVo.getF12(), stockAdrCountVo);
+            //如果涨幅合计已存在，无需更新
+            if (stockAdrCountVo != null) {
+                BigDecimal adrSumDb = stockAdrCountVo.getADR_UP_SUM_1_60();
+                if (adrSumDb != null) {
+                    countNotNull++;
+//                    System.out.println("如果涨幅合计已存在，无需更新:" + adrSumDb + "," + bizName);
+//                    System.out.println("如果涨幅合计已存在，无需更新:" + adrSumDb + "," + bizName + "," + name + ",已存在值：" + adrSumDb + ",查询值：" + adrSum);
+                }
+
+            }
+        }
+        int stCount = stList != null ? stList.size() : 0;
+        if (stCount <= countNotNull) {
+            System.out.println("如果涨幅合计已存在，无需更新," + bizName + ",已存在个数：" + countNotNull + ",需要更新个数：" + stCount);
+            return true;
+        } else {
+            System.out.println("如果涨幅合计已存在，数量不足需要更新," + bizName + ",已存在个数：" + countNotNull + ",需要更新个数：" + stCount);
+        }
+        return false;
     }
 
     /**
@@ -713,38 +777,44 @@ public class StockAdrCountControl {
                 continue;
             }
 
-
             if (stockAdrCountCond.isUpdateNet()) {
                 updateListNet(date, bizCode, bizName, mvMin, rankBizDataDiff);
             }
 
             if (stockAdrCountCond.isUpdateSum()) {
-                //更新-上涨之和
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_2, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_3, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40, dateList);
-                updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60, dateList);
+                //查询涨幅数据，如果涨幅合计已存在，无需更新
+                if (!findCheckDbAdrSum(date, board, bizName, mvMin, mvMax)) {
+                    //更新-上涨之和
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_2, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_3, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40, dateList);
+                    updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60, dateList);
+                }
+
             }
 
             if (stockAdrCountCond.isUpdateOrder()) {
-                //更新-上涨之和排序
+                //查询涨幅数据，如果涨幅合计已存在，无需更新
+                if (!findCheckDbAdrSum(date, board, bizName, mvMin, mvMax)) {
+                    //更新-上涨之和排序
 //                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1);
 //                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_2);
 //                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_3);
 
-                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5);
-                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10);
-                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20);
+                    updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5);
+                    updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10);
+                    updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20);
 //                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40);
-                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40);
-                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60);
+                    updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40);
+                    updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60);
 
-                updateUpSumAndOrder(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_60);
+                    updateUpSumAndOrder(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_60);
+                }
             }
 
             List<StockAdrCountVo> stockAdrCountList = null;
