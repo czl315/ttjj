@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 
 /**
  * 股票概念:增加股票概念表，字段：id、代码、名称、日期、概念、当日涨幅、业务类别。(ct:2023-03-05)
- * <p>
  * CREATE TABLE `st_conception` (
  * `id` int(11) NOT NULL AUTO_INCREMENT,
  * `code` varchar(255) DEFAULT NULL,

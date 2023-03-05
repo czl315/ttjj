@@ -1,14 +1,7 @@
 package ttjj.dao.mapper;
 
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import ttjj.db.RankStockCommpanyDb;
 import ttjj.db.StockConception;
-import ttjj.dto.*;
-
-import java.util.List;
 
 /**
  * 股票概念
