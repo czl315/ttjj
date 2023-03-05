@@ -1492,7 +1492,7 @@ public class StockControl {
                 RankStockCommpanyDb entity = new RankStockCommpanyDb();
                 entity.setF12(stockInfo.getF12());
                 entity.setDate(date);
-                entity.setConception(ssbk.toString());//所属板块
+                entity.setConception(ssbk.toString());
 
                 rsUpdate += RankStockCommpanyDao.updateByCode(entity);
 //                System.out.println(sb + " rsUpdate:" + rsUpdate);

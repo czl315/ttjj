@@ -38,11 +38,11 @@ public class StockAdrStat {
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2023-01-03";
+//        String date = "2023-03-02";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
-//        String spDateBeg = "2022-12-14";//
-//        String spDateEnd = "2022-12-14";//
+//        String spDateBeg = "2023-03-03";//
+//        String spDateEnd = "2023-03-03";//
         Long board = DB_RANK_BIZ_F139_BK_MAIN;
         int limitCount = 5;
 
@@ -75,11 +75,15 @@ public class StockAdrStat {
 
 //        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
 //        condFind.setMaxNetAreaDay60(new BigDecimal("25"));
-        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
-        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)","60(60)"));
+//        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)","60(60)"));
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)"));
+
+        //条件限定：涨幅排名
+//        condFind.setAdrUpSumOrder1to60Min(new BigDecimal("1"));
+        condFind.setAdrUpSumOrder1to60Max(new BigDecimal("2"));
 
 //        condFind.setF10Min(new BigDecimal("2.0"));
 
@@ -88,16 +92,8 @@ public class StockAdrStat {
         condFind.setOrderBy(getOrderBy(orderFieldDb));
         condFind.setLimitCount(limitCount);
 
-        Map<String, StockAdrCountVo> stockAdrCountMap = new HashMap<>();
-
-
-
         //查询大票
-//        BigDecimal mvMin1000 = NUM_YI_1000;//
-//        BigDecimal mvMin500 = NUM_YI_500;//
-//        BigDecimal mvMin200 = NUM_YI_200;//
-//        BigDecimal mvMin50 = NUM_YI_50;//
-//        BigDecimal mvMin40 = NUM_YI_40;//
+        Map<String, StockAdrCountVo> stockAdrCountMap = new HashMap<>();
         handlerStAdrCountMap(stockAdrCountMap, NUM_YI_40, bkMap, condFind, filterCodeStart);
 //        handlerStAdrCountMap(stockAdrCountMap, NUM_YI_50, bkMap, condFind);
 //        handlerStAdrCountMap(stockAdrCountMap, NUM_YI_200, bkMap, condFind);
