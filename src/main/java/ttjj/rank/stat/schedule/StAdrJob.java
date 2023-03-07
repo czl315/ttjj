@@ -83,13 +83,15 @@ public class StAdrJob {
 //            stockAdrCountCond.setUpdateNet(true);//用时：16
 
             if (countThread % 10 == 0) {
-//                StockAdrCountControl.save(date, bizList, false, spBizName, stockAdrCountCond);
-//                stockAdrCountCond.setUpdateSum(true);//总花费时间：1116
-//                stockAdrCountCond.setUpdateOrder(true);
+                StockAdrCountControl.save(date, bizList, false, spBizName, stockAdrCountCond);
+                stockAdrCountCond.setUpdateSum(true);//总花费时间：1116
+                stockAdrCountCond.setUpdateOrder(true);
             }
-            if (countThread % 5 == 0 ) {
-                stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
+            if (countThread % 5 == 1 ) {
                 stockAdrCountCond.setUpdateUpMa(true);//总花费时间：(40亿)用时：1454  (50亿)1225
+            }
+            if (countThread % 5 == 2 ) {
+                stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
             }
 
             StockAdrCountControl.updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);

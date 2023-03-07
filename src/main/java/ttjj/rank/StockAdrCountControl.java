@@ -422,28 +422,35 @@ public class StockAdrCountControl {
     private static int updateAdrSumByBiz(String date, Long board, BigDecimal mvMin, BigDecimal mvMax, String bizName, String dbField, List<String> dateList) {
         int rs = 0;
         List<StockAdrCount> stockAdrCountList = new ArrayList<>();
-        //查询股票列表-根据板块
-        CondStock condition = new CondStock();
-        condition.setDate(date);
-        condition.setF139(board);
-        condition.setMvMin(mvMin);
-        condition.setMvMax(mvMax);
-        condition.setType_name(bizName);
-        List<RankStockCommpanyDb> stList = StockService.findListByCondition(condition);
+//        //查询股票列表-根据板块
+//        CondStock condition = new CondStock();
+//        condition.setDate(date);
+//        condition.setF139(board);
+//        condition.setMvMin(mvMin);
+//        condition.setMvMax(mvMax);
+//        condition.setType_name(bizName);
+//        List<RankStockCommpanyDb> stList = StockService.findListByCondition(condition);
+
+        CondStockAdrCount condStockAdrCount = new CondStockAdrCount();
+        condStockAdrCount.setDate(date);
+        if (StringUtils.isNotBlank(bizName)) {
+            condStockAdrCount.setType_name(bizName);
+        }
+        List<StockAdrCountVo> stockAdrCountVoList= StockAdrCountService.listStAdrCount(condStockAdrCount);
 
 
         String endDate = handlerEndDateByDbField(date, dbField, dateList);
         String begDate = handlerBegDateByDbField(date, dbField, dateList);
 
         //查询每只股票的涨幅次数
-        for (RankStockCommpanyDb stock : stList) {
-            //检查股票:状态
-            if (!StockService.checkStockStatus(stock)) {
-                continue;
-            }
+        for (StockAdrCountVo stockAdrCountVo : stockAdrCountVoList) {
+            String code = stockAdrCountVo.getF12();
+            String name = stockAdrCountVo.getF14();
+//            //检查股票:状态
+//            if (!StockService.checkStockStatus(stock)) {
+//                continue;
+//            }
 
-            String code = stock.getF12();
-            String name = stock.getF14();
 
             CondStock conditionStock = new CondStock();//查询条件
             conditionStock.setF12(code);
@@ -458,37 +465,28 @@ public class StockAdrCountControl {
 
             StockAdrCount entity = new StockAdrCount();
             entity.setF12(code);
-            entity.setF14(stock.getF14());
+            entity.setF14(name);
             entity.setDate(date);
             if (adrSum == null) {
 //                System.out.println("今日未涨：" + JSON.toJSONString(entity));
                 continue;
-            }
-            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1.equals(dbField)) {
+            } else if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1.equals(dbField)) {
                 entity.setADR_UP_SUM_1_1(adrSum);
-            }
-            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_2.equals(dbField)) {
+            } else if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_2.equals(dbField)) {
                 entity.setADR_UP_SUM_1_2(adrSum);
-            }
-            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_3.equals(dbField)) {
+            } else if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_3.equals(dbField)) {
                 entity.setADR_UP_SUM_1_3(adrSum);
-            }
-            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5.equals(dbField)) {
+            } else if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_5.equals(dbField)) {
                 entity.setADR_UP_SUM_1_5(adrSum);
-            }
-            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10.equals(dbField)) {
+            } else if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_10.equals(dbField)) {
                 entity.setADR_UP_SUM_1_10(adrSum);
-            }
-            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20.equals(dbField)) {
+            } else if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_20.equals(dbField)) {
                 entity.setADR_UP_SUM_1_20(adrSum);
-            }
-            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40.equals(dbField)) {
+            } else if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_40.equals(dbField)) {
                 entity.setADR_UP_SUM_1_40(adrSum);
-            }
-            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40.equals(dbField)) {
+            } else if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_20_40.equals(dbField)) {
                 entity.setADR_UP_SUM_20_40(adrSum);
-            }
-            if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60.equals(dbField)) {
+            } else if (DB_STOCK_ADR_COUNT_ADR_UP_SUM_40_60.equals(dbField)) {
                 entity.setADR_UP_SUM_40_60(adrSum);
             }
             stockAdrCountList.add(entity);
@@ -517,7 +515,6 @@ public class StockAdrCountControl {
      * @param mvMax
      */
     private static boolean findCheckDbAdrSum(String date, Long board, String bizName, BigDecimal mvMin, BigDecimal mvMax) {
-        int countNotNull = 0;//非空个数
         CondStockAdrCount condFind = new CondStockAdrCount();
         condFind.setDate(date);
         condFind.setF139(board);
@@ -526,35 +523,37 @@ public class StockAdrCountControl {
         condFind.setMvMax(mvMax);
         List<StockAdrCountVo> stockAdrCountVoList = StockAdrCountService.listStAdrCount(condFind);
 
-        //查询股票列表-根据板块
-        CondStock condition = new CondStock();
-        condition.setDate(date);
-        condition.setF139(board);
-        condition.setMvMin(mvMin);
-        condition.setMvMax(mvMax);
-        condition.setType_name(bizName);
-        List<RankStockCommpanyDb> stList = StockService.findListByCondition(condition);
+        //查询adrSum已存在个数
+        CondStockAdrCount condStockAdrCount = new CondStockAdrCount();
+        condStockAdrCount.setDate(date);
+        condStockAdrCount.setF139(board);
+        condStockAdrCount.setType_name(bizName);
+        condStockAdrCount.setMvMin(mvMin);
+        condStockAdrCount.setMvMax(mvMax);
+        condStockAdrCount.setAdrUpSumOrder1to60Min(new BigDecimal("0"));
+        List<StockAdrCountVo> stockAdrCountVoListAdrSum60Exist= StockAdrCountService.listStAdrCount(condStockAdrCount);
 
-        for (StockAdrCountVo stockAdrCountVo : stockAdrCountVoList) {
-//            Map<String, StockAdrCountVo> stockAdrCountMap = new HashMap<>();
-//            stockAdrCountMap.put(stockAdrCountVo.getF12(), stockAdrCountVo);
-            //如果涨幅合计已存在，无需更新
-            if (stockAdrCountVo != null) {
-                BigDecimal adrSumDb = stockAdrCountVo.getADR_UP_SUM_1_60();
-                if (adrSumDb != null) {
-                    countNotNull++;
-//                    System.out.println("如果涨幅合计已存在，无需更新:" + adrSumDb + "," + bizName);
-//                    System.out.println("如果涨幅合计已存在，无需更新:" + adrSumDb + "," + bizName + "," + name + ",已存在值：" + adrSumDb + ",查询值：" + adrSum);
-                }
-
-            }
-        }
-        int stCount = stList != null ? stList.size() : 0;
-        if (stCount <= countNotNull) {
-            System.out.println("如果涨幅合计已存在，无需更新," + bizName + ",已存在个数：" + countNotNull + ",需要更新个数：" + stCount);
+//        for (StockAdrCountVo stockAdrCountVo : stockAdrCountVoList) {
+////            Map<String, StockAdrCountVo> stockAdrCountMap = new HashMap<>();
+////            stockAdrCountMap.put(stockAdrCountVo.getF12(), stockAdrCountVo);
+//            //如果涨幅合计已存在，无需更新
+//            if (stockAdrCountVo != null) {
+//                BigDecimal adrSumDb = stockAdrCountVo.getADR_UP_SUM_1_60();
+//                if (adrSumDb != null) {
+//                    countNotNull++;
+////                    System.out.println("如果涨幅合计已存在，无需更新:" + adrSumDb + "," + bizName);
+////                    System.out.println("如果涨幅合计已存在，无需更新:" + adrSumDb + "," + bizName + "," + name + ",已存在值：" + adrSumDb + ",查询值：" + adrSum);
+//                }
+//
+//            }
+//        }
+        int adrSum60ExistCount = stockAdrCountVoListAdrSum60Exist != null ? stockAdrCountVoListAdrSum60Exist.size() : 0;
+        int count = stockAdrCountVoList != null ? stockAdrCountVoList.size() : 0;
+        if (adrSum60ExistCount >= count) {
+            System.out.println("如果涨幅合计已存在，无需更新," + bizName + ",已存在个数：" + adrSum60ExistCount + ",需要更新个数：" + count);
             return true;
         } else {
-            System.out.println("如果涨幅合计已存在，数量不足需要更新," + bizName + ",已存在个数：" + countNotNull + ",需要更新个数：" + stCount);
+            System.out.println("如果涨幅合计已存在，数量不足需要更新," + bizName + ",已存在个数：" + adrSum60ExistCount + ",需要更新个数：" + count);
         }
         return false;
     }
@@ -742,6 +741,7 @@ public class StockAdrCountControl {
             if (isDelete) {
                 deleteTodayStAdrCount(date, bizName);//删除
             }
+
             insertListByBiz(date, bizCode, bizName, mvMin);
         }
     }

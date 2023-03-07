@@ -74,16 +74,18 @@ public class StockAdrStat {
 //        condFind.setUP_MA_102("102(60)");
 
 //        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
-//        condFind.setMaxNetAreaDay60(new BigDecimal("25"));
-//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+        condFind.setMaxNetAreaDay60(new BigDecimal("25"));
 
-//        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
+        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+//        condFind.setMaxMa60Up102(new BigDecimal("0"));//均线之下
+
+        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)","60(60)"));
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)"));
 
         //条件限定：涨幅排名
 //        condFind.setAdrUpSumOrder1to60Min(new BigDecimal("1"));
-        condFind.setAdrUpSumOrder1to60Max(new BigDecimal("2"));
+        condFind.setAdrUpSumOrder1to60Max(new BigDecimal("3"));
 
 //        condFind.setF10Min(new BigDecimal("2.0"));
 

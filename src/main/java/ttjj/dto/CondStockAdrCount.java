@@ -73,6 +73,11 @@ public class CondStockAdrCount extends StockAdrCount {
     private BigDecimal adrUpSumOrder1to60Max;
 
     /**
+     * 涨幅次数非空
+     */
+    private boolean adrUpSumOrder1to60NotNull;
+
+    /**
      * 均线周期列表
      */
     private List<String> maKltList;
@@ -90,6 +95,10 @@ public class CondStockAdrCount extends StockAdrCount {
      * 均线之上-60-周线
      */
     private BigDecimal minMa60Up102;
+    /**
+     * 均线之下-60-周线
+     */
+    private BigDecimal maxMa60Up102;
     /**
      * minNetAreaDay5
      */
@@ -319,5 +328,21 @@ public class CondStockAdrCount extends StockAdrCount {
 
     public void setF10Max(BigDecimal f10Max) {
         this.f10Max = f10Max;
+    }
+
+    public BigDecimal getMaxMa60Up102() {
+        return maxMa60Up102;
+    }
+
+    public void setMaxMa60Up102(BigDecimal maxMa60Up102) {
+        this.maxMa60Up102 = maxMa60Up102;
+    }
+
+    public boolean isAdrUpSumOrder1to60NotNull() {
+        return adrUpSumOrder1to60NotNull;
+    }
+
+    public void setAdrUpSumOrder1to60NotNull(boolean adrUpSumOrder1to60NotNull) {
+        this.adrUpSumOrder1to60NotNull = adrUpSumOrder1to60NotNull;
     }
 }
