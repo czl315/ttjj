@@ -436,7 +436,7 @@ public class StockAdrCountControl {
         if (StringUtils.isNotBlank(bizName)) {
             condStockAdrCount.setType_name(bizName);
         }
-        List<StockAdrCountVo> stockAdrCountVoList= StockAdrCountService.listStAdrCount(condStockAdrCount);
+        List<StockAdrCountVo> stockAdrCountVoList = StockAdrCountService.listStAdrCount(condStockAdrCount);
 
 
         String endDate = handlerEndDateByDbField(date, dbField, dateList);
@@ -531,7 +531,7 @@ public class StockAdrCountControl {
         condStockAdrCount.setMvMin(mvMin);
         condStockAdrCount.setMvMax(mvMax);
         condStockAdrCount.setAdrUpSumOrder1to60Min(new BigDecimal("0"));
-        List<StockAdrCountVo> stockAdrCountVoListAdrSum60Exist= StockAdrCountService.listStAdrCount(condStockAdrCount);
+        List<StockAdrCountVo> stockAdrCountVoListAdrSum60Exist = StockAdrCountService.listStAdrCount(condStockAdrCount);
 
 //        for (StockAdrCountVo stockAdrCountVo : stockAdrCountVoList) {
 ////            Map<String, StockAdrCountVo> stockAdrCountMap = new HashMap<>();
@@ -742,8 +742,52 @@ public class StockAdrCountControl {
                 deleteTodayStAdrCount(date, bizName);//删除
             }
 
-            insertListByBiz(date, bizCode, bizName, mvMin);
+            //查询业务类别下是否都存在。如果数据不足再新增保存
+            if (!listAllExist(date, bizCode, bizName, mvMin)) {
+                insertListByBiz(date, bizCode, bizName, mvMin);
+            }
+
         }
+    }
+
+    /**
+     * 查询业务类别下是否都存在
+     *
+     * @param date
+     * @param bizCode
+     * @param bizName
+     * @param mvMin
+     * @return
+     */
+    private static boolean listAllExist(String date, String bizCode, String bizName, BigDecimal mvMin) {
+        List<String> stockCodeList = new ArrayList<>();
+//        按板块查询
+        List<RankStockCommpanyDb> stList = BizService.listRankStockByBiz(NUM_MAX_999, bizCode);
+        for (RankStockCommpanyDb rankStockCommpanyDb : stList) {
+            //只更新主板板块
+            //检查股票:状态、是否主板股票、市值限定
+            if (!StockService.checkIsMainStockLimit(rankStockCommpanyDb, mvMin)) {
+                continue;
+            }
+            stockCodeList.add(rankStockCommpanyDb.getF12());
+        }
+
+        CondStockAdrCount condition = new CondStockAdrCount();
+        condition.setDate(date);
+        condition.setType_name(bizName);
+        condition.setStCodeList(stockCodeList);
+        List<StockAdrCountVo> stockAdrCountVoListExist = StockAdrCountService.listStAdrCount(condition);
+
+        int existCount = stockAdrCountVoListExist != null ? stockAdrCountVoListExist.size() : 0;
+        int toSaveCount = stockCodeList != null ? stockCodeList.size() : 0;
+
+        if (toSaveCount > existCount) {
+            System.out.println(bizName + ",需要保存数量：已存在数量：" + toSaveCount + "：" + existCount + ",数据不足。");
+            return false;
+        } else {
+            System.out.println(bizName + ",需要保存数量：已存在数量：" + toSaveCount + "：" + existCount + ",数据已存在，无需新增。");
+        }
+        return true;
     }
 
     /**
