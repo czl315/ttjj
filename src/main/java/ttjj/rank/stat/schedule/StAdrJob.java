@@ -34,7 +34,7 @@ public class StAdrJob {
 
         //更新股票
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            String jobName = "更新股票涨幅统计";
+            String jobName = "更新股票涨幅统计-净值";
             System.out.println();
             System.out.println("定时任务-" + jobName + "-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
             Long board = DB_RANK_BIZ_F139_BK_MAIN;//
@@ -82,7 +82,7 @@ public class StAdrJob {
             stockAdrCountCond.setMaKltList(maKltList);
 //            stockAdrCountCond.setUpdateNet(true);//用时：16
 
-            if (countThread % 10 == 0) {
+            if (countThread % 5 == 0) {
                 StockAdrCountControl.save(date, bizList, false, spBizName, stockAdrCountCond);
                 stockAdrCountCond.setUpdateSum(true);//总花费时间：1116
                 stockAdrCountCond.setUpdateOrder(true);
@@ -90,7 +90,7 @@ public class StAdrJob {
             if (countThread % 5 == 1 ) {
                 stockAdrCountCond.setUpdateUpMa(true);//总花费时间：(40亿)用时：1454  (50亿)1225
             }
-            if (countThread % 5 == 2 ) {
+            if (countThread % 5 == 1 ) {
                 stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
             }
 

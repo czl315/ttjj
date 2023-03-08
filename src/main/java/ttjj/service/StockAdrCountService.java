@@ -1,11 +1,13 @@
 package ttjj.service;
 
+import com.alibaba.fastjson.JSON;
 import ttjj.dao.StockAdrCountDao;
 import ttjj.db.StockAdrCount;
 import ttjj.dto.CondStockAdrCount;
 import ttjj.dto.StockAdrCountVo;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * 股票涨跌次数
@@ -14,6 +16,7 @@ import java.util.List;
  * @date 2022-05-10 22:48
  */
 public class StockAdrCountService {
+    private final static Logger logger = Logger.getLogger(StockAdrCountService.class.getName());
     /**
      * 批量插入
      *
@@ -39,7 +42,44 @@ public class StockAdrCountService {
             /**
              * 插入数据库-K线
              */
-            rs += StockAdrCountDao.insert(stockAdrCount);
+            int rsSave = StockAdrCountDao.insert(stockAdrCount);
+            //打印保存成功的记录
+            if (rsSave > 0) {
+                logger.info("保存成功的记录：" + JSON.toJSONString(stockAdrCount));
+                rs += rsSave;
+            }
+        }
+        return rs;
+    }
+
+    /**
+     * 批量插入-先查询
+     *
+     * @param list
+     * @return
+     */
+    public static Integer insertListBeforeFind(List<StockAdrCount> list) {
+        Integer rs = 0;
+        if (list == null) {
+            return rs;
+        }
+        for (StockAdrCount stockAdrCount : list) {
+            StockAdrCount entity = StockAdrCountDao.findByCondition(stockAdrCount);
+            if (entity != null) {
+//                logger.info("记录已存在：" + stockAdrCount.getF14());
+//                System.out.println("记录已存在：" + stockAdrCount.getF14());
+                continue;
+            }
+            /**
+             * 插入数据库-K线
+             */
+            int rsSave = StockAdrCountDao.insert(stockAdrCount);
+            //打印保存成功的记录
+            if (rsSave > 0) {
+                logger.info("保存成功的记录：" + JSON.toJSONString(stockAdrCount));
+                System.out.println("保存成功的记录：" + stockAdrCount.getF14() + JSON.toJSONString(stockAdrCount));
+                rs += rsSave;
+            }
         }
         return rs;
     }
@@ -62,9 +102,7 @@ public class StockAdrCountService {
                 int deleRs = StockAdrCountDao.deleteByCondition(entity);
                 System.out.println("数据已存在，先删除:" + deleRs + ";");//+ JSON.toJSONString(entity)
             }
-            /**
-             * 插入数据库-K线
-             */
+            //插入数据库-K线
             rs += StockAdrCountDao.insert(stockAdrCount);
         }
 //        System.out.println("批量插入:" + rs);
@@ -74,8 +112,8 @@ public class StockAdrCountService {
     /**
      * 查询列表-根据条件
      *
-     * @param condition
-     * @return
+     * @param condition condition
+     * @return rs
      */
     public static List<StockAdrCountVo> listStAdrCount(CondStockAdrCount condition) {
         return StockAdrCountDao.listStAdrCount(condition);

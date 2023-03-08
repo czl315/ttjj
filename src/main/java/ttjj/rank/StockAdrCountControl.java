@@ -782,7 +782,7 @@ public class StockAdrCountControl {
         int toSaveCount = stockCodeList != null ? stockCodeList.size() : 0;
 
         if (toSaveCount > existCount) {
-            System.out.println(bizName + ",需要保存数量：已存在数量：" + toSaveCount + "：" + existCount + ",数据不足。");
+            System.out.println(bizName + ",需要保存数量：已存在数量：" + toSaveCount + "：" + existCount + ",数据不足再新增保存。");
             return false;
         } else {
             System.out.println(bizName + ",需要保存数量：已存在数量：" + toSaveCount + "：" + existCount + ",数据已存在，无需新增。");
@@ -996,7 +996,8 @@ public class StockAdrCountControl {
             stockAdrCountList.add(entity);
         }
 
-        System.out.println(bizName + ",涨幅次数统计,插入成功/总数量：" + StockAdrCountService.insertList(stockAdrCountList) + "：" + stList.size());
+//        System.out.println(bizName + ",涨幅次数统计,插入成功/总数量：" + StockAdrCountService.insertList(stockAdrCountList) + "：" + stList.size());
+        System.out.println(bizName + ",涨幅次数统计,插入成功/总数量：" + StockAdrCountService.insertListBeforeFind(stockAdrCountList) + "：" + stList.size());
         return stockAdrCountList;
     }
 
