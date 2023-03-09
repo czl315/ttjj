@@ -58,7 +58,7 @@ public class StAdrJob {
             StockAdrCountControl.updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
 
             System.out.println("定时任务-" + jobName + "-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
-        }, 0, 5, TimeUnit.MINUTES);
+        }, 1, 5, TimeUnit.MINUTES);
 
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
             String jobName = "更新股票涨幅统计";
@@ -89,8 +89,6 @@ public class StAdrJob {
             }
             if (countThread % 5 == 1 ) {
                 stockAdrCountCond.setUpdateUpMa(true);//总花费时间：(40亿)用时：1454  (50亿)1225
-            }
-            if (countThread % 5 == 1 ) {
                 stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
             }
 
