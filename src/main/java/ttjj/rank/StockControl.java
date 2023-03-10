@@ -36,7 +36,7 @@ public class StockControl {
 //            addTodayStCom(date, startNum);//  添加或更新股票-根据日期
 //            updateConception(date, startNum);//更新题材概念
             addTodayStComByExistCount(date, 5000);//  添加或更新股票-根据日期
-            updateConceptionByExistCount(date, 4500);//更新题材概念
+            updateConceptionByExistCount(date);//更新题材概念
             updateTodayStCom(date, startNum);//更新股票
             updateNetToday(date, startNum, maUpdateMap, isReport, NUM_YI_40);//  更新净值
 
@@ -1384,9 +1384,9 @@ public class StockControl {
 
     /**
      * 更新题材概念
-     *  按照业务维度查询数据库中已存在概念的个数,如果已存在个数低于需要更新的个数，再更新概念。否则无需更新
+     * 按照业务维度查询数据库中已存在概念的个数,如果已存在个数低于需要更新的个数，再更新概念。否则无需更新
      *
-     * @param date 日期
+     * @param date     日期
      * @param startNum 开始业务
      * @return rs
      */
@@ -2002,21 +2002,16 @@ public class StockControl {
      * 查询概念非空的个数,如果低于阈值：1000，更新概念。否则，数据已存在，无需更新概念
      *
      * @param date                        日期
-     * @param countConceptionNotNullLimit 阈值
      */
-    public static void updateConceptionByExistCount(String date, Integer countConceptionNotNullLimit) {
+    public static void updateConceptionByExistCount(String date) {
         //查询概念非空的个数,如果低于阈值：1000，更新概念。否则，数据已存在，无需更新概念：4741   5140(20230309)
+        int rsUpdate = StockControl.updateConception(date, 0);//更新题材概念
+        System.out.println("本次更新概念个数:" + rsUpdate);//更新概念个数:4995(20230302)
+
         CondStock conditionConceptionNotNull = new CondStock();
         conditionConceptionNotNull.setDate(date);
         conditionConceptionNotNull.setConceptionNotNull(true);
         Integer countConceptionNotNull = StockService.findCountByCondition(conditionConceptionNotNull);
-        int rsUpdate = StockControl.updateConception(date, 0);//更新题材概念
-//        if (countConceptionNotNull == null || countConceptionNotNull < countConceptionNotNullLimit) {
-//            System.out.println("概念非空个数低于阈值" + countConceptionNotNullLimit + "，已存在：" + countConceptionNotNull);
-//            int rsUpdate = StockControl.updateConception(date, 0);//更新题材概念
-//            System.out.println("更新概念个数:" + rsUpdate);//更新概念个数:4995(20230302)
-//        } else {
-//            System.out.println("概念非空个数,数据已存在，无需更新概念：" + countConceptionNotNull);
-//        }
+        System.out.println("概念非空个数：" + countConceptionNotNull);
     }
 }

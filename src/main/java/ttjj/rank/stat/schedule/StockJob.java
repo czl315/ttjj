@@ -47,8 +47,7 @@ public class StockJob {
 
         //更新概念
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            Integer countConceptionNotNullLimit = 4500;//概念非空数据已存在阈值限定4000，4741(2023.02.27)
-            StockControl.updateConceptionByExistCount(date, countConceptionNotNullLimit);//数据已存在阈值限定5000，5222(2023.02.27)
+            StockControl.updateConceptionByExistCount(date);
         }, 0, 30, TimeUnit.MINUTES);
 
         //更新股票
