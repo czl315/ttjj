@@ -132,7 +132,6 @@ public class StockControl {
             }
         }
 
-        Boolean isUpdateMv = false;//是否更新市值
         String funcName = "更新股票-";
         StopWatch sw = new StopWatch(funcName);
 
@@ -142,7 +141,7 @@ public class StockControl {
             String bkName = bk.getF14();
             stBizCountTemp++;
             List<RankStockCommpanyDb> stockList = BizService.listRankStockByBiz(NUM_MAX_999, banKuaiCode);
-            sw.start(funcName + StockUtil.formatInt(stBizCountTemp, 2) + "---[" + StockUtil.formatDouble(bk.getF3(), 5) + "]---" + "---[" + StockUtil.formatInt(stockList.size(), 3) + "]---" + StockUtil.formatStName(bkName,12));
+            sw.start(funcName + StockUtil.formatInt(stBizCountTemp, 2) + "---[" + StockUtil.formatDouble(bk.getF3(), 5) + "]---" + StockUtil.formatInt(stockList.size(), 3) + "---" + StockUtil.formatStName(bkName, 12));
 //            System.out.println("-------------------------更新股票：" + stBizCountTemp + "---" + StockUtil.formatStr(bkName, 6) + "---[" + bk.getF3() + "]---" + stockList.size());
 
             int updateRs = 0;
@@ -154,7 +153,7 @@ public class StockControl {
                 stockInfo.setDate(date);
                 updateRs += RankStockCommpanyDao.updateByCode(stockInfo);
             }
-            System.out.println(funcName + StockUtil.formatBizName(bkName) + "更新成功:" + updateRs);
+            System.out.println(funcName + StockUtil.formatBizName(bkName) + "全部数量：更新成功:" + StockUtil.formatInt(stockList.size(), 3) + ":" + updateRs);
             sw.stop();
         }
         System.out.println(sw.prettyPrint());
