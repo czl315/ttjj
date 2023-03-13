@@ -140,31 +140,26 @@ public class StockControl {
         for (RankBizDataDiff bk : bkListMust) {
             String banKuaiCode = bk.getF12();
             String bkName = bk.getF14();
-            sw.start(funcName+bkName);
-
             stBizCountTemp++;
             List<RankStockCommpanyDb> stockList = BizService.listRankStockByBiz(NUM_MAX_999, banKuaiCode);
-//            System.out.println();
-            System.out.println("-------------------------更新股票：" + stBizCountTemp + "---" + bkName + "---[" + bk.getF3() + "]---" + stockList.size());
-//            System.out.println();
+            sw.start(funcName + StockUtil.formatInt(stBizCountTemp, 2) + "---[" + StockUtil.formatDouble(bk.getF3(), 5) + "]---" + "---[" + StockUtil.formatInt(stockList.size(), 3) + "]---" + StockUtil.formatStName(bkName,12));
+//            System.out.println("-------------------------更新股票：" + stBizCountTemp + "---" + StockUtil.formatStr(bkName, 6) + "---[" + bk.getF3() + "]---" + stockList.size());
 
+            int updateRs = 0;
             for (RankStockCommpanyDb stockInfo : stockList) {
                 if (stockInfo.getF3() == null) {
-//                    System.out.println("数据异常:" + JSON.toJSONString(stockInfo));
+//                    System.out.println(funcName + "数据异常:" + JSON.toJSONString(stockInfo));
                     continue;
                 }
                 stockInfo.setDate(date);
-
-                int rsUpdate = RankStockCommpanyDao.updateByCode(stockInfo);
-
-//                System.out.println("rsUpdate:" + rsUpdate);
+                updateRs += RankStockCommpanyDao.updateByCode(stockInfo);
             }
+            System.out.println(funcName + StockUtil.formatBizName(bkName) + "更新成功:" + updateRs);
             sw.stop();
         }
         System.out.println(sw.prettyPrint());
         System.out.println(sw.shortSummary());
         System.out.println(sw.getTotalTimeMillis());
-
     }
 
     /**
@@ -1434,7 +1429,7 @@ public class StockControl {
 //            System.out.println();
             System.out.println("-------------------------更新概念,当前biz：" + stBizCountTemp + "---" + StockUtil.formatStr(banKuaiName, 6) + "---[" + bk.getF3() + "]---需要更新个数:概念非空个数---" + stockCount + ":" + countConceptionNotNull);
             if (stockCount <= countConceptionNotNull) {
-                System.out.println("此业务已全部更新概念。");
+//                System.out.println("此业务已全部更新概念。");
                 continue;
             } else {
                 System.out.println("此业务未全部更新概念，去更新");
@@ -2012,7 +2007,7 @@ public class StockControl {
     /**
      * 查询概念非空的个数,如果低于阈值：1000，更新概念。否则，数据已存在，无需更新概念
      *
-     * @param date                        日期
+     * @param date 日期
      */
     public static void updateConceptionByExistCount(String date) {
         //查询概念非空的个数,如果低于阈值：1000，更新概念。否则，数据已存在，无需更新概念：4741   5140(20230309)

@@ -111,6 +111,19 @@ public class StockUtil {
     }
 
     /**
+     * @param number number
+     * @param length length
+     * @return rs
+     */
+    public static String formatInt(Integer number, int length) {
+        if (number == null) {
+            return null;
+        }
+        BigDecimal numberBigDecimal = new BigDecimal(number + "");
+        return formatDouble(numberBigDecimal, length);
+    }
+
+    /**
      * 格式化-数字，根据长度
      *
      * @param number 输入值
