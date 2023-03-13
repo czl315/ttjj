@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.StopWatch;
 import ttjj.dao.RankStockCommpanyDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.dto.*;
@@ -130,14 +131,21 @@ public class StockControl {
                 break;//限定个数中断
             }
         }
+
+        Boolean isUpdateMv = false;//是否更新市值
+        String funcName = "更新股票-";
+        StopWatch sw = new StopWatch(funcName);
+
         int stBizCountTemp = startNum;
         for (RankBizDataDiff bk : bkListMust) {
             String banKuaiCode = bk.getF12();
-            String banKuaiName = bk.getF14();
+            String bkName = bk.getF14();
+            sw.start(funcName+bkName);
+
             stBizCountTemp++;
             List<RankStockCommpanyDb> stockList = BizService.listRankStockByBiz(NUM_MAX_999, banKuaiCode);
 //            System.out.println();
-            System.out.println("-------------------------更新股票：" + stBizCountTemp + "---" + banKuaiName + "---[" + bk.getF3() + "]---" + stockList.size());
+            System.out.println("-------------------------更新股票：" + stBizCountTemp + "---" + bkName + "---[" + bk.getF3() + "]---" + stockList.size());
 //            System.out.println();
 
             for (RankStockCommpanyDb stockInfo : stockList) {
@@ -151,8 +159,11 @@ public class StockControl {
 
 //                System.out.println("rsUpdate:" + rsUpdate);
             }
+            sw.stop();
         }
-
+        System.out.println(sw.prettyPrint());
+        System.out.println(sw.shortSummary());
+        System.out.println(sw.getTotalTimeMillis());
 
     }
 

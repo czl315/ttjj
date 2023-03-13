@@ -35,8 +35,6 @@ public class StockJob {
      * @param date 日期
      */
     private static void scheduleStock(String date) {
-        int period = 5;
-
         //新增保存今日股票
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
             Integer countNotNullLimit = 5000;//数据已存在阈值限定5000，5222(2023.02.27)
@@ -44,24 +42,18 @@ public class StockJob {
             StockControl.addTodayStComByExistCount(date, countNotNullLimit);//数据已存在阈值限定5000，5222(2023.02.27)
         }, 0, 30, TimeUnit.MINUTES);
 
-
         //更新概念
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
             StockControl.updateConceptionByExistCount(date);
-        }, 0, 30, TimeUnit.MINUTES);
+        }, 0, 15, TimeUnit.MINUTES);
 
         //更新股票
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            System.out.println();
             long begTime = System.currentTimeMillis();
             System.out.println("定时任务-股票-更新-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
-
-            int startNum = 0;//开始位置，默认0
-            StockControl.updateTodayStCom(date, startNum);//更新股票
-
+            StockControl.updateTodayStCom(date, 0);//更新股票
             System.out.println("运行次数" + (++countThread));
             System.out.println("定时任务-股票-更新-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0) + "，用时：" + (System.currentTimeMillis() - begTime) / 1000);
-
         }, 0, 5, TimeUnit.MINUTES);
 
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
@@ -74,7 +66,7 @@ public class StockJob {
 //            if (countThread % 5 == 1) {
                 StockControl.updateNetToday(date, startNum, maUpdateMap, false, NUM_YI_40);//  更新净值
 //            }
-        }, 2, 60, TimeUnit.MINUTES);
+        }, 16, 60, TimeUnit.MINUTES);
     }
 
 }

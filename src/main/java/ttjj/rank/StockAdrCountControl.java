@@ -501,7 +501,7 @@ public class StockAdrCountControl {
                 rs++;
             }
         }
-        System.out.println(bizName + ",更新-上涨之和-成功：" + rs);
+        System.out.println(bizName + ",更新-上涨之和-成功：" + dbField + "," + rs);
         return rs;
     }
 
