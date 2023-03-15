@@ -1,17 +1,15 @@
 package ttjj.rank.stat.schedule;
 
-import ttjj.dto.CondStock;
 import ttjj.rank.StockControl;
-import ttjj.service.StockService;
 import utils.DateUtil;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import static utils.Content.*;
-import static utils.Content.MA_TYPE_WEEK;
 
 /**
  * 定时任务
@@ -56,7 +54,9 @@ public class StockJob {
             System.out.println("定时任务-股票-更新-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0) + "，用时：" + (System.currentTimeMillis() - begTime) / 1000);
         }, 0, 5, TimeUnit.MINUTES);
 
+        //更新净值
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
+            BigDecimal minMv = NUM_YI_100;
             int startNum = 0;//开始位置，默认0
             Map<String, Boolean> maUpdateMap = new HashMap<>();
             StockControl.setMaMapType(MA_TYPE_DAY, maUpdateMap);
@@ -64,7 +64,7 @@ public class StockJob {
             StockControl.setMaMapType(MA_TYPE_WEEK, maUpdateMap);
 
 //            if (countThread % 5 == 1) {
-                StockControl.updateNetToday(date, startNum, maUpdateMap, false, NUM_YI_40);//  更新净值
+                StockControl.updateNetToday(date, startNum, maUpdateMap, false, minMv);//  更新净值
 //            }
         }, 16, 60, TimeUnit.MINUTES);
     }

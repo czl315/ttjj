@@ -1922,7 +1922,7 @@ public class KlineService {
             }
         }
 
-        showSbHeader(kltList);//显示头信息
+        showSbHeader(kltList, condMa);//显示头信息
 
         //查询k线，http，对查询的k线进行排序
         List<StockAdrCountVo> stockAdrCountVoRs = KlineService.checkMaDemo(mapMySt, date, isShowPriceArea, isShowPriceArea, isShowUpMa, isFindKline, kltList, mapMyPosition);
@@ -2059,16 +2059,19 @@ public class KlineService {
     /**
      * 计算显示长度
      *
-     * @param kltList k线列表
-     * @param klt     当前k线
+     * @param klt 当前k线
      * @return 长度
      */
-    private static int handlerShowSize(List<String> kltList, String klt) {
+    private static int handlerShowSize(String klt) {
+        int showSize5 = 5;
         int showSize6 = 6;
         int showSize10 = 10;
-        if (klt.equals(KLT_60)) {
-            return showSize10;
+        if (klt.equals(KLT_5)) {
+            return showSize5;
         }
+//        if (klt.equals(KLT_60)) {
+//            return showSize10;
+//        }
         return showSize6;
     }
 
@@ -2376,9 +2379,10 @@ public class KlineService {
 //            rs.append("[" +StockUtil.formatStr(upMa + ":" + pct + ":" + breakCountUp, showSize)+ "]");
     }
 
-    private static void handlerMaBreakInfoSbNew(StringBuffer rs, int pctScale, int showSize, String upMa, int breakCount, BigDecimal pct, boolean showPct, boolean isShowPctUp, boolean isShowPctDown, List<String> showPctKltList, String klt, StockAdrCountVo stockAdrCountVo) {
+    private static void handlerMaBreakInfoSbNew(StringBuffer rs, int pctScale, int showSize, String upMa, int breakCount, BigDecimal pct, boolean isShowPct, boolean isShowPctUp, boolean isShowPctDown, List<String> showPctKltList, String klt, StockAdrCountVo stockAdrCountVo) {
+        showSize = handlerShowSize(klt);
         if (isShowPctUp && pct.compareTo(new BigDecimal("0")) >= 0) {
-            rs.append(StockUtil.formatDouble(pct, showSize));
+//            rs.append(StockUtil.formatDouble(pct, showSize));
 //            rs.append("[" +StockUtil.formatStr("", showSize)+ "]");
 //                rs.append(StockUtil.formatStr(upMa + ":" + pct + ":" + breakCount, showSize));
             rs.append(StockUtil.formatStr(breakCount + ":" + pct, showSize));
@@ -2386,11 +2390,23 @@ public class KlineService {
             rs.append(StockUtil.formatStr(breakCount + ":" + pct, showSize));
 //            rs.append("[" +StockUtil.formatStr("", showSize)+ "]");
         } else {
-//            rs.append(StockUtil.formatStr(upMa + "", showSize));
             if (StringUtils.isBlank(upMa)) {
-                rs.append(StockUtil.formatStr(upMa + "", showSize));
+                if (isShowPct && showPctKltList != null && showPctKltList.contains(klt)) {
+                    String countBreakStr = breakCount == 0 ? " " : breakCount + "";
+                    rs.append(StockUtil.formatStr(countBreakStr + ":" + pct, showSize));
+                } else {
+                    rs.append(StockUtil.formatStr(upMa + "", showSize));
+                }
             } else {
-                rs.append(StockUtil.formatStr(upMa + ":" + breakCount, showSize));
+//                rs.append(StockUtil.formatStr(upMa + ":" + breakCount, showSize));
+//                rs.append(StockUtil.formatStr(breakCount+ "", showSize));
+                if (isShowPct && showPctKltList != null && showPctKltList.contains(upMa)) {
+//                    rs.append(StockUtil.formatStr(upMa + ":" + breakCount + ":" + pct, showSize));
+                    rs.append(StockUtil.formatStr(breakCount + ":" + pct, showSize));
+                } else {
+//                    rs.append(StockUtil.formatStr(upMa + ":" + breakCount, showSize));
+                    rs.append(StockUtil.formatStr(breakCount + "", showSize));
+                }
             }
         }
     }
@@ -2418,28 +2434,56 @@ public class KlineService {
      * 显示头信息
      *
      * @param kltList
+     * @param condMa
      */
-    private static void showSbHeader(List<String> kltList) {
+    private static void showSbHeader(List<String> kltList, CondMa condMa) {
         StringBuffer rs = new StringBuffer("代码").append("   ").append(StockUtil.formatEtfName("名称", 12)).append("上 ");
+        rs.append(showSbHeaderKltList(kltList));
+
+        Boolean isShowBreakUpMaMin = condMa.getShowBreakUpMaMin();
+        Boolean isShowDownMaMax = condMa.getShowBreakDownMaMax();
+        boolean isShowDownMa = condMa.getShowDownMa();
+        //是否查询向上涨破均线-最低净值
+        if (isShowBreakUpMaMin != null && isShowBreakUpMaMin) {
+            rs.append("低上 ");//最低净值向上突破均线，显示是否突破(距离均线百分比)，连续突破次数，可选5，15，30,60，日线、周线；
+            rs.append(showSbHeaderKltList(kltList));
+        }
+        if (isShowDownMa) {
+            rs.append("下 ");//显示信息-价格区间
+            rs.append(showSbHeaderKltList(kltList));
+        }
+        if (isShowDownMaMax != null && isShowDownMaMax) {//是否查询向下跌破均线-最高净值
+            rs.append("高下 ");
+            rs.append(showSbHeaderKltList(kltList));
+        }
+
+        System.out.println(rs);
+    }
+
+    /**
+     * @param kltList
+     */
+    private static StringBuffer showSbHeaderKltList(List<String> kltList) {
+        StringBuffer rs = new StringBuffer("");
         if (kltList.contains(KLT_5)) {
-            rs.append(StockUtil.formatStr(KLT_5, handlerShowSize(kltList, KLT_5)));
+            rs.append(StockUtil.formatStr(KLT_5, handlerShowSize(KLT_5)));
         }
         if (kltList.contains(KLT_15)) {
-            rs.append(StockUtil.formatStr(KLT_15, handlerShowSize(kltList, KLT_15)));
+            rs.append(StockUtil.formatStr(KLT_15, handlerShowSize(KLT_15)));
         }
         if (kltList.contains(KLT_30)) {
-            rs.append(StockUtil.formatStr(KLT_30, handlerShowSize(kltList, KLT_30)));
+            rs.append(StockUtil.formatStr(KLT_30, handlerShowSize(KLT_30)));
         }
         if (kltList.contains(KLT_60)) {
-            rs.append(StockUtil.formatStr(KLT_60, handlerShowSize(kltList, KLT_60)));
+            rs.append(StockUtil.formatStr(KLT_60, handlerShowSize(KLT_60)));
         }
         if (kltList.contains(KLT_101)) {
-            rs.append(StockUtil.formatStr(KLT_101, handlerShowSize(kltList, KLT_101)));
+            rs.append(StockUtil.formatStr(KLT_101, handlerShowSize(KLT_101)));
         }
         if (kltList.contains(KLT_102)) {
-            rs.append(StockUtil.formatStr(KLT_102, handlerShowSize(kltList, KLT_102)));
+            rs.append(StockUtil.formatStr(KLT_102, handlerShowSize(KLT_102)));
         }
-        System.out.println(rs);
+        return rs;
     }
 
     /**

@@ -36,8 +36,8 @@ public class BizEtfStat {
         condMa.setDays(3);
         condMa.setSpDate(spDate);
         condMa.setShowPriceArea(true);//是否显示价格区间
-        condMa.setKltList(Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101, KLT_102));//价格区间周期列表
-//        condMa.setKltList(Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101));//价格区间周期列表
+//        condMa.setKltList(Arrays.asList(KLT_5, KLT_15, KLT_30, KLT_60, KLT_101, KLT_102));//价格区间周期列表
+        condMa.setKltList(Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101));//价格区间周期列表
         condMa.setShowUpMa(true);//是否显示-超过均线
         condMa.setShowDownMa(true);//是否显示-跌落均线
         condMa.setShowBreakDownMaMax(true);//是否显示-跌落均线-最高
@@ -47,8 +47,8 @@ public class BizEtfStat {
         condMa.setShowDateMinMax(false);//是否显示日最低点、最高点
         condMa.setShowMaxMin(true);//是否显最低、最高
 //        condMa.setShowPct(true);//是否显示均线百分比
-//        condMa.setShowPct(true);//是否显示均线百分比
-//        condMa.setShowPctKltList(Arrays.asList(KLT_60));
+        condMa.setShowPct(true);//是否显示均线百分比
+        condMa.setShowPctKltList(Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101));
 
         showEtfUpMa(date,condMa);//etf-超过均线
 

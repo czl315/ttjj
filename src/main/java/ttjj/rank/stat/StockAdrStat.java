@@ -79,14 +79,14 @@ public class StockAdrStat {
         condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 //        condFind.setMaxMa60Up102(new BigDecimal("0"));//均线之下
 
-        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
+//        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)","60(60)"));
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)"));
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)"));
 
         //条件限定：涨幅排名
 //        condFind.setAdrUpSumOrder1to60Min(new BigDecimal("1"));
-        condFind.setAdrUpSumOrder1to60Max(new BigDecimal("3"));
+//        condFind.setAdrUpSumOrder1to60Max(new BigDecimal("3"));
 
         condFind.setDate(date);
         condFind.setF139(board);
@@ -248,7 +248,7 @@ public class StockAdrStat {
 
 //        bizList = Arrays.asList("通信服务","通信设备","计算机设备");//科技:
 //        bizList = Arrays.asList("电子化学品");//科技:芯片
-//        bizList = Arrays.asList("半导体","消费电子","光学光电子","电子化学品");//科技:芯片
+        bizList = Arrays.asList("半导体","消费电子","光学光电子","电子化学品");//科技:芯片
 //        bizList = Arrays.asList("风电设备");//科技:电力
 //        bizList = Arrays.asList("交运设备");//科技:
 //        bizList = Arrays.asList("互联网服务","软件开发");//板块-分类-科技:电力
@@ -259,7 +259,7 @@ public class StockAdrStat {
 
 //        bizList = Arrays.asList("银行");
 //        bizList = Arrays.asList("多元金融", "银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
-        bizList = Arrays.asList("房地产开发");
+//        bizList = Arrays.asList("房地产开发");
 //        bizList = Arrays.asList("银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
 //        bizList = Arrays.asList("水泥建材", "房地产服务", "工程机械", "房地产开发", "铁路公路", "装修建材", "装修装饰", "工程建设", "公用事业", "工程咨询服务");//
 

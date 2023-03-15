@@ -1397,7 +1397,8 @@ public class StockAdrCountControl {
                 int rs = StockAdrCountService.update(entity);
                 updateRs += rs;
                 System.out.print(new StringBuffer("超过均线信息:").append(stockAdrCount.getF12()).append(",").append(StockUtil.formatStName(stockAdrCount.getF14(), 8)).append(",是否成功：").append(rs).append(",f3:").append(StockUtil.formatDouble(stockAdrCount.getF3(), 6)));
-                System.out.println(new StringBuffer(StockUtil.formatStName(entity.getUP_MA_102(), 8)).append(StockUtil.formatStName(entity.getUP_MA_101(), 8)).append(StockUtil.formatStName(entity.getUP_MA_60(), 8)).append(StockUtil.formatStName(entity.getUP_MA_30(), 8)).append(StockUtil.formatStName(entity.getUP_MA_15(), 8)));
+                System.out.print(new StringBuffer(StockUtil.formatStName(entity.getUP_MA_102(), 8)).append(StockUtil.formatStName(entity.getUP_MA_101(), 8)).append(StockUtil.formatStName(entity.getUP_MA_60(), 8)).append(StockUtil.formatStName(entity.getUP_MA_30(), 8)).append(StockUtil.formatStName(entity.getUP_MA_15(), 8)));
+                System.out.println(new StringBuffer("5日:"+StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_5(), 6)).append("10日:"+StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_10(), 6)).append("20日:"+StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_20(), 6)).append("40日:"+StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_40(), 6)).append("60日:"+StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_60(), 6)));
             } else {
                 int rs = StockAdrCountService.update(entity);
                 updateRs += rs;

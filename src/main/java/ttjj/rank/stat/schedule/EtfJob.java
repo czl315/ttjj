@@ -51,9 +51,9 @@ public class EtfJob {
                 condMa.setShowDateMinMax(false);//是否显示日最低点、最高点
                 condMa.setShowMaxMin(true);//是否显最低、最高
 
-                condMa.setShowPct(false);//是否显示均线百分比
-//                condMa.setShowPct(true);//是否显示均线百分比
-//                condMa.setShowPctKltList(Arrays.asList(KLT_60));
+//                condMa.setShowPct(false);//是否显示均线百分比
+                condMa.setShowPct(true);//是否显示均线百分比
+                condMa.setShowPctKltList(Arrays.asList(KLT_60));
 
                 BizEtfStat.showEtfUpMa(date, condMa);//etf-超过均线
             } catch (Exception e) {
