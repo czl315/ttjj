@@ -38,10 +38,10 @@ public class StockAdrStat {
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2023-03-06";
+//        String date = "2023-03-08";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
-//        String spDateBeg = "2023-03-07";//
+//        String spDateBeg = "2023-03-09";//
 //        String spDateEnd = "2023-03-09";//
         Long board = DB_RANK_BIZ_F139_BK_MAIN;
         int limitCount = 20;
@@ -61,9 +61,10 @@ public class StockAdrStat {
 //        findStCodeLikeConception(condFind, date, board, null);
 
         String orderFieldDb = ORDER_FIELD_ADR_UP_SUM_1_60;//排序-数据库字段  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
-        String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;//排序-查询后  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_MAXDOWN   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
+//        String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;//排序-查询后  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_MAXDOWN   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
+        String orderField = ORDER_FIELD_MAXDOWN;//最高回撤
 
-//        condFind.setADR_UP_SUM_1_60(new BigDecimal("50"));
+        condFind.setADR_UP_SUM_1_60(new BigDecimal("70"));
         condFind.setADR_UP_SUM_1_40(null);
 //        condFind.setADR_UP_SUM_40_60(new BigDecimal("1"));//
         condFind.setADR_UP_SUM_20_40(null);
@@ -76,11 +77,11 @@ public class StockAdrStat {
 //        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
 //        condFind.setMaxNetAreaDay60(new BigDecimal("25"));
 
-        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 //        condFind.setMaxMa60Up102(new BigDecimal("0"));//均线之下
 
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
-//        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)","60(60)"));
+        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)","60(60)"));
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)"));
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)"));
 

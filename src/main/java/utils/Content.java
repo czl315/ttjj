@@ -716,7 +716,7 @@ public class Content {
      */
     public static String ORDER_FIELD_F3 = "F3";
     /**
-     * ORDER_FIELD_MAXDOWN
+     * 最高回撤
      */
     public static String ORDER_FIELD_MAXDOWN = "maxDown";
     /**

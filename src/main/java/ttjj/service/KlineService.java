@@ -2381,6 +2381,7 @@ public class KlineService {
 
     private static void handlerMaBreakInfoSbNew(StringBuffer rs, int pctScale, int showSize, String upMa, int breakCount, BigDecimal pct, boolean isShowPct, boolean isShowPctUp, boolean isShowPctDown, List<String> showPctKltList, String klt, StockAdrCountVo stockAdrCountVo) {
         showSize = handlerShowSize(klt);
+        pct = pct != null ? pct.setScale(pctScale, RoundingMode.HALF_UP) : pct;
         if (isShowPctUp && pct.compareTo(new BigDecimal("0")) >= 0) {
 //            rs.append(StockUtil.formatDouble(pct, showSize));
 //            rs.append("[" +StockUtil.formatStr("", showSize)+ "]");
