@@ -39,7 +39,7 @@ public class StockControl {
             addTodayStComByExistCount(date, 5000);//  添加或更新股票-根据日期
             updateConceptionByExistCount(date);//更新题材概念
             updateTodayStCom(date, startNum);//更新股票
-            updateNetToday(date, startNum, maUpdateMap, isReport, NUM_YI_40);//  更新净值
+            updateNetToday(date, startNum, maUpdateMap, isReport, NUM_YI_100);//  更新净值
 
 //            setMaMapType(MA_TYPE_MINUTE5, maUpdateMap);
 //            setMaMapType(MA_TYPE_MINUTE30, maUpdateMap);
@@ -1426,7 +1426,7 @@ public class StockControl {
             conditionConceptionNotNull.setConceptionNotNull(true);
             Integer countConceptionNotNull = StockService.findCountByCondition(conditionConceptionNotNull);
 //            System.out.println();
-            System.out.println("-------------------------更新概念,当前biz：" + stBizCountTemp + "---" + StockUtil.formatStr(banKuaiName, 6) + "---[" + bk.getF3() + "]---需要更新个数:概念非空个数---" + stockCount + ":" + countConceptionNotNull);
+            System.out.println("-------------------------更新概念,当前biz：" + StockUtil.formatInt(stBizCountTemp, 2) + "---" + StockUtil.formatStName(banKuaiName, 12) + "---[" + StockUtil.formatDouble(bk.getF3(), 6) + "]---需要更新个数:概念非空个数---" + stockCount + ":" + countConceptionNotNull);
             if (stockCount <= countConceptionNotNull) {
 //                System.out.println("此业务已全部更新概念。");
                 continue;
