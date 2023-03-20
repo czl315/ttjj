@@ -157,8 +157,7 @@ public class StockControl {
             sw.stop();
         }
         System.out.println(sw.prettyPrint());
-        System.out.println(sw.shortSummary());
-        System.out.println(sw.getTotalTimeMillis());
+        System.out.println(sw.shortSummary() + ",用时(s)" + sw.getTotalTimeSeconds());
     }
 
     /**
@@ -1425,12 +1424,11 @@ public class StockControl {
             conditionConceptionNotNull.setType_name(banKuaiName);
             conditionConceptionNotNull.setConceptionNotNull(true);
             Integer countConceptionNotNull = StockService.findCountByCondition(conditionConceptionNotNull);
-//            System.out.println();
-            System.out.println("-------------------------更新概念,当前biz：" + StockUtil.formatInt(stBizCountTemp, 2) + "---" + StockUtil.formatStName(banKuaiName, 12) + "---[" + StockUtil.formatDouble(bk.getF3(), 6) + "]---需要更新个数:概念非空个数---" + stockCount + ":" + countConceptionNotNull);
             if (stockCount <= countConceptionNotNull) {
 //                System.out.println("此业务已全部更新概念。");
                 continue;
             } else {
+                System.out.println("-------------------------更新概念,当前biz：" + StockUtil.formatInt(stBizCountTemp, 2) + "---" + StockUtil.formatStName(banKuaiName, 12) + "---[" + StockUtil.formatDouble(bk.getF3(), 6) + "]---需要更新个数:概念非空个数---" + stockCount + ":" + countConceptionNotNull);
                 System.out.println("此业务未全部更新概念，去更新");
             }
 //            System.out.println();
@@ -1990,17 +1988,28 @@ public class StockControl {
      * @param countNotNullLimit 阈值
      */
     public static void addTodayStComByExistCount(String date, int countNotNullLimit) {
+        String funcName = "保存今日股票-";
+        StopWatch sw = new StopWatch(funcName);
+
+        sw.start(funcName + "查询指定日期的个数");
         //查询指定日期的个数,如果低于阈值，添加。否则，数据已存在，无需新增：5222
         CondStock conditionCountNotNull = new CondStock();
         conditionCountNotNull.setDate(date);
         Integer countNotNull = StockService.findCountByCondition(conditionCountNotNull);
+        sw.stop();
+
         if (countNotNull == null || countNotNull < countNotNullLimit) {
+            sw.start(funcName + "保存股票");
             System.out.println("查询指定日期的个数低于阈值" + countNotNullLimit + "，已存在：" + countNotNull);
             Integer rs = StockControl.addTodayStCom(date, 0);//  添加或更新股票-根据日期
             System.out.println("，保存成功个数：" + rs);
+            sw.stop();
         } else {
             System.out.println("查询指定日期的个数,数据已存在，无需新增：" + countNotNull);
         }
+
+        System.out.println(sw.prettyPrint());
+        System.out.println(sw.shortSummary() + ",用时(s)" + sw.getTotalTimeSeconds());
     }
 
     /**
@@ -2009,14 +2018,24 @@ public class StockControl {
      * @param date 日期
      */
     public static void updateConceptionByExistCount(String date) {
+        String funcName = "更新概念-";
+        StopWatch sw = new StopWatch(funcName);
+
+        sw.start(funcName + "本次更新");
         //查询概念非空的个数,如果低于阈值：1000，更新概念。否则，数据已存在，无需更新概念：4741   5140(20230309)
         int rsUpdate = StockControl.updateConception(date, 0);//更新题材概念
         System.out.println("本次更新概念个数:" + rsUpdate);//更新概念个数:4995(20230302)
+        sw.stop();
 
+        sw.start(funcName + "查询概念非空个数");
         CondStock conditionConceptionNotNull = new CondStock();
         conditionConceptionNotNull.setDate(date);
         conditionConceptionNotNull.setConceptionNotNull(true);
         Integer countConceptionNotNull = StockService.findCountByCondition(conditionConceptionNotNull);
         System.out.println("概念非空个数：" + countConceptionNotNull);
+        sw.stop();
+
+        System.out.println(sw.prettyPrint());
+        System.out.println(sw.shortSummary() + ",用时(s)" + sw.getTotalTimeSeconds());
     }
 }

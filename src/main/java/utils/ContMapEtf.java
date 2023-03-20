@@ -1193,7 +1193,7 @@ public class ContMapEtf {
         YILIAO_MORE.put("512170", "医疗ETF");//5    512170  医疗ETF         -5.70%    175.00        2022-08-01    2022-11-01
         YILIAO_MORE.put("513060", "恒生医疗ETF");//6    513060  恒生医疗ETF     -10.56%   55.50         2022-08-01    2022-11-01
         YILIAO_MORE.put("159647", "中药ETF");//5.25    	2.45%
-        YILIAO_MORE.put("159643", "疫苗ETF");//1.52    	0.31%
+//        YILIAO_MORE.put("159643", "疫苗ETF");//1.52    	0.31%
     }
 
     public static Map<String, String> YILIAO_ALL = new HashMap<>();//医疗

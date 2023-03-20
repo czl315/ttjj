@@ -66,7 +66,7 @@ public class StockJob {
 //            if (countThread % 5 == 1) {
                 StockControl.updateNetToday(date, startNum, maUpdateMap, false, minMv);//  更新净值
 //            }
-        }, 16, 60, TimeUnit.MINUTES);
+        }, 6, 60, TimeUnit.MINUTES);
     }
 
 }
