@@ -55,18 +55,18 @@ public class StockJob {
         }, 0, 5, TimeUnit.MINUTES);
 
         //更新净值
-        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            BigDecimal minMv = NUM_YI_100;
-            int startNum = 0;//开始位置，默认0
-            Map<String, Boolean> maUpdateMap = new HashMap<>();
-            StockControl.setMaMapType(MA_TYPE_DAY, maUpdateMap);
-            StockControl.setMaMapType(MA_TYPE_MINUTE15, maUpdateMap);
-            StockControl.setMaMapType(MA_TYPE_WEEK, maUpdateMap);
-
-//            if (countThread % 5 == 1) {
-                StockControl.updateNetToday(date, startNum, maUpdateMap, false, minMv);//  更新净值
-//            }
-        }, 6, 60, TimeUnit.MINUTES);
+//        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
+//            BigDecimal minMv = NUM_YI_200;
+//            int startNum = 0;//开始位置，默认0
+//            Map<String, Boolean> maUpdateMap = new HashMap<>();
+//            StockControl.setMaMapType(MA_TYPE_DAY, maUpdateMap);
+//            StockControl.setMaMapType(MA_TYPE_MINUTE15, maUpdateMap);
+//            StockControl.setMaMapType(MA_TYPE_WEEK, maUpdateMap);
+//
+////            if (countThread % 5 == 1) {
+//                StockControl.updateNetToday(date, startNum, maUpdateMap, false, minMv);//  更新净值
+////            }
+//        }, 6, 60, TimeUnit.MINUTES);
     }
 
 }

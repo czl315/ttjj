@@ -153,7 +153,7 @@ public class StockControl {
                 stockInfo.setDate(date);
                 updateRs += RankStockCommpanyDao.updateByCode(stockInfo);
             }
-            System.out.println(funcName + StockUtil.formatBizName(bkName) + "全部数量：更新成功:" + StockUtil.formatInt(stockList.size(), 3) + ":" + updateRs);
+//            System.out.println(funcName + StockUtil.formatBizName(bkName) + "全部数量：更新成功:" + StockUtil.formatInt(stockList.size(), 3) + ":" + updateRs);
             sw.stop();
         }
         System.out.println(sw.prettyPrint());

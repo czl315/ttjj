@@ -2,6 +2,7 @@ package ttjj.rank;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.StopWatch;
 import ttjj.dao.StockAdrCountDao;
 import ttjj.db.RankStockCommpanyDb;
 import ttjj.db.StockAdrCount;
@@ -63,6 +64,15 @@ public class StockAdrCountControl {
 //        updateAdrCountAllBiz(date, bizList, board, mvMin, mvMax, spBizName);
 
 //        findListDemo(date);
+
+//        CondStockAdrCount stockAdrCountCond = new CondStockAdrCount();
+////        stockAdrCountCond.setF139(DB_RANK_BIZ_F139_BK_MAIN);
+////        StockAdrCountControl.updateNetAreaAllBiz(date, stockAdrCountCond);
+
+//        CondStockAdrCount stockAdrCountCond = new CondStockAdrCount();
+//        stockAdrCountCond.setF139(DB_RANK_BIZ_F139_BK_MAIN);
+//        stockAdrCountCond.setMaKltList(Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101, KLT_102));//价格区间周期列表
+//        StockAdrCountControl.updateBreakUpMa(date, stockAdrCountCond);
 
 
 //        statStockAdrCountBatch(0);//统计股票涨跌次数:0,0为当天
@@ -550,10 +560,10 @@ public class StockAdrCountControl {
         int adrSum60ExistCount = stockAdrCountVoListAdrSum60Exist != null ? stockAdrCountVoListAdrSum60Exist.size() : 0;
         int count = stockAdrCountVoList != null ? stockAdrCountVoList.size() : 0;
         if (adrSum60ExistCount >= count) {
-            System.out.println("如果涨幅合计已存在，无需更新," + bizName + ",已存在个数：" + adrSum60ExistCount + ",需要更新个数：" + count);
+//            System.out.println("如果涨幅合计已存在，无需更新," + bizName + ",已存在个数：" + adrSum60ExistCount + ",需要更新个数：" + count);
             return true;
         } else {
-            System.out.println("如果涨幅合计已存在，数量不足需要更新," + bizName + ",已存在个数：" + adrSum60ExistCount + ",需要更新个数：" + count);
+            System.out.println(bizName + "如果涨幅合计已存在，数量不足需要更新," + ",已存在个数：" + adrSum60ExistCount + ",需要更新个数：" + count);
         }
         return false;
     }
@@ -736,7 +746,7 @@ public class StockAdrCountControl {
                 System.out.println("已完成," + (stBizCountTemp) + ":" + bizName);
                 continue;//已完成
             }
-            System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
+//            System.out.println("-------------------------当前stBizCountTemp：" + (stBizCountTemp) + "---" + bizName);
 //            insertListStatStock(date, bizName, adrMinList,daysList);//批量插入-从股票表中统计数据-按照业务类别
             if (isDelete) {
                 deleteTodayStAdrCount(date, bizName);//删除
@@ -785,7 +795,7 @@ public class StockAdrCountControl {
             System.out.println(bizName + ",需要保存数量：已存在数量：" + toSaveCount + "：" + existCount + ",数据不足再新增保存。");
             return false;
         } else {
-            System.out.println(bizName + ",需要保存数量：已存在数量：" + toSaveCount + "：" + existCount + ",数据已存在，无需新增。");
+//            System.out.println(bizName + ",需要保存数量：已存在数量：" + toSaveCount + "：" + existCount + ",数据已存在，无需新增。");
         }
         return true;
     }
@@ -880,9 +890,8 @@ public class StockAdrCountControl {
                 updateNetArea(date, stockAdrCountList);//更新-价格区间
             }
             long curTime = System.currentTimeMillis();
-            System.out.print("-------------------------当前业务：" + (curBizNum) + "," + bizName + ":" + rankBizDataDiff.getF3() + "，" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
-            System.out.println(",花费时间：" + (curTime - lastTime) / 1000);
-            System.out.println();
+//            System.out.print("-------------------------当前业务：" + (curBizNum) + "," + bizName + ":" + rankBizDataDiff.getF3() + "，" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
+//            System.out.println(",花费时间：" + (curTime - lastTime) / 1000);
             lastTime = curTime;
         }
         System.out.println("，用时：" + (System.currentTimeMillis() - curTimeAll) / 1000);
@@ -1002,7 +1011,7 @@ public class StockAdrCountControl {
     }
 
     /**
-     * 更新-根据业务，批量更新基础信息
+     * 更新-根据业务，更新净值
      * 如果更新失败，可能是没有插入，执行一次插入操作
      *
      * @param date            日期
@@ -1013,11 +1022,13 @@ public class StockAdrCountControl {
      * @return 结果
      */
     private static List<StockAdrCount> updateListNet(String date, String bizCode, String bizName, BigDecimal mvLimit, RankBizDataDiff rankBizDataDiff) {
+        String funcName = "更新净值-";
+
         List<StockAdrCount> stockAdrCountList = new ArrayList<>();
 //        按板块查询
-//        System.out.println("-------------------------当前biz：" + biz);
         List<RankStockCommpanyDb> stList = BizService.listRankStockByBiz(NUM_MAX_999, bizCode);
         if (stList == null) {
+            System.out.println(funcName + "-------------------------股票列表为空，当前biz：" + bizName);
             return null;
         }
         for (RankStockCommpanyDb rankStockCommpanyDb : stList) {
@@ -1088,7 +1099,7 @@ public class StockAdrCountControl {
                 rs++;
             }
         }
-        System.out.println("当前biz：" + bizName + ",涨幅：" + rankBizDataDiff.getF3() + ",根据业务，批量更新基础信息成功-涨幅次数统计：" + rs + "：" + stList.size());
+        System.out.println("当前biz：" + StockUtil.formatStName(bizName, 12) + ",涨幅：" + StockUtil.formatDouble(rankBizDataDiff.getF3(), 6) + ",根据业务，批量更新基础信息成功-涨幅次数统计：" + rs + "：" + stList.size());
 
         return stockAdrCountList;
     }
@@ -1243,6 +1254,56 @@ public class StockAdrCountControl {
     }
 
     /**
+     * 更新价格区间
+     *
+     * @param date              日期
+     * @param stockAdrCountCond 条件
+     */
+    public static void updateNetAreaAllBiz(String date, CondStockAdrCount stockAdrCountCond) {
+        String funcName = "更新价格区间-";
+        StopWatch sw = new StopWatch(funcName);
+
+        sw.start(funcName + StockUtil.formatStName("查询业务列表", 20));
+        //参数验证
+        if (StringUtils.isBlank(date) || stockAdrCountCond == null) {
+            return;
+        }
+        //查询业务列表
+        List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);
+        if (bizList == null) {
+            return;
+        }
+        sw.stop();
+
+        //根据业务，查询数据，更新
+        int stBizCountTemp = 0;
+        for (RankBizDataDiff rankBizDataDiff : bizList) {
+            String bizName = rankBizDataDiff.getF14();
+            //查询需要更新的股票涨幅数据
+            String curFunction = funcName + StockUtil.formatStName("查询数据，更新-", 10) + (StockUtil.formatInt(++stBizCountTemp, 2)) + "," + StockUtil.formatStName(bizName, 12);
+            sw.start(curFunction);
+            List<StockAdrCountVo> stockAdrCountList = null;
+            CondStockAdrCount condFind = new CondStockAdrCount();
+            condFind.setDate(date);
+            condFind.setMvMin(stockAdrCountCond.getMvMin());
+            condFind.setMvMax(stockAdrCountCond.getMvMax());
+            condFind.setF139(stockAdrCountCond.getF139());
+            condFind.setOrderBy(ORDER_BY_F3);//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
+            condFind.setType_name(bizName);
+            stockAdrCountList = findListByCondition(condFind);//查询列表-根据条件
+            System.out.println(curFunction + ":" + (stockAdrCountList != null ? stockAdrCountList.size() + "" : "空"));
+            if (stockAdrCountList == null) {
+                sw.stop();
+                continue;
+            }
+            updateNetArea(date, stockAdrCountList);//更新-超过均线信息
+            sw.stop();
+        }
+        System.out.println(sw.prettyPrint());
+        System.out.println(sw.shortSummary() + ",用时(s)" + sw.getTotalTimeSeconds());
+    }
+
+    /**
      * 更新-最新价格
      *
      * @param date
@@ -1289,9 +1350,9 @@ public class StockAdrCountControl {
     /**
      * 更新-超过均线信息:均线净值
      *
-     * @param maDate
-     * @param stockAdrCountList
-     * @param stockAdrCountCond
+     * @param maDate            日期
+     * @param stockAdrCountList 需要更新的列表数据
+     * @param stockAdrCountCond 条件
      */
     private static void updateUpMa(String maDate, List<StockAdrCountVo> stockAdrCountList, CondStockAdrCount stockAdrCountCond) {
         int updateRs = 0;//更新成功个数
@@ -1398,7 +1459,7 @@ public class StockAdrCountControl {
                 updateRs += rs;
                 System.out.print(new StringBuffer("超过均线信息:").append(stockAdrCount.getF12()).append(",").append(StockUtil.formatStName(stockAdrCount.getF14(), 8)).append(",是否成功：").append(rs).append(",f3:").append(StockUtil.formatDouble(stockAdrCount.getF3(), 6)));
                 System.out.print(new StringBuffer(StockUtil.formatStName(entity.getUP_MA_102(), 8)).append(StockUtil.formatStName(entity.getUP_MA_101(), 8)).append(StockUtil.formatStName(entity.getUP_MA_60(), 8)).append(StockUtil.formatStName(entity.getUP_MA_30(), 8)).append(StockUtil.formatStName(entity.getUP_MA_15(), 8)));
-                System.out.println(new StringBuffer("5日:"+StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_5(), 6)).append("10日:"+StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_10(), 6)).append("20日:"+StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_20(), 6)).append("40日:"+StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_40(), 6)).append("60日:"+StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_60(), 6)));
+                System.out.println(new StringBuffer("5日:" + StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_5(), 6)).append("10日:" + StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_10(), 6)).append("20日:" + StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_20(), 6)).append("40日:" + StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_40(), 6)).append("60日:" + StockUtil.formatDouble(stockAdrCount.getNET_AREA_DAY_60(), 6)));
             } else {
                 int rs = StockAdrCountService.update(entity);
                 updateRs += rs;
@@ -1407,6 +1468,56 @@ public class StockAdrCountControl {
             }
         }
         System.out.println("更新-超过均线信息-个数:" + stockAdrCountList.size() + ",更新成功：" + updateRs);
+    }
+
+    /**
+     * 更新-突破向上均线信息
+     *
+     * @param date              日期
+     * @param stockAdrCountCond 条件
+     */
+    public static void updateBreakUpMa(String date, CondStockAdrCount stockAdrCountCond) {
+        String funcName = "更新突破均线-";
+        StopWatch sw = new StopWatch(funcName);
+
+        sw.start(funcName + StockUtil.formatStName("查询业务列表", 20));
+        //参数验证
+        if (StringUtils.isBlank(date) || stockAdrCountCond == null) {
+            return;
+        }
+        //查询业务列表
+        List<RankBizDataDiff> bizList = StockService.listBiz(NUM_MAX_99);
+        if (bizList == null) {
+            return;
+        }
+        sw.stop();
+
+        //根据业务，查询数据，更新
+        int stBizCountTemp = 0;
+        for (RankBizDataDiff rankBizDataDiff : bizList) {
+            String bizName = rankBizDataDiff.getF14();
+            //查询需要更新的股票涨幅数据
+            String curFunction = funcName + StockUtil.formatStName("查询数据，更新-", 10) + (StockUtil.formatInt(++stBizCountTemp, 2)) + "," + StockUtil.formatStName(bizName, 12);
+            sw.start(curFunction);
+            List<StockAdrCountVo> stockAdrCountList = null;
+            CondStockAdrCount condFind = new CondStockAdrCount();
+            condFind.setDate(date);
+            condFind.setMvMin(stockAdrCountCond.getMvMin());
+            condFind.setMvMax(stockAdrCountCond.getMvMax());
+            condFind.setF139(stockAdrCountCond.getF139());
+            condFind.setOrderBy(ORDER_BY_F3);//排序   ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60
+            condFind.setType_name(bizName);
+            stockAdrCountList = findListByCondition(condFind);//查询列表-根据条件
+            System.out.println(curFunction + ":" + (stockAdrCountList != null ? stockAdrCountList.size() + "" : "空"));
+            if (stockAdrCountList == null) {
+                sw.stop();
+                continue;
+            }
+            updateUpMa(date, stockAdrCountList, stockAdrCountCond);//更新-超过均线信息
+            sw.stop();
+        }
+        System.out.println(sw.prettyPrint());
+        System.out.println(sw.shortSummary() + ",用时(s)" + sw.getTotalTimeSeconds());
     }
 
     /**
@@ -1627,4 +1738,6 @@ public class StockAdrCountControl {
         int rs = StockAdrCountDao.deleteByCondition(condition);
         System.out.println("日期：" + date + "，删除结果：" + rs);
     }
+
+
 }

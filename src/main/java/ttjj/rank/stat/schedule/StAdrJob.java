@@ -88,8 +88,8 @@ public class StAdrJob {
                 stockAdrCountCond.setUpdateOrder(true);
             }
             if (countThread % 5 == 1 ) {
-                stockAdrCountCond.setUpdateUpMa(true);//总花费时间：(40亿)用时：1454  (50亿)1225
-                stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
+//                stockAdrCountCond.setUpdateUpMa(true);//总花费时间：(40亿)用时：1454  (50亿)1225
+//                stockAdrCountCond.setUpdateNetArea(true);//总花费时间：613
             }
 
             StockAdrCountControl.updateListByBizAll(date, bizList, begBiz, spBizName, stockAdrCountCond);
@@ -97,6 +97,33 @@ public class StAdrJob {
             System.out.println("运行次数" + (++countThread));
             System.out.println("定时任务-" + jobName + "-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
         }, 0, 5, TimeUnit.MINUTES);
+
+
+        //更新突破均线
+        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
+            String jobName = "定时任务-更新突破均线-";
+            System.out.println(jobName + "-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
+
+            CondStockAdrCount stockAdrCountCond = new CondStockAdrCount();
+            stockAdrCountCond.setF139(DB_RANK_BIZ_F139_BK_MAIN);
+            stockAdrCountCond.setMaKltList(Arrays.asList(KLT_15, KLT_30, KLT_60, KLT_101, KLT_102));//价格区间周期列表
+
+            StockAdrCountControl.updateBreakUpMa(date,stockAdrCountCond);
+
+            System.out.println(jobName + "-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
+        }, 1, 5, TimeUnit.MINUTES);
+
+        //更新净值区间
+        new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
+            String jobName = "定时任务-更新净值区间-";
+            System.out.println(jobName + "-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
+
+            CondStockAdrCount stockAdrCountCond = new CondStockAdrCount();
+            stockAdrCountCond.setF139(DB_RANK_BIZ_F139_BK_MAIN);
+            StockAdrCountControl.updateNetAreaAllBiz(date,stockAdrCountCond);
+
+            System.out.println(jobName + "-end:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
+        }, 2, 5, TimeUnit.MINUTES);
     }
 
 }
