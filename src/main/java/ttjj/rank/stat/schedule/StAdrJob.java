@@ -61,7 +61,7 @@ public class StAdrJob {
         }, 1, 5, TimeUnit.MINUTES);
 
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            String jobName = "更新股票涨幅统计";
+            String jobName = "更新-股票涨幅统计-涨幅累计和排名-";
             System.out.println();
             System.out.println("定时任务-" + jobName + "-beg:" + DateUtil.getCurDateStrAddDaysByFormat(DateUtil.YYYY_MM_DD_HH_MM_SS, 0));
             Long board = DB_RANK_BIZ_F139_BK_MAIN;//

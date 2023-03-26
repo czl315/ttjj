@@ -563,7 +563,7 @@ public class StockAdrCountControl {
 //            System.out.println("如果涨幅合计已存在，无需更新," + bizName + ",已存在个数：" + adrSum60ExistCount + ",需要更新个数：" + count);
             return true;
         } else {
-            System.out.println(bizName + "如果涨幅合计已存在，数量不足需要更新," + ",已存在个数：" + adrSum60ExistCount + ",需要更新个数：" + count);
+            System.out.println(StockUtil.formatStName(bizName,12) + "-如果涨幅合计已存在，数量不足需要更新," + ",已存在个数：" + adrSum60ExistCount + ",需要更新个数：" + count);
         }
         return false;
     }
@@ -1254,13 +1254,13 @@ public class StockAdrCountControl {
     }
 
     /**
-     * 更新价格区间
+     * 更新净值区间
      *
      * @param date              日期
      * @param stockAdrCountCond 条件
      */
     public static void updateNetAreaAllBiz(String date, CondStockAdrCount stockAdrCountCond) {
-        String funcName = "更新价格区间-";
+        String funcName = "更新净值区间-";
         StopWatch sw = new StopWatch(funcName);
 
         sw.start(funcName + StockUtil.formatStName("查询业务列表", 20));

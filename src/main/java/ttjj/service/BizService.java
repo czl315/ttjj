@@ -220,7 +220,7 @@ public class BizService {
 //        System.out.println(url + "?" + urlParam.toString());
         String rs = "";
         JSONObject rsJsonObj = null;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < NUM_MAX_99; i++) {
             rs = HttpUtil.sendGet(url, urlParam.toString(), "");
 //        System.out.println(rs);//返回结果
             if (rs.startsWith("jQuery")) {

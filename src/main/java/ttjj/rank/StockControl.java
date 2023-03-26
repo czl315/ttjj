@@ -39,7 +39,7 @@ public class StockControl {
             addTodayStComByExistCount(date, 5000);//  添加或更新股票-根据日期
             updateConceptionByExistCount(date);//更新题材概念
             updateTodayStCom(date, startNum);//更新股票
-            updateNetToday(date, startNum, maUpdateMap, isReport, NUM_YI_100);//  更新净值
+//            updateNetToday(date, startNum, maUpdateMap, isReport, NUM_YI_100);//  更新净值
 
 //            setMaMapType(MA_TYPE_MINUTE5, maUpdateMap);
 //            setMaMapType(MA_TYPE_MINUTE30, maUpdateMap);

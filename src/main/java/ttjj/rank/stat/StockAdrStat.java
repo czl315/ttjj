@@ -64,7 +64,7 @@ public class StockAdrStat {
 //        String orderField = ORDER_FIELD_ADR_UP_SUM_1_60;//排序-查询后  ORDER_FIELD_ADR_UP_SUM_1_60   ORDER_FIELD_MAXDOWN   ORDER_FIELD_NET_AREA_DAY_10 ADR_UP_COUNT_5 DESC    ADR_UP_COUNT_SUM_60    ADR_UP_SUM_1_60
         String orderField = ORDER_FIELD_MAXDOWN;//最高回撤
 
-//        condFind.setADR_UP_SUM_1_60(new BigDecimal("60"));
+        condFind.setADR_UP_SUM_1_60(new BigDecimal("60"));
         condFind.setADR_UP_SUM_1_40(null);
 //        condFind.setADR_UP_SUM_40_60(new BigDecimal("1"));//
         condFind.setADR_UP_SUM_20_40(null);
@@ -75,7 +75,7 @@ public class StockAdrStat {
 //        condFind.setUP_MA_102("102(60)");
 
 //        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
-        condFind.setMaxNetAreaDay60(new BigDecimal("50"));
+//        condFind.setMaxNetAreaDay60(new BigDecimal("50"));
 
 //        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 //        condFind.setMaxMa60Up102(new BigDecimal("0"));//均线之下
