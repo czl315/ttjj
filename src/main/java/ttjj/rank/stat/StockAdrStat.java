@@ -38,7 +38,7 @@ public class StockAdrStat {
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2023-03-17";
+//        String date = "2023-03-24";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
 //        String spDateBeg = "2023-03-20";//
@@ -80,10 +80,10 @@ public class StockAdrStat {
 //        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 //        condFind.setMaxMa60Up102(new BigDecimal("0"));//均线之下
 
-        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
+//        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)","60(60)"));
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)"));
-//        condFind.setUpMaKltOrList(Arrays.asList("102(60)"));
+        condFind.setUpMaKltOrList(Arrays.asList("102(60)"));
 
         //条件限定：涨幅排名
 //        condFind.setAdrUpSumOrder1to60Min(new BigDecimal("1"));
@@ -105,9 +105,13 @@ public class StockAdrStat {
             stockAdrCountListBkAll.add(stockAdrCount);
         }
 
+        //查询日净值次数
+        condFind.setShowMaWeekCountUpDown(true);//是否查询日净值次数
+        StockAdrCountService.handlerNetDay(stockAdrCountListBkAll, date, DAY_20, KLT_102, condFind);
+
         stockAdrCountListBkAll = KlineService.handlerOrder(stockAdrCountListBkAll, orderField, true);//列表-排序：根据字段
 
-        showStockAdrCountList(stockAdrCountListBkAll, spDateBeg, spDateEnd);//显示-涨幅列表
+        showStockAdrCountList(stockAdrCountListBkAll, spDateBeg, spDateEnd, condFind);//显示-涨幅列表
 
         return stockAdrCountListBkAll;
 
@@ -307,8 +311,9 @@ public class StockAdrStat {
      * 显示-涨幅列表
      *
      * @param stockAdrCountList
+     * @param condFind
      */
-    public static void showStockAdrCountList(List<StockAdrCountVo> stockAdrCountList, String spDateBeg, String spDateEnd) {
+    public static void showStockAdrCountList(List<StockAdrCountVo> stockAdrCountList, String spDateBeg, String spDateEnd, CondStockAdrCount condFind) {
         if (stockAdrCountList == null) {
             System.out.println("stockAdrCountList==null");
             return;
@@ -322,8 +327,8 @@ public class StockAdrStat {
         }
         //显示头信息
         Map<String, Integer> sizeMap = new HashMap<>();
-        System.out.println(showHead(isShowCode, isShowCurNet, isShowAreaAdr, sizeMap));
-        showInfoStAdr(stockAdrCountList, sizeMap, isShowCode, spDateBeg, spDateEnd, isShowCurNet);
+        System.out.println(showHead(isShowCode, isShowCurNet, isShowAreaAdr, sizeMap, condFind));
+        showInfoStAdr(stockAdrCountList, sizeMap, isShowCode, spDateBeg, spDateEnd, isShowCurNet, condFind);
     }
 
     /**
@@ -335,8 +340,9 @@ public class StockAdrStat {
      * @param spDateBeg
      * @param spDateEnd
      * @param isShowCurNet
+     * @param condFind
      */
-    private static void showInfoStAdr(List<StockAdrCountVo> stockAdrCountList, Map<String, Integer> sizeMap, boolean isShowCode, String spDateBeg, String spDateEnd, boolean isShowCurNet) {
+    private static void showInfoStAdr(List<StockAdrCountVo> stockAdrCountList, Map<String, Integer> sizeMap, boolean isShowCode, String spDateBeg, String spDateEnd, boolean isShowCurNet, CondStockAdrCount condFind) {
         int number = 0;
         for (StockAdrCountVo stockAdrCount : stockAdrCountList) {
 //            System.out.println(JSON.toJSONString(stockAdrCount));
@@ -467,9 +473,15 @@ public class StockAdrStat {
                 } else {
                     sb.append(StockUtil.formatDouble(null, sizeMap.get(keyNameMaWeek60Pct)));
                 }
-                sb.append(StockUtil.formatDouble(maWeek60, 6));
-                sb.append(StockUtil.formatDouble(curAmt, 6));
+//                sb.append(StockUtil.formatDouble(curAmt, 6));
+//                sb.append(StockUtil.formatDouble(maWeek60, 6));
+            }
 
+            if (condFind.isShowMaWeekCountUpDown()) {
+                //近20日高于周线次数
+                sb.append(StockUtil.formatInt(stockAdrCount.getCountUpMa102Type60LastDay20(), 3));
+                //近20日低于周线次数
+                sb.append(StockUtil.formatInt(stockAdrCount.getCountDownMa102Type60LastDay20(), 2));
             }
 
             System.out.println(sb);
@@ -482,9 +494,10 @@ public class StockAdrStat {
      * @param isShowCode
      * @param isShowCurNet
      * @param isShowAreaAdr
+     * @param condFind
      * @return
      */
-    private static StringBuffer showHead(boolean isShowCode, boolean isShowCurNet, boolean isShowAreaAdr, Map<String, Integer> sizeMap) {
+    private static StringBuffer showHead(boolean isShowCode, boolean isShowCurNet, boolean isShowAreaAdr, Map<String, Integer> sizeMap, CondStockAdrCount condFind) {
         StringBuffer sbHead = new StringBuffer();
         String orderNo = "序号";
         String keyNameAdrSumMonth3 = "3月涨";
@@ -561,8 +574,11 @@ public class StockAdrStat {
         sbHead.append(StockUtil.formatStName("超15", 6));
         if (isShowCurNet) {
             sbHead.append(StockUtil.formatStName(keyNameMaWeek60Pct, sizeMap.get(keyNameMaWeek60Pct)));
-            sbHead.append(StockUtil.formatStName("净值", 6));
-            sbHead.append(StockUtil.formatStName("60周", 6));
+//            sbHead.append(StockUtil.formatStName("净值", 6));
+//            sbHead.append(StockUtil.formatStName("60周", 6));
+        }
+        if (condFind.isShowMaWeekCountUpDown()) {
+            sbHead.append(StockUtil.formatStName("周线高低", 6));
         }
         return sbHead;
     }

@@ -121,6 +121,11 @@ public class CondStockAdrCount extends StockAdrCount {
      */
     private BigDecimal f10Max;
 
+    /**
+     * 是否显示-60周线高低次数
+     */
+    private boolean showMaWeekCountUpDown;
+
     public BigDecimal getAdrUpSumOrder1to60Min() {
         return adrUpSumOrder1to60Min;
     }
@@ -344,5 +349,13 @@ public class CondStockAdrCount extends StockAdrCount {
 
     public void setAdrUpSumOrder1to60NotNull(boolean adrUpSumOrder1to60NotNull) {
         this.adrUpSumOrder1to60NotNull = adrUpSumOrder1to60NotNull;
+    }
+
+    public boolean isShowMaWeekCountUpDown() {
+        return showMaWeekCountUpDown;
+    }
+
+    public void setShowMaWeekCountUpDown(boolean showMaWeekCountUpDown) {
+        this.showMaWeekCountUpDown = showMaWeekCountUpDown;
     }
 }

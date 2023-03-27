@@ -500,6 +500,18 @@ public class Content {
      * NUM_MAX_99 数量上限-99
      */
     public static int NUM_MAX_99 = 99;
+    /**
+     * DAY_20
+     */
+    public static int DAY_20 = 20;
+    /**
+     * DAY_10
+     */
+    public static int DAY_10 = 10;
+    /**
+     * DAY_5
+     */
+    public static int DAY_5 = 5;
 
     /**
      * NUM_YI_10000

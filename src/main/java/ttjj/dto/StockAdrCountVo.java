@@ -3,12 +3,14 @@ package ttjj.dto;
 import ttjj.db.StockAdrCount;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 股票涨跌次数
  *
  * @author Administrator
  * @date 2022-05-09 23:47
+ * 2023-03-26 增加属性：日净值数组-最近n个
  */
 public class StockAdrCountVo extends StockAdrCount {
     /**
@@ -259,6 +261,44 @@ public class StockAdrCountVo extends StockAdrCount {
      * 突破百分比-向下
      */
     private BigDecimal breakPctDown102;
+
+    /**
+     * 日净值数组-最近20
+     */
+    private List<Kline> netDayLast20;
+    /**
+     * 日净值数组-最近10
+     */
+    private List<Kline> netDayLast10;
+    /**
+     * 日净值数组-最近5
+     */
+    private List<Kline> netDayLast5;
+    /**
+     *  超过60周线次数-近20日
+     */
+    private Integer countUpMa102Type60LastDay20;
+    /**
+     * 超过60周线次数-近n日
+     */
+    private Integer countUpMa102Type60LastDay10;
+    /**
+     * 超过60周线次数-近n日
+     */
+    private Integer countUpMa102Type60LastDay5;
+
+    /**
+     *  低于60周线次数-近n日
+     */
+    private Integer countDownMa102Type60LastDay20;
+    /**
+     * 低于60周线次数-近n日
+     */
+    private Integer countDownMa102Type60LastDay10;
+    /**
+     * 低于60周线次数-近n日
+     */
+    private Integer countDownMa102Type60LastDay5;
 
     public BigDecimal getCount() {
         return count;
@@ -778,5 +818,77 @@ public class StockAdrCountVo extends StockAdrCount {
 
     public void setBreakCountUpMin102(int breakCountUpMin102) {
         this.breakCountUpMin102 = breakCountUpMin102;
+    }
+
+    public List<Kline> getNetDayLast20() {
+        return netDayLast20;
+    }
+
+    public void setNetDayLast20(List<Kline> netDayLast20) {
+        this.netDayLast20 = netDayLast20;
+    }
+
+    public List<Kline> getNetDayLast10() {
+        return netDayLast10;
+    }
+
+    public void setNetDayLast10(List<Kline> netDayLast10) {
+        this.netDayLast10 = netDayLast10;
+    }
+
+    public List<Kline> getNetDayLast5() {
+        return netDayLast5;
+    }
+
+    public void setNetDayLast5(List<Kline> netDayLast5) {
+        this.netDayLast5 = netDayLast5;
+    }
+
+    public Integer getCountUpMa102Type60LastDay20() {
+        return countUpMa102Type60LastDay20;
+    }
+
+    public void setCountUpMa102Type60LastDay20(Integer countUpMa102Type60LastDay20) {
+        this.countUpMa102Type60LastDay20 = countUpMa102Type60LastDay20;
+    }
+
+    public Integer getCountUpMa102Type60LastDay10() {
+        return countUpMa102Type60LastDay10;
+    }
+
+    public void setCountUpMa102Type60LastDay10(Integer countUpMa102Type60LastDay10) {
+        this.countUpMa102Type60LastDay10 = countUpMa102Type60LastDay10;
+    }
+
+    public Integer getCountUpMa102Type60LastDay5() {
+        return countUpMa102Type60LastDay5;
+    }
+
+    public void setCountUpMa102Type60LastDay5(Integer countUpMa102Type60LastDay5) {
+        this.countUpMa102Type60LastDay5 = countUpMa102Type60LastDay5;
+    }
+
+    public Integer getCountDownMa102Type60LastDay20() {
+        return countDownMa102Type60LastDay20;
+    }
+
+    public void setCountDownMa102Type60LastDay20(Integer countDownMa102Type60LastDay20) {
+        this.countDownMa102Type60LastDay20 = countDownMa102Type60LastDay20;
+    }
+
+    public Integer getCountDownMa102Type60LastDay10() {
+        return countDownMa102Type60LastDay10;
+    }
+
+    public void setCountDownMa102Type60LastDay10(Integer countDownMa102Type60LastDay10) {
+        this.countDownMa102Type60LastDay10 = countDownMa102Type60LastDay10;
+    }
+
+    public Integer getCountDownMa102Type60LastDay5() {
+        return countDownMa102Type60LastDay5;
+    }
+
+    public void setCountDownMa102Type60LastDay5(Integer countDownMa102Type60LastDay5) {
+        this.countDownMa102Type60LastDay5 = countDownMa102Type60LastDay5;
     }
 }

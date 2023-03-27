@@ -4,10 +4,14 @@ import com.alibaba.fastjson.JSON;
 import ttjj.dao.StockAdrCountDao;
 import ttjj.db.StockAdrCount;
 import ttjj.dto.CondStockAdrCount;
+import ttjj.dto.Kline;
 import ttjj.dto.StockAdrCountVo;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.logging.Logger;
+
+import static utils.Content.*;
 
 /**
  * 股票涨跌次数
@@ -17,6 +21,7 @@ import java.util.logging.Logger;
  */
 public class StockAdrCountService {
     private final static Logger logger = Logger.getLogger(StockAdrCountService.class.getName());
+
     /**
      * 批量插入
      *
@@ -127,5 +132,62 @@ public class StockAdrCountService {
      */
     public static Integer update(StockAdrCount stockAdrCount) {
         return StockAdrCountDao.update(stockAdrCount);
+    }
+
+    /**
+     * 查询日净值数据:查询日k线
+     *
+     * @param stockAdrCountList 涨幅列表
+     * @param date              日期
+     * @param dayType           日类型
+     * @param compMaType        比较均线类型
+     * @param condFind
+     */
+    public static void handlerNetDay(List<StockAdrCountVo> stockAdrCountList, String date, int dayType, String compMaType, CondStockAdrCount condFind) {
+        if (stockAdrCountList == null) {
+            return;
+        }
+        if (!condFind.isShowMaWeekCountUpDown()) {
+            return;
+        }
+        String endDate = date;
+        String begDate = StockService.findBegDate(date, dayType);
+        for (StockAdrCountVo stockAdrCountVo : stockAdrCountList) {
+            List<Kline> klines = KlineService.kline(stockAdrCountVo.getF12(), dayType, KLT_101, true, begDate, endDate, null);
+            if (klines == null) {
+                continue;
+            }
+            stockAdrCountVo.setNetDayLast20(klines);
+
+            //比较净值，计算超过次数、低于次数
+            int countUpNet = 0;
+            int countDownNet = 0;
+            BigDecimal compMaNet = null;
+            if (KLT_102.equals(compMaType)) {
+                compMaNet = stockAdrCountVo.getMA_NET_60_102();
+            } else if (KLT_101.equals(compMaType)) {
+                compMaNet = stockAdrCountVo.getMA_NET_60_101();
+            }
+            for (Kline kline : klines) {
+                if (kline.getCloseAmt() == null) {
+                    continue;
+                }
+                if (kline.getCloseAmt().compareTo(compMaNet) >= 0) {
+                    countUpNet++;
+                } else {
+                    countDownNet++;
+                }
+            }
+            if (KLT_102.equals(compMaType)) {
+                if (DAY_20 == dayType) {
+                    stockAdrCountVo.setCountUpMa102Type60LastDay20(countUpNet);
+                    stockAdrCountVo.setCountDownMa102Type60LastDay20(countDownNet);
+                }
+                if (DAY_10 == dayType) {
+                    stockAdrCountVo.setCountUpMa102Type60LastDay10(countUpNet);
+                    stockAdrCountVo.setCountDownMa102Type60LastDay10(countDownNet);
+                }
+            }
+        }
     }
 }
