@@ -382,7 +382,7 @@ public class StockAdrCountControl {
 
             if (isUpdateSum) {
                 //查询涨幅数据，如果涨幅合计已存在，无需更新
-                if (!findCheckDbAdrSum(date, board, bizName, mvMin, mvMax)) {
+                if (!findCheckDbAdrSum(date, board, bizName,stBizCountTemp, mvMin, mvMax)) {
                     //更新-上涨之和
                     updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1, dateList);
                     updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_2, dateList);
@@ -398,7 +398,7 @@ public class StockAdrCountControl {
 
             if (isUpdateOrder) {
                 //查询涨幅数据，如果涨幅合计已存在，无需更新
-                if (!findCheckDbAdrSum(date, board, bizName, mvMin, mvMax)) {
+                if (!findCheckDbAdrSum(date, board, bizName, stBizCountTemp, mvMin, mvMax)) {
                     //更新-上涨之和排序
 //                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1);
 //                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_2);
@@ -517,14 +517,14 @@ public class StockAdrCountControl {
 
     /**
      * 查询涨幅数据，如果涨幅合计已存在，无需更新
-     *
-     * @param date
+     *  @param date
      * @param board
      * @param bizName
+     * @param stBizCountTemp
      * @param mvMin
      * @param mvMax
      */
-    private static boolean findCheckDbAdrSum(String date, Long board, String bizName, BigDecimal mvMin, BigDecimal mvMax) {
+    private static boolean findCheckDbAdrSum(String date, Long board, String bizName, int stBizCountTemp, BigDecimal mvMin, BigDecimal mvMax) {
         CondStockAdrCount condFind = new CondStockAdrCount();
         condFind.setDate(date);
         condFind.setF139(board);
@@ -563,7 +563,7 @@ public class StockAdrCountControl {
 //            System.out.println("如果涨幅合计已存在，无需更新," + bizName + ",已存在个数：" + adrSum60ExistCount + ",需要更新个数：" + count);
             return true;
         } else {
-            System.out.println(StockUtil.formatStName(bizName,12) + "-如果涨幅合计已存在，数量不足需要更新," + ",已存在个数：" + adrSum60ExistCount + ",需要更新个数：" + count);
+            System.out.println("查询涨幅数据-如果涨幅合计已存在，数量不足需要更新," + StockUtil.formatStName(bizName,12) + (StockUtil.formatInt(++stBizCountTemp, 2)) + ",已存在个数：" + adrSum60ExistCount + ",需要更新个数：" + count);
         }
         return false;
     }
@@ -814,15 +814,15 @@ public class StockAdrCountControl {
         BigDecimal mvMax = stockAdrCountCond.getMvMax();
         Long board = stockAdrCountCond.getF139();
         //插入且更新价格区间、更新
-        int curBizNum = 0;
+        int stBizCountTemp = 0;
         List<String> dateList = StockService.findListDateBefore(date, 60);//查询n个交易日之前的日期
         long lastTime = System.currentTimeMillis();
         for (RankBizDataDiff rankBizDataDiff : bizList) {
             String bizCode = rankBizDataDiff.getF12();
             String bizName = rankBizDataDiff.getF14();
-            curBizNum++;
-            if (!checkBizBegNum(curBizNum, begBiz)) {
-                System.out.println("已完成," + (curBizNum) + ":" + bizName);
+            stBizCountTemp++;
+            if (!checkBizBegNum(stBizCountTemp, begBiz)) {
+                System.out.println("已完成," + (stBizCountTemp) + ":" + bizName);
                 continue;//已完成
             }
 
@@ -837,7 +837,7 @@ public class StockAdrCountControl {
 
             if (stockAdrCountCond.isUpdateSum()) {
                 //查询涨幅数据，如果涨幅合计已存在，无需更新
-                if (!findCheckDbAdrSum(date, board, bizName, mvMin, mvMax)) {
+                if (!findCheckDbAdrSum(date, board, bizName, stBizCountTemp, mvMin, mvMax)) {
                     //更新-上涨之和
                     updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1, dateList);
                     updateAdrSumByBiz(date, board, mvMin, mvMax, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_2, dateList);
@@ -854,7 +854,7 @@ public class StockAdrCountControl {
 
             if (stockAdrCountCond.isUpdateOrder()) {
                 //查询涨幅数据，如果涨幅合计已存在，无需更新
-                if (!findCheckDbAdrSum(date, board, bizName, mvMin, mvMax)) {
+                if (!findCheckDbAdrSum(date, board, bizName, stBizCountTemp, mvMin, mvMax)) {
                     //更新-上涨之和排序
 //                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_1);
 //                updateAdrSumOrderByBiz(date, bizName, DB_STOCK_ADR_COUNT_ADR_UP_SUM_1_2);

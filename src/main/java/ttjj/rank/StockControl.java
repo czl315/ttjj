@@ -2013,7 +2013,7 @@ public class StockControl {
     }
 
     /**
-     * 查询概念非空的个数,如果低于阈值：1000，更新概念。否则，数据已存在，无需更新概念
+     * 查询检查概念非空的个数,如果低于阈值：1000，更新概念。否则，数据已存在，无需更新概念
      *
      * @param date 日期
      */
@@ -2027,12 +2027,22 @@ public class StockControl {
         System.out.println("本次更新概念个数:" + rsUpdate);//更新概念个数:4995(20230302)
         sw.stop();
 
-        sw.start(funcName + "查询概念非空个数");
+        String subFuncName = funcName + "查询概念非空个数";
+        sw.start(subFuncName);
         CondStock conditionConceptionNotNull = new CondStock();
         conditionConceptionNotNull.setDate(date);
         conditionConceptionNotNull.setConceptionNotNull(true);
         Integer countConceptionNotNull = StockService.findCountByCondition(conditionConceptionNotNull);
-        System.out.println("概念非空个数：" + countConceptionNotNull);
+        System.out.println(subFuncName + "：" + countConceptionNotNull);
+        sw.stop();
+
+        subFuncName = funcName + "查询概念空个数";
+        sw.start(subFuncName);
+        CondStock conditionConceptionIsNull = new CondStock();
+        conditionConceptionIsNull.setDate(date);
+        conditionConceptionIsNull.setConceptionIsNull(true);
+        Integer countConceptionIsNull = StockService.findCountByCondition(conditionConceptionIsNull);
+        System.out.println(subFuncName + "：" + countConceptionIsNull);
         sw.stop();
 
         System.out.println(sw.prettyPrint());

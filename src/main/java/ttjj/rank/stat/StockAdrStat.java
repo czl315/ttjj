@@ -38,11 +38,11 @@ public class StockAdrStat {
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2023-03-24";
+//        String date = "2023-03-27";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
-//        String spDateBeg = "2023-03-20";//
-//        String spDateEnd = "2023-03-20";//
+//        String spDateBeg = "2023-03-28";//
+//        String spDateEnd = "2023-03-28";//
         Long board = DB_RANK_BIZ_F139_BK_MAIN;
         int limitCount = 20;
 
@@ -82,8 +82,8 @@ public class StockAdrStat {
 
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)","60(60)"));
-//        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)"));
-        condFind.setUpMaKltOrList(Arrays.asList("102(60)"));
+        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)"));
+//        condFind.setUpMaKltOrList(Arrays.asList("102(60)"));
 
         //条件限定：涨幅排名
 //        condFind.setAdrUpSumOrder1to60Min(new BigDecimal("1"));

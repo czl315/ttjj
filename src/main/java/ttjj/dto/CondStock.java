@@ -66,6 +66,10 @@ public class CondStock extends RankStockCommpanyDb {
      * 概念非空
      */
     private Boolean conceptionNotNull;
+    /**
+     * 概念为空
+     */
+    private Boolean conceptionIsNull;
 
     /**
      * 最低-涨幅
@@ -319,5 +323,13 @@ public class CondStock extends RankStockCommpanyDb {
 
     public void setConceptionNotNull(Boolean conceptionNotNull) {
         this.conceptionNotNull = conceptionNotNull;
+    }
+
+    public Boolean getConceptionIsNull() {
+        return conceptionIsNull;
+    }
+
+    public void setConceptionIsNull(Boolean conceptionIsNull) {
+        this.conceptionIsNull = conceptionIsNull;
     }
 }

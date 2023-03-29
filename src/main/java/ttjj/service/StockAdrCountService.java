@@ -81,7 +81,7 @@ public class StockAdrCountService {
             int rsSave = StockAdrCountDao.insert(stockAdrCount);
             //打印保存成功的记录
             if (rsSave > 0) {
-                logger.info("保存成功的记录：" + JSON.toJSONString(stockAdrCount));
+//                logger.info("保存成功的记录：" + JSON.toJSONString(stockAdrCount));
                 System.out.println("保存成功的记录：" + stockAdrCount.getF14() + JSON.toJSONString(stockAdrCount));
                 rs += rsSave;
             }
@@ -169,7 +169,7 @@ public class StockAdrCountService {
                 compMaNet = stockAdrCountVo.getMA_NET_60_101();
             }
             for (Kline kline : klines) {
-                if (kline.getCloseAmt() == null) {
+                if (kline.getCloseAmt() == null || compMaNet==null) {
                     continue;
                 }
                 if (kline.getCloseAmt().compareTo(compMaNet) >= 0) {
