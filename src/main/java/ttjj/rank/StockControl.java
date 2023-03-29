@@ -157,7 +157,7 @@ public class StockControl {
             sw.stop();
         }
         System.out.println(sw.prettyPrint());
-        System.out.println(sw.shortSummary() + ",用时(s)" + sw.getTotalTimeSeconds());
+        System.out.println(sw.shortSummary() + ",用时(s):" + sw.getTotalTimeSeconds() + ",当前时间：" + DateUtil.getCurDateTime());
     }
 
     /**
@@ -2005,11 +2005,11 @@ public class StockControl {
             System.out.println("，保存成功个数：" + rs);
             sw.stop();
         } else {
-            System.out.println("查询指定日期的个数,数据已存在，无需新增：" + countNotNull);
+            System.out.println(funcName + "查询指定日期的个数,数据已存在，无需新增：" + countNotNull);
         }
 
         System.out.println(sw.prettyPrint());
-        System.out.println(sw.shortSummary() + ",用时(s)" + sw.getTotalTimeSeconds());
+        System.out.println(sw.shortSummary() + ",用时(s)" + sw.getTotalTimeSeconds() + ",当前时间：" + DateUtil.getCurDateTime());
     }
 
     /**
@@ -2046,6 +2046,7 @@ public class StockControl {
         sw.stop();
 
         System.out.println(sw.prettyPrint());
-        System.out.println(sw.shortSummary() + ",用时(s)" + sw.getTotalTimeSeconds());
+        System.out.println(sw.shortSummary() + ",用时(s):" + sw.getTotalTimeSeconds() + ",当前时间：" + DateUtil.getCurDateTime());
+        ;
     }
 }

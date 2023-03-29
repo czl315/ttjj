@@ -21,7 +21,7 @@ public class StockJob {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
 
         //查询指定日期的个数,如果低于阈值，添加。否则，数据已存在，无需新增：5222
-        Integer countNotNullLimit = 5000;//数据已存在阈值限定5000，5222(2023.02.27)
+        Integer countNotNullLimit = 5200;//数据已存在阈值限定5000，5222(2023.02.27),5259(2023.03.29)
         StockControl.addTodayStComByExistCount(date, countNotNullLimit);//数据已存在阈值限定5000，5222(2023.02.27)
 
         scheduleStock(date);//定时任务
@@ -35,7 +35,7 @@ public class StockJob {
     private static void scheduleStock(String date) {
         //新增保存今日股票
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
-            Integer countNotNullLimit = 5000;//数据已存在阈值限定5000，5222(2023.02.27)
+            Integer countNotNullLimit = 5200;//数据已存在阈值限定5000，5222(2023.02.27),5259(2023.03.29)
             //查询指定日期的个数,如果低于阈值，添加。否则，数据已存在，无需新增：5222
             StockControl.addTodayStComByExistCount(date, countNotNullLimit);//数据已存在阈值限定5000，5222(2023.02.27)
         }, 0, 30, TimeUnit.MINUTES);
@@ -43,7 +43,7 @@ public class StockJob {
         //更新概念
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {
             StockControl.updateConceptionByExistCount(date);
-        }, 0, 15, TimeUnit.MINUTES);
+        }, 0, 30, TimeUnit.MINUTES);
 
         //更新股票
         new ScheduledThreadPoolExecutor(1).scheduleAtFixedRate(() -> {

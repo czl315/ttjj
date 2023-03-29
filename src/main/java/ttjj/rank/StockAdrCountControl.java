@@ -563,7 +563,7 @@ public class StockAdrCountControl {
 //            System.out.println("如果涨幅合计已存在，无需更新," + bizName + ",已存在个数：" + adrSum60ExistCount + ",需要更新个数：" + count);
             return true;
         } else {
-            System.out.println("查询涨幅数据-如果涨幅合计已存在，数量不足需要更新," + StockUtil.formatStName(bizName,12) + (StockUtil.formatInt(++stBizCountTemp, 2)) + ",已存在个数：" + adrSum60ExistCount + ",需要更新个数：" + count);
+            System.out.println("查询涨幅数据-如果涨幅合计已存在，数量不足需要更新," + StockUtil.formatStName(bizName,12) + (StockUtil.formatInt(stBizCountTemp, 2)) + ",已存在个数：" + adrSum60ExistCount + ",需要更新个数：" + count);
         }
         return false;
     }
