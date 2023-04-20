@@ -275,30 +275,56 @@ public class StockAdrCountVo extends StockAdrCount {
      */
     private List<Kline> netDayLast5;
     /**
-     *  超过60周线次数-近20日
+     *  超过均线次数-60周线-近n日
      */
     private Integer countUpMa102Type60LastDay20;
     /**
-     * 超过60周线次数-近n日
+     * 超过均线次数-60周线-近n日
      */
     private Integer countUpMa102Type60LastDay10;
     /**
-     * 超过60周线次数-近n日
+     * 超过均线次数-60周线-近n日
      */
     private Integer countUpMa102Type60LastDay5;
 
     /**
-     *  低于60周线次数-近n日
+     *  低于均线次数-60周线-近n日
      */
     private Integer countDownMa102Type60LastDay20;
     /**
-     * 低于60周线次数-近n日
+     * 低于均线次数-60周线-近n日
      */
     private Integer countDownMa102Type60LastDay10;
     /**
-     * 低于60周线次数-近n日
+     * 低于均线次数-60周线-近n日
      */
     private Integer countDownMa102Type60LastDay5;
+
+    /**
+     *  超过均线次数-60日线-近n日
+     */
+    private Integer countUpMa101Type60LastDay20;
+    /**
+     * 超过均线次数-60日线-近n日
+     */
+    private Integer countUpMa101Type60LastDay10;
+    /**
+     * 超过均线次数-60日线-近n日
+     */
+    private Integer countUpMa101Type60LastDay5;
+
+    /**
+     *  低于均线次数-60日线-近n日
+     */
+    private Integer countDownMa101Type60LastDay20;
+    /**
+     * 低于均线次数-60日线-近n日
+     */
+    private Integer countDownMa101Type60LastDay10;
+    /**
+     * 低于均线次数-60日线-近n日
+     */
+    private Integer countDownMa101Type60LastDay5;
 
     public BigDecimal getCount() {
         return count;
@@ -890,5 +916,53 @@ public class StockAdrCountVo extends StockAdrCount {
 
     public void setCountDownMa102Type60LastDay5(Integer countDownMa102Type60LastDay5) {
         this.countDownMa102Type60LastDay5 = countDownMa102Type60LastDay5;
+    }
+
+    public Integer getCountUpMa101Type60LastDay20() {
+        return countUpMa101Type60LastDay20;
+    }
+
+    public void setCountUpMa101Type60LastDay20(Integer countUpMa101Type60LastDay20) {
+        this.countUpMa101Type60LastDay20 = countUpMa101Type60LastDay20;
+    }
+
+    public Integer getCountUpMa101Type60LastDay10() {
+        return countUpMa101Type60LastDay10;
+    }
+
+    public void setCountUpMa101Type60LastDay10(Integer countUpMa101Type60LastDay10) {
+        this.countUpMa101Type60LastDay10 = countUpMa101Type60LastDay10;
+    }
+
+    public Integer getCountUpMa101Type60LastDay5() {
+        return countUpMa101Type60LastDay5;
+    }
+
+    public void setCountUpMa101Type60LastDay5(Integer countUpMa101Type60LastDay5) {
+        this.countUpMa101Type60LastDay5 = countUpMa101Type60LastDay5;
+    }
+
+    public Integer getCountDownMa101Type60LastDay20() {
+        return countDownMa101Type60LastDay20;
+    }
+
+    public void setCountDownMa101Type60LastDay20(Integer countDownMa101Type60LastDay20) {
+        this.countDownMa101Type60LastDay20 = countDownMa101Type60LastDay20;
+    }
+
+    public Integer getCountDownMa101Type60LastDay10() {
+        return countDownMa101Type60LastDay10;
+    }
+
+    public void setCountDownMa101Type60LastDay10(Integer countDownMa101Type60LastDay10) {
+        this.countDownMa101Type60LastDay10 = countDownMa101Type60LastDay10;
+    }
+
+    public Integer getCountDownMa101Type60LastDay5() {
+        return countDownMa101Type60LastDay5;
+    }
+
+    public void setCountDownMa101Type60LastDay5(Integer countDownMa101Type60LastDay5) {
+        this.countDownMa101Type60LastDay5 = countDownMa101Type60LastDay5;
     }
 }

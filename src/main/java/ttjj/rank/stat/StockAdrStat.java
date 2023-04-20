@@ -38,11 +38,11 @@ public class StockAdrStat {
      */
     public static List<StockAdrCountVo> findListDemo() {
         String date = DateUtil.getToday(DateUtil.YYYY_MM_DD);
-//        String date = "2023-03-20";
+//        String date = "2023-04-18";
         String spDateBeg = null;//"2022-09-05"
         String spDateEnd = null;//"2022-09-09"
-//        String spDateBeg = "2023-03-28";//
-//        String spDateEnd = "2023-03-29";//
+//        String spDateBeg = "2023-04-19";//
+//        String spDateEnd = "2023-04-19";//
         Long board = DB_RANK_BIZ_F139_BK_MAIN;
         int limitCount = 20;
 
@@ -67,7 +67,7 @@ public class StockAdrStat {
         condFind.setADR_UP_SUM_1_60(new BigDecimal("60"));
         condFind.setADR_UP_SUM_1_40(null);
 //        condFind.setADR_UP_SUM_40_60(new BigDecimal("1"));//
-        condFind.setADR_UP_SUM_20_40(null);
+        condFind.setADR_UP_SUM_20_40(new BigDecimal("1"));
 
 //        condFind.setUP_MA_30("30(60)");
 //        condFind.setUP_MA_60("60(60)");
@@ -77,12 +77,12 @@ public class StockAdrStat {
 //        condFind.setMaxNetAreaDay5(new BigDecimal("50"));
 //        condFind.setMaxNetAreaDay60(new BigDecimal("50"));
 
-//        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
+        condFind.setMinMa60Up102(new BigDecimal("0"));//均线之上
 //        condFind.setMaxMa60Up102(new BigDecimal("0"));//均线之下
 
-//        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
+        condFind.setUpMaKltOrList(Arrays.asList("102(60)","101(60)","60(60)","30(60)","15(60)"));
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)","60(60)"));
-        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)"));
+//        condFind.setUpMaKltOrList(Arrays.asList("102(60)", "101(60)"));
 //        condFind.setUpMaKltOrList(Arrays.asList("102(60)"));
 
         //条件限定：涨幅排名
@@ -105,9 +105,10 @@ public class StockAdrStat {
             stockAdrCountListBkAll.add(stockAdrCount);
         }
 
-        //查询日净值次数
-        condFind.setShowMaWeekCountUpDown(true);//是否查询日净值次数
+        condFind.setShowMaWeekCountUpDown(true);//是否查询超过均线次数-60周线
         StockAdrCountService.handlerNetDay(stockAdrCountListBkAll, date, DAY_20, KLT_102, condFind);
+        condFind.setShowMaDayCountUpDown(true);//是否查询超过均线次数-60日线
+        StockAdrCountService.handlerNetDay(stockAdrCountListBkAll, date, DAY_20, KLT_101, condFind);
 
         stockAdrCountListBkAll = KlineService.handlerOrder(stockAdrCountListBkAll, orderField, true);//列表-排序：根据字段
 
@@ -241,7 +242,7 @@ public class StockAdrStat {
 //        bizList = Arrays.asList("医疗器械");//医疗
 //        bizList = Arrays.asList("生物制品", "医药商业", "医疗服务", "中药", "医疗器械", "化学制药");//医疗
 
-//        bizList = Arrays.asList("商业百货");//消费：
+//        bizList = Arrays.asList("家电行业");//消费：
 //        bizList = Arrays.asList("酿酒行业");//消费："旅游酒店","航空机场","食品饮料","铁路公路","商业百货","纺织服装","物流行业","酿酒行业","装修装饰","家电行业","贸易行业","文化传媒","游戏","美容护理"
 //
 //        bizList = Arrays.asList("化肥行业","农牧饲渔","农药兽药");//资源-农业:"化肥行业","农牧饲渔","农药兽药"
@@ -253,7 +254,7 @@ public class StockAdrStat {
 
 //        bizList = Arrays.asList("通信服务","通信设备","计算机设备");//科技:
 //        bizList = Arrays.asList("电子化学品");//科技:芯片
-        bizList = Arrays.asList("半导体","消费电子","光学光电子","电子化学品");//科技:芯片
+//        bizList = Arrays.asList("半导体","消费电子","光学光电子","电子化学品");//科技:芯片
 //        bizList = Arrays.asList("风电设备");//科技:电力
 //        bizList = Arrays.asList("交运设备");//科技:
 //        bizList = Arrays.asList("互联网服务","软件开发");//板块-分类-科技:电力
@@ -262,7 +263,7 @@ public class StockAdrStat {
 //        bizList = Arrays.asList("橡胶制品");//医疗
 //        bizList = Arrays.asList("船舶制造");//资源:交运:("船舶制造")
 
-//        bizList = Arrays.asList("银行");
+        bizList = Arrays.asList("证券");
 //        bizList = Arrays.asList("多元金融", "银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
 //        bizList = Arrays.asList("房地产开发");
 //        bizList = Arrays.asList("银行", "证券", "保险");//金融-机构:("多元金融","银行","证券","保险");
@@ -367,11 +368,11 @@ public class StockAdrStat {
             sb.append(StockUtil.formatStName(bizName, 14));
             sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_60(), 8));
             sb.append(StockUtil.formatDouble(order_1_60, 8));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_40_60(), 6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_20_40(), 6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_20(), 6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_10(), 6));
-            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_5(), 6));
+//            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_40_60(), 6));
+//            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_20_40(), 6));
+//            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_20(), 6));
+//            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_10(), 6));
+//            sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_ORDER_1_5(), 6));
             sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_60(), 8));
             //处理-近2月涨幅和
             sb.append(StockUtil.formatDouble(stockAdrCount.getADR_UP_SUM_1_40(), 8));
@@ -481,7 +482,13 @@ public class StockAdrStat {
                 //近20日高于周线次数
                 sb.append(StockUtil.formatInt(stockAdrCount.getCountUpMa102Type60LastDay20(), 3));
                 //近20日低于周线次数
-                sb.append(StockUtil.formatInt(stockAdrCount.getCountDownMa102Type60LastDay20(), 2));
+                sb.append(StockUtil.formatInt(stockAdrCount.getCountDownMa102Type60LastDay20(), 3));
+            }
+            if (condFind.isShowMaDayCountUpDown()) {
+                //近20日高于周线次数
+                sb.append(StockUtil.formatInt(stockAdrCount.getCountUpMa101Type60LastDay20(), 3));
+                //近20日低于周线次数
+                sb.append(StockUtil.formatInt(stockAdrCount.getCountDownMa101Type60LastDay20(), 3));
             }
 
             System.out.println(sb);
@@ -535,11 +542,11 @@ public class StockAdrStat {
         sbHead.append(StockUtil.formatStName("行业", 14));
         sbHead.append(StockUtil.formatStName("全3月排", 8));
         sbHead.append(StockUtil.formatStName("全3排和", 8));
-        sbHead.append(StockUtil.formatStName("3月排", 6));
-        sbHead.append(StockUtil.formatStName("2月排", 6));
-        sbHead.append(StockUtil.formatStName("1月排", 6));
-        sbHead.append(StockUtil.formatStName("10天排", 6));
-        sbHead.append(StockUtil.formatStName("5天排", 6));
+//        sbHead.append(StockUtil.formatStName("3月排", 6));
+//        sbHead.append(StockUtil.formatStName("2月排", 6));
+//        sbHead.append(StockUtil.formatStName("1月排", 6));
+//        sbHead.append(StockUtil.formatStName("10天排", 6));
+//        sbHead.append(StockUtil.formatStName("5天排", 6));
         sbHead.append(StockUtil.formatStName("3月涨和", 8));
         sbHead.append(StockUtil.formatStName("2月涨和", 8));
         sbHead.append(StockUtil.formatStName(keyNameAdrSumMonth3, sizeMap.get(keyNameAdrSumMonth3)));
@@ -578,7 +585,10 @@ public class StockAdrStat {
 //            sbHead.append(StockUtil.formatStName("60周", 6));
         }
         if (condFind.isShowMaWeekCountUpDown()) {
-            sbHead.append(StockUtil.formatStName("周线高低", 6));
+            sbHead.append(StockUtil.formatStName("周高低", 6));
+        }
+        if (condFind.isShowMaDayCountUpDown()) {
+            sbHead.append(StockUtil.formatStName("日高低", 6));
         }
         return sbHead;
     }

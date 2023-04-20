@@ -82,7 +82,7 @@ public class StockAdrCountService {
             //打印保存成功的记录
             if (rsSave > 0) {
 //                logger.info("保存成功的记录：" + JSON.toJSONString(stockAdrCount));
-                System.out.println("保存成功的记录：" + stockAdrCount.getF14() + JSON.toJSONString(stockAdrCount));
+//                System.out.println("保存成功的记录：" + stockAdrCount.getF14() + JSON.toJSONString(stockAdrCount));
                 rs += rsSave;
             }
         }
@@ -139,21 +139,24 @@ public class StockAdrCountService {
      *
      * @param stockAdrCountList 涨幅列表
      * @param date              日期
-     * @param dayType           日类型
+     * @param days           日类型
      * @param compMaType        比较均线类型
      * @param condFind
      */
-    public static void handlerNetDay(List<StockAdrCountVo> stockAdrCountList, String date, int dayType, String compMaType, CondStockAdrCount condFind) {
+    public static void handlerNetDay(List<StockAdrCountVo> stockAdrCountList, String date, int days, String compMaType, CondStockAdrCount condFind) {
         if (stockAdrCountList == null) {
             return;
         }
-        if (!condFind.isShowMaWeekCountUpDown()) {
+        if (KLT_102.equals(compMaType) && !condFind.isShowMaWeekCountUpDown()) {
+            return;
+        }
+        if (KLT_101.equals(compMaType) && !condFind.isShowMaDayCountUpDown()) {
             return;
         }
         String endDate = date;
-        String begDate = StockService.findBegDate(date, dayType);
+        String begDate = StockService.findBegDate(date, days);
         for (StockAdrCountVo stockAdrCountVo : stockAdrCountList) {
-            List<Kline> klines = KlineService.kline(stockAdrCountVo.getF12(), dayType, KLT_101, true, begDate, endDate, null);
+            List<Kline> klines = KlineService.kline(stockAdrCountVo.getF12(), days, KLT_101, true, begDate, endDate, null);
             if (klines == null) {
                 continue;
             }
@@ -179,13 +182,23 @@ public class StockAdrCountService {
                 }
             }
             if (KLT_102.equals(compMaType)) {
-                if (DAY_20 == dayType) {
+                if (DAY_20 == days) {
                     stockAdrCountVo.setCountUpMa102Type60LastDay20(countUpNet);
                     stockAdrCountVo.setCountDownMa102Type60LastDay20(countDownNet);
                 }
-                if (DAY_10 == dayType) {
+                if (DAY_10 == days) {
                     stockAdrCountVo.setCountUpMa102Type60LastDay10(countUpNet);
                     stockAdrCountVo.setCountDownMa102Type60LastDay10(countDownNet);
+                }
+            }
+            if (KLT_101.equals(compMaType)) {
+                if (DAY_20 == days) {
+                    stockAdrCountVo.setCountUpMa101Type60LastDay20(countUpNet);
+                    stockAdrCountVo.setCountDownMa101Type60LastDay20(countDownNet);
+                }
+                if (DAY_10 == days) {
+                    stockAdrCountVo.setCountUpMa101Type60LastDay10(countUpNet);
+                    stockAdrCountVo.setCountDownMa101Type60LastDay10(countDownNet);
                 }
             }
         }
