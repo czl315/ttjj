@@ -4,6 +4,8 @@ import ttjj.dao.CarIncomeDao;
 import ttjj.dao.KlineDao;
 import ttjj.db.CarIncome;
 
+import java.util.List;
+
 /**
  * CarIncomeService简介
  *
@@ -27,5 +29,25 @@ public class CarIncomeService {
          * 插入数据库-K线
          */
         return CarIncomeDao.insert(entity);
+    }
+
+    /**
+     * 查询列表-根据
+     *
+     * @param condition 条件
+     * @return 结果
+     */
+    public static List<CarIncome> findListByCondition(CarIncome condition) {
+        return CarIncomeDao.findListByCondition(condition);
+    }
+
+    /**
+     * 更新
+     *
+     * @param condition 更新内容和条件
+     * @return 结果
+     */
+    public static Integer update(CarIncome condition) {
+        return CarIncomeDao.update(condition);
     }
 }

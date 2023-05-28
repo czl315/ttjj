@@ -1,7 +1,11 @@
 package ttjj.dao.mapper;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import ttjj.db.CarIncome;
+
+import java.util.List;
 
 /**
  * CarIncomeMapper简介
@@ -34,4 +38,26 @@ public interface CarIncomeMapper {
                     ") ;" +
             "</script>"})
     void insert(CarIncome entity);
+
+    @Select({"<script>",
+            "   SELECT ",
+            "       * ",
+            "   FROM car_income ",
+            "   WHERE 1=1  ",
+            "       <if test='date != null'> ",
+            "       AND car_income.date = #{date}  ",
+            "       </if> ",
+            "   ORDER BY date DESC,start_time DESC ",
+            "</script>"})
+    List<CarIncome> findListByCondition(CarIncome condition);
+
+    @Update({"<script>",
+            "update car_income",
+            "  <set>",
+            "    <if test='mins != null'>mins=#{mins},</if>",
+            "  </set>",
+            "where id=#{id} ",
+//            "where date>=#{date} AND f12=#{f12}",
+            "</script>"})
+    void update(CarIncome entity);
 }
